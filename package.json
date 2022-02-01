@@ -1,0 +1,19 @@
+{
+  "name": "iroha2-docs",
+  "private": true,
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "serve": "vitepress serve"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.10.2",
+    "@typescript-eslint/parser": "^3",
+    "eslint": "6.8",
+    "eslint-plugin-vue": "^8.4.0",
+    "prettier": "^2.5.1",
+    "prettier-eslint": "^13.0.0",
+    "typescript": "^4.5.5",
+    "vitepress": "^0.21.6"
+  }
+}
