@@ -7,13 +7,21 @@
     "serve": "vitepress serve"
   },
   "devDependencies": {
+    "@types/node": "^17.0.14",
     "@typescript-eslint/eslint-plugin": "^5.10.2",
     "@typescript-eslint/parser": "^3",
     "eslint": "6.8",
     "eslint-plugin-vue": "^8.4.0",
     "prettier": "^2.5.1",
     "prettier-eslint": "^13.0.0",
+    "sass": "^1.49.7",
     "typescript": "^4.5.5",
-    "vitepress": "^0.21.6"
+    "vite-plugin-windicss": "^1.6.3",
+    "vitepress": "^0.21.6",
+    "windicss": "^3.4.3"
+  },
+  "dependencies": {
+    "@vueuse/core": "^7.5.5",
+    "vue": "^3.2.29"
   }
 }
