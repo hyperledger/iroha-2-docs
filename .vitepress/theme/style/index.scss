@@ -1,3 +1,9 @@
+$iroha-brand: #e4232d;
+
 :root {
-    --font-family-mono: 'JetBrains Mono', 'FiraCode', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  --c-brand: #{$iroha-brand};
+  --c-brand-light: #{lighten($iroha-brand, 10%)};
+  --code-font-family: 'JetBrains Mono', 'Fira Code', var(--font-family-mono);
+  --code-font-size: 13px;
+  --code-line-height: 1.2em;
 }

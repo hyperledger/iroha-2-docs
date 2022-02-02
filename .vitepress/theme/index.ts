@@ -6,9 +6,9 @@ import 'virtual:windi.css'
 import './style/index.scss'
 
 export default {
-    ...ThemeDefault,
-    enhanceApp({ app }: { app: App }) {
-        app.component('CodeSection', CodeSection)
-        app.component('CodeTabs', CodeTabs)
-    },
+  ...ThemeDefault,
+  enhanceApp({ app }: { app: App }) {
+    app.component('CodeSection', CodeSection)
+    app.component('CodeTabs', CodeTabs)
+  },
 }
