@@ -60,6 +60,10 @@ const sidebar = {
       text: 'Rust',
       children: langSidebarLinks('rust'),
     },
+    {
+      text: 'Kotlin/Java',
+      children: langSidebarLinks('kotlin-java'),
+    },
   ],
 }
 
