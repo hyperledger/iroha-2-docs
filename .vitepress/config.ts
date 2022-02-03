@@ -1,4 +1,4 @@
-import { defineConfigWithTheme, Theme } from 'vitepress'
+import { defineConfigWithTheme } from 'vitepress'
 import Windi from 'vite-plugin-windicss'
 import path from 'path'
 
@@ -55,6 +55,10 @@ const sidebar = {
     {
       text: 'Python 3',
       children: langSidebarLinks('python'),
+    },
+    {
+      text: 'Rust',
+      children: langSidebarLinks('rust'),
     },
   ],
 }
