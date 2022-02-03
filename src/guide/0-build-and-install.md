@@ -19,7 +19,11 @@ Sometimes, that doesn’t work. Python and rust are very flexible in terms of wh
 
 <!-- Please rename file and add an appropriate label to it -->
 
+<div class="flex justify-center">
+
 ![Untitled](/img/install-troubles.png)
+
+</div>
 
 In the interest of preserving both your and our sanity, make sure that you have the right version of `cargo` paired with the right version of `rustc` (1.57 and 1.57) respectively. To show the versions, do
 

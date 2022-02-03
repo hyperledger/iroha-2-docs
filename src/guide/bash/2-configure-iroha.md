@@ -1,4 +1,4 @@
-# 2. Configuring Iroha 2
+# 2. Configuring Iroha 2 (Bash)
 
 Now let's look at how to properly configure Iroha 2, and especially its **C**ommand-**L**ine **I**nterface client.
 

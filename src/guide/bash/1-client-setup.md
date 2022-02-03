@@ -1,4 +1,4 @@
-# 1. Iroha 2 Client Setup (bash)
+# 1. Iroha 2 Client Setup (Bash)
 
 Note, first, that we have already created the `iroha_client_cli` binary executable, when we ran the build (**TODO link to a command block?**) _command_.
 
