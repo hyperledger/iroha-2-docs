@@ -36,4 +36,13 @@ module.exports = {
   endOfLine: 'lf',
   // formats quoted code embedded
   embeddedLanguageFormatting: 'auto',
+
+  overrides: [
+    {
+      files: ['**/src/**/*.md'],
+      options: {
+        printWidth: 75,
+      },
+    },
+  ],
 }

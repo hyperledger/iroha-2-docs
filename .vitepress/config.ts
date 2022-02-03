@@ -64,6 +64,10 @@ const sidebar = {
       text: 'Kotlin/Java',
       children: langSidebarLinks('kotlin-java'),
     },
+    {
+      text: 'JavaScript',
+      children: langSidebarLinks('javascript'),
+    },
   ],
 }
 
