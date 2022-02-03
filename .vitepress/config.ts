@@ -2,6 +2,37 @@ import { defineConfigWithTheme, Theme } from 'vitepress'
 import Windi from 'vite-plugin-windicss'
 import path from 'path'
 
+function langSidebarLinks(langDirectory: string) {
+  const link = (step: string) => `/guide/${langDirectory}/${step}`
+
+  return [
+    {
+      text: '1. Client Setup',
+      link: link('1-client-setup'),
+    },
+    {
+      text: '2. Configuring Iroha 2',
+      link: link('2-configure-iroha'),
+    },
+    {
+      text: '3. Registering a Domain',
+      link: link('3-register-domain'),
+    },
+    {
+      text: '4. Registering an Account',
+      link: link('4-register-account'),
+    },
+    {
+      text: '5. Register and mint assets',
+      link: link('5-register-and-mint-assets'),
+    },
+    {
+      text: '6. Visualizing outputs',
+      link: link('6-output'),
+    },
+  ]
+}
+
 const sidebar = {
   '/guide/': [
     {
@@ -15,20 +46,15 @@ const sidebar = {
           text: '0. Build and Install',
           link: '/guide/0-build-and-install',
         },
-        {
-          text: 'Bash',
-          children: [
-            {
-              text: '1. Client Setup',
-              link: '/guide/bash/1-client-setup',
-            },
-            {
-              text: '2. Configuring Iroha 2',
-              link: '/guide/bash/2-configure-iroha',
-            },
-          ],
-        },
       ],
+    },
+    {
+      text: 'Bash',
+      children: langSidebarLinks('bash'),
+    },
+    {
+      text: 'Python 3',
+      children: langSidebarLinks('python'),
     },
   ],
 }
@@ -38,7 +64,7 @@ export default defineConfigWithTheme({
   title: 'Iroha 2',
   description: 'TODO',
   vite: {
-    plugins: [Windi()],
+    plugins: [Windi({ config: path.resolve(__dirname, '../windi.config.ts') })],
   },
   themeConfig: {
     sidebar,

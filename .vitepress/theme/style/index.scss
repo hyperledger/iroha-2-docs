@@ -6,4 +6,10 @@ $iroha-brand: #e4232d;
   --code-font-family: 'JetBrains Mono', 'Fira Code', var(--font-family-mono);
   --code-font-size: 13px;
   --code-line-height: 1.2em;
+  --font-family-base: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+body {
+  font-family: var(--font-family-base);
 }
