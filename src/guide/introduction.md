@@ -14,12 +14,12 @@ Iroha 2 is a small code-base. We have taken good care to ensure that we only dep
 
 We have designed our own actor framework, to both keep Iroha 2 neat, and also avoid many of the pitfalls common to asynchronous networking. Iroha 2 is smaller and more reliable than anything written using `actix`. You'd have to work pretty hard to make Iroha 2 deadlock. Iroha 2 is also more flexible than the original Iroha, and it is highly modular in its design. It should be possible to add/remove features based on the particular use-case.
 
-If you want to be extremely fast, and work on a very small embedded piece of hardware, just compile Iroha 2 without the `expensive-metrics` feature. Don't want telemetry? Remove it. Need to have roles in your blockchain? Enable the `roles` feature. Want a permissioned blockchain? or maybe a permissionless one? You got it all in one neat little package called **Iroha 2.**
+If you want to be extremely fast, and work on a very small embedded piece of hardware, just compile Iroha 2 without the `expensive-metrics` feature. Don't want telemetry? Remove it. Need to have roles in your blockchain? Enable the `roles` feature. Want a permissioned blockchain? or maybe a permissionless one? You got it all in one neat little package called **Iroha 2**.
 
 The list of Iroha 2's advantages is quite extensive. In addition to being able to enable/disable certain compilation options, you are also given the ability to implement your own smart contracts. There are currently two ways to do this:
 
--   One is to use the Web-Assembly interface to write your logic in JavaScript. We provide a set of extremely fast instructions that cover 80% of the use-cases, from which you could build-up arbitrarily complex interactions, without compromising on performance. _If you want to learn more about smart contracts in Iroha 2, please consult our [Wiki](https://wiki.hyperledger.org/display/iroha/Scripting+Languages+and+Runtimes+for+Iroha2+Smart+Contracts)._
--   Or you could make use of the Iroha 2 modules, which allow lower-level, higher performance access to the internal state of the blockchain.
+- One is to use the Web-Assembly interface to write your logic in JavaScript. We provide a set of extremely fast instructions that cover 80% of the use-cases, from which you could build-up arbitrarily complex interactions, without compromising on performance. _If you want to learn more about smart contracts in Iroha 2, please consult our [Wiki](https://wiki.hyperledger.org/display/iroha/Scripting+Languages+and+Runtimes+for+Iroha2+Smart+Contracts)._
+- Or you could make use of the Iroha 2 modules, which allow lower-level, higher performance access to the internal state of the blockchain.
 
 Iroha 2 is written in `rust`, and uses almost all of the language's features. We deliberately avoid `panics`, `unsafe` code, as well as keeping dependencies to a minimum. We make use of trait objects sparingly, and only in cases where there's absolutely no way around them. Our code base uses `enum` types extensively, as both a means of type erasure and boxing. This is most evident in how we implemented the Iroha special instructions.
 
@@ -47,19 +47,19 @@ The appendix of the tutorial covers the three main files for Iroha 2 customisati
 
 Before you begin this tutorial you will need:
 
--   [git](https://githowto.com/)
--   [A working Rust toolchain](https://www.rust-lang.org/learn/get-started): cargo, rust v1.57 and up\*
--   [Docker](https://docs.docker.com/get-docker/)
--   [Docker compose](https://docs.docker.com/compose/)
+- [git](https://githowto.com/)
+- [A working Rust toolchain](https://www.rust-lang.org/learn/get-started): cargo, rust v1.57 and up\*
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker compose](https://docs.docker.com/compose/)
 
 This tutorial will cover Iroha 2 in:
 
--   Bash
--   Python
--   Rust
--   Kotlin/Java (under construction)
--   Javascript (Coming soon)
--   Swift (iOS) (Coming soon)
+- Bash
+- Python
+- Rust
+- Kotlin/Java (under construction)
+- Javascript (Coming soon)
+- Swift (iOS) (Coming soon)
 
 ::: info
 if you’re having issues with installing rust compatible with our code (2021 edition, please consult the troubleshooting section).

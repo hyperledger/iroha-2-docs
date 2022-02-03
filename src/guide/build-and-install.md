@@ -1,4 +1,4 @@
-# 0. Build and Install Iroha 2
+# Build and Install Iroha 2
 
 ## Install the rust build tools
 
@@ -148,7 +148,7 @@ We take pride in the fact that Iroha is extremely quick to compile. For referenc
 
 :::
 
-You can run Iroha directly on bare metal, but we recommend bringing up a network of 4 containerised peers using `docker-compose` . Of course, installing Docker might seem like a daunting task, but it allows for reproducible management of configurations, which is oftentimes tricky on bare metal. Please consult the [appendix](https://www.notion.so/IROHA2-Walkthrough-180d09fb04a647bfa3f4d30218e6e94a) for how to do that.
+You can run Iroha directly on bare metal, but we recommend bringing up a network of 4 containerised peers using `docker-compose` . Of course, installing Docker might seem like a daunting task, but it allows for reproducible management of configurations, which is oftentimes tricky on bare metal. Please consult the [appendix](/guide/appendix) for how to do that.
 
 ```bash
 docker compose up
@@ -163,6 +163,7 @@ On a _properly_ set up docker compose, you should never have to use `sudo` . If 
 Depending on your set-up, this might either pull the container off of DockerHub, or build the container locally. After this (relatively short if pull, and long if build) process is complete, you'll be greeted with,
 
 <!-- Please rename file and add an appropriate label to it -->
+<!-- TODO maybe use ASCIINEMA here? -->
 
 ![Untitled](/img/install-cli.png)
 
