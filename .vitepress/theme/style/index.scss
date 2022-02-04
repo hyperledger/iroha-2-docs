@@ -1,4 +1,6 @@
-// $iroha-brand: #e4232d;
+@use './fonts';
+
+$iroha-brand: #e4232d;
 
 :root {
   // --c-brand: #{$iroha-brand};
@@ -6,8 +8,12 @@
   --code-font-family: 'JetBrains Mono', 'Fira Code', var(--font-family-mono);
   --code-font-size: 13px;
   --code-line-height: 1.2em;
-  --font-family-base: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  --font-family-base: Rubik, sans-serif;
+}
+
+:not(pre) > code {
+  padding: 0.15em 0.5em;
+  border-radius: 4px;
 }
 
 body {
@@ -16,4 +22,45 @@ body {
 
 a {
   font-weight: 500;
+}
+
+.custom-block {
+  margin: 28px 0;
+  padding: 20px 24px 4px 42px;
+  border-radius: 8px;
+  overflow-x: auto;
+  transition: color 0.5s, background-color 0.5s;
+  position: relative;
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.55);
+  background-color: var(--vt-c-bg-soft);
+
+  .custom-block-title {
+    margin-bottom: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--vt-c-text-1);
+    transition: color 0.5s;
+  }
+
+  // &::before {
+  //   content: 'ⓘ';
+  //   position: absolute;
+  //   font-weight: 600;
+  //   font-size: 15px;
+  //   top: 20px;
+  //   left: 17px;
+  // }
+
+  // &.warning,
+  // &.danger {
+  //   &::before {
+  //     content: '⚠';
+  //     font-size: 17px;
+  //     top: 19px;
+  //     left: 16ppx;
+  //   }
+  // }
 }

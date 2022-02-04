@@ -185,7 +185,7 @@ let create_account =
     RegisterBox::new(IdentifiableBox::from(NewAccount::with_signatory(id, key)));
 ```
 
-Which is then **wrapped in a transaction** and **submitted to the peer** as [in the previous section](./3-register-domain).
+Which is then **wrapped in a transaction** and **submitted to the peer** as [in the previous section](#_3-registering-a-domain).
 
 ## 5. Registering and minting assets
 
