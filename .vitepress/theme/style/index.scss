@@ -1,4 +1,4 @@
-@use './fonts';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 $iroha-brand: #e4232d;
 
@@ -8,7 +8,7 @@ $iroha-brand: #e4232d;
   --code-font-family: 'JetBrains Mono', 'Fira Code', var(--font-family-mono);
   --code-font-size: 13px;
   --code-line-height: 1.2em;
-  --font-family-base: Rubik, sans-serif;
+  --font-family-base: Inter, sans-serif;
 }
 
 :not(pre) > code {
