@@ -1,4 +1,4 @@
-# Introdution
+# Introduction
 
 Welcome to the Hyperledger Iroha 2 tutorial. This document was designed to help you get started immediately using Iroha 2, regardless of your knowledge level of Hyperledger technology, or coding. Before the tutorial begins, here is an outline on the differences between both iterations of Iroha.
 

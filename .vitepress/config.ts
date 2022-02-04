@@ -16,46 +16,68 @@ const sidebar = {
           link: '/guide/build-and-install',
         },
         {
-          text: 'Bash guide',
-          link: '/guide/bash',
-        },
-        {
-          text: 'Python 3 guide',
-          link: '/guide/python',
-        },
-        {
-          text: 'Rust guide',
-          link: '/guide/rust',
-        },
-        {
-          text: 'Kotlin/Java guide',
-          link: '/guide/kotlin-java',
-        },
-        {
-          text: 'JavaScript guide',
-          link: '/guide/javascript',
+          text: 'Language-specific guides',
+          children: [
+            {
+              text: 'Bash',
+              link: '/guide/bash',
+            },
+            {
+              text: 'Python 3',
+              link: '/guide/python',
+            },
+            {
+              text: 'Rust',
+              link: '/guide/rust',
+            },
+            {
+              text: 'Kotlin/Java',
+              link: '/guide/kotlin-java',
+            },
+            {
+              text: 'JavaScript',
+              link: '/guide/javascript',
+            },
+          ],
         },
         {
           text: 'Conclusions',
           link: '/guide/conclusions',
         },
+        {
+          text: 'Appendix',
+          link: '/guide/appendix',
+        },
       ],
-    },
-    {
-      text: 'Appendix',
-      link: '/guide/appendix',
     },
   ],
 }
 
+const nav = [
+  {
+    text: 'Guide',
+    link: '/guide/introduction',
+    activeMatch: /^\/guide/,
+  },
+  {
+    text: 'API',
+    link: '/api/',
+  },
+  {
+    text: 'GitHub',
+    link: 'https://github.com/hyperledger/iroha/tree/iroha2',
+  },
+]
+
 export default defineConfigWithTheme({
   srcDir: 'src',
-  title: 'Iroha 2',
+  title: 'IROHA 2',
   description: 'TODO',
   vite: {
     plugins: [Windi({ config: path.resolve(__dirname, '../windi.config.ts') })],
   },
   themeConfig: {
     sidebar,
+    nav,
   },
 })
