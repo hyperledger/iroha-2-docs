@@ -1,5 +1,7 @@
 # Iroha 2 Docs
 
+[Read online](https://hyperledger.github.io/iroha-2-docs/).
+
 ## Developing
 
 ### Prerequisites
