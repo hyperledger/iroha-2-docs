@@ -1,0 +1,40 @@
+name: Deploy at GitHub Pages
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.19.0
+
+      - name: Install packages
+        run: pnpm install
+
+      - name: Vitepress - build
+        run: pnpm build
+        env:
+          PUBLIC_PATH: /iroha-2-docs/
+
+      - name: Push static content into master:gh-pages
+        working-directory: .vitepress/dist
+        run: |
+          git config --global user.email "${GITHUB_ACTOR}@https://users.noreply.github.com/"
+          git config --global user.name "${GITHUB_ACTOR}"
+          git init
+          git add --all
+          git commit -m "Auto update pages on $(date +'%Y-%m-%d %H:%M:%S')"
+          git push -f -q https://git:${{ secrets.github_token }}@github.com/${{ github.repository }} master:gh-pages

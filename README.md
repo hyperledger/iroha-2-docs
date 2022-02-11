@@ -39,11 +39,3 @@ pnpm dev
 ```
 
 This will start a local dev-server so you can open a browser and observe documentation and see your edits on-demand.
-
-### Production build
-
-```bash
-pnpm build
-```
-
-The bundle will be located at `.vitepress/dist`. Host it as you want.

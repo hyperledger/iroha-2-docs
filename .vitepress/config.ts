@@ -73,6 +73,7 @@ export default defineConfigWithTheme({
   srcDir: 'src',
   title: 'IROHA 2',
   description: 'TODO',
+  base: process.env.PUBLIC_PATH ?? '',
   vite: {
     plugins: [Windi({ config: path.resolve(__dirname, '../windi.config.ts') })],
   },
