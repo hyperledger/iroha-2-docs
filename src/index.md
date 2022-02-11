@@ -1,6 +1,5 @@
 ---
 home: true
-heroImage: /img/logo.svg
 heroAlt: Iroha 2
 heroText: Hyperledger IROHA 2
 tagline: subtitle?
