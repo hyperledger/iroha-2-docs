@@ -71,8 +71,9 @@ const nav = [
 
 export default defineConfigWithTheme({
   srcDir: 'src',
-  title: 'IROHA 2',
-  description: 'TODO',
+  title: 'Hyperledger Iroha 2 Tutorial',
+  description:
+    'Documented tutorial for Hyperledger Iroha 2 outlining the main differences between Iroha versions along with a walkthrough and additional resources.',
   base: process.env.PUBLIC_PATH ?? '',
   vite: {
     plugins: [Windi({ config: path.resolve(__dirname, '../windi.config.ts') })],
