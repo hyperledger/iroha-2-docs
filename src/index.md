@@ -2,7 +2,7 @@
 home: true
 heroAlt: Iroha 2
 heroText: Hyperledger IROHA 2
-tagline: subtitle?
+tagline: Documentation is WIP
 actionText: Get Started
 actionLink: /guide/introduction
 features:

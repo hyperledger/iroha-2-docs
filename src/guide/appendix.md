@@ -165,7 +165,7 @@ Finally, while the first client _could_ use the genesis account to register new 
 
 :::
 
-Here are the links to the [iroha-python](https://github.com/hyperledger/iroha-python), [iroha-iOS](https://github.com/hyperledger/iroha-ios), and [iroha-java](https://github.com/hyperledger/iroha-java) libraries (**TODO and javascript I guess?**).
+Here are the links to the [iroha-python](https://github.com/hyperledger/iroha-python), [iroha-iOS](https://github.com/hyperledger/iroha-ios), [iroha-java](https://github.com/hyperledger/iroha-java) and [iroha-javascript](https://github.com/hyperledger/iroha-javascript) libraries.
 
 Finally, let's talk about how keys are used in the client. Every transaction is signed on behalf of some user, thus every operation requires a key. That doesn't mean that you need to explicitly provide a key every time. For example, you need to have a user to register a user (_just like you need scissors to open a bag with new scissors_). But in order to register a user, you must also provide a new public key, so that the network can verify that it's that trustworthy *mad_hatter@*wonderland, and not some impostor (_possibly sent by the red_queen),_ so there are cases where you need to provide a key explicitly.
 
@@ -265,7 +265,11 @@ iroha
 ```
 
 to start your first peer and be greeted with
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b86f565a-fbaf-4fcd-95bf-47ca6845afd2/Untitled.png)
+
+<!-- FIXME untitled -->
+
+![Untitled](/img/appendix_running-iroha_cli-output.png)
+
 This means that everything is working, but also that we need to do some more work.
 You have just started a single peer, which can tolerate exactly 0 faults. Running two peers is also possible, but again, can tolerate 0 faults. You must run at least 4 peers in order to have the capacity to tolerate at least one fault. In general, if you want to be resistant to `f` faults, you want to have `3f+1` peers: (4, 7, 10 etc.).
 You can’t really start them in any way you want, though. When we started our original peer, in its configuration, we specified that it has to trust very specific peers, which have the given private key and listen on a specific address. In order to know how to run them appropriately, take a look at `docker-compose.yml`.

@@ -17,9 +17,9 @@ If you install the latest stable rust (the default) with `cargo` you should be a
 
 Sometimes, that doesn’t work. Python and rust are very flexible in terms of what you can do, so you could have both a user a system-wide and on macs even multiple system-wide installations. XKCD has a famous example of what that might look like.
 
-<!-- Please rename file and add an appropriate label to it -->
-
 <div class="flex justify-center">
+
+<!-- FIXME untitled -->
 
 ![Untitled](/img/install-troubles.png)
 

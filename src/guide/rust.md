@@ -57,8 +57,6 @@ Note that we have created a mutable client. Sending and receiving messages affec
 
 Of course, depending on your application, you might want to de-serialise your `MyConfiguration` structure from a different location. Perhaps, you might want to build the configuration in place using the command-line arguments, or perhaps, you're using the XDG specification to store the file persistently in a different location. For this purpose, it's useful to try and construct the `ClientConfiguration`.
 
-**TODO fix code formatting**.
-
 ```rust
 use iroha_core::prelude::*;
 use iroha_data_model::prelude::*;
@@ -189,20 +187,18 @@ Which is then **wrapped in a transaction** and **submitted to the peer** as [in 
 
 ## 5. Registering and minting assets
 
-**FIXME the paragraph below is repeated from the previous section?**
+Now we must talk a little about assets. Iroha has been built with few underlying assumptions about what the assets need to be. The assets can be fungible (every £1 is exactly the same as every other £1), or non-fungible (a £1 bill signed by the Queen of Hearts is not the same as a £1 bill signed by the King of Spades), mintable (you can make more of them) and non-mintable (you can only specify their initial quantity in the genesis block). Additionally, the assets have different underlying value types.
 
-> Second, you should provide the account with a public key. It is tempting to generate both it and the private key at this time, but it isn't the brightest idea. Remember*,* that _the late_bunny_ trusts _you, alice@wonderland,_ to create an account for them in the domain _looking_glass, **but doesn't want you to have access to that account after creation**._ If you gave _late_bunny_ a key that you generated yourself, how would they know if you don't have a copy of their private key? **Instead, the best way is to **ask\*\* _late_bunny_ to generate a new key-pair, and give you the public half of it.
-
-Specifically, we have `iroha_data_model::AssetValueType::Quantity` which is effectively an unsigned 32-bit integer, a `BigQuantity` which is an unsigned 128 bit integer, which is enough to trade all possible IPV6 addresses, and quite possibly individual grains of sand on the surface of the earth and `Fixed`, which is a positive (though signed) 64-bit fixed-precision number with nine significant digits after the decimal point. It doesn't quite use binary-coded decimal for performance reasons. All three types can be registered as either **mintable** or **non-mintable**.
+Specifically, we have `AssetValueType::Quantity` which is effectively an unsigned 32-bit integer, a `BigQuantity` which is an unsigned 128 bit integer, which is enough to trade all possible IPV6 addresses, and quite possibly individual grains of sand on the surface of the earth and `Fixed`, which is a positive (though signed) 64-bit fixed-precision number with nine significant digits after the decimal point. It doesn't quite use binary-coded decimal for performance reasons. All three types can be registered as either **mintable** or **non-mintable**.
 
 Now, let's get back to coding. To register an asset, we first construct an `iroha_data_model::asset::DefinitionId` like so:
 
 ```rust
-use iroha_data_model::assset::DefinitionId;
+use iroha_data_model::asset::DefinitionId;
 
 let id = DefinitionId {
-	name: "time".to_owned(),
-  domain_name: "looking_glass".to_owned(),
+    name: "time".to_owned(),
+    domain_name: "looking_glass".to_owned(),
 };
 ```
 
@@ -224,12 +220,13 @@ Roses, by contrast are already registered in the network during the genesis, and
 
 ```rust
 let roses = DefinitionId {
-	name: "roses".to_owned(),
-  domain_name: "wonderland".to_owned(),
+    name: "roses".to_owned(),
+    domain_name: "wonderland".to_owned(),
 };
+
 let alice = iroha_data_model::account::Id {
-  name: "alice".to_owned(),
-  domain_name: "wonderland".to_owned(),
+    name: "alice".to_owned(),
+    domain_name: "wonderland".to_owned(),
 };
 ```
 
@@ -239,8 +236,8 @@ And build an instruction:
 use iroha_data_model::prelude::*;
 
 let mint_roses = MintBox::new(
-	Value::U32(42),
-  IdBox::AssetId(iroha_data_model::asset::Id::new(roses, alice)),
+    Value::U32(42),
+    IdBox::AssetId(iroha_data_model::asset::Id::new(roses, alice)),
 );
 ```
 
@@ -268,10 +265,10 @@ Then, we start listening for events in an infinite loop:
 
 ```rust
 for event in iroha_client.listen_for_events(filter)? {
-  match event {
-    Ok(event) => println!("Success: {:#?}", event),
-    Err(err) => println!("Sadness:( {:#?}",  err),
-  }
+    match event {
+        Ok(event) => println!("Success: {:#?}", event),
+        Err(err) => println!("Sadness:( {:#?}",  err),
+    }
 };
 ```
 

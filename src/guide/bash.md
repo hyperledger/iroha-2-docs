@@ -2,7 +2,7 @@
 
 ## 1. Iroha 2 Client Setup
 
-Note, first, that we have already created the `iroha_client_cli` binary executable, when we ran the build (**TODO link to a command block?**) _command_.
+Note, first, that we have already created the `iroha_client_cli` binary executable, when we ran the build command.
 
 Create a fresh directory for the client
 
@@ -34,7 +34,7 @@ To get the CLI started, copy the `iroha_client_cli` binary into the client direc
 cp ./target/debug/iroha_client_cli test_docker/
 ```
 
-Make sure you (**TODO link to 0 tutor**) _bring up the test network_ as well.
+Make sure you bring up the test network as well.
 
 ## 2. Configuring Iroha 2
 
