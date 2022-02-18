@@ -26,7 +26,7 @@ Finally, while the first client _could_ use the genesis account to register new 
 
 ::: warning NB
 
-`iroha_client_cli` currently doesn't support unregister instructions, if you plan on creating a private blockchain, you should consider writing your own client based off of the `client` `rust` crate, or any of the provided client libraries.
+`iroha_client_cli` currently doesn't support unregister instructions, if you plan on creating a private blockchain, you should consider writing your own client based off of the `client` Rust crate, or any of the provided client libraries.
 
 :::
 

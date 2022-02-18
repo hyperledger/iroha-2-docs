@@ -20,7 +20,7 @@ cd ~/Git/iroha-python
 git checkout iroha2
 ```
 
-Iroha Python is written in `rust`, using the PyO3 library. Thus, unlike most python packages, you must build it first.
+Iroha Python is written in Rust, using the PyO3 library. Thus, unlike most python packages, you must build it first.
 
 ```bash
 pip install maturin
@@ -65,7 +65,7 @@ It should also be noted that Iroha Python is under heavy development. It severel
 
 ## 3. Registering a Domain
 
-It is important to remember, that Iroha python is wrapping `rust` code. As such. many of Python's idioms are not yet accommodated: for example, there's no duck-typing of the `Register` instruction.
+It is important to remember, that Iroha python is wrapping Rust code. As such. many of Python's idioms are not yet accommodated: for example, there's no duck-typing of the `Register` instruction.
 
 ```python
 from iroha2.data_model.isi import *
@@ -78,7 +78,7 @@ domain = Domain("looking_glass")
 register = Register(Expression(Value(Identifiable(domain))))
 ```
 
-We are creating a domain and wrapping it in multiple type-erasing constructs. A domain is wrapped in `Identifiable` (which would be a trait in `rust`), which is wrapped in `Value`, which is wrapped in `Expression`, which finally is wrapped in the `Register` instruction. This is not entirely against Python's conventions, (it is strongly typed, after all), and not entirely counter-intuitive, once you see the corresponding `rust` code.
+We are creating a domain and wrapping it in multiple type-erasing constructs. A domain is wrapped in `Identifiable` (which would be a trait in Rust), which is wrapped in `Value`, which is wrapped in `Expression`, which finally is wrapped in the `Register` instruction. This is not entirely against Python's conventions, (it is strongly typed, after all), and not entirely counter-intuitive, once you see the corresponding Rust code.
 
 The instruction to register must be submitted, in order for anything to happen.
 
@@ -131,7 +131,7 @@ time = asset.Definition(
 
 Note the following. First, we used the `**kwargs` syntax to make everything more explicit.
 
-We have a `value_type` which must be specified. Python is duck-typed, while `rust` isn’t. Make sure that you track the types diligently, and make use of `mypy` annotations. The `Quantity` value type is an internal 32-bit unsigned integer. Your other options are `BigQuantity` which is a 128-bit unsigned integer and `Fixed`. All of these are unsigned. Any checked operation with a negative `Fixed` value (one that you got by converting a negative floating-point number), will result in an error.
+We have a `value_type` which must be specified. Python is duck-typed, while Rust isn’t. Make sure that you track the types diligently, and make use of `mypy` annotations. The `Quantity` value type is an internal 32-bit unsigned integer. Your other options are `BigQuantity` which is a 128-bit unsigned integer and `Fixed`. All of these are unsigned. Any checked operation with a negative `Fixed` value (one that you got by converting a negative floating-point number), will result in an error.
 
 Continuing the theme of explicit typing, the `asset.DefinitionId` is its own type. We could have also written `asset.DefinitionId.parse("time#looking_glass")`, but making sure that you know what’s going on is more useful in this case. Here, the `metadata` is an empty dictionary. We won’t go much into metadata, because it is out of the scope of this tutorial.
 
@@ -162,7 +162,7 @@ filter = EventFilter.Pipeline(
     ))
 ```
 
-And add a listener on that filter. Don't worry, the `rust` side of the process is asynchronous, so barring issues with the GIL, you won't lock up your interpreter.
+And add a listener on that filter. Don't worry, the Rust side of the process is asynchronous, so barring issues with the GIL, you won't lock up your interpreter.
 
 Note the types. The `EventFilter` is a type that filters out anything that isn't an event (and non-event types are beyond the scope of this tutorial). The `pipeline` module helps us by providing a concrete type of `EventFilter` , namely one that listens for transactions. Note that we haven't used the `hash` here.
 

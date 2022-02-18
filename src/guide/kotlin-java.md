@@ -4,7 +4,7 @@
 
 In this part we shall cover the main things to look out for if you want to use Iroha 2 in your Kotlin application. Instead of providing the complete basics, we shall assume knowledge of the most widely used concepts, explain the unusual, and provide some instructions for creating your own Iroha 2-compatible client.
 
-We assume that you know how to create a new package, and have basic understanding of the fundamental kotlin code. Specifically, we shall assume that you know how to build and deploy your program on the target platforms. The Iroha 2 JVM-compatible SDKs are as much a work-in-progress as the rest of this guide, and significantly more so than the `rust` library.
+We assume that you know how to create a new package, and have basic understanding of the fundamental kotlin code. Specifically, we shall assume that you know how to build and deploy your program on the target platforms. The Iroha 2 JVM-compatible SDKs are as much a work-in-progress as the rest of this guide, and significantly more so than the Rust library.
 
 Without further ado, here’s an example `build.gradle` file.
 
@@ -76,7 +76,7 @@ import java.util.concurrent.TimeUnit
 import jp.co.soramitsu.iroha2.generated.datamodel.account.Id as AccountId
 ```
 
-We shall write this example in the form of a test class, hence the presence of test-related packages. Note the presence of `coroutines.runBlocking`. Iroha makes extensive use of asynchronous programming (in `rust` terminology), hence blocking is not necessarily the only mode of interaction with the Iroha 2 code.
+We shall write this example in the form of a test class, hence the presence of test-related packages. Note the presence of `coroutines.runBlocking`. Iroha makes extensive use of asynchronous programming (in Rust terminology), hence blocking is not necessarily the only mode of interaction with the Iroha 2 code.
 
 We have started by creating a mutable lazy-initialised client. This client is passed an instance of a domain registration box, which we get as a result of evaluating `registerDomain(domainName)`. Then the client is sent a transaction which consists of that one instruction. And that’s it.
 
@@ -114,7 +114,7 @@ Well almost. You may have noticed that we had to do this on behalf of `aliceAcco
 
 ## 4. Registering an Account
 
-Registering a domain is more involved than the aforementioned functions. Previously, we only had to worry about submitting a single instruction, with a single string-based registration box (In `rust` terminology, the heap-allocated reference types are all called boxes).
+Registering a domain is more involved than the aforementioned functions. Previously, we only had to worry about submitting a single instruction, with a single string-based registration box (In Rust terminology, the heap-allocated reference types are all called boxes).
 
 When registering a domain, there are a few more variables: The account can only be registered to an existing domain. Also, an account typically has to have a key pair. So if e.g. _alice@wonderland_ was registering an account for _late_bunny@looking_glass_ she should provide his public key.
 
@@ -248,7 +248,7 @@ If she tried to mint an asset that was registered using a different client, whic
 
 ## 6. Visualizing outputs
 
-Finally, we should talk about visualising data. The `rust` API is currently the most complete in terms of available queries and instructions. After all, this is the language in which Iroha 2 was built. Kotlin, by contrast supports only some features. Fortunately these features are not used/covered in the `rust` tutorial either, so as to keep the walkthrough short and to-the-point.
+Finally, we should talk about visualising data. The Rust API is currently the most complete in terms of available queries and instructions. After all, this is the language in which Iroha 2 was built. Kotlin, by contrast supports only some features. Fortunately these features are not used/covered in the Rust tutorial either, so as to keep the walkthrough short and to-the-point.
 
 There are two possible event filters: `PipelineEventFilter` and `DataEventFilter`, we shall focus on the former. This filter sieves events pertaining to the process of submitting a transaction, executing a transaction and committing it to a block.
 

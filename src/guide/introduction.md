@@ -4,13 +4,13 @@ Welcome to the Hyperledger Iroha 2 tutorial. This document was designed to help 
 
 ## Iroha 2 vs Iroha 1
 
-Iroha 2 is a complete re-write of Iroha in `rust`. Iroha 2 learned in many respects from the mistakes of the original Iroha. Of particular importance is the new consensus algorithm: Sumeragi. The first version of Iroha used a consensus algorithm called Yac, which was quite difficult to reason about, in addition to being only crash-fault-tolerant. _Sumeragi_, by contrast, is also _Byzantine-fault_ tolerant.
+Iroha 2 is a complete re-write of Iroha in Rust. Iroha 2 learned in many respects from the mistakes of the original Iroha. Of particular importance is the new consensus algorithm: Sumeragi. The first version of Iroha used a consensus algorithm called Yac, which was quite difficult to reason about, in addition to being only crash-fault-tolerant. _Sumeragi_, by contrast, is also _Byzantine-fault_ tolerant.
 
 ::: info
 With Sumeragi we can mathematically prove that **Iroha 2 can work when up to 33% of its nodes are actively trying to stop Iroha 2 from working properly** (_or at all_). In other words, even if someone gained control of a _third_ of all of your network nodes, **an Iroha 2 deployment is _mathematically guaranteed_ to keep working**.
 :::
 
-Iroha 2 is a small code-base. We have taken good care to ensure that we only depend on the minimum number of libraries, all of which represent the best that `rust` can offer. We provide a variety of telemetry APIs, including `prometheus` tooling, as well as structured logging, for all your monitoring needs. The data exchange makes use of a strongly-typed and versioned API, meaning that you get all of the benefits of `rust`'s incredible static guarantees. We rely on the extremely well-tested `serde` library for all of (de)serialisation, ensuring that it's fast, secure, and reliable.
+Iroha 2 is a small code-base. We have taken good care to ensure that we only depend on the minimum number of libraries, all of which represent the best that Rust can offer. We provide a variety of telemetry APIs, including `prometheus` tooling, as well as structured logging, for all your monitoring needs. The data exchange makes use of a strongly-typed and versioned API, meaning that you get all of the benefits of Rust's incredible static guarantees. We rely on the extremely well-tested `serde` library for all of (de)serialisation, ensuring that it's fast, secure, and reliable.
 
 We have designed our own actor framework, to both keep Iroha 2 neat, and also avoid many of the pitfalls common to asynchronous networking. Iroha 2 is smaller and more reliable than anything written using `actix`. You'd have to work pretty hard to make Iroha 2 deadlock. Iroha 2 is also more flexible than the original Iroha, and it is highly modular in its design. It should be possible to add/remove features based on the particular use-case.
 
@@ -21,13 +21,13 @@ The list of Iroha 2's advantages is quite extensive. In addition to being able t
 - One is to use the Web-Assembly interface to write your logic in JavaScript. We provide a set of extremely fast instructions that cover 80% of the use-cases, from which you could build-up arbitrarily complex interactions, without compromising on performance. _If you want to learn more about smart contracts in Iroha 2, please consult our [Wiki](https://wiki.hyperledger.org/display/iroha/Scripting+Languages+and+Runtimes+for+Iroha2+Smart+Contracts)._
 - Or you could make use of the Iroha 2 modules, which allow lower-level, higher performance access to the internal state of the blockchain.
 
-Iroha 2 is written in `rust`, and uses almost all of the language's features. We deliberately avoid `panics`, `unsafe` code, as well as keeping dependencies to a minimum. We make use of trait objects sparingly, and only in cases where there's absolutely no way around them. Our code base uses `enum` types extensively, as both a means of type erasure and boxing. This is most evident in how we implemented the Iroha special instructions.
+Iroha 2 is written in Rust, and uses almost all of the language's features. We deliberately avoid `panics`, `unsafe` code, as well as keeping dependencies to a minimum. We make use of trait objects sparingly, and only in cases where there's absolutely no way around them. Our code base uses `enum` types extensively, as both a means of type erasure and boxing. This is most evident in how we implemented the Iroha special instructions.
 
-Because modules are written in `rust` you have the same guarantees on memory safety as the rest of the code-base, without compromising on the memory usage, or run-time performance. Of course, if this is not sufficiently low-level for your particular needs, you can fork Iroha, since it's licensed under the Apache 2.0 permissive license and is part of the Hyperledger Foundation, which itself is a subsidiary of the Linux foundation.
+Because modules are written in Rust you have the same guarantees on memory safety as the rest of the code-base, without compromising on the memory usage, or run-time performance. Of course, if this is not sufficiently low-level for your particular needs, you can fork Iroha, since it's licensed under the Apache 2.0 permissive license and is part of the Hyperledger Foundation, which itself is a subsidiary of the Linux foundation.
 
 Long-term deployment of Iroha 2 networks was something that we considered very early in its development. There are **Iroha Special instructions**, that enact upgrades of the network into a consistent state. Iroha nodes can operate if other nodes in the network run different versions of the Iroha 2 binary.
 
-Iroha 2 is also smart about when to use dynamic and when to use static linking. We dynamically link with libraries that are related to encrypting communication (like e.g. OpenSSL), but statically link against smaller `rust` libraries. Thus patching a security vulnerability in Iroha is easy for distribution maintainers: just upgrade the SSL package and Iroha will use it. At the same time Iroha has far fewer dependencies, which in turn means that far fewer packages can accidentally break Iroha during a routine distribution upgrade.
+Iroha 2 is also smart about when to use dynamic and when to use static linking. We dynamically link with libraries that are related to encrypting communication (like e.g. OpenSSL), but statically link against smaller Rust libraries. Thus patching a security vulnerability in Iroha is easy for distribution maintainers: just upgrade the SSL package and Iroha will use it. At the same time Iroha has far fewer dependencies, which in turn means that far fewer packages can accidentally break Iroha during a routine distribution upgrade.
 
 ::: info
 
@@ -62,7 +62,7 @@ This tutorial will cover Iroha 2 in:
 - Swift (iOS) (Coming soon)
 
 ::: info
-if you’re having issues with installing rust compatible with our code (2021 edition, please consult the troubleshooting section).
+if you’re having issues with installing rust compatible with our code (2021 edition), please consult the troubleshooting section.
 :::
 
 There will be more content added to this tutorial as it is made available, and there will be clearly marked update sections wherever they are added.

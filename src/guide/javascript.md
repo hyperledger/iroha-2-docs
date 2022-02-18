@@ -114,7 +114,7 @@ const kp = generateKeyPair({
 
 ## 3. Registering a Domain
 
-Here we see how similar the JavaScript code is to the `rust` counterpart. It should be emphasised that the JavaScript library is a thin wrapper: It doesn’t provide any special builder structures, meaning you have to work with bare-bones compiled Data Model structures and define all internal fields explicitly. Doubly so, since JavaScript employs many implicit conversions, we highly recommend that you employ typescript. This makes many errors far easier to debug, but unfortunately results in more boiler-plate.
+Here we see how similar the JavaScript code is to the Rust counterpart. It should be emphasised that the JavaScript library is a thin wrapper: It doesn’t provide any special builder structures, meaning you have to work with bare-bones compiled Data Model structures and define all internal fields explicitly. Doubly so, since JavaScript employs many implicit conversions, we highly recommend that you employ typescript. This makes many errors far easier to debug, but unfortunately results in more boiler-plate.
 
 Let’s register a new domain with the name `looking_glass` our current account: _alice@wondeland_.
 

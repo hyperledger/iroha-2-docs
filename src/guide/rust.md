@@ -2,9 +2,9 @@
 
 ## 1. Iroha 2 Client Setup
 
-In this part we shall cover the main things to look out for if you want to use Iroha 2. Instead of providing the complete basics, we shall assume knowledge of the most widely used concepts, explain what’s unusual about Iroha 2 specifically, and provide a step-by-step guide to creating your own `rust` client for it.
+In this part we shall cover the main things to look out for if you want to use Iroha 2. Instead of providing the complete basics, we shall assume knowledge of the most widely used concepts, explain what’s unusual about Iroha 2 specifically, and provide a step-by-step guide to creating your own Rust client for it.
 
-We assume that you know how to create a new package, and have basic understanding of the fundamental `rust` code: `async` functions, `enum` types, traits and borrowing/ownership, as well as usage of the libraries that we also use: `serde`, `tokio`, `tracing` etc. If you don't feel comfortable with any of the above, we recommend consulting [the Rust book](https://doc.rust-lang.org/stable/book/) and [docs.rs](https://docs.rs/).
+We assume that you know how to create a new package, and have basic understanding of the fundamental Rust code: `async` functions, `enum` types, traits and borrowing/ownership, as well as usage of the libraries that we also use: `serde`, `tokio`, `tracing` etc. If you don't feel comfortable with any of the above, we recommend consulting [the Rust book](https://doc.rust-lang.org/stable/book/) and [docs.rs](https://docs.rs/).
 
 Iroha 2 makes extensive use of [workspaces](https://doc.rust-lang.org/book/ch14-03-cargo-workspaces.html) (or crates), that go in a domain-first order. What that means is that instead of having a global _constants_ crate, we have a crate for the blockchain data model (`iroha_data_model`), a crate with cryptographic primitives `iroha_crypto` and so on. These, _individually_ have a module for constants.
 
@@ -37,7 +37,7 @@ You should look through it, to familiarise with the key pieces of information th
 
 ## 2. Configuring Iroha 2
 
-Your application written in `rust` needs to instantiate a client. The client, typically needs specific configuration options, which you could either generate, or load from a the provided `config.json`. Let's do that now:
+Your application written in Rust needs to instantiate a client. The client, typically needs specific configuration options, which you could either generate, or load from a the provided `config.json`. Let's do that now:
 
 ```rust
 use iroha_clientconfig::Configuration as ClientConfiguration;
@@ -131,7 +131,7 @@ let create_looking_glass = RegisterBox::new(IdentifiableBox::from(looking_glass)
 let metadata = iroha_data_model::metadata::UnlimitedMetadata::default();
 ```
 
-Note that we use `RegisterBox` and `IdentifiableBox` . Despite what your instincts as a `rust` developer might suggest, we're not actually using any kind of dynamic dispatch. There's no `dyn` anywhere, and `RegisterBox` isn't an alias for `Box<dyn Register>`.
+Note that we use `RegisterBox` and `IdentifiableBox` . Despite what your instincts as a Rust developer might suggest, we're not actually using any kind of dynamic dispatch. There's no `dyn` anywhere, and `RegisterBox` isn't an alias for `Box<dyn Register>`.
 
 A `RegisterBox` is a specialised `enum` that uses static dispatch to achieve what looks like dynamic dispatch, without any heap allocation. If you want to add more types to `RegisterBox` you must either open an issue on GitHub, or do that by yourself on a local fork of Iroha.
 
@@ -247,7 +247,7 @@ Contrary to what you might think, this restriction isn't just for pedantry. Impl
 
 ## 6. Visualizing outputs
 
-Finally, we should talk about visualising data. The `rust` API is currently the most complete in terms of available queries and instructions. After all, this is the language in which Iroha 2 was built.
+Finally, we should talk about visualising data. The Rust API is currently the most complete in terms of available queries and instructions. After all, this is the language in which Iroha 2 was built.
 
 We shall, however, leave most of the aforementioned advanced features down the rabbit hole, up to the reader's own devices to discover. This document can easily get out of sync with the state of the API features. By contrast, the online documentation is always up to date. Plus a short tutorial wouldn't be able to do all these features justice. Instead, we shall retain parity with other language tutorials and introduce you to pipeline filters.
 
