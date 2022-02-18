@@ -3,25 +3,36 @@
 $iroha-brand: #e4232d;
 
 :root {
-  // --c-brand: #{$iroha-brand};
-  // --c-brand-light: #{lighten($iroha-brand, 10%)};
+  --c-brand: #{$iroha-brand};
+  --c-brand-light: #{lighten($iroha-brand, 10%)};
   --code-font-family: 'JetBrains Mono', 'Fira Code', var(--font-family-mono);
   --code-font-size: 13px;
   --code-line-height: 1.2em;
   --font-family-base: Inter, sans-serif;
 }
 
-:not(pre) > code {
-  padding: 0.15em 0.5em;
-  border-radius: 4px;
+// toggling code snippets
+
+// html.dark .shiki-light,
+// html:not(.dark) .shiki-dark {
+//   display: none;
+// }
+
+div[class*='language-'] {
+  background: transparent;
 }
 
-body {
-  font-family: var(--font-family-base);
+pre {
+  background: #f6f8fa !important;
 }
 
-a {
-  font-weight: 500;
+pre.shiki code {
+  display: block !important;
+  margin: 0;
+}
+
+.shiki {
+  transition: background 0.5s;
 }
 
 .custom-block {

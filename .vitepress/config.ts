@@ -1,6 +1,15 @@
-import { defineConfigWithTheme } from 'vitepress'
+// @ts-expect-error missing type
+import base from '@vue/theme/config'
+import { defineConfigWithTheme, UserConfig } from 'vitepress'
 import Windi from 'vite-plugin-windicss'
+import customHighlight from './plugins/highlight'
 import path from 'path'
+
+async function themeConfig() {
+  const cfg: UserConfig = await base()
+  cfg.markdown.highlight = await customHighlight()
+  return cfg
+}
 
 const sidebar = {
   '/guide/': [
@@ -63,22 +72,32 @@ const nav = [
     text: 'API',
     link: '/api/',
   },
-  {
-    text: 'GitHub',
-    link: 'https://github.com/hyperledger/iroha/tree/iroha2',
-  },
+  // {
+  //   text: 'GitHub',
+  //   link: 'https://github.com/hyperledger/iroha/tree/iroha2',
+  // },
 ]
 
 export default defineConfigWithTheme({
+  extends: themeConfig,
+  base: process.env.PUBLIC_PATH ?? '',
   srcDir: 'src',
   title: 'Hyperledger Iroha 2 Tutorial',
   description:
     'Documented tutorial for Hyperledger Iroha 2 outlining the main differences between Iroha versions along with a walkthrough and additional resources.',
-  base: process.env.PUBLIC_PATH ?? '',
+  lang: 'en-US',
   vite: {
     plugins: [Windi({ config: path.resolve(__dirname, '../windi.config.ts') })],
   },
   themeConfig: {
+    logo: '/logo.svg',
+    repo: 'hyperledger/iroha-2-docs',
+    docsDir: 'src',
+
+    editLinks: true,
+    editLinkText: 'Edit this page',
+    lastUpdated: 'Last Updated',
+
     sidebar,
     nav,
   },
