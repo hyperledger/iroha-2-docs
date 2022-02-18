@@ -25,38 +25,72 @@ const sidebar = {
           text: 'Build and Install',
           link: '/guide/build-and-install',
         },
+      ],
+    },
+    {
+      text: 'Language-specific guides',
+      children: [
         {
-          text: 'Language-specific guides',
-          children: [
-            {
-              text: 'Bash',
-              link: '/guide/bash',
-            },
-            {
-              text: 'Python 3',
-              link: '/guide/python',
-            },
-            {
-              text: 'Rust',
-              link: '/guide/rust',
-            },
-            {
-              text: 'Kotlin/Java',
-              link: '/guide/kotlin-java',
-            },
-            {
-              text: 'JavaScript',
-              link: '/guide/javascript',
-            },
-          ],
+          text: 'Bash',
+          link: '/guide/bash',
         },
         {
-          text: 'Conclusions',
-          link: '/guide/conclusions',
+          text: 'Python 3',
+          link: '/guide/python',
         },
         {
-          text: 'Appendix',
-          link: '/guide/appendix',
+          text: 'Rust',
+          link: '/guide/rust',
+        },
+        {
+          text: 'Kotlin/Java',
+          link: '/guide/kotlin-java',
+        },
+        {
+          text: 'JavaScript',
+          link: '/guide/javascript',
+        },
+      ],
+    },
+    {
+      text: 'Conclusions',
+      link: '/guide/conclusions',
+    },
+    {
+      text: 'Appendix',
+      link: '/guide/appendix/intro',
+      children: [
+        {
+          text: 'Peer Configuration',
+          link: '/guide/appendix/peer-configuration',
+        },
+        {
+          text: 'Trusted Peers',
+          link: '/guide/appendix/trusted-peers',
+        },
+        {
+          text: 'Kura',
+          link: '/guide/appendix/kura',
+        },
+        {
+          text: 'Iroha Public Addresses',
+          link: '/guide/appendix/public-addresses',
+        },
+        {
+          text: 'Logger',
+          link: '/guide/appendix/logger',
+        },
+        {
+          text: 'Genesis Block',
+          link: '/guide/appendix/genesis',
+        },
+        {
+          text: 'Client Configuration',
+          link: '/guide/appendix/client-configuration',
+        },
+        {
+          text: 'Running Iroha On Bare Metal',
+          link: '/guide/appendix/running-iroha-on-bare-metal',
         },
       ],
     },
