@@ -20,10 +20,9 @@ $iroha-brand: #e4232d;
 
 div[class*='language-'] {
   background: transparent;
-}
-
-pre {
-  background: #f6f8fa !important;
+  pre {
+    background: #f6f8fa !important;
+  }
 }
 
 pre.shiki code {

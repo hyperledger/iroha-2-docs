@@ -1,10 +1,15 @@
-// import { VPTheme } from '@vue/theme'
-
 import ThemeDefault from 'vitepress/theme'
-// import { App } from 'vue'
-// import { CodeSection, CodeTabs } from './components/CodeTabs'
+import Layout from './components/Layout.vue'
+// import Home from './components/Home.vue'
 
 import 'virtual:windi.css'
 import './style/index.scss'
+// import { App } from 'vue'
 
-export default ThemeDefault
+export default {
+  ...ThemeDefault,
+  Layout,
+//   enhanceApp({ app }: { app: App }) {
+//     app.component('Home', Home)
+//   },
+// }

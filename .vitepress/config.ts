@@ -1,13 +1,14 @@
-// @ts-expect-error missing type
-import base from '@vue/theme/config'
 import { defineConfigWithTheme, UserConfig } from 'vitepress'
 import Windi from 'vite-plugin-windicss'
 import customHighlight from './plugins/highlight'
 import path from 'path'
 
 async function themeConfig() {
-  const cfg: UserConfig = await base()
-  cfg.markdown.highlight = await customHighlight()
+  const cfg: UserConfig = {
+    markdown: {
+      highlight: await customHighlight(),
+    } as any,
+  }
   return cfg
 }
 
@@ -72,10 +73,6 @@ const nav = [
     text: 'API',
     link: '/api/',
   },
-  // {
-  //   text: 'GitHub',
-  //   link: 'https://github.com/hyperledger/iroha/tree/iroha2',
-  // },
 ]
 
 export default defineConfigWithTheme({
