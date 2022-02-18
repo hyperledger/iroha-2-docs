@@ -4,14 +4,16 @@
 
 The Iroha 2 JavaScript library consists of multiple packages:
 
-- `@iroha2/client` — which submits requests to Iroha Peer
-- `@iroha2/data-model` — provides [SCALE](https://github.com/paritytech/parity-scale-codec) (Simple Concatenated Aggregate Little-Endian)-codecs for the Iroha 2 Data Model.
-- `@iroha2/crypto-core` — cryptographic primitives
-- `@iroha2/crypto-target-node` — compiled crypto WASM ([Web Assembly](https://webassembly.org/)) for the Node.js environment
-- `@iroha2/crypto-target-web` — compiled crypto WASM for native Web (ESM)
-- `@iroha2/crypto-target-bundler` — compiled crypto WASM to use with bundlers such as Webpack
+| Package                                                   | Description                                                                                                                                        |
+| --------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `client`                                                  | Submits requests to Iroha Peer                                                                                                                     |
+| `data-model`                                              | Provides [SCALE](https://github.com/paritytech/parity-scale-codec) (Simple Concatenated Aggregate Little-Endian)-codecs for the Iroha 2 Data Model |
+| `crypto-core`                                             | Contains cryptography types                                                                                                                        |
+| `crypto-target-node`                                      | Compiled crypto WASM ([Web Assembly](https://webassembly.org/)) for the Node.js environment                                                        |
+| `crypto-target-web`                                       | Compiled crypto WASM for native Web (ESM)                                                                                                          |
+| <code class="whitespace-pre">crypto-target-bundler</code> | Compiled crypto WASM to use with bundlers such as Webpack                                                                                          |
 
-To install these packages, firstly you need to setup a registry:
+All of the are published under scope `@iroha2` into Iroha Nexus Registry. In future, they will be published in the main NPM Registry. To install these packages, firstly you need to setup a registry:
 
 ```ini
 # .npmrc
@@ -403,7 +405,7 @@ function stopListening() {
 
 And finally, our component’s template:
 
-```html
+```vue-html
 <div>
   <p>
     <button v-if="isListening" @click="stopListening">
