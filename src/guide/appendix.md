@@ -7,24 +7,24 @@ This section will cover the configuration files in the first section with more d
 The peer configuration JSON `/configs/peer/config.json` is the file that determines how your blockchain operates: we won't look at it now, but really the only things that you need to worry about are the `TRUSTED_PEERS` , the `KURA` `BLOCK_STORE_PATH` and the `TORII` `P2P_ADDR` and `API_ADDR`.
 The `PUBLIC_KEY` and `PRIVATE_KEY` options will be covered at a later stage. The remaining options are for tuning Iroha, so you don't want to touch them unless you know what you're doing.
 
-## Trusted peers
+### Trusted peers
 
 Iroha is a blockchain ledger. In order for it to work optimally and be Byzantine-fault tolerant with the maximum number of faults allowed, it needs to be started with a set number of peers: 4, 7, 10 … 3f+1, where f is the number of faults. So usually, when you want to start an Iroha deployment you should already know a number of peers that you can trust and join their blockchain. The way it works in the examples, is that you just specify in four`config.json` files four peers with their public keys and API addresses.
 Since Iroha has no automatic peer discovery, the only other way to make peers known to each other is to use the `iroha_client_cli` to register new peers. This is not too difficult with the provided client libraries. In fact using Python’s beautiful soup, the curated list of peers can be updated, registered and un-registered on its own.
 
-## Kura
+### Kura
 
 Kura is the “warehouse” engine of Iroha; it can store blocks in custom locations, if for some reason `./blocks` is not available or desirable. There are plans to make the Iroha’s storage tiered: when you reach a certain number of blocks, they get moved elsewhere.
 The `KURA` init mode at present does nothing. In the future, it will affect whether or not your block storage does a `strict` initialisation: checks everything, or a `fast` one, where everything is “probably alright™”.
 
-## Iroha public addresses
+### Iroha public addresses
 
 `TORII` the gatekeeper is the module in charge of handling in-coming and out-going connnections.
 The `API_URL` is the location to which the client(s) make their requests. You can use it to change some peer-specific configuration options too. While we could give you the examples here, the only up-to-date description can be found in the Iroha’s immediate [documentation on GitHub](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/api_spec.md). Most of the time, the only reason to change the `API_URL` is to change the port, in case `8080` is either closed, or if you want to randomise ports to avoid certain kinds of attacks.
 The `P2P_ADDR` is the internal address used for communication between peers. Take note of **this address** for inclusion in the `TRUSTED_PEERS` section of the configuration file.
 Lastly, (and not in the example configuration) you have the prometheus endpoint address. It’s set by adding a value `"TELEMETRY_URL": "127.0.0.1:8180"`, to the `TORII` section. It’s not meant to be human-readable, but a `GET` request to the `127.0.0.1:8180/status` will give you a `json`-encoded representation of the top-level metrics, while a `GET` request to `127.0.0.1:8180/metrics` will give you a (somewhat verbose) list of all available metrics gathered in Iroha. You might want to change this, if you’re having trouble gathering metrics using `prometheus`.
 
-## Logger
+### Logger
 
 This is possibly the easiest to understand. `"MAX_LOG_LEVEL": "WARN"`, changes the logging level to `WARN`. This means that you don’t get any messages, unless they’re either a warning or an error message. The available options are `TRACE` (every time you enter a function), `DEBUG` information that we use when we know something went wrong, `INFO` the default, `WARN` and `ERROR`, which silences any logging except for error messages.
 Another useful option might be to use `"LOG_FILE_PATH": bunyan.json` . What this will do, is create (if it didn’t exist already) a file called `bunyan.json` that contains the logging in a structured format. This is extremely useful for two reasons: first, you can use the `bunyan` log viewer to filter information more precisely than Iroha would allow you to do. _Want only messages from a specific module or package? You can do that with bunyan_. Secondly, while copying logs is not too big of a problem if your instance is just a small setup, for bigger and longer running the process the larger the log will be. Having it be saved to a file makes much more sense in that case. (**TIP**: you can also set this to `/dev/stdout` if you want to use bunyan’s logging facilities directly, but don’t want to waste space in the filesystem).
@@ -135,18 +135,19 @@ First, the `TORII_API_URL` is the same as `TORII` `API_ADDR` in the peer configu
 
 ## Keys
 
-Now it's a good practice to worry about Public key cryptography, so we'll give you a primer.
-Firstly, public and private keys come in pairs. For a given private key it's easy to figure out the corresponding public key, **but the opposite is not true**. The fact that it's practically impossible to figure out what the **private key** corresponding to a given **public key** is why they're called _public_ and _private_: **one is safe to share without compromising on the security of the entire exchange**.
-**With a private key, you can encrypt information, in a way, such that only the people who have your public key can read it. You cannot encrypt anything with a public key**.
-When we say signed we really mean _attached **a known piece of data encrypted with the private key**._ When something is _signed_, everyone can read it, and **everyone with your public key can verify that the person who wrote that message used your private key**.
-As a result, if you're deploying your own network, **you really should change the keys in all three configuration files.** To get new key-pairs, use the `iroha_crypto_cli` program,
+Now is a good time to start worrying about Public key cryptography, so we'll give you a primer.
+Firstly, public and private keys come in pairs. For a given private key it's easy to figure out the corresponding public key, **but the opposite is not true**. It's practically impossible to figure out what the private key corresponding to a given public key is; which is why they're called _public_ and _private_: the former is safe to share without compromising the security of the exchange.
+With a private key, you can encrypt information, in a way, such that only the people who have your public key can read it. By contrast, you cannot encrypt anything with a public key.
+When we say signed we really mean _attached a known piece of data encrypted with the **appropriate** private key_. This known piece of data is usually the hash of the entire message, otherwise people could copy the signature to a different message.  When something is _signed_, everyone can read it. Some people: the ones who have your public key, can also tell if the message was written by someone who has your private key. They can't tell if it's _you_, someone who _cracked_ your public key with brute force, or someone who _got_ it from you via social engineering, for example if you leaked your private key in some online conversation.
+Cracking someone's key is always possible in theory, but not always practical. For keys shorter than SHA256 it's quite possible that someone _could_ crack your private key. The best solution is to use a longer key. Usually it makes a tiny file slightly larger, and computations that takes a few microseconds take a few microseconds longer. You can barely notice the difference, at the same time it takes exponentially longer to crack. The only reason not to go with the longest possible key is if your hardware can't cope with it.
+Protecting against social engineering isn't hard, as long as you keep your guard up. In essence, all you need to do is to keep your private key _private_. Don't send it to anyone. Don't use cloud services to move it across devices. Don't have malware on your computer. Most importantly, don't use someone else's private key.  Consequently, when you're deploying your own network, please do **change the keys**. To get new key-pairs, use the `iroha_crypto_cli` program,
 
 ```bash
 cargo build -p iroha_crypto_cli
 ./target/debug/iroha_crypto_cli
 ```
 
-Which will print a fresh pair of keys.
+which will print a fresh key pair on demand.
 If you want to set up your own network, you should change the keys for all your peers: in `peer/config.json` change `PUBLIC_KEY` and `PRIVATE_KEY`, to the fresh pair. When you've done that, you should add the keys to the `TRUSTED_PEERS` array in the same configuration file.
 **EXAMPLE:** in the minimum viable BFT network, you have four peers, so that means that you need to create _four_ different peer configuration files (`config.json`). Each peer should have its own `PUBLIC_KEY` and `PRIVATE_KEY` and all four public keys should be added to the `TRUSTED_PEERS` array (_yes including the peer that you're configuring_), and the same `TRUSTED_PEERS` array must be copied across all four configuration files.
 Next, you must make sure that the peers agree on the `GENESIS_ACCOUNT` key pairs.
