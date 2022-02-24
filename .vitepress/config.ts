@@ -12,14 +12,28 @@ async function themeConfig() {
   return cfg
 }
 
-const sidebar = {
-  '/guide/': [
+function getNav() {
+  return [
+    {
+      text: 'Guide',
+      link: '/',
+      activeMatch: '^/$|^/guide/',
+    },
+    // {
+    //   text: 'API',
+    //   link: '/api/',
+    // },
+  ]
+}
+
+function getGuideSidebar() {
+  return [
     {
       text: 'Getting started',
       children: [
         {
           text: 'Introduction',
-          link: '/guide/introduction',
+          link: '/',
         },
         {
           text: 'Build and Install',
@@ -94,20 +108,8 @@ const sidebar = {
         },
       ],
     },
-  ],
+  ]
 }
-
-const nav = [
-  {
-    text: 'Guide',
-    link: '/guide/introduction',
-    activeMatch: /^\/guide/,
-  },
-  {
-    text: 'API',
-    link: '/api/',
-  },
-]
 
 export default defineConfigWithTheme({
   extends: themeConfig,
@@ -120,6 +122,7 @@ export default defineConfigWithTheme({
   vite: {
     plugins: [Windi({ config: path.resolve(__dirname, '../windi.config.ts') })],
   },
+  lastUpdated: true,
   themeConfig: {
     logo: '/logo.svg',
     repo: 'hyperledger/iroha-2-docs',
@@ -129,7 +132,10 @@ export default defineConfigWithTheme({
     editLinkText: 'Edit this page',
     lastUpdated: 'Last Updated',
 
-    sidebar,
-    nav,
+    sidebar: {
+      '/guide/': getGuideSidebar(),
+      '/': getGuideSidebar(),
+    },
+    nav: getNav(),
   },
 })
