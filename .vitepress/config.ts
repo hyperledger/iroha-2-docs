@@ -1,5 +1,6 @@
 import { defineConfigWithTheme, UserConfig } from 'vitepress'
 import Windi from 'vite-plugin-windicss'
+import footnote from 'markdown-it-footnote'
 import customHighlight from './plugins/highlight'
 import path from 'path'
 
@@ -123,6 +124,12 @@ export default defineConfigWithTheme({
     plugins: [Windi({ config: path.resolve(__dirname, '../windi.config.ts') })],
   },
   lastUpdated: true,
+
+  markdown: {
+    config(md) {
+      md.use(footnote)
+    }
+  },
 
   themeConfig: {
     logo: '/logo.svg',

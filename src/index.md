@@ -48,9 +48,11 @@ The appendix of the tutorial covers the three main files for Iroha 2 customisati
 Before you begin this tutorial you will need:
 
 - [git](https://githowto.com/)
-- [A working Rust toolchain](https://www.rust-lang.org/learn/get-started): cargo, rust v1.57 and up\*
+- [A working Rust toolchain](https://www.rust-lang.org/learn/get-started): cargo, rust v1.57 and up [^1]
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker compose](https://docs.docker.com/compose/)
+
+[^1]: If you’re having issues with installing rust compatible with our code (2021 edition), please consult the troubleshooting section.
 
 This tutorial will cover Iroha 2 in:
 
@@ -60,10 +62,6 @@ This tutorial will cover Iroha 2 in:
 - Kotlin/Java
 - JavaScript (TypeScript)
 - Swift (iOS) (coming soon)
-
-::: info
-if you’re having issues with installing rust compatible with our code (2021 edition), please consult the troubleshooting section.
-:::
 
 There will be more content added to this tutorial as it is made available, and there will be clearly marked update sections wherever they are added.
 

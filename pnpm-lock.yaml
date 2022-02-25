@@ -7,6 +7,7 @@ specifiers:
   '@vueuse/core': ^7.6.2
   eslint: ~8.9.0
   eslint-plugin-vue: ^8.5.0
+  markdown-it-footnote: ^3.0.3
   prettier: ^2.5.1
   prettier-eslint: ^13.0.0
   sass: ^1.49.8
@@ -27,6 +28,7 @@ devDependencies:
   '@typescript-eslint/parser': 5.12.1_eslint@8.9.0+typescript@4.5.5
   eslint: 8.9.0
   eslint-plugin-vue: 8.5.0_eslint@8.9.0
+  markdown-it-footnote: 3.0.3
   prettier: 2.5.1
   prettier-eslint: 13.0.0
   sass: 1.49.8
@@ -1682,6 +1684,10 @@ packages:
     resolution: {integrity: sha512-4CrMT5DOHTDk4HYDlzmwu4FVCcIYI8gauveasrdCu2IKIFOJ3f0v/8MDGJCDL9oD2ppz/Av1b0Nj345H9M+XIA==}
     dependencies:
       sourcemap-codec: 1.4.8
+
+  /markdown-it-footnote/3.0.3:
+    resolution: {integrity: sha512-YZMSuCGVZAjzKMn+xqIco9d1cLGxbELHZ9do/TSYVzraooV8ypsppKNmUJ0fVH5ljkCInQAtFpm8Rb3eXSrt5w==}
+    dev: true
 
   /merge2/1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
