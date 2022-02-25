@@ -121,12 +121,6 @@ export default defineConfigWithTheme({
   lang: 'en-US',
   vite: {
     plugins: [Windi({ config: path.resolve(__dirname, '../windi.config.ts') })],
-    resolve: {
-      alias: {
-        // here is a small hack
-        'virtual:vue-theme-fonts.css': path.join(path.dirname(require.resolve('@vue/theme')), 'vitepress/styles/fonts.css'),
-      },
-    },
   },
   lastUpdated: true,
 
