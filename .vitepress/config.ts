@@ -121,34 +121,14 @@ export default defineConfigWithTheme({
   lang: 'en-US',
   vite: {
     plugins: [Windi({ config: path.resolve(__dirname, '../windi.config.ts') })],
+    resolve: {
+      alias: {
+        // here is a small hack
+        'virtual:vue-theme-fonts.css': path.join(path.dirname(require.resolve('@vue/theme')), 'vitepress/styles/fonts.css'),
+      },
+    },
   },
   lastUpdated: true,
-
-  head: [
-    // Inter font
-    [
-      'link',
-      {
-        rel: 'preconnect',
-        href: 'https://fonts.googleapis.com',
-      },
-    ],
-    [
-      'link',
-      {
-        rel: 'preconnect',
-        href: 'https://fonts.googleapis.com',
-        crossorigin: '',
-      },
-    ],
-    [
-      'link',
-      {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap',
-      },
-    ],
-  ],
 
   themeConfig: {
     logo: '/logo.svg',
