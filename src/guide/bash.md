@@ -1,4 +1,5 @@
 # Bash guide
+
 ## 0. A brief primer on CLI applications
 
 This is as good a place as any to discuss what `iroha_client_cli` is and what you should expect it to be able to do. Most users think that everything that's run inside the terminal is a CLI program. This is not the case. A **Command-line Interface** is a glorified scripting language, that you interact with using the shell. These programs are run multiple times, and given different *arguments*: `--flag1` `file2` `--help`, etc, depending on what you want to do. A single session doesn't begin with you opening the program, and end with closing it. When you've stopped interacting the `iroha_client_cli` the session is finished.
@@ -12,7 +13,7 @@ Finally, most programs store persistent information that is too big for either a
 1) if the `-c` or `--config` command line flag is specified, in the next argument interpreted as a path; for example: `-c ~/Git/iroha/configs/peer/config.json`. If that file doesn't exist, you will see an error, and `iroha_client_cli` won't look for a configuration file anywhere else. 
 2) if neither `-c` nor `--config` were given, it will look in the current working directory.
 
-These defaults are not very ergonomic. They are artifacts of the way in which Iroha is being deployed, and the fact that a CLI interface is used exclusively for testing purposes. This might change in the future, but likely not by fixing `iroha_client_cli` but rather by replacing it entirely with a Iroha python. The only thing stopping us from that today, is that Iroha pyhton has not gotten the attention it deserves.
+These defaults are not very ergonomic. They are artifacts of the way in which Iroha is being deployed, and the fact that a CLI interface is used exclusively for testing purposes. This might change in the future, but likely not by fixing `iroha_client_cli` but rather by replacing it entirely with Iroha Python. The only thing stopping us from that today, is that Iroha pyhton has not gotten the attention it deserves.
 
 It is possible that a user might be expecting `iroha_client_cli` to behave like a graphical program using terminal graphics: a **Terminal User Interface**. While we'd like to provide you with such a program, we don't think that it offers enough convenience over the amount of effort that we'd need to put in. It is possible that in the future, once `iroha_client_cli` is phased out, and `iroha_python` is the official scripting interface, we might use the excellent Python libraries for creating a useful TUI. For now, one must make do with what one has. 
 
@@ -120,7 +121,7 @@ To make sure that your configuration options worked, try to run a query, e.g.:
 ./iroha_client_cli domain list all
 ```
 
-If the output looks like some form of `JSON` (but not quite), then the configuration was succesful!
+If the output looks like some form of JSON (but not quite), then the configuration was succesful!
 
 ## 3. Registering a Domain
 
@@ -130,7 +131,7 @@ To get started, you must register a domain. Run
 ./iroha_client_cli domain register --id="looking_glass"
 ```
 
-You will receive a confirmation of the domain creation, however, this information will not be clearly visible within the message. To confirm the new domain _looking_glass_ has been created successfully, run
+You will receive a confirmation of the domain creation, however, this information will not be clearly visible within the message. To confirm the new domain _looking\_glass_ has been created successfully, run
 
 ```bash
 ./iroha_client_cli domain list all

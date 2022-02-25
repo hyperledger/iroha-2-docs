@@ -57,9 +57,9 @@ This tutorial will cover Iroha 2 in:
 - Bash
 - Python
 - Rust
-- Kotlin/Java (under construction)
-- Javascript (Coming soon)
-- Swift (iOS) (Coming soon)
+- Kotlin/Java
+- JavaScript (TypeScript)
+- Swift (iOS) (coming soon)
 
 ::: info
 if you’re having issues with installing rust compatible with our code (2021 edition), please consult the troubleshooting section.
@@ -68,5 +68,5 @@ if you’re having issues with installing rust compatible with our code (2021 ed
 There will be more content added to this tutorial as it is made available, and there will be clearly marked update sections wherever they are added.
 
 ::: tip
-This tutorial is aimed at both advanced users as well as novices. Advanced users can typically skip the 0-th subscetions of each section, while novices are advised to follow the instructions closely and not skip any steps. Although some questions can be answered with a quick google search, we gathered the most common mistakes and troubleshooting steps such that even people without prior experience in programming can follow along. 
+This tutorial is aimed at both advanced users as well as novices. Advanced users can typically skip the 0-th subscetions of each section, while novices are advised to follow the instructions closely and not skip any steps. Although some questions can be answered with a quick google search, we gathered the most common mistakes and troubleshooting steps such that even people without prior experience in programming can follow along.
 :::
