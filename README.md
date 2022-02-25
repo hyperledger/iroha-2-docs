@@ -41,3 +41,9 @@ pnpm dev
 ```
 
 This will start a local dev-server so you can open a browser and observe documentation and see your edits on-demand.
+
+### Format Markdown
+
+```bash
+pnpm format:docs
+```

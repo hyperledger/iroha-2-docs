@@ -2,20 +2,20 @@
 
 ## 0. A brief primer on CLI applications
 
-This is as good a place as any to discuss what `iroha_client_cli` is and what you should expect it to be able to do. Most users think that everything that's run inside the terminal is a CLI program. This is not the case. A **Command-line Interface** is a glorified scripting language, that you interact with using the shell. These programs are run multiple times, and given different *arguments*: `--flag1` `file2` `--help`, etc, depending on what you want to do. A single session doesn't begin with you opening the program, and end with closing it. When you've stopped interacting the `iroha_client_cli` the session is finished.
+This is as good a place as any to discuss what `iroha_client_cli` is and what you should expect it to be able to do. Most users think that everything that's run inside the terminal is a CLI program. This is not the case. A **Command-line Interface** is a glorified scripting language, that you interact with using the shell. These programs are run multiple times, and given different _arguments_: `--flag1` `file2` `--help`, etc, depending on what you want to do. A single session doesn't begin with you opening the program, and end with closing it. When you've stopped interacting the `iroha_client_cli` the session is finished.
 
-You also don't *configure* a CLI program in the usual sense of the word. Most people expect that it's possible to change some settings of a program, from inside that same program, but most CLI programs are configured differently.
+You also don't _configure_ a CLI program in the usual sense of the word. Most people expect that it's possible to change some settings of a program, from inside that same program, but most CLI programs are configured differently.
 
 Firstly, if you want to make a certain `--flag` part of the way you invoke `iroha_client_cli`, you should create a [shell alias](https://www.educba.com/bash-alias/). Some programs, but not `iroha_client_cli` also use something called [Environment variables](https://medium.com/chingu/an-introduction-to-environment-variables-and-how-to-use-them-f602f66d15fa).
 
 Finally, most programs store persistent information that is too big for either a shell alias or an environment variable in a separate file. `iroha_client_cli` does not yet follow the [XDG_CONFIG_HOME specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html). And only looks for a configuration file in one of two places.
 
-1) if the `-c` or `--config` command line flag is specified, in the next argument interpreted as a path; for example: `-c ~/Git/iroha/configs/peer/config.json`. If that file doesn't exist, you will see an error, and `iroha_client_cli` won't look for a configuration file anywhere else. 
-2) if neither `-c` nor `--config` were given, it will look in the current working directory.
+1. if the `-c` or `--config` command line flag is specified, in the next argument interpreted as a path; for example: `-c ~/Git/iroha/configs/peer/config.json`. If that file doesn't exist, you will see an error, and `iroha_client_cli` won't look for a configuration file anywhere else.
+2. if neither `-c` nor `--config` were given, it will look in the current working directory.
 
 These defaults are not very ergonomic. They are artifacts of the way in which Iroha is being deployed, and the fact that a CLI interface is used exclusively for testing purposes. This might change in the future, but likely not by fixing `iroha_client_cli` but rather by replacing it entirely with Iroha Python. The only thing stopping us from that today, is that Iroha pyhton has not gotten the attention it deserves.
 
-It is possible that a user might be expecting `iroha_client_cli` to behave like a graphical program using terminal graphics: a **Terminal User Interface**. While we'd like to provide you with such a program, we don't think that it offers enough convenience over the amount of effort that we'd need to put in. It is possible that in the future, once `iroha_client_cli` is phased out, and `iroha_python` is the official scripting interface, we might use the excellent Python libraries for creating a useful TUI. For now, one must make do with what one has. 
+It is possible that a user might be expecting `iroha_client_cli` to behave like a graphical program using terminal graphics: a **Terminal User Interface**. While we'd like to provide you with such a program, we don't think that it offers enough convenience over the amount of effort that we'd need to put in. It is possible that in the future, once `iroha_client_cli` is phased out, and `iroha_python` is the official scripting interface, we might use the excellent Python libraries for creating a useful TUI. For now, one must make do with what one has.
 
 ## 1. Iroha 2 Client Setup
 
@@ -131,7 +131,7 @@ To get started, you must register a domain. Run
 ./iroha_client_cli domain register --id="looking_glass"
 ```
 
-You will receive a confirmation of the domain creation, however, this information will not be clearly visible within the message. To confirm the new domain _looking\_glass_ has been created successfully, run
+You will receive a confirmation of the domain creation, however, this information will not be clearly visible within the message. To confirm the new domain _looking_glass_ has been created successfully, run
 
 ```bash
 ./iroha_client_cli domain list all
