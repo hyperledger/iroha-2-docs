@@ -47,3 +47,9 @@ This will start a local dev-server so you can open a browser and observe documen
 ```bash
 pnpm format:docs
 ```
+
+## License
+
+Iroha documentation files are made available under the Creative Commons
+Attribution 4.0 International License (CC-BY-4.0), available at
+http://creativecommons.org/licenses/by/4.0/
