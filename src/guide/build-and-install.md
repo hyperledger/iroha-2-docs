@@ -77,9 +77,9 @@ One other option is that you have the up-to-date `stable` toolchain, but it's no
 rustup default stable
 ```
 
-this can happen if you installed a `nightly` version or set a specific Rust version, but forgot to un-set it. 
+this can happen if you installed a `nightly` version or set a specific Rust version, but forgot to un-set it.
 
-Continuing down the troubleshooting rabbit-hole, we could have shell aliases. 
+Continuing down the troubleshooting rabbit-hole, we could have shell aliases.
 
 ```bash
 type rustc
@@ -95,7 +95,7 @@ alias cargo "~/.rustup/toolchains/stable-*/bin/cargo"
 
 because there is internal logic that could break regardless of how you re-arrange your shell aliases.
 
-The simplest solution would be to remove the versions that you don’t use. It's Easier _said_ than _done_, however, since  it entails tracking all the versions of rustup installed and available to you. Usually, there  are only two: the system package manager version and the one that got installed into the standard location in your home folder when you ran the command in the beginning of this tutorial. For the former, consult your (Linux) distribution’s manual, (`apt remove rust`). For the latter,
+The simplest solution would be to remove the versions that you don’t use. It's Easier _said_ than _done_, however, since it entails tracking all the versions of rustup installed and available to you. Usually, there are only two: the system package manager version and the one that got installed into the standard location in your home folder when you ran the command in the beginning of this tutorial. For the former, consult your (Linux) distribution’s manual, (`apt remove rust`). For the latter,
 
 ```bash
 rustup toolchain list
@@ -183,7 +183,7 @@ docker compose up
 
 ::: info
 
-On a _properly_ configured docker compose, you should never have to use `sudo` . If you do, consider looking into starting the docker dæmon first by running `systemctl enable docker` on Linux. If that doesn't work, consider using 
+On a _properly_ configured docker compose, you should never have to use `sudo` . If you do, consider looking into starting the docker dæmon first by running `systemctl enable docker` on Linux. If that doesn't work, consider using
 
 :::
 
@@ -200,8 +200,6 @@ When you're done with test network, just hit `Control + C` to stop the container
 
 :::
 
-As we said, you can also try and use the bare metal script. For testing we use `scripts/test_env.sh setup`, which will also start a set of Iroha peers. But that network is much harder to monitor, and unless you're well-versed in `killall` and reading log files with a proper text editor, we recommend that you don't go this route. 
+As we said, you can also try and use the bare metal script. For testing we use `scripts/test_env.sh setup`, which will also start a set of Iroha peers. But that network is much harder to monitor, and unless you're well-versed in `killall` and reading log files with a proper text editor, we recommend that you don't go this route.
 
-Unless you have an absolute aversion to `docker`, it's easier to work with, easier to set up, and easier to debug. We try to cater to all tastes, but some tastes have objective advantages. 
-
-
+Unless you have an absolute aversion to `docker`, it's easier to work with, easier to set up, and easier to debug. We try to cater to all tastes, but some tastes have objective advantages.

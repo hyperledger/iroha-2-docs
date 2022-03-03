@@ -80,28 +80,16 @@ function getGuideSidebar() {
           link: '/guide/appendix/peer-configuration',
         },
         {
-          text: 'Trusted Peers',
-          link: '/guide/appendix/trusted-peers',
-        },
-        {
-          text: 'Kura',
-          link: '/guide/appendix/kura',
-        },
-        {
-          text: 'Iroha Public Addresses',
-          link: '/guide/appendix/public-addresses',
-        },
-        {
-          text: 'Logger',
-          link: '/guide/appendix/logger',
+          text: 'Client Configuration',
+          link: '/guide/appendix/client-configuration',
         },
         {
           text: 'Genesis Block',
           link: '/guide/appendix/genesis',
         },
         {
-          text: 'Client Configuration',
-          link: '/guide/appendix/client-configuration',
+          text: 'Keys',
+          link: "/guide/appendix/keys"
         },
         {
           text: 'Running Iroha On Bare Metal',

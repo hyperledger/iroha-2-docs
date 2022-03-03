@@ -30,7 +30,7 @@ Finally, while the first client _could_ use the genesis account to register new 
 
 :::
 
-Here are the links to the [iroha-python](https://github.com/hyperledger/iroha-python), [iroha-iOS](https://github.com/hyperledger/iroha-ios), [iroha-java](https://github.com/hyperledger/iroha-java) and [iroha-javascript](https://github.com/hyperledger/iroha-javascript) libraries.
+Here are the links to the [iroha-python](https://github.com/hyperledger/iroha-python), [iroha-iOS](https://github.com/hyperledger/iroha-ios), [iroha-java](https://github.com/hyperledger/iroha-java) and [iroha-javascript](https://github.com/hyperledger/iroha-javascript/tree/iroha2) libraries.
 
 Finally, let's talk about how keys are used in the client. Every transaction is signed on behalf of some user, thus every operation requires a key. That doesn't mean that you need to explicitly provide a key every time. For example, you need to have a user to register a user (_just like you need scissors to open a bag with new scissors_). But in order to register a user, you must also provide a new public key, so that the network can verify that it's that trustworthy *mad_hatter@*wonderland, and not some impostor (_possibly sent by the red_queen),_ so there are cases where you need to provide a key explicitly.
 
