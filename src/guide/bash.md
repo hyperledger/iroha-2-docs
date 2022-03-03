@@ -2,7 +2,7 @@
 
 ## 0. A brief primer on CLI applications
 
-This is as good a place as any to discuss what `iroha_client_cli` is and what you should expect it to be able to do. Most users think that everything that's run inside the terminal is a `CLI` program. This is not the case. A **Command-line Interface** is a glorified scripting language, that you interact with using the shell. These programs are run multiple times, and given different _arguments_: `--flag1` `file2` `--help`, etc, depending on what you want to do. A single session doesn't begin with you opening the program, and end with closing it. When you've stopped interacting the `iroha_client_cli` the session is finished.
+This is as good a place as any to discuss what `iroha_client_cli` is and what you should expect it to be able to do. Most users think that everything that's run inside the terminal is a CLI program. This is not the case. A **Command-line Interface** is a glorified scripting language, that you interact with using the shell. These programs are run multiple times, and given different _arguments_: `--flag1` `file2` `--help`, etc, depending on what you want to do. A single session doesn't begin with you opening the program, and end with closing it. When you've stopped interacting the `iroha_client_cli` the session is finished.
 
 You also don't _configure_ a CLI program in the usual sense of the word. Most people expect that it's possible to change some settings of a program, from inside that same program, but most CLI programs are configured differently.
 
