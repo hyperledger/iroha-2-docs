@@ -2,7 +2,7 @@
 
 [Read online](https://hyperledger.github.io/iroha-2-docs/).
 
-## Developing
+## Development
 
 ### Prerequisites
 
