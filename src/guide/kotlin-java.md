@@ -116,9 +116,9 @@ Well almost. You may have noticed that we had to do this on behalf of `aliceAcco
 
 Registering a domain is more involved than the aforementioned functions. Previously, we only had to worry about submitting a single instruction, with a single string-based registration box (In Rust terminology, the heap-allocated reference types are all called boxes).
 
-When registering a domain, there are a few more variables: The account can only be registered to an existing domain. Also, an account typically has to have a key pair. So if e.g. _alice@wonderland_ was registering an account for _late_bunny@looking_glass_ she should provide his public key.
+When registering a domain, there are a few more variables: The account can only be registered to an existing domain. Also, an account typically has to have a key pair. So if e.g. _alice@wonderland_ was registering an account for _white_rabbit@looking_glass_ she should provide his public key.
 
-It is tempting to generate both the private and public keys at this time, but it isn't the brightest idea. Remember, that _the late_bunny_ trusts _you, alice@wonderland,_ to create an account for them in the domain _looking_glass, **but doesn't want you to have access to that account after creation**._ If you gave _late_bunny_ a key that you generated yourself, how would they know if you don't have a copy of their private key? Instead, the best way is to **ask** _late_bunny_ to generate a new key-pair, and give you the public half of it.
+It is tempting to generate both the private and public keys at this time, but it isn't the brightest idea. Remember, that _the white_rabbit_ trusts _you, alice@wonderland,_ to create an account for them in the domain _looking_glass, **but doesn't want you to have access to that account after creation**._ If you gave _white_rabbit_ a key that you generated yourself, how would they know if you don't have a copy of their private key? Instead, the best way is to **ask** _white_rabbit_ to generate a new key-pair, and give you the public half of it.
 
 Similarly to the previous example, we provide the instructions in the form of a test:
 
@@ -144,7 +144,7 @@ class Test {
     @WithIroha
     fun `register account instruction committed`(): Unit = runBlocking {
         val aliceAccountId = AccountId("alice", "wonderland")
-        val newAccountId = AccountId("late_bunny", "looking_glass")
+        val newAccountId = AccountId("white_rabbit", "looking_glass")
         val keyPair = generateKeyPair()
         val signatories = listOf(keyPair.public.toIrohaPublicKey())
 
@@ -208,7 +208,7 @@ class Test {
         val aliceAccountId = AccountId("alice", "wonderland")
         val definitionId = DefinitionId("time", "looking_glass")
         val assetId = AssetId(definitionId, aliceAccountId)
-				val newAccountId = AccountId("late_bunny", "looking_glass")
+				val newAccountId = AccountId("white_rabbit", "looking_glass")
         val keyPair = generateKeyPair()
         val signatories = listOf(keyPair.public.toIrohaPublicKey())
 

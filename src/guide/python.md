@@ -99,12 +99,12 @@ from iroha2.data_model.expression import *
 from iroha2.data_model.events import EventFilter, pipeline
 from iroha2.data_model import *
 
-public_key = … # Get this from late_bunny.
-bunny = Account("late_bunny", "looking_glass", signatories=[public_key])
+public_key = … # Get this from white_rabbit.
+bunny = Account("white_rabbit", "looking_glass", signatories=[public_key])
 register = Register(Expression(Value(Identifiable(bunny))))
 ```
 
-Second, you should provide the account with a public key. It is tempting to generate both it and the private key at this time, but it isn't the brightest idea. Remember, that _the late_bunny_ trusts _you, alice@wonderland,_ to create an account for them in the domain _looking_glass, **but doesn't want you to have access to that account after creation**._ If you gave _late_bunny_ a key that you generated yourself, how would they know if you don't have a copy of their private key? Instead, the best way is to **ask** _late_bunny_ to generate a new key-pair, and give you the public half of it.
+Second, you should provide the account with a public key. It is tempting to generate both it and the private key at this time, but it isn't the brightest idea. Remember, that _the white_rabbit_ trusts _you, alice@wonderland,_ to create an account for them in the domain _looking_glass, **but doesn't want you to have access to that account after creation**._ If you gave _white_rabbit_ a key that you generated yourself, how would they know if you don't have a copy of their private key? Instead, the best way is to **ask** _white_rabbit_ to generate a new key-pair, and give you the public half of it.
 
 After putting all of this together, we submit it as before:
 
@@ -135,7 +135,7 @@ We have a `value_type` which must be specified. Python is duck-typed, while Rust
 
 Continuing the theme of explicit typing, the `asset.DefinitionId` is its own type. We could have also written `asset.DefinitionId.parse("time#looking_glass")`, but making sure that you know what’s going on is more useful in this case. Here, the `metadata` is an empty dictionary. We won’t go much into metadata, because it is out of the scope of this tutorial.
 
-Finally, we have `mintable`. By default this is set to `True`, however, setting it to `False` means that any attempt to mint more of `time#looking_glass` is doomed to fail. Unfortunately, since we didn’t add any `time` at genesis, the _late_bunny_ will never have time. There just isn’t any in his domain, and more can’t be minted.
+Finally, we have `mintable`. By default this is set to `True`, however, setting it to `False` means that any attempt to mint more of `time#looking_glass` is doomed to fail. Unfortunately, since we didn’t add any `time` at genesis, the _white_rabbit_ will never have time. There just isn’t any in his domain, and more can’t be minted.
 
 OK. So how about a mint demonstration? Fortunately, _alice@wonderland_ has an asset called _roses#wonderland,_ which can be minted. For that we need to do something much simpler.
 

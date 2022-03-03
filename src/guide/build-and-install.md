@@ -1,21 +1,28 @@
 # Build and Install Iroha 2
 
-## Install the rust build tools
+## Install the Rust Toolchain
 
-This is normally straightforward. Sometimes it’s not.
-Usually, it’s enough to do either:
+This is normally a straightforward process. This is not always true, so we've added some details for troubleshooting at each stage.
+
+The easiest way to get the official `rustup` script is to
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-or to install rust via your distribution’s package manager.
+or to install `rustup` via your distribution’s package manager.
 
-If you install the latest stable rust (the default) with `cargo` you should be all set to build Iroha.
+::: tip
 
-## Troubleshooting the rust toolchain
+If you know what you're doing, you can also install the rust toolchain directly, without `rustup`.
 
-Sometimes, that doesn’t work. Python and rust are very flexible in terms of what you can do, so you could have both a user a system-wide and on macs even multiple system-wide installations. XKCD has a famous example of what that might look like.
+:::
+
+If you go with the one-line `curl` script, you will be guided through the setup process. Just go with the defaults.
+
+## Troubleshooting: Rust toolchain
+
+Sometimes, things don't go to plan. Especially if you had `rust` on your system a while ago, but didn't upgrade. A similar problem can occur in Python: XKCD has a famous example of what that might look like.
 
 <div class="flex justify-center">
 
@@ -39,7 +46,15 @@ rustc --version
 rustc 1.57.0 (f1edd0429 2021-11-29)
 ```
 
-If you get lower version numbers **and** you could swear that you installed the right versions, it means that you have fallen victim to the plight of most Python (and some rust) developers.
+If you have higher versions, you're fine. If you have lower versions, you can run
+
+```bash
+rustup toolchain update stable
+```
+
+to update.
+
+If you get lower version numbers **and** you updated the toolchain and it didn't work… let's just say it's a common problem, but it doesn't have a common solution.
 
 Firstly, you should establish where the version that you want to use is installed.
 
@@ -54,7 +69,17 @@ should give you some idea. As a rule of thumb, the user installations of the too
 rustup toolchain update stable
 ```
 
-and that should fix your problems. If it’s not, it could be because of a shell alias. To know if that’s the case, try
+and that should fix your problems. But, if you're reading this, it's reasonable to assume that it didn't.
+
+One other option is that you have the up-to-date `stable` toolchain, but it's not set as the default.
+
+```bash
+rustup default stable
+```
+
+this can happen if you installed a `nightly` version or set a specific Rust version, but forgot to un-set it. 
+
+Continuing down the troubleshooting rabbit-hole, we could have shell aliases. 
 
 ```bash
 type rustc
@@ -70,7 +95,7 @@ alias cargo "~/.rustup/toolchains/stable-*/bin/cargo"
 
 because there is internal logic that could break regardless of how you re-arrange your shell aliases.
 
-The simplest solution would be to remove the versions that you don’t use. Easier said than done, however, since that means that you need to track all the versions of rustup installed and available to you. Usually, there can be two: the system package manager and the one that got installed into the standard location in your home folder. For the former, consult your distribution’s manual, (`apt remove rust`). For the latter,
+The simplest solution would be to remove the versions that you don’t use. It's Easier _said_ than _done_, however, since  it entails tracking all the versions of rustup installed and available to you. Usually, there  are only two: the system package manager version and the one that got installed into the standard location in your home folder when you ran the command in the beginning of this tutorial. For the former, consult your (Linux) distribution’s manual, (`apt remove rust`). For the latter,
 
 ```bash
 rustup toolchain list
@@ -82,7 +107,7 @@ and
 rustup remove <toolchain>
 ```
 
-for every `<toolchain>` , (without the angle brackets of course).
+for every `<toolchain>`, (without the angle brackets of course).
 
 After that, make sure that
 
@@ -148,6 +173,8 @@ We take pride in the fact that Iroha is extremely quick to compile. For referenc
 
 :::
 
+### Bring up a minimal network
+
 You can run Iroha directly on bare metal, but we recommend bringing up a network of 4 containerised peers using `docker-compose` . Of course, installing Docker might seem like a daunting task, but it allows for reproducible management of configurations, which is oftentimes tricky on bare metal. Please consult the [appendix](/guide/appendix) for how to do that.
 
 ```bash
@@ -156,7 +183,7 @@ docker compose up
 
 ::: info
 
-On a _properly_ set up docker compose, you should never have to use `sudo` . If you do, consider looking into starting the docker dæmon first by running `systemctl enable docker` on Linux.
+On a _properly_ configured docker compose, you should never have to use `sudo` . If you do, consider looking into starting the docker dæmon first by running `systemctl enable docker` on Linux. If that doesn't work, consider using 
 
 :::
 
@@ -168,5 +195,13 @@ Depending on your set-up, this might either pull the container off of DockerHub,
 ![Untitled](/img/install-cli.png)
 
 ::: tip
+
 When you're done with test network, just hit `Control + C` to stop the containers (`^ + C` on Mac).
+
 :::
+
+As we said, you can also try and use the bare metal script. For testing we use `scripts/test_env.sh setup`, which will also start a set of Iroha peers. But that network is much harder to monitor, and unless you're well-versed in `killall` and reading log files with a proper text editor, we recommend that you don't go this route. 
+
+Unless you have an absolute aversion to `docker`, it's easier to work with, easier to set up, and easier to debug. We try to cater to all tastes, but some tastes have objective advantages. 
+
+
