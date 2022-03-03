@@ -1,6 +1,6 @@
 # Introduction
 
-Welcome to the Hyperledger Iroha 2 tutorial. This document is designed to help you getting started with Iroha 2, regardless of your knowledge of Hyperledger technology, coding experience or familiarity with blockchains. Before descending into the Tutorial proper, we provide an overview of the differences between Iroha 1 and Iroha 2 for users upgrading from the previous version.
+Welcome to the Hyperledger Iroha 2 tutorial. This document is designed to help you get started with Iroha 2, regardless of your knowledge of Hyperledger technology, coding experience or familiarity with blockchains. Before descending into the Tutorial proper, we provide an overview of the differences between Iroha 1 and Iroha 2 for users upgrading from the previous version.
 
 ## Iroha 2 vs. Iroha 1
 
