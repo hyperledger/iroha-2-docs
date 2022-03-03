@@ -161,7 +161,7 @@ opt-level = "z"     # Optimize for size vs speed with "s"/"z"(removes vectorizat
 codegen-units = 1   # Further reduces binary size but increases compilation time
 ```
 
-Here we note a few things. Firstly, when you encounter a panic in Rust, it stores a bit of debug information, so that you can interpret what happened inside the program, and debug, even when compiled in `release` mode. We explicitly state that we don't want any of that, and instead want panics to just stop the execution. We're not losing any functionality, despite what you might think, failure to execute a WASM blob isn't considered a warning-level event and is not logged even on the peer, so even if you had some useful information in the panic message, you have no reliable way of retrieving it.
+Here we note a few things; firstly, when you encounter a panic in Rust, it stores a bit of debug information, so that you can interpret what happened inside the program, and debug, even when compiled in `release` mode. We explicitly state that we don't want any of that, and instead want panics to just stop the execution. We're not losing any functionality, despite what you might think, failure to execute a WASM blob isn't considered a warning-level event and is not logged even on the peer, so even if you had some useful information in the panic message, you have no reliable way of retrieving it.
 
 Another step that we've already taken involves working under `no_std`. All of our size-related woes stem from Rust being predominantly statically linked. As such breaking the standard library into more manageable crates, like using `alloc::vec` instead of `std::vec` can help us reduce the size and compilation time[^3].
 
@@ -184,7 +184,7 @@ At some, point, unfortunately, the smallest size of your WASM blob is going to b
 
 ## Triggers
 
-The triggers are a recent addition to Iroha. The basic premise is that certain things can emit events: it could be a change of the state of some entity, e.g. an account, and/or a domain (you can't modify an account without changing the domain that it belongs to, but you can change the domain without touching any of its accounts), but it could also be the block being committed, some point in time being crossed, or even a direct signal emitted by executing a special ISI. All of these are events that triggers can be attached to.
+The basic premise is that certain things can emit events: it could be a change of the state of some entity, e.g. an account, and/or a domain (you can't modify an account without changing the domain that it belongs to, but you can change the domain without touching any of its accounts), but it could also be the block being committed, some point in time being crossed, or even a direct signal emitted by executing a special ISI. All of these are events that triggers can be attached to.
 
 A trigger is a fairly basic entity that can be registered. Just like with Accounts, you submit a `RegisterBox::Trigger`, which contains the necessary information. This information is a single account ID, which should ideally be a brand new account that you register in the same transaction (but for now it doesn't matter); an executable, which itself is either a `Vec<Instruction>` or a WASM blob; and an `EventFilter`, something which combs through (at this point all) events and returns `true` when it finds an event that you like to start the execution.
 

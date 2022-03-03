@@ -1,6 +1,6 @@
 # Build and Install Iroha 2
 
-## Install the Rust toolchain
+## Install the Rust Toolchain
 
 This is normally a straightforward process. This is not always true, so we've added some details for troubleshooting at each stage.
 
@@ -95,7 +95,7 @@ alias cargo "~/.rustup/toolchains/stable-*/bin/cargo"
 
 because there is internal logic that could break regardless of how you re-arrange your shell aliases.
 
-The simplest solution would be to remove the versions that you don’t use. It's Easier _said_ than _done_, however, since  it entails tracking all the versions of rustup installed and available to you. Usually, there  are only two: the system package manager version and the one that got installed into the standard location in your home folder when you ran the command in the beginning of this tutorial. For the former, consult your distribution’s manual, (`apt remove rust`). For the latter,
+The simplest solution would be to remove the versions that you don’t use. It's Easier _said_ than _done_, however, since  it entails tracking all the versions of rustup installed and available to you. Usually, there  are only two: the system package manager version and the one that got installed into the standard location in your home folder when you ran the command in the beginning of this tutorial. For the former, consult your (Linux) distribution’s manual, (`apt remove rust`). For the latter,
 
 ```bash
 rustup toolchain list

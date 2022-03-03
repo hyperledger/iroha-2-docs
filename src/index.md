@@ -67,7 +67,7 @@ For this tutorial, you will need:
 - (Optional) [Docker compose](https://docs.docker.com/compose/) [^2]
 
 [^1]: If you’re having issues with installing rust compatible with our code (2021 edition), please consult the troubleshooting section.
-[^2]: We highly recommend using docker, because it's oftentimes simpler and easier to use. 
+[^2]: We highly recommend using docker, because it's oftentimes easier to use and debug. 
 
 This tutorial will cover Iroha 2 in:
 
