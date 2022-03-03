@@ -161,19 +161,19 @@ This is done without attaching either any metadata or building a transaction. Th
 
 Registering an account is a bit more involved than registering a domain. With a domain, the only concern is the domain name, however, with an account, there are a few more things to worry about.
 
-First of all, we need to create an `AccountId`. Note, that we can only register an account to an existing domain. The best UX design practices dictate that you should check if the requested domain exists _now_, and if it doesn’t — suggest a fix to the user. After that, we can create a new account, that we name _late_bunny._
+First of all, we need to create an `AccountId`. Note, that we can only register an account to an existing domain. The best UX design practices dictate that you should check if the requested domain exists _now_, and if it doesn’t — suggest a fix to the user. After that, we can create a new account, that we name _white_rabbit._
 
 ```rust
 let id = iroha_data_model::account::Id {
-    name: "late_bunny",
+    name: "white_rabbit",
     domain_name: "looking_glass"
 };
 ```
 
-Second, you should provide the account with a public key. It is tempting to generate both it and the private key at this time, but it isn't the brightest idea. Remember, that _the late_bunny_ trusts _you, alice@wonderland,_ to create an account for them in the domain _looking_glass, **but doesn't want you to have access to that account after creation**._ If you gave _late_bunny_ a key that you generated yourself, how would they know if you don't have a copy of their private key? Instead, the best way is to **ask** _late_bunny_ to generate a new key-pair, and give you the public half of it.
+Second, you should provide the account with a public key. It is tempting to generate both it and the private key at this time, but it isn't the brightest idea. Remember, that _the white_rabbit_ trusts _you, alice@wonderland,_ to create an account for them in the domain _looking_glass, **but doesn't want you to have access to that account after creation**._ If you gave _white_rabbit_ a key that you generated yourself, how would they know if you don't have a copy of their private key? Instead, the best way is to **ask** _white_rabbit_ to generate a new key-pair, and give you the public half of it.
 
 ```rust
-let key: PublicKey = get_key_from_late_bunny();
+let key: PublicKey = get_key_from_white_rabbit();
 ```
 
 Only then do we build an instruction from it:
@@ -214,7 +214,7 @@ let register_time = RegisterBox::new(IdentifiableBox::AssetDefinition(AssetDefin
 
 For technical reasons, this would (_for now_) create a completely useless asset. In order to mint, one must already have an asset definition in the blockchain. A non-mintable asset definition, however cannot be minted by definition.
 
-This means that no matter how hard the _late_bunny_ tries, the time that he has is the time that was given to him at genesis. And since we haven’t defined any time in the domain _looking_glass at_ genesis and defined time in a non-mintable fashion afterwards, the _late_bunny_ is doomed to always be late.
+This means that no matter how hard the _white_rabbit_ tries, the time that he has is the time that was given to him at genesis. And since we haven’t defined any time in the domain _looking_glass at_ genesis and defined time in a non-mintable fashion afterwards, the _white_rabbit_ is doomed to always be late.
 
 Roses, by contrast are already registered in the network during the genesis, and belong to _alice@wonderland, so_ we can mint them without much trouble. Let's prepare some data:
 
@@ -245,7 +245,7 @@ Which we then submit as usual. Make sure that the asset has the right type. Rose
 
 Contrary to what you might think, this restriction isn't just for pedantry. Implicit conversion errors are the bane of all programmers, if you got the _AssetValueType_ incorrect, _how do you know that it was the only mistake in that transaction?_
 
-## 6. Visualizing outputs
+## 6. Visualising outputs
 
 Finally, we should talk about visualising data. The Rust API is currently the most complete in terms of available queries and instructions. After all, this is the language in which Iroha 2 was built.
 

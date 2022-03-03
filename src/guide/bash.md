@@ -197,11 +197,11 @@ Open a new tab and navigate to the `/iroha` directory, then run
 
 Copy the public key, and repeat the instructions for registering a new account. Every time you run this command, you will generate a new keypair.
 
-In this case, we will create an account for _late_bunny_ within the _looking_glass_ domain, so we will run
+In this case, we will create an account for _white_rabbit_ within the _looking_glass_ domain, so we will run
 
 ```bash
 ./iroha_client_cli account register \
-    --id="late_bunny@looking_glass" \
+    --id="white_rabbit@looking_glass" \
     --key="ed0120a4c4dadd9f18b0f63d6a420151fe0748d785475dec63034a15fcf999ceda1e65"
 ```
 
@@ -210,7 +210,7 @@ And like before, the new active user will be listed on the network
 ```rust
 Account {
         id: Id {
-            name: "late_bunny",
+            name: "white_rabbit",
             domain_name: "looking_glass",
         },
         assets: {},
