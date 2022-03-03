@@ -28,7 +28,6 @@ Iroha 2 is an event-driven blockchain. Each change in the state of the blockchai
 The first approach is useful when you want very simple transparent logic, and want to minimise the footprint in the blockchain. All interactions with the _World state_, the state of the blockchain at this point in time, has to be done using the aforementioned instructions. There is also rudimentary support for domain-specific conditional logic. However sometimes you might want to run something more complex, e.g. do some complex conditional evaluation. For this purpose, you can use the provide WASM support library, and write the logic in any language that supports compilation to WASM. You still have to use the Iroha Special instructions to e.g. mint or transfer assets, as well as register entities in the blockchain, however, you might need more complex metadata-driven logic, that would be cumbersome to build up from ISI.
 
 
-
 ::: info
 
 Iroha 2 at this point is not feature-complete. While we more-less finished the consensus, we still haven't finalised many of the architectural decisions. For example, the means by which one could write a smartcontract is likely to be extended.
@@ -37,9 +36,10 @@ Iroha 2 at this point is not feature-complete. While we more-less finished the c
 
 _If you want to learn more about smartcontracts in Iroha 2, please consult our [Wiki](https://wiki.hyperledger.org/display/iroha/Scripting+Languages+and+Runtimes+for+Iroha2+Smart+Contracts)._
 
+
 <!-- Long-term deployment of Iroha 2 networks was something that we considered very early in its development. There are **Iroha Special instructions**, that enact upgrades of the network into a consistent state. Iroha nodes can operate if other nodes in the network run different versions of the Iroha 2 binary. -->
 
-Iroha 2 is also smart about when to use dynamic and when to use static linking. We dynamically link with libraries that are related to encrypting communication (like e.g. OpenSSL), but statically link against smaller Rust libraries. Thus patching a security vulnerability in Iroha is easy for distribution maintainers: just upgrade the SSL package and Iroha will use it. At the same time Iroha has far fewer dependencies, which in turn means that far fewer packages can accidentally break Iroha during a routine distribution upgrade.
+Iroha 2 is also smart about when to use dynamic and when to use static linking. We dynamically link with libraries that are related to encrypting communication (e.g. OpenSSL), but statically link against smaller Rust libraries. Thus patching a security vulnerability in Iroha is easy for distribution maintainers: just upgrade the SSL package and Iroha will use it. At the same time Iroha has far fewer dependencies, which in turn means that far fewer packages can accidentally break Iroha during a routine distribution upgrade.
 
 ::: info
 
@@ -49,13 +49,16 @@ You get the best of both worlds. Patching a security vulnerability is as easy as
 
 Iroha 2 is extensively tested. Despite being in active development, Iroha has a 75% line coverage (keep in mind, line coverage includes documentation comments, some of which are also tests). There are plans to include Fuzz testing, property-based testing and failure-point testing.
 
+
 The list of headlining features goes on. As the Iroha 2 development continues, this guide will be extended and headlining features will be added to this section.
+
 
 ## Tutorial preamble
 
 What follows is an introduction suitable for both experienced developers, prospective users, and people casually curious about blockchain technology. We provide a level of detail, sufficient for you to not need anything else, though we do refer you to standard documentation in a few cases.
 
 We shall walk you through starting an Iroha network, either with docker (recommended) or using one of the provided scripts, and then introduce you to the client libraries. We shall then take a small detour into the basic concepts of Iroha special instructions, and how they interact with the world state. 
+
 
 The _appendix_  covers the three main configuration files: the _peer_ configuration and the _genesis block_, which you need to get right to start a network; and the _client_ configuration, which you adjust in order to interact with the blockchain. 
 
