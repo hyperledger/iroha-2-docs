@@ -2,8 +2,8 @@
 
 ## Pre-requisites
 
-Having read most of the appendix, you are now prepared to start Iroha in a more advanced mode. What we are going to do is replicate the set up that we have in the `docker compose`, except we don’t go through the intermediary of containers, and run Iroha directly.
-Running iroha on bare metal involves manipulating files and/or environment variables. What follows is an attempt to run Iroha on bare metal, using either of two methods. We shall first focus on the file-based approach, as it is the easiest to get right. We shall then show you how to do the same using environment variables, which can offer a better user experience if done right, but is more error-prone, particularly for exotic systems.
+Having read most of the appendix, you are now prepared to start Iroha in a more advanced mode. What we are going to do is replicate the set up that we have in `docker compose`, except we won't go through an intermediary of containers, and instead run Iroha directly.
+Running iroha on bare metal involves manipulating files and/or environment variables. What follows is an attempt to run Iroha on bare metal using either of two methods. We shall first focus on the file-based approach, as it is the easiest to get right. We shall then show you how to do the same using environment variables, which can offer a better user experience if done right, but is more error-prone, particularly for exotic systems.
 First of all, we should note that we have only built the Iroha client so far. To build the peer software you should run
 
 ```kotlin
@@ -20,7 +20,7 @@ This will take significantly longer, but should produce both a smaller and faste
 
 ## Environment variables: set-up
 
-Next we want to make sure that we have the right configuration. To do that, it’s a good idea to either copy the contents of the `~/Git/iroha/configs/peer/` into a new directory, or alternatively to just run all commands from that directory: `cd ~/Git/iroha/configs/peer`. A third option is to specify the full path to the configuration in an environment variable. For simplicity we shall do the latter:
+Next, we want to make sure that we have the right configuration. To do that, it’s a good idea to either copy the contents of the `~/Git/iroha/configs/peer/` into a new directory, or alternatively, to just run all commands from the directory: `cd ~/Git/iroha/configs/peer`. A third option is to specify the full path to the configuration in an environment variable. For simplicity we shall do the latter:
 
 ```bash
 cd ~
@@ -39,13 +39,13 @@ Don’t forget to replace `debug` with `release` when you’re ready to deploy i
 export PATH="$PATH:$(pwd)/Git/iroha/target/debug"
 ```
 
-This way you can run `iroha` from any directory, without having to worry about configuration paths and/or specifying the full path to the Iroha executable.
+This way you can run `iroha` from any directory without having to worry about configuration paths, and/or specifying the full path to the Iroha executable.
 
-The instructions here should probably be made permanent, which you can do by adding the following environment variables to your startup shell. On older Linux systems, you copy and paste everything except `cd ~` to `~/.bashrc`. On macs running Mac OS X 10.6 and later, as well as some Linux systems, you want to add the same lines to `~/.zshrc`.
+The instructions here should probably be made permanent, which you can do by adding the following environment variables to your startup shell. On older Linux systems, copy and paste everything except `cd ~` to `~/.bashrc`. On macs running Mac OS X 10.6 and later, as well as some Linux systems, add the same lines to `~/.zshrc`.
 
 ::: tip
 
-This process is almost universally unreliable and messy, and it’s likely that your system is special in that it breaks some of our assumptions. If the above optional steps didn’t work for you, you can keep working in the `~/Git/iroha/configs/peer/` folder, and run iroha by doing `~/Git/iroha/target/debug/iroha`. This makes the command-line a little harder to read, which is why we recommend settin up your environment first.
+This process is almost universally unreliable and messy, and it’s likely that your system is special in that it breaks some of our assumptions. If the above optional steps didn’t work for you, you can keep working in the `~/Git/iroha/configs/peer/` folder, and run iroha by using `~/Git/iroha/target/debug/iroha`. This makes the command-line a little harder to read, which is why we recommend setting up your environment first.
 
 :::
 
@@ -69,7 +69,7 @@ and copy the `peer` configuration into it.
 cp -vfr ~/Git/iroha/configs/peer/*.json ~/Git/iroha/deploy
 ```
 
-also we copy the respective iroha binary into your binary folder
+we also copy the respective iroha binary into your binary folder
 
 ```bash
 sudo cp -vfr ~/Git/iroha/target/debug/iroha /usr/bin/
@@ -79,13 +79,13 @@ which will install Iroha 2 system wide.
 
 ::: tip
 
-You could also use the iroha peer binary locally, by copying it into the same folder. The only difference would be that you’d be calling Iroha like so: `./iroha` instead of `iroha`.
+You could also use the iroha peer binary locally by copying it into the same folder. The only difference would be that you’d be calling Iroha: `./iroha` instead of `iroha`.
 
 :::
 
 ## First run of Iroha on bare metal
 
-If you’ve done everything correctly, you can now do
+If you’ve done everything correctly, you can now input
 
 ```bash
 iroha
@@ -97,9 +97,9 @@ to start your first peer and be greeted with
 
 ![Untitled](/img/appendix_running-iroha_cli-output.png)
 
-This means that everything is working, but also that we need to do some more work.
-You have just started a single peer, which can tolerate exactly 0 faults. Running two peers is also possible, but again, can tolerate 0 faults. You must run at least 4 peers in order to have the capacity to tolerate at least one fault. In general, if you want to be resistant to `f` faults, you want to have `3f+1` peers: (4, 7, 10 etc.).
-You can’t really start them in any way you want, though. When we started our original peer, in its configuration, we specified that it has to trust very specific peers, which have the given private key and listen on a specific address. In order to know how to run them appropriately, take a look at `docker-compose.yml`.
+This means that everything is working, and also that we need to do some more work.
+You have just started a single peer which can tolerate exactly 0 faults. Running two peers is also possible, but again, can tolerate 0 faults. You must run at least 4 peers in order to have the capacity to tolerate at least one fault. In general, if you want to be resistant to `f` faults, you need to have `3f+1` peers: (4, 7, 10 etc.).
+However, you cannot start a peer any way you want. When we started our original peer, we specified in its configuration that it has to trust very specific peers, which have a particular private key, and listen on a specific address. In order to know how to run them appropriately, take a look at `docker-compose.yml`.
 
 ::: details docker-compose.yaml
 
@@ -166,17 +166,17 @@ services:
 
 :::
 
-For every peer, the `environment` section is the set of things that you should put in front of the `iroha` command, replacing colons with equals signs. All the socket addresses are also given internal to the docker network, so we should replace them with `[localhost](http://localhost)` which is `127.0.0.1` on most machines.
+The `environment` section is the set of things that you should put in front of the `iroha` command for every peer, replacing colons with equals signs. All the socket addresses are also provided to the docker network, so we should replace them with `[localhost](http://localhost)` which is `127.0.0.1` on most machines.
 
 ::: tip
 
-Each Iroha instance is going to listen on three ports: the Peer-to-peer communications channel (`133X`), the API url, where most client requests are posted (`808X`), and finally, a telemetry endpoint `818X`. All three ports need to be adjusted so there are no collisions. See the `docker-compose.yml` for an example, and adjust as needed.
+Each Iroha instance is going to listen to three ports: the Peer-to-peer communications channel (`133X`), the API url, where most client requests are posted (`808X`), and finally, a telemetry endpoint `818X`. All three ports need to be adjusted so there are no collisions. See the `docker-compose.yml` for an example, and adjust as needed.
 
 :::
 
 ## Environment Variables: deploy a minimal BFT network
 
-So to run the First peer, we need to write
+To run the First peer, we need to input
 
 ```bash
 TORII_P2P_ADDR="127.0.0.1:1337"
@@ -196,13 +196,13 @@ To copy and paste into the terminal on Linux systems, you should remember that `
 
 Also note that we asked this peer to `--submit` or `--submit-genesis`. This means that in the initial network topology, this peer is the leader. At least one peer (usually the first) needs to be the leader in the initial topology.
 
-Now you should do the same for the other four peers. Be mindful not to mix up which address goes which, replace `irohaX` with `127.0.0.1` in the addresses, and make sure that they correspond to the right public key.
+Now you should do the same for the other four peers. Be mindful not to mix up which address goes where, replace `irohaX` with `127.0.0.1` in the addresses, and make sure that they correspond to the right public key.
 
-This is messy, and error-prone, which is why the tutorial uses `docker-compose`. However, this brings you closer to the experience of actually maintaining a functional Iroha peer.
+This is a messy and error-prone process, which is why the tutorial uses `docker-compose`. However, this brings you closer to the experience of actually maintaining a functional Iroha peer.
 
 ## Files: deploy a minimal BFT network
 
-Our first peer can run off of the original configuration file. What we should do is create three more similar files and move them to three different folders e.g. `peer1`, `peer2`. What you need to do is change the `TORII:P2P_ADDR`, `TORII:API_URL` `TORII:STATUS_URL` and the `PUBLIC_KEY` configuration options to align with their `docker-compose.yml` counterparts. Then in each of the new folders (`peer1`, `peer2` etc.) run:
+Our first peer can run off of the original configuration file. What we should do is create three more similar files and move them to three different folders e.g. `peer1`, `peer2`. What you need to do is change the `TORII:P2P_ADDR`, `TORII:API_URL` `TORII:STATUS_URL` and the `PUBLIC_KEY` configuration options to align with their `docker-compose.yml` counterparts. Then, in each of the new folders (`peer1`, `peer2` etc.) run:
 
 ```bash
 iroha
@@ -214,33 +214,33 @@ except for one. In the first folder `peer0` you should instead run
 iroha --submit-genesis
 ```
 
-We effectively asked this peer to `--submit` or `--submit-genesis` in the initial or _bootstrap_ network. This means that in the initial network topology, this peer is the leader.
+We have effectively asked this peer to `--submit` or `--submit-genesis` in the initial or _bootstrap_ network. This means that in the initial network topology, this peer is the leader.
 
 ::: info Note
 
 Only the leader of the genesis network needs to have access to `genesis.json`. Having the same genesis in the initial folders of the other peers could be useful, since future versions of `iroha` will also sanity-check the genesis blocks.
 
-Now you should do the same for the other four peers. Be mindful not to mix up which address goes which, replace `irohaX` with `127.0.0.1` in the addresses, and make sure that they correspond to the right public key.
+Now you should do the same for the other four peers. Be mindful not to mix up which address goes where, replace `irohaX` with `127.0.0.1` in the addresses, and make sure that they correspond to the right public key.
 
-This is messy, and error-prone, which is why the tutorial uses `docker-compose`. However, this brings you closer to the experience of actually maintaining a functional Iroha peer.
+This is a messy and error-prone process, which is why the tutorial uses `docker-compose`. However, this brings you closer to the experience of actually maintaining a functional Iroha peer.
 
-If all went well, you should be greeted with nice logs on each of the nodes, and the nodes should commit the blocks to the `blocks/` directory.
+If all went well, you should be greeted with a nice log on each of the nodes, and the nodes should commit blocks to the `blocks/` directory.
 
 ## Real-world deployment
 
-Suppose now, that you have done all of the tinkering and want to deploy Iroha in the real world. Firstly, you should build it in release mode:
+Suppose now, that you have done all of the tinkering and want to deploy Iroha in the real world. First of all, you should build it in release mode:
 
 ```bash
 cargo build --release
 ```
 
-Secondly, you want to generate a key pair for your peer:
+Second, you want to generate a key pair for your peer:
 
 ```bash
 cargo run --bin iroha_crypto_cli
 ```
 
-And take not of that key. Thirdly, you should register your peer to a network, and make sure to add at least four of the peers on that network to the `TRUSTED_PEERS` array in your configuration file. You then determine the web socket that the other peers will use to connect to you. Make sure that the port is open and use that Address in your `config.json`. Finally, after you finished editing the configuration file iroha is deployed by running
+And take note of that key. Third, you should register your peer to a network, and make sure to add at least four additional peers on that network to the `TRUSTED_PEERS` array in your configuration file. You can then determine the web socket that other peers will use to connect to you. Make sure that the port is open and use that Address in your `config.json`. Finally, after you have finished editing the configuration file, iroha is deployed by running
 
 ```bash
 ~/Git/iroha/target/release/iroha
