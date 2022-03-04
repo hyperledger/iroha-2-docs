@@ -61,11 +61,11 @@ cl = Client(cfg)
 
 If the configuration file is malformed, you can expect an `exception` to notify you. However, the client doesn't do any verification: if the account used in `config.json` is not in the blockchain, or has the wrong private key, you won't know that until you try and execute a simple instruction. More on that in the following section.
 
-It should also be noted that Iroha Python is under heavy development. It severely lacks in documentation, and its API can be made more idiomatically Python. At the time of writing there are no active maintainers of the Iroha Python library.
+It should also be noted that Iroha Python is under heavy development. It severely lacks in documentation and its API can be made more idiomatically Python. At the time of writing there are no active maintainers of the Iroha Python library.
 
 ## 3. Registering a Domain
 
-It is important to remember, that Iroha python is wrapping Rust code. As such. many of Python's idioms are not yet accommodated: for example, there's no duck-typing of the `Register` instruction.
+It is important to remember that Iroha python is wrapping Rust code. As such, many of Python's idioms are not yet accommodated; for example, there's no duck-typing of the `Register` instruction.
 
 ```python
 from iroha2.data_model.isi import *
@@ -90,7 +90,7 @@ Note that we also keep track of the `hash` of the transaction. This will become 
 
 ## 4. Registering an Account
 
-Similarly to the previous case. Except the wrapping structures are different. There are a couple of things to watch out for: First of all, we can only register an account to an existing domain. The best UX design practices dictate that you should check if the requested domain exists now, and if it doesn’t — suggest a fix to the user.
+Similarly to the previous case, except the wrapping structures are different. There are a couple of things to watch out for: First of all, we can only register an account to an existing domain. The best UX design practices dictate that you should check if the requested domain exists now, and if it doesn’t — suggest a fix to the user.
 
 ```python
 from iroha2.data_model.isi import *
@@ -129,7 +129,7 @@ time = asset.Definition(
 )
 ```
 
-Note the following. First, we used the `**kwargs` syntax to make everything more explicit.
+Note the following; First, we used the `**kwargs` syntax to make everything more explicit.
 
 We have a `value_type` which must be specified. Python is duck-typed, while Rust isn’t. Make sure that you track the types diligently, and make use of `mypy` annotations. The `Quantity` value type is an internal 32-bit unsigned integer. Your other options are `BigQuantity` which is a 128-bit unsigned integer and `Fixed`. All of these are unsigned. Any checked operation with a negative `Fixed` value (one that you got by converting a negative floating-point number), will result in an error.
 

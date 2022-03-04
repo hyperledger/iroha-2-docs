@@ -4,7 +4,7 @@
 
 In this part we shall cover the main things to look out for if you want to use Iroha 2. Instead of providing the complete basics, we shall assume knowledge of the most widely used concepts, explain what’s unusual about Iroha 2 specifically, and provide a step-by-step guide to creating your own Rust client for it.
 
-We assume that you know how to create a new package, and have basic understanding of the fundamental Rust code: `async` functions, `enum` types, traits and borrowing/ownership, as well as usage of the libraries that we also use: `serde`, `tokio`, `tracing` etc. If you don't feel comfortable with any of the above, we recommend consulting [the Rust book](https://doc.rust-lang.org/stable/book/) and [docs.rs](https://docs.rs/).
+We assume that you know how to create a new package and have basic understanding of the fundamental Rust code; `async` functions, `enum` types, traits and borrowing/ownership, as well as usage of the libraries that we also use: `serde`, `tokio`, `tracing` etc. If you don't feel comfortable with any of the above, we recommend consulting [the Rust book](https://doc.rust-lang.org/stable/book/) and [docs.rs](https://docs.rs/).
 
 Iroha 2 makes extensive use of [workspaces](https://doc.rust-lang.org/book/ch14-03-cargo-workspaces.html) (or crates), that go in a domain-first order. What that means is that instead of having a global _constants_ crate, we have a crate for the blockchain data model (`iroha_data_model`), a crate with cryptographic primitives `iroha_crypto` and so on. These, _individually_ have a module for constants.
 
@@ -116,7 +116,7 @@ These sorts of subtle mistakes can be avoided, by e.g. deserialising directly fr
 
 ## 3. Registering a Domain
 
-Registering a domain is a relatively easy operation. Most of the boiler-plate code has to do with setting up the Iroha 2 client and deserialising its configuration. To register a domain, you need the domain name;
+Registering a domain is a relatively easy operation. Most of the boilerplate code has to do with setting up the Iroha 2 client and deserialising its configuration. To register a domain, you need the domain name;
 
 ```rust
 let looking_glass = iroha_data_model::domain::Domain::new("looking_glass");
@@ -251,7 +251,7 @@ Finally, we should talk about visualising data. The Rust API is currently the mo
 
 We shall, however, leave most of the aforementioned advanced features down the rabbit hole, up to the reader's own devices to discover. This document can easily get out of sync with the state of the API features. By contrast, the online documentation is always up to date. Plus a short tutorial wouldn't be able to do all these features justice. Instead, we shall retain parity with other language tutorials and introduce you to pipeline filters.
 
-There are two possible event filters: `PipelineEventFilter` and `DataEventFilter`, we shall focus on the former. This filter sieves events pertaining to the process of submitting a transaction, executing a transaction and committing it to a block.
+There are two possible event filters: `PipelineEventFilter` and `DataEventFilter`, we shall focus on the former. This filter sieves events pertaining to the process of submitting a transaction, executing a transaction, and committing it to a block.
 
 First, let's build a filter
 

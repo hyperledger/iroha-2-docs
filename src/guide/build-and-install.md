@@ -71,7 +71,7 @@ rustup toolchain update stable
 
 and that should fix your problems. But, if you're reading this, it's reasonable to assume that it didn't.
 
-One other option is that you have the up-to-date `stable` toolchain, but it's not set as the default.
+Another option is that you have the up-to-date `stable` toolchain, but it's not set as the default.
 
 ```bash
 rustup default stable
