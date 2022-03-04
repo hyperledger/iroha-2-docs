@@ -175,7 +175,7 @@ We take pride in the fact that Iroha is extremely quick to compile. For referenc
 
 ### Bring up a minimal network
 
-You can run Iroha directly on bare metal, but we recommend bringing up a network of 4 containerised peers using `docker-compose` . Of course, installing Docker might seem like a daunting task, but it allows for reproducible management of configurations, which is oftentimes tricky on bare metal. Please consult the [appendix](/guide/appendix) for how to do that.
+You can run Iroha directly on bare metal, but we recommend bringing up a network of 4 containerised peers using `docker-compose` . Of course, installing Docker might seem like a daunting task, but it allows for reproducible management of configurations, which is oftentimes tricky on bare metal. Please consult the [appendix](/guide/appendix/running-iroha-on-bare-metal) for how to do that.
 
 ```bash
 docker compose up
