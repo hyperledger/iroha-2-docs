@@ -96,17 +96,16 @@ edition = "2021"
 crate-type = ['cdylib']
 
 [dependencies]
-iroha_data_model = { git = "https://github.com/hyperledger/iroha/", branch = "iroha2", default-features = false }
 iroha_wasm = { git = "https://github.com/hyperledger/iroha/", branch = "iroha2" }
 
 parity-scale-codec = {version = "2.3.1", default-features = false }
 ```
 
-Note that the crate type is `cdylib`. WASM is a portable format, most Rust code is linked in a non-portable architecture- and OS-specific static manner. As Rust does not (at present) have a stable ABI, we have to rely on the C-linkage to generate WASM. You don't have to worry about C foreign function interfaces too much in the smart contract itself, we took care of most of that for you.
+Note that the crate type is `cdylib`. Most Rust code is linked in a non-portable architecture and OS-specific static manner, but WASM is a portable format. Since C ABI is the lingua franca of the programming world and there is no other stable Rust ABI, Iroha relies on the C-linkage to generate WASM bindings. Note that you don't have to worry about C FFI in the smart contract itself, most of that is taken care for you.
 
-`iroha_data_model` is the crate that contains the basic ISI and types. `iroha_wasm` is the crate that contains all of the bindings, macros and trait implementations that you'd need to write the program. `parity-scale-codec` is (as of today) the chosen serialisation format. We intend to replace it with a different format in the near future, as this particular crate is rather large[^2].
+`iroha_wasm` is the crate that contains all of the bindings, macros and trait implementations that you'd need to write the program, most notably the `iroha_wasm` attribute macro. This crate also exposes `data_model` which contains all of the basic ISI and types. `parity-scale-codec` is (as of today) the chosen serialisation format with a strong possibility of getting replaced by a different(custom) serialization format in the near future, as it seems to dominate the binary size[^2].
 
-Now that we have the preliminaries nailed down, we get to writing some code. In the `lib.rs` you should write the following:
+Now that the preliminaries are nailed down, we get to write a basic smart contract. In the `src/lib.rs` you should write the following:
 
 
 ```rust
@@ -121,10 +120,8 @@ use iroha_wasm::data_model::prelude::*;
 
 #[iroha_wasm::iroha_wasm]
 fn smartcontract_entry_point(_account_id: AccountId) {
-    // Find all Registered domains
     let query = QueryBox::FindAllDomains(FindAllDomains {});
-    let QeuryResult(query_result) = query.execute();
-    let domains: Vec<Domain> = query_result.try_into().unwrap();
+    let domains: Vec<Domain> = query.execute().try_into().unwrap();
 
     // Add a "mad_hatter" to each domain.
     for domain in domains {
@@ -141,7 +138,7 @@ fn smartcontract_entry_point(_account_id: AccountId) {
 `cargo run --release` will submit the instruction and run it for you (be sure to have a peer up).
 
 
-What this smart contract does is query all of the currently existing domains, put the results into a `std::vec::Vec`, which in this case has to be imported from `alloc`, as we use `no_std` (more on that later), which is then used to add the user named `mad_hatter` to all of the existing domains.
+What this smart contract does is query all of the currently existing domains, put the results into a `std::vec::Vec`, which in this case has to be imported from `alloc`, as we use `no_std`(more on that later), which is then used to add the user named `mad_hatter` to all of the existing domains.
 
 Building the same logic out of `Expression` and `If` and `Sequence` would be significantly harder. Moreover, the actual low-level instructions that would run are very likely not going to be as well-optimised as what the compiler produces.
 
@@ -161,11 +158,11 @@ opt-level = "z"     # Optimize for size vs speed with "s"/"z"(removes vectorizat
 codegen-units = 1   # Further reduces binary size but increases compilation time
 ```
 
-Here we note a few things; firstly, when you encounter a panic in Rust, it stores a bit of debug information, so that you can interpret what happened inside the program, and debug, even when compiled in `release` mode. We explicitly state that we don't want any of that, and instead want panics to just stop the execution. We're not losing any functionality, despite what you might think, failure to execute a WASM blob isn't considered a warning-level event and is not logged even on the peer, so even if you had some useful information in the panic message, you have no reliable way of retrieving it.
+A few things should be noted; first, Rust stores a lot of debug information(even when compiled in `release` mode) to aid you when you encounter a panic, so that you can debug your application. All this debug information bloats the binary significantly, so instead of storing it, panics are directed to immediately abort the execution. By doing this no crucial functionality is lost, despite to what you might think. Panics are a rare event in the Rust world and the reason of failure to execute a WASM blob isn't logged on the peer, so even if you had some useful information in the panic message, you have no reliable way of retrieving it.
 
-Another step that we've already taken involves working under `no_std`. All of our size-related woes stem from Rust being predominantly statically linked. As such breaking the standard library into more manageable crates, like using `alloc::vec` instead of `std::vec` can help us reduce the size and compilation time[^3].
+Another step that was already taken involves working under `no_std` environment. All of our size-related woes stem from Rust being predominantly statically linked. As such, breaking the standard library into more manageable crates, like using `alloc::vec` instead of `std::vec` can help us reduce the size and compilation time[^3].
 
-Next, you'd need to re-compile `libcore` and any other standard library crate (e.g. `alloc`) to exclude the features that we've just disabled:
+Next, you're advised to re-compile `libcore` and any other standard library crate(e.g. `alloc`) to exclude the leftover panicking infrastructure that comes with prebuilt `core` library(it's also possible `wasm-opt` can be configured to remove these sections for you):
 
 ```bash
 cargo +nightly build -Z build-std -Z build-std-features=panic_immediate_abort --target wasm32-unknown-unknown
@@ -173,9 +170,9 @@ cargo +nightly build -Z build-std -Z build-std-features=panic_immediate_abort --
 
 Unfortunately, this is an unstable feature. In other words, the developers of the Rust programming language can decide to change how this works, or remove this option entirely.
 
-Finally, you can use an automated tool to optimise the size of the WASM using [`wasm-opt`](https://github.com/WebAssembly/binaryen), or use [`twiggy`](https://rustwasm.github.io/twiggy/) to guide your manual optimisation efforts.
+Finally, you can use an automated tool to optimise the size of the WASM using [`wasm-opt`](https://github.com/WebAssembly/binaryen), or use [`twiggy`](https://rustwasm.github.io/twiggy/) to guide your manual optimisation efforts. Using `wasm-opt` is highly advised because it will often significantly reduce your binary size, e.g.: `$ wasm-opt -Os -o output.wasm input.wasm`.
 
-At some, point, unfortunately, the smallest size of your WASM blob is going to be determined by the libraries that you need to use. Using all of the above steps on the provided smart contract, can reduce it down to a manageable (for the blockchain) size. However, more than three quarters of it is occupied by the code of `parity_scale_codec`, and can't be reduced further. Well, actually it can, but we need to change some things on the back end too, so you should stay tuned for RC3.
+At some, point, unfortunately, the smallest size of your WASM blob is going to be determined by the libraries that you need to use. Using all of the above steps on the provided smart contract, can reduce it down to a manageable (for the blockchain) size. Stay tuned for RC3 for further optimizations of binary size.
 
 [^1]: For prospective wizards, the whitepaper is a good start (TODO: link).
 [^2]: Size is an important metric. We shall cover size-optimisation strategies as we go.
