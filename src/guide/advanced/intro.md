@@ -2,7 +2,7 @@
 
 This is the part of the tutorial, where we say "you're not a newbie anymore" and hit you hard with the features that make Iroha truly special. Here we will cover in some breadth the _Iroha special instructions_, Web-assembly, and how both are used in creating what's know as a _smart contract_.
 
-The basic premise is if the blockchain is the computer, then `iroha_client_cli` or any of the client libraries for that matter, are the keyboard, the blockchain is the hard drive, and the Iroha peer software is the processor. Like a processor, Iroha accepts portable instructions which modify what's written to the blockchain, allow certain users to use the network, others — lock out.
+The basic premise is; if the blockchain is the computer, then `iroha_client_cli` or any of the client libraries for that matter, are the keyboard, the blockchain is the hard drive, and the Iroha peer software is the processor. Like a processor, Iroha accepts portable instructions which modify what's written to the blockchain, allow certain users to use the network, and lock out others. 
 
 As such, any operation that is run on-chain is written in terms of Iroha Special Instructions (ISI), and there is no other way of modifying the world state that would pass consensus. To understand why, we'll need to make a short detour into how Iroha is implemented under the hood.
 
