@@ -4,7 +4,7 @@
 
 In this part we shall cover the main things to look out for if you want to use Iroha 2 in your Kotlin application. Instead of providing the complete basics, we shall assume knowledge of the most widely used concepts, explain the unusual, and provide some instructions for creating your own Iroha 2-compatible client.
 
-We assume that you know how to create a new package, and have basic understanding of the fundamental kotlin code. Specifically, we shall assume that you know how to build and deploy your program on the target platforms. The Iroha 2 JVM-compatible SDKs are as much a work-in-progress as the rest of this guide, and significantly more so than the Rust library.
+We assume that you know how to create a new package and have basic understanding of the fundamental kotlin code. Specifically, we shall assume that you know how to build and deploy your program on the target platforms. The Iroha 2 JVM-compatible SDKs are as much a work-in-progress as the rest of this guide, and significantly more so than the Rust library.
 
 Without further ado, here’s an example `build.gradle` file.
 
@@ -61,7 +61,7 @@ enum class MaxLogLevel {
 
 ## 3. Registering a Domain
 
-Registering a domain is one of the easier operations. The usual boiler-plate code, that often only serves to instantiate a client from an on-disk configuration file is unnecessary. Instead, one has to deal with a few imports:
+Registering a domain is one of the easier operations. The usual boilerplate code, that often only serves to instantiate a client from an on-disk configuration file is unnecessary. Instead, one has to deal with a few imports:
 
 ```kotlin
 import org.junit.jupiter.api.extension.ExtendWith

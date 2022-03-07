@@ -68,7 +68,7 @@ const client = Client.create({
 
 That's enough to perform health or status check, but if you need to use transactions or queries, you’ll need to prepare a key pair.
 
-Let's assume that you have stringified public & private keys, more on that later. Thus, a key-pair generation could look like this:
+Let's assume that you have stringified public & private keys (more on that later). Thus, a key-pair generation could look like this:
 
 ```ts
 import { crypto } from '@iroha2/crypto-target-node'
@@ -114,7 +114,7 @@ const kp = generateKeyPair({
 
 ## 3. Registering a Domain
 
-Here we see how similar the JavaScript code is to the Rust counterpart. It should be emphasised that the JavaScript library is a thin wrapper: It doesn’t provide any special builder structures, meaning you have to work with bare-bones compiled Data Model structures and define all internal fields explicitly. Doubly so, since JavaScript employs many implicit conversions, we highly recommend that you employ typescript. This makes many errors far easier to debug, but unfortunately results in more boiler-plate.
+Here we see how similar the JavaScript code is to the Rust counterpart. It should be emphasised that the JavaScript library is a thin wrapper: It doesn’t provide any special builder structures, meaning you have to work with bare-bones compiled Data Model structures and define all internal fields explicitly. Doubly so, since JavaScript employs many implicit conversions, we highly recommend that you employ typescript. This makes many errors far easier to debug, but unfortunately results in more boilerplate.
 
 Let’s register a new domain with the name `looking_glass` our current account: _alice@wondeland_.
 
@@ -221,7 +221,7 @@ await ensureDomainExistence('looking_glass')
 
 Registering an account is a bit more involved than registering a domain. With a domain, the only concern is the domain name, however, with an account, there are a few more things to worry about.
 
-First of all, we need to create an `AccountId`. Note, that we can only register an account to an existing domain. The best UX design practices dictate that you should check if the requested domain exists _now_, and if it doesn’t — suggest a fix to the user. After that, we can create a new account, that we name _white_rabbit._
+First of all, we need to create an `AccountId`. Note that we can only register an account to an existing domain. The best UX design practices dictate that you should check if the requested domain exists _now_, and if it doesn’t — suggest a fix to the user. After that, we can create a new account, that we name _white_rabbit._
 
 ```ts
 import { AccountId } from '@iroha2/data-model'
@@ -302,7 +302,7 @@ const register = RegisterBox.defineUnwrap({
 })
 ```
 
-Pay attention to that we have defined the asset as `mintable: false`. What this means is that we cannot create more of `time`. The late bunny will always be late, because even the super-user of the blockchain cannot mint more of `time` than already exists in the genesis block.
+Pay attention to the fact that we have defined the asset as `mintable: false`. What this means is that we cannot create more of `time`. The late bunny will always be late, because even the super-user of the blockchain cannot mint more of `time` than already exists in the genesis block.
 
 This means that no matter how hard the _white_rabbit_ tries, the time that he has is the time that was given to him at genesis. And since we haven’t defined any time in the domain _looking_glass at_ genesis and defined time in a non-mintable fashion afterwards, the _white_rabbit_ is doomed to always be late.
 

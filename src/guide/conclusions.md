@@ -1,6 +1,6 @@
 # Conclusions
 
-The current iteration of the Iroha 2 tutorial is a constant work in progress. We are updating the tutorial with each release to reflect the state of Iroha and the newly added features. While we do our best, to keep this tutorial up to date, it can go out of sync by a few days or maybe a week.
+The current iteration of the Iroha 2 tutorial is a constant work in progress. We are updating the tutorial with each release to reflect the state of Iroha and the newly added features. While we do our best to keep this tutorial up to date, it can go out of sync by a few days or maybe a week.
 
 Additionally, this tutorial will have a few sections dedicated to:
 
