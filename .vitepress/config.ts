@@ -133,5 +133,10 @@ export default defineConfigWithTheme({
       '/': getGuideSidebar(),
     },
     nav: getNav(),
+
+    algolia: {
+      apiKey: '8bfee9daad08876f8544cbc1ef2be0eb',
+      indexName: 'hyperledger_iroha2_docs'
+    }
   },
 })
