@@ -54,14 +54,12 @@ A basic client setup looks straightforward:
 ```ts
 import { Client } from '@iroha2/client'
 
-const client = Client.create({
+const client = new Client({
   torii: {
-    // specify it if you want to use Transactions API,
-    // Query API, Events API or health check
+    // Both URLs are optional - in case you need only a part of endpoints,
+    // e.g. only Telemetry ones
     apiURL: 'http://127.0.0.1:8080',
-
-    // specify it if you want to perform status check
-    statusURL: 'http://127.0.0.1:8081',
+    telemetryURL: 'http://127.0.0.1:8081',
   },
 })
 ```
@@ -120,64 +118,63 @@ Let’s register a new domain with the name `looking_glass` our current account:
 
 ```ts
 import { Client } from '@iroha2/client'
-import { KeyPair } from '@iroha2/crypto-core'
 import {
-  AccountId,
-  Expression,
-  IdentifiableBox,
-  Instruction,
-  OptionU32,
-  QueryBox,
-  QueryPayload,
   RegisterBox,
-  TransactionPayload,
+  EvaluatesToIdentifiableBox,
+  Expression,
   Value,
+  IdentifiableBox,
+  Domain,
+  Id,
+  BTreeMapAccountIdAccount,
+  Metadata,
+  BTreeMapNameValue,
+  BTreeMapDefinitionIdAssetDefinitionEntry,
+  OptionIpfsPath,
+  Executable,
+  VecInstruction,
+  Instruction,
+  QueryBox,
 } from '@iroha2/data-model'
 
-const client: Client = /* snip */ ___
-const KEY_PAIR: KeyPair = /* snip */ ___
-const ACCOUNT_ID = AccountId.defineUnwrap({
-  name: 'Alice',
-  domain_name: 'Wonderland',
-})
+const client: Client = /* --snip-- */ ___
 ```
 
 To register a new domain, we need to submit a transaction with one instruction: to register a new domain. Let’s wrap it all in an async function:
 
 ```ts
 async function registerDomain(domainName: string) {
-  const registerBox = RegisterBox.defineUnwrap({
-    object: {
-      expression: Expression.variantsUnwrapped.Raw(
-        Value.variantsUnwrapped.Identifiable(
-          IdentifiableBox.variantsUnwrapped.Domain({
-            name: domainName,
-            accounts: new Map(),
-            metadata: {
-              map: new Map(),
-            },
-            asset_definitions: new Map(),
-          }),
+  const registerBox = RegisterBox({
+    object: EvaluatesToIdentifiableBox({
+      expression: Expression(
+        'Raw',
+        Value(
+          'Identifiable',
+          IdentifiableBox(
+            'Domain',
+            Domain({
+              id: Id({
+                name: domainName,
+              }),
+              accounts: BTreeMapAccountIdAccount(new Map()),
+              metadata: Metadata({ map: BTreeMapNameValue(new Map()) }),
+              asset_definitions: BTreeMapDefinitionIdAssetDefinitionEntry(
+                new Map(),
+              ),
+              logo: OptionIpfsPath('None'),
+            }),
+          ),
         ),
       ),
-    },
+    }),
   })
 
-  const instruction = Instruction.variantsUnwrapped.Register(registerBox)
-
-  const payload = TransactionPayload.defineUnwrap({
-    account_id: ACCOUNT_ID,
-    instructions: [instruction],
-    time_to_live_ms: 100_000n,
-    creation_time: BigInt(Date.now()),
-    metadata: new Map(),
-    nonce: OptionU32.variantsUnwrapped.None,
-  })
-
-  await client.submitTransaction({
-    payload: TransactionPayload.wrap(payload),
-    signing: KEY_PAIR,
-  })
+  await client.submit(
+    Executable(
+      'Instructions',
+      VecInstruction([Instruction('Register', registerBox)]),
+    ),
+  )
 }
 ```
 
@@ -191,21 +188,13 @@ We can also ensure that new domain is created using Query API. Let’s create an
 
 ```ts
 async function ensureDomainExistence(domainName: string) {
-  const result = await client.makeQuery({
-    payload: QueryPayload.wrap({
-      query: QueryBox.variantsUnwrapped.FindAllDomains(null),
-      timestamp_ms: BigInt(Date.now()),
-      account_id: ACCOUNT_ID,
-    }),
-    signing: KEY_PAIR,
-  })
+  const result = await client.request(QueryBox('FindAllDomains', null))
 
   const domain = result
     .as('Ok')
-    .unwrap()
     .as('Vec')
     .map((x) => x.as('Identifiable').as('Domain'))
-    .find((x) => x.name === domainName)
+    .find((x) => x.id.name === domainName)
 
   if (!domain) throw new Error('Not found')
 }
@@ -226,7 +215,7 @@ First of all, we need to create an `AccountId`. Note that we can only register a
 ```ts
 import { AccountId } from '@iroha2/data-model'
 
-const id = AccountId.defineUnwrap({
+const id = AccountId({
   name: 'white_rabbit',
   domain_name: 'looking_glass',
 })
@@ -237,7 +226,7 @@ Second, you should provide the account with a public key. It is tempting to gene
 ```ts
 import { PublicKey } from '@iroha2/data-model'
 
-const key = PublicKey.defineUnwrap({
+const key = PublicKey({
   payload: new Uint8Array([
     /* ... */
   ]),
@@ -255,18 +244,23 @@ import {
   IdentifiableBox,
 } from '@iroha2/data-model'
 
-RegisterBox.defineUnwrap({
-  object: {
-    expression: Expression.variantsUnwrapped.Raw(
-      Value.variantsUnwrapped.Identifiable(
-        IdentifiableBox.variantsUnwrapped.NewAccount({
-          id,
-          signatories: [key],
-          metadata: { map: new Map() },
-        }),
+RegisterBox({
+  object: EvaluatesToIdentifiableBox({
+    expression: Expression(
+      'Raw',
+      Value(
+        'Identifiable',
+        IdentifiableBox(
+          'NewAccount',
+          NewAccount({
+            id,
+            signatories: VecPublicKey([key]),
+            metadata: Metadata({ map: BTreeMapNameValue(new Map()) }),
+          }),
+        ),
       ),
     ),
-  },
+  }),
 })
 ```
 
@@ -278,29 +272,46 @@ Now we must talk a little about assets. Iroha has been built with few underlying
 
 Specifically, we have `AssetValueType::Quantity` which is effectively an unsigned 32-bit integer, a `BigQuantity` which is an unsigned 128 bit integer, which is enough to trade all possible IPV6 addresses, and quite possibly individual grains of sand on the surface of the earth and `Fixed`, which is a positive (though signed) 64-bit fixed-precision number with nine significant digits after the decimal point. It doesn't quite use binary-coded decimal for performance reasons. All three types can be registered as either **mintable** or **non-mintable**.
 
-In JS, you can create a new asset with the following instruction:
+In JS, you can create a new asset with the following construction:
 
 ```ts
-const time = AssetDefinition.defineUnwrap({
-  value_type: AssetValueType.variantsUnwrapped.Quantity,
-  id: {
+const time = AssetDefinition({
+  value_type: AssetValueType('Quantity'),
+  id: DefinitionId({
     name: 'time',
-    domain_name: 'looking_glass',
-  },
-  metadata: { map: new Map() },
+    domain_id: Id({ name: 'looking_glass' }),
+  }),
+  metadata: { map: new Map() as BTreeMapNameValue } as Metadata,
   mintable: false,
 })
 
-const register = RegisterBox.defineUnwrap({
-  object: {
-    expression: Expression.variantsUnwrapped.Raw(
-      Value.variantsUnwrapped.Identifiable(
-        IdentifiableBox.variantsUnwrapped.AssetDefinition(time),
-      ),
+const register = RegisterBox({
+  object: EvaluatesToIdentifiableBox({
+    expression: Expression(
+      'Raw',
+      Value('Identifiable', IdentifiableBox('AssetDefinition', time)),
     ),
-  },
+  }),
 })
 ```
+
+::: tip
+
+To define structures from data model, you can use both factory style syntax and `as`-casting style syntax:
+
+```ts
+const map1: BTreeMapNameValue = BTreeMapNameValue(new Map())
+
+// or
+
+const map2: BTreeMapNameValue = new Map() as BTreeMapNameValue
+```
+
+Actually, the `BTreeMapNameValue()` function is just a no-op that returns what it receives, but it is very useful to deal with TypeScript.
+
+The second way is less type-safe, but more efficient at runtime because there is no runtime function evaluation.
+
+:::
 
 Pay attention to the fact that we have defined the asset as `mintable: false`. What this means is that we cannot create more of `time`. The late bunny will always be late, because even the super-user of the blockchain cannot mint more of `time` than already exists in the genesis block.
 
@@ -309,22 +320,25 @@ This means that no matter how hard the _white_rabbit_ tries, the time that he ha
 We can however mint a pre-existing `mintable: true` asset that belongs to Alice.
 
 ```ts
-const mint = MintBox.defineUnwrap({
-  object: {
-    expression: Expression.variantsUnwrapped.Raw(
-      Value.variantsUnwrapped.U32(42),
-    ),
-  },
-  destination_id: {
-    expression: Expression.variantsUnwrapped.Raw(
-      Value.variantsUnwrapped.Id(
-        IdBox.variantsUnwrapped.AssetDefinitionId({
-          name: 'roses',
-          domain_name: 'wonderland',
-        }),
+const mint = MintBox({
+  object: EvaluatesToValue({
+    expression: Expression('Raw', Value('U32', 42)),
+  }),
+  destination_id: EvaluatesToIdBox({
+    expression: Expression(
+      'Raw',
+      Value(
+        'Id',
+        IdBox(
+          'AssetDefinitionId',
+          DefinitionId({
+            name: 'roses',
+            domain_id: Id({ name: 'wonderland' }),
+          }),
+        ),
       ),
     ),
-  },
+  }),
 })
 ```
 
@@ -334,31 +348,250 @@ Again it should be emphasised that an Iroha 2 network is strongly typed. You nee
 
 Finally, we should talk about visualising data. The Rust API is currently the most complete in terms of available queries and instructions. After all, this is the language in which Iroha 2 was built.
 
-Let's build simple Vue 3 Listener component that uses Events API to catch pipeline events and renders them!
+Let's build a small Vue 3 application that uses each API we've discovered in this guide!
+
+Our app will consist of 3 main views:
+
+- Status checker, that periodically requests peer status (e.g. current blocks height) and shows it;
+- Domain creator, which is a form to create a new domain with specified name
+- Listener, that has a toggle to setup listening for events
+
+Our client config is the following (`config.json` file in the project):
+
+```json
+{
+  "torii": {
+    "apiURL": "http://127.0.0.1:8080",
+    "telemetryURL": "http://127.0.0.1:8081"
+  },
+  "account": {
+    "name": "alice",
+    "domain_id": {
+      "name": "wonderland"
+    }
+  },
+  "publicKey": "ed01207233bfc89dcbd68c19fde6ce6158225298ec1131b6a130d1aeb454c1ab5183c0",
+  "privateKey": {
+    "digestFunction": "ed25519",
+    "payload": "9ac47abf59b356e0bd7dcbbbb4dec080e302156a48ca907e47cb6aea1d32719e7233bfc89dcbd68c19fde6ce6158225298ec1131b6a130d1aeb454c1ab5183c0"
+  }
+}
+```
 
 ::: info
 
-The example above uses Composition API + `<script setup>` syntax.
+Keys here are just some sample keys, as well as account.
 
 :::
 
-In our component we will render a button to toggle listening state, and a list with registered events. Our events filter is set up to catch any transaction status change.
+To use them all, firstly we need to initialize our client & crypto.
 
 ```ts
+// crypto.ts
+
+import { init, crypto } from '@iroha2/crypto-target-web'
+
+// using top-level module await
+await init()
+
+export { crypto }
+```
+
+```ts
+// client.ts
+
+import { Client, setCrypto } from '@iroha2/client'
+import { KeyPair } from '@iroha2/crypto-core'
+import { hexToBytes } from 'hada'
+import { AccountId } from '@iroha2/data-model'
+
+// importing already initialized crypto
+import { crypto } from './crypto'
+
+// just a config with stringified keys
+import client_config from './config'
+
+setCrypto(crypto)
+
+export const client = new Client({
+  torii: {
+    // these ports are specified in the peer's own config
+    apiURL: `http://localhost:8080`,
+    telemetryURL: `http://localhost:8081`,
+  },
+  accountId: client_config.account as AccountId,
+  keyPair: generateKeyPair({
+    publicKeyMultihash: client_config.publicKey,
+    privateKey: client_config.privateKey,
+  }),
+})
+
+// just an util function
+function generateKeyPair(params: {
+  publicKeyMultihash: string
+  privateKey: {
+    digestFunction: string
+    payload: string
+  }
+}): KeyPair {
+  const multihashBytes = Uint8Array.from(
+    hexToBytes(params.publicKeyMultihash),
+  )
+  const multihash = crypto.createMultihashFromBytes(multihashBytes)
+  const publicKey = crypto.createPublicKeyFromMultihash(multihash)
+  const privateKey = crypto.createPrivateKeyFromJsKey(params.privateKey)
+
+  const keyPair = crypto.createKeyPairFromKeys(publicKey, privateKey)
+
+  for (const x of [publicKey, privateKey, multihash]) {
+    x.free()
+  }
+
+  return keyPair
+}
+```
+
+Fine, now we are ready to use client. Let's start from the StatusChecker component:
+
+```vue
+<script setup lang="ts">
+import { useIntervalFn, useAsyncState } from '@vueuse/core'
+import { client } from '../client'
+
+const { state: status, execute: updateStatus } = useAsyncState(
+  () => client.getStatus(),
+  null,
+  {
+    resetOnExecute: false,
+  },
+)
+
+useIntervalFn(() => updateStatus(), 1000)
+</script>
+
+<template>
+  <div>
+    <h3>Status</h3>
+
+    <ul v-if="status">
+      <li>Blocks: {{ status.blocks }}</li>
+      <li>Uptime (sec): {{ status.uptime.secs }}</li>
+    </ul>
+  </div>
+</template>
+```
+
+Ok, then let's build the CreateDomain component:
+
+```vue
+<script setup lang="ts">
+import {
+  BTreeMapAccountIdAccount,
+  BTreeMapDefinitionIdAssetDefinitionEntry,
+  BTreeMapNameValue,
+  Domain,
+  EvaluatesToIdentifiableBox,
+  Executable,
+  Expression,
+  Id,
+  IdentifiableBox,
+  Instruction,
+  Metadata,
+  OptionIpfsPath,
+  RegisterBox,
+  Value,
+  VecInstruction,
+} from '@iroha2/data-model'
+import { ref } from 'vue'
+import { client } from '../client'
+
+const domainName = ref('')
+const isPending = ref(false)
+
+async function register() {
+  try {
+    isPending.value = true
+
+    await client.submit(
+      Executable(
+        'Instructions',
+        VecInstruction([
+          Instruction(
+            'Register',
+            RegisterBox({
+              object: EvaluatesToIdentifiableBox({
+                expression: Expression(
+                  'Raw',
+                  Value(
+                    'Identifiable',
+                    IdentifiableBox(
+                      'Domain',
+                      Domain({
+                        id: Id({
+                          // We put our domainName here :)
+                          name: domainName.value,
+                        }),
+                        accounts: BTreeMapAccountIdAccount(new Map()),
+                        metadata: Metadata({
+                          map: BTreeMapNameValue(new Map()),
+                        }),
+                        asset_definitions:
+                          BTreeMapDefinitionIdAssetDefinitionEntry(
+                            new Map(),
+                          ),
+                        logo: OptionIpfsPath('None'),
+                      }),
+                    ),
+                  ),
+                ),
+              }),
+            }),
+          ),
+        ]),
+      ),
+    )
+  } finally {
+    isPending.value = false
+  }
+}
+</script>
+
+<template>
+  <div>
+    <h3>Create Domain</h3>
+    <p>
+      <label for="domain">New domain name:</label>
+      <input id="domain" v-model="domainName" />
+    </p>
+    <p>
+      <button @click="register">
+        Register domain{{ isPending ? '...' : '' }}
+      </button>
+    </p>
+  </div>
+</template>
+```
+
+And finally, let's build the Listener component which will use Events API to setup live connection with a peer:
+
+```vue
+<script setup lang="ts">
 import { SetupEventsReturn } from '@iroha2/client'
 import {
   EntityType,
   EventFilter,
   OptionEntityType,
   OptionHash,
+  PipelineEventFilter,
 } from '@iroha2/data-model'
-import { shallowReactive, shallowRef, computed } from 'vue'
+import {
+  shallowReactive,
+  shallowRef,
+  computed,
+  onBeforeUnmount,
+} from 'vue'
 import { bytesToHex } from 'hada'
-
-// Let's assume that you already have initialized client
 import { client } from '../client'
-
-// Where and how to store collected events
 
 type EventData = {
   hash: string
@@ -366,26 +599,23 @@ type EventData = {
 }
 
 const events = shallowReactive<EventData[]>([])
-
 const currentListener = shallowRef<null | SetupEventsReturn>(null)
-
 const isListening = computed(() => !!currentListener.value)
 
 async function startListening() {
   currentListener.value = await client.listenForEvents({
-    filter: EventFilter.wrap(
-      EventFilter.variantsUnwrapped.Pipeline({
-        entity: OptionEntityType.variantsUnwrapped.Some(
-          EntityType.variantsUnwrapped.Transaction,
-        ),
-        hash: OptionHash.variantsUnwrapped.None,
+    filter: EventFilter(
+      'Pipeline',
+      PipelineEventFilter({
+        entity: OptionEntityType('Some', EntityType('Transaction')),
+        hash: OptionHash('None'),
       }),
     ),
   })
 
+  // listening for provided EventEmitter
   currentListener.value.ee.on('event', (event) => {
-    const { hash, status } = event.unwrap().as('Pipeline')
-
+    const { hash, status } = event.as('Pipeline')
     events.push({
       hash: bytesToHex([...hash]),
       status: status.match({
@@ -397,38 +627,74 @@ async function startListening() {
   })
 }
 
-function stopListening() {
-  currentListener.value?.close()
+async function stopListening() {
+  await currentListener.value?.stop()
   currentListener.value = null
 }
+
+onBeforeUnmount(stopListening)
+</script>
+
+<template>
+  <div>
+    <h3>Listening</h3>
+
+    <p>
+      <button @click="isListening ? stopListening() : startListening()">
+        {{ isListening ? 'Stop' : 'Listen' }}
+      </button>
+    </p>
+
+    <p>Events:</p>
+
+    <ul>
+      <li v-for="{ hash, status } in events" :key="hash">
+        Transaction <code>{{ hash }}</code> status:
+        {{ status }}
+      </li>
+    </ul>
+  </div>
+</template>
 ```
 
-And finally, our component’s template:
+That’s it! Now we should only wrap it up with the App.vue component and app entrypoint:
 
-```vue-html
-<div>
-  <p>
-    <button v-if="isListening" @click="stopListening">
-      Stop listening
-    </button>
-    <button v-else @click="startListening">Listen</button>
-  </p>
+```vue
+<script setup lang="ts">
+import CreateDomain from './components/CreateDomain.vue'
+import Listener from './components/Listener.vue'
+import StatusChecker from './components/StatusChecker.vue'
+</script>
 
-  <p>Events:</p>
+<template>
+  <StatusChecker />
+  <hr />
+  <CreateDomain />
+  <hr />
+  <Listener />
+</template>
 
-  <ul>
-    <li v-for="{ hash, status } in events">
-      Transaction
-      <code>{{ hash }}</code> status: {{ status }}
-    </li>
-  </ul>
-</div>
+<style lang="scss">
+#app {
+  padding: 16px;
+  font-family: sans-serif;
+}
+</style>
 ```
 
-That’s it! Here is a small demo with usage of this component:
+```ts
+// main.ts
 
-<div class="border border-solid border-gray-300 rounded-md">
+import { createApp } from 'vue'
+import App from './App.vue'
 
-![Output visualization](/img/javascript-output.gif)
+createApp(App).mount('#app')
+```
+
+Here is a small demo with usage of this component:
+
+<div class="border border-solid border-gray-300 rounded-md shadow-md">
+
+![Output visualization](/img/sample-vue-app.gif)
 
 </div>
