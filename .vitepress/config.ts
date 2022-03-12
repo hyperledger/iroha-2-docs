@@ -135,9 +135,9 @@ export default defineConfigWithTheme({
     nav: getNav(),
 
     algolia: {
-      appId: '1NA2TANFI7',
-      apiKey: '8bfee9daad08876f8544cbc1ef2be0eb',
-      indexName: 'hyperledger_iroha2_docs'
+      appId: 'V04UIXRXW5',
+      apiKey: 'df91faea581b3b5145f676e262d5afc8',
+      indexName: 'hyperledger'
     }
   },
 })
