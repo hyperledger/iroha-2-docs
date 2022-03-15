@@ -695,6 +695,6 @@ Here is a small demo with usage of this component:
 
 <div class="border border-solid border-gray-300 rounded-md shadow-md">
 
-![Output visualization](/img/sample-vue-app.gif)
+![Demo of the sample Vue application](/img/sample-vue-app.gif)
 
 </div>
