@@ -72,6 +72,10 @@ function getGuideSidebar() {
       link: '/guide/conclusions',
     },
     {
+      text: 'Advanced Guides',
+      link: 'guide/advanced/intro',
+    },
+    {
       text: 'Appendix',
       link: '/guide/appendix/intro',
       children: [
