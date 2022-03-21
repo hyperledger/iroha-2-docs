@@ -1,5 +1,11 @@
 # Python 3 guide
 
+::: warning
+
+WIP: `iroha-python` works only with `iroha v2-pre-rc.1` for now.
+
+:::
+
 ## 1. Iroha 2 Client Setup
 
 There are two versions of Iroha python to choose from. In theory, the Iroha 1 version of Iroha Python (that also has the best documentation) should be compatible with an Iroha 2 deployment.
