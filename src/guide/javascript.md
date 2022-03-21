@@ -56,7 +56,7 @@ This guide targets `@iroha2/client@1.0.0` & `@iroha/data-model@1.0.0`.
 
 ## 2. Configuring Iroha 2
 
-The JavaScript Client is fairly low-level in the sense that it doesn’t expose any convenience features like a `TransactionBuilder` or a `ConfigBuilder`. Work on implementing those is underway, and these features will very likely be available with the second round of this tutorial’s release. Thus, on the plus side: configuration of the client is simple, on the negative side you have to prepare a lot is done manually.
+The JavaScript Client is fairly low-level in the sense that it doesn’t expose any convenience features like a `TransactionBuilder` or a `ConfigBuilder`. Work on implementing those is underway, and these features will very likely be available with the second round of this tutorial’s release. Thus, on the plus side: configuration of the client is simple, on the downside you have to prepare a lot manually.
 
 A basic client setup looks straightforward:
 
@@ -279,7 +279,7 @@ Which is then wrapped in a transaction and submitted to the peer as in the previ
 
 Now we must talk a little about assets. Iroha has been built with few underlying assumptions about what the assets need to be. The assets can be fungible (every £1 is exactly the same as every other £1), or non-fungible (a £1 bill signed by the Queen of Hearts is not the same as a £1 bill signed by the King of Spades), mintable (you can make more of them) and non-mintable (you can only specify their initial quantity in the genesis block). Additionally, the assets have different underlying value types.
 
-Specifically, we have `AssetValueType::Quantity` which is effectively an unsigned 32-bit integer, a `BigQuantity` which is an unsigned 128 bit integer, which is enough to trade all possible IPV6 addresses, and quite possibly individual grains of sand on the surface of the earth and `Fixed`, which is a positive (though signed) 64-bit fixed-precision number with nine significant digits after the decimal point. It doesn't quite use binary-coded decimal for performance reasons. All three types can be registered as either **mintable** or **non-mintable**.
+Specifically, we have `AssetValueType::Quantity` which is effectively an unsigned 32-bit integer, a `BigQuantity` that is an unsigned 128-bit integer, which is enough to trade all possible IPV6 addresses, and quite possibly individual grains of sand on the surface of the earth, as well as `Fixed`, which is a positive (though signed) 64-bit fixed-precision number with nine significant digits after the decimal point. It doesn't quite use binary-coded decimals for performance reasons. All three types can be registered as either **mintable** or **non-mintable**.
 
 In JS, you can create a new asset with the following construction:
 
