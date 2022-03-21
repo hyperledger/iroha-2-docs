@@ -88,3 +88,5 @@ There will be more content added to this tutorial as it is made available, and t
 This tutorial is aimed at both advanced users as well as novices. Advanced users can typically skip the 0-th subscetions of each section, while novices are advised to follow the instructions closely and not skip any steps. Although some questions can be answered with a quick google search, we gathered the most common mistakes and troubleshooting steps such that even people without prior experience in programming can follow along.
 
 :::
+
+Just a sample change to test Vercel integration
