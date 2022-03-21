@@ -13,6 +13,8 @@ The Iroha 2 JavaScript library consists of multiple packages:
 | `crypto-target-web`                                       | Compiled crypto WASM for native Web (ESM)                                                                                                          |
 | <code class="whitespace-pre">crypto-target-bundler</code> | Compiled crypto WASM to use with bundlers such as Webpack                                                                                          |
 
+
+
 All of the are published under scope `@iroha2` into Iroha Nexus Registry. In future, they will be published in the main NPM Registry. To install these packages, firstly you need to setup a registry:
 
 ```ini
@@ -44,6 +46,13 @@ setCrypto(crypto)
 Please refer to the related `@iroha2/crypto-target-*` package documentation because it may require some specific configuration. For example, the `web` target requires to call an asynchronous `init()` function before usage of `crypto`.
 
 :::
+
+::: info
+
+This guide targets `@iroha2/client@1.0.0` & `@iroha/data-model@1.0.0`.
+
+:::
+
 
 ## 2. Configuring Iroha 2
 
