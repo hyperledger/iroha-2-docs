@@ -1,5 +1,11 @@
 # JavaScript / TypeScript guide
 
+::: info
+
+This guide targets `@iroha2/client@1.0.0` & `@iroha/data-model@1.0.0`. **TODO update versions**
+
+:::
+
 ## 1. Iroha 2 Client Setup
 
 The Iroha 2 JavaScript library consists of multiple packages:
@@ -13,12 +19,10 @@ The Iroha 2 JavaScript library consists of multiple packages:
 | `crypto-target-web`                                       | Compiled crypto WASM for native Web (ESM)                                                                                                          |
 | <code class="whitespace-pre">crypto-target-bundler</code> | Compiled crypto WASM to use with bundlers such as Webpack                                                                                          |
 
-
-
 All of the are published under scope `@iroha2` into Iroha Nexus Registry. In future, they will be published in the main NPM Registry. To install these packages, firstly you need to setup a registry:
 
 ```ini
-# .npmrc
+# FILE: .npmrc
 @iroha2:registry=https://nexus.iroha.tech/repository/npm-group/
 ```
 
@@ -46,13 +50,6 @@ setCrypto(crypto)
 Please refer to the related `@iroha2/crypto-target-*` package documentation because it may require some specific configuration. For example, the `web` target requires to call an asynchronous `init()` function before usage of `crypto`.
 
 :::
-
-::: info
-
-This guide targets `@iroha2/client@1.0.0` & `@iroha/data-model@1.0.0`.
-
-:::
-
 
 ## 2. Configuring Iroha 2
 
@@ -134,11 +131,11 @@ import {
   Value,
   IdentifiableBox,
   Domain,
-  Id,
+  DomainId,
   BTreeMapAccountIdAccount,
   Metadata,
   BTreeMapNameValue,
-  BTreeMapDefinitionIdAssetDefinitionEntry,
+  BTreeMapAssetDefinitionIdAssetDefinitionEntry,
   OptionIpfsPath,
   Executable,
   VecInstruction,
@@ -162,14 +159,13 @@ async function registerDomain(domainName: string) {
           IdentifiableBox(
             'Domain',
             Domain({
-              id: Id({
+              id: DomainId({
                 name: domainName,
               }),
               accounts: BTreeMapAccountIdAccount(new Map()),
               metadata: Metadata({ map: BTreeMapNameValue(new Map()) }),
-              asset_definitions: BTreeMapDefinitionIdAssetDefinitionEntry(
-                new Map(),
-              ),
+              asset_definitions:
+                BTreeMapAssetDefinitionIdAssetDefinitionEntry(new Map()),
               logo: OptionIpfsPath('None'),
             }),
           ),
@@ -286,9 +282,9 @@ In JS, you can create a new asset with the following construction:
 ```ts
 const time = AssetDefinition({
   value_type: AssetValueType('Quantity'),
-  id: DefinitionId({
+  id: AssetDefinitionId({
     name: 'time',
-    domain_id: Id({ name: 'looking_glass' }),
+    domain_id: DomainId({ name: 'looking_glass' }),
   }),
   metadata: { map: new Map() as BTreeMapNameValue } as Metadata,
   mintable: false,
@@ -396,7 +392,7 @@ Keys here are just some sample keys, as well as account.
 To use them all, firstly we need to initialize our client & crypto.
 
 ```ts
-// crypto.ts
+// FILE: crypto.ts
 
 import { init, crypto } from '@iroha2/crypto-target-web'
 
@@ -407,7 +403,7 @@ export { crypto }
 ```
 
 ```ts
-// client.ts
+// FILE: client.ts
 
 import { Client, setCrypto } from '@iroha2/client'
 import { KeyPair } from '@iroha2/crypto-core'
@@ -496,13 +492,13 @@ Ok, then let's build the CreateDomain component:
 <script setup lang="ts">
 import {
   BTreeMapAccountIdAccount,
-  BTreeMapDefinitionIdAssetDefinitionEntry,
+  BTreeMapAssetDefinitionIdAssetDefinitionEntry,
   BTreeMapNameValue,
   Domain,
   EvaluatesToIdentifiableBox,
   Executable,
   Expression,
-  Id,
+  DomainId,
   IdentifiableBox,
   Instruction,
   Metadata,
@@ -536,8 +532,7 @@ async function register() {
                     IdentifiableBox(
                       'Domain',
                       Domain({
-                        id: Id({
-                          // We put our domainName here :)
+                        id: DomainId({
                           name: domainName.value,
                         }),
                         accounts: BTreeMapAccountIdAccount(new Map()),
@@ -545,7 +540,7 @@ async function register() {
                           map: BTreeMapNameValue(new Map()),
                         }),
                         asset_definitions:
-                          BTreeMapDefinitionIdAssetDefinitionEntry(
+                          BTreeMapAssetDefinitionIdAssetDefinitionEntry(
                             new Map(),
                           ),
                         logo: OptionIpfsPath('None'),
@@ -587,9 +582,9 @@ And finally, let's build the Listener component which will use Events API to set
 <script setup lang="ts">
 import { SetupEventsReturn } from '@iroha2/client'
 import {
-  EntityType,
+  PipelineEntityType,
   EventFilter,
-  OptionEntityType,
+  OptionPipelineEntityType,
   OptionHash,
   PipelineEventFilter,
 } from '@iroha2/data-model'
@@ -602,7 +597,7 @@ import {
 import { bytesToHex } from 'hada'
 import { client } from '../client'
 
-type EventData = {
+interface EventData {
   hash: string
   status: string
 }
@@ -616,13 +611,15 @@ async function startListening() {
     filter: EventFilter(
       'Pipeline',
       PipelineEventFilter({
-        entity: OptionEntityType('Some', EntityType('Transaction')),
+        entity: OptionPipelineEntityType(
+          'Some',
+          PipelineEntityType('Transaction'),
+        ),
         hash: OptionHash('None'),
       }),
     ),
   })
 
-  // listening for provided EventEmitter
   currentListener.value.ee.on('event', (event) => {
     const { hash, status } = event.as('Pipeline')
     events.push({
