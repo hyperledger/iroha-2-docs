@@ -98,6 +98,10 @@ function getGuideSidebar() {
           link: '/guide/appendix/client-configuration',
         },
         {
+          text: 'Peer Management',
+          link: '/guide/appendix/register-unregister',
+        },
+        {
           text: 'Genesis Block',
           link: '/guide/appendix/genesis',
         },
