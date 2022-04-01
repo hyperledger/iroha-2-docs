@@ -134,10 +134,10 @@ import {
   IdentifiableBox,
   Domain,
   DomainId,
-  VecTupleAccountIdAccount,
+  BTreeMapAccountIdAccount,
   Metadata,
-  VecTupleNameValue,
-  VecTupleAssetDefinitionIdAssetDefinitionEntry,
+  BTreeMapNameValue,
+  BTreeMapAssetDefinitionIdAssetDefinitionEntry,
   OptionIpfsPath,
   Executable,
   VecInstruction,
@@ -165,10 +165,10 @@ async function registerDomain(domainName: string) {
               id: DomainId({
                 name: domainName,
               }),
-              accounts: VecTupleAccountIdAccount([]),
-              metadata: Metadata({ map: VecTupleNameValue([]) }),
+              accounts: BTreeMapAccountIdAccount(new Map()),
+              metadata: Metadata({ map: BTreeMapNameValue(new Map()) }),
               asset_definitions:
-                VecTupleAssetDefinitionIdAssetDefinitionEntry([]),
+                BTreeMapAssetDefinitionIdAssetDefinitionEntry(new Map()),
               logo: OptionIpfsPath('None'),
             }),
           ),
@@ -235,7 +235,7 @@ import {
   Metadata,
   NewAccount,
   VecPublicKey,
-  VecTupleNameValue,
+  BTreeMapNameValue,
 } from '@iroha2/data-model'
 ```
 
@@ -275,7 +275,7 @@ const registerAccountInstruction = RegisterBox({
           NewAccount({
             id: accountId,
             signatories: VecPublicKey([key]),
-            metadata: Metadata({ map: VecTupleNameValue([]) }),
+            metadata: Metadata({ map: BTreeMapNameValue(new Map()) }),
           }),
         ),
       ),
@@ -301,7 +301,7 @@ import {
   AssetDefinitionId,
   DomainId,
   Metadata,
-  VecTupleNameValue,
+  BTreeMapNameValue,
   RegisterBox,
   EvaluatesToIdentifiableBox,
   Expression,
@@ -316,7 +316,7 @@ const time = AssetDefinition({
     name: 'time',
     domain_id: DomainId({ name: 'looking_glass' }),
   }),
-  metadata: Metadata({ map: VecTupleNameValue([]) }),
+  metadata: Metadata({ map: BTreeMapNameValue(new Map()) }),
   mintable: false, // If only we could mint more time.
 })
 
