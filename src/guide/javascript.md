@@ -521,9 +521,9 @@ Ok, then let's build the CreateDomain component:
 ```vue
 <script setup lang="ts">
 import {
-  VecTupleAccountIdAccount,
-  VecTupleAssetDefinitionIdAssetDefinitionEntry,
-  VecTupleNameValue,
+  BTreeMapAccountIdAccount,
+  BTreeMapAssetDefinitionIdAssetDefinitionEntry,
+  BTreeMapNameValue,
   Domain,
   EvaluatesToIdentifiableBox,
   Executable,
@@ -565,11 +565,13 @@ async function register() {
                         id: DomainId({
                           name: domainName.value,
                         }),
-                        accounts: VecTupleAccountIdAccount([]),
-                        metadata: Metadata({ map: VecTupleNameValue([]) }),
+                        accounts: BTreeMapAccountIdAccount(new Map()),
+                        metadata: Metadata({
+                          map: BTreeMapNameValue(new Map()),
+                        }),
                         asset_definitions:
-                          VecTupleAssetDefinitionIdAssetDefinitionEntry(
-                            [],
+                          BTreeMapAssetDefinitionIdAssetDefinitionEntry(
+                            new Map(),
                           ),
                         logo: OptionIpfsPath('None'),
                       }),
@@ -631,7 +633,9 @@ interface EventData {
 }
 
 const events = shallowReactive<EventData[]>([])
+
 const currentListener = shallowRef<null | SetupEventsReturn>(null)
+
 const isListening = computed(() => !!currentListener.value)
 
 async function startListening() {
