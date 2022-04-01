@@ -38,7 +38,7 @@ struct Trigger {
 
 where the `TriggerId` is a simple wrapper around a single `Name`, i.e. string with no white-space and no reserved characters (`@`, `#`). In the future, we shall add scoped triggers, and the Id will be expanded to be either a global trigger, or a trigger with a domain name. This is what determines the scope of the trigger.
 
-`Metadata` is the same kind of `Metadata` that can be attached to accounts, domains, assets and even transactions. In the future, such `Metadata` would also be possible to use as a persistent key-value store unique to the trigger, alongside `KeyValue` assets.
+`Metadata` is the same kind of `Metadata` that can be attached to accounts, domains, assets and even transactions.
 
 An `Action` is the heart of the trigger.
 
@@ -73,7 +73,7 @@ Once we're done with triggers, you will have the following basic types:
 3. By-call triggers
 4. Block-based triggers
 
-Each of these shall be covered in its own right, and some information shall be provided on how to use each of them in detail. Both this tutorial and triggers themselves are under construction; some triggers don't exist yet, the API of others will change drastically in the following release. We shall do our best to describe all of what we can, with as much detail as we can, and clearly signpost which parts of this tutorial will be made obsolete in the next release.
+Each of these shall be covered in its own right, and some information shall be provided on how to use each of them in detail. Both this tutorial and triggers themselves are under construction; some triggers don't exist yet, while the API of others will change drastically in the following release. We shall do our best to describe all of what we can, with as much detail as we can, and clearly signpost which parts of this tutorial will be made obsolete in the next release.
 
 
 ### Event Triggers
@@ -104,7 +104,7 @@ So, the offset is meant to anticipate when the block would get added to the chai
 
 ### Pre-commit Triggers
 
-This is a variant of timed triggers that gets run before transactions get committed. In reality it triggers in the next block, by leaving a special event, but it is effectively a delayed pre-commit that can track behaviour of transactions in the pipeline.
+This is a variant of timed triggers that gets run before transactions get committed. In reality it triggers in the next block, by leaving a special event, but it is effectively a delayed pre-commit that can track the behaviour of transactions in the pipeline.
 
 ::: info
 
@@ -260,7 +260,7 @@ Only the first type of event filter is implemented now, and the other two can be
 
 The above observation can be generalised. WASM can do any logic that a Turing complete machine could using the data available via queries. So in theory for event-based triggers, you could create an `AcceptAll` event filter and do all of the processing using the key-value store as persistent storage, and determining if you want to execute using easy to understand Rust code, and not our admittedly cumbersome, `EventFilters`. We don't want that. WASM takes up significantly more space, and takes longer to execute compared to plain ISI, which are slower than `EventFilters`. We want you to want to use the `EventFilters` because they would make the process much more efficient, and are working tirelessly to make the experience of using event filters much less cumbersome.
 
-However, as was mentioned on several occasions previously, implementing a feature well takes time and effort. Ergonomics must be balanced against safety and reliability, so we cannot just make things more easy to use. We want them to retain many of the advantages of strong typing.
+However, as was mentioned previously on several occasions, implementing a feature properly takes time and effort. Ergonomics must be balanced against safety and reliability, so we cannot just make things easier to use. We want them to retain many of the advantages of strong typing.
 
 
 ::: info

@@ -1,4 +1,4 @@
-## WASM
+# WASM
 
 While we had initially assumed that all operations within Iroha will be handled with instructions and conditionals, there are a few problems with this approach.
 
@@ -6,7 +6,7 @@ While we had initially assumed that all operations within Iroha will be handled 
     2. The ISI syntax is not familiar for most programmers.
     3. While ISI smart contracts are compact (usually a few bytes), they need to be hand-optimised.
 
-In the long run, all of these problems are taken care of by using a **domain-specific language**, which gets optimised and compiled into a sequence of instructions that executes fast, and takes very little space in the blocks, but is also easy to understand. Something that looks like your traditional `if` statements and `for` loops.
+In the long run, all of these problems are taken care of by using a **domain-specific language**, which gets optimised and compiled into a sequence of instructions that executes fast and takes very little space in the blocks, but is also easy to understand. Something that looks like your traditional `if` statements and `for` loops.
 
 However, in the interim, we have decided to use another portable binary standard called **Web assembly** or **WASM**. The main advantage of this format is that you can use any language you like (as long as it links statically against our helper library), and produce a 32-bit portable executable. The compilers take care of the optimisation, and you don't have to learn a new language (ahem… solidity… ahem), just to operate on the blockchain.
 
@@ -15,7 +15,7 @@ You'd still need to use ISI from inside your WASM binary to do anything on-chain
 The drawback is that this process is a tad more involved than just writing the ISI using the client libraries.
 
 
-### Simple Rust Smart Contract
+## Simple Rust Smart Contract
 
 WASM projects, just like any other binary in Rust need to be separate crates. Don't worry, it doesn't have to be big.
 
@@ -82,7 +82,7 @@ Building the same logic out of `Expression` and `If` and `Sequence` would be sig
 
 
 
-### Advanced Smart Contracts: Optimising for Size
+## Advanced Smart Contracts: Optimising for Size
 
 WASM smart contracts can get big. So big, in fact, that we might not let you store them in the blockchain. So how do you reduce the size? The most important modifications are done in `Cargo.toml`:
 
@@ -121,10 +121,4 @@ At some, point, unfortunately, the smallest size of your WASM blob is going to b
 [^4]: `wasm-opt` can also be used to remove the debug sections.
 
 
-## Triggers
 
-The basic premise is that certain things can emit events: it could be a change of the state of some entity, e.g. an account, and/or a domain (you can't modify an account without changing the domain that it belongs to, but you can change the domain without touching any of its accounts), but it could also be the block being committed, some point in time being crossed, or even a direct signal emitted by executing a special ISI. All of these are events that triggers can be attached to.
-
-A trigger is a fairly basic entity that can be registered. Just like with Accounts, you submit a `RegisterBox::Trigger`, which contains the necessary information. This information is a single account ID, which should ideally be a brand new account that you register in the same transaction (but for now it doesn't matter); an executable, which itself is either a `Vec<Instruction>` or a WASM blob; and an `EventFilter`, something which combs through (at this point all) events and returns `true` when it finds an event that you like to start the execution.
-
-The documentation on the `EventFilter` types is under construction, as we are likely to make major changes to that particular architecture. For now, suffice it to say that you can look at the source code in `iroha_data_model` and see a few particularly interesting applications.
