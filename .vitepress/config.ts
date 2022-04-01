@@ -74,6 +74,16 @@ function getGuideSidebar() {
     {
       text: 'Advanced Guides',
       link: 'guide/advanced/intro',
+      children: [
+        {
+          text: 'Web Assembly',
+          link: '/guide/advanced/wasm'
+        },
+        {
+          text: 'Triggers',
+          link: 'guide/advanced/triggers'
+        }
+      ],
     },
     {
       text: 'Appendix',
