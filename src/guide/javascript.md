@@ -122,6 +122,8 @@ Here we see how similar the JavaScript code is to the Rust counterpart. It shoul
 
 Let’s register a new domain with the name `looking_glass` our current account: _alice@wondeland_.
 
+First, we need to import necessary models and a pre-configured client instance:
+
 ```ts
 import { Client } from '@iroha2/client'
 import {
