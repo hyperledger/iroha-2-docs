@@ -121,7 +121,7 @@ Same as timed triggers, but instead of only being interested in the time-stamp, 
 
 ### By-call Triggers
 
-These triggers get executed only once the `CallTrigger(trigger_name)` instruction is executed. These can be useful if you want to achieve dynamic linkage between different smartcontract modules. Space is precious, so want to use as little of it as you can. So you follow the UNIX design philosophy, and instead of creating one large smartcontract, you create many smaller ones, and re-use as much logic as you can.
+These triggers get executed only once the `CallTrigger(trigger_name)` instruction is executed. These can be useful if you want to achieve dynamic linkage between different smartcontract modules. Space is precious, so you want to use as little of it as you can. Thus, you follow the UNIX design philosophy, and instead of creating one large smartcontract, you create many smaller ones, and re-use as much logic as you can.
 
 ::: info
 
@@ -258,7 +258,7 @@ Only the first type of event filter is implemented now, and the other two can be
 
 ### Why not WASM
 
-The above observation can be generalised. WASM can do any logic that a Turing complete machine could using the data available via queries. So in theory for event-based triggers, you could create an `AcceptAll` event filter and do all of the processing using the key-value store as persistent storage, and determining if you want to execute using easy to understand Rust code, and not our admittedly cumbersome, `EventFilters`. We don't want that. WASM takes up significantly more space, and takes longer to execute compared to plain ISI, which are slower than `EventFilters`. We want you to want to use the `EventFilters` because they would make the process much more efficient, and are working tirelessly to make the experience of using event filters much less cumbersome.
+The above observation can be generalised. WASM can do any logic that a Turing complete machine could, using the data available via queries. So in theory for event-based triggers, you could create an `AcceptAll` event filter and do all of the processing using the key-value store as persistent storage, and then determining if you want to execute using easy-to-understand Rust code, and not our admittedly cumbersome, `EventFilters`. We don't want that. WASM takes up significantly more space, and takes longer to execute compared to plain ISI, which are slower than `EventFilters`. We want you to want to use the `EventFilters` because they would make the process much more efficient, and we are working tirelessly to make the experience of using event filters much less gruelling.
 
 However, as was mentioned previously on several occasions, implementing a feature properly takes time and effort. Ergonomics must be balanced against safety and reliability, so we cannot just make things easier to use. We want them to retain many of the advantages of strong typing.
 
