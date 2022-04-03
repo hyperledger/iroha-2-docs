@@ -1,6 +1,6 @@
 # WASM
 
-While we had initially assumed that all operations within Iroha will be handled with instructions and conditionals, there are a few problems with this approach.
+While we had initially assumed that all operations within Iroha will be handled with instructions and conditionals, however, there are a few problems with this approach.
 
     1. The ISI syntax is verbose and ugly.
     2. The ISI syntax is not familiar for most programmers.

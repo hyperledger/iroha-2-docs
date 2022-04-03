@@ -77,12 +77,16 @@ function getGuideSidebar() {
       children: [
         {
           text: 'Web Assembly',
-          link: '/guide/advanced/wasm'
+          link: '/guide/advanced/wasm',
         },
         {
           text: 'Triggers',
-          link: 'guide/advanced/triggers'
-        }
+          link: 'guide/advanced/triggers',
+        },
+        {
+         text: 'Queries',
+         link: 'guide/advanced/queries',
+        },
       ],
     },
     {
@@ -107,7 +111,7 @@ function getGuideSidebar() {
         },
         {
           text: 'Keys',
-          link: "/guide/appendix/keys"
+          link: "/guide/appendix/keys",
         },
         {
           text: 'Running Iroha On Bare Metal',
