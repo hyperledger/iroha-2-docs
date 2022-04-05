@@ -266,7 +266,7 @@ val eventFilter = Pipeline(EventFilter(Transaction(), Hash(hash)))
 
 What this short code snippet does is the following: It creates an event pipeline filter that checks if a transaction with the specified hash was submitted/rejected. This can then be used to see if the transaction we submitted was processed correctly and provide feedback to the end-user.
 
-## 7. Samples on pure Java
+## 7. Samples in pure Java
 
 ```java
 
