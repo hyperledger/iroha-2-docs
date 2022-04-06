@@ -1,6 +1,12 @@
 # JavaScript / TypeScript guide
 
-## 1. Iroha 2 Client Setup
+::: info
+
+This guide targets `@iroha2/client@1.1.0` and `@iroha/data-model@1.1.0`.
+
+:::
+
+## 1. Client Installation
 
 The Iroha 2 JavaScript library consists of multiple packages:
 
@@ -13,12 +19,10 @@ The Iroha 2 JavaScript library consists of multiple packages:
 | `crypto-target-web`                                       | Compiled crypto WASM for native Web (ESM)                                                                                                          |
 | <code class="whitespace-pre">crypto-target-bundler</code> | Compiled crypto WASM to use with bundlers such as Webpack                                                                                          |
 
-
-
 All of the are published under scope `@iroha2` into Iroha Nexus Registry. In future, they will be published in the main NPM Registry. To install these packages, firstly you need to setup a registry:
 
 ```ini
-# .npmrc
+# FILE: .npmrc
 @iroha2:registry=https://nexus.iroha.tech/repository/npm-group/
 ```
 
@@ -35,8 +39,8 @@ The set of packages that you need to install depends on your intention. Maybe yo
 Moving on, if you are planning to use the Transaction or Query API, you’ll also need to inject an appropriate `crypto` instance into the client at runtime. This has to be adjusted depending on your particular environment. For example, for Node.js users, such an injection may look like the following:
 
 ```ts
-import { crypto } from `@iroha2/crypto-target-node`
-import { setCrypto } from `@iroha2/client`
+import { crypto } from '@iroha2/crypto-target-node'
+import { setCrypto } from '@iroha2/client'
 
 setCrypto(crypto)
 ```
@@ -47,14 +51,7 @@ Please refer to the related `@iroha2/crypto-target-*` package documentation beca
 
 :::
 
-::: info
-
-This guide targets `@iroha2/client@1.0.0` & `@iroha/data-model@1.0.0`.
-
-:::
-
-
-## 2. Configuring Iroha 2
+## 2. Client Configuration
 
 The JavaScript Client is fairly low-level in the sense that it doesn’t expose any convenience features like a `TransactionBuilder` or a `ConfigBuilder`. Work on implementing those is underway, and these features will very likely be available with the second round of this tutorial’s release. Thus, on the plus side: configuration of the client is simple, on the downside you have to prepare a lot manually.
 
@@ -125,6 +122,8 @@ Here we see how similar the JavaScript code is to the Rust counterpart. It shoul
 
 Let’s register a new domain with the name `looking_glass` our current account: _alice@wondeland_.
 
+First, we need to import necessary models and a pre-configured client instance:
+
 ```ts
 import { Client } from '@iroha2/client'
 import {
@@ -134,11 +133,11 @@ import {
   Value,
   IdentifiableBox,
   Domain,
-  Id,
+  DomainId,
   BTreeMapAccountIdAccount,
   Metadata,
   BTreeMapNameValue,
-  BTreeMapDefinitionIdAssetDefinitionEntry,
+  BTreeMapAssetDefinitionIdAssetDefinitionEntry,
   OptionIpfsPath,
   Executable,
   VecInstruction,
@@ -146,7 +145,8 @@ import {
   QueryBox,
 } from '@iroha2/data-model'
 
-const client: Client = /* --snip-- */ ___
+/* --snip-- */
+declare const client: Client
 ```
 
 To register a new domain, we need to submit a transaction with one instruction: to register a new domain. Let’s wrap it all in an async function:
@@ -162,14 +162,13 @@ async function registerDomain(domainName: string) {
           IdentifiableBox(
             'Domain',
             Domain({
-              id: Id({
+              id: DomainId({
                 name: domainName,
               }),
               accounts: BTreeMapAccountIdAccount(new Map()),
               metadata: Metadata({ map: BTreeMapNameValue(new Map()) }),
-              asset_definitions: BTreeMapDefinitionIdAssetDefinitionEntry(
-                new Map(),
-              ),
+              asset_definitions:
+                BTreeMapAssetDefinitionIdAssetDefinitionEntry(new Map()),
               logo: OptionIpfsPath('None'),
             }),
           ),
@@ -219,25 +218,44 @@ await ensureDomainExistence('looking_glass')
 
 Registering an account is a bit more involved than registering a domain. With a domain, the only concern is the domain name, however, with an account, there are a few more things to worry about.
 
-First of all, we need to create an `AccountId`. Note that we can only register an account to an existing domain. The best UX design practices dictate that you should check if the requested domain exists _now_, and if it doesn’t — suggest a fix to the user. After that, we can create a new account, that we name _white_rabbit._
+First of all, we need to create an `AccountId`. Note that we can only register an account to an existing domain. The best UX design practices dictate that you should check if the requested domain exists _now_, and if it doesn’t — suggest a fix to the user. After that, we can create a new account, that we name _white_rabbit_.
+
+Imports we need:
 
 ```ts
-import { AccountId } from '@iroha2/data-model'
+import {
+  AccountId,
+  DomainId,
+  PublicKey,
+  RegisterBox,
+  Expression,
+  Value,
+  IdentifiableBox,
+  EvaluatesToIdentifiableBox,
+  Metadata,
+  NewAccount,
+  VecPublicKey,
+  BTreeMapNameValue,
+} from '@iroha2/data-model'
+```
 
-const id = AccountId({
+`AccountId` structure:
+
+```ts
+const accountId = AccountId({
   name: 'white_rabbit',
-  domain_name: 'looking_glass',
+  domain_id: DomainId({
+    name: 'looking_glass',
+  }),
 })
 ```
 
 Second, you should provide the account with a public key. It is tempting to generate both it and the private key at this time, but it isn't the brightest idea. Remember, that _the white_rabbit_ trusts _you, alice@wonderland,_ to create an account for them in the domain _looking_glass, **but doesn't want you to have access to that account after creation**._ If you gave _white_rabbit_ a key that you generated yourself, how would they know if you don't have a copy of their private key? Instead, the best way is to **ask** _white_rabbit_ to generate a new key-pair, and give you the public half of it.
 
 ```ts
-import { PublicKey } from '@iroha2/data-model'
-
 const key = PublicKey({
   payload: new Uint8Array([
-    /* ... */
+    /* put bytes here */
   ]),
   digest_function: 'some_digest',
 })
@@ -246,14 +264,7 @@ const key = PublicKey({
 Only then do we build an instruction from it:
 
 ```ts
-import {
-  RegisterBox,
-  Expression,
-  Value,
-  IdentifiableBox,
-} from '@iroha2/data-model'
-
-RegisterBox({
+const registerAccountInstruction = RegisterBox({
   object: EvaluatesToIdentifiableBox({
     expression: Expression(
       'Raw',
@@ -262,7 +273,7 @@ RegisterBox({
         IdentifiableBox(
           'NewAccount',
           NewAccount({
-            id,
+            id: accountId,
             signatories: VecPublicKey([key]),
             metadata: Metadata({ map: BTreeMapNameValue(new Map()) }),
           }),
@@ -284,43 +295,43 @@ Specifically, we have `AssetValueType::Quantity` which is effectively an unsigne
 In JS, you can create a new asset with the following construction:
 
 ```ts
+import {
+  AssetDefinition,
+  AssetValueType,
+  AssetDefinitionId,
+  DomainId,
+  Metadata,
+  BTreeMapNameValue,
+  RegisterBox,
+  EvaluatesToIdentifiableBox,
+  Expression,
+  Value,
+  IdentifiableBox,
+  Instruction,
+} from '@iroha2/data-model'
+
 const time = AssetDefinition({
   value_type: AssetValueType('Quantity'),
-  id: DefinitionId({
+  id: AssetDefinitionId({
     name: 'time',
-    domain_id: Id({ name: 'looking_glass' }),
+    domain_id: DomainId({ name: 'looking_glass' }),
   }),
-  metadata: { map: new Map() as BTreeMapNameValue } as Metadata,
-  mintable: false,
+  metadata: Metadata({ map: BTreeMapNameValue(new Map()) }),
+  mintable: false, // If only we could mint more time.
 })
 
-const register = RegisterBox({
-  object: EvaluatesToIdentifiableBox({
-    expression: Expression(
-      'Raw',
-      Value('Identifiable', IdentifiableBox('AssetDefinition', time)),
-    ),
+const register = Instruction(
+  'Register',
+  RegisterBox({
+    object: EvaluatesToIdentifiableBox({
+      expression: Expression(
+        'Raw',
+        Value('Identifiable', IdentifiableBox('AssetDefinition', time)),
+      ),
+    }),
   }),
-})
+)
 ```
-
-::: tip
-
-To define structures from data model, you can use both factory style syntax and `as`-casting style syntax:
-
-```ts
-const map1: BTreeMapNameValue = BTreeMapNameValue(new Map())
-
-// or
-
-const map2: BTreeMapNameValue = new Map() as BTreeMapNameValue
-```
-
-Actually, the `BTreeMapNameValue()` function is just a no-op that returns what it receives, but it is very useful to deal with TypeScript.
-
-The second way is less type-safe, but more efficient at runtime because there is no runtime function evaluation.
-
-:::
 
 Pay attention to the fact that we have defined the asset as `mintable: false`. What this means is that we cannot create more of `time`. The late bunny will always be late, because even the super-user of the blockchain cannot mint more of `time` than already exists in the genesis block.
 
@@ -329,26 +340,41 @@ This means that no matter how hard the _white_rabbit_ tries, the time that he ha
 We can however mint a pre-existing `mintable: true` asset that belongs to Alice.
 
 ```ts
-const mint = MintBox({
-  object: EvaluatesToValue({
-    expression: Expression('Raw', Value('U32', 42)),
-  }),
-  destination_id: EvaluatesToIdBox({
-    expression: Expression(
-      'Raw',
-      Value(
-        'Id',
-        IdBox(
-          'AssetDefinitionId',
-          DefinitionId({
-            name: 'roses',
-            domain_id: Id({ name: 'wonderland' }),
-          }),
+import {
+  Instruction,
+  MintBox,
+  EvaluatesToValue,
+  Expression,
+  Value,
+  EvaluatesToIdBox,
+  IdBox,
+  AssetDefinitionId,
+  DomainId,
+} from '@iroha2/data-model'
+
+const mint = Instruction(
+  'Mint',
+  MintBox({
+    object: EvaluatesToValue({
+      expression: Expression('Raw', Value('U32', 42)),
+    }),
+    destination_id: EvaluatesToIdBox({
+      expression: Expression(
+        'Raw',
+        Value(
+          'Id',
+          IdBox(
+            'AssetDefinitionId',
+            AssetDefinitionId({
+              name: 'roses',
+              domain_id: DomainId({ name: 'wonderland' }),
+            }),
+          ),
         ),
       ),
-    ),
+    }),
   }),
-})
+)
 ```
 
 Again it should be emphasised that an Iroha 2 network is strongly typed. You need to take special care to make sure that only unsigned integers are passed to the `Value.variantsUnwrapped.U32` factory method. Fixed precision values also need to be taken into consideration. Any attempt to add to or subtract from a negative Fixed-precision value will result in an error.
@@ -396,7 +422,7 @@ Keys here are just some sample keys, as well as account.
 To use them all, firstly we need to initialize our client & crypto.
 
 ```ts
-// crypto.ts
+// FILE: crypto.ts
 
 import { init, crypto } from '@iroha2/crypto-target-web'
 
@@ -407,7 +433,7 @@ export { crypto }
 ```
 
 ```ts
-// client.ts
+// FILE: client.ts
 
 import { Client, setCrypto } from '@iroha2/client'
 import { KeyPair } from '@iroha2/crypto-core'
@@ -496,13 +522,13 @@ Ok, then let's build the CreateDomain component:
 <script setup lang="ts">
 import {
   BTreeMapAccountIdAccount,
-  BTreeMapDefinitionIdAssetDefinitionEntry,
+  BTreeMapAssetDefinitionIdAssetDefinitionEntry,
   BTreeMapNameValue,
   Domain,
   EvaluatesToIdentifiableBox,
   Executable,
   Expression,
-  Id,
+  DomainId,
   IdentifiableBox,
   Instruction,
   Metadata,
@@ -536,8 +562,7 @@ async function register() {
                     IdentifiableBox(
                       'Domain',
                       Domain({
-                        id: Id({
-                          // We put our domainName here :)
+                        id: DomainId({
                           name: domainName.value,
                         }),
                         accounts: BTreeMapAccountIdAccount(new Map()),
@@ -545,7 +570,7 @@ async function register() {
                           map: BTreeMapNameValue(new Map()),
                         }),
                         asset_definitions:
-                          BTreeMapDefinitionIdAssetDefinitionEntry(
+                          BTreeMapAssetDefinitionIdAssetDefinitionEntry(
                             new Map(),
                           ),
                         logo: OptionIpfsPath('None'),
@@ -587,9 +612,9 @@ And finally, let's build the Listener component which will use Events API to set
 <script setup lang="ts">
 import { SetupEventsReturn } from '@iroha2/client'
 import {
-  EntityType,
+  PipelineEntityType,
   EventFilter,
-  OptionEntityType,
+  OptionPipelineEntityType,
   OptionHash,
   PipelineEventFilter,
 } from '@iroha2/data-model'
@@ -602,13 +627,15 @@ import {
 import { bytesToHex } from 'hada'
 import { client } from '../client'
 
-type EventData = {
+interface EventData {
   hash: string
   status: string
 }
 
 const events = shallowReactive<EventData[]>([])
+
 const currentListener = shallowRef<null | SetupEventsReturn>(null)
+
 const isListening = computed(() => !!currentListener.value)
 
 async function startListening() {
@@ -616,13 +643,15 @@ async function startListening() {
     filter: EventFilter(
       'Pipeline',
       PipelineEventFilter({
-        entity: OptionEntityType('Some', EntityType('Transaction')),
+        entity: OptionPipelineEntityType(
+          'Some',
+          PipelineEntityType('Transaction'),
+        ),
         hash: OptionHash('None'),
       }),
     ),
   })
 
-  // listening for provided EventEmitter
   currentListener.value.ee.on('event', (event) => {
     const { hash, status } = event.as('Pipeline')
     events.push({
