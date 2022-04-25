@@ -127,17 +127,15 @@ First, we need to import necessary models and a pre-configured client instance:
 ```ts
 import { Client } from '@iroha2/client'
 import {
-  Domain,
   DomainId,
   EvaluatesToRegistrableBox,
   Executable,
   Expression,
   IdentifiableBox,
   Instruction,
-  MapAccountIdAccount,
-  MapAssetDefinitionIdAssetDefinitionEntry,
   MapNameValue,
   Metadata,
+  NewDomain,
   OptionIpfsPath,
   QueryBox,
   RegisterBox,
@@ -160,14 +158,12 @@ async function registerDomain(domainName: string) {
         Value(
           'Identifiable',
           IdentifiableBox(
-            'Domain',
-            Domain({
+            'NewDomain',
+            NewDomain({
               id: DomainId({
                 name: domainName,
               }),
-              accounts: MapAccountIdAccount(new Map()),
               metadata: Metadata({ map: MapNameValue(new Map()) }),
-              asset_definitions: MapAssetDefinitionIdAssetDefinitionEntry(new Map()),
               logo: OptionIpfsPath('None'),
             }),
           ),
@@ -522,17 +518,15 @@ Ok, then let's build the CreateDomain component:
 ```vue
 <script setup lang="ts">
 import {
-  Domain,
   DomainId,
   EvaluatesToRegistrableBox,
   Executable,
   Expression,
   IdentifiableBox,
   Instruction,
-  MapAccountIdAccount,
-  MapAssetDefinitionIdAssetDefinitionEntry,
   MapNameValue,
   Metadata,
+  NewDomain,
   OptionIpfsPath,
   RegisterBox,
   Value,
@@ -561,14 +555,12 @@ async function register() {
                   Value(
                     'Identifiable',
                     IdentifiableBox(
-                      'Domain',
-                      Domain({
+                      'NewDomain',
+                      NewDomain({
                         id: DomainId({
                           name: domainName.value,
                         }),
-                        accounts: MapAccountIdAccount(new Map()),
                         metadata: Metadata({ map: MapNameValue(new Map()) }),
-                        asset_definitions: MapAssetDefinitionIdAssetDefinitionEntry(new Map()),
                         logo: OptionIpfsPath('None'),
                       }),
                     ),
