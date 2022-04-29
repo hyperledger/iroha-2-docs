@@ -4,7 +4,7 @@ import WarningFatQuery from './WarningFatQuery.vue'
 
 # Queries
 
-Although much of the information about the state of the blockchain can be obtained, as we've shown before, using an event subscriber and using a filter to narrow the scope of the events to those of interest, sometimes, one needs to take a more direct approach. Enter queries. They are small instruction-like objects which, when sent to an Iroha peer, prompt a response with details from the current world state view.
+Although much of the information about the state of the blockchain can be obtained, as we've shown before, using an event subscriber and using a filter to narrow the scope of the events to those of interest, sometimes, one needs to take a more direct approach. Enter queries. They are small instruction-like objects that, when sent to an Iroha peer, prompt a response with details from the current world state view.
 
 ::: info
 
@@ -42,7 +42,7 @@ When we say, "Returns: Vec", we mean that the return value is a collection of mo
 
 ## Pagination
 
-Submitting queries is done slightly differently in Rust. One can use both `client.request(query)` to submit a query and get the full result in one go, both if you have a `Vec<Z>` and just `Z` as the return type.
+Submitting queries is done slightly differently in Rust. One can use `client.request(query)` to submit a query and get the full result in one go, both if you have a `Vec<Z>` and just `Z` as the return type.
 
 However some queries (particularly with "All" in their name) can return exorbitant amounts of data. As such, one should consider pagination to reduce the load on the system.
 
@@ -62,7 +62,7 @@ Roles are an optional feature that should be present on all Iroha 2 deployments 
 
 - **Returns**: `Vec<Roles>`
 
-- **Details**: It returns globally all roles registered in the blockchain.
+- **Details**: It returns all roles registered as _global_ (as opposed to domain-scoped) in the blockchain.
 
   <WarningFatQuery />
 
