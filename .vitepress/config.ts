@@ -73,7 +73,7 @@ function getGuideSidebar() {
     },
     {
       text: 'Advanced Guides',
-      link: 'guide/advanced/intro',
+      link: '/guide/advanced/intro',
       children: [
         {
           text: 'Web Assembly',
@@ -81,11 +81,11 @@ function getGuideSidebar() {
         },
         {
           text: 'Triggers',
-          link: 'guide/advanced/triggers',
+          link: '/guide/advanced/triggers',
         },
         {
          text: 'Queries',
-         link: 'guide/advanced/queries',
+         link: '/guide/advanced/queries',
         },
       ],
     },

@@ -2,7 +2,7 @@
 
 This is the part of the tutorial, where we say "you're not a newbie anymore" and hit you hard with the features that make Iroha truly special. Here we will cover in some breadth the _Iroha special instructions_, Web-assembly, and how both are used in creating what's know as a _smart contract_.
 
- The basic premise is; if the blockchain is the computer, then `iroha_client_cli` or any of the client libraries for that matter, are the keyboard, the blockchain is the hard drive, and the Iroha peer software is the processor. Like a processor, Iroha accepts portable instructions which modify what's written to the blockchain, allow certain users to use the network, and lock out others.
+The basic premise is; if the blockchain is the computer, then `iroha_client_cli` or any of the client libraries for that matter, are the keyboard, the blockchain is the hard drive, and the Iroha peer software is the processor. Like a processor, Iroha accepts portable instructions which modify what's written to the blockchain, allow certain users to use the network, and lock out others.
 
 As such any operation that is run on-chain is written in terms of Iroha Special Instructions (ISI), and there is no other way of modifying the world state that would pass consensus. To understand why, we'll need to make a short detour into how Iroha is implemented under the hood.
 
@@ -42,7 +42,6 @@ Assets and permissions tokens need to be minted to a specific account, usually t
 
 These are used specifically for permissions. When minting a permission token a user is granted `X` amount of permissions to do `Y` which will expire once all `X` operations were performed. By contrast, a `Grant` operation can be used to grant either a single permission, or a group of permissions (or a "role"), to a user permanently. As such these instructions should be used carefully.
 
-
 ### SetKeyValue/RemoveKeyValue
 
 These instructions are used with the key/value store asset type. This use case has not received much attention so far, because storing data in the blockchain is rather advanced topic that we shall cover separately.
@@ -56,7 +55,6 @@ These are all the queries that can be made from the client side. This is not nec
 All ISI operate on expressions. Each expression has an `EvaluatesTo` which is used in instruction execution. While you could specify the account name directly, you could also specify the account ID via some mathematical or string operation. You can check if an account is registered on the blockchain too.
 
 Using expressions which implement `EvaluatesTo<bool>`, you can set up conditional logic and execute more sophisticated operations on-chain. For example, you can submit a `Mint` instruction only if a specific account is registered. Recall that you can combine this with queries, and as such can program the blockchain to do some amazing stuff. This stuff is what we refer to as _smart contracts_, and is the main defining feature of advanced usage of blockchain technology.
-
 
 ## Triggers
 
