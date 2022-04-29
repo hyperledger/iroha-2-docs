@@ -1,10 +1,10 @@
 # WASM
 
-While we had initially assumed that all operations within Iroha will be handled with instructions and conditionals, however, there are a few problems with this approach.
+While we had initially assumed that all operations within Iroha will be handled with instructions and conditionals, there are a few problems with this approach.
 
-    1. The ISI syntax is verbose and ugly.
-    2. The ISI syntax is not familiar for most programmers.
-    3. While ISI smart contracts are compact (usually a few bytes), they need to be hand-optimised.
+- The ISI syntax is verbose and ugly.
+- The ISI syntax is not familiar for most programmers.
+- While ISI smart contracts are compact (usually a few bytes), they need to be hand-optimised.
 
 In the long run, all of these problems are taken care of by using a **domain-specific language**, which gets optimised and compiled into a sequence of instructions that executes fast and takes very little space in the blocks, but is also easy to understand. Something that looks like your traditional `if` statements and `for` loops.
 
@@ -14,15 +14,16 @@ You'd still need to use ISI from inside your WASM binary to do anything on-chain
 
 The drawback is that this process is a tad more involved than just writing the ISI using the client libraries.
 
-
 ## Simple Rust Smart Contract
 
 WASM projects, just like any other binary in Rust need to be separate crates. Don't worry, it doesn't have to be big.
 
 To get started you might want to use
+
 ```bash
 cargo new --lib
 ```
+
 to create a new project. Yes, we need the `lib` type, more on that later.
 
 The `Cargo.toml` of the project should look something like this:
@@ -40,12 +41,11 @@ crate-type = ['cdylib']
 iroha_wasm = { git = "https://github.com/hyperledger/iroha/", branch = "iroha2" }
 ```
 
-Note that the crate type is `cdylib`. Most Rust code is linked in a non-portable architecture and OS-specific static manner, but WASM is a portable format. Since C ABI is the *lingua franca* of the programming world and there is no other stable Rust ABI (yet), Iroha relies on the C-linkage to generate WASM bindings. Thankfully, you don't need to worry about foreign function interface (FFI)-related problems like `unsafe`, `repr(C)`, padding, alignment etc., `iroha_wasm` takes care of all that for you.
+Note that the crate type is `cdylib`. Most Rust code is linked in a non-portable architecture and OS-specific static manner, but WASM is a portable format. Since C ABI is the _lingua franca_ of the programming world and there is no other stable Rust ABI (yet), Iroha relies on the C-linkage to generate WASM bindings. Thankfully, you don't need to worry about foreign function interface (FFI)-related problems like `unsafe`, `repr(C)`, padding, alignment etc., `iroha_wasm` takes care of all that for you.
 
 `iroha_wasm` is the crate that contains all of the bindings, macros and trait implementations that you'd need to write the program, most notably the `iroha_wasm` attribute macro. The crate also exposes our `data_model` which contains all of the basic ISI and types. `parity-scale-codec` is (as of today) the chosen serialisation format with a strong possibility of getting replaced with a different (custom) serialisation format in the near future, as it seems to dominate the binary size[^2].
 
 Now that we have the preliminaries nailed down, we get to write some code for our smart contract. In the `src/lib.rs` you should write the following:
-
 
 ```rust
 #![no_std]
@@ -75,19 +75,15 @@ fn smartcontract_entry_point(_account_id: AccountId) {
 
 `cargo run --release` will submit the instruction and run it for you (be sure to have a peer up).
 
-
 What this smart contract does is query all of the currently existing domains, put the results into a `std::vec::Vec`, which in this case has to be imported from `alloc`, as we use `no_std` (more on that later), which is then used to add the user named `mad_hatter` to all of the existing domains.
 
 Building the same logic out of `Expression` and `If` and `Sequence` would be significantly harder. Moreover, the actual low-level instructions that would run are very likely not going to be as well-optimised as what the compiler produces.
-
-
 
 ## Advanced Smart Contracts: Optimising for Size
 
 WASM smart contracts can get big. So big, in fact, that we might not let you store them in the blockchain. So how do you reduce the size? The most important modifications are done in `Cargo.toml`:
 
 ```toml
-
 [profile.release]
 strip = "debuginfo" # Remove debugging info from the binary
 panic = "abort"     # Panics are transcribed to Traps when compiling for wasm anyways
@@ -109,6 +105,7 @@ cargo +nightly build -Z build-std -Z build-std-features=panic_immediate_abort --
 Unfortunately, this is an unstable feature. In other words, the developers of the Rust programming language can decide to change how this works, or remove this option entirely.
 
 Finally, you can use an automated tool to optimise the size of the WASM using [`wasm-opt`](https://github.com/WebAssembly/binaryen), or use [`twiggy`](https://rustwasm.github.io/twiggy/) to guide your manual optimisation efforts. Using `wasm-opt` is highly advised because it will often significantly reduce your binary size, e.g.:
+
 ```bash
 wasm-opt -Os -o output.wasm input.wasm
 ```
@@ -119,6 +116,3 @@ At some, point, unfortunately, the smallest size of your WASM blob is going to b
 [^2]: Size is an important metric. We shall cover size-optimisation strategies as we go.
 [^3]: It should be noted, that excluding the standard library is necessary for compiling to the wasm32 target, and is thus mandatory.
 [^4]: `wasm-opt` can also be used to remove the debug sections.
-
-
-

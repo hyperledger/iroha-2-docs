@@ -18,6 +18,7 @@ $iroha-brand: #e4232d;
 
 div[class*='language-'] {
   background: transparent;
+
   pre {
     background: #f6f8fa !important;
   }
@@ -35,4 +36,9 @@ pre.shiki code {
 .custom-block {
   font-size: 14px;
   line-height: 1.6;
+
+  div[class*='language-'] pre {
+    border-radius: inherit;
+    border: 1px solid darken(#f6f8fa, 10);
+  }
 }
