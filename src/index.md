@@ -4,9 +4,11 @@ Welcome to the Hyperledger Iroha 2 tutorial. This document is designed to help y
 
 ## Iroha 2 vs. Iroha 1
 
-Iroha 2 is a complete re-write of Hyperledger Iroha in Rust. As of writing the two projects are developed concurrently. While Iroha 1 development is in a less active phase due to it being feature-complete, and widely used, it is not being abandoned.
+Iroha 2 is a complete re-write of Hyperledger Iroha in Rust. As of writing, the two projects are developed concurrently. While Iroha 1 development is in a less active phase due to it being feature-complete, and widely used, it is not being abandoned.
 
-Iroha 2 learned in many respects from the original Iroha. Of particular importance is the new consensus algorithm: Sumeragi. The first version of Iroha used a consensus algorithm called Yac. It is a _crash-fault-tolerant_, which means that it can survive a set number of nodes crashing, e.g. losing power, being cut off from the network, being destroyed. _Sumeragi_, by contrast, was designed to be _Byzantine-fault-tolerant_. This means that Iroha 2 can tolerate not only peers being inactive on the network, but also running malicious software, and actively trying to falsify data in the blockchain.
+Iroha 2 learned in many respects from the original Iroha. Of particular importance is the new consensus algorithm: Sumeragi. The first version of Iroha used a consensus algorithm called Yac. It is a _crash-fault-tolerant_, which means that it can survive a set number of nodes crashing, e.g. losing power, being cut off from the network, being destroyed. 
+
+_Sumeragi_, by contrast, was designed to be _Byzantine-fault-tolerant_. This means that Iroha 2 can tolerate not only peers being inactive on the network, but also running malicious software, and actively trying to falsify data in the blockchain.
 
 ::: info
 We can mathematically prove that **Iroha 2 can work when up to 33% of its nodes are actively trying to stop Iroha 2 from working properly** (_or at all_). In other words, even if someone gained control of a _third_ of all of your network nodes, an Iroha 2 deployment is _mathematically guaranteed_ to keep working.
@@ -25,7 +27,9 @@ Iroha 2 is an event-driven blockchain. Each change in the state of the blockchai
 - Iroha Special Instructions
 - WASM
 
-The first approach is useful when you want very simple transparent logic, and want to minimise the footprint in the blockchain. All interactions with the _World state_, the state of the blockchain at this point in time, has to be done using the aforementioned instructions. There is also rudimentary support for domain-specific conditional logic. However sometimes you might want to run something more complex, e.g. do some complex conditional evaluation. For this purpose, you can use the provide WASM support library, and write the logic in any language that supports compilation to WASM. You still have to use the Iroha Special instructions to e.g. mint or transfer assets, as well as register entities in the blockchain, however, you might need more complex metadata-driven logic, that would be cumbersome to build up from ISI.
+The first approach is useful when you want very simple transparent logic, and want to minimise the footprint in the blockchain. All interactions with the _World state_, the state of the blockchain at this point in time, have to be done using the aforementioned instructions. There is also rudimentary support for domain-specific conditional logic. 
+
+However, sometimes you might want to run something more complex; e.g. do some complex conditional evaluation. For this purpose, you can use the provide WASM support library, and write the logic in any language that supports compilation to WASM. You still have to use the Iroha Special instructions to e.g. mint or transfer assets, as well as register entities in the blockchain, however, you might need more complex metadata-driven logic, that would be cumbersome to build up from ISI.
 
 
 ::: info
@@ -83,8 +87,8 @@ This tutorial will cover Iroha 2 in:
 
 There will be more content added to this tutorial as it is made available, and there will be clearly marked update sections wherever they are added.
 
-::: tip
+::: Tip
 
-This tutorial is aimed at both advanced users as well as novices. Advanced users can typically skip the 0-th subscetions of each section, while novices are advised to follow the instructions closely and not skip any steps. Although some questions can be answered with a quick google search, we gathered the most common mistakes and troubleshooting steps such that even people without prior experience in programming can follow along.
+This tutorial is aimed at both advanced users as well as novices. Advanced users can typically skip the 0-th subsections of each section, while novices are advised to follow the instructions closely and not skip any steps. Although some questions can be answered with a quick google search, we gathered the most common mistakes and troubleshooting steps such that even people without prior experience in programming can follow along.
 
 :::
