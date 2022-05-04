@@ -1,8 +1,10 @@
 import { defineConfigWithTheme, UserConfig } from 'vitepress'
-import Windi from 'vite-plugin-windicss'
+import UnoCSS from 'unocss/vite'
 import footnote from 'markdown-it-footnote'
 import customHighlight from './plugins/highlight'
 import path from 'path'
+
+const resolveToRoot = (...paths: string[]): string => path.resolve(__dirname, '../', ...paths)
 
 async function themeConfig() {
   const cfg: UserConfig = {
@@ -84,8 +86,8 @@ function getGuideSidebar() {
           link: '/guide/advanced/triggers',
         },
         {
-         text: 'Queries',
-         link: '/guide/advanced/queries',
+          text: 'Queries',
+          link: '/guide/advanced/queries',
         },
       ],
     },
@@ -111,7 +113,7 @@ function getGuideSidebar() {
         },
         {
           text: 'Keys',
-          link: "/guide/appendix/keys",
+          link: '/guide/appendix/keys',
         },
         {
           text: 'Running Iroha On Bare Metal',
@@ -131,14 +133,19 @@ export default defineConfigWithTheme({
     'Documented tutorial for Hyperledger Iroha 2 outlining the main differences between Iroha versions along with a walkthrough and additional resources.',
   lang: 'en-US',
   vite: {
-    plugins: [Windi({ config: path.resolve(__dirname, '../windi.config.ts') })],
+    plugins: [
+      UnoCSS({
+        include: ['.vitepress/theme/**/*.vue', 'src/**/*.md'].map((x) => resolveToRoot(x)),
+        exclude: ['node_modules', '.git'].map((x) => resolveToRoot(x)),
+      }),
+    ],
   },
   lastUpdated: true,
 
   markdown: {
     config(md) {
       md.use(footnote)
-    }
+    },
   },
 
   themeConfig: {
@@ -159,7 +166,7 @@ export default defineConfigWithTheme({
     algolia: {
       appId: 'V04UIXRXW5',
       apiKey: 'df91faea581b3b5145f676e262d5afc8',
-      indexName: 'hyperledger'
-    }
+      indexName: 'hyperledger',
+    },
   },
 })
