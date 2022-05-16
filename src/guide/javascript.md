@@ -2,7 +2,7 @@
 
 ::: info
 
-This guide targets `@iroha2/client@1.1.0` and `@iroha/data-model@1.1.0`.
+This guide targets `@iroha2/client@1.2.0` and `@iroha/data-model@1.2.0`.
 
 :::
 
@@ -127,25 +127,23 @@ First, we need to import necessary models and a pre-configured client instance:
 ```ts
 import { Client } from '@iroha2/client'
 import {
-  RegisterBox,
-  EvaluatesToIdentifiableBox,
-  Expression,
-  Value,
-  IdentifiableBox,
-  Domain,
   DomainId,
-  BTreeMapAccountIdAccount,
-  Metadata,
-  BTreeMapNameValue,
-  BTreeMapAssetDefinitionIdAssetDefinitionEntry,
-  OptionIpfsPath,
+  EvaluatesToRegistrableBox,
   Executable,
-  VecInstruction,
+  Expression,
+  IdentifiableBox,
   Instruction,
+  MapNameValue,
+  Metadata,
+  NewDomain,
+  OptionIpfsPath,
   QueryBox,
+  RegisterBox,
+  Value,
+  VecInstruction,
 } from '@iroha2/data-model'
 
-/* --snip-- */
+// --snip--
 declare const client: Client
 ```
 
@@ -154,21 +152,18 @@ To register a new domain, we need to submit a transaction with one instruction: 
 ```ts
 async function registerDomain(domainName: string) {
   const registerBox = RegisterBox({
-    object: EvaluatesToIdentifiableBox({
+    object: EvaluatesToRegistrableBox({
       expression: Expression(
         'Raw',
         Value(
           'Identifiable',
           IdentifiableBox(
-            'Domain',
-            Domain({
+            'NewDomain',
+            NewDomain({
               id: DomainId({
                 name: domainName,
               }),
-              accounts: BTreeMapAccountIdAccount(new Map()),
-              metadata: Metadata({ map: BTreeMapNameValue(new Map()) }),
-              asset_definitions:
-                BTreeMapAssetDefinitionIdAssetDefinitionEntry(new Map()),
+              metadata: Metadata({ map: MapNameValue(new Map()) }),
               logo: OptionIpfsPath('None'),
             }),
           ),
@@ -200,7 +195,7 @@ async function ensureDomainExistence(domainName: string) {
 
   const domain = result
     .as('Ok')
-    .as('Vec')
+    .result.as('Vec')
     .map((x) => x.as('Identifiable').as('Domain'))
     .find((x) => x.id.name === domainName)
 
@@ -226,16 +221,17 @@ Imports we need:
 import {
   AccountId,
   DomainId,
-  PublicKey,
-  RegisterBox,
+  EvaluatesToRegistrableBox,
   Expression,
-  Value,
   IdentifiableBox,
-  EvaluatesToIdentifiableBox,
+  Instruction,
+  MapNameValue,
   Metadata,
   NewAccount,
+  PublicKey,
+  RegisterBox,
+  Value,
   VecPublicKey,
-  BTreeMapNameValue,
 } from '@iroha2/data-model'
 ```
 
@@ -264,24 +260,27 @@ const key = PublicKey({
 Only then do we build an instruction from it:
 
 ```ts
-const registerAccountInstruction = RegisterBox({
-  object: EvaluatesToIdentifiableBox({
-    expression: Expression(
-      'Raw',
-      Value(
-        'Identifiable',
-        IdentifiableBox(
-          'NewAccount',
-          NewAccount({
-            id: accountId,
-            signatories: VecPublicKey([key]),
-            metadata: Metadata({ map: BTreeMapNameValue(new Map()) }),
-          }),
+const registerAccountInstruction = Instruction(
+  'Register',
+  RegisterBox({
+    object: EvaluatesToRegistrableBox({
+      expression: Expression(
+        'Raw',
+        Value(
+          'Identifiable',
+          IdentifiableBox(
+            'NewAccount',
+            NewAccount({
+              id: accountId,
+              signatories: VecPublicKey([key]),
+              metadata: Metadata({ map: MapNameValue(new Map()) }),
+            }),
+          ),
         ),
       ),
-    ),
+    }),
   }),
-})
+)
 ```
 
 Which is then wrapped in a transaction and submitted to the peer as in the previous section.
@@ -297,17 +296,18 @@ In JS, you can create a new asset with the following construction:
 ```ts
 import {
   AssetDefinition,
-  AssetValueType,
   AssetDefinitionId,
+  AssetValueType,
   DomainId,
-  Metadata,
-  BTreeMapNameValue,
-  RegisterBox,
-  EvaluatesToIdentifiableBox,
+  EvaluatesToRegistrableBox,
   Expression,
-  Value,
   IdentifiableBox,
   Instruction,
+  MapNameValue,
+  Metadata,
+  Mintable,
+  RegisterBox,
+  Value,
 } from '@iroha2/data-model'
 
 const time = AssetDefinition({
@@ -316,14 +316,14 @@ const time = AssetDefinition({
     name: 'time',
     domain_id: DomainId({ name: 'looking_glass' }),
   }),
-  metadata: Metadata({ map: BTreeMapNameValue(new Map()) }),
-  mintable: false, // If only we could mint more time.
+  metadata: Metadata({ map: MapNameValue(new Map()) }),
+  mintable: Mintable('Infinitely'), // If only we could mint more time.
 })
 
 const register = Instruction(
   'Register',
   RegisterBox({
-    object: EvaluatesToIdentifiableBox({
+    object: EvaluatesToRegistrableBox({
       expression: Expression(
         'Raw',
         Value('Identifiable', IdentifiableBox('AssetDefinition', time)),
@@ -337,19 +337,19 @@ Pay attention to the fact that we have defined the asset as `mintable: false`. W
 
 This means that no matter how hard the _white_rabbit_ tries, the time that he has is the time that was given to him at genesis. And since we haven’t defined any time in the domain _looking_glass at_ genesis and defined time in a non-mintable fashion afterwards, the _white_rabbit_ is doomed to always be late.
 
-We can however mint a pre-existing `mintable: true` asset that belongs to Alice.
+We can however mint a pre-existing `mintable: Mintable(Infinetely)` asset that belongs to Alice.
 
 ```ts
 import {
-  Instruction,
-  MintBox,
-  EvaluatesToValue,
-  Expression,
-  Value,
-  EvaluatesToIdBox,
-  IdBox,
   AssetDefinitionId,
   DomainId,
+  EvaluatesToRegistrableBox,
+  EvaluatesToValue,
+  Expression,
+  IdBox,
+  Instruction,
+  MintBox,
+  Value,
 } from '@iroha2/data-model'
 
 const mint = Instruction(
@@ -358,7 +358,7 @@ const mint = Instruction(
     object: EvaluatesToValue({
       expression: Expression('Raw', Value('U32', 42)),
     }),
-    destination_id: EvaluatesToIdBox({
+    destination_id: EvaluatesToRegistrableBox({
       expression: Expression(
         'Raw',
         Value(
@@ -521,17 +521,15 @@ Ok, then let's build the CreateDomain component:
 ```vue
 <script setup lang="ts">
 import {
-  BTreeMapAccountIdAccount,
-  BTreeMapAssetDefinitionIdAssetDefinitionEntry,
-  BTreeMapNameValue,
-  Domain,
-  EvaluatesToIdentifiableBox,
+  DomainId,
+  EvaluatesToRegistrableBox,
   Executable,
   Expression,
-  DomainId,
   IdentifiableBox,
   Instruction,
+  MapNameValue,
   Metadata,
+  NewDomain,
   OptionIpfsPath,
   RegisterBox,
   Value,
@@ -554,25 +552,20 @@ async function register() {
           Instruction(
             'Register',
             RegisterBox({
-              object: EvaluatesToIdentifiableBox({
+              object: EvaluatesToRegistrableBox({
                 expression: Expression(
                   'Raw',
                   Value(
                     'Identifiable',
                     IdentifiableBox(
-                      'Domain',
-                      Domain({
+                      'NewDomain',
+                      NewDomain({
                         id: DomainId({
                           name: domainName.value,
                         }),
-                        accounts: BTreeMapAccountIdAccount(new Map()),
                         metadata: Metadata({
-                          map: BTreeMapNameValue(new Map()),
+                          map: MapNameValue(new Map()),
                         }),
-                        asset_definitions:
-                          BTreeMapAssetDefinitionIdAssetDefinitionEntry(
-                            new Map(),
-                          ),
                         logo: OptionIpfsPath('None'),
                       }),
                     ),
@@ -612,17 +605,19 @@ And finally, let's build the Listener component which will use Events API to set
 <script setup lang="ts">
 import { SetupEventsReturn } from '@iroha2/client'
 import {
-  PipelineEntityType,
-  EventFilter,
-  OptionPipelineEntityType,
+  FilterBox,
   OptionHash,
+  OptionPipelineEntityKind,
+  OptionPipelineStatusKind,
+  PipelineEntityKind,
   PipelineEventFilter,
+  PipelineStatusKind,
 } from '@iroha2/data-model'
 import {
-  shallowReactive,
-  shallowRef,
   computed,
   onBeforeUnmount,
+  shallowReactive,
+  shallowRef,
 } from 'vue'
 import { bytesToHex } from 'hada'
 import { client } from '../client'
@@ -640,12 +635,16 @@ const isListening = computed(() => !!currentListener.value)
 
 async function startListening() {
   currentListener.value = await client.listenForEvents({
-    filter: EventFilter(
+    filter: FilterBox(
       'Pipeline',
       PipelineEventFilter({
-        entity: OptionPipelineEntityType(
+        entity_kind: OptionPipelineEntityKind(
           'Some',
-          PipelineEntityType('Transaction'),
+          PipelineEntityKind('Transaction'),
+        ),
+        status_kind: OptionPipelineStatusKind(
+          'Some',
+          PipelineStatusKind('Committed'),
         ),
         hash: OptionHash('None'),
       }),
