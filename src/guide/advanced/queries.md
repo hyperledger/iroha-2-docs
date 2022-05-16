@@ -17,8 +17,8 @@ In the following section we shall try to mirror the module structure of the quer
 Before we proceed we should discuss a few conventions. We use the expressions _gets_, _returns_, _searches_ with a precise meaning in the following (somewhat encyclopædic) section.
 
 - _gets_, means that the query already has the data readily available and the data is trivial. Use these queries at will;
-- _returns_, means that the query has the data readily available, just as with _gets_, but by contrast the data is not trivial. You can still use these queries, but should be mindful not to ask for more information than you need;
-- _searches_, differs from the above two. Data must be actively collected and neither the return type, nor the collection process are cheap. These queries should be used **extremely sparingly** regardless of whether they have a corresponding warning about data volume or not;
+- _returns_, means that the query has the data readily available, just as with _gets_, but by contrast the data is not trivial. You can still use these queries, but be mindful of the performance impact;
+- _searches_, differs from the above two. Data must be actively collected and neither the return type, nor the collection process is cheap. Use with great care.
 
 Another convention that we follow is that the queries are provided with just one data type as input, and parameterised by the type of the output. We should take some time to explain how to interpret the data.
 
@@ -33,10 +33,10 @@ When we say
 we mean that in Rust source code you need to construct the query as follows:
 
 ```rust
-let query = FindZByXAndY::new(x, y);
+let query = FindZByXAndY::new(x: X, y: Y);
 ```
 
-where `x` is a variable of type `X`, and `y` — `Y` respectively. Where necessary we'll provide you with information about each type, otherwise, refer to the guide for each programming language for more information.
+where `x` is a variable of type `X`, and `y` — `Y` respectively. We'll provide you with information about each type, otherwise, refer to the guide for each programming language for more information.
 
 When we say, "Returns: Vec", we mean that the return value is a collection of more than one element of that type. Depending on the SDK implementation this can be a type native to the language (e.g. JavaScript) or a thin wrapper around the Rust Vec structure.
 
@@ -65,6 +65,22 @@ Roles are an optional feature that should be present on all Iroha 2 deployments 
 - **Details**: It returns all roles registered as _global_ (as opposed to domain-scoped) in the blockchain.
 
   <WarningFatQuery />
+
+### FindAllRoleIds
+
+- **Returns**: `Vec<Roles>`
+
+- **Details**: It returns all roles registered as _global_ (as opposed to domain-scoped) in the blockchain, but instead of returning the values of Roles (which contain permission tokens), we only get the Ids of the roles.
+
+
+### FindRoleByRoleId
+
+- **Parameters**: `RoleId`
+
+- **Returns**: `Vec<Roles>`
+
+- **Details**: It returns the role that has the provided role ID. For example, given the name of the role `admin` it will return all of the `admin`-level permission tokens.
+
 
 ### FindRolesByAccountId
 
@@ -131,6 +147,13 @@ Most queries in Iroha pertain to accounts, and at the moment this is the most di
 - **Details**: Find all of the accounts that belong to a specific domain. Note that this returns the full accounts and not the `AccountId` collection.
 
   <WarningFatQuery />
+
+### FindAccountsWithAsset
+- **Parameters**: `AccountId`
+
+- **Returns**: `Vec<Account>`
+
+- **Details**: Find all of the accounts that have the given asset.
 
 ## Asset
 
@@ -339,3 +362,37 @@ It is often necessary to query the state of specific transactions, especially fo
 - **Returns**: `TransactionValue`
 
 - **Details**: This query finds the transaction by hash.
+
+## Triggers
+
+Iroha is an event-driven architecture. Every modification of the world state emits a corresponding event that can be captured by appropriate event listeners called filters.
+
+An action that executes whenever an event meeting certain conditions is emitted is called a `trigger`. The following queries are going to be invaluable for anyone writing (and debugging) smart contracts submitted into an Iroha-based blockchain.
+
+
+### FindAllActiveTriggerIds
+
+- **Returns**: `Vec<TriggerId>`
+
+- **Details**: This query finds all currently active triggers, that is, triggers that have not expired at the time of the query.
+
+<WarningFatQuery />
+
+
+### FindTriggerById
+
+- **Parameters**: `TriggerId`
+
+- **Returns**: `Trigger`
+
+- **Details**: This query finds the trigger with the given ID. 
+
+### FindTriggerKeyValueByIdAndKey
+
+- **Parameters**: `(TriggerId, Name)`
+
+- **Returns**: `Trigger`
+
+- **Details**: This query finds the value corresponding to the key in the metadata of the trigger with the given ID.
+
+
