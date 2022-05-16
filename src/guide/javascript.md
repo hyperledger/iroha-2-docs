@@ -173,7 +173,10 @@ async function registerDomain(domainName: string) {
   })
 
   await client.submit(
-    Executable('Instructions', VecInstruction([Instruction('Register', registerBox)])),
+    Executable(
+      'Instructions',
+      VecInstruction([Instruction('Register', registerBox)]),
+    ),
   )
 }
 ```
@@ -560,7 +563,9 @@ async function register() {
                         id: DomainId({
                           name: domainName.value,
                         }),
-                        metadata: Metadata({ map: MapNameValue(new Map()) }),
+                        metadata: Metadata({
+                          map: MapNameValue(new Map()),
+                        }),
                         logo: OptionIpfsPath('None'),
                       }),
                     ),
@@ -582,10 +587,8 @@ async function register() {
   <div>
     <h3>Create Domain</h3>
     <p>
-      <label for="domain">New domain name:</label> <input
-        id="domain"
-        v-model="domainName"
-      >
+      <label for="domain">New domain name:</label>
+      <input id="domain" v-model="domainName" />
     </p>
     <p>
       <button @click="register">
@@ -602,7 +605,7 @@ And finally, let's build the Listener component which will use Events API to set
 <script setup lang="ts">
 import { SetupEventsReturn } from '@iroha2/client'
 import {
-  EventFilter,
+  FilterBox,
   OptionHash,
   OptionPipelineEntityKind,
   OptionPipelineStatusKind,
@@ -610,7 +613,12 @@ import {
   PipelineEventFilter,
   PipelineStatusKind,
 } from '@iroha2/data-model'
-import { computed, onBeforeUnmount, shallowReactive, shallowRef } from 'vue'
+import {
+  computed,
+  onBeforeUnmount,
+  shallowReactive,
+  shallowRef,
+} from 'vue'
 import { bytesToHex } from 'hada'
 import { client } from '../client'
 
@@ -627,11 +635,17 @@ const isListening = computed(() => !!currentListener.value)
 
 async function startListening() {
   currentListener.value = await client.listenForEvents({
-    filter: EventFilter(
+    filter: FilterBox(
       'Pipeline',
       PipelineEventFilter({
-        entity_kind: OptionPipelineEntityKind('Some', PipelineEntityKind('Transaction')),
-        status_kind: OptionPipelineStatusKind('Some', PipelineStatusKind('Committed')),
+        entity_kind: OptionPipelineEntityKind(
+          'Some',
+          PipelineEntityKind('Transaction'),
+        ),
+        status_kind: OptionPipelineStatusKind(
+          'Some',
+          PipelineStatusKind('Committed'),
+        ),
         hash: OptionHash('None'),
       }),
     ),
@@ -671,10 +685,7 @@ onBeforeUnmount(stopListening)
     <p>Events:</p>
 
     <ul>
-      <li
-        v-for="{ hash, status } in events"
-        :key="hash"
-      >
+      <li v-for="{ hash, status } in events" :key="hash">
         Transaction <code>{{ hash }}</code> status:
         {{ status }}
       </li>
