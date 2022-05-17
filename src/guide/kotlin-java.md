@@ -366,7 +366,7 @@ public class JavaTest {
         final var value = account.getAssets().get(DEFAULT_ASSET_ID).getValue();
         Assertions.assertEquals(5, ((AssetValue.Quantity) value).getU32());
     }
-  
+
     @Test
     @WithIroha(genesis = DefaultGenesis.class)
     public void instructionFailed() {
