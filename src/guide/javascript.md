@@ -26,7 +26,7 @@ All of the are published under scope `@iroha2` into Iroha Nexus Registry. In fut
 @iroha2:registry=https://nexus.iroha.tech/repository/npm-group/
 ```
 
-Then you can install these packages as any other NPM package:              
+Then you can install these packages as any other NPM package:
 
 ```bash
 npm i @iroha2/client
