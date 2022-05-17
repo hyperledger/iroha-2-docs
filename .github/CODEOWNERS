@@ -1,0 +1,14 @@
+*   @appetrosyan
+
+# doc sources
+/src/   @outoftardis @WRRicht3r @appetrosyan
+*.md    @outoftardis @WRRicht3r @appetrosyan
+src/guide/javascript.md @0x009922 @outoftardis @WRRicht3r @appetrosyan
+
+# configurations
+/.vitepress/   @0x009922
+*.js    @0x009922
+*.ts    @0x009922
+*.json  @0x009922
+*.yaml  @0x009922
+*.vue   @0x009922
