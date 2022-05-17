@@ -2,19 +2,19 @@
 
 ## 1. Iroha 2 Client Setup
 
-In this part we shall cover the main things to look out for if you want to use Iroha 2. Instead of providing the complete basics, we shall assume knowledge of the most widely used concepts, explain what’s unusual about Iroha 2 specifically, and provide a step-by-step guide to creating your own Rust client for it.
+In this part we shall cover the process of using the Iroha 2 rust libraries. Instead of providing the complete basics, we shall assume knowledge of the most widely used concepts, explain what’s unusual about Iroha 2 specifically, and provide a step-by-step guide to creating your own Rust client for it.
 
 We assume that you know how to create a new package and have basic understanding of the fundamental Rust code; `async` functions, `enum` types, traits and borrowing/ownership, as well as usage of the libraries that we also use: `serde`, `tokio`, `tracing` etc. If you don't feel comfortable with any of the above, we recommend consulting [the Rust book](https://doc.rust-lang.org/stable/book/) and [docs.rs](https://docs.rs/).
 
-Iroha 2 makes extensive use of [workspaces](https://doc.rust-lang.org/book/ch14-03-cargo-workspaces.html) (or crates), that go in a domain-first order. What that means is that instead of having a global _constants_ crate, we have a crate for the blockchain data model (`iroha_data_model`), a crate with cryptographic primitives `iroha_crypto` and so on. These, _individually_ have a module for constants.
+Iroha 2 makes extensive use of [workspaces](https://doc.rust-lang.org/book/ch14-03-cargo-workspaces.html). Currently there are two workspaces,  the one that contains the WASM support library and the one that contains the core support libraries,  which go in a domain-first order. What that means is that instead of having a global _constants_ crate, we have a crate for the blockchain data model (`iroha_data_model`), a crate with cryptographic primitives `iroha_crypto` and so on. These, _individually_ have a module for constants.
 
 If you add `iroha_client` to the other two crates, you get the minimum number of dependencies to start your own client, similar to `iroha_client_cli`. We expect to create a package on [crates.io](https://crates.io/), with all the documentation once the initial `v2.0.0` release is complete. In the meantime, you could use the local copy that you've just created in the [previous step](/guide/build-and-install) as a local installation in your client’s `Cargo.toml`.
 
 ```toml
 [dependencies]
-iroha_client = { version = "=2.0.0-pre.1", path = "~/Git/iroha/client" }
-iroha_data_model = { version = "=2.0.0-pre.1", path = "~/Git/iroha/data_model" }
-iroha_crypto = { version = "=2.0.0-pre.1", path = "~/Git/iroha/crypto" }
+iroha_client = { version = "=2.0.0-pre-rc.4", path = "~/Git/iroha/client" }
+iroha_data_model = { version = "=2.0.0-pre-rc.4", path = "~/Git/iroha/data_model" }
+iroha_crypto = { version = "=2.0.0-pre-rc.4", path = "~/Git/iroha/crypto" }
 ```
 
 The added benefit of using a local copy, is that you have access to the minimal BFT network in the form of `docker-compose.yml`.
@@ -40,22 +40,22 @@ You should look through it, to familiarise with the key pieces of information th
 Your application written in Rust needs to instantiate a client. The client, typically needs specific configuration options, which you could either generate, or load from a the provided `config.json`. Let's do that now:
 
 ```rust
-use iroha_clientconfig::Configuration as ClientConfiguration;
+use iroha_client::config::Configuration as ClientConfiguration;
 
-let cfg = serde_json::from_reader(file)?;
+let cfg: ClientConfiguration = serde_json::from_reader(file)?;
 ```
 
-Using that configuration, it should be straightforward to instantiate a basic client.
+Using said configuration, instantiate a client.
 
 ```rust
 use iroha_client::client::Client;
 
-let mut iroha_client = Client::new(cfg);
+let iroha_client = Client::new(cfg);
 ```
 
-Note that we have created a mutable client. Sending and receiving messages affects the client's internal state.
+Note that it used to be necessary to create a mutable client. Sending and receiving messages affects the client's internal state, but now that state is hidden behind interior mutable smart pointers.
 
-Of course, depending on your application, you might want to de-serialise your `MyConfiguration` structure from a different location. Perhaps, you might want to build the configuration in place using the command-line arguments, or perhaps, you're using the XDG specification to store the file persistently in a different location. For this purpose, it's useful to try and construct the `ClientConfiguration`.
+Of course, depending on your application, you might want to de-serialise your `ClientConfiguration` structure from a different location. Perhaps, you might want to build the configuration in place using the command-line arguments, or perhaps, you're using the XDG specification to store the file persistently in a different location. For this purpose, it's useful to try and construct the `ClientConfiguration`.
 
 ```rust
 use iroha_core::prelude::*;
