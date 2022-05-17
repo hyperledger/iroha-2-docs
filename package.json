@@ -5,9 +5,9 @@
     "dev": "vitepress dev",
     "build": "vitepress build",
     "serve": "vitepress serve",
-    "format": "prettier 'src/**/*.md'",
-    "format:check": "pnpm run format --check",
-    "format:fix": "pnpm run format --write"
+    "format:docs": "prettier 'src/**/*.md'",
+    "format:docs:check": "pnpm run format:docs --check",
+    "format:docs:fix": "pnpm run format:docs --write"
   },
   "devDependencies": {
     "@types/node": "^17.0.34",
