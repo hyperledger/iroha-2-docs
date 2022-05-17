@@ -17,7 +17,7 @@ We can mathematically prove that **Iroha 2 can work when up to 33% of its nodes 
 
 Iroha 2 is a minimalist code base. We take great care to vet our dependencies, and avoid large inter-dependent chunks of code. We provide a few telemetry APIs, including `prometheus` tooling, structured logging in JSON, as well as compatibility with [standard tools](https://wiki.sora.org/sora-faq) used in Parity Substrate. Our data is strongly-typed, and our methods — statically dispatched. We make use of the best that Rust has to offer: `serde` and `parity_scale_codec` for serialisation, `tokio` for co-operative multi-threading, as well as wealth of testing, bench-marking, static analysis and code auditing tools that come packaged with the exemplary `cargo`. Our code is easy to reason about, and quick to compile, whilst also being ergonomic to use and thoughtfully crafted. We have no `panics` and no `unsafe` code.
 
-Iroha 2 is also more flexible than the original Iroha due to modular design. It is possible to add or remove features based on the particular use-case.  If you want to be extremely fast, and work on embedded hardware, just compile Iroha 2 without the `expensive-metrics` feature. Don't use telemetry at all? Remove it entirely and enjoy even more performance. _Permission_ sets are plugins that can be upgraded during run-time. We have an extensive module system as well as a robust WASM runtime framework.
+Iroha 2 is also more flexible than the original Iroha due to modular design. It is possible to add or remove features based on the particular use-case. If you want to be extremely fast, and work on embedded hardware, just compile Iroha 2 without the `expensive-metrics` feature. Don't use telemetry at all? Remove it entirely and enjoy even more performance. _Permission_ sets are plugins that can be upgraded during run-time. We have an extensive module system as well as a robust WASM runtime framework.
 
 Iroha 2 is an event-driven ledger. Each change in the state of the blockchain is necessarily accompanied by its own event that can _trigger_ a smartcontract: complex logic designed for use in on-chain scripting.
 
@@ -57,7 +57,7 @@ In this guide, we shall
 - take a small detour into the basic concepts of Iroha special instructions, and how they interact with the world state.
 
 
-The _appendix_  contains a variety of useful information. In particular, the three main configuration files are explained: the _peer_ configuration and the _genesis block_, which you need to get right to start a network; and the _client_ configuration, which you adjust in order to interact with the blockchain.
+The _appendix_ contains a variety of useful information. In particular, the three main configuration files are explained: the _peer_ configuration and the _genesis block_, which you need to get right to start a network; and the _client_ configuration, which you adjust in order to interact with the blockchain.
 
 For this tutorial, you will need:
 

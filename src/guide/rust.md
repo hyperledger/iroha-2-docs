@@ -2,11 +2,11 @@
 
 ## 1. Iroha 2 Client Setup
 
-In this part we shall cover the process of using the Iroha 2 rust libraries. Instead of providing the complete basics, we shall assume knowledge of the most widely used concepts, explain what’s unusual about Iroha 2 specifically, and provide a step-by-step guide to creating your own Rust client for it.
+In this part we shall cover the process of using the Iroha 2 Rust libraries. Instead of providing the complete basics, we shall assume knowledge of the most widely used concepts, explain what’s unusual about Iroha 2 specifically, and provide a step-by-step guide to creating your own Rust client for it.
 
 We assume that you know how to create a new package and have basic understanding of the fundamental Rust code; `async` functions, `enum` types, traits and borrowing/ownership, as well as usage of the libraries that we also use: `serde`, `tokio`, `tracing` etc. If you don't feel comfortable with any of the above, we recommend consulting [the Rust book](https://doc.rust-lang.org/stable/book/) and [docs.rs](https://docs.rs/).
 
-Iroha 2 makes extensive use of [workspaces](https://doc.rust-lang.org/book/ch14-03-cargo-workspaces.html). Currently there are two workspaces,  the one that contains the WASM support library and the one that contains the core support libraries,  which go in a domain-first order. What that means is that instead of having a global _constants_ crate, we have a crate for the blockchain data model (`iroha_data_model`), a crate with cryptographic primitives `iroha_crypto` and so on. These, _individually_ have a module for constants.
+Iroha 2 makes extensive use of [workspaces](https://doc.rust-lang.org/book/ch14-03-cargo-workspaces.html). Currently there are two workspaces, the one that contains the WASM support library and the one that contains the core support libraries, which go in a domain-first order. What that means is that instead of having a global _constants_ crate, we have a crate for the blockchain data model (`iroha_data_model`), a crate with cryptographic primitives `iroha_crypto` and so on. These, _individually_ have a module for constants.
 
 If you add `iroha_client` to the other two crates, you get the minimum number of dependencies to start your own client, similar to `iroha_client_cli`. We expect to create a package on [crates.io](https://crates.io/), with all the documentation once the initial `v2.0.0` release is complete. In the meantime, you could use the local copy that you've just created in the [previous step](/guide/build-and-install) as a local installation in your client’s `Cargo.toml`.
 
@@ -17,7 +17,7 @@ iroha_data_model = { version = "=2.0.0-pre-rc.4", path = "~/Git/iroha/data_model
 iroha_crypto = { version = "=2.0.0-pre-rc.4", path = "~/Git/iroha/crypto" }
 ```
 
-The added benefit of using a local copy, is that you have access to the minimal BFT network in the form of `docker-compose.yml`, and you can experiment. The drawbacks are mitigated by the fact that rust links statically by default, so we recommend you experiment with the local set up first.
+The added benefit of using a local copy, is that you have access to the minimal BFT network in the form of `docker-compose.yml`, and you can experiment. The drawbacks are mitigated by the fact that Rust links statically by default, so we recommend you experiment with the local set up first.
 
 ::: info
 
@@ -188,7 +188,7 @@ Which is then **wrapped in a transaction** and **submitted to the peer** as [in 
 
 ## 5. Registering and minting assets
 
-Iroha has been built with few implicit assumptions about the assets in the blockchain. The assets can be fungible (every £1 is exactly the same as every other £1), or non-fungible (a £1 bill signed by the Queen of Hearts is not the same as a £1 bill signed by the King of Spades), mintable (you can make more of them) and once-mintable (you can only register them,  and mint all of the initial quantity into one wallet,  after which their amount is fixed). Additionally, the assets have different underlying value types.
+Iroha has been built with few implicit assumptions about the assets in the blockchain. The assets can be fungible (every £1 is exactly the same as every other £1), or non-fungible (a £1 bill signed by the Queen of Hearts is not the same as a £1 bill signed by the King of Spades), mintable (you can make more of them) and once-mintable (you can only register them, and mint all of the initial quantity into one wallet, after which their amount is fixed). Additionally, the assets have different underlying value types.
 
 Specifically, we have `AssetValueType::Quantity` which is effectively an unsigned 32-bit integer, a `BigQuantity` which is an unsigned 128 bit integer, which is enough to trade all possible IPV6 addresses, and quite possibly individual grains of sand on the surface of the earth and `Fixed`, which is a positive (though signed) 64-bit fixed-precision number with nine significant digits after the decimal point. It doesn't quite use binary-coded decimal for performance reasons. All three types can be registered as either **mintable** or **once-mintable**.
 
@@ -200,7 +200,7 @@ let id = AssetDefinitionId::from_str("time#looking_glass")?;
 
 ::: info
 
-Note that we use `#` symbol to separate the name of the asset from the domain to which it belongs to. This is intentional. This reflects the rule that there can be many `alice`s in many domains, with only one `alice` per domain,  and there can be an asset that is also named `alice`, but there can be only one, regardless of type.
+Note that we use `#` symbol to separate the name of the asset from the domain to which it belongs. This is intentional. This reflects the rule that there can be many `alice`s in many domains, with only one `alice` per domain, and there can be an asset that is also named `alice`, but there can be only one, regardless of type.
 
 :::
 
@@ -211,9 +211,9 @@ let register_time = RegisterBox::new(AssetDefinition::fixed(id).mintable_once().
 iroha_client.submit(register_time)?;
 ```
 
-This creates an asset `time` that can only be minted once and has the type `fixed`. `AssetDefinition::fixed` just like its other cousins (`quantity` and `big_quantity`) returns a builder of an `AssetDefinition`. If you get odd error messages that's because you didn't call `build()` at the end.
+This creates an asset `time` that can only be minted once and has the type `fixed`. `AssetDefinition::fixed` just like its other cousins (`quantity` and `big_quantity`) returns a builder of an `AssetDefinition`. If you get odd error messages, that's because you didn't call `build()` at the end.
 
-This asset is `mintable_once` it means that we have to specify the entire amount that is going to exist for the rest of the existence of the blockchain the next time we mint.
+This asset is `mintable_once`, which means that the next time we mint it, we have to specify the entire amount that is going to exist for the rest of the existence of the blockchain.
 
 ```rust
 let mint = MintBox::new(
@@ -226,7 +226,7 @@ let mint = MintBox::new(
 iroha_client.submit(mint)?;
 ```
 
-Now imagine that the `white_rabbit@looking_glass` was not very keen and didn't notice that he wanted `123.4_f64` as the amount of time. Now white rabbit notices the problem and thinks "oh dear, not a lot of time has passed, perhaps I can give myself some more",  and submits another mint request with `111.06_f64`, instead of the original `12.34_f64`. But,  alas, no such luck. The white rabbit cannot mint more time and is thus perpetually late.
+Now imagine that the `white_rabbit@looking_glass` was not very keen and didn't notice that he wanted `123.4_f64` as the amount of time. Now white rabbit notices the problem and thinks "oh dear, not a lot of time has passed, perhaps I can give myself some more", and submits another mint request with `111.06_f64`, instead of the original `12.34_f64`. But, alas, no such luck. The white rabbit cannot mint more time and is thus perpetually late.
 
 Roses, by contrast are already registered in the network during the genesis round, and belong to _alice@wonderland_. Moreover, when they were registered we didn't add the restriction, so we can mint them again and again as _alice_.
 
