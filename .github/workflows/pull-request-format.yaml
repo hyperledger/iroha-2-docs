@@ -3,48 +3,19 @@ on:
   pull_request:
     branches: [master]
 jobs:
-  format-and-push:
-    # run only if PR is made from the repo itself
-    if: ${{ github.repository == 'hyperledger/iroha-2-docs' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "14.x"
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 6.19.0
-
-      - name: Install packages
-        run: pnpm install
-
-      - name: Fix formatting
-        run: pnpm format:fix
-
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Apply Prettier changes
-          branch: ${{ github.head_ref }}
-          commit_options: "--signoff"
-
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: "14.x"
+          node-version: 16
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2.0.1
         with:
-          version: 6.19.0
+          version: 7
 
       - name: Install packages
         run: pnpm install
