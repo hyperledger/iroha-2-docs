@@ -72,7 +72,6 @@ Roles are an optional feature that should be present on all Iroha 2 deployments 
 
 - **Details**: It returns all roles registered as _global_ (as opposed to domain-scoped) in the blockchain, but instead of returning the values of Roles (which contain permission tokens), we only get the Ids of the roles.
 
-
 ### FindRoleByRoleId
 
 - **Parameters**: `RoleId`
@@ -80,7 +79,6 @@ Roles are an optional feature that should be present on all Iroha 2 deployments 
 - **Returns**: `Vec<Roles>`
 
 - **Details**: It returns the role that has the provided role ID. For example, given the name of the role `admin` it will return all of the `admin`-level permission tokens.
-
 
 ### FindRolesByAccountId
 
@@ -149,6 +147,7 @@ Most queries in Iroha pertain to accounts, and at the moment this is the most di
   <WarningFatQuery />
 
 ### FindAccountsWithAsset
+
 - **Parameters**: `AccountId`
 
 - **Returns**: `Vec<Account>`
@@ -369,7 +368,6 @@ Iroha is an event-driven architecture. Every modification of the world state emi
 
 An action that executes whenever an event meeting certain conditions is emitted is called a `trigger`. The following queries are going to be invaluable for anyone writing (and debugging) smart contracts submitted into an Iroha-based blockchain.
 
-
 ### FindAllActiveTriggerIds
 
 - **Returns**: `Vec<TriggerId>`
@@ -378,14 +376,13 @@ An action that executes whenever an event meeting certain conditions is emitted 
 
 <WarningFatQuery />
 
-
 ### FindTriggerById
 
 - **Parameters**: `TriggerId`
 
 - **Returns**: `Trigger`
 
-- **Details**: This query finds the trigger with the given ID. 
+- **Details**: This query finds the trigger with the given ID.
 
 ### FindTriggerKeyValueByIdAndKey
 
@@ -394,5 +391,3 @@ An action that executes whenever an event meeting certain conditions is emitted 
 - **Returns**: `Trigger`
 
 - **Details**: This query finds the value corresponding to the key in the metadata of the trigger with the given ID.
-
-
