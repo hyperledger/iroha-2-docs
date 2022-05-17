@@ -27,7 +27,7 @@ module.exports = {
   // No need to automatically insert @prettier at the beginning of the file
   insertPragma: false,
   // use default break criteria
-  proseWrap: 'preserve',
+  proseWrap: 'always',
   // decide whether to break the html according to the display style
   htmlWhitespaceSensitivity: 'css',
   // vue files script and style tags indentation
