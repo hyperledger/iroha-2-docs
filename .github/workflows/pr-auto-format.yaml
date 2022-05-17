@@ -30,3 +30,4 @@ jobs:
         with:
           commit_message: Apply Prettier changes
           branch: ${{ github.head_ref }}
+          commit_options: "--signoff"
