@@ -35,8 +35,6 @@
    pnpm i
    ```
 
-Then you can use
-
 ### Run dev mode
 
 ```bash
@@ -47,17 +45,19 @@ It will start a local dev-server. You will be able to open a browser, observe re
 
 ### Documentation formatting
 
-**Format doc files:**
+We use [Prettier](https://prettier.io/) to format Markdown files. Its configuration is located at `./.prettierrc.js`. For available options please follow to [Options reference](https://prettier.io/docs/en/options.html).
 
-```bash
-pnpm format:docs:fix
-```
+- **Format doc files** - apply Prettier's formatting to all Markdown files
 
-**Check the formatting in doc files:**
+  ```bash
+  pnpm format:docs:fix
+  ```
 
-```bash
-pnpm format:docs:check
-```
+- **Check the formatting in doc files** - ensure that all documentation files match Prettier's code style
+
+  ```bash
+  pnpm format:docs:check
+  ```
 
 ## License
 
