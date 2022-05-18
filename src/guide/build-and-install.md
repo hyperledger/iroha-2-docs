@@ -43,14 +43,14 @@ have the right version of `cargo` paired with the right version of `rustc`
 
 ```bash
 cargo -V
-cargo 1.57.0 (b2e52d7ca 2021-10-21)
+cargo 1.60.0 (d1fd9fe 2022-03-01)
 ```
 
 and then
 
 ```bash
 rustc --version
-rustc 1.57.0 (f1edd0429 2021-11-29)
+rustc 1.60.0 (7737e0b5c 2022-04-04)
 ```
 
 If you have higher versions, you're fine. If you have lower versions, you
@@ -185,10 +185,11 @@ Change directories
 cd ~/Git/iroha
 ```
 
-and choose the right branch: the 1st preview release of Iroha 2!
+and choose the right branch: the main and the latest currently supported
+monthly release of Iroha.
 
 ```bash
-git checkout "2.0.0-pre.1.rc.1"
+git checkout iroha2
 ```
 
 After you have successfully cloned the Iroha git repository, and are on the
@@ -222,16 +223,18 @@ docker compose up
 
 ::: info
 
-On a _properly_ configured docker compose, you should never have to use
-`sudo` . If you do, consider looking into starting the docker dæmon first
-by running `systemctl enable docker` on Linux. If that doesn't work,
-consider using
+On a _properly_ configured
+[docker compose](https://docs.docker.com/engine/install/linux-postinstall/),
+you should never have to use `sudo` . If you do, consider looking into
+starting the docker dæmon first by running `systemctl enable docker` on
+Linux.
 
 :::
 
-Depending on your set-up, this might either pull the container off of
-DockerHub, or build the container locally. After this (relatively short if
-pull, and long if build) process is complete, you'll be greeted with,
+Depending on your set-up, this might either
+[pull the image](https://hub.docker.com/r/hyperledger/iroha2/tags) off of
+DockerHub, or build the container locally. After this process is complete,
+you'll be greeted with,
 
 <!-- Please rename file and add an appropriate label to it -->
 <!-- TODO maybe use ASCIINEMA here? -->

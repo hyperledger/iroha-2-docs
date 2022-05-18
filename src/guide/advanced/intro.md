@@ -1,17 +1,16 @@
 # Advanced Topics
 
-This is the part of the tutorial, where we say "you're not a newbie
-anymore" and hit you hard with the features that make Iroha truly special.
-Here we will cover in some breadth the _Iroha special instructions_,
-Web-assembly, and how both are used in creating what's know as a _smart
-contract_.
+This is the part of the tutorial where we say "you're not a newbie anymore"
+and hit you hard with the features that make Iroha truly special. Here we
+will cover in some breadth the _Iroha special instructions_, Web-assembly,
+and how both are used in creating what's known as a _smart contract_.
 
 The basic premise is; if the blockchain is the computer, then
 `iroha_client_cli` or any of the client libraries for that matter, are the
 keyboard, the blockchain is the hard drive, and the Iroha peer software is
 the processor. Like a processor, Iroha accepts portable instructions which
 modify what's written to the blockchain, allow certain users to use the
-network, and lock out others.
+network, and lock others out.
 
 As such any operation that is run on-chain is written in terms of Iroha
 Special Instructions (ISI), and there is no other way of modifying the
@@ -26,17 +25,17 @@ return some values that you are allowed to access, which are also
 instructions. Each time you send a transaction to Iroha, it gets put into a
 queue, and when the time comes, the queue is emptied, and the consensus
 process begins. This process is a bit of mundane with a bit of black
-magic[^1]. The mundane, is that a special set of peers needs to take the
-transaction queue, and reproduce the same world state. If the world state
-cannot be reproduced for some reason or another, none of the transactions
-get committed to a block and consensus tries again. The reasoning behind
-this algorithm is simple: if someone had some evil peers and connected them
-to the existing network, if they tried to fake data, some good™ peers would
-not get the same (evil™) world state. If that's the case, the evil™ peers
-would not be allowed to participate in consensus, and you would eventually
-produce a block using only good™ peers. So if any changes to the world
-state are made without using ISI, they would not pass consensus and never
-get committed to a block.
+magic[^1]. The mundane aspect is that a special set of peers needs to take
+the transaction queue, and reproduce the same world state. If the world
+state cannot be reproduced for some reason or another, none of the
+transactions get committed to a block and consensus tries again. The
+reasoning behind this algorithm is simple: if someone had some evil peers
+and connected them to the existing network, if they tried to fake data,
+some good™ peers would not get the same (evil™) world state. If that's the
+case, the evil™ peers would not be allowed to participate in consensus, and
+you would eventually produce a block using only good™ peers. So if any
+changes to the world state are made without using ISI, they would not pass
+consensus and never get committed to a block.
 
 ## Iroha Special Instructions
 
@@ -53,9 +52,9 @@ that's `Identifiable` can be registered. As a rule, everything that can be
 registered, can also be un-registered, but that is not a hard and fast
 rule.
 
-You can register a new account, a new asset definition a peer and a trigger
-(more on them later). Registering a peer is currently the only way of
-adding peers that were not part of the original `TRUSTED_PEERS` array to
+You can register a new account, a new asset definition, a peer, and a
+trigger (more on them later). Registering a peer is currently the only way
+of adding peers that were not part of the original `TRUSTED_PEERS` array to
 the network.
 
 Registering an account is different. Iroha can be compiled in two modes:
@@ -93,7 +92,7 @@ are assumed to be non-negative as well, so you can never have `-1.0` of
 ### Grant/Revoke
 
 These are used specifically for permissions. When minting a permission
-token a user is granted `X` amount of permissions to do `Y` which will
+token, a user is granted `X` amount of permissions to do `Y` which will
 expire once all `X` operations were performed. By contrast, a `Grant`
 operation can be used to grant either a single permission, or a group of
 permissions (or a "role"), to a user permanently. As such these

@@ -10,120 +10,101 @@ previous version.
 ## Iroha 2 vs. Iroha 1
 
 Iroha 2 is a complete re-write of Hyperledger Iroha in Rust. As of writing
-the two projects are developed concurrently. While Iroha 1 development is
-in a less active phase due to it being feature-complete, and widely used,
-it is not being abandoned.
+the two projects are developed concurrently.
 
-Iroha 2 learned in many respects from the original Iroha. Of particular
-importance is the new consensus algorithm: Sumeragi. The first version of
-Iroha used a consensus algorithm called Yac. It is a
-_crash-fault-tolerant_, which means that it can survive a set number of
-nodes crashing, e.g. losing power, being cut off from the network, being
-destroyed. _Sumeragi_, by contrast, was designed to be
-_Byzantine-fault-tolerant_. This means that Iroha 2 can tolerate not only
-peers being inactive on the network, but also running malicious software,
-and actively trying to falsify data in the blockchain.
+Iroha 2 learned a great deal from the development of the original Iroha. Of
+particular importance is the new and improved Byzantine-fault-tolerant
+consensus algorithm: _Sumeragi_. This new consensus allowed us to expand
+what could be done on a blockchain, without any security risks.
 
 ::: info
+
+The first version of Iroha used a consensus algorithm called _Yac_. It is
+_crash-fault-tolerant_, which means that it can survive a set number of
+nodes _crashing_: i.e. losing power, being cut off from the network, or
+being destroyed with a sledgehammer. _Sumeragi_, by contrast, was designed
+to be _Byzantine-fault-tolerant_. This means that Iroha 2 can tolerate not
+only peers being inactive on the network, but also running malicious
+software, and actively trying to falsify data in the blockchain.
 
 We can mathematically prove that **Iroha 2 can work when up to 33% of its
 nodes are actively trying to stop Iroha 2 from working properly** (_or at
 all_). In other words, even if someone gained control of a _third_ of all
 of your network nodes, an Iroha 2 deployment is _mathematically guaranteed_
-to keep working.
+to keep working. :::
 
-:::
+Iroha 2 is a minimalist code base. We take great care to vet our
+dependencies, and avoid large inter-dependent chunks of code. We provide a
+few telemetry APIs, including `prometheus` tooling, structured logging in
+JSON, as well as compatibility with
+[standard tools](https://wiki.sora.org/sora-faq) used in Parity Substrate.
+Our data is strongly-typed, and our methods — statically dispatched. We
+make use of the best that Rust has to offer: `serde` and
+`parity_scale_codec` for serialisation, `tokio` for co-operative
+multi-threading, as well as wealth of testing, bench-marking, static
+analysis and code auditing tools that come packaged with the exemplary
+`cargo`. Our code is easy to reason about, and quick to compile, whilst
+also being ergonomic to use and thoughtfully crafted. We have no `panics`
+and no `unsafe` code.
 
-Iroha 2 is a minimal code base. We take great care to vet our dependencies,
-and avoid large inter-dependent chunks of code. We provide a few telemetry
-APIs, including `prometheus` tooling, structured logging in JSON, as well
-as compatibility with standard tools used in substrate. Our data is
-strongly typed, and avoids dynamic dispatch. We make use of the best that
-Rust can offer: we use `serde` and `parity_scale_codec` for serialisation,
-`tokio` for co-operative multithreading, as well as judicious auditing. Our
-code is easy to reason about, and quick to compile.
+Iroha 2 is also more flexible than the original Iroha due to modular
+design. It is possible to add or remove features based on the particular
+use-case. If you want to be extremely fast, and work on embedded hardware,
+just compile Iroha 2 without the `expensive-metrics` feature. Don't use
+telemetry at all? Remove it entirely and enjoy even more performance.
+_Permission_ sets are plugins that can be upgraded during run-time. We have
+an extensive module system as well as a robust WASM runtime framework.
 
-We have designed our own actor framework, to both keep Iroha 2 neat and
-also avoid many of the pitfalls common to asynchronous networking.
-Consequently, Iroha 2 is smaller and more reliable than anything written
-using `actix`. It's very hard to make Iroha 2 hang or deadlock, you can
-trust us, we tried. As Iroha 2 is written in Rust, and uses the language's
-features to great effect. We avoid `panics` and `unsafe` code. Our code
-base uses `enum` types extensively, as both a means of type erasure and
-boxing.
+Iroha 2 is an event-driven ledger. Each change in the state of the
+blockchain is necessarily accompanied by its own event that can _trigger_ a
+smartcontract: complex logic designed for use in on-chain scripting.
 
-Iroha 2 is also more flexible than the original Iroha, and it is highly
-modular in its design. It should be possible to add/remove features based
-on the particular use-case. If you want to be extremely fast, and work on a
-very small embedded piece of hardware, just compile Iroha 2 without the
-`expensive-metrics` feature. Don't use telemetry at all? Remove it. Need to
-have roles in your blockchain? Enable the `roles` feature. Want a
-permissioned blockchain? or maybe a permissionless one? You got it all in
-one neat little package called **Iroha 2**.
+For smart contracts, Iroha 2 supports two approaches:
 
-Of course, if this is not sufficiently low-level for your particular needs,
-you can fork Iroha, since it's licensed under the Apache 2.0 permissive
-license and is part of the Hyperledger Foundation, which itself is a
-subsidiary of the Linux foundation.
-
-Iroha 2 is an event-driven blockchain. Each change in the state of the
-blockchain is accompanied by its own event that can trigger a
-smartcontract: complex logic that allows for on-chain scripting. For
-smartcontracts, Iroha 2 supports two approaches.
-
-- Iroha Special Instructions
-- WASM
+- Iroha Special Instructions (ISI)
+- Web ASseMbly (WASM)
 
 The first approach is useful when you want very simple transparent logic,
 and want to minimise the footprint in the blockchain. All interactions with
-the _World state_, the state of the blockchain at this point in time, has
-to be done using the aforementioned instructions. There is also rudimentary
-support for domain-specific conditional logic. However sometimes you might
-want to run something more complex, e.g. do some complex conditional
-evaluation. For this purpose, you can use the provide WASM support library,
-and write the logic in any language that supports compilation to WASM. You
-still have to use the Iroha Special instructions to e.g. mint or transfer
-assets, as well as register entities in the blockchain, however, you might
-need more complex metadata-driven logic, that would be cumbersome to build
-up from ISI.
+the _World state_, that is, the state of the blockchain at this point in
+time, has to be done using the aforementioned instructions. There is also
+rudimentary support for domain-specific conditional logic.
 
-::: info
+However, sometimes you might want to run something more complex, e.g. do
+some conditional evaluation. For this purpose, we have designed a library
+for loading portable executables in the WASM format; write the logic in any
+language that supports compilation to WASM and worry not about the cost.
 
-Iroha 2 at this point is not feature-complete. While we more-less finished
-the consensus, we still haven't finalised many of the architectural
-decisions. For example, the means by which one could write a smartcontract
-is likely to be extended.
-
-:::
-
-_If you want to learn more about smartcontracts in Iroha 2, please consult
+If you want to learn more about smartcontracts in Iroha 2, please consult
 our
-[Wiki](https://wiki.hyperledger.org/display/iroha/Scripting+Languages+and+Runtimes+for+Iroha2+Smart+Contracts)._
+[Wiki](https://wiki.hyperledger.org/display/iroha/Scripting+Languages+and+Runtimes+for+Iroha2+Smart+Contracts).\_
 
 <!-- Long-term deployment of Iroha 2 networks was something that we considered very early in its development. There are **Iroha Special instructions**, that enact upgrades of the network into a consistent state. Iroha nodes can operate if other nodes in the network run different versions of the Iroha 2 binary. -->
 
-Iroha 2 is also smart about when to use dynamic and when to use static
-linking. We dynamically link with libraries that are related to encrypting
-communication (e.g. OpenSSL), but statically link against smaller Rust
-libraries. Thus patching a security vulnerability in Iroha is easy for
-distribution maintainers: just upgrade the SSL package and Iroha will use
-it. At the same time Iroha has far fewer dependencies, which in turn means
-that far fewer packages can accidentally break Iroha during a routine
-distribution upgrade.
+Iroha 2 smartly chooses when to use dynamic linking. This strikes a balance
+between it being easy to patch a Critical security vulnerability in a
+vendored library like OpenSSL, but also remaining reproducible and portable
+across platforms, architectures and deployments.
 
 ::: info
 
 You get the best of both worlds. Patching a security vulnerability is as
 easy as running `sudo apt upgrade`. On the other hand, only
-security-critical dependencies are linked dynamically, so most of Iroha is
-built statically and reproducibly.
+security-critical dependencies are linked dynamically, so it is highly
+unlikely that any of the smaller and less important libraries can break
+Iroha after an upgrade.
 
 :::
 
 Iroha 2 is extensively tested. Despite being in active development, Iroha
-has a 75% line coverage (keep in mind, line coverage includes documentation
+has 80% line coverage (keep in mind, line coverage includes documentation
 comments, some of which are also tests). There are plans to include Fuzz
-testing, property-based testing and failure-point testing.
+testing, property-based testing and failure-point testing to ensure that
+Iroha is reliable.
+
+The list of headlining features goes on. As we are nearing our first
+long-term supported preview release, we'll be updating the guide with
+relevant changes.
 
 The list of headlining features goes on. As the Iroha 2 development
 continues, this guide will be extended and headlining features will be
@@ -133,25 +114,29 @@ added to this section.
 
 What follows is an introduction suitable for both experienced developers,
 prospective users, and people casually curious about blockchain technology.
-We provide a level of detail, sufficient for you to not need anything else,
-though we do refer you to standard documentation in a few cases.
+The level of detail is sufficient so that you wouldn't need any
+supplementary guide. However, should you want to learn more, we have more
+detailed documentation in the works.
 
-We shall walk you through starting an Iroha network, either with docker
-(recommended) or using one of the provided scripts, and then introduce you
-to the client libraries. We shall then take a small detour into the basic
-concepts of Iroha special instructions, and how they interact with the
-world state.
+In this guide, we shall
 
-The _appendix_ covers the three main configuration files: the _peer_
-configuration and the _genesis block_, which you need to get right to start
-a network; and the _client_ configuration, which you adjust in order to
-interact with the blockchain.
+- walk you through starting an Iroha network, either with docker
+  (recommended) or using one of the provided scripts;
+- introduce you to the client libraries;
+- take a small detour into the basic concepts of Iroha special
+  instructions, and how they interact with the world state.
+
+The _appendix_ contains a variety of useful information. In particular, the
+three main configuration files are explained: the _peer_ configuration and
+the _genesis block_, which you need to get right to start a network; and
+the _client_ configuration, which you adjust in order to interact with the
+blockchain.
 
 For this tutorial, you will need:
 
 - [git](https://githowto.com/)
 - [A working Rust toolchain](https://www.rust-lang.org/learn/get-started):
-  cargo, rust v1.57 and up [^1]
+  cargo, rust v1.60 and up [^1]
 - (Optional) [Docker](https://docs.docker.com/get-docker/)
 - (Optional) [Docker compose](https://docs.docker.com/compose/) [^2]
 
@@ -165,23 +150,9 @@ For this tutorial, you will need:
 
 This tutorial will cover Iroha 2 in:
 
-- Unix Shell (bash)
+- POSIX Shell (bash)
 - Python
 - Rust
 - Kotlin/Java
 - JavaScript (TypeScript)
 - Swift (iOS) (coming soon)
-
-There will be more content added to this tutorial as it is made available,
-and there will be clearly marked update sections wherever they are added.
-
-::: tip
-
-This tutorial is aimed at both advanced users as well as novices. Advanced
-users can typically skip the 0-th subscetions of each section, while
-novices are advised to follow the instructions closely and not skip any
-steps. Although some questions can be answered with a quick google search,
-we gathered the most common mistakes and troubleshooting steps such that
-even people without prior experience in programming can follow along.
-
-:::
