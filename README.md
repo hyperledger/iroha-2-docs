@@ -23,7 +23,7 @@
    nvm install 16
    ```
 
-2. **Install PNPM.** It is a package manager used by this project. If you've installed Node.js, you can install it with the command:
+2. **Install PNPM**, a package manager used by this project. If you've installed Node.js, you can install PNPM with this command:
 
    ```bash
    npm i -g pnpm
@@ -53,7 +53,7 @@ It will start a local dev-server. You will be able to open a browser, observe re
 pnpm format:docs:fix
 ```
 
-**Check doc files formatting:**
+**Check the formatting in doc files:**
 
 ```bash
 pnpm format:docs:check
