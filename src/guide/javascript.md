@@ -19,7 +19,9 @@ The Iroha 2 JavaScript library consists of multiple packages:
 | `crypto-target-web`                                       | Compiled crypto WASM for native Web (ESM)                                                                                                          |
 | <code class="whitespace-pre">crypto-target-bundler</code> | Compiled crypto WASM to use with bundlers such as Webpack                                                                                          |
 
-All of the are published under scope `@iroha2` into Iroha Nexus Registry. In future, they will be published in the main NPM Registry. To install these packages, firstly you need to setup a registry:
+All of the are published under scope `@iroha2` into Iroha Nexus Registry.
+In future, they will be published in the main NPM Registry. To install
+these packages, firstly you need to setup a registry:
 
 ```ini
 # FILE: .npmrc
@@ -34,9 +36,20 @@ yarn add @iroha2/data-model
 pnpm add @iroha2/crypto-target-web
 ```
 
-The set of packages that you need to install depends on your intention. Maybe you only need to play with the Data Model to perform (de-)serialisation, in which case the `data-model` package is enough. Maybe you only need to check on a peer in terms of status/health, thus need only the client library, because this API doesn't require any interactions with crypto or Data Model. For the purposes of this tutorial, it’s better to install everything, however, in general the packages are maximally decoupled, so you can minimise the footprint.
+The set of packages that you need to install depends on your intention.
+Maybe you only need to play with the Data Model to perform
+(de-)serialisation, in which case the `data-model` package is enough. Maybe
+you only need to check on a peer in terms of status/health, thus need only
+the client library, because this API doesn't require any interactions with
+crypto or Data Model. For the purposes of this tutorial, it’s better to
+install everything, however, in general the packages are maximally
+decoupled, so you can minimise the footprint.
 
-Moving on, if you are planning to use the Transaction or Query API, you’ll also need to inject an appropriate `crypto` instance into the client at runtime. This has to be adjusted depending on your particular environment. For example, for Node.js users, such an injection may look like the following:
+Moving on, if you are planning to use the Transaction or Query API, you’ll
+also need to inject an appropriate `crypto` instance into the client at
+runtime. This has to be adjusted depending on your particular environment.
+For example, for Node.js users, such an injection may look like the
+following:
 
 ```ts
 import { crypto } from '@iroha2/crypto-target-node'
@@ -47,13 +60,21 @@ setCrypto(crypto)
 
 ::: info
 
-Please refer to the related `@iroha2/crypto-target-*` package documentation because it may require some specific configuration. For example, the `web` target requires to call an asynchronous `init()` function before usage of `crypto`.
+Please refer to the related `@iroha2/crypto-target-*` package documentation
+because it may require some specific configuration. For example, the `web`
+target requires to call an asynchronous `init()` function before usage of
+`crypto`.
 
 :::
 
 ## 2. Client Configuration
 
-The JavaScript Client is fairly low-level in the sense that it doesn’t expose any convenience features like a `TransactionBuilder` or a `ConfigBuilder`. Work on implementing those is underway, and these features will very likely be available with the second round of this tutorial’s release. Thus, on the plus side: configuration of the client is simple, on the downside you have to prepare a lot manually.
+The JavaScript Client is fairly low-level in the sense that it doesn’t
+expose any convenience features like a `TransactionBuilder` or a
+`ConfigBuilder`. Work on implementing those is underway, and these features
+will very likely be available with the second round of this tutorial’s
+release. Thus, on the plus side: configuration of the client is simple, on
+the downside you have to prepare a lot manually.
 
 A basic client setup looks straightforward:
 
@@ -70,9 +91,11 @@ const client = new Client({
 })
 ```
 
-That's enough to perform health or status check, but if you need to use transactions or queries, you’ll need to prepare a key pair.
+That's enough to perform health or status check, but if you need to use
+transactions or queries, you’ll need to prepare a key pair.
 
-Let's assume that you have stringified public & private keys (more on that later). Thus, a key-pair generation could look like this:
+Let's assume that you have stringified public & private keys (more on that
+later). Thus, a key-pair generation could look like this:
 
 ```ts
 import { crypto } from '@iroha2/crypto-target-node'
@@ -118,11 +141,20 @@ const kp = generateKeyPair({
 
 ## 3. Registering a Domain
 
-Here we see how similar the JavaScript code is to the Rust counterpart. It should be emphasised that the JavaScript library is a thin wrapper: It doesn’t provide any special builder structures, meaning you have to work with bare-bones compiled Data Model structures and define all internal fields explicitly. Doubly so, since JavaScript employs many implicit conversions, we highly recommend that you employ TypeScript. This makes many errors far easier to debug, but unfortunately results in more boilerplate.
+Here we see how similar the JavaScript code is to the Rust counterpart. It
+should be emphasised that the JavaScript library is a thin wrapper: It
+doesn’t provide any special builder structures, meaning you have to work
+with bare-bones compiled Data Model structures and define all internal
+fields explicitly. Doubly so, since JavaScript employs many implicit
+conversions, we highly recommend that you employ TypeScript. This makes
+many errors far easier to debug, but unfortunately results in more
+boilerplate.
 
-Let’s register a new domain with the name `looking_glass` our current account: _alice@wondeland_.
+Let’s register a new domain with the name `looking_glass` our current
+account: _alice@wondeland_.
 
-First, we need to import necessary models and a pre-configured client instance:
+First, we need to import necessary models and a pre-configured client
+instance:
 
 ```ts
 import { Client } from '@iroha2/client'
@@ -147,7 +179,9 @@ import {
 declare const client: Client
 ```
 
-To register a new domain, we need to submit a transaction with one instruction: to register a new domain. Let’s wrap it all in an async function:
+To register a new domain, we need to submit a transaction with one
+instruction: to register a new domain. Let’s wrap it all in an async
+function:
 
 ```ts
 async function registerDomain(domainName: string) {
@@ -187,7 +221,8 @@ Which we use to register the domain like so:
 await registerDomain('looking_glass')
 ```
 
-We can also ensure that new domain is created using Query API. Let’s create another function that wraps that functionality:
+We can also ensure that new domain is created using Query API. Let’s create
+another function that wraps that functionality:
 
 ```ts
 async function ensureDomainExistence(domainName: string) {
@@ -211,9 +246,15 @@ await ensureDomainExistence('looking_glass')
 
 ## 4. Registering an Account
 
-Registering an account is a bit more involved than registering a domain. With a domain, the only concern is the domain name, however, with an account, there are a few more things to worry about.
+Registering an account is a bit more involved than registering a domain.
+With a domain, the only concern is the domain name, however, with an
+account, there are a few more things to worry about.
 
-First of all, we need to create an `AccountId`. Note that we can only register an account to an existing domain. The best UX design practices dictate that you should check if the requested domain exists _now_, and if it doesn’t — suggest a fix to the user. After that, we can create a new account, that we name _white_rabbit_.
+First of all, we need to create an `AccountId`. Note that we can only
+register an account to an existing domain. The best UX design practices
+dictate that you should check if the requested domain exists _now_, and if
+it doesn’t — suggest a fix to the user. After that, we can create a new
+account, that we name _white_rabbit_.
 
 Imports we need:
 
@@ -246,7 +287,15 @@ const accountId = AccountId({
 })
 ```
 
-Second, you should provide the account with a public key. It is tempting to generate both it and the private key at this time, but it isn't the brightest idea. Remember, that _the white_rabbit_ trusts _you, alice@wonderland,_ to create an account for them in the domain _looking_glass, **but doesn't want you to have access to that account after creation**._ If you gave _white_rabbit_ a key that you generated yourself, how would they know if you don't have a copy of their private key? Instead, the best way is to **ask** _white_rabbit_ to generate a new key-pair, and give you the public half of it.
+Second, you should provide the account with a public key. It is tempting to
+generate both it and the private key at this time, but it isn't the
+brightest idea. Remember, that _the white_rabbit_ trusts _you,
+alice@wonderland,_ to create an account for them in the domain
+_looking_glass, **but doesn't want you to have access to that account after
+creation**._ If you gave _white_rabbit_ a key that you generated yourself,
+how would they know if you don't have a copy of their private key? Instead,
+the best way is to **ask** _white_rabbit_ to generate a new key-pair, and
+give you the public half of it.
 
 ```ts
 const key = PublicKey({
@@ -283,13 +332,27 @@ const registerAccountInstruction = Instruction(
 )
 ```
 
-Which is then wrapped in a transaction and submitted to the peer as in the previous section.
+Which is then wrapped in a transaction and submitted to the peer as in the
+previous section.
 
 ## 5. Registering and minting assets
 
-Now we must talk a little about assets. Iroha has been built with few underlying assumptions about what the assets need to be. The assets can be fungible (every £1 is exactly the same as every other £1), or non-fungible (a £1 bill signed by the Queen of Hearts is not the same as a £1 bill signed by the King of Spades), mintable (you can make more of them) and non-mintable (you can only specify their initial quantity in the genesis block). Additionally, the assets have different underlying value types.
+Now we must talk a little about assets. Iroha has been built with few
+underlying assumptions about what the assets need to be. The assets can be
+fungible (every £1 is exactly the same as every other £1), or non-fungible
+(a £1 bill signed by the Queen of Hearts is not the same as a £1 bill
+signed by the King of Spades), mintable (you can make more of them) and
+non-mintable (you can only specify their initial quantity in the genesis
+block). Additionally, the assets have different underlying value types.
 
-Specifically, we have `AssetValueType::Quantity` which is effectively an unsigned 32-bit integer, a `BigQuantity` that is an unsigned 128-bit integer, which is enough to trade all possible IPV6 addresses, and quite possibly individual grains of sand on the surface of the earth, as well as `Fixed`, which is a positive (though signed) 64-bit fixed-precision number with nine significant digits after the decimal point. It doesn't quite use binary-coded decimals for performance reasons. All three types can be registered as either **mintable** or **non-mintable**.
+Specifically, we have `AssetValueType::Quantity` which is effectively an
+unsigned 32-bit integer, a `BigQuantity` that is an unsigned 128-bit
+integer, which is enough to trade all possible IPV6 addresses, and quite
+possibly individual grains of sand on the surface of the earth, as well as
+`Fixed`, which is a positive (though signed) 64-bit fixed-precision number
+with nine significant digits after the decimal point. It doesn't quite use
+binary-coded decimals for performance reasons. All three types can be
+registered as either **mintable** or **non-mintable**.
 
 In JS, you can create a new asset with the following construction:
 
@@ -333,11 +396,20 @@ const register = Instruction(
 )
 ```
 
-Pay attention to the fact that we have defined the asset as `mintable: false`. What this means is that we cannot create more of `time`. The late bunny will always be late, because even the super-user of the blockchain cannot mint more of `time` than already exists in the genesis block.
+Pay attention to the fact that we have defined the asset as
+`mintable: false`. What this means is that we cannot create more of `time`.
+The late bunny will always be late, because even the super-user of the
+blockchain cannot mint more of `time` than already exists in the genesis
+block.
 
-This means that no matter how hard the _white_rabbit_ tries, the time that he has is the time that was given to him at genesis. And since we haven’t defined any time in the domain _looking_glass at_ genesis and defined time in a non-mintable fashion afterwards, the _white_rabbit_ is doomed to always be late.
+This means that no matter how hard the _white_rabbit_ tries, the time that
+he has is the time that was given to him at genesis. And since we haven’t
+defined any time in the domain _looking_glass at_ genesis and defined time
+in a non-mintable fashion afterwards, the _white_rabbit_ is doomed to
+always be late.
 
-We can however mint a pre-existing `mintable: Mintable(Infinetely)` asset that belongs to Alice.
+We can however mint a pre-existing `mintable: Mintable(Infinetely)` asset
+that belongs to Alice.
 
 ```ts
 import {
@@ -377,18 +449,27 @@ const mint = Instruction(
 )
 ```
 
-Again it should be emphasised that an Iroha 2 network is strongly typed. You need to take special care to make sure that only unsigned integers are passed to the `Value.variantsUnwrapped.U32` factory method. Fixed precision values also need to be taken into consideration. Any attempt to add to or subtract from a negative Fixed-precision value will result in an error.
+Again it should be emphasised that an Iroha 2 network is strongly typed.
+You need to take special care to make sure that only unsigned integers are
+passed to the `Value.variantsUnwrapped.U32` factory method. Fixed precision
+values also need to be taken into consideration. Any attempt to add to or
+subtract from a negative Fixed-precision value will result in an error.
 
 ## 6. Visualizing outputs
 
-Finally, we should talk about visualising data. The Rust API is currently the most complete in terms of available queries and instructions. After all, this is the language in which Iroha 2 was built.
+Finally, we should talk about visualising data. The Rust API is currently
+the most complete in terms of available queries and instructions. After
+all, this is the language in which Iroha 2 was built.
 
-Let's build a small Vue 3 application that uses each API we've discovered in this guide!
+Let's build a small Vue 3 application that uses each API we've discovered
+in this guide!
 
 Our app will consist of 3 main views:
 
-- Status checker, that periodically requests peer status (e.g. current blocks height) and shows it;
-- Domain creator, which is a form to create a new domain with specified name
+- Status checker, that periodically requests peer status (e.g. current
+  blocks height) and shows it;
+- Domain creator, which is a form to create a new domain with specified
+  name
 - Listener, that has a toggle to setup listening for events
 
 Our client config is the following (`config.json` file in the project):
@@ -486,7 +567,8 @@ function generateKeyPair(params: {
 }
 ```
 
-Fine, now we are ready to use client. Let's start from the StatusChecker component:
+Fine, now we are ready to use client. Let's start from the StatusChecker
+component:
 
 ```vue
 <script setup lang="ts">
@@ -599,7 +681,8 @@ async function register() {
 </template>
 ```
 
-And finally, let's build the Listener component which will use Events API to setup live connection with a peer:
+And finally, let's build the Listener component which will use Events API
+to setup live connection with a peer:
 
 ```vue
 <script setup lang="ts">
@@ -694,7 +777,8 @@ onBeforeUnmount(stopListening)
 </template>
 ```
 
-That’s it! Now we should only wrap it up with the App.vue component and app entrypoint:
+That’s it! Now we should only wrap it up with the App.vue component and app
+entrypoint:
 
 ```vue
 <script setup lang="ts">
