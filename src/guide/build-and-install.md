@@ -183,7 +183,7 @@ docker compose up
 
 ::: info
 
-On a _properly_ configured [docker compose](https://docs.docker.com/engine/install/linux-postinstall/), you should never have to use `sudo` . If you do, consider looking into starting the docker dæmon first by running `systemctl enable docker` on Linux. 
+On a _properly_ configured [docker compose](https://docs.docker.com/engine/install/linux-postinstall/), you should never have to use `sudo` . If you do, consider looking into starting the docker dæmon first by running `systemctl enable docker` on Linux.
 
 :::
 
