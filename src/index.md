@@ -22,6 +22,7 @@ Iroha 2 is also more flexible than the original Iroha due to modular design. It 
 Iroha 2 is an event-driven ledger. Each change in the state of the blockchain is necessarily accompanied by its own event that can _trigger_ a smartcontract: complex logic designed for use in on-chain scripting.
 
 For smart contracts, Iroha 2 supports two approaches:
+
 - Iroha Special Instructions (ISI)
 - Web ASseMbly (WASM)
 
@@ -29,8 +30,7 @@ The first approach is useful when you want very simple transparent logic, and wa
 
 However, sometimes you might want to run something more complex, e.g. do some conditional evaluation. For this purpose, we have designed a library for loading portable executables in the WASM format; write the logic in any language that supports compilation to WASM and worry not about the cost.
 
-If you want to learn more about smartcontracts in Iroha 2, please consult our [Wiki](https://wiki.hyperledger.org/display/iroha/Scripting+Languages+and+Runtimes+for+Iroha2+Smart+Contracts)._
-
+If you want to learn more about smartcontracts in Iroha 2, please consult our [Wiki](https://wiki.hyperledger.org/display/iroha/Scripting+Languages+and+Runtimes+for+Iroha2+Smart+Contracts).\_
 
 <!-- Long-term deployment of Iroha 2 networks was something that we considered very early in its development. There are **Iroha Special instructions**, that enact upgrades of the network into a consistent state. Iroha nodes can operate if other nodes in the network run different versions of the Iroha 2 binary. -->
 
@@ -46,16 +46,15 @@ Iroha 2 is extensively tested. Despite being in active development, Iroha has 80
 
 The list of headlining features goes on. As we are nearing our first long-term supported preview release, we'll be updating the guide with relevant changes.
 
-
 ## Tutorial preamble
 
 What follows is an introduction suitable for both experienced developers, prospective users, and people casually curious about blockchain technology. The level of detail is sufficient so that you wouldn't need any supplementary guide. However, should you want to learn more, we have more detailed documentation in the works.
 
 In this guide, we shall
+
 - walk you through starting an Iroha network, either with docker (recommended) or using one of the provided scripts;
 - introduce you to the client libraries;
 - take a small detour into the basic concepts of Iroha special instructions, and how they interact with the world state.
-
 
 The _appendix_ contains a variety of useful information. In particular, the three main configuration files are explained: the _peer_ configuration and the _genesis block_, which you need to get right to start a network; and the _client_ configuration, which you adjust in order to interact with the blockchain.
 

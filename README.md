@@ -2,51 +2,62 @@
 
 [Read online](https://hyperledger.github.io/iroha-2-docs/).
 
-## Development
+## Contribution
 
-### Prerequisites
+### Prepare
 
-**Installed Node.js is required.** To install it without a headache, use [NVM](https://github.com/nvm-sh/nvm#installing-and-updating) (Node Version Manager). You can run something like this:
+1. **Install Node.js v16.** To install it without a headache, use [NVM](https://github.com/nvm-sh/nvm#installing-and-updating) (Node Version Manager). You can run something like this:
 
-```bash
-# Install NVM itself
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+   ```bash
+   # Install NVM itself
+   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
-# Run it to use NVM in the current shell session or restart your shell
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+   # Run it to use NVM in the current shell session or restart your shell
+   export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+   ```
 
-# Install latest Node
-nvm install --lts
-```
+   Then you can install Node 16:
 
-If you have already installed Node.js, **you need to install PNPM** (package manager that is used within this project). To do so, just run this:
+   ```bash
+   nvm install 16
+   ```
 
-```bash
-npm i -g pnpm
-```
+2. **Install PNPM**, a package manager used by this project. If you've installed Node.js, you can install PNPM with this command:
 
-If you have everything installed, run in the project root the following command to install packages:
+   ```bash
+   npm i -g pnpm
+   ```
 
-```bash
-pnpm i
-```
+3. **Install packages:**
 
-That's it!
+   ```bash
+   pnpm i
+   ```
 
-### Local dev-hot-reload mode
+### Run dev mode
 
 ```bash
 pnpm dev
 ```
 
-This will start a local dev-server so you can open a browser and observe documentation and see your edits on-demand.
+It will start a local dev-server. You will be able to open a browser, observe rendered documentation, edit source files and see your edits on-demand.
 
-### Format Markdown
+### Documentation formatting
 
-```bash
-pnpm format:docs
-```
+We use [Prettier](https://prettier.io/) to format Markdown files. Its configuration is located at `./.prettierrc.js`. Check [options reference](https://prettier.io/docs/en/options.html) for all available options.
+
+- **Format doc files**: apply `Prettier` formatting to all Markdown files
+
+  ```bash
+  pnpm format:docs:fix
+  ```
+
+- **Check the formatting in doc files**: ensure that all documentation files match `Prettier` code style
+
+  ```bash
+  pnpm format:docs:check
+  ```
 
 ## License
 

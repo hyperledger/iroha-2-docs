@@ -60,7 +60,7 @@ enum Repeats {
 
 A technical account is the account that would (in theory) be responsible for the execution environment and be the authority for `Instruction` execution. You can (for now) leave this to be the account that registered the trigger, that is, if you followed the tutorial, `alice@wonderland`. However, later on we will show you why you'd want to create a brand new account for those purposes.
 
-A filter is what determines the _kind_ of trigger that you're dealing with. All triggers respond to events, but the precise type of event that activates a trigger depends on which `EventFilter` was used. 
+A filter is what determines the _kind_ of trigger that you're dealing with. All triggers respond to events, but the precise type of event that activates a trigger depends on which `EventFilter` was used.
 
 The reason why we chose this architecture is simple; front end code has an abundance of event filters, and so, your knowledge of filters is transferable to writing smartcontracts.
 
@@ -213,6 +213,7 @@ let action = Action {
     executable, repeats, technical_account, filter
 }
 ```
+
 Which allows us to create an instance of a `Trigger`.
 
 ```rust
@@ -253,7 +254,7 @@ Only the first type of event filter is implemented now, and the other two can be
 
 ### Why not WASM
 
-The above observation can be generalised. WASM can do any logic that a Turing complete machine could, using the data available via queries. So in theory for event-based triggers, you could create an `AcceptAll` event filter and do all of the processing using the key-value store as persistent storage, and then, determining if you want to execute using easy-to-understand Rust code, and not our admittedly cumbersome, `EventFilters`. 
+The above observation can be generalised. WASM can do any logic that a Turing complete machine could, using the data available via queries. So in theory for event-based triggers, you could create an `AcceptAll` event filter and do all of the processing using the key-value store as persistent storage, and then, determining if you want to execute using easy-to-understand Rust code, and not our admittedly cumbersome, `EventFilters`.
 
 We don't want that. WASM takes up significantly more space, and takes longer to execute compared to plain ISI, which are slower than `EventFilters`. We want you to want to use the `EventFilters` because they would make the process much more efficient, and we are working tirelessly to make the experience of using event filters much less gruelling.
 
