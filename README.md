@@ -45,15 +45,15 @@ It will start a local dev-server. You will be able to open a browser, observe re
 
 ### Documentation formatting
 
-We use [Prettier](https://prettier.io/) to format Markdown files. Its configuration is located at `./.prettierrc.js`. For available options please follow to [Options reference](https://prettier.io/docs/en/options.html).
+We use [Prettier](https://prettier.io/) to format Markdown files. Its configuration is located at `./.prettierrc.js`. Check [options reference](https://prettier.io/docs/en/options.html) for all available options.
 
-- **Format doc files** - apply Prettier's formatting to all Markdown files
+- **Format doc files**: apply `Prettier` formatting to all Markdown files
 
   ```bash
   pnpm format:docs:fix
   ```
 
-- **Check the formatting in doc files** - ensure that all documentation files match Prettier's code style
+- **Check the formatting in doc files**: ensure that all documentation files match `Prettier` code style
 
   ```bash
   pnpm format:docs:check
