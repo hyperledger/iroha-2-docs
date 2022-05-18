@@ -70,11 +70,6 @@ the _World state_, that is, the state of the blockchain at this point in
 time, has to be done using the aforementioned instructions. There is also
 rudimentary support for domain-specific conditional logic.
 
-However, sometimes you might want to run something more complex, e.g. do
-some conditional evaluation. For this purpose, we have designed a library
-for loading portable executables in the WASM format; write the logic in any
-language that supports compilation to WASM and worry not about the cost.
-
 If you want to learn more about smartcontracts in Iroha 2, please consult
 our
 [Wiki](https://wiki.hyperledger.org/display/iroha/Scripting+Languages+and+Runtimes+for+Iroha2+Smart+Contracts).\_
@@ -105,10 +100,6 @@ Iroha is reliable.
 The list of headlining features goes on. As we are nearing our first
 long-term supported preview release, we'll be updating the guide with
 relevant changes.
-
-The list of headlining features goes on. As the Iroha 2 development
-continues, this guide will be extended and headlining features will be
-added to this section.
 
 ## Tutorial preamble
 

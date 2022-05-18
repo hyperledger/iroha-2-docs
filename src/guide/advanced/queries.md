@@ -455,11 +455,6 @@ Iroha is an event-driven architecture. Every modification of the world
 state emits a corresponding event that can be captured by appropriate event
 listeners called filters.
 
-An action that executes whenever an event meeting certain conditions is
-emitted is called a `trigger`. The following queries are going to be
-invaluable for anyone writing (and debugging) smart contracts submitted
-into an Iroha-based blockchain.
-
 ### FindAllActiveTriggerIds
 
 - **Returns**: `Vec<TriggerId>`

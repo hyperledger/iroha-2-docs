@@ -5,26 +5,28 @@
     "dev": "vitepress dev",
     "build": "vitepress build",
     "serve": "vitepress serve",
-    "format:docs": "prettier 'src/**/*.md' --write"
+    "format:docs": "prettier 'src/**/*.md'",
+    "format:docs:check": "pnpm run format:docs --check",
+    "format:docs:fix": "pnpm run format:docs --write"
   },
   "devDependencies": {
-    "@types/node": "^17.0.21",
-    "@typescript-eslint/eslint-plugin": "^5.12.1",
-    "@typescript-eslint/parser": "^5.12.1",
+    "@types/node": "^17.0.34",
+    "@typescript-eslint/eslint-plugin": "^5.25.0",
+    "@typescript-eslint/parser": "^5.25.0",
     "eslint": "7",
-    "eslint-plugin-vue": "^8.5.0",
+    "eslint-plugin-vue": "^8.7.1",
     "markdown-it-footnote": "^3.0.3",
-    "prettier": "^2.5.1",
-    "prettier-eslint": "^13.0.0",
-    "sass": "^1.49.8",
+    "prettier": "^2.6.2",
+    "prettier-eslint": "^15.0.0",
+    "sass": "^1.51.0",
     "shiki": "^0.10.1",
-    "typescript": "^4.5.5",
-    "vite-plugin-windicss": "^1.7.1",
-    "vitepress": "^0.22.3",
-    "windicss": "^3.4.4"
+    "typescript": "^4.6.4",
+    "vite-plugin-windicss": "^1.8.4",
+    "vitepress": "^0.22.4",
+    "windicss": "^3.5.3"
   },
   "dependencies": {
-    "@vueuse/core": "^7.6.2",
-    "vue": "^3.2.31"
+    "@vueuse/core": "^8.5.0",
+    "vue": "^3.2.33"
   }
 }
