@@ -53,7 +53,7 @@ is phased out and `iroha_python` is the official scripting interface, we
 might use the excellent Python libraries for creating a useful TUI. For
 now, one must make do with what one has.
 
-## 1. Iroha 2 Client Setup
+## 1. Set up Iroha 2 Client
 
 Note, first, that we have already created the `iroha_client_cli` binary
 executable, when we ran the build command.
@@ -94,7 +94,7 @@ cp ./target/debug/iroha_client_cli test_docker/
 
 Make sure you bring up the test network as well.
 
-## 2. Configuring Iroha 2
+## 2. Configure Iroha 2
 
 Now let's look at how to properly configure Iroha 2, and especially its
 **C**ommand-**L**ine **I**nterface client.
@@ -179,7 +179,7 @@ e.g.:
 If the output looks like some form of JSON (but not quite), then the
 configuration was succesful!
 
-## 3. Registering a Domain
+## 3. Register a Domain
 
 To get started you must register a domain. Run
 
@@ -210,7 +210,7 @@ Domain {
 
 With a domain available, it is time to register an account.
 
-## 4. Registering an Account
+## 4. Register an Account
 
 To register a new account within the _looking_glass_ domain, run:
 
@@ -288,7 +288,7 @@ Account {
 Now that the network and users are registered, it is possible to mint
 assets.
 
-## 5. Registering and minting assets
+## 5. Register and mint assets
 
 **In order to mint assets, you need to register the asset first. We are
 going to register the _tea_ token within the _looking_glass_ network, to do
@@ -362,7 +362,7 @@ Iroha 2 currently doesn't validate the account names, so you could (in
 theory) add invalid characters to the name, like e.g. spaces. **We
 recommend sticking to English alphanumeric characters and underscores**.
 
-## 6. Visualizing outputs
+## 6. Visualize outputs
 
 Although you will get a constant data feed of the network within the
 terminal running docker compose, you can also configure an output to listen

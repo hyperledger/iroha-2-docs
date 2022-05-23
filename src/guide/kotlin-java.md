@@ -1,6 +1,6 @@
 # Kotlin/Java guide
 
-## 1. Iroha 2 Client Setup
+## 1. Set up Iroha 2 Client
 
 In this part we shall cover the main things to look out for if you want to
 use Iroha 2 in your Kotlin application. Instead of providing the complete
@@ -41,7 +41,7 @@ dependencies {
 
 This will give you the latest development release of Iroha 2.
 
-## 2. Configuring Iroha 2
+## 2. Configure Iroha 2
 
 At present the Kotlin SDK doesn’t have any classes to interact with the
 configuration. Instead, you are provided with a ready-made `Iroha2Client`
@@ -73,7 +73,7 @@ class IrohaConfig(
 )
 ```
 
-## 3. Registering a Domain
+## 3. Register a Domain
 
 Registering a domain is one of the easier operations. The usual boilerplate
 code, that often only serves to instantiate a client from an on-disk
@@ -144,7 +144,7 @@ configuration. If either of these two is missing, you will not be able to
 register an account, and will be greeted by an exception of an appropriate
 type.
 
-## 4. Registering an Account
+## 4. Register an Account
 
 Registering a domain is more involved than the aforementioned functions.
 Previously, we only had to worry about submitting a single instruction,
@@ -220,7 +220,7 @@ the account. Again, it’s important to note that we are using
 _alice@wonderland_ as a proxy to interact with the blockchain, hence her
 credentials also appear in the transaction.
 
-## 5. Registering and minting assets
+## 5. Register and mint assets
 
 Now we must talk a little about assets. Iroha has been built with few
 underlying assumptions about what the assets need to be. The assets can be
@@ -319,7 +319,7 @@ which was not mintable, this attempt would have been rejected, _and alice
 alongside her long-eared, perpetually stressed friend would have no way of
 making more time_.
 
-## 6. Visualizing outputs
+## 6. Visualize outputs
 
 Finally, we should talk about visualising data. The Rust API is currently
 the most complete in terms of available queries and instructions. After
