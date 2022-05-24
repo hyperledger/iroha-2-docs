@@ -176,11 +176,10 @@ often significantly reduce your binary size, e.g.:
 wasm-opt -Os -o output.wasm input.wasm
 ```
 
-At some, point, unfortunately, the smallest size of your WASM blob is going
+At some point, unfortunately, the smallest size of your WASM blob is going
 to be determined by the libraries that you need to use. Using all of the
-above steps on the provided smart contract, can reduce it down to a
-manageable (for the blockchain) size. Stay tuned for RC3 for further
-optimisations of binary size.
+above steps on the provided smart contract can reduce it down to a
+manageable (for the blockchain) size.
 
 [^1]: For prospective wizards, the whitepaper is a good start (TODO: link).
 [^2]:

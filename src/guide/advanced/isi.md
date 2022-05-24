@@ -70,16 +70,10 @@ mode.
 
 Can refer to assets, trigger uses (if the trigger has a limited number of
 repetitions), as well as temporary permission tokens. Some assets can be
-declared as non-mintable, meaning that any attempt to mint them
-post-registration will result in an error.
+declared as non-mintable, meaning that they can be minted only once after
+registration.
 
-::: info
-
-This will be changed in RC3.
-
-:::
-
-Assets and permissions tokens need to be minted to a specific account,
+Assets and permission tokens need to be minted to a specific account,
 usually the one that registered the asset in the first place. All assets
 are assumed to be non-negative as well, so you can never have `-1.0` of
 `time` or `Burn` a negative amount and get a `Mint`.
@@ -93,7 +87,7 @@ operation can be used to grant either a single permission, or a group of
 permissions (or a "role"), to a user permanently. As such these
 instructions should be used carefully.
 
-### SetKeyValue/RemoveKeyValue
+### `SetKeyValue`/`RemoveKeyValue`
 
 These instructions are used with the key/value store asset type. This use
 case has not received much attention so far, because storing data in the
