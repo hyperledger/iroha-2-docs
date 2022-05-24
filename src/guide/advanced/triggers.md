@@ -135,13 +135,14 @@ got registered, an asset got transferred, the Queen of Hearts decided to
 burn all of her assets. These types of events account for the vast majority
 of triggers in Ethereum, and were the first to be implemented. As of today
 we only support un-scoped system-wide triggers with no permission
-validation. Work is ongoing to make the triggers more safe and reliable,
+validation. <!-- Q: still true? -->
+Work is ongoing to make the triggers more safe and reliable,
 but the process is time-consuming and work-intensive.
 
 ::: info
 
 Be mindful of the limitations. Currently triggers don't check for
-permissions, so they can do things your account wouldn't be allowed to.
+permissions <!-- Q: still true? -->, so they can do things your account wouldn't be allowed to.
 Since the triggers are not scoped, every trigger processes _every_ event,
 and the amount of work grows quadratically.
 
@@ -397,6 +398,7 @@ new cup. The keen eyed among you will have noticed that the amount that
 Alice drinks is irrelevant to how much tea will be transferred. Alice may
 well take a tiny sip and be poured a whole new cup's worth.
 
+<!-- Q: was it addressed? -->
 We intend to address this issue in the future, when the event that gets
 emitted also has an attached Value. We also intend to provide more event
 filter types. For example, we will have filters that match when the asset:

@@ -50,7 +50,7 @@ rule.
 You can register a new account, a new asset definition, a peer, and a
 trigger (more on them later). Registering a peer is currently the only way
 of adding peers that were not part of the original `TRUSTED_PEERS` array to
-the network.
+the network. <!-- Q: still true? -->
 
 Registering an account is different. Iroha can be compiled in two modes:
 _public_ and _private_. If it's compiled with _private_ permissions, to
@@ -62,7 +62,7 @@ you need to compile Iroha in the _public_ mode.
 
 As of writing, the set of public blockchain permissions is incomplete, and
 as such Iroha source code needs to be modified to run it in the _public_
-mode.
+mode. <!-- Q: still true? -->
 
 :::
 
@@ -82,7 +82,9 @@ are assumed to be non-negative as well, so you can never have `-1.0` of
 
 These are used specifically for permissions. When minting a permission
 token, a user is granted `X` amount of permissions to do `Y` which will
-expire once all `X` operations were performed. By contrast, a `Grant`
+expire once all `X` operations were performed.
+
+By contrast, a `Grant`
 operation can be used to grant either a single permission, or a group of
 permissions (or a "role"), to a user permanently. As such these
 instructions should be used carefully.
