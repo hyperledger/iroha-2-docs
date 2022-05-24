@@ -30,7 +30,7 @@ function getNav() {
 function getGuideSidebar() {
   return [
     {
-      text: 'Get started',
+      text: 'Getting started',
       children: [
         {
           text: 'Introduction',

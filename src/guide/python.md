@@ -6,7 +6,7 @@ WIP: `iroha-python` works only with `iroha v2-pre-rc.1` for now.
 
 :::
 
-## 1. Set up Iroha 2 Client
+## 1. Iroha 2 Client Setup
 
 There are two versions of Iroha python to choose from. In theory, the Iroha
 1 version of Iroha Python (that also has the best documentation) should be
@@ -59,7 +59,7 @@ slightly different.
 
 :::
 
-## 2. Configure Iroha 2
+## 2. Configuring Iroha 2
 
 Unlike `iroha_client_cli` finding the configuration file in a scripting
 language is the responsibility of the person writing the script. The
@@ -87,7 +87,7 @@ severely lacks in documentation and its API can be made more idiomatically
 Python. At the time of writing there are no active maintainers of the Iroha
 Python library.
 
-## 3. Register a Domain
+## 3. Registering a Domain
 
 It is important to remember that Iroha python is wrapping Rust code. As
 such, many of Python's idioms are not yet accommodated; for example,
@@ -122,7 +122,7 @@ hash = cl.submit_isi(register)
 Note that we also keep track of the `hash` of the transaction. This will
 become useful [later](#_6-visualizing-outputs).
 
-## 4. Register an Account
+## 4. Registering an Account
 
 Similarly to the previous case, except the wrapping structures are
 different. There are a couple of things to watch out for: First of all, we
@@ -158,7 +158,7 @@ After putting all of this together, we submit it as before:
 hash = cl.submit_isi(register)
 ```
 
-## 5. Register and mint assets
+## 5. Registering and minting assets
 
 Now we must talk a little about assets. Iroha has been built with few
 underlying assumptions about what the assets need to be. The assets can be
@@ -218,7 +218,7 @@ cl.submit_isi(mint_amount)
 
 Which would add `42` to the current tally of roses that Alice has.
 
-## 6. Visualize outputs
+## 6. Visualizing outputs
 
 The paradigm that Iroha chose to allow monitoring of some events is the
 _filter-map paradigm_. In order to know e.g. what happened to a submitted

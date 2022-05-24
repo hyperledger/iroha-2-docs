@@ -1,6 +1,6 @@
 # Rust guide
 
-## 1. Set up Iroha 2 Client
+## 1. Iroha 2 Client Setup
 
 In this part we shall cover the process of using the Iroha 2 Rust
 libraries. Instead of providing the complete basics, we shall assume
@@ -69,7 +69,7 @@ operates on behalf of a pre-existing account. These accounts are identified
 by a _name@domain_name_ ID and can only be accessed provided that you know
 their specific key.
 
-## 2. Configure Iroha 2
+## 2. Configuring Iroha 2
 
 Your application written in Rust needs to instantiate a client. The client,
 typically needs specific configuration options, which you could either
@@ -163,7 +163,7 @@ where it makes sense.
 
 :::
 
-## 3. Register a Domain
+## 3. Registering a Domain
 
 Registering a domain is a relatively easy operation. Most of the
 boilerplate code has to do with setting up the Iroha 2 client and
@@ -231,7 +231,7 @@ strongly advise using explicit construction in production code. In fact, it
 is likely that we shall replace most if not all instances of `submit` in
 our code base with explicit transactions.
 
-## 4. Register an Account
+## 4. Registering an Account
 
 Registering an account is a bit more involved than registering a domain.
 With a domain, the only concern is the domain name, however, with an
@@ -281,7 +281,7 @@ let create_account =
 Which is then **wrapped in a transaction** and **submitted to the peer** as
 [in the previous section](#_3-registering-a-domain).
 
-## 5. Register and mint assets
+## 5. Registering and minting assets
 
 Iroha has been built with few implicit assumptions about the assets in the
 blockchain. The assets can be fungible (every £1 is exactly the same as

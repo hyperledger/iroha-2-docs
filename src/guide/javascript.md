@@ -139,7 +139,7 @@ const kp = generateKeyPair({
 })
 ```
 
-## 3. Register a Domain
+## 3. Registering a Domain
 
 Here we see how similar the JavaScript code is to the Rust counterpart. It
 should be emphasised that the JavaScript library is a thin wrapper: It
@@ -244,7 +244,7 @@ Now you can ensure that domain is created by calling:
 await ensureDomainExistence('looking_glass')
 ```
 
-## 4. Register an Account
+## 4. Registering an Account
 
 Registering an account is a bit more involved than registering a domain.
 With a domain, the only concern is the domain name, however, with an
@@ -335,7 +335,7 @@ const registerAccountInstruction = Instruction(
 Which is then wrapped in a transaction and submitted to the peer as in the
 previous section.
 
-## 5. Register and mint assets
+## 5. Registering and minting assets
 
 Now we must talk a little about assets. Iroha has been built with few
 underlying assumptions about what the assets need to be. The assets can be
@@ -455,7 +455,7 @@ passed to the `Value.variantsUnwrapped.U32` factory method. Fixed precision
 values also need to be taken into consideration. Any attempt to add to or
 subtract from a negative Fixed-precision value will result in an error.
 
-## 6. Visualize outputs
+## 6. Visualizing outputs
 
 Finally, we should talk about visualising data. The Rust API is currently
 the most complete in terms of available queries and instructions. After
