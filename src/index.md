@@ -14,7 +14,7 @@ the differences between the two versions and upgrade to the newer one.
 
 ## Preamble
 
-The tutorial is suitable for both experienced developers, prospective
+This tutorial is suitable for both experienced developers, prospective
 users, and people casually curious about blockchain technology. The level
 of detail is sufficient so that you wouldn't need any supplementary guide.
 However, should you want to learn more, we have more detailed documentation
