@@ -398,7 +398,6 @@ new cup. The keen eyed among you will have noticed that the amount that
 Alice drinks is irrelevant to how much tea will be transferred. Alice may
 well take a tiny sip and be poured a whole new cup's worth.
 
-<!-- Q: was it addressed? -->
 We intend to address this issue in the future, when the event that gets
 emitted also has an attached Value. We also intend to provide more event
 filter types. For example, we will have filters that match when the asset:

@@ -13,7 +13,6 @@ response with details from the current world state view.
 
 ::: info
 
-<!-- Q: still true? -->
 As of writing, most queries can not be filtered, but can be paginated. As
 such, some queries, which we'll mark with a warning sign, should be used
 with care, and you should think carefully about the pagination scheme.

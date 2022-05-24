@@ -50,7 +50,6 @@ register a non-genesis account (for example *alice@*wonderland) and
 
 ::: warning NB
 
-<!-- Q: still true? -->
 `iroha_client_cli` currently doesn't support unregister instructions, if
 you plan on creating a private blockchain, you should consider writing your
 own client based off of the `client` Rust crate, or any of the provided
