@@ -95,7 +95,7 @@ function getGuideSidebar() {
     },
     {
       text: 'Configuration and Management',
-      link: 'guide/configure/intro',
+      link: '/guide/configure/intro',
       children: [
         {
           text: 'Peer Configuration',
