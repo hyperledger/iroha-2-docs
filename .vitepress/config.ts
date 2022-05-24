@@ -90,7 +90,7 @@ function getGuideSidebar() {
         {
          text: 'Queries',
          link: '/guide/advanced/queries',
-        }
+        },
       ],
     },
     {
@@ -112,7 +112,8 @@ function getGuideSidebar() {
         {
           text: 'Keys',
           link: "/guide/configure/keys",
-        },        {
+        },        
+        {
           text: 'Peer Management',
           link: '/guide/configure/register-unregister',
         }
@@ -122,7 +123,7 @@ function getGuideSidebar() {
       text: 'Advanced Mode',
       children: [
         {
-          text: 'Run Iroha On Bare Metal',
+          text: 'Iroha On Bare Metal',
           link: '/guide/advanced/running-iroha-on-bare-metal',
         }
       ],

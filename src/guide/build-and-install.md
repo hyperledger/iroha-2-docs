@@ -6,12 +6,12 @@ For this tutorial, you will need:
 
 - [git](https://githowto.com/)
 - [A working Rust toolchain](https://www.rust-lang.org/learn/get-started):
-  cargo, rust v1.60 and up [^1]
+  `cargo`, `rustc` v1.60 and up [^1]
 - (Optional) [Docker](https://docs.docker.com/get-docker/)
 - (Optional) [Docker compose](https://docs.docker.com/compose/) [^2]
 
 [^1]:
-    If you’re having issues with installing rust compatible with our code
+    If you’re having issues with installing Rust compatible with our code
     (2021 edition), please consult the troubleshooting section.
 
 [^2]:

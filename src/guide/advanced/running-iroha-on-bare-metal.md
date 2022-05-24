@@ -1,4 +1,4 @@
-# Run Iroha on bare metal
+# Iroha on bare metal
 
 ## Pre-requisites
 
