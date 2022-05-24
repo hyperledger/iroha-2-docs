@@ -1,5 +1,23 @@
 # Build and Install Iroha 2
 
+## Prerequisites
+
+For this tutorial, you will need:
+
+- [git](https://githowto.com/)
+- [A working Rust toolchain](https://www.rust-lang.org/learn/get-started):
+  `cargo`, `rustc` v1.60 and up [^1]
+- (Optional) [Docker](https://docs.docker.com/get-docker/)
+- (Optional) [Docker compose](https://docs.docker.com/compose/) [^2]
+
+[^1]:
+    If you’re having issues with installing Rust compatible with our code
+    (2021 edition), please consult the troubleshooting section.
+
+[^2]:
+    We highly recommend using Docker, because it's oftentimes easier to use
+    and debug.
+
 ## Install the Rust Toolchain
 
 This is normally a straightforward process. This is not always true, so
@@ -214,8 +232,8 @@ You can run Iroha directly on bare metal, but we recommend bringing up a
 network of 4 containerised peers using `docker-compose` . Of course,
 installing Docker might seem like a daunting task, but it allows for
 reproducible management of configurations, which is oftentimes tricky on
-bare metal. Please consult the
-[appendix](/guide/appendix/running-iroha-on-bare-metal) for how to do that.
+bare metal. Follow instructions on
+[how to run Iroha on bare metal](/guide/advanced/running-iroha-on-bare-metal).
 
 ```bash
 docker compose up

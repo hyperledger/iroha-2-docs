@@ -1,6 +1,30 @@
-<!-- We should probably have a Queen of Hearts here, as we have a lot of `execute`, `trigger` and `block` -->
+# Triggers
 
-# Triggers in More Detail
+The basic premise is that certain things can emit events: it could be a
+change of the state of some entity, e.g. an account, and/or a domain (you
+can't modify an account without changing the domain that it belongs to, but
+you can change the domain without touching any of its accounts), but it
+could also be the block being committed, some point in time being crossed,
+or even a direct signal emitted by executing a special ISI. All of these
+are events that triggers can be attached to.
+
+A trigger is a fairly basic entity that can be registered. Just like with
+Accounts, you submit a `RegisterBox::Trigger`, which contains the necessary
+information. This information is a single account ID, which should ideally
+be a brand new account that you register in the same transaction (but for
+now it doesn't matter); an executable, which itself is either a
+`Vec<Instruction>` or a WASM blob; and an `EventFilter`, something which
+combs through (at this point all) events and returns `true` when it finds
+an event that you like to start the execution.
+
+The documentation on the `EventFilter` types is under construction, as we
+are likely to make major changes to that particular architecture. For now,
+suffice it to say that you can look at the source code in
+`iroha_data_model` and see a few particularly interesting applications.
+
+## Triggers in More Detail
+
+<!-- We should probably have a Queen of Hearts here, as we have a lot of `execute`, `trigger` and `block` -->
 
 ### Supported ISI
 

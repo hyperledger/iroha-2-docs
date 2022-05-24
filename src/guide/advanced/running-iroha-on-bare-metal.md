@@ -1,19 +1,20 @@
-# Running Iroha on bare metal
+# Iroha on bare metal
 
 ## Pre-requisites
 
-Having read most of the appendix, you are now prepared to start Iroha in a
-more advanced mode. What we are going to do is replicate the set up that we
-have in the `docker compose`, except we don’t go through the intermediary
-of containers, and run Iroha directly. Running iroha on bare metal involves
-manipulating files and/or environment variables. What follows is an attempt
-to run Iroha on bare metal, using either of two methods. We shall first
-focus on the file-based approach, as it is the easiest to get right. We
-shall then show you how to do the same using environment variables, which
-can offer a better user experience if done right, but is more error-prone,
-particularly for exotic systems. First of all, we should note that we have
-only built the Iroha client so far. To build the peer software you should
-run
+Having read most of the
+[configuration and management](./../configure/intro.md) section, you are
+now prepared to start Iroha in a more advanced mode. What we are going to
+do is replicate the set up that we have in the `docker compose`, except we
+don’t go through the intermediary of containers, and run Iroha directly.
+Running iroha on bare metal involves manipulating files and/or environment
+variables. What follows is an attempt to run Iroha on bare metal, using
+either of two methods. We shall first focus on the file-based approach, as
+it is the easiest to get right. We shall then show you how to do the same
+using environment variables, which can offer a better user experience if
+done right, but is more error-prone, particularly for exotic systems. First
+of all, we should note that we have only built the Iroha client so far. To
+build the peer software you should run
 
 ```kotlin
 cargo build -p iroha

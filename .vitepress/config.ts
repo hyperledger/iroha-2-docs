@@ -37,6 +37,10 @@ function getGuideSidebar() {
           link: '/',
         },
         {
+          text: 'Iroha 2 vs. Iroha 1',
+          link: '/guide/iroha-2'
+        },
+        {
           text: 'Build and Install',
           link: '/guide/build-and-install',
         },
@@ -68,13 +72,13 @@ function getGuideSidebar() {
       ],
     },
     {
-      text: 'Conclusions',
-      link: '/guide/conclusions',
-    },
-    {
-      text: 'Advanced Guides',
+      text: 'Advanced Topics',
       link: '/guide/advanced/intro',
       children: [
+        {
+          text: 'Iroha Special Instructions',
+          link: '/guide/advanced/isi',
+        },
         {
           text: 'Web Assembly',
           link: '/guide/advanced/wasm',
@@ -90,35 +94,40 @@ function getGuideSidebar() {
       ],
     },
     {
-      text: 'Appendix',
-      link: '/guide/appendix/intro',
+      text: 'Configuration and Management',
+      link: 'guide/configure/intro',
       children: [
         {
           text: 'Peer Configuration',
-          link: '/guide/appendix/peer-configuration',
+          link: '/guide/configure/peer-configuration',
         },
         {
           text: 'Client Configuration',
-          link: '/guide/appendix/client-configuration',
-        },
-        {
-          text: 'Peer Management',
-          link: '/guide/appendix/register-unregister',
+          link: '/guide/configure/client-configuration',
         },
         {
           text: 'Genesis Block',
-          link: '/guide/appendix/genesis',
+          link: '/guide/configure/genesis',
         },
         {
           text: 'Keys',
-          link: "/guide/appendix/keys",
-        },
+          link: "/guide/configure/keys",
+        },        
         {
-          text: 'Running Iroha On Bare Metal',
-          link: '/guide/appendix/running-iroha-on-bare-metal',
-        },
-      ],
+          text: 'Peer Management',
+          link: '/guide/configure/register-unregister',
+        }
+      ]
     },
+    {
+      text: 'Advanced Mode',
+      children: [
+        {
+          text: 'Iroha On Bare Metal',
+          link: '/guide/advanced/running-iroha-on-bare-metal',
+        }
+      ],
+    }
   ]
 }
 
