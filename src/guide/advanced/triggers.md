@@ -136,7 +136,7 @@ burn all of her assets. These types of events account for the vast majority
 of triggers in Ethereum, and were the first to be implemented. As of today
 we only support un-scoped system-wide triggers with no permission
 validation. <!-- Q: still true? --> Work is ongoing to make the triggers
-more safe and reliable, but the process is time-consuming and
+safer and more reliable, but the process is time-consuming and
 work-intensive.
 
 ::: info
