@@ -84,10 +84,9 @@ These are used specifically for permissions. When minting a permission
 token, a user is granted `X` amount of permissions to do `Y` which will
 expire once all `X` operations were performed.
 
-By contrast, a `Grant`
-operation can be used to grant either a single permission, or a group of
-permissions (or a "role"), to a user permanently. As such these
-instructions should be used carefully.
+By contrast, a `Grant` operation can be used to grant either a single
+permission, or a group of permissions (or a "role"), to a user permanently.
+As such these instructions should be used carefully.
 
 ### `SetKeyValue`/`RemoveKeyValue`
 
