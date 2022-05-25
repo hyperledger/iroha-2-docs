@@ -92,11 +92,11 @@ Every transaction is signed on behalf of some user, thus every operation
 requires a key. That doesn't mean that you need to explicitly provide a key
 every time.
 
-For example, you need to have a user to register a user (_just like you
-need scissors to open a bag with new scissors_). But in order to register a
+For example, you need to have a user to register a user (just like you
+need scissors to open a bag with new scissors). But in order to register a
 user, you must also provide a new public key, so that the network can
 verify that it's that trustworthy _mad_hatter_@wonderland, and not some
-impostor (possibly sent by the red_queen), so there are cases where you
+impostor (possibly sent by the *red_queen*), so there are cases where you
 need to provide a key explicitly.
 
 Each time `iroha_client_cli` asks you to provide a `--key` argument, it's
