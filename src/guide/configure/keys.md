@@ -1,7 +1,7 @@
 # Public Key Cryptography
 
-It is a good practice to worry about public key cryptography, so we'll
-give you a primer.
+It is a good practice to worry about public key cryptography, so we'll give
+you a primer.
 
 Firstly, public and private keys come in pairs. For a given private key
 it's easy to figure out the corresponding public key, but the opposite is
@@ -93,11 +93,11 @@ requires a key. That doesn't mean that you need to explicitly provide a key
 every time.
 
 For example, you need to have a user to register a user (just like you need
-scissors to cut off the tag from a pair of new scissors). But in order to register a user,
-you must also provide a new public key, so that the network can verify that
-it's that trustworthy _mad_hatter_@wonderland, and not some impostor
-(possibly sent by the _red_queen_), so there are cases where you need to
-provide a key explicitly.
+scissors to cut off the tag from a pair of new scissors). But in order to
+register a user, you must also provide a new public key, so that the
+network can verify that it's that trustworthy _mad_hatter_@wonderland, and
+not some impostor (possibly sent by the _red_queen_), so there are cases
+where you need to provide a key explicitly.
 
 Each time `iroha_client_cli` asks you to provide a `--key` argument, it's
 probably a good idea to generate a new key-pair.
