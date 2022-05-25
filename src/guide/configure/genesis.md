@@ -108,6 +108,7 @@ Think of it as the password used to "log in" as _alice_.
 Iroha is **case-sensitive**, meaning that _Alice_@wonderland is different
 from _alice_@wonderland. It should go without saying that
 _alice@wonderland_ is not the same as _alice@looking_glass_ either since
-these accounts belong to different domains, `wonderland` and `looking_glass`.
+these accounts belong to different domains, `wonderland` and
+`looking_glass`.
 
 :::
