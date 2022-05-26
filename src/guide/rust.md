@@ -320,7 +320,7 @@ be only one, regardless of type.
 Then construct an instruction
 
 ```rust
-let register_time = RegisterBox::new(AssetDefinition::fixed(id).mintable_once().build());
+let register_time = RegisterBox::new(AssetDefinition::fixed(id).mintable_once());
 iroha_client.submit(register_time)?;
 ```
 
