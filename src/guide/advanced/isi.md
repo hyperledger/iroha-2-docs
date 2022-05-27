@@ -68,7 +68,9 @@ seen a couple of instructions: `Register<Account>` and `Mint<Quantity>`.
 
 For the exhaustive list of Instructions you should consult
 [our source code](https://github.com/hyperledger/iroha/tree/iroha2-dev/core/src/smartcontracts/isi).
+
 <!-- Check link is working --> Here we will cover only some important
+
 classes.
 
 ### (Un)Register
