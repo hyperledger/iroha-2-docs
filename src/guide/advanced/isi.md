@@ -1,39 +1,53 @@
 # Iroha Special Instructions
 
-The basic premise is; if the blockchain is the computer, then the client
-library (`iroha_client_cli` or any other) is the keyboard, the blockchain
-is the hard drive, and the Iroha peer software is the processor. Like a
-processor, Iroha accepts portable instructions that modify what's written
-to the blockchain, allow certain users to use the network, and lock others
-out.
+To understand how Iroha operates, let's draw parallels between a blockchain
+and a computer. If the blockchain is the computer, then in this metaphor of
+ours the client library (`iroha_client_cli` or any other) is the keyboard,
+the blockchain is the hard drive, and the Iroha peer software is the
+processor. Like a processor, Iroha accepts portable instructions that
+modify what's written to the blockchain, allow certain users to use the
+network, and lock others out.
 
 Any operation that is run on-chain is written in terms of _Iroha Special
-Instructions (ISI)_, and there is no other way of modifying the world state.
-To understand why, we'll need to make a short
-detour into how Iroha is implemented under the hood.
+Instructions (ISI)_, and there is no other way of modifying the world
+state. To understand why, we'll need to make a short detour into how Iroha
+is implemented under the hood.
 
 ## How Iroha works
 
-Each interaction with the blockchain is done via a _transaction_.
-A transaction is a collection of _instructions_, which are either glued
-together in sequence or compiled into what we affectionately call a WASM blob (more on that later). You
-need these instructions to register an account, remove an account, add X
-amount of Y currency, and so on.
+Each interaction with the blockchain is done via a _transaction_. A
+transaction is a collection of _instructions_, which are either glued
+together in sequence or compiled into what we affectionately call a WASM
+blob (more on that later). You need these instructions to register an
+account, remove an account, add X amount of Y currency, and so on.
 
-You may also interact with the blockchain via _queries_, which you use to
-get some kind of information from the blockchain (only the information you
-are allowed to access). Queries are also instructions.
+To read the information encoded in the blocks of a blockchain (the current
+world state), you use _queries_. Queries are submitted like instructions,
+but they're not tracked and recorded in blocks, so they're much more
+lightweight. If you use queries as part of complicated logic (e.g. inside
+WASM), they have a non-negligible impact on the size of the blocks. Queries
+that are only used to get information leave no trace in the blockchain.
 
 ### Consensus
 
 Each time you send a transaction to Iroha, it gets put into a queue, and
-when it's time to produce a new block, the queue is emptied, and the consensus process
-begins. This process is equal parts common sense and black magic[^1].
+when it's time to produce a new block, the queue is emptied, and the
+consensus process begins. This process is equal parts common sense and
+black magic[^1].
 
 The mundane aspect is that a special set of peers needs to take the
 transaction queue, and reproduce the same world state. If the world state
 cannot be reproduced for some reason or another, none of the transactions
-get committed to a block and consensus tries again.
+get committed to a block.
+
+The consensus starts over from scratch by choosing a different special set
+of peers. This is where the black magic comes in. There is a number of
+things that are fine-tuned: the number of peers in the voting process, the
+way in which subsequent voting peers are chosen, and the way in which the
+peers communicate that consensus has failed. Because this changes the view
+of the world, the process is called a _view change_. The exact reason for
+why the view was changed is encoded in the _view change proof_, but
+decoding that information is an advanced topic that we won't cover here.
 
 The reasoning behind this algorithm is simple: if someone had some evil
 peers and connected them to the existing network, if they tried to fake
@@ -41,9 +55,10 @@ data, some good™ peers would not get the same (evil™) world state. If
 that's the case, the evil™ peers would not be allowed to participate in
 consensus, and you would eventually produce a block using only good™ peers.
 
-If any changes to the world state are made without Iroha Special
-Instructions, they would not pass consensus and never get committed to a
-block.
+As a natural consequence, if any changes to the world state are made
+without the use of ISI, the good™ peers cannot know of them. They won't be
+able to reproduce the hash of the world state, and thus consensus will
+fail. Same thing happens if the peers have different instructions.
 
 ## Instructions
 
@@ -52,18 +67,22 @@ tutorial for [Rust](../rust.md) or [Python](../python.md), you've already
 seen a couple of instructions: `Register<Account>` and `Mint<Quantity>`.
 
 For the exhaustive list of Instructions you should consult
-[our source code](https://github.com/hyperledger/iroha/tree/iroha2-dev/core/src/smartcontracts/isi). <!-- Check link is working --!>
-Here we will cover only some important classes.
+[our source code](https://github.com/hyperledger/iroha/tree/iroha2-dev/core/src/smartcontracts/isi).
+<!-- Check link is working --> Here we will cover only some important
+classes.
 
 ### (Un)Register
 
 Registering and unregistering are the instructions used to give an ID to a
 new entity on the blockchain.
 
-Everything that can be registered is both `Registrable` and `Identifiable`, but not everything
-that's `Identifiable` can be registered. As a rule, everything that can be
-registered, can also be un-registered, but that is not a hard and fast
-rule.
+Everything that can be registered is both `Registrable` and `Identifiable`,
+but not everything that's `Identifiable` is `Registrable`. Most things are
+registered directly, like `Peer`s, but in some cases the representation in
+the blockchain has considerably more data. For security and performance
+reasons, we use builders for such data structures (e.g. `NewAccount`). As a
+rule, everything that can be registered, can also be un-registered, but
+that is not a hard and fast rule.
 
 You can register a new account, a new asset definition, a peer, and a
 trigger (more on them later). Registering a peer is currently the only way
@@ -114,14 +133,18 @@ blockchain is a rather advanced topic that we shall cover separately.
 
 ### Query
 
-We talk extensively about queries in the [dedicated section](queries.md) where we list all the
-queries that can be made from the client side. This is not necessarily the
-only kind of information that is available on the network, but it's the
-only kind of information that is guaranteed to be accessible on all
-networks.
+We talk extensively about queries in the [dedicated section](queries.md)
+where we list all the queries that can be made from the client side. This
+is not necessarily the only kind of information that is available on the
+network, but it's the only kind of information that is _guaranteed_ to be
+accessible on all networks.
 
-Telemetry data is optional to the specific deployment of Iroha. Access to
-your account balance is a required function.
+For each deployment of Iroha, there might be other available information.
+For example, the availability of telemetry data is up to the network
+administrators. It's entirely their decision whether or not they want to
+allocate processing power to track the work instead of using it to do the
+actual work. By contrast, things such as access to you account balance is
+always a required function.
 
 ### Expressions, Conditionals, Logic
 
