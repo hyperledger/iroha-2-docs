@@ -75,7 +75,7 @@ you might have in your real-world application.
 ::: info
 
 For more information on Iroha 2, please take a look at the
-[Iroha 2 Whitepaper](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/iroha_2_whitepaper.md),
+[Iroha 2 Whitepaper](https://github.com/hyperledger/iroha/blob/iroha2/docs/source/iroha_2_whitepaper.md),
 as well as the Hyperledger Iroha section within the
 [Hyperledger Foundation Wiki](https://wiki.hyperledger.org/display/iroha).
 
