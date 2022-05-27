@@ -123,7 +123,7 @@ cargo run --release
 What does this smart contract do? Let's see. It queries all of the
 currently existing domains and puts the results into a `std::vec::Vec`. In
 this case, `std::vec::Vec` has to be imported from `alloc`, as we use
-`no_std` (more on that [later](#work-under-a-nostd-environment)). It is
+`no_std` (more on that [later](#work-under-a-no-std-environment)). It is
 then used to add the user named `mad_hatter` to all of the existing
 domains.
 
