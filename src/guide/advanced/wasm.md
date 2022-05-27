@@ -6,8 +6,8 @@ problems with this approach.
 
 - The ISI syntax is verbose and ugly.
 - The ISI syntax is not familiar for most programmers.
-- While simple ISI smart contracts are compact (usually a few bytes), they need different kinds of 
-  be manually optimised.
+- While simple ISI smart contracts are compact (usually a few bytes), they
+  need different kinds of be manually optimised.
 
 In the long run, all of these problems are taken care of by using a
 **domain-specific language**, which gets optimised and compiled into a
@@ -27,8 +27,16 @@ of the optimisation, and you don't have to learn a new language (ahem...
 solidity... ahem), just to operate on the blockchain.
 
 You'd still need to use ISI from inside your WASM binary to do anything
-on-chain, but you can do other things, and write in Rust instead of
-composing Generic `structs` inside a macro to get conditional logic.
+on-chain, as we explained earlier.
+
+In theory, you can do anything you want just using ISI as it is a
+Turing-complete language. However, it'll be less convenient and efficient
+since you'd need to use metadata as memory and write complex conditionals
+using just the tools that we've provided in the `Expression` and ISI
+infrastructure. We highly recommend choosing a well-known programming
+language, such as Rust, to build the necessary logic out of simple
+instructions. This is much easier than trying to reinvent the wheel using
+ISI.
 
 Moreover, as long as you fit within the limits of WASM runtime and the
 provided libraries, you can do anything (and everything) you want. The
