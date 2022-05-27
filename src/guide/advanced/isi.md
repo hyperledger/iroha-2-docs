@@ -8,15 +8,15 @@ to the blockchain, allow certain users to use the network, and lock others
 out.
 
 Any operation that is run on-chain is written in terms of _Iroha Special
-Instructions (ISI)_, and there is no other way of modifying the world state
-that would pass consensus. To understand why, we'll need to make a short
+Instructions (ISI)_, and there is no other way of modifying the world state.
+To understand why, we'll need to make a short
 detour into how Iroha is implemented under the hood.
 
 ## How Iroha works
 
 Each interaction with the blockchain is done via a _transaction_.
-Transaction is a collection of _instructions_, which are either glued
-together in sequence or called from a WASM blob (more on that later). You
+A transaction is a collection of _instructions_, which are either glued
+together in sequence or compiled into what we affectionately call a WASM blob (more on that later). You
 need these instructions to register an account, remove an account, add X
 amount of Y currency, and so on.
 
@@ -27,8 +27,8 @@ are allowed to access). Queries are also instructions.
 ### Consensus
 
 Each time you send a transaction to Iroha, it gets put into a queue, and
-when the time comes, the queue is emptied, and the consensus process
-begins. This process is a bit of mundane with a bit of black magic[^1].
+when it's time to produce a new block, the queue is emptied, and the consensus process
+begins. This process is equal parts common sense and black magic[^1].
 
 The mundane aspect is that a special set of peers needs to take the
 transaction queue, and reproduce the same world state. If the world state
@@ -48,11 +48,11 @@ block.
 ## Instructions
 
 So what kinds of special instructions do we have? If you've read the
-tutorial on [Rust](../rust.md) or [Python](../python.md), you've already
+tutorial for [Rust](../rust.md) or [Python](../python.md), you've already
 seen a couple of instructions: `Register<Account>` and `Mint<Quantity>`.
 
 For the exhaustive list of Instructions you should consult
-[our source code](https://github.com/hyperledger/iroha/tree/iroha2-dev/core/src/smartcontracts/isi).
+[our source code](https://github.com/hyperledger/iroha/tree/iroha2-dev/core/src/smartcontracts/isi). <!-- Check link is working --!>
 Here we will cover only some important classes.
 
 ### (Un)Register
@@ -60,7 +60,7 @@ Here we will cover only some important classes.
 Registering and unregistering are the instructions used to give an ID to a
 new entity on the blockchain.
 
-Everything that can be registered is `Identifiable`, but not everything
+Everything that can be registered is both `Registrable` and `Identifiable`, but not everything
 that's `Identifiable` can be registered. As a rule, everything that can be
 registered, can also be un-registered, but that is not a hard and fast
 rule.
@@ -114,14 +114,14 @@ blockchain is a rather advanced topic that we shall cover separately.
 
 ### Query
 
-We talk extensively about queries [later](queries.md) when we list all the
+We talk extensively about queries in the [dedicated section](queries.md) where we list all the
 queries that can be made from the client side. This is not necessarily the
 only kind of information that is available on the network, but it's the
 only kind of information that is guaranteed to be accessible on all
 networks.
 
 Telemetry data is optional to the specific deployment of Iroha. Access to
-your account balance is required function.
+your account balance is a required function.
 
 ### Expressions, Conditionals, Logic
 

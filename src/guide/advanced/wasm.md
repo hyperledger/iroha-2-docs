@@ -6,7 +6,7 @@ problems with this approach.
 
 - The ISI syntax is verbose and ugly.
 - The ISI syntax is not familiar for most programmers.
-- While ISI smart contracts are compact (usually a few bytes), they need to
+- While simple ISI smart contracts are compact (usually a few bytes), they need different kinds of 
   be manually optimised.
 
 In the long run, all of these problems are taken care of by using a
@@ -35,7 +35,7 @@ provided libraries, you can do anything (and everything) you want. The
 drawback is that this process is a tad more involved than just writing the
 ISI using the client libraries.
 
-## Simple Rust Smart Contracts
+## Simple Rust Smart Contract Example
 
 WASM projects, just like any other binary in Rust, need to be separate
 crates. Don't worry, it doesn't have to be big.
@@ -48,7 +48,7 @@ To get started, create a new project:
 cargo new --lib
 ```
 
-Yes, we need the `lib` type, more on that later.
+Yes! We need the `lib` type; more on that later.
 
 The `Cargo.toml` of your project should look something like this:
 
