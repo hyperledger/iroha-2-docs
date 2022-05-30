@@ -36,7 +36,7 @@ consensus process begins. This process is equal parts common sense and
 black magic[^1].
 
 The mundane aspect is that a special set of peers needs to take the
-transaction queue, and reproduce the same world state. If the world state
+transaction queue and reproduce the same world state. If the world state
 cannot be reproduced for some reason or another, none of the transactions
 get committed to a block.
 
@@ -136,7 +136,7 @@ blockchain is a rather advanced topic that we shall cover separately.
 ### Query
 
 We talk extensively about queries in the [dedicated section](queries.md)
-where we list all the queries that can be made from the client side. This
+where all the queries that can be made from the client-side are listed. This
 is not necessarily the only kind of information that is available on the
 network, but it's the only kind of information that is _guaranteed_ to be
 accessible on all networks.
