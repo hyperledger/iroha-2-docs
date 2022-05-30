@@ -30,8 +30,8 @@ that are only used to get information leave no trace in the blockchain.
 
 ### Consensus
 
-Each time you send a transaction to Iroha, it gets put into a queue, and
-when it's time to produce a new block, the queue is emptied, and the
+Each time you send a transaction to Iroha, it gets put into a queue.
+When it's time to produce a new block, the queue is emptied, and the
 consensus process begins. This process is equal parts common sense and
 black magic[^1].
 
