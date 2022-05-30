@@ -30,10 +30,10 @@ that are only used to get information leave no trace in the blockchain.
 
 ### Consensus
 
-Each time you send a transaction to Iroha, it gets put into a queue.
-When it's time to produce a new block, the queue is emptied, and the
-consensus process begins. This process is equal parts common sense and
-black magic[^1].
+Each time you send a transaction to Iroha, it gets put into a queue. When
+it's time to produce a new block, the queue is emptied, and the consensus
+process begins. This process is equal parts common sense and black
+magic[^1].
 
 The mundane aspect is that a special set of peers needs to take the
 transaction queue and reproduce the same world state. If the world state
@@ -136,10 +136,10 @@ blockchain is a rather advanced topic that we shall cover separately.
 ### Query
 
 We talk extensively about queries in the [dedicated section](queries.md)
-where all the queries that can be made from the client-side are listed. This
-is not necessarily the only kind of information that is available on the
-network, but it's the only kind of information that is _guaranteed_ to be
-accessible on all networks.
+where all the queries that can be made from the client-side are listed.
+This is not necessarily the only kind of information that is available on
+the network, but it's the only kind of information that is _guaranteed_ to
+be accessible on all networks.
 
 For each deployment of Iroha, there might be other available information.
 For example, the availability of telemetry data is up to the network
