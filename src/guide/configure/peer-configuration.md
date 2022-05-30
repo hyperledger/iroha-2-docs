@@ -104,8 +104,8 @@ log in a structured format.
 
 This is extremely useful for two reasons. Firstly, you can use the `bunyan`
 log viewer to filter information more precisely than Iroha would allow you
-to do. Do you only want messages from a specific module or package? You can do
-that with `bunyan`. Secondly, while copying logs is not too big of a
+to do. Do you only want messages from a specific module or package? You can
+do that with `bunyan`. Secondly, while copying logs is not too big of a
 problem if your instance is just a small setup, for bigger setups the log
 will be larger. Having it saved to a file makes much more sense in that
 case.
