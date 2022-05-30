@@ -1,7 +1,7 @@
 # Peer Management
 
 If you followed any of the language-specific guides, you now have a
-well-functioning network that people want to join.
+well-functioning network that people will want to join.
 
 ## Public Blockchain
 
