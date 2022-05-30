@@ -8,7 +8,7 @@ create a network: `TRUSTED_PEERS`, `KURA`, `TORII`, and `LOGGER`. We'll
 cover the `PUBLIC_KEY` and `PRIVATE_KEY` later when we talk about
 [public key cryptography](keys.md).
 
-The remaining options are for tuning Iroha, so you don't need to worry
+The remaining options are for fine-tuning Iroha, so you don't need to worry
 about them at this stage. Once you are familiar with the necessary basics,
 check
 [Iroha Configuration Reference](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md)
@@ -104,7 +104,7 @@ log in a structured format.
 
 This is extremely useful for two reasons. Firstly, you can use the `bunyan`
 log viewer to filter information more precisely than Iroha would allow you
-to do. Want only messages from a specific module or package? You can do
+to do. Do you only want messages from a specific module or package? You can do
 that with `bunyan`. Secondly, while copying logs is not too big of a
 problem if your instance is just a small setup, for bigger setups the log
 will be larger. Having it saved to a file makes much more sense in that
