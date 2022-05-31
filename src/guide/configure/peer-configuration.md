@@ -94,6 +94,7 @@ either a warning or an error. Beside `WARN`, other available options are:
 - `TRACE` (log every time you enter a function)
 - `DEBUG` (use when you know something went wrong)
 - `INFO` (the default)
+- `WARN` (log everything that could be an error)
 - `ERROR` (to silence any logging except for error messages)
 
 ### `LOG_FILE_PATH`
