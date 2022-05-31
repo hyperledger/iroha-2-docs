@@ -2,7 +2,7 @@
 
 To understand how Iroha operates, let's draw parallels between a blockchain
 and a computer. If the blockchain is the computer, then in this metaphor of
-ours the client library (`iroha_client_cli` or any other) is the keyboard,
+ours the client binary (for example: `iroha_client_cli`) is the keyboard,
 the blockchain is the hard drive, and the Iroha peer software is the
 processor. Like a processor, Iroha accepts portable instructions that
 modify what's written to the blockchain, allow certain users to use the
