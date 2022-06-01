@@ -141,9 +141,9 @@ burn all of her assets.
 
 These types of events account for the vast majority of triggers in
 Ethereum, and were the first to be implemented. As of today we only support
-un-scoped system-wide triggers with no permission validation.
-<!-- Q: still true? --> Work is ongoing to make the triggers safer and more
-reliable, but the process is time-consuming and work-intensive.
+un-scoped system-wide triggers with no permission validation. Work is
+ongoing to make the triggers safer and more reliable, but the process is
+time-consuming and work-intensive. <!-- Q: still true? -->
 
 ::: info
 
@@ -448,6 +448,7 @@ For example, we will have filters that match when the asset:
 
 Only the first type of event filter is implemented now, and the other two
 can be emulated using a WASM smart contract as the `Executable`.
+
 <!-- Check -->
 
 :::
