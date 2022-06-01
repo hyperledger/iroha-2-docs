@@ -56,7 +56,7 @@ determines the scope of the trigger. <!-- Check -->
 
 ### `Trigger.metadata`
 
-The `Metadata` is the same kind of `Metadata` that can be attached to
+This `Metadata` is the same kind of `Metadata` that can be attached to
 accounts, domains, assets, or transactions.
 
 ### `Trigger.action`
@@ -94,8 +94,8 @@ A technical account is the account that would (in theory) be responsible
 for the execution environment and be the authority for `Instruction`
 execution.
 
-For now, you can leave this to be the account that registered the trigger.
-If you followed the tutorial, this is `alice@wonderland`. However, later on
+For now, you can leave this as the account that registered the trigger.
+If you have been following the tutorial, this is `alice@wonderland`. However, later on
 we will show you why you'd want to create a brand new account for those
 purposes.
 
@@ -140,7 +140,7 @@ got registered, an asset got transferred, the Queen of Hearts decided to
 burn all of her assets.
 
 These types of events account for the vast majority of triggers in
-Ethereum, and were the first to be implemented. As of today we only support
+Ethereum, and were the first to be implemented. As of today, we only support
 un-scoped system-wide triggers with no permission validation. Work is
 ongoing to make the triggers safer and more reliable, but the process is
 time-consuming and work-intensive. <!-- Q: still true? -->
