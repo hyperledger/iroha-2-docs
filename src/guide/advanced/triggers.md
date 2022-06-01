@@ -1,61 +1,37 @@
 # Triggers
 
-The basic premise is that certain things can emit events: it could be a
-change of the state of some entity, e.g. an account, and/or a domain (you
-can't modify an account without changing the domain that it belongs to, but
-you can change the domain without touching any of its accounts), but it
-could also be the block being committed, some point in time being crossed,
-or even a direct signal emitted by executing a special ISI. All of these
-are events that triggers can be attached to.
+Certain things, such as changing the state of an entity, committing a block
+or [executing an ISI](#supported-isi), can emit events, and you can attach
+_triggers_ to these events.
 
-A trigger is a fairly basic entity that can be registered. Just like with
-Accounts, you submit a `RegisterBox::Trigger`, which contains the necessary
-information. This information is a single account ID, which should ideally
-be a brand new account that you register in the same transaction (but for
-now it doesn't matter); an executable, which itself is either a
-`Vec<Instruction>` or a WASM blob; and an `EventFilter`, something which
-combs through (at this point all) events and returns `true` when it finds
-an event that you like to start the execution.
+A _trigger_ is a fairly basic entity that can be registered. Just like with
+Accounts, to register a trigger, you submit a `RegisterBox::Trigger`, which
+contains the necessary information:
 
-The documentation on the `EventFilter` types is under construction, as we
-are likely to make major changes to that particular architecture. For now,
-suffice it to say that you can look at the source code in
-`iroha_data_model` and see a few particularly interesting applications.
+- an account ID, which should ideally be a brand new account that you
+  register in the same transaction
+- an executable, which itself is either a `Vec<Instruction>` or a WASM blob
+- an `EventFilter`[^1], which is something that combs through all[^2]
+  events and returns `true` when it finds the matching event to start the
+  execution
 
-## Triggers in More Detail
+[^1]:
+    The documentation on the `EventFilter` types is under construction, as
+    we are likely to make major changes to that particular architecture.
+    For now, suffice it to say that you can look at the
+    [source code](https://github.com/hyperledger/iroha/blob/iroha2-dev/data_model/src/events/data/filters.rs)
+    in `iroha_data_model` and see a few particularly interesting
+    applications.
+
+[^2]: This behaviour is likely to change in future releases. <!-- Check -->
+
+Let's take a closer look at how triggers work.
 
 <!-- We should probably have a Queen of Hearts here, as we have a lot of `execute`, `trigger` and `block` -->
 
-### Supported ISI
-
-- `Register<Trigger>`: Create a trigger object, and subscribe it to global
-  events.
-
-- `Unregister<Trigger>`: Remove a trigger from the World State View and
-  stop passing it events.
-
-- `Mint<Trigger, u32>`: For triggers that repeat a set number of times,
-  increase the number of times that the trigger gets executed. Can be done
-  from inside the executable of the trigger.
-
-- `Burn<Trigger, u32>`: For triggers that repeat a set number of times,
-  decrease the number of times that the trigger gets executed.
-
-::: Tip
-
-If the number provided is greater than the remaining number of repetitions,
-the instruction will fail to execute, and the transaction that it's part of
-will, be rejected.
-
-:::
-
-### Supported queries
-
-None yet.
-
 ## The Anatomy of a Trigger
 
-A trigger has the following rough form:
+A trigger has roughly the following form:
 
 ```rust
 struct Trigger {
@@ -65,16 +41,27 @@ struct Trigger {
 }
 ```
 
-Where the `TriggerId` is a simple wrapper around a single `Name`, i.e.
-string with no white-space and no reserved characters (`@`, `#`). In the
-future, we shall add scoped triggers, and the Id will be expanded to be
-either a global trigger, or a trigger with a domain name. This is what
-determines the scope of the trigger.
+### `Trigger.id`
 
-`Metadata` is the same kind of `Metadata` that can be attached to accounts,
-domains, assets and even transactions.
+The `TriggerId` is a simple wrapper around a single `Name`, i.e. a string
+with no whitespaces and no reserved characters (`@`, `#`).
 
-An `Action` is the heart of the trigger.
+::: info
+
+In the future, we shall add scoped triggers, and the id will be expanded to
+be either a global trigger, or a trigger with a domain name. This is what
+determines the scope of the trigger. <!-- Check -->
+
+:::
+
+### `Trigger.metadata`
+
+The `Metadata` is the same kind of `Metadata` that can be attached to
+accounts, domains, assets, or transactions.
+
+### `Trigger.action`
+
+An `Action` is the heart of the trigger. It is defined like this:
 
 ```rust
 struct Action {
@@ -85,8 +72,14 @@ struct Action {
 }
 ```
 
-Here the executable is either a `Vec<Instruction>` or a WASM binary. The
-`Repeats` is a universal enumeration of all possible repetition schemes.
+#### `Action.executable`
+
+Here the executable is either a `Vec<Instruction>` or a WASM binary.
+
+#### `Action.repeats`
+
+The `Repeats` is a universal enumeration of all possible repetition
+schemes.
 
 ```rust
 enum Repeats {
@@ -95,49 +88,62 @@ enum Repeats {
 }
 ```
 
+#### `Action.technical_account`
+
 A technical account is the account that would (in theory) be responsible
 for the execution environment and be the authority for `Instruction`
-execution. You can (for now) leave this to be the account that registered
-the trigger, that is, if you followed the tutorial, `alice@wonderland`.
-However, later on we will show you why you'd want to create a brand new
-account for those purposes.
+execution.
 
-A filter is what determines the _kind_ of trigger that you're dealing with.
-All triggers respond to events, but the precise type of event that
-activates a trigger depends on which `EventFilter` was used.
+For now, you can leave this to be the account that registered the trigger.
+If you followed the tutorial, this is `alice@wonderland`. However, later on
+we will show you why you'd want to create a brand new account for those
+purposes.
+
+#### `Action.filter`
+
+A filter is what determines what _kind_ of trigger you're dealing with. All
+triggers respond to events, but the precise type of event that activates a
+trigger depends on which `EventFilter` was used.
 
 The reason why we chose this architecture is simple; front end code has an
 abundance of event filters, and so, your knowledge of filters is
-transferable to writing smartcontracts.
+transferable to writing smart contracts.
 
 ## How Triggers Work
 
-Once we're done with triggers, you will have the following basic types:
+We shall cover the following basic types of triggers and provide you with
+the detailed information on how to use each of them:
 
 - Event triggers
 - Timed triggers
+- Pre-commit triggers
 - By-call triggers
 - Block-based triggers
 
-Each of these shall be covered in its own right, and some information shall
-be provided on how to use each of them in detail. Both this tutorial and
-triggers themselves are under construction; some triggers don't exist yet,
-while the API of others will change drastically in the following release.
-We shall do our best to describe all of what we can, with as much detail as
-we can, and clearly signpost which parts of this tutorial will be made
-obsolete in the next release.
+::: info
+
+Both this tutorial and triggers themselves are under construction; some
+triggers don't exist yet, while the API of others will change drastically
+in the following release. We shall do our best to describe all of what we
+can, with as much detail as we can, and clearly signpost which parts of
+this tutorial will be made obsolete in the next release.
+
+<!-- Check -->
+
+:::
 
 ### Event Triggers
 
 As we have said previously, all triggers are, in a sense, event triggers.
 However, this category includes the largest variety of triggers: an account
 got registered, an asset got transferred, the Queen of Hearts decided to
-burn all of her assets. These types of events account for the vast majority
-of triggers in Ethereum, and were the first to be implemented. As of today
-we only support un-scoped system-wide triggers with no permission
-validation. <!-- Q: still true? --> Work is ongoing to make the triggers
-safer and more reliable, but the process is time-consuming and
-work-intensive.
+burn all of her assets.
+
+These types of events account for the vast majority of triggers in
+Ethereum, and were the first to be implemented. As of today we only support
+un-scoped system-wide triggers with no permission validation.
+<!-- Q: still true? --> Work is ongoing to make the triggers safer and more
+reliable, but the process is time-consuming and work-intensive.
 
 ::: info
 
@@ -154,7 +160,7 @@ repetitions reaches zero, the trigger is gone. That means that if your
 trigger got repeated exactly `n` times, you can't `Mint` new repetitions,
 you have to `Register` it again, with the same name.
 
-TODO: test if reaches zero needs to re-register.
+<!-- TODO: test if reaches zero needs to re-register. -->
 
 ### Timed Triggers
 
@@ -165,76 +171,97 @@ the filters are only interested in the timestamp provided in that event,
 but not the block height, and not the current time.
 
 When going through consensus, all peers must agree on which triggers got
-executed. Timed triggers can't use real time, because you can easily create
-a situation when they would never agree: just make sure that the
-`Repeats::Indefinitely` trigger has a period that's smaller than the time
-it takes to pass consensus. It's really that simple. So instead of using
-the actual current time at each peer, we use the time when the block got
-started plus a small offset. All triggers before that point in time get
-executed. All triggers that would have executed after that time wait until
-the next block.
+executed. Timed triggers can't use real time, because then you can easily
+create a situation when they would never agree: e.g. by giving the
+`Repeats::Indefinitely` trigger a period that is smaller than the time it
+takes to pass consensus. It's really that simple.
+
+So instead of using the actual current time at each peer, we use the time
+when the block got started plus a small offset. All triggers before that
+point in time get executed. All triggers that would be executed after that
+time wait for the next block.
+
+::: details Why we use the offset
 
 The reason why we add this offset has to do with Iroha being _best effort_.
+
 Imagine if we didn't have the offset... Normally, triggers would be set to
 nice round numbers; e.g. `12:00`, `12:05`, `11:55`, etc. (as opposed to
 e.g. `11:59`). However, the consensus can start at any point in time and
-could last a while. Suppose that the block started to form at `11:56` and
-consensus finished at `12:03` (which is optimistically quick). If your
-trigger was supposed to run at `11:55` you'd be happy, since your trigger
-got executed just 1 minute late. If yours was supposed to run at `12:05`,
-it will get run in the next block, but if you're the author, and you're
-looking at the time stamp of `12:03` it makes sense, your trigger wasn't
-supposed to run yet. For the trigger scheduled for `12:00` the situation is
-different. You look at the clock, you see `12:03` which is when the
-blockchain explorer shows you the block data committed, but you don't see
-your trigger. It was supposed to run, but didn't.
+could last a while.
+
+Suppose that the block started to form at `11:56` and consensus finished at
+`12:03` (which is optimistically quick). Let's consider different
+scenarios:
+
+- If your trigger was supposed to run at `11:55`, you'd be happy, since
+  your trigger got executed just 1 minute late.
+- If your trigger was supposed to run at `12:05`, it will run in the next
+  block, not the one that was formed at `11:56`. If you're the author and
+  you're looking at the time stamp of `12:03`, it makes sense, your trigger
+  wasn't supposed to run yet.
+- For the trigger scheduled for `12:00`, the situation is different. You
+  look at the clock, you see `12:03`, which is when the blockchain explorer
+  shows you the block data was committed, but you don't see your trigger.
+  It was supposed to run, but didn't.
 
 So, the offset is meant to anticipate when the block would get added to the
 chain, so that people who were just 4 minutes early don't have to be
-potentially several hours late. Because more triggers get executed sooner,
-your throughput is also infinitesimally smaller. We could also say "you
-should aim to execute your trigger slightly earlier than consensus starts",
-but people writing smartcontracts already have too much to worry about.
+potentially several hours late.
+
+Because more triggers get executed sooner, your throughput is also
+infinitesimally smaller.
+
+We could also say "you should aim to execute your trigger slightly earlier
+than consensus starts", but people writing smart contracts already have too
+much to worry about.
+
+:::
 
 ### Pre-commit Triggers
 
 This is a variant of timed triggers that gets run before transactions get
-committed. In reality it triggers in the next block, by leaving a special
-event, but it is effectively a delayed pre-commit that can track the
-behaviour of transactions in the pipeline.
+committed. It leaves a special event to be triggered in the next block.
+Effectively, it's a delayed pre-commit that can track the behaviour of
+transactions in the pipeline.
 
 ::: info
 
 These triggers are not meant for restricting the execution of transactions.
+
 If you want to stop your users from transferring more than X amount of Y to
 user Z, you really want a _permission_. While you could hack the pre-commit
-triggers to emulate the desired behaviour, this is neither economical in
-terms of gas fees, nor computation.
+triggers to emulate the desired behaviour, this is not economical neither
+in terms of gas fees nor computation.
 
 Until Iroha 2 supports WASM-based _permissions validators_, however, your
-only choice are pre-commit triggers.
+only choice is pre-commit triggers. <!-- Check -->
 
 :::
 
 ### Block-based Triggers
 
-Same as timed triggers, but instead of only being interested in the
-time-stamp, this trigger is interested in the block height. While the
-mechanism for the triggers is similar, the use cases are different.
+Same as timed triggers, but instead of only using the timestamp, this type
+of trigger also relies on the block height.
+
+While the mechanism for these triggers is similar, the use cases are
+different.
 
 ### By-call Triggers
 
 These triggers only get executed once the `CallTrigger(trigger_name)`
 instruction is executed. They can be useful if you want to achieve dynamic
-linkage between different smartcontract modules. Space is precious, so you
-want to use as little of it as you can. Thus, you follow the UNIX design
-philosophy, and instead of creating one large smartcontract, you create
-many smaller ones, and re-use as much logic as you can.
+linkage between different smart contract modules.
+
+Space is precious, so you want to use as little of it as you can. Thus, you
+follow the UNIX design philosophy, and instead of creating one large smart
+contract, you create many smaller ones, and re-use as much logic as you
+can.
 
 ::: info
 
 Of course, this is a rather exotic use case, so it shall be implemented
-last
+last.
 
 :::
 
@@ -242,12 +269,13 @@ last
 
 Now that we've gotten the theory out of the way, we want to sit down with
 the Mad Hatter, the March Hare, and the Dormouse and see if we can spin.
-
 Let's start with an event trigger that shows the basics.
 
+### 1. Register accounts
+
 We have `mad_hatter@wonderland`, `dormouse@wonderland`,
-`march_hare@wonderland` all of which share the (fixed-point) asset of
-`tea#wonderland`. The Mad hatter has the tea pot, while the rest have a
+`march_hare@wonderland` all of which share the fixed-point asset of
+`tea#wonderland`. The Mad Hatter has the tea pot, while the rest have a
 single cup of tea. When `alice@wonderland` had arrived, she got a nice cup
 of tea as well.
 
@@ -270,11 +298,13 @@ vec![
 ]
 ```
 
-We want a smartcontract that transfers some `tea` from
+### 2. Register a trigger
+
+We want a smart contract that transfers some `tea` from
 `mad_hatter@wonderland` to `alice@wonderland` when her tea reduces by a
 single cup.
 
-For that we need to register a trigger. The boilerplate is straightforward
+For that we need to register a trigger. The boilerplate is straightforward:
 
 ```rust
 let id = TriggerId::new(Name::new("refresh_tea"));
@@ -296,36 +326,39 @@ let technical_account = mad_hatter.clone();
 let filter = _ // ...
 ```
 
+### 3. Define an event filter
+
 The event filter is where we need to spend some time and think. So far
 we've seen the `Pipeline` variety of filters. This time around, the filter
-is a `Data` kind, which is itself a tuple with a single variant, which is a
-`FilterOpt` of an `EntityFilter`.
+is a `Data` kind. This type of filter is a tuple with a single variant,
+which is a `FilterOpt` of an `EntityFilter`:
 
-`FilterOpt` stands for Optional Filter. It can either `AcceptAll`, or
-accept `BySome` of another `Filter`. An `EntityFilter` is a filter that
-matches `ByAccount` in our case, but can match by many other means. It
-wraps an `AccountFilter`, which matches on various events produced on
-accounts. We need to listen for an event that occurs when Alice's asset is
-reduced: so we need `AccountEventFilter::ByAsset`. That itself is an
-`AssetEventFilter`. It should filter `ByRemoved` (but not `ByDeleted`).
-**It should be noted that the names are subject to change, as they are
-confusing.**
+- `FilterOpt` stands for Optional Filter. It can either `AcceptAll` or
+  accept `BySome` of another `Filter`.
+- An `EntityFilter` is a filter that matches `ByAccount` in our case, but
+  can match by many other means. It wraps an `AccountFilter`, which matches
+  various events produced on accounts.
 
-This gets us nowhere and is a big problem in our current API, that we're
-trying to solve. Instead we should work bottom up.
+What we want to do is create an event filter for when `alice@wonderland`
+drinks some of her tea, or, in other words, reduces the `tea` asset by any
+amount. To do this with the current API, we need to work bottom up.
 
-To learn the ropes of `EventFilters` start simple. An `IdFilter` is a
-filter that `.matches(event) == true`, if and only if the identities are
-exactly the same. Everything that has an `Id` has a corresponding
-`IdFilter`. However, an `IdFilter` is a parametric structure, an `IdFilter`
-that works on `Peer`s has the type `IdFilter<PeerId>` and is not the same
-type as an `IdFilter` that works with `AccountId`; `IdFilter<AccountId`.
-We've already talked about `FilterOpt`.
+An `IdFilter` is a filter that `.matches(event) == true` if and only if the
+identities are exactly the same. Everything that has an `Id` has a
+corresponding `IdFilter`.
+
+::: info
+
+An `IdFilter` is a parametric structure, an `IdFilter` that works on
+`Peer`s has the type `IdFilter<PeerId>` and is not the same type as an
+`IdFilter` that works with `AccountId`; `IdFilter<AccountId`.
+
+:::
 
 Now if we wanted a filter that will `match` whenever `tea` gets reduced,
 either through a `Transfer` or a `Burn` instruction, we need an
-`AssetFilter`. It needs to look at both what the `Id` of the asset is,
-hence `IdFilter<AssetDefinitionId>` and `ByRemoved`.
+`AssetFilter`. It needs to look at what the `Id` of the asset is, hence
+`IdFilter<AssetDefinitionId>` and `ByRemoved`.
 
 ```rust
 use FilterOpt::{BySome, AcceptAll};
@@ -349,6 +382,8 @@ this in various boxes.
 let filter = EventFilter::Data(BySome(EntityFilter::ByAccount(account_filter)));
 ```
 
+### 4. Create a `Trigger` instance
+
 After this somewhat laborious filter combination, we can create an `Action`
 
 ```rust
@@ -365,20 +400,22 @@ let trigger = Trigger {
 }
 ```
 
+### 5. Create a transaction
+
 Finally, in order to get said trigger onto the blockchain, we create a
-transaction with the following single instruction.
+transaction with the following single instruction:
 
 ```rust
 Instruction::Register(RegisterBox::new(IdentifiableBox::Trigger(Box::new(trigger))));
 ```
 
-## How it works
+### How it works
 
-The technical details are summarised as follows:
+The technical details of the created transaction are summarised as follows:
 
 - The (normal) instructions that either got submitted from WASM or directly
   from the client get executed. If there were any triggers that should have
-  been registered, they get registered now.
+  been registered, they get registered.
 - Using the total set of events that got generated during the execution of
   instructions, the triggers (including some that got registered just this
   round) get executed.
@@ -388,29 +425,34 @@ The technical details are summarised as follows:
 ::: info
 
 The reason why the events caused by the execution of triggers get processed
-in the next block is simple. We don't want two triggers to inadvertently
-cause an infinite loop of instruction execution, and break consensus.
+in the next block is that we don't want two triggers to inadvertently cause
+an infinite loop of instruction execution and break consensus.
 
 :::
 
-Now each time Alice drinks some tea, the Mad Hatter will pour in a whole
-new cup. The keen eyed among you will have noticed that the amount that
-Alice drinks is irrelevant to how much tea will be transferred. Alice may
-well take a tiny sip and be poured a whole new cup's worth.
+Now each time Alice drinks some tea, the Mad Hatter pours in a whole new
+cup. The keen eyed among you will have noticed that the amount that Alice
+drinks is irrelevant to how much tea will be transferred. Alice may take a
+tiny sip and still be poured a whole new cup's worth.
 
-We intend to address this issue in the future, when the event that gets
-emitted also has an attached Value. We also intend to provide more event
-filter types. For example, we will have filters that match when the asset:
+::: info
 
-1. Decreases by any amount (current behaviour).
-2. Decreases by more than (or exactly) the specific amount in one
-   instruction.
-3. Decreases to below a certain threshold.
+We intend to address this issue in the future so that an emitted event also
+has an attached `Value`. We also intend to provide more event filter types.
+For example, we will have filters that match when the asset:
+
+- Decreases by any amount (current behaviour)
+- Decreases by more than (or exactly) the specific amount in one
+  instruction
+- Decreases to below a certain threshold
 
 Only the first type of event filter is implemented now, and the other two
-can be emulated using a WASM smartcontract as the `Executable`.
+can be emulated using a WASM smart contract as the `Executable`.
+<!-- Check -->
 
-### Why not WASM
+:::
+
+::: details Why not WASM
 
 The above observation can be generalised. WASM can do any logic that a
 Turing complete machine could, using the data available via queries. So in
@@ -431,9 +473,34 @@ feature properly takes time and effort. Ergonomics must be balanced against
 safety and reliability, so we cannot just make things easier to use. We
 want them to retain many of the advantages of strong typing.
 
-::: info
-
 This is all a work in progress. Our code is in flux. We need time to play
 around with a particular implementation to optimise it.
 
 :::
+
+## Supported ISI
+
+- `Register<Trigger>`: Create a trigger object and subscribe it to global
+  events.
+
+- `Unregister<Trigger>`: Remove a trigger from the World State View and
+  stop passing events through it.
+
+- `Mint<Trigger, u32>`: For triggers that repeat a certain number of times,
+  increase the number of times that the trigger gets executed. Can be done
+  from inside the executable of the trigger.
+
+- `Burn<Trigger, u32>`: For triggers that repeat a certain number of times,
+  decrease the number of times that the trigger gets executed.
+
+::: tip
+
+If the number provided is greater than the remaining number of repetitions,
+the instruction fails to execute, and the transaction that it is part of is
+rejected.
+
+:::
+
+## Supported Queries
+
+None yet.
