@@ -100,7 +100,7 @@ let pagination = Pagination::new(Some(starting_result), Some(limit));
 
 ## Role
 
-An optional feature. Be default, it is present on all Iroha 2 deployments
+An optional feature. By default, it is present on all Iroha 2 deployments
 when they're compiled in the private blockchain configuration.
 
 ### `FindAllRoles`
