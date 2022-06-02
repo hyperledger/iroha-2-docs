@@ -21,7 +21,7 @@ For this tutorial, you will need:
 
 ## Install the Rust Toolchain
 
-This is normally a straightforward process, but we've added 
+This is normally a straightforward process, but we've added
 [troubleshooting](#troubleshooting-rust-toolchain) details for each stage
 in case you experience issues with installation process.
 
@@ -233,8 +233,8 @@ then the issue runs deeper.
     ::: info
 
     We take pride in the fact that Iroha is extremely quick to compile. For
-    reference, compiling hyperledger/substrate takes a good part of ten minutes
-    on a modern M1 machine. Iroha, for comparison, compiles in
+    reference, compiling hyperledger/substrate takes a good part of ten
+    minutes on a modern M1 machine. Iroha, for comparison, compiles in
     around one minute.
 
     :::
