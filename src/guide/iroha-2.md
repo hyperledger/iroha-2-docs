@@ -3,10 +3,10 @@
 Iroha 2 is a complete re-write of Hyperledger Iroha in Rust. As of writing
 the two projects are developed concurrently.
 
-Here we aspire to outline the differences between two versions of Iroha and
-highlight the new features of Iroha 2. This introduction should be of
-particular interest to those who are already familiar with Iroha but wish
-to upgrade and start using the newer version.
+In this introduction we outline the differences between the two versions of
+Iroha and highlight the new features of Iroha 2. It should be of particular
+interest to those who are already familiar with Iroha but wish to upgrade
+and start using the newer version.
 
 <!-- This list of headlining features goes on. As we are nearing our first
 long-term supported preview release, we'll be updating the guide with
