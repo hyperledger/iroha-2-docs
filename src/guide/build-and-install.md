@@ -21,7 +21,7 @@ For this tutorial, you will need:
 
 ## Install the Rust Toolchain
 
-This is normally a straightforward process, but we've added the
+This is normally a straightforward process, but we've added 
 [troubleshooting](#troubleshooting-rust-toolchain) details for each stage
 in case you experience issues with installation process.
 
