@@ -504,4 +504,5 @@ rejected.
 
 ## Supported Queries
 
-None yet.
+We [list supported queries](./queries.md#trigger) for triggers when we talk
+in more detail about queries in the next chapter.
