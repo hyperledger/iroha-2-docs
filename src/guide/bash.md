@@ -1,4 +1,4 @@
-# Bash guide
+# Bash Guide
 
 ## 0. A brief primer on CLI applications
 
