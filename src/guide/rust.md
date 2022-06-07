@@ -428,6 +428,6 @@ for event in iroha_client.listen_for_events(filter)? {
 };
 ```
 
-Needless to say that a synchronous infinite blocking loop is bad UX for
+Needless to say, an synchronous infinite blocking loop is bad UX for
 anything but a command-line program, but for illustration purposes, this
 would create a nice printout, just like in `iroha_client_cli`.
