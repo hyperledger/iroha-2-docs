@@ -15,13 +15,13 @@ The Iroha 2 JavaScript library consists of multiple packages:
 | `client`                                                  | Submits requests to Iroha Peer                                                                                                                     |
 | `data-model`                                              | Provides [SCALE](https://github.com/paritytech/parity-scale-codec) (Simple Concatenated Aggregate Little-Endian)-codecs for the Iroha 2 Data Model |
 | `crypto-core`                                             | Contains cryptography types                                                                                                                        |
-| `crypto-target-node`                                      | Compiled crypto WASM ([Web Assembly](https://webassembly.org/)) for the Node.js environment                                                        |
-| `crypto-target-web`                                       | Compiled crypto WASM for native Web (ESM)                                                                                                          |
-| <code class="whitespace-pre">crypto-target-bundler</code> | Compiled crypto WASM to use with bundlers such as Webpack                                                                                          |
+| `crypto-target-node`                                      | Provides compiled crypto WASM ([Web Assembly](https://webassembly.org/)) for the Node.js environment                                               |
+| `crypto-target-web`                                       | Provides compiled crypto WASM for native Web (ESM)                                                                                                 |
+| <code class="whitespace-pre">crypto-target-bundler</code> | Provides compiled crypto WASM to use with bundlers such as Webpack                                                                                 |
 
-All of the are published under scope `@iroha2` into Iroha Nexus Registry.
-In future, they will be published in the main NPM Registry. To install
-these packages, firstly you need to setup a registry:
+All of these are published under the `@iroha2` scope into Iroha Nexus
+Registry. In future, they will be published in the main NPM Registry. To
+install these packages, firstly you need to setup a registry:
 
 ```ini
 # FILE: .npmrc
@@ -38,14 +38,16 @@ pnpm add @iroha2/crypto-target-web
 
 The set of packages that you need to install depends on your intention.
 Maybe you only need to play with the Data Model to perform
-(de-)serialisation, in which case the `data-model` package is enough. Maybe
-you only need to check on a peer in terms of status/health, thus need only
-the client library, because this API doesn't require any interactions with
-crypto or Data Model. For the purposes of this tutorial, it’s better to
-install everything, however, in general the packages are maximally
-decoupled, so you can minimise the footprint.
+(de-)serialisation, in which case the `data-model` package is enough. If
+you only need to check on a peer in terms of its status or health, you need
+only the client library, because this API doesn't require any interactions
+with crypto or Data Model.
 
-Moving on, if you are planning to use the Transaction or Query API, you’ll
+For the purposes of this tutorial, it's better to install everything.
+However, in general, the packages are maximally decoupled, so you can
+minimise the footprint.
+
+Moving on, if you are planning to use the Transaction or Query API, you'll
 also need to inject an appropriate `crypto` instance into the client at
 runtime. This has to be adjusted depending on your particular environment.
 For example, for Node.js users, such an injection may look like the
@@ -62,19 +64,25 @@ setCrypto(crypto)
 
 Please refer to the related `@iroha2/crypto-target-*` package documentation
 because it may require some specific configuration. For example, the `web`
-target requires to call an asynchronous `init()` function before usage of
+target requires to call an asynchronous `init()` function before using
 `crypto`.
 
 :::
 
 ## 2. Client Configuration
 
-The JavaScript Client is fairly low-level in the sense that it doesn’t
-expose any convenience features like a `TransactionBuilder` or a
-`ConfigBuilder`. Work on implementing those is underway, and these features
-will very likely be available with the second round of this tutorial’s
-release. Thus, on the plus side: configuration of the client is simple, on
-the downside you have to prepare a lot manually.
+The JavaScript Client is fairly low-level in a sense that it doesn't expose
+any convenience features like a `TransactionBuilder` or a `ConfigBuilder`.
+
+::: info
+
+The work on implementing those is underway, and these features will very
+likely be available with the second round of this tutorial's release.
+
+:::
+
+Thus, on the plus side, configuration of the client is simple. On the
+downside, you have to prepare a lot manually.
 
 A basic client setup looks straightforward:
 
@@ -92,7 +100,7 @@ const client = new Client({
 ```
 
 That's enough to perform health or status check, but if you need to use
-transactions or queries, you’ll need to prepare a key pair.
+transactions or queries, you'll need to prepare a key pair.
 
 Let's assume that you have stringified public & private keys (more on that
 later). Thus, a key-pair generation could look like this:
@@ -101,7 +109,7 @@ later). Thus, a key-pair generation could look like this:
 import { crypto } from '@iroha2/crypto-target-node'
 import { KeyPair } from '@iroha2/crypto-core'
 
-// just some package for hex-bytes transform
+// the package for hex-bytes transform
 import { hexToBytes } from 'hada'
 
 function generateKeyPair(params: {
@@ -143,15 +151,16 @@ const kp = generateKeyPair({
 
 Here we see how similar the JavaScript code is to the Rust counterpart. It
 should be emphasised that the JavaScript library is a thin wrapper: It
-doesn’t provide any special builder structures, meaning you have to work
+doesn't provide any special builder structures, meaning you have to work
 with bare-bones compiled Data Model structures and define all internal
-fields explicitly. Doubly so, since JavaScript employs many implicit
-conversions, we highly recommend that you employ TypeScript. This makes
-many errors far easier to debug, but unfortunately results in more
-boilerplate.
+fields explicitly.
 
-Let’s register a new domain with the name `looking_glass` our current
-account: _alice@wondeland_.
+Doubly so, since JavaScript employs many implicit conversions, we highly
+recommend that you employ TypeScript. This makes many errors far easier to
+debug, but, unfortunately, results in more boilerplates.
+
+Let's register a new domain named `looking_glass` using our current
+account, _alice@wondeland_.
 
 First, we need to import necessary models and a pre-configured client
 instance:
@@ -179,8 +188,8 @@ import {
 declare const client: Client
 ```
 
-To register a new domain, we need to submit a transaction with one
-instruction: to register a new domain. Let’s wrap it all in an async
+To register a new domain, we need to submit a transaction with a single
+instruction: to register a new domain. Let's wrap it all in an async
 function:
 
 ```ts
@@ -221,8 +230,8 @@ Which we use to register the domain like so:
 await registerDomain('looking_glass')
 ```
 
-We can also ensure that new domain is created using Query API. Let’s create
-another function that wraps that functionality:
+We can also use Query API to ensure that the new domain is created. Let's
+create another function that wraps that functionality:
 
 ```ts
 async function ensureDomainExistence(domainName: string) {
@@ -247,14 +256,14 @@ await ensureDomainExistence('looking_glass')
 ## 4. Registering an Account
 
 Registering an account is a bit more involved than registering a domain.
-With a domain, the only concern is the domain name, however, with an
+With a domain, the only concern is the domain name. However, with an
 account, there are a few more things to worry about.
 
 First of all, we need to create an `AccountId`. Note that we can only
 register an account to an existing domain. The best UX design practices
 dictate that you should check if the requested domain exists _now_, and if
-it doesn’t — suggest a fix to the user. After that, we can create a new
-account, that we name _white_rabbit_.
+it doesn't, suggest a fix to the user. After that, we can create a new
+account named _white_rabbit_.
 
 Imports we need:
 
@@ -276,7 +285,7 @@ import {
 } from '@iroha2/data-model'
 ```
 
-`AccountId` structure:
+The `AccountId` structure:
 
 ```ts
 const accountId = AccountId({
@@ -289,13 +298,15 @@ const accountId = AccountId({
 
 Second, you should provide the account with a public key. It is tempting to
 generate both it and the private key at this time, but it isn't the
-brightest idea. Remember, that _the white_rabbit_ trusts _you,
+brightest idea. Remember that _the white_rabbit_ trusts _you,
 alice@wonderland,_ to create an account for them in the domain
-_looking_glass, **but doesn't want you to have access to that account after
-creation**._ If you gave _white_rabbit_ a key that you generated yourself,
-how would they know if you don't have a copy of their private key? Instead,
-the best way is to **ask** _white_rabbit_ to generate a new key-pair, and
-give you the public half of it.
+_looking_glass_, **but doesn't want you to have access to that account
+after creation**.
+
+If you gave _white_rabbit_ a key that you generated yourself, how would
+they know if you don't have a copy of their private key? Instead, the best
+way is to **ask** _white_rabbit_ to generate a new key-pair, and give you
+the public half of it.
 
 ```ts
 const key = PublicKey({
@@ -332,27 +343,27 @@ const registerAccountInstruction = Instruction(
 )
 ```
 
-Which is then wrapped in a transaction and submitted to the peer as in the
-previous section.
+Which is then wrapped in a transaction and submitted to the peer the same
+way as in the previous section when we registered a domain.
 
 ## 5. Registering and minting assets
 
 Now we must talk a little about assets. Iroha has been built with few
-underlying assumptions about what the assets need to be. The assets can be
-fungible (every £1 is exactly the same as every other £1), or non-fungible
-(a £1 bill signed by the Queen of Hearts is not the same as a £1 bill
-signed by the King of Spades), mintable (you can make more of them) and
-non-mintable (you can only specify their initial quantity in the genesis
-block). Additionally, the assets have different underlying value types.
+underlying assumptions about what the assets need to be.
 
-Specifically, we have `AssetValueType::Quantity` which is effectively an
-unsigned 32-bit integer, a `BigQuantity` that is an unsigned 128-bit
-integer, which is enough to trade all possible IPV6 addresses, and quite
-possibly individual grains of sand on the surface of the earth, as well as
-`Fixed`, which is a positive (though signed) 64-bit fixed-precision number
-with nine significant digits after the decimal point. It doesn't quite use
-binary-coded decimals for performance reasons. All three types can be
-registered as either **mintable** or **non-mintable**.
+The assets can be fungible (every £1 is exactly the same as every other
+£1), or non-fungible (a £1 bill signed by the Queen of Hearts is not the
+same as a £1 bill signed by the King of Spades), mintable (you can make
+more of them) and non-mintable (you can only specify their initial quantity
+in the genesis block).
+
+Additionally, the assets have different underlying value types.
+Specifically, we have `AssetValueType.Quantity`, which is effectively an
+unsigned 32-bit integer, a `BigQuantity`, which is an unsigned 128-bit
+integer, and `Fixed`, which is a positive (though signed) 64-bit
+fixed-precision number with nine significant digits after the decimal
+point. All three types can be registered as either **mintable** or
+**non-mintable**.
 
 In JS, you can create a new asset with the following construction:
 
@@ -403,13 +414,13 @@ blockchain cannot mint more of `time` than already exists in the genesis
 block.
 
 This means that no matter how hard the _white_rabbit_ tries, the time that
-he has is the time that was given to him at genesis. And since we haven’t
-defined any time in the domain _looking_glass at_ genesis and defined time
+he has is the time that was given to him at genesis. And since we haven't
+defined any time in the domain _looking_glass_ at genesis and defined time
 in a non-mintable fashion afterwards, the _white_rabbit_ is doomed to
 always be late.
 
-We can however mint a pre-existing `mintable: Mintable(Infinetely)` asset
-that belongs to Alice.
+We can, however, mint a pre-existing `mintable: Mintable(Infinetely)` asset
+that belongs to Alice:
 
 ```ts
 import {
@@ -466,11 +477,11 @@ in this guide!
 
 Our app will consist of 3 main views:
 
-- Status checker, that periodically requests peer status (e.g. current
+- Status checker that periodically requests peer status (e.g. current
   blocks height) and shows it;
 - Domain creator, which is a form to create a new domain with specified
-  name
-- Listener, that has a toggle to setup listening for events
+  name;
+- Listener with a toggle to setup listening for events.
 
 Our client config is the following (`config.json` file in the project):
 
@@ -494,13 +505,7 @@ Our client config is the following (`config.json` file in the project):
 }
 ```
 
-::: info
-
-Keys here are just some sample keys, as well as account.
-
-:::
-
-To use them all, firstly we need to initialize our client & crypto.
+To use these, firstly, we need to initialize our client and crypto.
 
 ```ts
 // FILE: crypto.ts
@@ -524,7 +529,7 @@ import { AccountId } from '@iroha2/data-model'
 // importing already initialized crypto
 import { crypto } from './crypto'
 
-// just a config with stringified keys
+// a config with stringified keys
 import client_config from './config'
 
 setCrypto(crypto)
@@ -542,7 +547,7 @@ export const client = new Client({
   }),
 })
 
-// just an util function
+// an util function
 function generateKeyPair(params: {
   publicKeyMultihash: string
   privateKey: {
@@ -567,7 +572,7 @@ function generateKeyPair(params: {
 }
 ```
 
-Fine, now we are ready to use client. Let's start from the StatusChecker
+Now we are ready to use the client. Let's start from the `StatusChecker`
 component:
 
 ```vue
@@ -598,7 +603,7 @@ useIntervalFn(() => updateStatus(), 1000)
 </template>
 ```
 
-Ok, then let's build the CreateDomain component:
+Now let's build the `CreateDomain` component:
 
 ```vue
 <script setup lang="ts">
@@ -681,8 +686,8 @@ async function register() {
 </template>
 ```
 
-And finally, let's build the Listener component which will use Events API
-to setup live connection with a peer:
+And finally, let's build the `Listener` component that will use Events API
+to set up a live connection with a peer:
 
 ```vue
 <script setup lang="ts">
@@ -777,8 +782,8 @@ onBeforeUnmount(stopListening)
 </template>
 ```
 
-That’s it! Now we should only wrap it up with the App.vue component and app
-entrypoint:
+That's it! Finally, we should only wrap it up with the `App.vue` component
+and the `app` entrypoint:
 
 ```vue
 <script setup lang="ts">
@@ -812,7 +817,7 @@ import App from './App.vue'
 createApp(App).mount('#app')
 ```
 
-Here is a small demo with usage of this component:
+Here is a small demo with the usage of this component:
 
 <div class="border border-solid border-gray-300 rounded-md shadow-md">
 
