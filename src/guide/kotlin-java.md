@@ -14,7 +14,7 @@ that you know how to build and deploy your program on the target platforms.
 The Iroha 2 JVM-compatible SDKs are as much a work-in-progress as the rest
 of this guide, and significantly more so than the Rust library.
 
-Without further ado, here's an example `build.gradle` file:
+Without further ado, here's the example `build.gradle` file:
 
 ```kotlin
 allprojects {

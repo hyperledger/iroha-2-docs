@@ -20,8 +20,8 @@ The Iroha 2 JavaScript library consists of multiple packages:
 | <code class="whitespace-pre">crypto-target-bundler</code> | Provides compiled crypto WASM to use with bundlers such as Webpack                                                                                 |
 
 All of these are published under the `@iroha2` scope into Iroha Nexus
-Registry. In future, they will be published in the main NPM Registry. To
-install these packages, firstly you need to setup a registry:
+Registry. In the future, they will be published in the main NPM Registry. To
+install these packages, you first need to set up a registry:
 
 ```ini
 # FILE: .npmrc
@@ -39,8 +39,8 @@ pnpm add @iroha2/crypto-target-web
 The set of packages that you need to install depends on your intention.
 Maybe you only need to play with the Data Model to perform
 (de-)serialisation, in which case the `data-model` package is enough. If
-you only need to check on a peer in terms of its status or health, you need
-only the client library, because this API doesn't require any interactions
+you only need to check on a peer in terms of its status or health, you  just need
+the client library, because this API doesn't require any interactions
 with crypto or Data Model.
 
 For the purposes of this tutorial, it's better to install everything.
@@ -77,7 +77,7 @@ any convenience features like a `TransactionBuilder` or a `ConfigBuilder`.
 ::: info
 
 The work on implementing those is underway, and these features will very
-likely be available with the second round of this tutorial's release.
+likely be available in the second round of this tutorial's release.
 
 :::
 
@@ -782,7 +782,7 @@ onBeforeUnmount(stopListening)
 </template>
 ```
 
-That's it! Finally, we should only wrap it up with the `App.vue` component
+That's it! Finally, we just need to wrap it up with the `App.vue` component
 and the `app` entrypoint:
 
 ```vue

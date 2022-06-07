@@ -116,7 +116,7 @@ Make sure you bring up the test network as well.
 Now let's look at how to properly configure Iroha 2, and especially its
 **C**ommand-**L**ine **I**nterface client.
 
-Make sure that you have another terminal tab or window with a running
+Make sure that you have another terminal tab or window open with a running
 version, using the instructions above. You can use this screen to monitor
 the pipeline events as they are output.
 
@@ -281,7 +281,7 @@ Another way to create a user (and the user's keys) is as follows:
    ./target/debug/iroha_crypto_cli
    ```
 
-2. Copy the public key and repeat the instructions for registering a new
+2. Copy the public key and repeat the instructions to register a new
    account. Every time you run this command, you will generate a new
    key-pair.
 
