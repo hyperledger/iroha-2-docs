@@ -1,6 +1,9 @@
 # Public Key Cryptography
 
-It's OK to feel worried about public key cryptography. This is a complex topic that requires a lot of care and attention. To work with Iroha you _do_ need to have a basic understanding of how it works, so we provided you with a brief primer. 
+It's OK to feel worried about public key cryptography. This is a complex
+topic that requires a lot of care and attention. To work with Iroha you
+_do_ need to have a basic understanding of how it works, so we provided you
+with a brief primer.
 
 Firstly, public and private keys come in pairs. For a given private key
 it's easy to figure out the corresponding public key, but the opposite is
