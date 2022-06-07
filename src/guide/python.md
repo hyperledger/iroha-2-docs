@@ -8,37 +8,37 @@ WIP: `iroha-python` works only with `iroha v2-pre-rc.1` for now.
 
 ## 1. Iroha 2 Client Setup
 
-There are two versions of Iroha python to choose from. In theory, the Iroha
+There are two versions of Iroha Python to choose from. In theory, the Iroha
 1 version of Iroha Python (that also has the best documentation) should be
 compatible with an Iroha 2 deployment.
 
 Thus we should build and install the Iroha 2 compatible version of
 Iroha-python, using (for now) its GitHub repository.
 
-Let's create a separate folder for Iroha python and clone its GitHub
-repository into it.
+Let's create a separate folder for Iroha Python and clone its GitHub
+repository into it:
 
 ```bash
 cd ~/Git/
 git clone https://github.com/hyperledger/iroha-python/tree/iroha2
 ```
 
-We need the `iroha2` branch
+We need the `iroha2` branch:
 
 ```bash
 cd ~/Git/iroha-python
 git checkout iroha2
 ```
 
-Iroha Python is written in Rust, using the PyO3 library. Thus, unlike most
-python packages, you must build it first.
+Iroha Python is written in Rust using the PyO3 library. Thus, unlike most
+Python packages, you must build it first:
 
 ```bash
 pip install maturin
 maturin build
 ```
 
-After the build is complete, you may then install it into your system.
+After the build is complete, install it into your system:
 
 ```bash
 pip install ./target/wheels/iroha_python-*.whl
@@ -52,19 +52,19 @@ cp -vfr ~/Git/iroha/configs/client_cli/config.json example/config.json
 
 ::: tip
 
-You can also use the provided `config.json` in the `example` folder, if you
+You can also use the provided `config.json` in the `example` folder if you
 also call `docker compose up` from that same folder. This has to do with
-the fact that the configuration for the docker files in Iroha python is
+the fact that the configuration for the Docker files in Iroha Python is
 slightly different.
 
 :::
 
 ## 2. Configuring Iroha 2
 
-Unlike `iroha_client_cli` finding the configuration file in a scripting
+Unlike `iroha_client_cli`, finding the configuration file in a scripting
 language is the responsibility of the person writing the script. The
 easiest method is to de-serialise a dictionary type from the provided
-`config.json` .
+`config.json`.
 
 This is an example of how you could do that in Python:
 
@@ -78,20 +78,23 @@ cl = Client(cfg)
 
 If the configuration file is malformed, you can expect an `exception` to
 notify you. However, the client doesn't do any verification: if the account
-used in `config.json` is not in the blockchain, or has the wrong private
+used in `config.json` is not in the blockchain or has the wrong private
 key, you won't know that until you try and execute a simple instruction.
 More on that in the following section.
 
+::: info
+
 It should also be noted that Iroha Python is under heavy development. It
 severely lacks in documentation and its API can be made more idiomatically
-Python. At the time of writing there are no active maintainers of the Iroha
-Python library.
+Python.
+
+:::
 
 ## 3. Registering a Domain
 
-It is important to remember that Iroha python is wrapping Rust code. As
-such, many of Python's idioms are not yet accommodated; for example,
-there's no duck-typing of the `Register` instruction.
+It is important to remember that Iroha Python is wrapping Rust code. As
+such, many of Python idioms are not yet accommodated; for example, there's
+no duck-typing of the `Register` instruction.
 
 ```python
 from iroha2.data_model.isi import *
@@ -104,13 +107,12 @@ domain = Domain("looking_glass")
 register = Register(Expression(Value(Identifiable(domain))))
 ```
 
-We are creating a domain and wrapping it in multiple type-erasing
+Instead, we are creating a domain and wrapping it in multiple type-erasing
 constructs. A domain is wrapped in `Identifiable` (which would be a trait
 in Rust), which is wrapped in `Value`, which is wrapped in `Expression`,
 which finally is wrapped in the `Register` instruction. This is not
-entirely against Python's conventions, (it is strongly typed, after all),
-and not entirely counter-intuitive, once you see the corresponding Rust
-code.
+entirely against Python conventions (it is strongly typed, after all), and
+not entirely counter-intuitive, once you see the corresponding Rust code.
 
 The instruction to register must be submitted, in order for anything to
 happen.
@@ -120,15 +122,17 @@ hash = cl.submit_isi(register)
 ```
 
 Note that we also keep track of the `hash` of the transaction. This will
-become useful [later](#_6-visualizing-outputs).
+become useful when you [visualize the output](#_6-visualizing-outputs).
 
 ## 4. Registering an Account
 
-Similarly to the previous case, except the wrapping structures are
-different. There are a couple of things to watch out for: First of all, we
-can only register an account to an existing domain. The best UX design
-practices dictate that you should check if the requested domain exists now,
-and if it doesn’t — suggest a fix to the user.
+Registering an account is similar to the process of registering a domain,
+except the wrapping structures are different. There are a couple of things
+to watch out for.
+
+First of all, we can only register an account to an existing domain. The
+best UX design practices dictate that you should check if the requested
+domain exists now, and if it doesn't, suggest a fix to the user.
 
 ```python
 from iroha2.data_model.isi import *
@@ -143,14 +147,16 @@ register = Register(Expression(Value(Identifiable(bunny))))
 ```
 
 Second, you should provide the account with a public key. It is tempting to
-generate both it and the private key at this time, but it isn't the
-brightest idea. Remember, that _the white_rabbit_ trusts _you,
+generate both the public and the private key at this time, but it isn't the
+brightest idea. Remember that _the white_rabbit_ trusts _you,
 alice@wonderland,_ to create an account for them in the domain
-_looking_glass, **but doesn't want you to have access to that account after
-creation**._ If you gave _white_rabbit_ a key that you generated yourself,
-how would they know if you don't have a copy of their private key? Instead,
-the best way is to **ask** _white_rabbit_ to generate a new key-pair, and
-give you the public half of it.
+_looking_glass_, **but doesn't want you to have access to that account
+after creation**.
+
+If you gave _white_rabbit_ a key that you generated yourself, how would
+they know if you don't have a copy of their private key? Instead, the best
+way is to **ask** _white_rabbit_ to generate a new key-pair, and then give
+you the public half of it.
 
 After putting all of this together, we submit it as before:
 
@@ -161,14 +167,17 @@ hash = cl.submit_isi(register)
 ## 5. Registering and minting assets
 
 Now we must talk a little about assets. Iroha has been built with few
-underlying assumptions about what the assets need to be. The assets can be
-fungible (every £1 is exactly the same as every other £1), or non-fungible
-(a £1 bill signed by the Queen of Hearts is not the same as a £1 bill
-signed by the King of Spades), mintable (you can make more of them) and
-non-mintable (you can only specify their initial quantity in the genesis
-block). Additionally, the assets have different underlying value types.
+underlying assumptions about what the assets need to be.
 
-Asset creation is by far the most cumbersome.
+The assets can be fungible (every £1 is exactly the same as every other
+£1), or non-fungible (a £1 bill signed by the Queen of Hearts is not the
+same as a £1 bill signed by the King of Spades), mintable (you can make
+more of them) and non-mintable (you can only specify their initial quantity
+in the genesis block).
+
+Additionally, the assets have different underlying value types.
+
+Asset creation is by far the most cumbersome:
 
 ```python
 import iroha2.data_model.asset as asset
@@ -185,28 +194,30 @@ Note the following; First, we used the `**kwargs` syntax to make everything
 more explicit.
 
 We have a `value_type` which must be specified. Python is duck-typed, while
-Rust isn’t. Make sure that you track the types diligently, and make use of
-`mypy` annotations. The `Quantity` value type is an internal 32-bit
-unsigned integer. Your other options are `BigQuantity` which is a 128-bit
-unsigned integer and `Fixed`. All of these are unsigned. Any checked
-operation with a negative `Fixed` value (one that you got by converting a
-negative floating-point number), will result in an error.
+Rust isn't. Make sure that you track the types diligently, and make use of
+`mypy` annotations.
+
+The `Quantity` value type is an internal 32-bit unsigned integer. Your
+other options are `BigQuantity`, which is a 128-bit unsigned integer, and
+`Fixed`. All of these are unsigned. Any checked operation with a negative
+`Fixed` value (one that you got by converting a negative floating-point
+number), will result in an error.
 
 Continuing the theme of explicit typing, the `asset.DefinitionId` is its
 own type. We could have also written
 `asset.DefinitionId.parse("time#looking_glass")`, but making sure that you
-know what’s going on is more useful in this case. Here, the `metadata` is
-an empty dictionary. We won’t go much into metadata, because it is out of
+know what's going on is more useful in this case. Here, the `metadata` is
+an empty dictionary. We won't go much into metadata, because it is out of
 the scope of this tutorial.
 
 Finally, we have `mintable`. By default this is set to `True`, however,
 setting it to `False` means that any attempt to mint more of
-`time#looking_glass` is doomed to fail. Unfortunately, since we didn’t add
+`time#looking_glass` is doomed to fail. Unfortunately, since we didn't add
 any `time` at genesis, the _white_rabbit_ will never have time. There just
-isn’t any in his domain, and more can’t be minted.
+isn't any in his domain, and more can't be minted.
 
 OK. So how about a mint demonstration? Fortunately, _alice@wonderland_ has
-an asset called _roses#wonderland,_ which can be minted. For that we need
+an asset called _roses#wonderland_, which can be minted. For that we need
 to do something much simpler.
 
 ```python
@@ -216,13 +227,13 @@ mint_amount = Mint(amount, destination)
 cl.submit_isi(mint_amount)
 ```
 
-Which would add `42` to the current tally of roses that Alice has.
+This would add `42` to the current tally of roses that Alice has.
 
 ## 6. Visualizing outputs
 
-The paradigm that Iroha chose to allow monitoring of some events is the
-_filter-map paradigm_. In order to know e.g. what happened to a submitted
-instruction we need to write some code.
+The paradigm that Iroha chose to allow monitoring some events is the
+_filter-map paradigm_. Let's look at what we need to do in order to know
+e.g. what happened to a submitted instruction.
 
 First, we'll need to remember the `hash` of the transaction that we want to
 track, next we create a filter:
@@ -242,10 +253,10 @@ your interpreter.
 Note the types. The `EventFilter` is a type that filters out anything that
 isn't an event (and non-event types are beyond the scope of this tutorial).
 The `pipeline` module helps us by providing a concrete type of
-`EventFilter` , namely one that listens for transactions. Note that we
+`EventFilter`, namely one that listens for transactions. Note that we
 haven't used the `hash` here.
 
-Finally, we add a listening filter to the client.
+Finally, we add a listening filter to the client:
 
 ```python
 listener = cl.listen(filter)
@@ -263,6 +274,11 @@ for event in listener:
 ```
 
 And now, we have an infinite loop that will not quit until the event gets
-committed. **Nobody _should_ do this in production code, and instead
-monitor the event queue for (at least) the possibility that the transaction
-gets** `Rejected`.
+committed.
+
+::: warning
+
+Nobody should do this in production code, and instead monitor the event
+queue for (at least) the possibility that the transaction gets `Rejected`.
+
+:::
