@@ -32,8 +32,8 @@ following (somewhat encyclopædic) section.
 
 - _gets_ means that the query already has the data readily available and
   the data is trivial. Use these queries at will;
-- _returns_ means that the query has the data readily available, just as
-  with _gets_, but the data is not trivial. You can still use these
+- _returns_ or _finds_ mean that the query has the data readily available,
+  just as with _gets_, but the data is not trivial. You can still use these
   queries, but be mindful of the performance impact;
 - _searches_ differs from the above two. Data must be actively collected
   and neither the return type nor the collection process is cheap. Use with
