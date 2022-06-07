@@ -256,7 +256,7 @@ To see all the accounts on the network, run:
 ```
 
 This will list the active accounts on the network, along with their assets.
-Like this:
+It will look like this:
 
 ```rust
 Account {
