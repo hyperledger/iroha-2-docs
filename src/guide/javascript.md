@@ -1,4 +1,4 @@
-# JavaScript / TypeScript guide
+# JavaScript/TypeScript Guide
 
 ::: info
 

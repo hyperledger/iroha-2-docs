@@ -158,8 +158,8 @@ characters into a nice small table of obviously hexadecimal numbers.
 
 ::: warning
 
-**BEWARE**: Even the `try_from_str` implementation cannot verify if a given
-string is a valid `PrivateKey` and warn you if it isn't.
+Even the `try_from_str` implementation cannot verify if a given string is a
+valid `PrivateKey` and warn you if it isn't.
 
 It will catch some obvious errors, e.g. if the string contains an invalid
 symbol. However, since we aim to support many key formats, it can't do much

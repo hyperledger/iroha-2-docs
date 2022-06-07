@@ -1,4 +1,4 @@
-# Kotlin/Java guide
+# Kotlin/Java Guide
 
 ## 1. Iroha 2 Client Setup
 

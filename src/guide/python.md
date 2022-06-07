@@ -1,4 +1,4 @@
-# Python 3 guide
+# Python 3 Guide
 
 ::: warning
 
