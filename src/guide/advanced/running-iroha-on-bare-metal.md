@@ -4,7 +4,7 @@ Having read most of the
 [configuration and management](./../configure/intro.md) section, you are
 now prepared to start Iroha in a more advanced mode.
 
-What we are going to do is replicate the setup that we have in the
+What we are going to do is replicate the setup that we have in 
 `docker compose` and run Iroha directly, without going through the
 intermediary of containers. Running Iroha on bare metal involves
 manipulating files and/or environment variables.
@@ -50,7 +50,7 @@ mode.
 
 We want to make sure that we have the right configuration.
 
-There a different ways to do this. You can copy the contents of the
+There are different ways to do this. You can copy the contents of the
 `~/Git/iroha/configs/peer/` into a new directory, or, alternatively, just
 run all commands from that directory:
 
@@ -361,11 +361,11 @@ What you need to do is change the `TORII:P2P_ADDR`, `TORII:API_URL`
 `TORII:STATUS_URL` and the `PUBLIC_KEY` configuration options to align with
 their `docker-compose.yml` counterparts.
 
-Be mindful not to mix up which address goes which, replace `irohaX` with
+Be mindful not to mix up which address goes where, replace `irohaX` with
 `127.0.0.1` in the addresses, and make sure that they correspond to the
 right public key.
 
-Then in each of the new folders (with the exception of `peer0`) run:
+Then, in each of the new folders (with the exception of `peer0`) run:
 
 ```bash
 iroha
