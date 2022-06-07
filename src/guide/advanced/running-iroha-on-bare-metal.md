@@ -4,7 +4,7 @@ Having read most of the
 [configuration and management](./../configure/intro.md) section, you are
 now prepared to start Iroha in a more advanced mode.
 
-What we are going to do is replicate the setup that we have in 
+What we are going to do is replicate the setup that we have in
 `docker compose` and run Iroha directly, without going through the
 intermediary of containers. Running Iroha on bare metal involves
 manipulating files and/or environment variables.
