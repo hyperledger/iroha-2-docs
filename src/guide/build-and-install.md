@@ -31,7 +31,7 @@ The easiest way to get the official `rustup` script is to run:
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-Or, alternatively, you can install `rustup` via a package manager.
+Or, alternatively, you can install `rustup` via your operating system's package manager.
 
 ::: tip
 
@@ -96,7 +96,7 @@ rustup which rustc
 rustup which cargo
 ```
 
-The user installations of the toolchains are usually in
+The user installations of the toolchains are _usually_ in
 `~/.rustup/toolchains/stable-*/bin/`. If that is the case, you should be
 able to run
 
@@ -137,7 +137,7 @@ alias rustc "~/.rustup/toolchains/stable-*/bin/rustc"
 alias cargo "~/.rustup/toolchains/stable-*/bin/cargo"
 ```
 
-because there is an internal logic that could break regardless of how you
+because there is internal logic that could break regardless of how you
 re-arrange your shell aliases.
 
 The simplest solution would be to remove the versions that you don't use.
