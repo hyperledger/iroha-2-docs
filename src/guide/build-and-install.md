@@ -31,7 +31,8 @@ The easiest way to get the official `rustup` script is to run:
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-Or, alternatively, you can install `rustup` via your operating system’s package manager.
+Or, alternatively, you can install `rustup` via your operating system’s
+package manager.
 
 ::: tip
 
@@ -108,8 +109,8 @@ and that should fix your problems.
 
 ---
 
-Another option is that you have the up-to-date `stable` toolchain, but it is
-not set as the default. Run:
+Another option is that you have the up-to-date `stable` toolchain, but it
+is not set as the default. Run:
 
 ```bash
 rustup default stable
