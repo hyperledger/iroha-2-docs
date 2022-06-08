@@ -22,7 +22,7 @@ bare metal.
 ::: info
 
 Building in `debug` mode retains much more information and optimises the binary to a far lesser extent. 
-As such, we advise you to build Iroha in `debug` mode for testing: it's faster and it makes it easier for you to find issues and fix them. However, if
+As such, we advise you to build Iroha in `debug` mode for testing: it’s faster and it makes it easier for you to find issues and fix them. However, if
 you intend to actually deploy Iroha, you should build it in `--release`
 mode.
 
@@ -78,7 +78,7 @@ export PATH="$PATH:$(pwd)/Git/iroha/target/debug"
 
 ::: tip
 
-Don't forget to replace `debug` with `release` when you're ready to deploy
+Don’t forget to replace `debug` with `release` when you’re ready to deploy
 in the real world.
 
 :::
@@ -87,7 +87,7 @@ This way you can run `iroha` from any directory without having to worry
 about configuration paths and/or specifying the full path to the Iroha
 executable.
 
-It's a good idea to make these instructions permanent, which you can do by
+It is a good idea to make these instructions permanent, which you can do by
 adding the environment variables to your startup shell.
 
 ::: details Save the instructions to the startup shell
@@ -97,7 +97,7 @@ On older Linux systems, you copy and paste the instructions (without the
 systems, you want to add the same lines to `~/.zshrc`.
 
 Copy these instructions to the specified files (replace `debug` with
-`release` when you're ready to deploy):
+`release` when you are ready to deploy):
 
 ```bash
 export IROHA2_GENESIS_PATH="$(pwd)/Git/iroha/configs/peer/genesis.json"
@@ -109,10 +109,10 @@ export PATH="$PATH:$(pwd)/Git/iroha/target/debug"
 
 ::: tip
 
-This process is almost universally unreliable and messy, and it's likely
+This process is almost universally unreliable and messy, and it is likely
 that your system is special in that it breaks some of our assumptions.
 
-If the above optional steps didn't work for you, you can keep working in
+If the above optional steps didn’t work for you, you can keep working in
 the `~/Git/iroha/configs/peer/` folder, and run Iroha via
 `~/Git/iroha/target/debug/iroha`.
 
@@ -123,9 +123,9 @@ recommend setting up your environment first.
 
 ::: info Note
 
-The tutorial assumes that you're running either Linux, Mac OS X, or Windows
+The tutorial assumes that you’re running either Linux, Mac OS X, or Windows
 using WSL. It should be possible to run directly on Windows, but that is
-neither recommended nor easy. If you don't want to use a Unix-like system,
+neither recommended nor easy. If you don’t want to use a Unix-like system,
 we suggest that you wait until we publish a detailed guide for Windows
 users.
 
@@ -158,14 +158,14 @@ This is the recommended method of bringing up an Iroha peer. What we do is:
 ::: tip
 
 You could also use the iroha peer binary locally by copying it into the
-same folder. The only difference would be that you'd be calling Iroha like
+same folder. The only difference would be that you’d be calling Iroha like
 so: `./iroha` instead of `iroha`.
 
 :::
 
 ## First run of Iroha on bare metal
 
-If you've done everything correctly, you can now do
+If you’ve done everything correctly, you can now do
 
 ```bash
 iroha
@@ -188,7 +188,7 @@ least one fault.
 In general, if you want to be resistant to `f` faults, you want to have
 `3f+1` peers: (`4`, `7`, `10`, etc.).
 
-You can't really start the peers in any way you want, though. When we
+You cannot really start the peers in any way you want, though. When we
 started our original peer, in its configuration, we specified that it has
 to trust very specific peers, which have the given private key and listen
 on a specific address. In order to know how to run them appropriately, take
@@ -427,7 +427,7 @@ Iroha in the real world.
 
 ::: info Note
 
-There's no need to pass the `--submit` flag unless you are starting the
+There is no need to pass the `--submit` flag unless you are starting the
 initial peer on the network.
 
 :::
