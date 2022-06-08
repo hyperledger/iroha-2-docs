@@ -16,15 +16,16 @@ error-prone, particularly for exotic systems (Windows).
 ## Prerequisites
 
 First of all, we should note that we have only built the Iroha client so
-far in this tutorial. We also need to build the peer software to run Iroha on
-bare metal.
+far in this tutorial. We also need to build the peer software to run Iroha
+on bare metal.
 
 ::: info
 
-Building in `debug` mode retains much more information and optimises the binary to a far lesser extent. 
-As such, we advise you to build Iroha in `debug` mode for testing: it’s faster and it makes it easier for you to find issues and fix them. However, if
-you intend to actually deploy Iroha, you should build it in `--release`
-mode.
+Building in `debug` mode retains much more information and optimises the
+binary to a far lesser extent. As such, we advise you to build Iroha in
+`debug` mode for testing: it’s faster and it makes it easier for you to
+find issues and fix them. However, if you intend to actually deploy Iroha,
+you should build it in `--release` mode.
 
 :::
 
@@ -40,9 +41,9 @@ mode.
   cargo build --bin iroha --release
   ```
 
-  The `release` mode binary takes significantly longer to compile than `debug` mode, but
-  the result is a smaller and faster binary, suitable for deployment
-  in the actual blockchains.
+  The `release` mode binary takes significantly longer to compile than
+  `debug` mode, but the result is a smaller and faster binary, suitable for
+  deployment in the actual blockchains.
 
 ## Setup
 
@@ -58,8 +59,8 @@ run all commands from that directory:
 cd ~/Git/iroha/configs/peer
 ```
 
-The third option is to specify the full path to the configuration file in an
-environment variable. For simplicity, we shall do the latter:
+The third option is to specify the full path to the configuration file in
+an environment variable. For simplicity, we shall do the latter:
 
 ```bash
 cd ~
