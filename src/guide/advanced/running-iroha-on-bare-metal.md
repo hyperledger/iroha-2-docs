@@ -9,20 +9,20 @@ What we are going to do is replicate the setup that we have in
 intermediary of containers. Running Iroha on bare metal involves
 manipulating files and/or environment variables.
 
-File-based approach is the easiest to get right, but using environment
+The file-based approach is the easiest to get right. Using environment
 variables can offer a better user experience if done right, but is more
-error-prone, particularly for exotic systems.
+error-prone, particularly for exotic systems (Windows).
 
 ## Prerequisites
 
 First of all, we should note that we have only built the Iroha client so
-far in this tutorial. We need to build the peer software to run Iroha on
+far in this tutorial. We also need to build the peer software to run Iroha on
 bare metal.
 
 ::: info
 
-Iroha in `debug` mode contains many more debug-oriented features and very
-few compiler optimisations. A `debug` build is faster to compile, but if
+Building in `debug` mode retains much more information and optimises the binary to a far lesser extent. 
+As such, we advise you to build Iroha in `debug` mode for testing: it's faster and it makes it easier for you to find issues and fix them. However, if
 you intend to actually deploy Iroha, you should build it in `--release`
 mode.
 
@@ -34,14 +34,14 @@ mode.
   cargo build -p iroha
   ```
 
-- To build the peer software in `--release` mode, run:
+- To build the peer software in `release` mode, run:
 
   ```kotlin
-  cargo build -p iroha --release
+  cargo build --bin iroha --release
   ```
 
-  This will take significantly longer to compile than `debug` mode, but
-  should produce both a smaller and faster binary, suitable for deployment
+  The `release` mode binary takes significantly longer to compile than `debug` mode, but
+  the result is a smaller and faster binary, suitable for deployment
   in the actual blockchains.
 
 ## Setup
@@ -58,7 +58,7 @@ run all commands from that directory:
 cd ~/Git/iroha/configs/peer
 ```
 
-A third option is to specify the full path to the configuration in an
+The third option is to specify the full path to the configuration file in an
 environment variable. For simplicity, we shall do the latter:
 
 ```bash
