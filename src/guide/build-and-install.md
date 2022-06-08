@@ -16,7 +16,7 @@ For this tutorial, you will need:
     [troubleshooting](#troubleshooting-rust-toolchain) section.
 
 [^2]:
-    We highly recommend using Docker because it's oftentimes easier to use
+    We highly recommend using Docker because it is oftentimes easier to use
     and debug.
 
 ## Install the Rust Toolchain
@@ -31,7 +31,7 @@ The easiest way to get the official `rustup` script is to run:
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-Or, alternatively, you can install `rustup` via your operating system's package manager.
+Or, alternatively, you can install `rustup` via your operating system’s package manager.
 
 ::: tip
 
@@ -47,8 +47,8 @@ setup process. Just go with the defaults.
 
 ::: details Click to expand
 
-Sometimes, things don't go as planned. Especially if you had `rust` on your
-system a while ago, but didn't upgrade. A similar problem can occur in
+Sometimes, things don’t go as planned. Especially if you had `rust` on your
+system a while ago, but didn’t upgrade. A similar problem can occur in
 Python: XKCD has a famous example of what that might look like:
 
 <div class="flex justify-center">
@@ -85,7 +85,7 @@ rustup toolchain update stable
 ---
 
 If you get lower version numbers **and** you updated the toolchain and it
-didn't work... let's just say it's a common problem, but it doesn't have a
+didn’t work… let’s just say it’s a common problem, but it doesn’t have a
 common solution.
 
 Firstly, you should establish where the version that you want to use is
@@ -108,7 +108,7 @@ and that should fix your problems.
 
 ---
 
-Another option is that you have the up-to-date `stable` toolchain, but it's
+Another option is that you have the up-to-date `stable` toolchain, but it is
 not set as the default. Run:
 
 ```bash
@@ -129,7 +129,7 @@ type cargo
 ```
 
 If these point to locations other than the one you saw when running
-`rustup which *`, then you have a problem. Note that it's not enough to
+`rustup which *`, then you have a problem. Note that it’s not enough to
 just
 
 ```bash
@@ -140,14 +140,14 @@ alias cargo "~/.rustup/toolchains/stable-*/bin/cargo"
 because there is internal logic that could break regardless of how you
 re-arrange your shell aliases.
 
-The simplest solution would be to remove the versions that you don't use.
+The simplest solution would be to remove the versions that you don’t use.
 
-It's Easier _said_ than _done_, however, since it entails tracking all the
+It’s easier _said_ than _done_, however, since it entails tracking all the
 versions of rustup installed and available to you. Usually, there are only
 two: the system package manager version and the one that got installed into
 the standard location in your home folder when you ran the command in the
 beginning of this tutorial. For the former, consult your (Linux)
-distribution's manual, (`apt remove rust`). For the latter, run:
+distribution’s manual, (`apt remove rust`). For the latter, run:
 
 ```bash
 rustup toolchain list
@@ -172,14 +172,14 @@ toolchain installed. Then, run:
 rustup toolchain install stable
 ```
 
-If after all of this work, you still don't seem to have the right version,
+If after all of this work, you still don’t seem to have the right version,
 then the issue runs deeper.
 
 :::
 
 ## Install Iroha from GitHub
 
-1.  If you haven't already, you might want to create a clean folder for
+1.  If you haven’t already, you might want to create a clean folder for
     Iroha 2, to keep things tidy.
 
     ```bash
@@ -190,7 +190,7 @@ then the issue runs deeper.
 
     On macOS, if you get
     `fatal: could not create work tree dir 'iroha': Read-only file system`,
-    that's because the home folder is not a real file system. The fix is to
+    that’s because the home folder is not a real file system. The fix is to
     create the `Git` folder.
 
     :::
@@ -285,8 +285,8 @@ As we said, you can also try and use the bare metal script. For testing we
 use `scripts/test_env.sh setup`, which will also start a set of Iroha
 peers. But that network is much harder to monitor, and unless you're
 well-versed in `killall` and reading log files with a proper text editor,
-we recommend that you don't go this route.
+we recommend that you don’t go this route.
 
-Unless you have an absolute aversion to `docker`, it's easier to work with,
+Unless you have an absolute aversion to `docker`, it’s easier to work with,
 easier to set up, and easier to debug. We try to cater to all tastes, but
 some tastes have objective advantages.
