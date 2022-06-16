@@ -1,23 +1,23 @@
 import { getHighlighter } from 'shiki'
 
-const htmlEscapes: Record<string, string> = {
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;',
-  '"': '&quot;',
-  "'": '&#39;',
-}
+// const htmlEscapes: Record<string, string> = {
+//   '&': '&amp;',
+//   '<': '&lt;',
+//   '>': '&gt;',
+//   '"': '&quot;',
+//   "'": '&#39;',
+// }
 
-function escapeHtml(html: string) {
-  return html.replace(/[&<>"']/g, (chr) => htmlEscapes[chr])
-}
+// function escapeHtml(html: string) {
+//   return html.replace(/[&<>"']/g, (chr) => htmlEscapes[chr])
+// }
 
-const THEME_DARK = 'github-dark'
-const THEME_LIGHT = 'github-light'
+const THEME_DARK = 'github-dark-dimmed'
+// const THEME_LIGHT = 'github-light'
 
 export default async () => {
   const highlighter = await getHighlighter({
-    themes: [THEME_LIGHT],
+    themes: [THEME_DARK],
   })
 
   return (code: string, lang: string) => {
@@ -28,8 +28,8 @@ export default async () => {
     //   .replace('<pre class="shiki"', '<pre v-pre class="shiki shiki-dark"')
 
     const light = highlighter
-      .codeToHtml(code, { lang, theme: THEME_LIGHT })
-      .replace('<pre class="shiki"', '<pre v-pre class="shiki shiki-light"')
+      .codeToHtml(code, { lang, theme: THEME_DARK })
+      .replace('<pre class="shiki"', '<pre v-pre class="shiki"')
 
     return light
   }

@@ -1,44 +1,17 @@
 $iroha-brand: #e4232d;
 
 :root {
-  --c-brand: #{$iroha-brand};
-  --c-brand-light: #{lighten($iroha-brand, 10%)};
-  --code-font-family: 'JetBrains Mono', 'Fira Code', var(--font-family-mono);
-  --code-font-size: 13px;
-  --code-line-height: 1.2em;
-  --font-family-base: sans-serif;
+  --vp-c-brand: #{$iroha-brand};
+  --vp-c-brand-light: #{lighten($iroha-brand, 10%)};
+  --vp-c-brand-dark: #{darken($iroha-brand, 10%)};
 }
 
-// toggling code snippets
-
-// html.dark .shiki-light,
-// html:not(.dark) .shiki-dark {
-//   display: none;
-// }
+:root {
+  --vp-font-family-mono: 'JetBrains Mono', 'FiraCode', Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
 
 div[class*='language-'] {
-  background: transparent;
-
   pre {
-    background: #f6f8fa !important;
-  }
-}
-
-pre.shiki code {
-  display: block !important;
-  margin: 0;
-}
-
-.shiki {
-  transition: background 0.5s;
-}
-
-.custom-block {
-  font-size: 14px;
-  line-height: 1.6;
-
-  div[class*='language-'] pre {
-    border-radius: inherit;
-    border: 1px solid darken(#f6f8fa, 10);
+    font-size: 14px;
   }
 }
