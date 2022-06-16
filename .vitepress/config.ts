@@ -1,4 +1,4 @@
-import { defineConfigWithTheme, UserConfig } from 'vitepress'
+import { defineConfig, UserConfig, DefaultTheme } from 'vitepress'
 import Windi from 'vite-plugin-windicss'
 import footnote from 'markdown-it-footnote'
 import customHighlight from './plugins/highlight'
@@ -13,32 +13,28 @@ async function themeConfig() {
   return cfg
 }
 
-function getNav() {
+function getNav(): DefaultTheme.NavItem[] {
   return [
     {
       text: 'Guide',
       link: '/',
       activeMatch: '^/$|^/guide/',
     },
-    // {
-    //   text: 'API',
-    //   link: '/api/',
-    // },
   ]
 }
 
-function getGuideSidebar() {
+function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
   return [
     {
       text: 'Getting started',
-      children: [
+      items: [
         {
           text: 'Introduction',
           link: '/',
         },
         {
           text: 'Iroha 2 vs. Iroha 1',
-          link: '/guide/iroha-2'
+          link: '/guide/iroha-2',
         },
         {
           text: 'Build and Install',
@@ -48,7 +44,7 @@ function getGuideSidebar() {
     },
     {
       text: 'Language-specific guides',
-      children: [
+      items: [
         {
           text: 'Bash',
           link: '/guide/bash',
@@ -73,8 +69,11 @@ function getGuideSidebar() {
     },
     {
       text: 'Advanced Topics',
-      link: '/guide/advanced/intro',
-      children: [
+      items: [
+        {
+          text: 'Introduction',
+          link: '/guide/advanced/intro',
+        },
         {
           text: 'Iroha Special Instructions',
           link: '/guide/advanced/isi',
@@ -88,15 +87,19 @@ function getGuideSidebar() {
           link: '/guide/advanced/triggers',
         },
         {
-         text: 'Queries',
-         link: '/guide/advanced/queries',
+          text: 'Queries',
+          link: '/guide/advanced/queries',
         },
       ],
     },
     {
       text: 'Configuration and Management',
-      link: '/guide/configure/intro',
-      children: [
+      items: [
+        {
+          text: 'Introduction',
+          link: '/guide/configure/intro',
+        },
+
         {
           text: 'Peer Configuration',
           link: '/guide/configure/peer-configuration',
@@ -111,27 +114,27 @@ function getGuideSidebar() {
         },
         {
           text: 'Keys',
-          link: "/guide/configure/keys",
-        },        
+          link: '/guide/configure/keys',
+        },
         {
           text: 'Peer Management',
           link: '/guide/configure/register-unregister',
-        }
-      ]
+        },
+      ],
     },
     {
       text: 'Advanced Mode',
-      children: [
+      items: [
         {
           text: 'Iroha On Bare Metal',
           link: '/guide/advanced/running-iroha-on-bare-metal',
-        }
+        },
       ],
-    }
+    },
   ]
 }
 
-export default defineConfigWithTheme({
+export default defineConfig({
   extends: themeConfig,
   base: process.env.PUBLIC_PATH ?? '',
   srcDir: 'src',
@@ -144,20 +147,27 @@ export default defineConfigWithTheme({
   },
   lastUpdated: true,
 
+  // TODO add favicon
+  // head: [],
+
   markdown: {
     config(md) {
       md.use(footnote)
-    }
+    },
   },
 
   themeConfig: {
     logo: '/logo.svg',
-    repo: 'hyperledger/iroha-2-docs',
-    docsDir: 'src',
+    siteTitle: 'Iroha 2',
 
-    editLinks: true,
-    editLinkText: 'Edit this page',
-    lastUpdated: 'Last Updated',
+    socialLinks: [{ icon: 'github', link: 'https://github.com/hyperledger/iroha-2-docs' }],
+
+    editLink: {
+      pattern: 'https://github.com/hyperledger/iroha-2-docs/edit/main/src/:path',
+      text: 'Edit this page on GitHub',
+    },
+
+    lastUpdatedText: 'Last Updated',
 
     sidebar: {
       '/guide/': getGuideSidebar(),
@@ -168,7 +178,7 @@ export default defineConfigWithTheme({
     algolia: {
       appId: 'V04UIXRXW5',
       apiKey: 'df91faea581b3b5145f676e262d5afc8',
-      indexName: 'hyperledger'
-    }
+      indexName: 'hyperledger',
+    },
   },
 })
