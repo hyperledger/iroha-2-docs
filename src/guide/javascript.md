@@ -2,7 +2,8 @@
 
 ::: info
 
-This guide targets `@iroha2/client` and `@iroha/data-model` version **`^1.2`**.
+This guide targets `@iroha2/client` and `@iroha/data-model` version
+**`^1.2`**.
 
 :::
 
