@@ -506,6 +506,6 @@ listeners called filters.
 
 - **Parameters**: `DomainId`
 
-- **Returns**: `Ve<Trigger>`
+- **Returns**: `Vec<Trigger>`
 
 - **Details**: Finds all domain triggers for the given domain ID.
