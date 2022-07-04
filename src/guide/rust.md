@@ -241,7 +241,8 @@ strongly advise using explicit construction in production code.
 ::: info
 
 It is likely that we shall replace most if not all instances of `submit` in
-our code base with explicit transactions. <!-- Check -->
+our code base with explicit transactions.
+<!-- Check: a reference about future releases or work in progress -->
 
 :::
 

@@ -69,9 +69,7 @@ seen a couple of instructions: `Register<Account>` and `Mint<Quantity>`.
 For the exhaustive list of Instructions you should consult
 [our source code](https://github.com/hyperledger/iroha/tree/iroha2-dev/core/src/smartcontracts/isi).
 
-<!-- Check link is working --> Here we will cover only some important
-
-classes.
+Here we will cover only some important classes.
 
 ### (Un)Register
 
@@ -86,10 +84,12 @@ reasons, we use builders for such data structures (e.g. `NewAccount`). As a
 rule, everything that can be registered, can also be un-registered, but
 that is not a hard and fast rule.
 
-You can register a new account, a new asset definition, a peer, and a
-trigger (more on them later). Registering a peer is currently the only way
-of adding peers that were not part of the original `TRUSTED_PEERS` array to
-the network.
+You can register domains, accounts, asset definitions, peers, roles, and
+triggers (more on them later).
+
+Registering a peer is currently the only way of adding peers that were not
+part of the original `TRUSTED_PEERS` array to the network.
+<!-- Check: a reference about future releases or work in progress -->
 
 Registering an account is different. Iroha can be compiled in two modes:
 _public_ and _private_. If it's compiled with _private_ permissions, to
@@ -98,6 +98,8 @@ your users to be able to register without access to a pre-existing account,
 you need to compile Iroha in the _public_ mode.
 
 ::: info
+
+<!-- Check: a reference about future releases or work in progress -->
 
 As of writing, the set of public blockchain permissions is incomplete, and
 as such Iroha source code needs to be modified to run it in the _public_
@@ -119,9 +121,11 @@ are assumed to be non-negative as well, so you can never have `-1.0` of
 
 ### Grant/Revoke
 
-These are used specifically for permissions. When minting a permission
-token, a user is granted `X` amount of permissions to do `Y`, and the token
-will expire once all `X` operations were performed.
+These are used for permissions and roles.
+
+When minting a permission token, a user is granted `X` amount of
+permissions to do `Y`, and the token will expire once all `X` operations
+were performed.
 
 By contrast, the `Grant` operation can be used to permanently grant a user
 either a single permission, or a group of permissions (a "role"). As such
@@ -145,8 +149,8 @@ For each deployment of Iroha, there might be other available information.
 For example, the availability of telemetry data is up to the network
 administrators. It's entirely their decision whether or not they want to
 allocate processing power to track the work instead of using it to do the
-actual work. By contrast, things such as access to you account balance is
-always a required function.
+actual work. By contrast, some functions are always required, e.g. having
+access to your account balance.
 
 ### Expressions, Conditionals, Logic
 
