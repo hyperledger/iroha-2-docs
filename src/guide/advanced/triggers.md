@@ -23,8 +23,8 @@ contains the necessary information:
     in `iroha_data_model` and see a few particularly interesting
     applications.
 
-[^2]:
-    This behaviour is likely to change in future releases.
+[^2]: This behaviour is likely to change in future releases.
+
     <!-- Check: a reference about future releases or work in progress -->
 
 Let's take a closer look at how triggers work.

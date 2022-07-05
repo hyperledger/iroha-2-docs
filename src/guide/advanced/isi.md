@@ -89,6 +89,7 @@ triggers (more on them later).
 
 Registering a peer is currently the only way of adding peers that were not
 part of the original `TRUSTED_PEERS` array to the network.
+
 <!-- Check: a reference about future releases or work in progress -->
 
 Registering an account is different. Iroha can be compiled in two modes:
