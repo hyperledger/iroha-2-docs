@@ -43,6 +43,8 @@ This will give you the latest development release of Iroha 2.
 
 ## 2. Configuring Iroha 2
 
+<!-- Check: a reference about future releases or work in progress -->
+
 At present, the Kotlin SDK doesn't have any classes to interact with the
 configuration. Instead, you are provided with a ready-made `Iroha2Client`
 that reads the configuration from the environment variables and/or the
@@ -151,7 +153,7 @@ Previously, we only had to worry about submitting a single instruction,
 with a single string-based registration box (in Rust terminology, the
 heap-allocated reference types are all called boxes).
 
-When registering an account, there are a few more variables: The account
+When registering an account, there are a few more variables. The account
 can only be registered to an existing domain. Also, an account typically
 has to have a key pair. So if e.g. _alice@wonderland_ was registering an
 account for _white_rabbit@looking_glass_, she should provide his public
@@ -245,6 +247,8 @@ point. All three types can be registered as either **mintable** or
 **non-mintable**.
 
 ::: info
+
+<!-- Check: a reference about future releases or work in progress -->
 
 The non-mintable assets are a relatively recent addition to Iroha 2, thus
 registering and minting such assets is not presently possible through the
