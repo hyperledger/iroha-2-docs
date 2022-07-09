@@ -10,23 +10,23 @@
     "format:docs:fix": "pnpm run format:docs --write"
   },
   "devDependencies": {
-    "@types/node": "^18.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.28.0",
-    "@typescript-eslint/parser": "^5.28.0",
-    "eslint": "^8.17.0",
-    "eslint-plugin-vue": "^9.1.1",
+    "@types/node": "^18.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "@typescript-eslint/parser": "^5.30.5",
+    "eslint": "^8.19.0",
+    "eslint-plugin-vue": "^9.2.0",
     "markdown-it-footnote": "^3.0.3",
     "prettier": "^2.7.1",
     "prettier-eslint": "^15.0.1",
-    "sass": "^1.52.3",
+    "sass": "^1.53.0",
     "shiki": "^0.10.1",
-    "typescript": "^4.7.3",
-    "vite-plugin-windicss": "^1.8.4",
-    "vitepress": "1.0.0-alpha.2",
-    "windicss": "^3.5.4"
+    "typescript": "^4.7.4",
+    "vite-plugin-windicss": "^1.8.6",
+    "vitepress": "1.0.0-alpha.4",
+    "windicss": "^3.5.6"
   },
   "dependencies": {
-    "@vueuse/core": "^8.6.0",
+    "@vueuse/core": "^8.9.1",
     "vue": "^3.2.37"
   }
 }
