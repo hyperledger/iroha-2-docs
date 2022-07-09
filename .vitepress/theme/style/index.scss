@@ -1,9 +1,11 @@
-$iroha-brand: #e4232d;
+$iroha-brand: rgba(208, 2, 27, 1);
+$iroha-brand-light: lighten($iroha-brand, 10%);
+$iroha-brand-dark: rgba(187, 2, 24, 1);
 
 :root {
   --vp-c-brand: #{$iroha-brand};
-  --vp-c-brand-light: #{lighten($iroha-brand, 10%)};
-  --vp-c-brand-dark: #{darken($iroha-brand, 10%)};
+  --vp-c-brand-light: #{$iroha-brand-light};
+  --vp-c-brand-dark: #{$iroha-brand-dark};
 }
 
 :root {
