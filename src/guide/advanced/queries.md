@@ -501,3 +501,11 @@ listeners called filters.
 
 - **Details**: Finds the value corresponding to the key in the metadata of
   the trigger with the given ID.
+
+### `FindTriggersByDomainId`
+
+- **Parameters**: `DomainId`
+
+- **Returns**: `Vec<Trigger>`
+
+- **Details**: Finds all domain triggers for the given domain ID.
