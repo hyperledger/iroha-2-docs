@@ -252,7 +252,7 @@ for reproducible management of configurations, which is oftentimes tricky
 on bare metal.
 
 ```bash
-docker compose up
+docker-compose up
 ```
 
 ::: info

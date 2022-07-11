@@ -55,7 +55,7 @@ cp -vfr ~/Git/iroha/configs/client_cli/config.json example/config.json
 ::: tip
 
 You can also use the provided `config.json` in the `example` folder if you
-also call `docker compose up` from that same folder. This has to do with
+also call `docker-compose up` from that same folder. This has to do with
 the fact that the configuration for the Docker files in Iroha Python is
 slightly different.
 
