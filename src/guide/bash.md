@@ -241,13 +241,117 @@ With a domain available, it is time to register an account.
 
 ## 4. Registering an Account
 
-To register a new account within the _looking_glass_ domain, run:
+To register a new account called _mad_hatter_ within the _looking_glass_
+domain, run:
 
 ```bash
 ./iroha_client_cli account register \
     --id="mad_hatter@looking_glass" \
     --key="ed0120a753146e75b910ae5e2994dc8adea9e7d87e5d53024cfa310ce992f17106f92c"
 ```
+
+The `--id` argument in the above code snippet specifies the _account id_,
+the unique name assigned to that account in the blockchain. This name
+includes the _domain_, which is a group of things like asset definitions,
+account ids and other objects that we'll talk about later. The `--key`
+argument specifies the [public key](./configure/keys.md), think of it as
+the "password" used by `mad_hatter@looking_glass`.
+
+Keys always come in pairs. It is possible to generate a pair of `public`
+and `private` keys using one of our tools, `kagami`. Once Iroha is
+released, you will be able to install it separately and call it like any
+other program on your system. For now you can either ask `cargo` to `run`
+it for you, or build the program and find it in one of the target
+directories (either `target/debug` or `target/release`).
+
+To generate a new key pair, run it without any arguments.
+
+To use `cargo`, run
+
+```bash
+$ cargo run --bin kagami  -- crypto
+Public key (multihash): ed012088a5d0cada6edfd4ad8046da64ffce820c16f0e68a21f98df505becd5011e18a
+Private key: 749682bd40695cfc77b5ad599220a80d69b72db5e5078c259635f8e8d8f3559088a5d0cada6edfd4ad8046da64ffce820c16f0e68a21f98df505becd5011e18a
+Digest function: ed25519
+```
+
+::: info
+
+You can also use the `-a` flag to specify the algorithm for key-pair
+generation and the `-s` flag to specify the seed.
+
+For example, there's a command to generate a `secp256k1` key pair.
+
+```bash
+$ cargo run --bin kagami -- crypto --algorithm secp256k1
+Public key (multihash): e701210250a46ea6e1688d1ac64fa653eb6220ea21591eb8cb850695c64b04d95853d527
+Private key: d46c33e69e0bd21de8cb969eb395bdf0d86c6727d73db917436508e42963bc74
+Digest function: secp256k1
+```
+
+Save the key pair, so you can use it for authentication by
+[configuring the corresponding parameters](#_1-iroha-2-client-setup).
+
+:::
+
+::: tip
+
+Since there is currently no `kagami` package available, if you want to copy
+the program somewhere convenient e.g. `/bin` for system-wide use you need
+to build it first:
+
+```bash
+$ cargo build --bin kagami
+```
+
+To move the `kagami` executable to the system's bin directory, making it
+globally available, type:
+
+```bash
+$ sudo mv kagami /bin
+```
+
+You can also move `kagami` to your user's `.local/bin` directory, so it
+would only be available in your user's shell session:
+
+```bash
+$ mv target/debug/kagami ~/.local/bin
+```
+
+If you want to use `kagami` from your user's directory, make sure that
+`~/.local/bin` directory is available in your shell's `.rc` file, be it
+`~/.bashrc` for [Bash](https://www.gnu.org/software/bash/) or `~/.zshrc`
+for the [Z shell](https://www.zsh.org/).
+
+```bash
+# Check kagami is available
+$ whereis kagami
+kagami:
+```
+
+Fix the PATH variable for [Bash](https://www.gnu.org/software/bash/) and
+reload the `.bashrc` script:
+
+```bash
+echo "export PATH='${HOME}/.local/bin:${PATH}'" >> ~/.bashrc
+source ~/.bashrc
+```
+
+Fix the `PATH` variable for the [Z shell](https://www.zsh.org/) and reload
+the `.zshrc` script:
+
+```bash
+echo "export PATH='${HOME}/.local/bin:${PATH}'" >> ~/.zshrc
+source ~/.zshrc
+```
+
+Fix the `PATH` variable for the Fish permanently:
+
+```bash
+fish_add_path ~/.local/bin
+```
+
+:::
 
 If the account registration is successful, you will receive a confirmation
 message. Like before, it is necessary to query the accounts to verify that
