@@ -326,7 +326,7 @@ way is to **ask** _white_rabbit_ to generate a new key-pair, and give you
 the public half of it.
 
 ```ts
-const key = PublicKey({
+const pubKey = PublicKey({
   payload: new Uint8Array([
     /* put bytes here */
   ]),
@@ -349,7 +349,7 @@ const registerAccountInstruction = Instruction(
             'NewAccount',
             NewAccount({
               id: accountId,
-              signatories: VecPublicKey([key]),
+              signatories: VecPublicKey([pubKey]),
               metadata: Metadata({ map: MapNameValue(new Map()) }),
             }),
           ),
@@ -386,7 +386,7 @@ In JS, you can create a new asset with the following construction:
 
 ```ts
 import {
-  AssetDefinition,
+  NewAssetDefinition,
   AssetDefinitionId,
   AssetValueType,
   DomainId,
@@ -401,14 +401,14 @@ import {
   Value,
 } from '@iroha2/data-model'
 
-const time = AssetDefinition({
+const newTimeAsset = NewAssetDefinition({
   value_type: AssetValueType('Quantity'),
   id: AssetDefinitionId({
     name: 'time',
     domain_id: DomainId({ name: 'looking_glass' }),
   }),
   metadata: Metadata({ map: MapNameValue(new Map()) }),
-  mintable: Mintable('Infinitely'), // If only we could mint more time.
+  mintable: Mintable('Not'), // If only we could mint more time.
 })
 
 const register = Instruction(
@@ -417,7 +417,10 @@ const register = Instruction(
     object: EvaluatesToRegistrableBox({
       expression: Expression(
         'Raw',
-        Value('Identifiable', IdentifiableBox('AssetDefinition', time)),
+        Value(
+          'Identifiable',
+          IdentifiableBox('NewAssetDefinition', newTimeAsset),
+        ),
       ),
     }),
   }),
@@ -425,7 +428,7 @@ const register = Instruction(
 ```
 
 Pay attention to the fact that we have defined the asset as
-`mintable: false`. What this means is that we cannot create more of `time`.
+`Mintable('Not')`. What this means is that we cannot create more of `time`.
 The late bunny will always be late, because even the super-user of the
 blockchain cannot mint more of `time` than already exists in the genesis
 block.
@@ -436,17 +439,19 @@ defined any time in the domain _looking_glass_ at genesis and defined time
 in a non-mintable fashion afterwards, the _white_rabbit_ is doomed to
 always be late.
 
-We can, however, mint a pre-existing `mintable: Mintable(Infinetely)` asset
-that belongs to Alice:
+If we had set `mintable: Mintable('Infinitely')` on our time asset, we
+could mint it:
 
 ```ts
 import {
   AssetDefinitionId,
   DomainId,
-  EvaluatesToRegistrableBox,
+  EvaluatesToIdBox,
   EvaluatesToValue,
   Expression,
   IdBox,
+  AssetId,
+  AccountId,
   Instruction,
   MintBox,
   Value,
@@ -458,16 +463,24 @@ const mint = Instruction(
     object: EvaluatesToValue({
       expression: Expression('Raw', Value('U32', 42)),
     }),
-    destination_id: EvaluatesToRegistrableBox({
+    destination_id: EvaluatesToIdBox({
       expression: Expression(
         'Raw',
         Value(
           'Id',
           IdBox(
-            'AssetDefinitionId',
-            AssetDefinitionId({
-              name: 'roses',
-              domain_id: DomainId({ name: 'wonderland' }),
+            'AssetId',
+            AssetId({
+              account_id: AccountId({
+                name: 'alice',
+                domain_id: DomainId({
+                  name: 'wonderland',
+                }),
+              }),
+              definition_id: AssetDefinitionId({
+                name: 'time',
+                domain_id: DomainId({ name: 'looking_glass' }),
+              }),
             }),
           ),
         ),
