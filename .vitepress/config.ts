@@ -3,6 +3,7 @@ import Windi from 'vite-plugin-windicss'
 import footnote from 'markdown-it-footnote'
 import customHighlight from './plugins/highlight'
 import path from 'path'
+import { VitePWA } from 'vite-plugin-pwa'
 
 async function themeConfig() {
   const cfg: UserConfig = {
@@ -134,21 +135,49 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
   ]
 }
 
+const BASE = process.env.PUBLIC_PATH ?? '/'
+
 export default defineConfig({
   extends: themeConfig,
-  base: process.env.PUBLIC_PATH ?? '',
+  base: BASE,
   srcDir: 'src',
   title: 'Hyperledger Iroha 2 Tutorial',
   description:
     'Documented tutorial for Hyperledger Iroha 2 outlining the main differences between Iroha versions along with a walkthrough and additional resources.',
   lang: 'en-US',
   vite: {
-    plugins: [Windi({ config: path.resolve(__dirname, '../windi.config.ts') })],
+    plugins: [
+      Windi({ config: path.resolve(__dirname, '../windi.config.ts') }),
+      VitePWA({
+        // Based on: https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs
+        manifest: {
+          name: 'Hyperledger Iroha 2 Tutorial',
+          icons: [
+            {
+              src: BASE + 'icon-192.png',
+              type: 'image/png',
+              sizes: '192x192',
+            },
+            {
+              src: BASE + 'icon-512.png',
+              type: 'image/png',
+              sizes: '512x512',
+            },
+          ],
+        },
+        strategies: 'injectManifest',
+        injectRegister: false,
+      }),
+    ],
   },
   lastUpdated: true,
 
-  // TODO add favicon
-  // head: [],
+  head: [
+    // Based on: https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs
+    ['link', { rel: 'icon', href: BASE + 'favicon.ico', sizes: 'any' }],
+    ['link', { rel: 'icon', href: BASE + 'icon.svg', sizes: 'image/svg+xml' }],
+    ['link', { ref: 'apple-touch-icon', href: BASE + 'apple-touch-icon.png' }],
+  ],
 
   markdown: {
     config(md) {
@@ -157,7 +186,7 @@ export default defineConfig({
   },
 
   themeConfig: {
-    logo: '/logo.svg',
+    logo: '/icon.svg',
     siteTitle: 'Iroha 2',
 
     socialLinks: [{ icon: 'github', link: 'https://github.com/hyperledger/iroha-2-docs' }],
