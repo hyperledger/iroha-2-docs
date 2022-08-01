@@ -13,6 +13,8 @@ correct software and waiting until your node gets discovered.
 Peer discovery is
 [under construction](https://github.com/hyperledger/iroha/issues/1375 '#1375').
 
+<!-- Check: a reference about future releases or work in progress -->
+
 :::
 
 ## Private Blockchain
@@ -42,6 +44,8 @@ doesn't need to (or want to) spend time setting up a new peer.
 ::: info
 
 Permissions for registering a peer are under construction.
+
+<!-- Check: a reference about future releases or work in progress -->
 
 :::
 

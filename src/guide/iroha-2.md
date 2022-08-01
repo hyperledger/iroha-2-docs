@@ -8,10 +8,6 @@ Iroha and highlight the new features of Iroha 2. It should be of particular
 interest to those who are already familiar with Iroha but wish to upgrade
 and start using the newer version.
 
-<!-- This list of headlining features goes on. As we are nearing our first
-long-term supported preview release, we'll be updating the guide with
-relevant changes. -->
-
 ## Fault Tolerance
 
 Iroha 2 learned a great deal from the development of the original Iroha. Of
@@ -120,7 +116,9 @@ documentation comments, some of which are also tests.
 
 ::: info
 
+<!-- Check: a reference about future releases or work in progress -->
+
 There are plans to include Fuzz testing, property-based testing, and
-failure-point testing to ensure that Iroha is reliable. <!-- Check -->
+failure-point testing to ensure that Iroha is reliable.
 
 :::

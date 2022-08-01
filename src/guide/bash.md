@@ -48,6 +48,8 @@ exclusively for testing purposes.
 
 ::: info
 
+<!-- Check: a reference about future releases or work in progress -->
+
 This might change in the future, but likely not by fixing
 `iroha_client_cli` but rather by replacing it entirely with Iroha Python.
 The only thing stopping us from that today is that Iroha Python has not
@@ -62,6 +64,8 @@ think that it offers enough convenience over the amount of effort that we'd
 need to put in.
 
 ::: info
+
+<!-- Check: a reference about future releases or work in progress -->
 
 It is possible that in the future, once `iroha_client_cli` is phased out
 and `iroha_python` is the official scripting interface, we might use the

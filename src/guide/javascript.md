@@ -2,7 +2,8 @@
 
 ::: info
 
-This guide targets `@iroha2/client@1.2.0` and `@iroha/data-model@1.2.0`.
+This guide targets `@iroha2/client` and `@iroha/data-model` version
+**`^1.2`**.
 
 :::
 
@@ -84,26 +85,10 @@ likely be available in the second round of this tutorial's release.
 Thus, on the plus side, configuration of the client is simple. On the
 downside, you have to prepare a lot manually.
 
-A basic client setup looks straightforward:
-
-```ts
-import { Client } from '@iroha2/client'
-
-const client = new Client({
-  torii: {
-    // Both URLs are optional - in case you need only a part of endpoints,
-    // e.g. only Telemetry ones
-    apiURL: 'http://127.0.0.1:8080',
-    telemetryURL: 'http://127.0.0.1:8081',
-  },
-})
-```
-
-That's enough to perform health or status check, but if you need to use
-transactions or queries, you'll need to prepare a key pair.
-
-Let's assume that you have stringified public & private keys (more on that
-later). Thus, a key-pair generation could look like this:
+You may need to use transactions or queries, so before we initialize the
+client, let's set up this part. Let's assume that you have stringified
+public & private keys (more on that later). Thus, a key-pair generation
+could look like this:
 
 ```ts
 import { crypto } from '@iroha2/crypto-target-node'
@@ -144,6 +129,34 @@ const kp = generateKeyPair({
     payload:
       'de757bcb79f4c63e8fa0795edc26f86dfdba189b846e903d0b732bb644607720e555d194e8822da35ac541ce9eec8b45058f4d294d9426ef97ba92698766f7d3',
   },
+})
+```
+
+A basic client setup requires a Torii configuration and an account ID. This
+allows you to perform basic operations like health or status checks. As
+described above, to use transactions or queries you'll need to have a
+`keyPair` parameter as a part of the `Client` instance definition:
+
+```ts
+import { Client } from '@iroha2/client'
+
+const client = new Client({
+  torii: {
+    // Both URLs are optional in case you only need one of them,
+    // e.g. only the telemetry endpoints
+    apiURL: 'http://127.0.0.1:8080',
+    telemetryURL: 'http://127.0.0.1:8081',
+  },
+  accountId: AccountId({
+    // Account name
+    name: 'alice',
+    // The domain where this account is registered
+    domain_id: DomainId({
+      name: 'wonderland',
+    }),
+  }),
+  // A key pair, needed for transactions and queries
+  keyPair: kp,
 })
 ```
 
@@ -235,14 +248,18 @@ create another function that wraps that functionality:
 
 ```ts
 async function ensureDomainExistence(domainName: string) {
+  // Query all domains
   const result = await client.request(QueryBox('FindAllDomains', null))
+  // Display the request status
+  console.log('%o', result)
 
+  // Obtain the domain
   const domain = result
     .as('Ok')
     .result.as('Vec')
     .map((x) => x.as('Identifiable').as('Domain'))
     .find((x) => x.id.name === domainName)
-
+  // Throw an error if the domain is unavailable
   if (!domain) throw new Error('Not found')
 }
 ```
@@ -540,7 +557,9 @@ export const client = new Client({
     apiURL: `http://localhost:8080`,
     telemetryURL: `http://localhost:8081`,
   },
+  // Account name and the domain where it's registered
   accountId: client_config.account as AccountId,
+  // A key pair, required for the account authentication
   keyPair: generateKeyPair({
     publicKeyMultihash: client_config.publicKey,
     privateKey: client_config.privateKey,

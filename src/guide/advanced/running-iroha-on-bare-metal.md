@@ -387,7 +387,9 @@ topology, this peer is the leader.
 Only the leader of the genesis network needs to have access to
 `genesis.json`. Having the same genesis in the initial folders of the other
 peers could be useful, since future versions of `iroha` will also
-sanity-check the genesis blocks. <!-- Check -->
+sanity-check the genesis blocks.
+
+<!-- Check: a reference about future releases or work in progress -->
 
 :::
 

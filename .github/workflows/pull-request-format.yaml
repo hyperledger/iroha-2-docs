@@ -1,7 +1,7 @@
 name: Format Docs
 on:
   pull_request:
-    branches: [master]
+    branches: [main]
 jobs:
   check:
     runs-on: ubuntu-latest

@@ -4,6 +4,8 @@
 
 WIP: `iroha-python` works only with `iroha v2-pre-rc.1` for now.
 
+<!-- Check: a reference about future releases or work in progress -->
+
 :::
 
 ## 1. Iroha 2 Client Setup
@@ -53,7 +55,7 @@ cp -vfr ~/Git/iroha/configs/client_cli/config.json example/config.json
 ::: tip
 
 You can also use the provided `config.json` in the `example` folder if you
-also call `docker compose up` from that same folder. This has to do with
+also call `docker-compose up` from that same folder. This has to do with
 the fact that the configuration for the Docker files in Iroha Python is
 slightly different.
 
@@ -87,6 +89,8 @@ More on that in the following section.
 It should also be noted that Iroha Python is under heavy development. It
 severely lacks in documentation and its API can be made more idiomatically
 Python.
+
+<!-- Check: a reference about future releases or work in progress -->
 
 :::
 

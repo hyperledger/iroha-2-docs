@@ -23,7 +23,9 @@ contains the necessary information:
     in `iroha_data_model` and see a few particularly interesting
     applications.
 
-[^2]: This behaviour is likely to change in future releases. <!-- Check -->
+[^2]: This behaviour is likely to change in future releases.
+
+    <!-- Check: a reference about future releases or work in progress -->
 
 Let's take a closer look at how triggers work.
 
@@ -48,9 +50,11 @@ with no whitespaces and no reserved characters (`@`, `#`).
 
 ::: info
 
+<!-- Check: a reference about future releases or work in progress -->
+
 In the future, we shall add scoped triggers, and the id will be expanded to
 be either a global trigger, or a trigger with a domain name. This is what
-determines the scope of the trigger. <!-- Check -->
+determines the scope of the trigger.
 
 :::
 
@@ -128,7 +132,7 @@ in the following release. We shall do our best to describe all of what we
 can, with as much detail as we can, and clearly signpost which parts of
 this tutorial will be made obsolete in the next release.
 
-<!-- Check -->
+<!-- Check: a reference about future releases or work in progress -->
 
 :::
 
@@ -145,12 +149,16 @@ support un-scoped system-wide triggers with no permission validation. Work
 is ongoing to make the triggers safer and more reliable, but the process is
 time-consuming and work-intensive. <!-- Q: still true? -->
 
+<!-- Check: a reference about future releases or work in progress -->
+
 ::: info
 
 Be mindful of the limitations. Currently triggers don't check for
 permissions <!-- Q: still true? -->, so they can do things your account
 wouldn't be allowed to. Since the triggers are not scoped, every trigger
 processes _every_ event, and the amount of work grows quadratically.
+
+<!-- Check: a reference about future releases or work in progress -->
 
 :::
 
@@ -234,8 +242,10 @@ user Z, you really want a _permission_. While you could hack the pre-commit
 triggers to emulate the desired behaviour, this is not economical neither
 in terms of gas fees nor computation.
 
+<!-- Check: a reference about future releases or work in progress -->
+
 Until Iroha 2 supports WASM-based _permissions validators_, however, your
-only choice is pre-commit triggers. <!-- Check -->
+only choice is pre-commit triggers.
 
 :::
 
@@ -446,10 +456,10 @@ For example, we will have filters that match when the asset:
   instruction
 - Decreases to below a certain threshold
 
+<!-- Check: a reference about future releases or work in progress -->
+
 Only the first type of event filter is implemented now, and the other two
 can be emulated using a WASM smart contract as the `Executable`.
-
-<!-- Check -->
 
 :::
 
@@ -473,6 +483,8 @@ However, as was mentioned previously on several occasions, implementing a
 feature properly takes time and effort. Ergonomics must be balanced against
 safety and reliability, so we cannot just make things easier to use. We
 want them to retain many of the advantages of strong typing.
+
+<!-- Check: a reference about future releases or work in progress -->
 
 This is all a work in progress. Our code is in flux. We need time to play
 around with a particular implementation to optimise it.
