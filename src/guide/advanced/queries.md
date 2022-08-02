@@ -376,7 +376,7 @@ that is used as a secure data storage for privileged information.
 ### FindBlockHeaderByHash
 
 <!-- Versioning -->
-- **Parameters**: `Into<EvaluatesTo<Hash>>`
+- **Parameters**: `Hash`
 - **Returns**: `BlockHeader`
 - **Details**: Gets the block header that matches the hash that was provided.
 
