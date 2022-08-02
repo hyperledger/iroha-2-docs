@@ -369,19 +369,23 @@ that is used as a secure data storage for privileged information.
 
 ### FindAllBlockHeaders
 
-<!-- Versioning -->
+::: stable
 
 - **Returns**: `Vec<BlockHeader>`
 - **Details**: Returns all block headers for blocks in the blockchain.
 
+:::
+
 ### FindBlockHeaderByHash
 
-<!-- Versioning -->
+::: stable
 
 - **Parameters**: `Hash`
 - **Returns**: `BlockHeader`
 - **Details**: Gets the block header that matches the hash that was
   provided.
+
+:::
 
 ## Domain
 
