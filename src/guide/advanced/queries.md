@@ -360,6 +360,26 @@ that is used as a secure data storage for privileged information.
 - **Details**: Gets the value keyed by the given name in the metadata of
   the asset definition corresponding to the given identifier.
 
+## Block
+
+### FindAllBlocks
+
+- **Returns**: `Vec<Block>`
+- **Details**: Returns all blocks in the blockchain.
+
+### FindAllBlockHeaders
+
+<!-- Versioning -->
+- **Returns**: `Vec<BlockHeader>`
+- **Details**: Returns all block headers for blocks in the blockchain.
+
+### FindBlockHeaderByHash
+
+<!-- Versioning -->
+- **Parameters**: `Into<EvaluatesTo<Hash>>`
+- **Returns**: `BlockHeader`
+- **Details**: Gets the block header that matches the hash that was provided.
+
 ## Domain
 
 The domain is the basic unit of organisation in an Iroha blockchain.
