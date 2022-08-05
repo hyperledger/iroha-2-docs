@@ -117,11 +117,11 @@ let kp = KeyPair::new(
         r#"ed01207233bfc89dcbd68c19fde6ce6158225298ec1131b6a130d1aeb454c1ab5183c0"#,
     )?,
     PrivateKey::from_hex(
-        Algorithm::ED25519,
-        "9ac47abf59b356e0bd7dcbbbb4dec080e302156a48ca907e47cb6aea1d32719e7233bfc89dcbd68c19fde6ce6158225298ec1131b6a130d1aeb454c1ab5183c0")
-        .into(),
-    ),
-);
+        Algorithm::Ed25519,
+        "9ac47abf59b356e0bd7dcbbbb4dec080e302156a48ca907e47cb6aea1d32719e7233bfc89dcbd68c19fde6ce6158225298ec1131b6a130d1aeb454c1ab5183c0"
+            .into(),
+    )?
+)?;
 
 let (public_key, private_key) = kp.clone().into();
 let account_id: AccountId = "alice@wonderland".parse()?;
@@ -130,7 +130,7 @@ let cfg = ClientConfiguration {
     public_key,
     private_key,
     account_id,
-    torii_api_url: iroha_data_model::uri::DEFAULT_API_URL.to_owned(),
+    torii_api_url: SmallStr::from_string(iroha_config::torii::uri::DEFAULT_API_URL.to_owned()),
     ..ClientConfiguration::default()
 };
 ```
