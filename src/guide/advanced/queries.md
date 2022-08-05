@@ -156,6 +156,9 @@ blockchains but the use cases are different:
   anything outside of their own account or domain unless explicitly granted
   said permission.
 
+We talk about permissions in more detail in a
+[dedicated chapter](./permissions.md).
+
 ### `FindPermissionTokensByAccountId`
 
 - **Parameters**: `AccountId`

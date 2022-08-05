@@ -122,7 +122,7 @@ are assumed to be non-negative as well, so you can never have `-1.0` of
 
 ### Grant/Revoke
 
-These are used for permissions and roles.
+These are used for [permissions and roles](permissions.md).
 
 When minting a permission token, a user is granted `X` amount of
 permissions to do `Y`, and the token will expire once all `X` operations
