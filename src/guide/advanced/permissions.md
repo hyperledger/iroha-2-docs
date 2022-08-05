@@ -56,11 +56,15 @@ let mut genesis = RawGenesisBlock::new(
     "wonderland".parse(),
     get_key_pair().public_key().clone(),
 );
-let rose_definition_id = <AssetDefinition as Identifiable>::Id::from_str("rose#wonderland");
-let alice_id = <Account as Identifiable>::Id::from_str("alice@wonderland");
+let rose_definition_id =
+    <AssetDefinition as Identifiable>::Id::from_str("rose#wonderland");
+let alice_id =
+    <Account as Identifiable>::Id::from_str("alice@wonderland");
 
-// Create a new `CanMintUserAssetDefinitions` permission token to mint rose assets (`rose_definition_id`)
-let mint_rose_permission: PermissionToken = CanMintUserAssetDefinitions::new(rose_definition_id.clone()).into();
+// Create a new `CanMintUserAssetDefinitions` permission token
+// to mint rose assets (`rose_definition_id`)
+let mint_rose_permission: PermissionToken =
+    CanMintUserAssetDefinitions::new(rose_definition_id.clone()).into();
 
 // Grant Alice permission to mint rose assets
 genesis.transactions[0]
@@ -79,11 +83,15 @@ let mut genesis = RawGenesisBlock::new(
     "wonderland".parse(),
     get_key_pair().public_key().clone(),
 );
-let rose_definition_id = <AssetDefinition as Identifiable>::Id::from_str("rose#wonderland");
-let alice_id = <Account as Identifiable>::Id::from_str("alice@wonderland");
+let rose_definition_id =
+    <AssetDefinition as Identifiable>::Id::from_str("rose#wonderland");
+let alice_id =
+    <Account as Identifiable>::Id::from_str("alice@wonderland");
 
-// Create a new `CanBurnAssetWithDefinition` permission token to burn rose assets (`rose_definition_id`)
-let burn_rose_permission: PermissionToken = CanBurnAssetWithDefinition::new(rose_definition_id.clone()).into();
+// Create a new `CanBurnAssetWithDefinition` permission token
+// to burn rose assets (`rose_definition_id`)
+let burn_rose_permission: PermissionToken =
+    CanBurnAssetWithDefinition::new(rose_definition_id.clone()).into();
 
 // Grant Alice permission to burn rose assets
 genesis.transactions[0]
@@ -104,8 +112,10 @@ let alice_xor_id = <Asset as Identifiable>::Id::new(
     AccountId::from_str("alice@test"),
 );
 
-// Create a new `CanBurnUserAssets` permission token that allows burning `alice_xor_id` asset
-let permission_token_to_alice: PermissionToken = burn::CanBurnUserAssets::new(alice_xor_id).into();
+// Create a new `CanBurnUserAssets` permission token
+// that allows burning `alice_xor_id` asset
+let permission_token_to_alice: PermissionToken = 
+    burn::CanBurnUserAssets::new(alice_xor_id).into();
 
 // Create an instruction that grants Bob permission to burn `alice_xor_id` asset
 let grant = Instruction::Grant(GrantBox::new(
@@ -124,7 +134,8 @@ let alice_id = AccountId::from_str("alice@test");
 let bob_id = AccountId::from_str("bob@test");
 let xor_id = AssetDefinitionId::from_str("xor#test");
 
-// Create a new `CanUnregisterAssetWithDefinition` permission token that allows unregistering `xor_id` asset
+// Create a new `CanUnregisterAssetWithDefinition` permission token
+// that allows unregistering `xor_id` asset
 let permission_token_to_alice: PermissionToken =
     unregister::CanUnregisterAssetWithDefinition::new(xor_id).into();
 
@@ -148,7 +159,8 @@ let alice_xor_id = <Asset as Identifiable>::Id::new(
     AccountId::from_str("alice@test"),
 );
 
-// Create a new `CanTransferUserAssets` permission token that allows to transfer `alice_xor_id` asset
+// Create a new `CanTransferUserAssets` permission token
+// that allows to transfer `alice_xor_id` asset
 let permission_token_to_alice: PermissionToken =
     transfer::CanTransferUserAssets::new(alice_xor_id).into();
 
@@ -260,7 +272,8 @@ After the role is registered, Mouse can grant it to Alice:
 
 ```rust
 let grant_role = GrantBox::new(role_id.clone(), alice_id.clone());
-let grant_role_tx = Transaction::new(mouse_id.clone(), vec![grant_role.into()].into(), 100_000)
+let grant_role_tx =
+    Transaction::new(mouse_id.clone(), vec![grant_role.into()].into(), 100_000)
     .sign(mouse_key_pair)?;
 ```
 
