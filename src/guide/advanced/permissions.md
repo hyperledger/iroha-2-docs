@@ -114,7 +114,7 @@ let alice_xor_id = <Asset as Identifiable>::Id::new(
 
 // Create a new `CanBurnUserAssets` permission token
 // that allows burning `alice_xor_id` asset
-let permission_token_to_alice: PermissionToken = 
+let permission_token_to_alice: PermissionToken =
     burn::CanBurnUserAssets::new(alice_xor_id).into();
 
 // Create an instruction that grants Bob permission to burn `alice_xor_id` asset
