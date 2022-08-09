@@ -18,6 +18,8 @@ instruction.
 
 ## Permission Tokens
 
+<!-- pre-configured permissions: LTS version -->
+
 The following permission tokens are pre-configured in Iroha 2:
 
 | Permission Token                                                                            | Category         | Operation        |
@@ -35,6 +37,13 @@ The following permission tokens are pre-configured in Iroha 2:
 | [`CanSetKeyValueInAssetDefinition`](#cansetkeyvalueinassetdefinition)                       | Asset Definition | Set key value    |
 | [`CanRemoveKeyValueInAssetDefinition`](#canremovekeyvalueinassetdefinition)                 | Asset Definition | Remove key value |
 | [`CanRegisterDomains`](#canregisterdomains)                                                 | Domain           | Register         |
+
+::: info
+
+The way permission work in Iroha 2 is subject to change. Note that there
+won't be pre-configured permissions in the future.
+
+:::
 
 ### `CanMintUserAssetDefinitions`
 
