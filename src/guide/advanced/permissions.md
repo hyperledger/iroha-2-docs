@@ -182,10 +182,51 @@ let permission_token =
 With `CanSetKeyValueInUserAssets` permission token, a user can set key
 value in the specified asset.
 
+```rust
+let bob_id = AccountId::from_str("bob@test")?;
+let alice_id = AccountId::from_str("alice@test")?;
+let alice_xor_id = <Asset as Identifiable>::Id::new(
+    AssetDefinitionId::from_str("xor#test")?,
+    AccountId::from_str("alice@test")?,
+);
+
+// Create a new `CanSetKeyValueInUserAssets` permission token
+// that allows to set key value in `alice_xor_id` asset
+let permission_to_set_key_value_in_xor: PermissionToken =
+    key_value::CanSetKeyValueInUserAssets::new(alice_xor_id).into();
+
+// Create an instruction that grants Bob permission
+// to set key value in `alice_xor_id` asset
+let grant = Instruction::Grant(GrantBox::new(
+    permission_to_set_key_value_in_xor,
+    IdBox::AccountId(bob_id),
+));
+```
+
 ### `CanRemoveKeyValueInUserAssets`
 
 With `CanRemoveKeyValueInUserAssets` permission token, a user can remove
 key value in the specified asset.
+
+```rust
+let bob_id = AccountId::from_str("bob@test")?;
+let alice_id = AccountId::from_str("alice@test")?;
+let alice_xor_id = <Asset as Identifiable>::Id::new(
+    AssetDefinitionId::from_str("xor#test")?,
+    AccountId::from_str("alice@test")?,
+);
+
+// Create a new `CanRemoveKeyValueInUserAssets` permission token
+// that allows to remove key value from `alice_xor_id` asset
+let permission_to_set_key_value_in_xor: PermissionToken =
+    key_value::CanRemoveKeyValueInUserAssets::new(alice_xor_id).into();
+
+// Create an instruction that grants Bob permission
+// to remove key value from `alice_xor_id` asset
+let grant = Instruction::Grant(GrantBox::new(
+    permission_to_set_key_value_in_xor,
+    IdBox::AccountId(bob_id),
+```
 
 ### `CanSetKeyValueInUserMetadata`
 
@@ -220,10 +261,52 @@ let permission_to_remove_key_value_in_mouse_metadata: PermissionToken =
 With `CanSetKeyValueInAssetDefinition` permission token, a user can set key
 value in the corresponding asset definition.
 
+```rust
+let bob_id = AccountId::from_str("bob@test")?;
+let alice_id = AccountId::from_str("alice@test")?;
+let alice_xor_id = <Asset as Identifiable>::Id::new(
+    AssetDefinitionId::from_str("xor#test")?,
+    AccountId::from_str("alice@test")?,
+);
+
+// Create a new `CanSetKeyValueInAssetDefinition` permission token
+// that allows to set key value in `alice_xor_id` asset definition
+let permission_to_set_key_value_in_xor: PermissionToken =
+    key_value::CanSetKeyValueInAssetDefinition::new(alice_xor_id).into();
+
+// Create an instruction that grants Bob permission
+// to set key value in `alice_xor_id` asset definition
+let grant = Instruction::Grant(GrantBox::new(
+    permission_to_set_key_value_in_xor,
+    IdBox::AccountId(bob_id),
+));
+```
+
 ### `CanRemoveKeyValueInAssetDefinition`
 
 With `CanRemoveKeyValueInAssetDefinition` permission token, a user can
 remove key value in the corresponding asset definition.
+
+```rust
+let bob_id = AccountId::from_str("bob@test")?;
+let alice_id = AccountId::from_str("alice@test")?;
+let alice_xor_id = <Asset as Identifiable>::Id::new(
+    AssetDefinitionId::from_str("xor#test")?,
+    AccountId::from_str("alice@test")?,
+);
+
+// Create a new `CanRemoveKeyValueInAssetDefinition` permission token
+// that allows to remove key value from `alice_xor_id` asset definition
+let permission_to_remove_key_value_from_xor: PermissionToken =
+    key_value::CanRemoveKeyValueInAssetDefinition::new(alice_xor_id).into();
+
+// Create an instruction that grants Bob permission
+// to remove key value from `alice_xor_id` asset definition
+let grant = Instruction::Grant(GrantBox::new(
+    permission_to_remove_key_value_from_xor,
+    IdBox::AccountId(bob_id),
+));
+```
 
 ### `CanRegisterDomains`
 
