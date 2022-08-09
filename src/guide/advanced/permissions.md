@@ -10,21 +10,11 @@ assumed not to be able to do anything outside of their own account or
 domain unless explicitly granted said permission.
 
 Having a permission to do something means having a `PermissionToken` to do
-so. There are two ways for users to receive permission tokens:
-
-1. Permission tokens can be granted as part of one-time allowance.
-
-   In this case, when a user mints a permission token, they are granted a
-   fixed amount `X` of permission to do `Y`. Once the user performs the `Y`
-   operation `X` times, the token expires.
-
-2. Permission tokens can be granted as part of a `role` (a set of
-   permission tokens).
-
-   In this case, a user is permanently granted either a single permission
-   or a group of permissions to perform a certain action. This is done via
-   `Grant` special instructions, and the received permissions could be
-   removed using `Revoke` instruction.
+so. There are two ways for users to receive permission tokens: they can be
+granted directly or as a part of a `Role` (a set of permission tokens).
+Permissions are granted via `Grant` special instruction. Permission tokens
+and roles do not expire, they can only be removed using `Revoke`
+instruction.
 
 ## Permission Tokens
 
@@ -33,6 +23,7 @@ The following permission tokens are pre-configured in Iroha 2:
 | Permission Token                                                                            | Category         | Operation        |
 | ------------------------------------------------------------------------------------------- | ---------------- | ---------------- |
 | [`CanSetKeyValueInUserMetadata`](#cansetkeyvalueinusermetadata)                             | Account          | Set key value    |
+| [`CanRemoveKeyValueInUserMetadata`](#canremovekeyvalueinusermetadata)                       | Account          | Remove key value |
 | [`CanBurnUserAssets`](#canburnuserassets)                                                   | Asset            | Burn             |
 | [`CanSetKeyValueInUserAssets`](#cansetkeyvalueinuserassets)                                 | Asset            | Set key value    |
 | [`CanRemoveKeyValueInUserAssets`](#canremovekeyvalueinuserassets)                           | Asset            | Remove key value |
@@ -57,19 +48,19 @@ let mut genesis = RawGenesisBlock::new(
     get_key_pair().public_key().clone(),
 );
 let rose_definition_id =
-    <AssetDefinition as Identifiable>::Id::from_str("rose#wonderland");
+    <AssetDefinition as Identifiable>::Id::from_str("rose#wonderland")?;
 let alice_id =
-    <Account as Identifiable>::Id::from_str("alice@wonderland");
+    <Account as Identifiable>::Id::from_str("alice@wonderland")?;
 
 // Create a new `CanMintUserAssetDefinitions` permission token
 // to mint rose assets (`rose_definition_id`)
 let mint_rose_permission: PermissionToken =
-    CanMintUserAssetDefinitions::new(rose_definition_id.clone()).into();
+    CanMintUserAssetDefinitions::new(rose_definition_id).into();
 
 // Grant Alice permission to mint rose assets
 genesis.transactions[0]
     .isi
-    .push(GrantBox::new(mint_rose_permission, alice_id.clone()).into());
+    .push(GrantBox::new(mint_rose_permission, alice_id).into());
 ```
 
 ### `CanBurnAssetWithDefinition`
@@ -84,19 +75,19 @@ let mut genesis = RawGenesisBlock::new(
     get_key_pair().public_key().clone(),
 );
 let rose_definition_id =
-    <AssetDefinition as Identifiable>::Id::from_str("rose#wonderland");
+    <AssetDefinition as Identifiable>::Id::from_str("rose#wonderland")?;
 let alice_id =
-    <Account as Identifiable>::Id::from_str("alice@wonderland");
+    <Account as Identifiable>::Id::from_str("alice@wonderland")?;
 
 // Create a new `CanBurnAssetWithDefinition` permission token
 // to burn rose assets (`rose_definition_id`)
 let burn_rose_permission: PermissionToken =
-    CanBurnAssetWithDefinition::new(rose_definition_id.clone()).into();
+    CanBurnAssetWithDefinition::new(rose_definition_id).into();
 
 // Grant Alice permission to burn rose assets
 genesis.transactions[0]
     .isi
-    .push(GrantBox::new(burn_rose_permission, alice_id.clone()).into());
+    .push(GrantBox::new(burn_rose_permission, alice_id).into());
 ```
 
 ### `CanBurnUserAssets`
@@ -105,11 +96,11 @@ With `CanBurnUserAssets` permission token, a user can burn the specified
 asset.
 
 ```rust
-let alice_id = AccountId::from_str("alice@test");
-let bob_id = AccountId::from_str("bob@test");
+let alice_id = AccountId::from_str("alice@test")?;
+let bob_id = AccountId::from_str("bob@test")?;
 let alice_xor_id = <Asset as Identifiable>::Id::new(
-    AssetDefinitionId::from_str("xor#test"),
-    AccountId::from_str("alice@test"),
+    AssetDefinitionId::from_str("xor#test")?,
+    AccountId::from_str("alice@test")?,
 );
 
 // Create a new `CanBurnUserAssets` permission token
@@ -120,7 +111,7 @@ let permission_token_to_alice: PermissionToken =
 // Create an instruction that grants Bob permission to burn `alice_xor_id` asset
 let grant = Instruction::Grant(GrantBox::new(
     permission_token_to_alice,
-    IdBox::AccountId(bob_id.clone()),
+    IdBox::AccountId(bob_id),
 ));
 ```
 
@@ -130,9 +121,9 @@ With `CanUnregisterAssetWithDefinition` permission token, a user can
 unregister assets with the corresponding asset definition.
 
 ```rust
-let alice_id = AccountId::from_str("alice@test");
-let bob_id = AccountId::from_str("bob@test");
-let xor_id = AssetDefinitionId::from_str("xor#test");
+let alice_id = AccountId::from_str("alice@test")?;
+let bob_id = AccountId::from_str("bob@test")?;
+let xor_id = AssetDefinitionId::from_str("xor#test")?;
 
 // Create a new `CanUnregisterAssetWithDefinition` permission token
 // that allows unregistering `xor_id` asset
@@ -142,7 +133,7 @@ let permission_token_to_alice: PermissionToken =
 // Create an instruction that grants Bob permission to unregister `xor_id` asset
 let grant = Instruction::Grant(GrantBox {
     permission_token_to_alice.into(),
-    IdBox::AccountId(bob_id.clone()).into(),
+    IdBox::AccountId(bob_id).into(),
 });
 ```
 
@@ -152,11 +143,11 @@ With `CanTransferUserAssets` permission token, a user can transfer the
 specified asset.
 
 ```rust
-let alice_id = AccountId::from_str("alice@test");
-let bob_id = AccountId::from_str("bob@test");
+let alice_id = AccountId::from_str("alice@test")?;
+let bob_id = AccountId::from_str("bob@test")?;
 let alice_xor_id = <Asset as Identifiable>::Id::new(
-    AssetDefinitionId::from_str("xor#test"),
-    AccountId::from_str("alice@test"),
+    AssetDefinitionId::from_str("xor#test")?,
+    AccountId::from_str("alice@test")?,
 );
 
 // Create a new `CanTransferUserAssets` permission token
@@ -167,7 +158,7 @@ let permission_token_to_alice: PermissionToken =
 // Create an instruction that grants Bob permission to transfer `alice_xor_id` asset
 let grant = Instruction::Grant(GrantBox::new(
     permission_token_to_alice,
-    IdBox::AccountId(bob_id.clone()),
+    IdBox::AccountId(bob_id),
 ));
 ```
 
@@ -207,7 +198,7 @@ let mouse_id = <Account as Identifiable>::Id::from_str("mouse@wonderland")?;
 // Create a new `CanSetKeyValueInUserMetadata` token that, when granted to another account,
 // allows it to set key value to the metadata in Mouse's account
 let permission_to_set_key_value_in_mouse_metadata: PermissionToken =
-    key_value::CanSetKeyValueInUserMetadata::new(mouse_id.clone()).into();
+    key_value::CanSetKeyValueInUserMetadata::new(mouse_id).into();
 ```
 
 ### `CanRemoveKeyValueInUserMetadata`
@@ -221,7 +212,7 @@ let mouse_id = <Account as Identifiable>::Id::from_str("mouse@wonderland")?;
 // Create a new `CanRemoveKeyValueInUserMetadata` token that, when granted to another account,
 // allows it to remove key value from the metadata in Mouse's account
 let permission_to_remove_key_value_in_mouse_metadata: PermissionToken =
-    key_value::CanRemoveKeyValueInUserMetadata::new(mouse_id.clone()).into();
+    key_value::CanRemoveKeyValueInUserMetadata::new(mouse_id).into();
 ```
 
 ### `CanSetKeyValueInAssetDefinition`
@@ -236,14 +227,21 @@ remove key value in the corresponding asset definition.
 
 ### `CanRegisterDomains`
 
-with `CanRegisterDomains` permission token, a user can register domains.
+With `CanRegisterDomains` permission token, a user can register domains.
 
 ```rust
-let alice_id = AccountId::from_str("alice@test0")
-let mut alice = Account::new(alice_id.clone(), []).build();
+let alice_id = AccountId::from_str("alice@test0")?;
+let mut alice = Account::new(alice_id, []).build();
 
-// Give Alice permission to register new domains
-alice.add_permission(register::CanRegisterDomains::new().into());
+// Create a new `CanRegisterDomains` permission token
+// that allows registering new domains
+let permission_token_to_register_domains: PermissionToken =
+    register::CanRegisterDomains::new().into();
+
+// Create an instruction that grants Alice permission to register new domains
+let grant = Instruction::Grant(GrantBox::new(
+    permission_token_to_register_domains,
+    IdBox::AccountId(alice_id),
 ```
 
 ## Permission Groups (Roles)
@@ -260,9 +258,9 @@ access to the metadata in Mouse's account:
 
 ```rust
 let role_id = <Role as Identifiable>::Id::from_str("ACCESS_TO_MOUSE_METADATA")?;
-let role = iroha_data_model::role::Role::new(role_id.clone())
-    .add_permission(CanSetKeyValueInUserMetadata::new(mouse_id.clone()))
-    .add_permission(CanRemoveKeyValueInUserMetadata::new(mouse_id.clone()));
+let role = iroha_data_model::role::Role::new(role_id)
+    .add_permission(CanSetKeyValueInUserMetadata::new(mouse_id))
+    .add_permission(CanRemoveKeyValueInUserMetadata::new(mouse_id));
 let register_role = RegisterBox::new(role);
 ```
 
@@ -271,9 +269,9 @@ let register_role = RegisterBox::new(role);
 After the role is registered, Mouse can grant it to Alice:
 
 ```rust
-let grant_role = GrantBox::new(role_id.clone(), alice_id.clone());
+let grant_role = GrantBox::new(role_id, alice_id);
 let grant_role_tx =
-    Transaction::new(mouse_id.clone(), vec![grant_role.into()].into(), 100_000)
+    Transaction::new(mouse_id, vec![grant_role.into()].into(), 100_000)
     .sign(mouse_key_pair)?;
 ```
 
