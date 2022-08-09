@@ -14,10 +14,10 @@ Note that Iroha 1 and Iroha 2 are not compatible. The projects are very
 different in their approaches and implementations as we present in the
 comparison below.
 
-Cryptography and account structures are implemented differently, meaning
-that users would have to generate new keys and link to their old account
-through a centralized service, and no data from Iroha 1 would be accessible
-from Iroha 2.
+Among other changes, cryptography and account structures are implemented
+differently, meaning that users would have to generate new keys and link to
+their old account through a centralized service, and no data from Iroha 1
+would be accessible from Iroha 2.
 
 :::
 
