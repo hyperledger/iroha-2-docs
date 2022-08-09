@@ -1,7 +1,7 @@
 # Iroha 2 vs. Iroha 1
 
 Iroha 2 is a **complete** re-write of Hyperledger Iroha in Rust. As of
-writing the two projects are developed concurrently.
+writing, the two projects are developed concurrently.
 
 In this introduction we outline the differences between the two versions of
 Iroha and highlight the new features of Iroha 2. It should be of particular
@@ -10,13 +10,13 @@ and start using the newer version.
 
 ::: info
 
-Note that Iroha 1 and Iroha 2 are not compatible. The projects are very
+Note that Iroha 1 and Iroha 2 are not compatible. Both projects are very
 different in their approaches and implementations as we present in the
 comparison below.
 
 Among other changes, cryptography and account structures are implemented
 differently, meaning that users would have to generate new keys and link to
-their old account through a centralized service, and no data from Iroha 1
+their old account through a centralized service and no data from Iroha 1
 would be accessible from Iroha 2.
 
 :::
