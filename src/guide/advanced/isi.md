@@ -124,10 +124,10 @@ are assumed to be non-negative as well, so you can never have `-1.0` of
 
 These are used for [permissions and roles](permissions.md).
 
-`Grant` is used to permanently grant a user either a single
-permission, or a group of permissions (a "role"). Granted roles and
-permissions can only be removed via the `Revoke` instruction. As such, these
-instructions should be used carefully.
+`Grant` is used to permanently grant a user either a single permission, or
+a group of permissions (a "role"). Granted roles and permissions can only
+be removed via the `Revoke` instruction. As such, these instructions should
+be used carefully.
 
 ### `SetKeyValue`/`RemoveKeyValue`
 
