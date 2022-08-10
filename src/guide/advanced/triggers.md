@@ -144,19 +144,15 @@ got registered, an asset got transferred, the Queen of Hearts decided to
 burn all of her assets.
 
 These types of events account for the vast majority of triggers in
-Ethereum, and were the first to be implemented. As of today, we only
-support un-scoped system-wide triggers with no permission validation. Work
-is ongoing to make the triggers safer and more reliable, but the process is
-time-consuming and work-intensive. <!-- Q: still true? -->
-
-<!-- Check: a reference about future releases or work in progress -->
+Ethereum, and were the first to be implemented. The LTS version of Iroha
+only supports un-scoped system-wide triggers with no permission validation.
 
 ::: info
 
 Be mindful of the limitations. Currently triggers don't check for
 permissions <!-- Q: still true? -->, so they can do things your account
-wouldn't be allowed to. Since the triggers are not scoped, every trigger
-processes _every_ event, and the amount of work grows quadratically.
+wouldn't be allowed to. Un-scoped triggers process _every_ event, and the
+amount of work grows quadratically.
 
 <!-- Check: a reference about future releases or work in progress -->
 
