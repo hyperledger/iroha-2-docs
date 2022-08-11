@@ -91,6 +91,10 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
           text: 'Queries',
           link: '/guide/advanced/queries',
         },
+        {
+          text: 'Permissions',
+          link: '/guide/advanced/permissions',          
+        },
       ],
     },
     {

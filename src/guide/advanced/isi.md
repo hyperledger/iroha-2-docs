@@ -122,15 +122,12 @@ are assumed to be non-negative as well, so you can never have `-1.0` of
 
 ### Grant/Revoke
 
-These are used for permissions and roles.
+These are used for [permissions and roles](permissions.md).
 
-When minting a permission token, a user is granted `X` amount of
-permissions to do `Y`, and the token will expire once all `X` operations
-were performed.
-
-By contrast, the `Grant` operation can be used to permanently grant a user
-either a single permission, or a group of permissions (a "role"). As such
-these instructions should be used carefully.
+`Grant` is used to permanently grant a user either a single permission, or
+a group of permissions (a "role"). Granted roles and permissions can only
+be removed via the `Revoke` instruction. As such, these instructions should
+be used carefully.
 
 ### `SetKeyValue`/`RemoveKeyValue`
 

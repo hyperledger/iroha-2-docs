@@ -5,5 +5,5 @@ and hit you hard with the features that make Iroha truly special.
 
 Here we cover in some breadth the [Iroha special instructions](./isi.md),
 [Web-assembly](./wasm.md), and how both are used in creating what's known
-as a _smart contract_. We also explain the [triggers](./triggers.md) and
-[queries](./queries.md) in detail.
+as a _smart contract_. We also explain the [triggers](./triggers.md),
+[queries](./queries.md), and [permissions](./permissions.md) in detail.

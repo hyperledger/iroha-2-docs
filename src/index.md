@@ -61,7 +61,6 @@ week.
 
 In the future this tutorial will have sections dedicated to:
 
-- permissions
 - multi-signature accounts and transactions
 - custom permission validators
 - permission groups
