@@ -184,6 +184,7 @@ Additionally, the assets have different underlying value types.
 Asset creation is by far the most cumbersome:
 
 ```python
+import iroha2.data_model.asset as asset
 from iroha2.sys.iroha_data_model import Value
 
 time = asset.Definition(
