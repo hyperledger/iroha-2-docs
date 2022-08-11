@@ -185,11 +185,12 @@ Asset creation is by far the most cumbersome:
 
 ```python
 import iroha2.data_model.asset as asset
+from iroha2.sys.iroha_data_model import Value
 
 time = asset.Definition(
     value_type=asset.ValueType.Quantity,
     id=asset.DefinitionId(name="time", domain_name="looking_glass"),
-    metadata={},
+    metadata={"a": Value.U32(10)},
     mintable=False
 )
 ```
@@ -210,9 +211,7 @@ number), will result in an error.
 Continuing the theme of explicit typing, the `asset.DefinitionId` is its
 own type. We could have also written
 `asset.DefinitionId.parse("time#looking_glass")`, but making sure that you
-know what's going on is more useful in this case. Here, the `metadata` is
-an empty dictionary. We won't go much into metadata, because it is out of
-the scope of this tutorial.
+know what's going on is more useful in this case.
 
 Finally, we have `mintable`. By default this is set to `True`, however,
 setting it to `False` means that any attempt to mint more of
