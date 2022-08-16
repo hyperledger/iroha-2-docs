@@ -174,6 +174,10 @@ While un-scoped triggers check all events of a specified type,
 domain-scoped triggers only look for events in a given domain. These
 triggers are more optimised compared to un-scoped triggers.
 
+Note that the
+[LTS version of Iroha 2](https://github.com/hyperledger/iroha/tree/iroha2-lts)
+**does not** support domain-scoped triggers.
+
 You can use [`FindTriggersByDomainId`](./queries.md#findtriggersbydomainid)
 query to find triggers for the given domain.
 
