@@ -166,6 +166,22 @@ you have to `Register` it again, with the same name.
 
 <!-- TODO: test if reaches zero needs to re-register. -->
 
+### Domain-scoped Triggers
+
+::: stable
+
+While un-scoped triggers check all events of a specified type,
+domain-scoped triggers only look for events in a given domain. These
+triggers are more optimised compared to un-scoped triggers.
+
+You can use [`FindTriggersByDomainId`](./queries.md#findtriggersbydomainid)
+query to find triggers for the given domain.
+
+When you register a domain-scoped trigger, you need to add the domain id to
+the trigger id using `$` symbol: `my_trigger$my_domain`.
+
+:::
+
 ### Timed Triggers
 
 They are the same as event triggers, but they behave slightly™ differently.

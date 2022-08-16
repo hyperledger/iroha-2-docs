@@ -534,8 +534,12 @@ listeners called filters.
 
 ### `FindTriggersByDomainId`
 
+::: stable
+
 - **Parameters**: `DomainId`
 
 - **Returns**: `Vec<Trigger>`
 
 - **Details**: Finds all domain triggers for the given domain ID.
+
+:::
