@@ -159,6 +159,16 @@ blockchains but the use cases are different:
 We talk about permissions in more detail in a
 [dedicated chapter](./permissions.md).
 
+### `FindAllPermissionTokenDefinitions`
+
+::: stable
+
+- **Returns**: `Vec<PermissionTokenDefinition>`
+
+- **Details**: Finds all registered permission token definitions.
+
+:::
+
 ### `FindPermissionTokensByAccountId`
 
 - **Parameters**: `AccountId`
