@@ -24,12 +24,12 @@ the conversion process (more on the name mangling semantics in a
 The traits that enable binding generation are `ReprC`, `AsReprCRef`,
 `TryFromReprC`, and `IntoFfi`:
 
-| Trait          | Description                                                                                                       |
-| -------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Trait          | Description                                                                                                        |
+| -------------- | ------------------------------------------------------------------------------------------------------------------ |
 | `ReprC`        | This trait represents the robust type that conforms to C ABI. The type can be safely shared across FFI boundaries. |
 | `AsReprCRef`   | This trait is used to convert from a Rust type reference to `ReprC` reference.                                     |
-| `TryFromReprC` | This trait is used to perform a conversion from a type that implements `ReprC`.                                      |
-| `IntoFfi`      | This trait is used to convert into a type that can then be converted to an FFI-compatible `ReprC` type.                 |
+| `TryFromReprC` | This trait is used to perform a conversion from a type that implements `ReprC`.                                    |
+| `IntoFfi`      | This trait is used to convert into a type that can then be converted to an FFI-compatible `ReprC` type.            |
 
 Note that there is no ownership transfer over FFI except for opaque pointer
 types.
