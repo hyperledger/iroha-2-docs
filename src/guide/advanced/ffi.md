@@ -2,7 +2,7 @@
 
 As we mentioned before, Iroha 2 relies on the C-linkage to generate
 [WASM](./wasm.md) bindings, and the `iroha_wasm` crate deals with foreign
-function interfaces (FFI). Here we discuss in more details how Iroha 2
+function interfaces (FFI). Here we will discuss in more detail how Iroha 2
 handles FFI logic.
 
 ## FFI Binding Generation
@@ -26,10 +26,10 @@ The traits that enable binding generation are `ReprC`, `AsReprCRef`,
 
 | Trait          | Description                                                                                                       |
 | -------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `ReprC`        | The trait represents the robust type that conforms to C ABI. The type can be safely shared across FFI boundaries. |
-| `AsReprCRef`   | The trait is used to convert from a Rust type reference to `ReprC` reference.                                     |
-| `TryFromReprC` | The trait is used to perform conversion from a type that implements `ReprC`.                                      |
-| `IntoFfi`      | The trait is used to convert into a type that can be converted to an FFI-compatible `ReprC` type.                 |
+| `ReprC`        | This trait represents the robust type that conforms to C ABI. The type can be safely shared across FFI boundaries. |
+| `AsReprCRef`   | This trait is used to convert from a Rust type reference to `ReprC` reference.                                     |
+| `TryFromReprC` | This trait is used to perform a conversion from a type that implements `ReprC`.                                      |
+| `IntoFfi`      | This trait is used to convert into a type that can then be converted to an FFI-compatible `ReprC` type.                 |
 
 Note that there is no ownership transfer over FFI except for opaque pointer
 types.
