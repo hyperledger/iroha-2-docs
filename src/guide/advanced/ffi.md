@@ -24,6 +24,8 @@ the conversion process (more on the name mangling semantics in a
 The traits that enable binding generation are `ReprC`, `AsReprCRef`,
 `TryFromReprC`, and `IntoFfi`:
 
+<!-- Check: might change in future releases -->
+
 | Trait          | Description                                                                                                        |
 | -------------- | ------------------------------------------------------------------------------------------------------------------ |
 | `ReprC`        | This trait represents the robust type that conforms to C ABI. The type can be safely shared across FFI boundaries. |
@@ -40,13 +42,25 @@ Note the use of double underscores in generated names of FFI objects:
 
 - For the `inherent_fn` function in the `StructName` struct, the FFI name
   would be `StructName__inherent_fn`.
-- For the `trait_method_name` method in `StructName` struct, the FFI name
-  would be `StructName__trait_method_name`.
+- For the `MethodName` method from the `TraitName` trait in `StructName`
+  struct, the FFI name would be `StructName__TraitName__MethodName`.
 - For setting the `field_name` field in `StructName` struct, the FFI name
   would be `StrucuName__set_field_name`.
 - For getting the `field_name` field in `StructName` struct, the FFI name
   would be `StrucuName__field_name`.
 - For getting the mutable `field_name` field in `StructName` struct, the
   FFI name would be `StrucuName__field_name_mut`.
-- For the freestanding `fn_name` function in `module_name`, the FFI name would be
-  `module_name::__fn_name`.
+- For the freestanding `fn_name` function in `module_name`, the FFI name
+  would be `module_name::__fn_name`.
+- For the traits that are not generic and allow sharing their
+  implementation in the FFI (see `Clone` below), the FFI name would be
+  `module_name::__clone`.
+
+  ```rust
+  impl Clone for Type1 {
+      fn clone(&self) -> Self;
+  }
+  impl Clone for Type2 {
+      fn clone(&self) -> Self;
+  }
+  ```
