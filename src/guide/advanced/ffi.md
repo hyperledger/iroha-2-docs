@@ -48,5 +48,5 @@ Note the use of double underscores in generated names of FFI objects:
   would be `StrucuName__field_name`.
 - For getting the mutable `field_name` field in `StructName` struct, the
   FFI name would be `StrucuName__field_name_mut`.
-- For the `method_name` method in `module_name`, the FFI name would be
-  `module__name::__method_name`.
+- For the freestanding `fn_name` function in `module_name`, the FFI name would be
+  `module_name::__fn_name`.
