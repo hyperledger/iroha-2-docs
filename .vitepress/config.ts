@@ -84,6 +84,10 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
           link: '/guide/advanced/wasm',
         },
         {
+          text: 'Foreign Function Interfaces',
+          link: '/guide/advanced/ffi',
+        },
+        {
           text: 'Triggers',
           link: '/guide/advanced/triggers',
         },
