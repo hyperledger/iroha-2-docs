@@ -10,7 +10,7 @@ handles FFI logic.
 The `iroha_ffi` crate is used to generate functions that are callable via
 FFI.
 
-A Rust structure is converted into an intermediary FFI struct via `IntoFfi`
+A Rust structure is converted into an intermediary FFI struct via the `IntoFfi`
 trait, which implements the `AsReprCRef` trait, and can be converted into a
 type that can cross FFI boundary. This goes the other way around as well:
 FFI ReprC type is converted into a struct via `TryFromReprC`.
