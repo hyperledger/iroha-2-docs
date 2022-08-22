@@ -217,12 +217,13 @@ then the issue runs deeper.
     cd ~/Git/iroha
     ```
 
-5.  Choose the right branch. You can use the `iroha2-lts` branch, which is the
-    long-term support release, or the branch with the latest stable release
-    (`iroha2`). To checkout the branch with the stable release, run:
+5.  Choose the right branch. You can use the `iroha2-lts` branch, which is
+    the long-term support release, or the branch with the latest stable
+    release (`iroha2-stable`). To checkout the branch with the stable
+    release, run:
 
     ```bash
-    git checkout iroha2
+    git checkout iroha2-stable
     ```
 
 6.  After you have successfully cloned the Iroha git repository and are on
