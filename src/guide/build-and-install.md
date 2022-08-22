@@ -150,6 +150,29 @@ rustup toolchain install stable
 If after all of this work, you still don’t seem to have the right version,
 then the issue runs deeper.
 
+:::
+
+## Install OpenSSL
+
+Make sure you have OpenSSL installed. Note that in most Linux setups it is
+already available to you.
+
+- Install OpenSSL on Ubuntu:
+
+  ```bash
+  sudo apt-get install libssl-dev
+  ```
+
+- Install OpenSSL on macOS using [brew](https://brew.sh/):
+
+  ```bash
+  brew install openssl
+  ```
+
+Check
+[OpenSSL installation guide](https://github.com/openssl/openssl/blob/master/INSTALL.md)
+for details.
+
 ## Install Iroha from GitHub
 
 If you haven't already, you might want to create a clean folder for Iroha
