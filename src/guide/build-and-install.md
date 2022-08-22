@@ -184,13 +184,13 @@ then the issue runs deeper.
 Make sure you have OpenSSL installed. Note that in most Linux setups it is
 already available to you.
 
-- Instal OpenSSL on Ubuntu:
+- Install OpenSSL on Ubuntu:
 
   ```bash
   sudo apt-get install libssl-dev
   ```
 
-- Instal OpenSSL on macOS:
+- Install OpenSSL on macOS:
 
   ```bash
   brew install openssl
