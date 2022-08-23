@@ -190,7 +190,7 @@ already available to you.
   sudo apt-get install libssl-dev
   ```
 
-- Install OpenSSL on macOS using [`brew`](https://brew.sh/):
+- Install OpenSSL on macOS using [brew](https://brew.sh/):
 
   ```bash
   brew install openssl
