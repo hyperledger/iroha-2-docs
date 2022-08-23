@@ -26,7 +26,7 @@ To install these packages, you first need to set up a registry:
 
 ```ini
 # FILE: .npmrc
-@iroha2:registry=https://nexus.iroha.tech/repository/npm-group/
+echo "@iroha2:registry=https://nexus.iroha.tech/repository/npm-group/" > .npmrc
 ```
 
 Then you can install these packages as any other NPM package:
