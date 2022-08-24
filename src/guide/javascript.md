@@ -22,9 +22,10 @@ The Iroha 2 JavaScript library consists of multiple packages:
 
 All of these are published under the `@iroha2` scope into Iroha Nexus
 Registry. In the future, they will be published in the main NPM Registry.
-To install these packages, you first need to set up a registry:
+To install these packages, you first need to set up a registry. In shell,
+run:
 
-```ini
+```bash
 # FILE: .npmrc
 echo "@iroha2:registry=https://nexus.iroha.tech/repository/npm-group/" > .npmrc
 ```
