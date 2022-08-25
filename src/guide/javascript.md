@@ -155,6 +155,8 @@ tsx example.ts
 
    :::
 
+::: info
+
 Note that when you are going to create files for the following steps in the
 tutorial, you have to place them on the same level as the `node_modules`
 directory:
@@ -166,6 +168,8 @@ Use `tsx` to run the scripts you've created. For example:
 ```bash
 tsx example.ts
 ```
+
+:::
 
 ## 2. Client Configuration
 
