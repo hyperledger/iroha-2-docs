@@ -101,7 +101,10 @@ installing the packages you need.
 
    :::
 
-::: info
+   ```bash
+   yarn add @iroha2/data-model
+   pnpm add @iroha2/crypto-target-web
+   ```
 
 **Note**: when you are creating files in the following steps, you must
 place them in the same directory that contains `node_modules`, like so:
@@ -114,7 +117,43 @@ Use `tsx` to run the scripts you've created. For example:
 tsx example.ts
 ```
 
-:::
+   The set of packages that you need to install depends on your intention.
+   Maybe you only need to play with the Data Model to perform
+   (de-)serialisation, in which case the `data-model` package is enough. If
+   you only need to check on a peer in terms of its status or health, you
+   just need the client library, because this API doesn't require any
+   interactions with crypto or Data Model.
+
+3. Install the following packages as well:
+
+   ```bash
+   npm i hada
+   npm i tsx -g
+   ```
+
+4. If you are planning to use the Transaction or Query API, you'll also
+   need to inject an appropriate `crypto` instance into the client at
+   runtime. This has to be adjusted depending on your particular
+   environment.
+
+   For example, for Node.js users, such an injection may look like the
+   following:
+
+   ```ts
+   import { crypto } from '@iroha2/crypto-target-node'
+   import { setCrypto } from '@iroha2/client'
+
+   setCrypto(crypto)
+   ```
+
+   ::: info
+
+   Please refer to the related `@iroha2/crypto-target-*` package
+   documentation because it may require some specific configuration. For
+   example, the `web` target requires to call an asynchronous `init()`
+   function before using `crypto`.
+
+   :::
 
 ## 2. Client Configuration
 
