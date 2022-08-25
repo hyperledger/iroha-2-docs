@@ -22,54 +22,82 @@ The Iroha 2 JavaScript library consists of multiple packages:
 
 All of these are published under the `@iroha2` scope into Iroha Nexus
 Registry. In the future, they will be published in the main NPM Registry.
-To install these packages, you first need to set up a registry. In shell,
-run:
 
-```bash
-# FILE: .npmrc
-echo "@iroha2:registry=https://nexus.iroha.tech/repository/npm-group/" > .npmrc
-```
+In general, the packages are maximally decoupled, so you can minimise the
+footprint. However, for the purposes of this tutorial, it's better to
+**install everything**.
 
-Then you can install these packages as any other NPM package:
+The installation consists of two steps: setting up a registry and
+installing the packages you need.
 
-```bash
-npm i @iroha2/client
-yarn add @iroha2/data-model
-pnpm add @iroha2/crypto-target-web
-```
+1. Set up a registry. In shell, run:
 
-The set of packages that you need to install depends on your intention.
-Maybe you only need to play with the Data Model to perform
-(de-)serialisation, in which case the `data-model` package is enough. If
-you only need to check on a peer in terms of its status or health, you just
-need the client library, because this API doesn't require any interactions
-with crypto or Data Model.
+   ```bash
+   # FILE: .npmrc
+   echo "@iroha2:registry=https://nexus.iroha.tech/repository/npm-group/" > .npmrc
+   ```
 
-For the purposes of this tutorial, it's better to install everything.
-However, in general, the packages are maximally decoupled, so you can
-minimise the footprint.
+2. Install Iroha 2 packages as any other NPM package. If you are following
+   the tutorial, we recommend installing all of these:
 
-Moving on, if you are planning to use the Transaction or Query API, you'll
-also need to inject an appropriate `crypto` instance into the client at
-runtime. This has to be adjusted depending on your particular environment.
-For example, for Node.js users, such an injection may look like the
-following:
+   ```bash
+   npm i @iroha2/client
+   npm i @iroha2/data-model
+   npm i @iroha2/crypto-core
+   npm i @iroha2/crypto-target-node
+   npm i @iroha2/crypto-target-web
+   npm i @iroha2/crypto-target-bundler
+   ```
 
-```ts
-import { crypto } from '@iroha2/crypto-target-node'
-import { setCrypto } from '@iroha2/client'
+   ::: info
 
-setCrypto(crypto)
-```
+   Note that you can use other package managers, such as yarn or pnpm, for
+   a faster installation. For example:
 
-::: info
+   ```bash
+   yarn add @iroha2/data-model
+   pnpm add @iroha2/crypto-target-web
+   ```
 
-Please refer to the related `@iroha2/crypto-target-*` package documentation
-because it may require some specific configuration. For example, the `web`
-target requires to call an asynchronous `init()` function before using
-`crypto`.
+   :::
 
-:::
+   The set of packages that you need to install depends on your intention.
+   Maybe you only need to play with the Data Model to perform
+   (de-)serialisation, in which case the `data-model` package is enough. If
+   you only need to check on a peer in terms of its status or health, you
+   just need the client library, because this API doesn't require any
+   interactions with crypto or Data Model.
+
+3. Install the following packages as well:
+
+   ```bash
+   npm i hada
+   npm i tsx -g
+   ```
+
+4. If you are planning to use the Transaction or Query API, you'll also
+   need to inject an appropriate `crypto` instance into the client at
+   runtime. This has to be adjusted depending on your particular
+   environment.
+
+   For example, for Node.js users, such an injection may look like the
+   following:
+
+   ```ts
+   import { crypto } from '@iroha2/crypto-target-node'
+   import { setCrypto } from '@iroha2/client'
+
+   setCrypto(crypto)
+   ```
+
+   ::: info
+
+   Please refer to the related `@iroha2/crypto-target-*` package
+   documentation because it may require some specific configuration. For
+   example, the `web` target requires to call an asynchronous `init()`
+   function before using `crypto`.
+
+   :::
 
 ## 2. Client Configuration
 
