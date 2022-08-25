@@ -39,9 +39,15 @@ Please note that this guide does not cover the details of this workflow.
 
 :::
 
+<<<<<<< HEAD
+>>>>>>> a82c2c1 (Apply suggestions from code review)
 While we've taken great care to decouple the packages, so you could
 minimise their footprint, for the purposes of this tutorial, it's better to
 install everything.
+=======
+While we've taken great care to maximally decouple the packages, so you can minimise the
+footprint, for the purposes of this tutorial, it's better to install everything. 
+>>>>>>> d068217 (Apply suggestions from code review)
 
 The installation consists of two steps: setting up a registry and then
 installing the packages you need.
@@ -147,11 +153,10 @@ tsx example.ts
 
 4. If you are planning to use the Transaction or Query API, you'll also
    need to inject an appropriate `crypto` instance into the client at
-   runtime. This has to be adjusted depending on your particular
+   runtime. This has to be adjusted according to your particular
    environment.
 
-   For example, for Node.js users, such an injection may look like the
-   following:
+   For example, Node.js users need the following:
 
    ```ts
    import { crypto } from '@iroha2/crypto-target-node'
@@ -162,18 +167,18 @@ tsx example.ts
 
    ::: info
 
-   Please refer to the related `@iroha2/crypto-target-*` package
-   documentation because it may require some specific configuration. For
-   example, the `web` target requires to call an asynchronous `init()`
-   function before using `crypto`.
+   Please refer to the respective `@iroha2/crypto-target-*` package's
+   documentation.  because each case has specific configuration steps. 
+   For example, the `web` target needs to be initialised (by calling the #
+   asynchronous `init()` function) before you can use cryptographic methods. 
 
    :::
 
 ::: info
 
-Note that when you are going to create files for the following steps in the
-tutorial, you have to place them on the same level as the `node_modules`
-directory:
+**Note**:  when you are  creating files in the following steps, 
+you must place them on the same level as (i.e. in the directory which contains) 
+the `node_modules` directory like so:
 
 <img src="../img/js-files.jpg" alt="JS project" width="300"/>
 
