@@ -5,6 +5,8 @@
 This guide targets `@iroha2/client` and `@iroha/data-model` version
 **`^1.2`**.
 
+This guide assumes you are familiar with Node.js and NPM ecosystem.
+
 :::
 
 ## 1. Client Installation
@@ -23,8 +25,9 @@ The Iroha 2 JavaScript library consists of multiple packages:
 All of these are published under the `@iroha2` scope into Iroha Nexus
 Registry. In the future, they will be published in the main NPM Registry.
 
-While we've taken great care to maximally decouple the packages, so you can minimise the
-footprint, for the purposes of this tutorial, it's better to install everything. 
+While we've taken great care to decouple the packages, so you could
+minimise their footprint, for the purposes of this tutorial, it's better to
+install everything.
 
 The installation consists of two steps: setting up a registry and then
 installing the packages you need.
@@ -50,8 +53,9 @@ installing the packages you need.
 
    ::: info
 
-   Note that you can use other package managers, such as [yarn](https://yarnpkg.com) or [pnpm](https://pnpm.io), for
-   a faster installation. For example:
+   Note that you can use other package managers, such as
+   [yarn](https://yarnpkg.com) or [pnpm](https://pnpm.io), for a faster
+   installation. For example:
 
    ```bash
    yarn add @iroha2/data-model
@@ -60,11 +64,11 @@ installing the packages you need.
 
    :::
 
-   The set of packages that you need to install depends on your intentions. 
-   If you only need to play with the Data Model to perform
-   (de-)serialisation,  the `data-model` package is sufficient. If
-   you need to check on a peer in terms of its status or health, you
-   only need the client library. 
+   The set of packages that you need to install depends on what you are
+   trying to achieve. If you only need to play with the Data Model to
+   perform (de-)serialisation, the `data-model` package is sufficient. If
+   you need to check on a peer in terms of its status or health, then you
+   only need the client library.
 
 3. Install the following packages as well:
 
@@ -89,18 +93,18 @@ installing the packages you need.
 
    ::: info
 
-   Please refer to the respective `@iroha2/crypto-target-*` package's
-   documentation.  because each case has specific configuration steps. 
-   For example, the `web` target needs to be initialised (by calling the #
-   asynchronous `init()` function) before you can use cryptographic methods. 
+   Please refer to the documentation of the respective
+   `@iroha2/crypto-target-*` package, because each case has specific
+   configuration steps. For example, the `web` target needs to be
+   initialised (via asynchronous `init()`) before you can use any
+   cryptographic methods.
 
    :::
 
 ::: info
 
-**Note**:  when you are  creating files in the following steps, 
-you must place them on the same level as (i.e. in the directory which contains) 
-the `node_modules` directory like so:
+**Note**: when you are creating files in the following steps, you must
+place them in the same directory that contains `node_modules`, like so:
 
 <img src="../img/js-files.jpg" alt="JS project" width="300"/>
 
