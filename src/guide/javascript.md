@@ -23,11 +23,10 @@ The Iroha 2 JavaScript library consists of multiple packages:
 All of these are published under the `@iroha2` scope into Iroha Nexus
 Registry. In the future, they will be published in the main NPM Registry.
 
-In general, the packages are maximally decoupled, so you can minimise the
-footprint. However, for the purposes of this tutorial, it's better to
-**install everything**.
+While we've taken great care to maximally decouple the packages, so you can minimise the
+footprint, for the purposes of this tutorial, it's better to install everything. 
 
-The installation consists of two steps: setting up a registry and
+The installation consists of two steps: setting up a registry and then
 installing the packages you need.
 
 1. Set up a registry. In shell, run:
@@ -38,7 +37,7 @@ installing the packages you need.
    ```
 
 2. Install Iroha 2 packages as any other NPM package. If you are following
-   the tutorial, we recommend installing all of these:
+   the tutorial, we recommend installing all of the following:
 
    ```bash
    npm i @iroha2/client
@@ -51,7 +50,7 @@ installing the packages you need.
 
    ::: info
 
-   Note that you can use other package managers, such as yarn or pnpm, for
+   Note that you can use other package managers, such as [yarn](https://yarnpkg.com) or [pnpm](https://pnpm.io), for
    a faster installation. For example:
 
    ```bash
@@ -61,12 +60,11 @@ installing the packages you need.
 
    :::
 
-   The set of packages that you need to install depends on your intention.
-   Maybe you only need to play with the Data Model to perform
-   (de-)serialisation, in which case the `data-model` package is enough. If
-   you only need to check on a peer in terms of its status or health, you
-   just need the client library, because this API doesn't require any
-   interactions with crypto or Data Model.
+   The set of packages that you need to install depends on your intentions. 
+   If you only need to play with the Data Model to perform
+   (de-)serialisation,  the `data-model` package is sufficient. If
+   you need to check on a peer in terms of its status or health, you
+   only need the client library. 
 
 3. Install the following packages as well:
 
@@ -77,11 +75,10 @@ installing the packages you need.
 
 4. If you are planning to use the Transaction or Query API, you'll also
    need to inject an appropriate `crypto` instance into the client at
-   runtime. This has to be adjusted depending on your particular
+   runtime. This has to be adjusted according to your particular
    environment.
 
-   For example, for Node.js users, such an injection may look like the
-   following:
+   For example, Node.js users need the following:
 
    ```ts
    import { crypto } from '@iroha2/crypto-target-node'
@@ -92,18 +89,18 @@ installing the packages you need.
 
    ::: info
 
-   Please refer to the related `@iroha2/crypto-target-*` package
-   documentation because it may require some specific configuration. For
-   example, the `web` target requires to call an asynchronous `init()`
-   function before using `crypto`.
+   Please refer to the respective `@iroha2/crypto-target-*` package's
+   documentation.  because each case has specific configuration steps. 
+   For example, the `web` target needs to be initialised (by calling the #
+   asynchronous `init()` function) before you can use cryptographic methods. 
 
    :::
 
 ::: info
 
-Note that when you are going to create files for the following steps in the
-tutorial, you have to place them on the same level as the `node_modules`
-directory:
+**Note**:  when you are  creating files in the following steps, 
+you must place them on the same level as (i.e. in the directory which contains) 
+the `node_modules` directory like so:
 
 <img src="../img/js-files.jpg" alt="JS project" width="300"/>
 
