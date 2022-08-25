@@ -5,6 +5,8 @@
 This guide targets `@iroha2/client` and `@iroha/data-model` version
 **`^1.2`**.
 
+This guide assumes you are familiar with Node.js and NPM ecosystem.
+
 :::
 
 ## 1. Client Installation
@@ -22,52 +24,95 @@ The Iroha 2 JavaScript library consists of multiple packages:
 
 All of these are published under the `@iroha2` scope into Iroha Nexus
 Registry. In the future, they will be published in the main NPM Registry.
-To install these packages, you first need to set up a registry. In shell,
-run:
 
-```bash
-# FILE: .npmrc
-echo "@iroha2:registry=https://nexus.iroha.tech/repository/npm-group/" > .npmrc
-```
+While we've taken great care to decouple the packages, so you could
+minimise their footprint, for the purposes of this tutorial, it's better to
+install everything.
 
-Then you can install these packages as any other NPM package:
+The installation consists of two steps: setting up a registry and then
+installing the packages you need.
 
-```bash
-npm i @iroha2/client
-yarn add @iroha2/data-model
-pnpm add @iroha2/crypto-target-web
-```
+1. Set up a registry. In shell, run:
 
-The set of packages that you need to install depends on your intention.
-Maybe you only need to play with the Data Model to perform
-(de-)serialisation, in which case the `data-model` package is enough. If
-you only need to check on a peer in terms of its status or health, you just
-need the client library, because this API doesn't require any interactions
-with crypto or Data Model.
+   ```bash
+   # FILE: .npmrc
+   echo "@iroha2:registry=https://nexus.iroha.tech/repository/npm-group/" > .npmrc
+   ```
 
-For the purposes of this tutorial, it's better to install everything.
-However, in general, the packages are maximally decoupled, so you can
-minimise the footprint.
+2. Install Iroha 2 packages as any other NPM package. If you are following
+   the tutorial, we recommend installing all of the following:
 
-Moving on, if you are planning to use the Transaction or Query API, you'll
-also need to inject an appropriate `crypto` instance into the client at
-runtime. This has to be adjusted depending on your particular environment.
-For example, for Node.js users, such an injection may look like the
-following:
+   ```bash
+   npm i @iroha2/client
+   npm i @iroha2/data-model
+   npm i @iroha2/crypto-core
+   npm i @iroha2/crypto-target-node
+   npm i @iroha2/crypto-target-web
+   npm i @iroha2/crypto-target-bundler
+   ```
 
-```ts
-import { crypto } from '@iroha2/crypto-target-node'
-import { setCrypto } from '@iroha2/client'
+   ::: info
 
-setCrypto(crypto)
-```
+   Note that you can use other package managers, such as
+   [yarn](https://yarnpkg.com) or [pnpm](https://pnpm.io), for a faster
+   installation. For example:
+
+   ```bash
+   yarn add @iroha2/data-model
+   pnpm add @iroha2/crypto-target-web
+   ```
+
+   :::
+
+   The set of packages that you need to install depends on what you are
+   trying to achieve. If you only need to play with the Data Model to
+   perform (de-)serialisation, the `data-model` package is sufficient. If
+   you need to check on a peer in terms of its status or health, then you
+   only need the client library.
+
+3. Install the following packages as well:
+
+   ```bash
+   npm i hada
+   npm i tsx -g
+   ```
+
+4. If you are planning to use the Transaction or Query API, you'll also
+   need to inject an appropriate `crypto` instance into the client at
+   runtime. This has to be adjusted according to your particular
+   environment.
+
+   For example, Node.js users need the following:
+
+   ```ts
+   import { crypto } from '@iroha2/crypto-target-node'
+   import { setCrypto } from '@iroha2/client'
+
+   setCrypto(crypto)
+   ```
+
+   ::: info
+
+   Please refer to the documentation of the respective
+   `@iroha2/crypto-target-*` package, because each case has specific
+   configuration steps. For example, the `web` target needs to be
+   initialised (via asynchronous `init()`) before you can use any
+   cryptographic methods.
+
+   :::
 
 ::: info
 
-Please refer to the related `@iroha2/crypto-target-*` package documentation
-because it may require some specific configuration. For example, the `web`
-target requires to call an asynchronous `init()` function before using
-`crypto`.
+**Note**: when you are creating files in the following steps, you must
+place them in the same directory that contains `node_modules`, like so:
+
+<img src="../img/js-files.jpg" alt="JS project" width="300"/>
+
+Use `tsx` to run the scripts you've created. For example:
+
+```bash
+tsx example.ts
+```
 
 :::
 
