@@ -155,6 +155,18 @@ tsx example.ts
 
    :::
 
+Note that when you are going to create files for the following steps in the
+tutorial, you have to place them on the same level as the `node_modules`
+directory:
+
+![JS project](../img/js-files.jpg)
+
+Use `tsx` to run the scripts you've created. For example:
+
+```
+tsx example.ts
+```
+
 ## 2. Client Configuration
 
 The JavaScript Client is fairly low-level in a sense that it doesn't expose
