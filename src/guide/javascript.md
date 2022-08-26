@@ -25,14 +25,23 @@ The Iroha 2 JavaScript library consists of multiple packages:
 All of these are published under the `@iroha2` scope into Iroha Nexus
 Registry. In the future, they will be published in the main NPM Registry.
 
-<<<<<<< HEAD
+::: info
+
+You can also work with the sources in Iroha Javascript repository, where
+the active development is happening. Clone the repository and check out the
+`iroha2` branch:
+
+```bash
+git clone https://github.com/hyperledger/iroha-javascript.git --branch iroha2
+```
+
+Please note that this guide does not cover the details of this workflow.
+
+:::
+
 While we've taken great care to decouple the packages, so you could
 minimise their footprint, for the purposes of this tutorial, it's better to
 install everything.
-=======
-While we've taken great care to maximally decouple the packages, so you can minimise the
-footprint, for the purposes of this tutorial, it's better to install everything. 
->>>>>>> d068217 (Apply suggestions from code review)
 
 The installation consists of two steps: setting up a registry and then
 installing the packages you need.
