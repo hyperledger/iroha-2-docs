@@ -22,14 +22,7 @@ repository into it:
 
 ```bash
 cd ~/Git/
-git clone https://github.com/hyperledger/iroha-python/tree/iroha2
-```
-
-We need the `iroha2` branch:
-
-```bash
-cd ~/Git/iroha-python
-git checkout iroha2
+git clone https://github.com/hyperledger/iroha-python/ --branch iroha2
 ```
 
 Iroha Python is written in Rust using the PyO3 library. Thus, unlike most
