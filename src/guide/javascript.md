@@ -39,15 +39,9 @@ Please note that this guide does not cover the details of this workflow.
 
 :::
 
-<<<<<<< HEAD
->>>>>>> a82c2c1 (Apply suggestions from code review)
 While we've taken great care to decouple the packages, so you could
 minimise their footprint, for the purposes of this tutorial, it's better to
 install everything.
-=======
-While we've taken great care to maximally decouple the packages, so you can minimise the
-footprint, for the purposes of this tutorial, it's better to install everything. 
->>>>>>> d068217 (Apply suggestions from code review)
 
 The installation consists of two steps: setting up a registry and then
 installing the packages you need.
@@ -168,16 +162,16 @@ tsx example.ts
    ::: info
 
    Please refer to the respective `@iroha2/crypto-target-*` package's
-   documentation.  because each case has specific configuration steps. 
+   documentation.  because each case has specific configuration steps.
    For example, the `web` target needs to be initialised (by calling the #
-   asynchronous `init()` function) before you can use cryptographic methods. 
+   asynchronous `init()` function) before you can use cryptographic methods.
 
    :::
 
 ::: info
 
-**Note**:  when you are  creating files in the following steps, 
-you must place them on the same level as (i.e. in the directory which contains) 
+**Note**:  when you are  creating files in the following steps,
+you must place them on the same level as (i.e. in the directory which contains)
 the `node_modules` directory like so:
 
 <img src="../img/js-files.jpg" alt="JS project" width="300"/>
