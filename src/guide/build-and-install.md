@@ -283,8 +283,8 @@ compilation:
   `docker-compose-local.yml`, which starts 4 connected containers with
   peers.
 
-Please note that there is an ongoing work to make `docker-compose` even
-more customizable with the help of Swarm.
+Please note that there is an ongoing work to make our configurations for
+Docker even more customizable with the help of Swarm.
 
 <!-- Check: a reference about future releases or work in progress -->
 
@@ -293,6 +293,8 @@ more customizable with the help of Swarm.
 Of course, installing Docker might seem like a daunting task, but it allows
 for reproducible management of configurations, which is oftentimes tricky
 on bare metal.
+
+<!-- Check Docker releases: `docker compose` is going to replace `docker-compose` -->
 
 ```bash
 docker-compose up
