@@ -106,7 +106,7 @@ your `ClientConfiguration` structure from a different location. Perhaps,
 you might want to build the configuration in place using the command-line
 arguments, or perhaps, you're using the XDG specification to store the file
 persistently in a different location. For this purpose, it's useful to try
-and construct the `ClientConfiguration`:
+and construct an instance of `ClientConfiguration`:
 
 ```rust
 use iroha_core::prelude::*;
