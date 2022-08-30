@@ -2,8 +2,11 @@
 
 ## Install the Rust Toolchain
 
-This is normally a straightforward process. This is not always true, so
-we've added some details for troubleshooting at each stage.
+While normally installing a Rust toolchain should be straightforward,
+sometimes it's not. If this is the case for you, please read the
+following troubleshooting guide carefully. Often there's no need to
+file a support ticket, and if you can solve the problem on your own,
+it's better to do so.
 
 The easiest way to get the official `rustup` script is to
 
@@ -39,7 +42,7 @@ Python: XKCD has a famous example of what that might look like.
 
 In the interest of preserving both your and our sanity, make sure that you
 have the right version of `cargo` paired with the right version of `rustc`
-(1.57 and 1.57) respectively. To show the versions, do
+(1.63 and 1.63) respectively. To show the versions, do
 
 ```bash
 cargo -V
@@ -238,7 +241,7 @@ network of 4 containerised peers using `docker-compose` . Of course,
 installing Docker might seem like a daunting task, but it allows for
 reproducible management of configurations, which is oftentimes tricky on
 bare metal. Please consult the
-[appendix](/guide/appendix/running-iroha-on-bare-metal) for how to do that.
+[appendix](/guide/advanced/running-iroha-on-bare-metal) for how to do that.
 
 ```bash
 docker compose up
