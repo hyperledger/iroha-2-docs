@@ -285,6 +285,7 @@ compilation:
 
 Please note that there is an ongoing work to make `docker-compose` even
 more customizable with the help of Swarm.
+
 <!-- Check: a reference about future releases or work in progress -->
 
 :::
