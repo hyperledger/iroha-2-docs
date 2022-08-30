@@ -271,6 +271,24 @@ You can run Iroha
 we recommend bringing up a network of 4 containerised peers using
 `docker-compose`.
 
+::: info
+
+In this tutorial we only cover the default `docker-compose.yml` with the
+image of Iroha 2. You might also be interested in other options for local
+compilation:
+
+- For testing Iroha code quickly, you can use `docker-compose-single.yml`,
+  which starts a container with a single peer.
+- For testing Iroha code in normal conditions, you can use
+  `docker-compose-local.yml`, which starts 4 connected containers with
+  peers.
+
+Please note that there is an ongoing work to make `docker-compose` even
+more customizable with the help of Swarm.
+<!-- Check: a reference about future releases or work in progress -->
+
+:::
+
 Of course, installing Docker might seem like a daunting task, but it allows
 for reproducible management of configurations, which is oftentimes tricky
 on bare metal.
