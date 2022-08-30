@@ -99,6 +99,10 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
           text: 'Permissions',
           link: '/guide/advanced/permissions',          
         },
+        {
+          text: 'Metadata',
+          link: '/guide/advanced/metadata',
+        },
       ],
     },
     {
