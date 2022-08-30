@@ -14,10 +14,13 @@ peer, prompt a response with details from the current world state view.
 
 ::: info
 
-As of writing, most queries can not be filtered, but can be
-[paginated](#pagination). As such, some queries, which we'll mark with a
-warning sign, should be used with great care, and you should think about
-the pagination scheme for them.
+In the LTS version of Iroha 2, most queries can not sorted, but can be
+[paginated](#pagination) and [filtered](#filters). As such, some queries,
+which we'll mark with a warning sign, should be used with great care, and
+you should think about the pagination scheme for them.
+
+The stable version of Iroha 2 implements [sorting](#sorting) that could be
+combined with pagination and filtering.
 
 :::
 
@@ -97,6 +100,55 @@ let starting_result: u32 = _;
 let limit: u32 = _;
 let pagination = Pagination::new(Some(starting_result), Some(limit));
 ```
+
+## Filters
+
+When you create a query, you can use a filter to only return the results
+that match the specified filter.
+
+<!-- TODO: add example -->
+
+## Sorting
+
+The LTS version of Iroha 2 **does not** support sorting query results.
+However, in the stable version of Iroha 2 we offer you the way to sort
+query results.
+
+::: stable
+
+Sorting only applies to entities that have [metadata](./metadata.md) as the
+metadata key is used to sort query results.
+
+You can combine sorting with pagination and filters. Note that sorting is
+an optional feature, most queries with pagination won't need it.
+
+:::
+
+## Create a query
+
+Use `QueryBox` to construct a query. For example, a query to find all
+accounts would be created like this:
+
+```rust
+let query = QueryBox::FindAllAccounts(FindAllAccounts {});
+```
+
+Here is an example of a query that finds Alice's assets:
+
+```rust
+let alice_id =
+    <Account as Identifiable>::Id::from_str("alice@wonderland")?;
+let query = QueryBox::FindAssetsByAccountId(
+    FindAssetsByAccountId::new(alice_id)
+  );
+```
+
+<!--
+Below we provide more sophisticated examples.
+
+### Examples
+
+TODO: add examples (#86) -->
 
 ## Role
 
@@ -209,7 +261,8 @@ diverse set of queries.
 - **Details**: Returns the value keyed by the provided `Name` for the given
   account.
 
-  This is done by querying the `metadata` attached to the given account.
+  This is done by querying the [`metadata`](./metadata.md) attached to the
+  given account.
 
 ### `FindAccountsByName`
 
@@ -361,8 +414,9 @@ that is used as a secure data storage for privileged information.
 
 - **Returns**: `Value`
 
-- **Details**: Gets the value keyed by the given name in the metadata of
-  the asset corresponding to the given identifier.
+- **Details**: Gets the value keyed by the given name in the
+  [metadata](./metadata.md) of the asset corresponding to the given
+  identifier.
 
 ### `FindAssetDefinitionKeyValueByIdAndKey`
 
@@ -370,8 +424,9 @@ that is used as a secure data storage for privileged information.
 
 - **Returns**: `Value`
 
-- **Details**: Gets the value keyed by the given name in the metadata of
-  the asset definition corresponding to the given identifier.
+- **Details**: Gets the value keyed by the given name in the
+  [metadata](./metadata.md) of the asset definition corresponding to the
+  given identifier.
 
 ## Block
 
@@ -539,8 +594,8 @@ listeners called filters.
 
 - **Returns**: `Trigger`
 
-- **Details**: Finds the value corresponding to the key in the metadata of
-  the trigger with the given ID.
+- **Details**: Finds the value corresponding to the key in the
+  [metadata](./metadata.md) of the trigger with the given ID.
 
 ### `FindTriggersByDomainId`
 
