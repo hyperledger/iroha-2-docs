@@ -131,12 +131,12 @@ Use `tsx` to run the scripts you've created. For example:
 tsx example.ts
 ```
 
-   The set of packages that you need to install depends on your intention.
-   Maybe you only need to play with the Data Model to perform
-   (de-)serialisation, in which case the `data-model` package is enough. If
-   you only need to check on a peer in terms of its status or health, you
-   just need the client library, because this API doesn't require any
-   interactions with crypto or Data Model.
+The set of packages that you need to install depends on your intention.
+Maybe you only need to play with the Data Model to perform
+(de-)serialisation, in which case the `data-model` package is enough. If
+you only need to check on a peer in terms of its status or health, you just
+need the client library, because this API doesn't require any interactions
+with crypto or Data Model.
 
 3. Install the following packages as well:
 
@@ -162,17 +162,18 @@ tsx example.ts
    ::: info
 
    Please refer to the respective `@iroha2/crypto-target-*` package's
-   documentation.  because each case has specific configuration steps.
-   For example, the `web` target needs to be initialised (by calling the #
-   asynchronous `init()` function) before you can use cryptographic methods.
+   documentation. because each case has specific configuration steps. For
+   example, the `web` target needs to be initialised (by calling the #
+   asynchronous `init()` function) before you can use cryptographic
+   methods.
 
    :::
 
 ::: info
 
-**Note**:  when you are  creating files in the following steps,
-you must place them on the same level as (i.e. in the directory which contains)
-the `node_modules` directory like so:
+**Note**: when you are creating files in the following steps, you must
+place them on the same level as (i.e. in the directory which contains) the
+`node_modules` directory like so:
 
 <img src="../img/js-files.jpg" alt="JS project" width="300"/>
 
