@@ -374,10 +374,11 @@ Account {
     },
     assets: {},
     signatories: [
-    PublicKey {
-        digest_function: "ed25519",
-        payload: "A753146E75B910AE5E2994DC8ADEA9E7D87E5D53024CFA310CE992F17106F92C",
-    },
+        PublicKey {
+            digest_function: "ed25519",
+            payload: "A753146E75B910AE5E2994DC8ADEA9E7D87E5D53024CFA310CE992F17106F92C",
+        },
+    ]
 }
 ```
 
