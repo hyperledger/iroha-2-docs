@@ -97,7 +97,6 @@ no duck-typing of the `Register` instruction.
 from iroha2.data_model.isi import *
 from iroha2.data_model.domain import *
 from iroha2.data_model.expression import *
-from iroha2.data_model.events import EventFilter, pipeline
 from iroha2.data_model import *
 
 domain = Domain("looking_glass")
