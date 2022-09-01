@@ -1,0 +1,34 @@
+@startuml
+struct Domain
+struct Account
+struct AssetDefinition
+struct Asset
+
+Domain *-- "many" Account : contains
+Domain *-- "many" AssetDefinition : contains
+Account *-- "many" Asset : contains
+Asset -- AssetDefinition
+
+Domain : id
+Domain : accounts
+Domain : asset_definitions
+Domain : logo
+Domain : metadata
+
+Account : id
+Account : assets
+Account : signatories
+Account : permission_tokens
+Account : signature_check_condition
+Account : metadata
+Account : roles
+
+
+AssetDefinition : id
+AssetDefinition : value_type
+AssetDefinition : mintable
+AssetDefinition : metadata
+
+Asset : id
+Asset : value
+@enduml
