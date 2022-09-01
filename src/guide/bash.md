@@ -366,6 +366,8 @@ To see all the accounts on the network, run:
 This will list the active accounts on the network, along with their assets.
 It will look like this:
 
+::: details Expand to see the expected output
+
 ```rust
 Account {
     id: Id {
@@ -412,6 +414,8 @@ Account {
 }
 ```
 
+:::
+
 Another way to create a user (and the user's keys) is as follows:
 
 1. Open a new tab and navigate to the `/iroha` directory, then run:
@@ -434,6 +438,8 @@ _looking_glass_ domain, so we will run:
 ```
 
 And like before, the new active user will be listed on the network:
+
+::: details Expand to see the expected output
 
 ```rust
 Account {
@@ -480,6 +486,8 @@ Account {
     roles: {},
 }
 ```
+
+:::
 
 Now that the network and users are registered, it is possible to mint
 assets.
