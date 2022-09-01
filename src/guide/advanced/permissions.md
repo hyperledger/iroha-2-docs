@@ -240,7 +240,7 @@ let grant = Instruction::Grant(GrantBox::new(
 ### `CanSetKeyValueInUserMetadata`
 
 With `CanSetKeyValueInUserMetadata` permission token, a user can set key
-value in the [metadata](./metadata.md) for the specified account.
+value in the [metadata](../objects/metadata.md) for the specified account.
 
 ```rust
 let mouse_id = <Account as Identifiable>::Id::from_str("mouse@wonderland")?;
@@ -254,7 +254,8 @@ let permission_to_set_key_value_in_mouse_metadata: PermissionToken =
 ### `CanRemoveKeyValueInUserMetadata`
 
 With `CanRemoveKeyValueInUserMetadata` permission token, a user can remove
-key value in the [metadata](./metadata.md) for the specified account.
+key value in the [metadata](../objects/metadata.md) for the specified
+account.
 
 ```rust
 let mouse_id = <Account as Identifiable>::Id::from_str("mouse@wonderland")?;
