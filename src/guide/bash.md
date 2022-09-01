@@ -370,15 +370,45 @@ It will look like this:
 Account {
     id: Id {
         name: "mad_hatter",
-        domain_name: "looking_glass",
+        domain_name: Id {
+            name: "looking_glass",
+        },
     },
     assets: {},
-    signatories: [
-        PublicKey {
-            digest_function: "ed25519",
-            payload: "A753146E75B910AE5E2994DC8ADEA9E7D87E5D53024CFA310CE992F17106F92C",
+    signatories: {
+        { digest: "ed25519", payload: "A753146E75B910AE5E2994DC8ADEA9E7D87E5D53024CFA310CE992F17106F92C",
         },
-    ]
+    },
+    permission_tokens: {},
+    signature_check_condition: SignatureCheckCondition(
+        EvaluatesTo {
+            expression: ContainsAny(
+                ContainsAny {
+                    collection: EvaluatesTo {
+                        expression: ContextValue(
+                            ContextValue {
+                                value_name: "transaction_signatories",
+                            },
+                        ),
+                        _value_type: PhantomData,
+                    },
+                    elements: EvaluatesTo {
+                        expression: ContextValue(
+                            ContextValue {
+                                value_name: "account_signatories",
+                            },
+                        ),
+                        _value_type: PhantomData,
+                    },
+                },
+            ),
+            _value_type: PhantomData,
+        },
+    ),
+    metadata: Metadata {
+        map: {},
+    },
+    roles: {},
 }
 ```
 
@@ -407,17 +437,47 @@ And like before, the new active user will be listed on the network:
 
 ```rust
 Account {
-        id: Id {
-            name: "white_rabbit",
-            domain_name: "looking_glass",
+    id: Id {
+        name: "white_rabbit",
+        domain_name: Id {
+            name: "looking_glass",
         },
-        assets: {},
-        signatories: [
-            PublicKey {
-                digest_function: "ed25519",
-                payload: "A4C4DADD9F18B0F63D6A420151FE0748D785475DEC63034A15FCF999CEDA1E65",
-            },
-        ]
+    },
+    assets: {},
+    signatories: {
+        { digest: "ed25519", payload: "A4C4DADD9F18B0F63D6A420151FE0748D785475DEC63034A15FCF999CEDA1E65",
+        },
+    },
+    permission_tokens: {},
+    signature_check_condition: SignatureCheckCondition(
+        EvaluatesTo {
+            expression: ContainsAny(
+                ContainsAny {
+                    collection: EvaluatesTo {
+                        expression: ContextValue(
+                            ContextValue {
+                                value_name: "transaction_signatories",
+                            },
+                        ),
+                        _value_type: PhantomData,
+                    },
+                    elements: EvaluatesTo {
+                        expression: ContextValue(
+                            ContextValue {
+                                value_name: "account_signatories",
+                            },
+                        ),
+                        _value_type: PhantomData,
+                    },
+                },
+            ),
+            _value_type: PhantomData,
+        },
+    ),
+    metadata: Metadata {
+        map: {},
+    },
+    roles: {},
 }
 ```
 
