@@ -24,8 +24,8 @@ The metadata can be of very different types, such as:
 - request results
 
 The object's metadata can be transferred one by one, or in bulk via a
-[WASM](./wasm.md) transaction. The `Store` asset type is used for working
-with metadata. Let's take a closer look at this asset type.
+[WASM](../advanced/wasm.md) transaction. The `Store` asset type is used for
+working with metadata. Let's take a closer look at this asset type.
 
 ## `Store` Asset
 
@@ -58,8 +58,8 @@ let set_hat_color = SetKeyValueBox::new(
 ## Working with metadata
 
 The following example showcases how to register and grant a
-[role](./permissions.md#permission-groups-roles) for accessing metadata of
-another account.
+[role](../advanced/permissions.md#permission-groups-roles) for accessing
+metadata of another account.
 
 ::: details Example
 
@@ -115,22 +115,22 @@ fn register_and_grant_role_for_metadata_access() -> Result<()> {
 ## Queries
 
 You can get the key value of an object metadata using
-[queries](./queries.md):
+[queries](../advanced/queries.md):
 
-- [FindAccountKeyValueByIdAndKey](./queries.md#findaccountkeyvaluebyidandkey)
-- [FindAssetKeyValueByIdAndKey](./queries.md#findassetkeyvaluebyidandkey)
-- [FindAssetDefinitionKeyValueByIdAndKey](./queries.md#findassetdefinitionkeyvaluebyidandkey)
-- [FindDomainKeyValueByIdAndKey](./queries.md#finddomainkeyvaluebyidandkey)
-- [FindTriggerKeyValueByIdAndKey](./queries.md#findtriggerkeyvaluebyidandkey)
+- [FindAccountKeyValueByIdAndKey](../advanced/queries.md#findaccountkeyvaluebyidandkey)
+- [FindAssetKeyValueByIdAndKey](../advanced/queries.md#findassetkeyvaluebyidandkey)
+- [FindAssetDefinitionKeyValueByIdAndKey](../advanced/queries.md#findassetdefinitionkeyvaluebyidandkey)
+- [FindDomainKeyValueByIdAndKey](../advanced/queries.md#finddomainkeyvaluebyidandkey)
+- [FindTriggerKeyValueByIdAndKey](../advanced/queries.md#findtriggerkeyvaluebyidandkey)
 
 ## Permissions
 
 Pre-configured tokens in Iroha 2 LTS version that allow to set or remove
 key-values in accounts, assets, or asset definitions:
 
-- [`CanSetKeyValueInUserMetadata`](./permissions.md#cansetkeyvalueinusermetadata)
-- [`CanRemoveKeyValueInUserMetadata`](./permissions.md#canremovekeyvalueinusermetadata)
-- [`CanSetKeyValueInUserAssets`](./permissions.md#cansetkeyvalueinuserassets)
-- [`CanRemoveKeyValueInUserAssets`](./permissions.md#canremovekeyvalueinuserassets)
-- [`CanSetKeyValueInAssetDefinition`](./permissions.md#cansetkeyvalueinassetdefinition)
-- [`CanRemoveKeyValueInAssetDefinition`](./permissions.md#canremovekeyvalueinassetdefinition)
+- [`CanSetKeyValueInUserMetadata`](../advanced/permissions.md#cansetkeyvalueinusermetadata)
+- [`CanRemoveKeyValueInUserMetadata`](../advanced/permissions.md#canremovekeyvalueinusermetadata)
+- [`CanSetKeyValueInUserAssets`](../advanced/permissions.md#cansetkeyvalueinuserassets)
+- [`CanRemoveKeyValueInUserAssets`](../advanced/permissions.md#canremovekeyvalueinuserassets)
+- [`CanSetKeyValueInAssetDefinition`](../advanced/permissions.md#cansetkeyvalueinassetdefinition)
+- [`CanRemoveKeyValueInAssetDefinition`](../advanced/permissions.md#canremovekeyvalueinassetdefinition)

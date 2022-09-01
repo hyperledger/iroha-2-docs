@@ -240,7 +240,7 @@ let grant = Instruction::Grant(GrantBox::new(
 ### `CanSetKeyValueInUserMetadata`
 
 With `CanSetKeyValueInUserMetadata` permission token, a user can set key
-value in the [metadata](./metadata.md) for the specified account.
+value in the [metadata](../objects/metadata.md) for the specified account.
 
 ```rust
 let mouse_id = <Account as Identifiable>::Id::from_str("mouse@wonderland")?;
@@ -254,7 +254,8 @@ let permission_to_set_key_value_in_mouse_metadata: PermissionToken =
 ### `CanRemoveKeyValueInUserMetadata`
 
 With `CanRemoveKeyValueInUserMetadata` permission token, a user can remove
-key value in the [metadata](./metadata.md) for the specified account.
+key value in the [metadata](../objects/metadata.md) for the specified
+account.
 
 ```rust
 let mouse_id = <Account as Identifiable>::Id::from_str("mouse@wonderland")?;
@@ -346,7 +347,7 @@ revoked.
 ### Register a new role
 
 Let's register a new role that, when granted, will allow another account
-access to the [metadata](./metadata.md) in Mouse's account:
+access to the [metadata](../objects/metadata.md) in Mouse's account:
 
 ```rust
 let role_id = <Role as Identifiable>::Id::from_str("ACCESS_TO_MOUSE_METADATA")?;

@@ -132,9 +132,9 @@ be used carefully.
 ### `SetKeyValue`/`RemoveKeyValue`
 
 These instructions are used with the key/value
-[`Store` asset type](metadata.md#store-asset). This use case has not
-received much attention so far, because storing data in the blockchain is a
-rather advanced topic that we shall cover separately.
+[`Store` asset type](../objects/metadata.md#store-asset). This use case has
+not received much attention so far, because storing data in the blockchain
+is a rather advanced topic that we shall cover separately.
 
 ### Query
 
