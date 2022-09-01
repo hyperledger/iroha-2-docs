@@ -28,10 +28,6 @@ The diagram below provides a more detailed illustration of the relationship
 between domains, accounts, and assets in the blockchain. You can learn more
 about [permissions and roles](../advanced/permissions.md) and
 [metadata](metadata.md) in the corresponding sections of the tutorial. The
-asset structure is illustrated [below](#assets).
+asset structure is illustrated in a [dedicated chapter](./assets.md).
 
 ![Untitled](/img/domain-account-asset-diagram.png)
-
-## Assets
-
-![Untitled](/img/asset-diagram.png)

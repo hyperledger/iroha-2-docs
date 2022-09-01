@@ -494,9 +494,9 @@ assets.
 
 ## 5. Registering and minting assets
 
-In order to mint assets, you need to register the asset first. We are going
-to register the _tea_ token within the _looking_glass_ network. To do that,
-run:
+In order to mint assets, you need to register the
+[asset](./objects/assets.md) first. We are going to register the _tea_
+token within the _looking_glass_ network. To do that, run:
 
 ```bash
 ./iroha_client_cli asset register \

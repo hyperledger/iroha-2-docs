@@ -11,10 +11,10 @@ domain unless explicitly granted said permission.
 
 Having a permission to do something means having a `PermissionToken` to do
 so. There are two ways for users to receive permission tokens: they can be
-granted directly or as a part of a `Role` (a set of permission tokens).
-Permissions are granted via `Grant` special instruction. Permission tokens
-and roles do not expire, they can only be removed using `Revoke`
-instruction.
+granted directly or as a part of a [`Role`](#permission-groups-roles) (a
+set of permission tokens). Permissions are granted via `Grant` special
+instruction. Permission tokens and roles do not expire, they can only be
+removed using `Revoke` instruction.
 
 ## Permission Tokens
 
@@ -240,7 +240,7 @@ let grant = Instruction::Grant(GrantBox::new(
 ### `CanSetKeyValueInUserMetadata`
 
 With `CanSetKeyValueInUserMetadata` permission token, a user can set key
-value in the [metadata](../objects/metadata.md) for the specified account.
+value in the [metadata](./metadata.md) for the specified account.
 
 ```rust
 let mouse_id = <Account as Identifiable>::Id::from_str("mouse@wonderland")?;
@@ -254,8 +254,7 @@ let permission_to_set_key_value_in_mouse_metadata: PermissionToken =
 ### `CanRemoveKeyValueInUserMetadata`
 
 With `CanRemoveKeyValueInUserMetadata` permission token, a user can remove
-key value in the [metadata](../objects/metadata.md) for the specified
-account.
+key value in the [metadata](./metadata.md) for the specified account.
 
 ```rust
 let mouse_id = <Account as Identifiable>::Id::from_str("mouse@wonderland")?;
@@ -320,7 +319,8 @@ let grant = Instruction::Grant(GrantBox::new(
 
 ### `CanRegisterDomains`
 
-With `CanRegisterDomains` permission token, a user can register domains.
+With `CanRegisterDomains` permission token, a user can
+[register](./isi.md#unregister) domains.
 
 ```rust
 let alice_id = AccountId::from_str("alice@test0")?;
@@ -339,8 +339,11 @@ let grant = Instruction::Grant(GrantBox::new(
 
 ## Permission Groups (Roles)
 
-A set of permissions is called a **role**. Roles can be granted and
-revoked.
+A set of permissions is called a **role**. Similarly to permission tokens,
+roles can be granted using `Grant` instruction and revoked using `Revoke`
+instruction.
+
+Before granting a role to an account, a role should first be registered.
 
 <!-- TODO: add more info about roles -->
 
@@ -374,4 +377,16 @@ TBD <!-- TODO: add info about permission validators -->
 
 ## Supported Queries
 
-Check the [list of supported queries](#queries/permission) for permissions.
+Permission tokens and roles can be queried.
+
+Queries for roles:
+
+- [FindAllRoles](./queries.md#findallroles)
+- [FindAllRoleIds](./queries.md#findallroleids)
+- [FindRoleByRoleId](./queries.md#findrolebyroleid)
+- [FindRolesByAccountId](./queries.md#findrolesbyaccountid)
+
+Queries for permission tokens:
+
+- [FindAllPermissionTokenDefinitions](./queries.md#findallpermissiontokendefinitions)
+- [FindPermissionTokensByAccountId](./queries.md#findpermissiontokensbyaccountid)

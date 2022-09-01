@@ -297,24 +297,11 @@ Which is then **wrapped in a transaction** and **submitted to the peer** as
 
 ## 5. Registering and minting assets
 
-Iroha has been built with few underlying assumptions about what the assets
-need to be.
+Iroha has been built with few [underlying assumptions](./objects/assets.md)
+about what the assets need to be in terms of their value type and
+characteristics (fungible or non-fungible, mintable or non-mintable).
 
-The assets can be fungible (every £1 is exactly the same as every other
-£1), or non-fungible (a £1 bill signed by the Queen of Hearts is not the
-same as a £1 bill signed by the King of Spades), mintable (you can make
-more of them) and non-mintable (you can only specify their initial quantity
-in the genesis block).
-
-Additionally, the assets have different underlying value types.
-Specifically, we have `AssetValueType.Quantity`, which is effectively an
-unsigned 32-bit integer, a `BigQuantity`, which is an unsigned 128-bit
-integer, and `Fixed`, which is a positive (though signed) 64-bit
-fixed-precision number with nine significant digits after the decimal
-point. All three types can be registered as either **mintable** or
-**non-mintable**.
-
-Now, let's get back to coding. To register an asset, we first construct an
+To register an asset, we first construct an
 `iroha_data_model::asset::DefinitionId` like so:
 
 ```rust

@@ -156,6 +156,9 @@ TODO: add examples (#86) -->
 An optional feature. By default, it is present on all Iroha 2 deployments
 when they're compiled in the private blockchain configuration.
 
+You can learn more about roles in a
+[dedicated section](./permissions.md#permission-groups-roles).
+
 ### `FindAllRoles`
 
 - **Returns**: `Vec<Roles>`

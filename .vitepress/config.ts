@@ -76,6 +76,10 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
           link: '/guide/objects/hierarchy',
         },
         {
+          text: 'Assets',
+          link: '/guide/objects/assets',
+        },
+        {
           text: 'Metadata',
           link: '/guide/objects/metadata',
         },
