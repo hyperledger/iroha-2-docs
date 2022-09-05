@@ -1,4 +1,4 @@
-name: Format Docs
+name: Pull Request CI
 on:
   pull_request:
     branches: [main]
