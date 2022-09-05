@@ -58,7 +58,7 @@ let set_hat_color = SetKeyValueBox::new(
 ## Working with metadata
 
 The following example showcases how to register and grant a
-[role](../advanced/permissions.md#permission-groups-roles) for accessing
+[role](../advanced/permissions.md#permission-groups-roles) for accessing the
 metadata of another account.
 
 ::: details Example

@@ -117,7 +117,7 @@ query results.
 ::: stable
 
 Sorting only applies to entities that have
-[metadata](../objects/metadata.md) as the metadata key is used to sort
+[metadata](../objects/metadata.md), as the metadata key is used to sort
 query results.
 
 You can combine sorting with pagination and filters. Note that sorting is

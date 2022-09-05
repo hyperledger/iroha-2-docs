@@ -32,7 +32,7 @@ asset structure is illustrated in a [dedicated chapter](./assets.md).
 ::: info
 
 Note that the diagram below depicts Account structure for the LTS version
-of Iroha. In the stable version, permission tokens are stored not within
+of Iroha. In the stable version, permission tokens aren't stored within
 the account but rather in the world state (WSV).
 
 <!-- https://github.com/hyperledger/iroha/pull/2658 -->
