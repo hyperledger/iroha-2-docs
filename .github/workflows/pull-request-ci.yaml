@@ -22,3 +22,6 @@ jobs:
 
       - name: Check documentation formatting
         run: pnpm format:docs:check
+
+      - name: Build documentation
+        run: pnpm build
