@@ -341,7 +341,7 @@ let grant = Instruction::Grant(GrantBox::new(
 ## Permission Groups (Roles)
 
 A set of permissions is called a **role**. Similarly to permission tokens,
-roles can be granted using `Grant` instruction and revoked using `Revoke`
+roles can be granted using the `Grant` instruction and revoked using the `Revoke`
 instruction.
 
 Before granting a role to an account, the role should be registered first.
