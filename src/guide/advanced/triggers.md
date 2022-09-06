@@ -39,7 +39,6 @@ A trigger has roughly the following form:
 struct Trigger {
   id: TriggerId,
   action: Action,
-  metadata: Metadata,
 }
 ```
 
@@ -47,21 +46,8 @@ struct Trigger {
 
 The `TriggerId` is a simple wrapper around a single `Name`, i.e. a string
 with no whitespaces and no reserved characters (`@`, `#`).
-
-::: info
-
-<!-- Check: a reference about future releases or work in progress -->
-
-In the future, we shall add scoped triggers, and the id will be expanded to
-be either a global trigger, or a trigger with a domain name. This is what
-determines the scope of the trigger.
-
-:::
-
-### `Trigger.metadata`
-
-This `Metadata` is the same kind of `Metadata` that can be attached to
-accounts, domains, assets, or transactions.
+[Domain-scoped triggers](#domain-scoped-triggers) use `$` to separate the
+domain id and the trigger id.
 
 ### `Trigger.action`
 
@@ -72,13 +58,15 @@ struct Action {
   executable: Executable,
   repeats: Repeats,
   technical_account: AccountId,
-  filter: EventFilter
+  filter: EventFilter,
+  metadata: Metadata,
 }
 ```
 
 #### `Action.executable`
 
-Here the executable is either a `Vec<Instruction>` or a WASM binary.
+The executable linked to this action, either a `Vec<Instruction>` or a WASM
+binary.
 
 #### `Action.repeats`
 
@@ -103,6 +91,13 @@ you have been following the tutorial, this is `alice@wonderland`. However,
 later on we will show you why you'd want to create a brand new account for
 those purposes.
 
+::: info
+
+Note that you can only use the account that already exists in order to be
+able to register a new trigger.
+
+:::
+
 #### `Action.filter`
 
 A filter is what determines what _kind_ of trigger you're dealing with. All
@@ -112,6 +107,15 @@ trigger depends on which `EventFilter` was used.
 The reason why we chose this architecture is simple; front end code has an
 abundance of event filters, and so, your knowledge of filters is
 transferable to writing smart contracts.
+
+#### `Action.metadata`
+
+This `Metadata` is the same kind of `Metadata` that can be attached to
+accounts, domains, assets, or transactions. This is the storage for trigger
+data.
+
+You can learn more about metadata in a
+[dedicated section](../objects/metadata.md).
 
 ## How Triggers Work
 
@@ -123,6 +127,9 @@ the detailed information on how to use each of them:
 - Pre-commit triggers
 - By-call triggers
 - Block-based triggers
+
+The type of a trigger is determined by the `filter` used to register this
+trigger.
 
 ::: info
 
@@ -138,10 +145,11 @@ this tutorial will be made obsolete in the next release.
 
 ### Event Triggers
 
-As we have said previously, all triggers are, in a sense, event triggers.
-However, this category includes the largest variety of triggers: an account
-got registered, an asset got transferred, the Queen of Hearts decided to
-burn all of her assets.
+As we have said previously, all triggers are, in a sense, event triggers
+(check out this [diagram] to understand the hierarchy.). However, this
+category includes the largest variety of triggers: an account got
+registered, an asset got transferred, the Queen of Hearts decided to burn
+all of her assets.
 
 These types of events account for the vast majority of triggers in
 Ethereum, and were the first to be implemented. The LTS version of Iroha
@@ -414,7 +422,7 @@ After this somewhat laborious filter combination, we can create an `Action`
 
 ```rust
 let action = Action {
-    executable, repeats, technical_account, filter
+    executable, repeats, technical_account, filter, metadata
 }
 ```
 
@@ -422,7 +430,7 @@ Which allows us to create an instance of a `Trigger`.
 
 ```rust
 let trigger = Trigger {
-    id, action, metadata
+    id, action
 }
 ```
 

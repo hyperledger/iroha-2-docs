@@ -1,0 +1,26 @@
+@startuml
+
+enum EntityFilter {
+ByPeer(FilterOpt<PeerFilter>)
+ByDomain(FilterOpt<DomainFilter>)
+ByAccount(FilterOpt<AccountFilter>)
+ByAssetDefinition(FilterOpt<AssetDefinitionFilter>)
+ByAsset(FilterOpt<AssetFilter>)
+ByTrigger(FilterOpt<TriggerFilter>)
+ByRole(FilterOpt<RoleFilter>)
+}
+
+enum FilterOpt<F: Filter> {
+AcceptAll
+BySome(F)
+}
+
+object EventFilter {
+FilterOpt<EntityFilter>
+}
+
+FilterOpt .. EventFilter
+FilterOpt .. EntityFilter
+EntityFilter .. EventFilter
+
+@enduml
