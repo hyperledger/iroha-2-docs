@@ -146,7 +146,7 @@ this tutorial will be made obsolete in the next release.
 ### Event Triggers
 
 As we have said previously, all triggers are, in a sense, event triggers
-(check out this [diagram] to understand the hierarchy.). However, this
+(check out this [diagram] to understand the hierarchy). However, this
 category includes the largest variety of triggers: an account got
 registered, an asset got transferred, the Queen of Hearts decided to burn
 all of her assets.
