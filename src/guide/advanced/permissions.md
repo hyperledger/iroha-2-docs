@@ -374,7 +374,52 @@ let grant_role_tx =
 
 ## Permission Validators
 
-TBD <!-- TODO: add info about permission validators -->
+Permissions exist so that only those accounts that have a required
+permission token to perform a certain action could do so. In the stable and
+LTS versions of Iroha 2, permission checks are implemented differently.
+
+::: stable
+
+In the stable version, the `Judge` trait is used to check permissions. The
+`Judge` decides whether a certain operation (instruction, query, or
+expression) could be performed based on the verdicts of multiple
+validators.
+
+Each validator returns one of the following verdicts: `Deny` (with the
+exact reason to deny an operation), `Skip` (if an operation is not
+supported or has no meaning in a given context), or `Allow`.
+
+There are several `Judge`s already implemented in Iroha 2, such as:
+
+| Judge                        | Description                                                                                                                                                                          |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `AtLeastOneAllow`            | The judge that succeeds only if there is at least one `Allow` verdict. The execution is stopped once there is a first `Allow` verdict.                                               |
+| `NoDenies`                   | The judge that succeeds only if there is no `Deny` verdict. All validators are checked.                                                                                              |
+| `NoDeniesAndAtLeastOneAllow` | The judge that succeeds only if there is no `Deny` verdict and at least one `Allow` verdict. The execution is stopped once there is a `Deny` verdict or all validators were checked. |
+| `AllowAll`                   | For tests and simple cases. All operations are allowed to be executed for all possible values.                                                                                       |
+| `DenyAll`                    | For tests and simple cases. All operations are disallowed to be executed for all possible for all possible values.                                                                   |
+
+You can also build a custom permission validator by combining multiple
+validators, all of which should be of the same type (for checking
+instructions, queries, or expressions).
+
+:::
+
+::: lts
+
+In the LTS version, permissions to execute an operation (instruction,
+query, or expression) are checked via `IsAllowed` trait. If an operation is
+not allowed, an error occurs. Permission validators could be also be
+combined.
+
+:::
+
+<!-- ### Runtime Validators
+
+TODO: https://github.com/hyperledger/iroha-2-docs/issues/140
+After https://github.com/hyperledger/iroha/pull/2641 is merged, add info about runtime validators
+
+-->
 
 ## Supported Queries
 
