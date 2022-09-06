@@ -1,4 +1,4 @@
-name: Format Docs
+name: Pull Request CI
 on:
   pull_request:
     branches: [main]
@@ -22,3 +22,6 @@ jobs:
 
       - name: Check documentation formatting
         run: pnpm format:docs:check
+
+      - name: Build documentation
+        run: pnpm build
