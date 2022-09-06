@@ -36,7 +36,7 @@ registered, and un-registered on its own.
 
 KURA is the "warehouse" engine of Iroha. The `BLOCK_STORE_PATH` specifies
 where the blocks are stored. You can change it to a custom location if for
-some reason the default location (`./blocks`) is not available or
+some reason the default location (`./storage`) is not available or
 desirable.
 
 For more details, check
