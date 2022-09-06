@@ -162,16 +162,9 @@ hash = cl.submit_isi(register)
 
 ## 5. Registering and minting assets
 
-Now we must talk a little about assets. Iroha has been built with few
-underlying assumptions about what the assets need to be.
-
-The assets can be fungible (every £1 is exactly the same as every other
-£1), or non-fungible (a £1 bill signed by the Queen of Hearts is not the
-same as a £1 bill signed by the King of Spades), mintable (you can make
-more of them) and non-mintable (you can only specify their initial quantity
-in the genesis block).
-
-Additionally, the assets have different underlying value types.
+Iroha has been built with few [underlying assumptions](./objects/assets.md)
+about what the assets need to be in terms of their value type and
+characteristics (fungible or non-fungible, mintable or non-mintable).
 
 Asset creation is by far the most cumbersome:
 

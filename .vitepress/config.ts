@@ -69,6 +69,23 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
       ],
     },
     {
+      text: 'Blockchain Objects',
+      items: [
+        {
+          text: 'Hierarchy',
+          link: '/guide/objects/hierarchy',
+        },
+        {
+          text: 'Assets',
+          link: '/guide/objects/assets',
+        },
+        {
+          text: 'Metadata',
+          link: '/guide/objects/metadata',
+        },
+      ],
+    },
+    {
       text: 'Advanced Topics',
       items: [
         {
@@ -98,10 +115,6 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
         {
           text: 'Permissions',
           link: '/guide/advanced/permissions',          
-        },
-        {
-          text: 'Metadata',
-          link: '/guide/advanced/metadata',
         },
       ],
     },

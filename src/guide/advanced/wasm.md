@@ -31,8 +31,8 @@ on-chain, as we explained earlier.
 
 In theory, you can do anything you want just using ISI as it is a
 Turing-complete language. However, it'll be less convenient and efficient
-since you'd need to use [metadata](./metadata.md) as memory and write
-complex conditionals using just the tools that we've provided in the
+since you'd need to use [metadata](../objects/metadata.md) as memory and
+write complex conditionals using just the tools that we've provided in the
 `Expression` and ISI infrastructure. We highly recommend choosing a
 well-known programming language, such as Rust, to build the necessary logic
 out of simple instructions. This is much easier than trying to reinvent the
