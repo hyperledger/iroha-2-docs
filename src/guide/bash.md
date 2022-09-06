@@ -564,11 +564,63 @@ available on the network:
 ]
 ```
 
+::: info
+
 Iroha 2 currently doesn't validate the account names, so you could (in
 theory) add invalid characters to the name, e.g. spaces. **We recommend
 sticking to English alphanumeric characters and underscores**.
 
-## 6. Visualizing outputs
+:::
+
+## 6. Transferring assets
+
+After minting the assets, you can transfer them to another account. To be
+able to do this, you have to grant [permission](advanced/permissions.md) to
+transfer assets. Let's look at how this process works.
+
+Firs, create a file named `premission_token.json` with the permission you
+want to grant. In our case, we want Mad Hatter to be able to transfer `tea`
+asset.
+
+```json
+{
+  "name": "can_transfer_user_assets",
+  "params": {
+    "asset_id": {
+      "Id": {
+        "AssetId": {
+          "definition_id": {
+            "name": "tea",
+            "domain_id": {
+              "name": "looking_glass"
+            }
+          },
+          "account_id": {
+            "name": "mad_hatter",
+            "domain_id": {
+              "name": "looking_glass"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Then grant Mad Hatter the permission to transfer the tea asset:
+
+```
+./iroha_client_cli -- account grant --id "mad_hatter@looking_glass" --permission permission_token.json
+```
+
+After that, you can transfer some of Mad Hatter's tea to White Rabbit:
+
+```bash
+./iroha_client_cli asset transfer --from mad_hatter@looking_glass --to white_rabbit@looking_glass --asset-id tea#looking_glass --quantity 5
+```
+
+## 7. Visualizing outputs
 
 Although you will get a constant data feed of the network within the
 terminal running docker compose, you can also configure an output to listen
