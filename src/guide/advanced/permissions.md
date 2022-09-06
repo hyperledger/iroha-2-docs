@@ -375,12 +375,13 @@ let grant_role_tx =
 ## Permission Validators
 
 Permissions exist so that only those accounts that have a required
-permission token to perform a certain action could do so. In the stable and
-LTS versions of Iroha 2, permission checks are implemented differently.
+permission token to perform a certain action could do so. In the
+`iroha2-dev` version permission checks are implemented differently compared
+to LTS and stable versions of Iroha 2.
 
-::: stable
+::: dev
 
-In the stable version, the `Judge` trait is used to check permissions. The
+In the dev version, the `Judge` trait is used to check permissions. The
 `Judge` decides whether a certain operation (instruction, query, or
 expression) could be performed based on the verdicts of multiple
 validators.
@@ -407,10 +408,10 @@ instructions, queries, or expressions).
 
 ::: lts
 
-In the LTS version, permissions to execute an operation (instruction,
-query, or expression) are checked via `IsAllowed` trait. If an operation is
-not allowed, an error occurs. Permission validators could be also be
-combined.
+In the LTS and stable versions, permissions to execute an operation
+(instruction, query, or expression) are checked via `IsAllowed` trait. If
+an operation is not allowed, an error occurs. Permission validators could
+also be combined.
 
 :::
 

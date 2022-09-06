@@ -19,7 +19,7 @@ In the LTS version of Iroha 2, most queries can not sorted, but can be
 which we'll mark with a warning sign, should be used with great care, and
 you should think about the pagination scheme for them.
 
-The stable version of Iroha 2 implements [sorting](#sorting) that could be
+The `iroha2-dev` version implements [sorting](#sorting) that could be
 combined with pagination and filtering.
 
 :::
@@ -111,10 +111,10 @@ that match the specified filter.
 ## Sorting
 
 The LTS version of Iroha 2 **does not** support sorting query results.
-However, in the stable version of Iroha 2 we offer you the way to sort
-query results.
+However, in the latest (`iroha2-dev`) version of Iroha 2 we offer you the
+way to sort query results.
 
-::: stable
+::: dev
 
 Sorting only applies to entities that have
 [metadata](../objects/metadata.md), as the metadata key is used to sort
@@ -217,7 +217,7 @@ We talk about permissions in more detail in a
 
 ### `FindAllPermissionTokenDefinitions`
 
-::: stable
+::: dev
 
 - **Returns**: `Vec<PermissionTokenDefinition>`
 
@@ -441,7 +441,7 @@ that is used as a secure data storage for privileged information.
 
 ### FindAllBlockHeaders
 
-::: stable
+::: dev
 
 - **Returns**: `Vec<BlockHeader>`
 - **Details**: Returns all block headers for blocks in the blockchain.
@@ -450,7 +450,7 @@ that is used as a secure data storage for privileged information.
 
 ### FindBlockHeaderByHash
 
-::: stable
+::: dev
 
 - **Parameters**: `Hash`
 - **Returns**: `BlockHeader`
@@ -603,7 +603,7 @@ listeners called filters.
 
 ### `FindTriggersByDomainId`
 
-::: stable
+::: dev
 
 - **Parameters**: `DomainId`
 

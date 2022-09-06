@@ -168,7 +168,7 @@ you have to `Register` it again, with the same name.
 
 ### Domain-scoped Triggers
 
-::: stable
+::: dev
 
 While un-scoped triggers check all events of a specified type,
 domain-scoped triggers only look for events in a given domain. These
