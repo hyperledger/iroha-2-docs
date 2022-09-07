@@ -578,7 +578,7 @@ After minting the assets, you can transfer them to another account. To be
 able to do this, you have to grant [permission](advanced/permissions.md) to
 transfer assets. Let's look at how this process works.
 
-Firs, create a file named `premission_token.json` with the permission you
+First, create a file named `permission_token.json` with the permission you
 want to grant. In our case, we want Mad Hatter to be able to transfer `tea`
 asset.
 
@@ -611,7 +611,7 @@ asset.
 Then grant Mad Hatter the permission to transfer the tea asset:
 
 ```
-./iroha_client_cli -- account grant --id "mad_hatter@looking_glass" --permission permission_token.json
+./iroha_client_cli account grant --id "mad_hatter@looking_glass" --permission permission_token.json
 ```
 
 After that, you can transfer some of Mad Hatter's tea to White Rabbit:
