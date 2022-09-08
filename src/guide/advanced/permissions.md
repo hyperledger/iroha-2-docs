@@ -376,7 +376,7 @@ let grant_role_tx =
 
 Permissions exist so that only those accounts that have a required
 permission token to perform a certain action could do so. In the
-`iroha2-dev` version permission checks are implemented differently compared
+`iroha2-dev` version, permission checks are implemented differently compared
 to LTS and stable versions of Iroha 2.
 
 ::: dev
@@ -390,7 +390,7 @@ Each validator returns one of the following verdicts: `Deny` (with the
 exact reason to deny an operation), `Skip` (if an operation is not
 supported or has no meaning in a given context), or `Allow`.
 
-There are several `Judge`s already implemented in Iroha 2, such as:
+There are several implementations of the `Judge` trait in Iroha 2, such as:
 
 | Judge                        | Description                                                                                                                                                                          |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
