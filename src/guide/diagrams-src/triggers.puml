@@ -1,24 +1,21 @@
 @startuml
-object event_trigger {
-  {Action<F: Filter>}
-}
 
-object time_trigger {
-  {Action<TimeEventFilter>}
-}
-object data_trigger {
-  {Action<DataEventFilter>}
-}
-object by_call_trigger {
-  {Action<ExecuteTriggerEventFilter>}
-}
-object pipeline_trigger {
-  {Action<PipelineEventFilter>}
-}
+struct Trigger<F: Filter>
 
-event_trigger *-- time_trigger
-event_trigger *-- by_call_trigger
-event_trigger *-- data_trigger
-event_trigger *-- pipeline_trigger
+struct time_trigger<TimeEventFilter>
+struct data_trigger<DataEventFilter>
+struct by_call_trigger<ExecuteTriggerEventFilter>
+struct pipeline_trigger<PipelineEventFilter>
+
+struct precommit_trigger<TimeEventFilter(ExecutionTime::PreCommit)>
+struct scheduled_trigger<TimeEventFilter(ExecutionTime::Schedule(schedule))>
+
+Trigger --> time_trigger
+Trigger --> by_call_trigger
+Trigger --> data_trigger
+Trigger --> pipeline_trigger
+
+time_trigger --> precommit_trigger 
+time_trigger --> scheduled_trigger
 
 @enduml

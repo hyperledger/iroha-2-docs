@@ -53,4 +53,8 @@ blockchain.
 
 ## Filters
 
-![Untitled](/img/filters.png)
+### Data Filters
+
+![Untitled](/img/data_filters.png)
+
+![Untitled](/img/entity_filters.png)

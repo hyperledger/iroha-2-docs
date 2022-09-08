@@ -1,0 +1,185 @@
+@startuml
+
+left to right direction
+
+struct TriggerFilter {
+    type EventType = TriggerEvent
+    type EventFilter = TriggerEventFilter
+}
+
+enum TriggerEventFilter {
+    ByCreated
+    ByDeleted
+    ByExtended
+    ByShortened
+}
+
+enum TriggerEvent {
+    Created(TriggerId),
+    Deleted(TriggerId),
+    Extended(TriggerId),
+    Shortened(TriggerId),
+}
+
+TriggerFilter .. TriggerEvent
+TriggerFilter .. TriggerEventFilter
+
+
+struct RoleFilter {
+    type EventType = RoleEvent
+    type EventFilter = RoleEventFilter
+}   
+
+enum RoleEventFilter {
+    ByCreated
+    ByDeleted
+}
+
+enum RoleEvent {
+    Created(RoleId),
+    Deleted(RoleId),
+}
+
+RoleFilter .. RoleEvent
+RoleFilter .. RoleEventFilter 
+
+
+struct PeerFilter {
+    type EventType = PeerEvent
+    type EventFilter = PeerEventFilter
+}
+
+enum PeerEventFilter {
+    ByAdded
+    ByRemoved
+}
+
+enum PeerEvent {
+    Added(PeerId),
+    Removed(PeerId),
+}
+
+PeerFilter .. PeerEvent
+PeerFilter .. PeerEventFilter
+
+
+
+
+struct AssetDefinitionFilter {
+    type EventType = AssetDefinitionEvent
+    type EventFilter = AssetDefinitionEventFilter
+}
+
+enum AssetDefinitionEventFilter {
+    ByCreated
+    ByDeleted
+    ByMintabilityChanged
+    ByMetadataInserted
+    ByMetadataRemoved
+}
+
+enum AssetDefinitionEvent {
+    Created(AssetDefinitionId),
+    MintabilityChanged(AssetDefinitionId),
+    Deleted(AssetDefinitionId),
+    MetadataInserted(AssetDefinitionId),
+    MetadataRemoved(AssetDefinitionId),
+}
+
+AssetDefinitionFilter .. AssetDefinitionEvent
+AssetDefinitionFilter .. AssetDefinitionEventFilter
+
+
+
+struct AssetFilter {
+    type EventType = AssetEvent
+    type EventFilter = AssetEventFilter
+}
+
+enum AssetEventFilter {
+    ByCreated
+    ByDeleted
+    ByAdded
+    ByRemoved
+    ByMetadataInserted
+    ByMetadataRemoved
+}
+
+enum AssetEvent {
+    Created(AssetId),
+    Deleted(AssetId),
+    Added(AssetId),
+    Removed(AssetId),
+    MetadataInserted(AssetId),
+    MetadataRemoved(AssetId),
+}
+
+AssetFilter .. AssetEvent
+AssetFilter .. AssetEventFilter
+
+
+
+struct DomainFilter {
+    type EventType = DomainEvent
+    type EventFilter = DomainEventFilter
+}
+
+enum DomainEventFilter {
+    ByAccount(FilterOpt<AccountFilter>)
+    ByAssetDefinition(FilterOpt<AssetDefinitionFilter>)
+    ByCreated
+    ByDeleted
+    ByMetadataInserted
+    ByMetadataRemoved
+}
+
+enum DomainEvent {
+    Account(AccountEvent),
+    AssetDefinition(AssetDefinitionEvent),
+    Created(DomainId),
+    Deleted(DomainId),
+    MetadataInserted(DomainId),
+    MetadataRemoved(DomainId),
+}
+
+DomainFilter .. DomainEvent
+DomainFilter .. DomainEventFilter
+
+
+struct AccountFilter {
+    type EventType = AccountEvent
+    type EventFilter = AccountEventFilter
+}
+
+enum AccountEventFilter {
+    ByAsset(FilterOpt<AssetFilter>)
+    ByCreated
+    ByDeleted
+    ByAuthenticationAdded
+    ByAuthenticationRemoved
+    ByPermissionAdded
+    ByPermissionRemoved
+    ByRoleRevoked
+    ByRoleGranted
+    ByMetadataInserted
+    ByMetadataRemoved
+}
+
+enum AccountEvent {
+    Asset(AssetEvent),
+    Created(AccountId),
+    Deleted(AccountId),
+    AuthenticationAdded(AccountId),
+    AuthenticationRemoved(AccountId),
+    PermissionAdded(AccountId),
+    PermissionRemoved(AccountId),
+    RoleRevoked(AccountId),
+    RoleGranted(AccountId),
+    MetadataInserted(AccountId),
+    MetadataRemoved(AccountId),
+}
+
+AccountFilter .. AccountEvent
+AccountFilter .. AccountEventFilter
+
+@enduml
