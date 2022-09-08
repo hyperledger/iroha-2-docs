@@ -62,8 +62,7 @@ week.
 In the future this tutorial will have sections dedicated to:
 
 - multi-signature accounts and transactions
-- custom permission validators
-- permission groups
+- runtime permission validators
 
 We will also cover peer management in greater detail: adding and removing
 peers, maintaining a healthy network, and troubleshooting the issues that
