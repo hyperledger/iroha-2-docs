@@ -376,8 +376,8 @@ let grant_role_tx =
 
 Permissions exist so that only those accounts that have a required
 permission token to perform a certain action could do so. In the
-`iroha2-dev` version, permission checks are implemented differently compared
-to LTS and stable versions of Iroha 2.
+`iroha2-dev` version, permission checks are implemented differently
+compared to LTS and stable versions of Iroha 2.
 
 ::: dev
 
