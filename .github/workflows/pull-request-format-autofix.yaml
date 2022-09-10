@@ -43,6 +43,9 @@ jobs:
       - name: Format documentation
         run: pnpm format:docs:fix
 
+      - name: Inspect context
+        run: echo ${{ github }}
+
       - name: Push changes
         uses: Andro999b/push@v1.3
         with:
