@@ -1,7 +1,7 @@
 # Introduction
 
 Welcome to the Hyperledger Iroha 2 tutorial. This document is designed to
-help you get started with Iroha 2, regardless of your knowledge of
+help you get started with Iroha                               2, regardless of your knowledge of
 Hyperledger technology, coding experience or familiarity with blockchains.
 
 ::: tip
