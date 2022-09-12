@@ -1,7 +1,10 @@
 # Foreign Function Interfaces (FFI)
 
-As we [mentioned before](./wasm.md), to reduce the sizes of smartcontracts, we provide a dynamic library in the execution environment. We shall detail how to link against that library and use the functions at a later date, but for now, let's explore how to include functions and trait implementations into that library. 
-
+As we [mentioned before](./wasm.md), to reduce the sizes of smartcontracts,
+we provide a dynamic library in the execution environment. We shall detail
+how to link against that library and use the functions at a later date, but
+for now, let's explore how to include functions and trait implementations
+into that library.
 
 ## Why FFI
 
