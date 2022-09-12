@@ -1,9 +1,26 @@
 # Foreign Function Interfaces (FFI)
 
-As we mentioned before, Iroha 2 relies on the C-linkage to generate
-[WASM](./wasm.md) bindings, and the `iroha_wasm` crate deals with foreign
-function interfaces (FFI). Here we will discuss in more detail how Iroha 2
-handles FFI logic.
+As we [mentioned before](./wasm.md), to reduce the sizes of smartcontracts,
+we provide a dynamic library in the execution environment. We shall detail
+how to link against that library and use the functions at a later date, but
+for now, let's explore how to include functions and trait implementations
+into that library.
+
+## Why FFI
+
+A function is a rather abstract entity, and while most languages agree on
+what a function should do, the way in which said functions are represented
+is very different. Moreover, in some languages (like Rust), the
+consequences of calling a function, and the things that it is allowed to do
+are different. Because one can use any language to create a
+[WASM smartcontract](./wasm.md), we need to level the playing field. This
+is where the concept of foreign function interface (FFI) comes in.
+
+The main standard used today is the C application binary interface. It's
+simple, it's guaranteed to be available even in languages which can't
+compile to WASM, and it's stable. In principle, you could do everything
+manually, but Iroha provides you with a crate `iroha_ffi` which contains
+all you need to create compliant functions.
 
 ## FFI Binding Generation
 
