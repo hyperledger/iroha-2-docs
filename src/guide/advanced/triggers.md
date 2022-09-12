@@ -175,6 +175,9 @@ repetitions reaches zero, the trigger is gone. That means that if your
 trigger got repeated exactly `n` times, you can't `Mint` new repetitions,
 you have to `Register` it again, with the same name.
 
+After a trigger is repeated for the last time, i.e. the execution count
+reaches `0`, the trigger should be un-registered.
+
 <!-- TODO: test if reaches zero needs to re-register. -->
 
 ## Types of Triggers
@@ -191,13 +194,13 @@ the detailed information on how to use each of them:
 All triggers are essentially **event triggers**. The type of a trigger is
 determined by the type of an event that trigger is associated with. This,
 in turn, is determined by the `filter` used to register a trigger. Check
-out this [diagram] to understand the hierarchy of different kinds of
-triggers.
+out this [diagram](./../objects/hierarchy.md#triggers) to understand the
+hierarchy of different kinds of triggers.
 
 ### Data Triggers
 
 This category includes the largest variety of triggers. The events that are
-associated with this trigger type account for the vast majority of triggers
+associated with this trigger type account for the vast majority of events
 in Ethereum. These are data-related events, such as: an account got
 registered, an asset got transferred, the Queen of Hearts decided to burn
 all of her assets.
@@ -268,10 +271,10 @@ much to worry about.
 
 #### Pre-commit Triggers
 
-This is a variant of timed triggers that gets run before transactions get
-committed. It leaves a special event to be triggered in the next block.
-Effectively, it's a delayed pre-commit that can track the behaviour of
-transactions in the pipeline.
+This is a variant of timed triggers that gets run before blocks with
+transactions get committed. It leaves a special event to be triggered in
+the next block. Effectively, it's a delayed pre-commit that can track the
+behaviour of transactions in the pipeline.
 
 ::: info
 
