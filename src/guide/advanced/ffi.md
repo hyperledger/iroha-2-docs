@@ -1,13 +1,7 @@
 # Foreign Function Interfaces (FFI)
 
-As we [mentioned before](./wasm.md), Iroha 2 relies on a dynamic library
-provided inside the smartcontract execution environment.
+As we [mentioned before](./wasm.md), to reduce the sizes of smartcontracts, we provide a dynamic library in the execution environment. We shall detail how to link against that library and use the functions at a later date, but for now, let's explore how to include functions and trait implementations into that library. 
 
-To make a function available in the dynamic library, you must first ensure
-that it follows the foreign function interface conventions. In this chapter
-we shall give you a brief, non-technical overview of the process involved
-in making your structure and associated functions available in the dynamic
-library.
 
 ## Why FFI
 
