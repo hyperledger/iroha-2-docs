@@ -44,8 +44,12 @@ struct Trigger {
 
 ### `Trigger.id`
 
-The `TriggerId` is a simple wrapper around a single `Name`, i.e. a string
-A typical domain-scoped trigger looks like `trigger_id$domain_name`, while a bare trigger looks like `@@trigger_id`, which makes these names easy to parse. 
+The `TriggerId` is a simple wrapper around a single `Name`, a string with
+no whitespaces and no reserved characters (`@`, `#`, `$`).
+
+A typical [domain-scoped trigger](#domain-scoped-triggers) looks like
+`trigger_id$domain_name`, while a bare trigger looks like `@@trigger_id`,
+which makes these names easy to parse.
 
 ### `Trigger.action`
 
