@@ -111,13 +111,13 @@ mode.
 Refer to one of the language-specific guide to walk you through the process
 of registering objects in a blockchain:
 
-| Language              | Guide                                                                                                                                                                                   |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Bash                  | Register a [domain](../bash.md#3-registering-a-domain), an [account](../bash.md#4-registering-an-account), an [asset](../bash.md#5-registering-and-minting-assets)                      |
-| Rust                  | Register a [domain](../rust.md#3-registering-a-domain), an [account](../rust.md#4-registering-an-account), an [asset](../rust.md#5-registering-and-minting-assets)                      |
-| Kotlin/Java           | Register a [domain](../kotlin-java.md#3-registering-a-domain), an [account](../kotlin-java.md#4-registering-an-account), an [asset](../kotlin-java.md#5-registering-and-minting-assets) |
-| Python                | Register a [domain](../python.md#3-registering-a-domain), an [account](../python.md#4-registering-an-account), an [asset](../python.md#5-registering-and-minting-assets)                |
-| JavaScript/TypeScript | Register a [domain](../javascript.md#3-registering-a-domain), an [account](../javascript.md#4-registering-an-account), an [asset](../javascript.md#5-registering-and-minting-assets)    |
+| Language              | Guide                                                                                                                                                                                      |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Bash                  | Register a [domain](../bash.md#_3-registering-a-domain), an [account](../bash.md#_4-registering-an-account), an [asset](../bash.md#_5-registering-and-minting-assets)                      |
+| Rust                  | Register a [domain](../rust.md#_3-registering-a-domain), an [account](../rust.md#_4-registering-an-account), an [asset](../rust.md#_5-registering-and-minting-assets)                      |
+| Kotlin/Java           | Register a [domain](../kotlin-java.md#_3-registering-a-domain), an [account](../kotlin-java.md#_4-registering-an-account), an [asset](../kotlin-java.md#_5-registering-and-minting-assets) |
+| Python                | Register a [domain](../python.md#_3-registering-a-domain), an [account](../python.md#_4-registering-an-account), an [asset](../python.md#_5-registering-and-minting-assets)                |
+| JavaScript/TypeScript | Register a [domain](../javascript.md#_3-registering-a-domain), an [account](../javascript.md#_4-registering-an-account), an [asset](../javascript.md#_5-registering-and-minting-assets)    |
 
 ### Mint/Burn
 
