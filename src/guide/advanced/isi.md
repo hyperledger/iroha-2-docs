@@ -108,8 +108,8 @@ mode.
 
 :::
 
-Refer to one of the language-specific guide to walk you through the process
-of registering objects in a blockchain:
+Refer to one of the language-specific guides to walk you through the
+process of registering objects in a blockchain:
 
 | Language              | Guide                                                                                                                                                                                      |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
