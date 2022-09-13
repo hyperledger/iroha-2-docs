@@ -255,6 +255,8 @@ for details.
     cargo build -p iroha_client_cli
     ```
 
+    Build artifacts are created in the `./target/debug/` directory.
+
     ::: info
 
     We take pride in the fact that Iroha is extremely quick to compile. For
