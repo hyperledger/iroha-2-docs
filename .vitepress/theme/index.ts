@@ -1,7 +1,12 @@
 import ThemeDefault from 'vitepress/theme'
-// import Layout from './components/Layout.vue'
+import SnippetTabs from './components/SnippetTabs.vue'
 
 import 'virtual:windi.css'
 import './style/index.scss'
 
-export default ThemeDefault
+export default {
+  ...ThemeDefault,
+  enhanceApp({ app }) {
+    app.component('SnippetTabs', SnippetTabs);
+  }
+}
