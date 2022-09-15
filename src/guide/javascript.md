@@ -49,7 +49,6 @@ installing the packages you need.
 1. Set up a registry. In shell, run:
 
    ```bash
-   # FILE: .npmrc
    echo "@iroha2:registry=https://nexus.iroha.tech/repository/npm-group/" > .npmrc
    ```
 
