@@ -1,6 +1,6 @@
 # Iroha Special Instructions
 
-When we talked about [how Iorha operates](intro.md#how-iroha-works), we
+When we spoke about [how Iroha operates](intro.md#how-iroha-works), we
 said that Iroha Special Instructions is the only way to modify the world
 state. So what kinds of special instructions do we have? If you've read the
 tutorial for [Rust](../rust.md) or [Python](../python.md), you've already
@@ -8,10 +8,10 @@ seen a couple of instructions: `Register<Account>` and `Mint<Quantity>`.
 
 In the chapter on blockchain objects, we provide you with
 [a summary](../objects/instructions.md) of Iroha Special Instructions:
-which objects each instruction can be called for, and what are the
+what objects each instruction can be called for, and what are the
 instructions available for each object.
 
-Here we present you with the overview of each instruction.
+Here we present you with an overview of each instruction.
 
 | Instruction                                              | Descriptions                                      |
 | -------------------------------------------------------- | ------------------------------------------------- |
@@ -85,7 +85,7 @@ are assumed to be non-negative as well, so you can never have `-1.0` of
 
 ## Transfer
 
-Similarly to mint and burn instructions, transferring refers to assets. You
+Similar to mint and burn instructions, transferring refers to assets. You
 can transfer assets between different accounts.
 
 <!--TODO: add links to transferring assets example in which guide after https://github.com/hyperledger/iroha-2-docs/issues/81 is addressed -->
