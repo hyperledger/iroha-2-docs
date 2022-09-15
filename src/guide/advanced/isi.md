@@ -1,8 +1,8 @@
 # Iroha Special Instructions
 
 When we spoke about [how Iroha operates](intro.md#how-iroha-works), we said
-that Iroha Special Instructions is the only way to modify the world state.
-So what kinds of special instructions do we have? If you've read the
+that Iroha Special Instructions are the only way to modify the world state.
+So, what kind of special instructions do we have? If you've read the
 tutorial for [Rust](../rust.md) or [Python](../python.md), you've already
 seen a couple of instructions: `Register<Account>` and `Mint<Quantity>`.
 
