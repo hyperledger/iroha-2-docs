@@ -67,7 +67,7 @@ consensus, and you would eventually produce a block using only good™ peers.
 As a natural consequence, if any changes to the world state are made
 without the use of ISI, the good™ peers cannot know of them. They won't be
 able to reproduce the hash of the world state, and thus consensus will
-fail. Same thing happens if the peers have different instructions.
+fail. The same thing happens if the peers have different instructions.
 
 [^1]:
     For prospective wizards, the
