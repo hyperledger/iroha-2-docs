@@ -117,5 +117,5 @@ execute instructions in a certain way:
 
 - `If`: execute one of the two given instructions based on a given
   condition
-- `Sequence`: execute provided vector of instructions in a given order
+- `Sequence`: execute a provided vector of instructions in a given order
 - `Pair`: execute both provided instructions in a specified order
