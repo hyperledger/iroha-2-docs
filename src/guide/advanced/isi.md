@@ -1,15 +1,15 @@
 # Iroha Special Instructions
 
-When we spoke about [how Iroha operates](intro.md#how-iroha-works), we
-said that Iroha Special Instructions is the only way to modify the world
-state. So what kinds of special instructions do we have? If you've read the
+When we spoke about [how Iroha operates](intro.md#how-iroha-works), we said
+that Iroha Special Instructions is the only way to modify the world state.
+So what kinds of special instructions do we have? If you've read the
 tutorial for [Rust](../rust.md) or [Python](../python.md), you've already
 seen a couple of instructions: `Register<Account>` and `Mint<Quantity>`.
 
 In the chapter on blockchain objects, we provide you with
-[a summary](../objects/instructions.md) of Iroha Special Instructions:
-what objects each instruction can be called for, and what are the
-instructions available for each object.
+[a summary](../objects/instructions.md) of Iroha Special Instructions: what
+objects each instruction can be called for, and what are the instructions
+available for each object.
 
 Here we present you with an overview of each instruction.
 
