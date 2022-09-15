@@ -40,3 +40,21 @@ within the account but rather in the world state (WSV).
 :::
 
 ![Untitled](/img/domain-account-asset-diagram.png)
+
+## Triggers
+
+All triggers are essentially event triggers. We talk extensively about
+triggers and how they work in the
+[advanced section](../advanced/triggers.md) of this guide. Here we only
+wish to highlight the relationship between triggers as objects in a
+blockchain.
+
+![Untitled](/img/triggers.png)
+
+## Filters
+
+### Data Filters
+
+![Untitled](/img/data_filters.png)
+
+![Untitled](/img/entity_filters.png)

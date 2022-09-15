@@ -39,29 +39,17 @@ A trigger has roughly the following form:
 struct Trigger {
   id: TriggerId,
   action: Action,
-  metadata: Metadata,
 }
 ```
 
 ### `Trigger.id`
 
-The `TriggerId` is a simple wrapper around a single `Name`, i.e. a string
-with no whitespaces and no reserved characters (`@`, `#`).
+The `TriggerId` is a simple wrapper around a single `Name`, a string with
+no whitespaces and no reserved characters (`@`, `#`, `$`).
 
-::: info
-
-<!-- Check: a reference about future releases or work in progress -->
-
-In the future, we shall add scoped triggers, and the id will be expanded to
-be either a global trigger, or a trigger with a domain name. This is what
-determines the scope of the trigger.
-
-:::
-
-### `Trigger.metadata`
-
-This `Metadata` is the same kind of `Metadata` that can be attached to
-accounts, domains, assets, or transactions.
+A typical [domain-scoped trigger](#domain-scoped-triggers) looks like
+`trigger_id$domain_name`, while a bare trigger looks like `@@trigger_id`,
+which makes these names easy to parse.
 
 ### `Trigger.action`
 
@@ -72,13 +60,15 @@ struct Action {
   executable: Executable,
   repeats: Repeats,
   technical_account: AccountId,
-  filter: EventFilter
+  filter: EventFilter,
+  metadata: Metadata,
 }
 ```
 
 #### `Action.executable`
 
-Here the executable is either a `Vec<Instruction>` or a WASM binary.
+The executable linked to this action, either a `Vec<Instruction>` or a WASM
+binary.
 
 #### `Action.repeats`
 
@@ -103,6 +93,13 @@ you have been following the tutorial, this is `alice@wonderland`. However,
 later on we will show you why you'd want to create a brand new account for
 those purposes.
 
+::: info
+
+Note that you can only use the account that already exists in order to be
+able to register a new trigger.
+
+:::
+
 #### `Action.filter`
 
 A filter is what determines what _kind_ of trigger you're dealing with. All
@@ -113,39 +110,31 @@ The reason why we chose this architecture is simple; front end code has an
 abundance of event filters, and so, your knowledge of filters is
 transferable to writing smart contracts.
 
+#### `Action.metadata`
+
+This `Metadata` is the same kind of `Metadata` that can be attached to
+accounts, domains, assets, or transactions. This is the storage for trigger
+data.
+
+You can learn more about metadata in a
+[dedicated section](../objects/metadata.md).
+
 ## How Triggers Work
 
-We shall cover the following basic types of triggers and provide you with
-the detailed information on how to use each of them:
+As we already said, the `filter` that is used to register a trigger
+determines what kind of trigger this is. It is, of course, also determines
+how the trigger works, e.g. when it is executed. We will go into more
+details about the types of triggers in just a moment.
 
-- Event triggers
-- Timed triggers
-- Pre-commit triggers
-- By-call triggers
-- Block-based triggers
+First, we shall point out that there two other characteristics of a trigger
+that determine how this trigger works: its scope and repetition schema.
 
-::: info
+### Scope
 
-Both this tutorial and triggers themselves are under construction; some
-triggers don't exist yet, while the API of others will change drastically
-in the following release. We shall do our best to describe all of what we
-can, with as much detail as we can, and clearly signpost which parts of
-this tutorial will be made obsolete in the next release.
-
-<!-- Check: a reference about future releases or work in progress -->
-
-:::
-
-### Event Triggers
-
-As we have said previously, all triggers are, in a sense, event triggers.
-However, this category includes the largest variety of triggers: an account
-got registered, an asset got transferred, the Queen of Hearts decided to
-burn all of her assets.
-
-These types of events account for the vast majority of triggers in
-Ethereum, and were the first to be implemented. The LTS version of Iroha
-only supports un-scoped system-wide triggers with no permission validation.
+Triggers can be scoped and un-scoped. The LTS version of Iroha only
+supports un-scoped system-wide triggers with no permission validation. With
+the `iroha2-dev` you can use
+[domain-scoped triggers](#domain-scoped-triggers).
 
 ::: info
 
@@ -158,15 +147,7 @@ amount of work grows quadratically.
 
 :::
 
-Each such trigger can be set to repeat either `Indefinitely` or
-`Exactly(n)` times, where `n` is a 32-bit integer. Once the number of
-repetitions reaches zero, the trigger is gone. That means that if your
-trigger got repeated exactly `n` times, you can't `Mint` new repetitions,
-you have to `Register` it again, with the same name.
-
-<!-- TODO: test if reaches zero needs to re-register. -->
-
-### Domain-scoped Triggers
+#### Domain-scoped Triggers
 
 ::: dev
 
@@ -186,17 +167,63 @@ the trigger id using `$` symbol: `my_trigger$my_domain`.
 
 :::
 
-### Timed Triggers
+### Repetition Schema
 
-They are the same as event triggers, but they behave slightly™ differently.
+Each such trigger can be set to repeat either `Indefinitely` or
+`Exactly(n)` times, where `n` is a 32-bit integer. Once the number of
+repetitions reaches zero, the trigger is gone. That means that if your
+trigger got repeated exactly `n` times, you can't `Mint` new repetitions,
+you have to `Register` it again, with the same name.
+
+After a trigger is repeated for the last time, i.e. the execution count
+reaches `0`, the trigger should be un-registered.
+
+<!-- TODO: test if reaches zero needs to re-register. -->
+
+## Types of Triggers
+
+We shall cover the following basic types of triggers and provide you with
+the detailed information on how to use each of them:
+
+- [Data triggers](#data-triggers)
+- [Time triggers](#time-triggers)
+  - [Scheduled triggers](#scheduled-triggers)
+  - [Pre-commit triggers](#pre-commit-triggers)
+- [By-call triggers](#by-call-triggers)
+
+All triggers are essentially **event triggers**. The type of a trigger is
+determined by the type of an event that trigger is associated with. This,
+in turn, is determined by the `filter` used to register a trigger. Check
+out this [diagram](./../objects/hierarchy.md#triggers) to understand the
+hierarchy of different kinds of triggers.
+
+### Data Triggers
+
+This category includes the largest variety of triggers. The events that are
+associated with this trigger type account for the vast majority of events
+in Ethereum. These are data-related events, such as: an account got
+registered, an asset got transferred, the Queen of Hearts decided to burn
+all of her assets.
+
+### Time Triggers
+
+Time triggers behave slightly differently compared to data triggers. There
+are two sub-types of this type: [scheduled triggers](#scheduled-triggers)
+and [pre-commit triggers](#pre-commit-triggers).
+
 Instead of processing all the events generated by normal transactions, all
-timed triggers process one event: the block formation event. Specifically,
-the filters are only interested in the timestamp provided in that event,
-but not the block height, and not the current time.
+time triggers process one event: the **block formation event**.
+
+The filters of scheduled triggers are only interested in the timestamp
+provided in that event, but not the block height, and not the current time.
+They are executed according to a certain schedule. Pre-commit triggers, on
+the other hand, are executed right before a block is committed.
+
+#### Scheduled Triggers
 
 When going through consensus, all peers must agree on which triggers got
-executed. Timed triggers can't use real time, because then you can easily
-create a situation when they would never agree: e.g. by giving the
+executed. Scheduled triggers can't use real time, because then you can
+easily create a situation when they would never agree: e.g. by giving the
 `Repeats::Indefinitely` trigger a period that is smaller than the time it
 takes to pass consensus. It's really that simple.
 
@@ -242,12 +269,12 @@ much to worry about.
 
 :::
 
-### Pre-commit Triggers
+#### Pre-commit Triggers
 
-This is a variant of timed triggers that gets run before transactions get
-committed. It leaves a special event to be triggered in the next block.
-Effectively, it's a delayed pre-commit that can track the behaviour of
-transactions in the pipeline.
+This is a variant of timed triggers that gets run before blocks with
+transactions get committed. It leaves a special event to be triggered in
+the next block. Effectively, it's a delayed pre-commit that can track the
+behaviour of transactions in the pipeline.
 
 ::: info
 
@@ -264,14 +291,6 @@ Until Iroha 2 supports WASM-based _permissions validators_, however, your
 only choice is pre-commit triggers.
 
 :::
-
-### Block-based Triggers
-
-Same as timed triggers, but instead of only using the timestamp, this type
-of trigger also relies on the block height.
-
-While the mechanism for these triggers is similar, the use cases are
-different.
 
 ### By-call Triggers
 
@@ -414,16 +433,14 @@ After this somewhat laborious filter combination, we can create an `Action`
 
 ```rust
 let action = Action {
-    executable, repeats, technical_account, filter
+    executable, repeats, technical_account, filter, metadata
 }
 ```
 
 Which allows us to create an instance of a `Trigger`.
 
 ```rust
-let trigger = Trigger {
-    id, action, metadata
-}
+let trigger = Trigger::new(id, action);
 ```
 
 ### 5. Create a transaction
