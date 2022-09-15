@@ -83,6 +83,10 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
           text: 'Metadata',
           link: '/guide/objects/metadata',
         },
+        {
+          text: 'Instructions',
+          link: '/guide/objects/instructions',
+        },
       ],
     },
     {
@@ -95,6 +99,10 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
         {
           text: 'Iroha Special Instructions',
           link: '/guide/advanced/isi',
+        },
+        {
+          text: 'Expressions',
+          link: '/guide/advanced/expressions'
         },
         {
           text: 'Web Assembly',
