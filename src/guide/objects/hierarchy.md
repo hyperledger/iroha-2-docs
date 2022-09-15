@@ -58,3 +58,10 @@ blockchain.
 ![Untitled](/img/data_filters.png)
 
 ![Untitled](/img/entity_filters.png)
+
+## Instructions
+
+The diagram below shows the available Iroha Special Instructions. For more
+details, check out the [dedicated chapter](instructions.md).
+
+![Untitled](/img/instructions.png)

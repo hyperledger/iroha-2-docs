@@ -12,6 +12,17 @@ take a more direct approach. Enter _queries_.
 Queries are small instruction-like objects that, when sent to an Iroha
 peer, prompt a response with details from the current world state view.
 
+This is not necessarily the only kind of information that is available on
+the network, but it's the only kind of information that is _guaranteed_ to
+be accessible on all networks.
+
+For each deployment of Iroha, there might be other available information.
+For example, the availability of telemetry data is up to the network
+administrators. It's entirely their decision whether or not they want to
+allocate processing power to track the work instead of using it to do the
+actual work. By contrast, some functions are always required, e.g. having
+access to your account balance.
+
 ::: info
 
 In the LTS version of Iroha 2, most queries can not sorted, but can be

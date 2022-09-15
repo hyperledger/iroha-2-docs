@@ -1,0 +1,125 @@
+@startuml
+left to right direction
+
+enum Instruction {
+    Register(RegisterBox)
+    Unregister(UnregisterBox)
+    Mint(MintBox)
+    Burn(BurnBox)
+    Transfer(TransferBox)
+    If(Box<If>)
+    Pair(Box<Pair>)
+    Sequence(SequenceBox)
+    Fail(FailBox)
+    SetKeyValue(SetKeyValueBox)
+    RemoveKeyValue(RemoveKeyValueBox)
+    Grant(GrantBox)
+    Revoke(RevokeBox)
+    ExecuteTrigger(ExecuteTriggerBox)
+}
+
+object SetKeyValueBox {
+    object_id: EvaluatesTo<IdBox>    
+    key: EvaluatesTo<Name>    
+    value: EvaluatesTo<Value>    
+}
+
+object RemoveKeyValueBox {
+    object_id: EvaluatesTo<IdBox>    
+    key: EvaluatesTo<Name>    
+}
+
+
+object RegisterBox {
+    object: EvaluatesTo<RegistrableBox>    
+}
+
+object UnregisterBox {
+    object_id: EvaluatesTo<IdBox>    
+}
+
+
+object MintBox {
+    object: EvaluatesTo<Value>    
+    destination_id: EvaluatesTo<IdBox>    
+}
+
+object BurnBox {
+    object: EvaluatesTo<Value>    
+    destination_id: EvaluatesTo<IdBox>    
+}
+
+object TransferBox {
+    source_id: EvaluatesTo<IdBox>    
+    object: EvaluatesTo<Value>    
+    destination_id: EvaluatesTo<IdBox>    
+}
+
+
+object SequenceBox {
+    instructions: Vec<Instruction>    
+}
+
+object GrantBox {
+    object: EvaluatesTo<Value>    
+    destination_id: EvaluatesTo<IdBox>    
+}
+
+object RevokeBox {
+    object: EvaluatesTo<Value>    
+    destination_id: EvaluatesTo<IdBox>    
+}
+
+object ExecuteTriggerBox {
+    trigger_id: TriggerId
+}
+
+struct SetKeyValue<SetKeyValueBox>
+struct RemoveKeyValue<RemoveKeyValueBox>
+struct Register<RegisterBox>
+struct Unregister<UnregisterBox>
+struct Mint<MintBox>
+struct Burn<BurnBox>
+struct Transfer<TransferBox>
+struct Grant<GrantBox>
+struct Revoke<RevokeBox>
+
+
+Instruction --> SetKeyValue
+Instruction --> RemoveKeyValue
+Instruction --> Register
+Instruction --> Unregister
+Instruction --> Mint
+Instruction --> Burn
+Instruction --> Transfer
+Instruction --> Grant
+Instruction --> Revoke
+Instruction --> ExecuteTrigger
+Instruction --> Sequence
+
+SetKeyValue .. SetKeyValueBox
+RemoveKeyValue .. RemoveKeyValueBox
+Register .. RegisterBox
+Unregister .. UnregisterBox
+Mint .. MintBox
+Burn .. BurnBox
+Transfer .. TransferBox
+Grant .. GrantBox
+Revoke .. RevokeBox
+ExecuteTrigger .. ExecuteTriggerBox
+Sequence .. SequenceBox
+
+struct If {
+    condition: EvaluatesTo<bool>    
+    then: Instruction    
+    otherwise: Option<Instruction>    
+}
+
+struct Pair {
+    left_instruction: Instruction    
+    right_instruction: Instruction    
+}
+
+Instruction --> If
+Instruction --> Pair
+@enduml
