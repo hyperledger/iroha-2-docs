@@ -13,7 +13,7 @@ module.exports = {
   rangeEnd: Infinity,
   requirePragma: false,
   insertPragma: false,
-  proseWrap: 'always',
+  proseWrap: 'preserve',
   htmlWhitespaceSensitivity: 'css',
   vueIndentScriptAndStyle: false,
   endOfLine: 'lf',
@@ -21,9 +21,10 @@ module.exports = {
 
   overrides: [
     {
-      files: ['**/src/**/*.md'],
+      files: ['./src/**/*.md'],
       options: {
         printWidth: 75,
+        proseWrap: 'always',
       },
     },
   ],

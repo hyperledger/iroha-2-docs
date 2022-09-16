@@ -5,9 +5,10 @@
     "dev": "vitepress dev",
     "build": "vitepress build",
     "serve": "vitepress serve",
-    "format:docs": "prettier 'src/**/*.md'",
-    "format:docs:check": "pnpm run format:docs --check",
-    "format:docs:fix": "pnpm run format:docs --write"
+    "format": "prettier-eslint --include-dot-files \"**/*.{js,ts,vue,json}\" \"src/**/*.md\"",
+    "format:check": "pnpm format --list-different",
+    "format:fix": "pnpm format --write",
+    "lint": "eslint --ext=js,ts,vue ."
   },
   "devDependencies": {
     "@types/node": "^18.0.3",
@@ -18,6 +19,7 @@
     "markdown-it-footnote": "^3.0.3",
     "prettier": "^2.7.1",
     "prettier-eslint": "^15.0.1",
+    "prettier-eslint-cli": "^7.1.0",
     "sass": "^1.53.0",
     "shiki": "^0.10.1",
     "typescript": "^4.7.4",
