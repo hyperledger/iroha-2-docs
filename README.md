@@ -73,7 +73,7 @@ We use [Prettier](https://prettier.io/) to format project sources. Its configura
   pnpm format:check
   ```
 
-> Actually we use `prettier-eslint` tool to override Prettier formatting for Vue components.
+> We use `prettier-eslint` tool to override Prettier formatting for Vue components.
 
 ### Linting
 
