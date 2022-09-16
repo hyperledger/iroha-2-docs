@@ -3,7 +3,7 @@
 ::: info
 
 This guide targets `@iroha2/client` and `@iroha/data-model` version
-**`^3.0`**, which targets Iroha 2 LTS.
+**`^3.0`**, which targets Iroha 2 LTS (`iroha2-lts`).
 
 :::
 
@@ -136,7 +136,7 @@ the same directory that contains `node_modules`, like so:
 ╰───┴───────────────────┴──────╯
 ```
 
-We'd recommend to use [`tsx`](https://www.npmjs.com/package/tsx) to run the
+We recommend using [`tsx`](https://www.npmjs.com/package/tsx) to run the
 scripts you've created. For example:
 
 ```bash
@@ -207,14 +207,14 @@ const keyPair = generateKeyPair({
 })
 ```
 
-When you have a key pair, you might create a `Signer` using the key pair :
+When you have a key pair, you might create a `Signer` using the key pair:
 
 ```ts
 import { KeyPair } from '@iroha2/crypto-core'
 import { Signer } from '@iroha2/client'
 import { AccountId, DomainId } from '@iroha2/data-model'
 
-// Key pair from previous step
+// Key pair from the previous step
 declare const keyPair: KeyPair
 
 const accountId = AccountId({
@@ -229,12 +229,11 @@ const accountId = AccountId({
 const signer = new Signer(accountId, keyPair)
 ```
 
-Well, now we are able to make signatures with `signer.sign(binary)`! But
-usually we need to interact with Iroha and send something to it, like
-transactions or queries. `Torii` will help us.
+Well, now we are able to make signatures with `signer.sign(binary)`! However, to
+interact with Iroha, we need to be able to do more than just signing. We would need to send something to Iroha, like transactions or queries. `Torii` will help us with that.
 
-`Torii` class represents HTTP / WebSocket communications with Iroha. It
-will help us to communicate with each Iroha Endpoint, i.e.:
+The `Torii` class handles HTTP / WebSocket communications with Iroha.
+We will use it to communicate with Iroha endpoints. With the help of `Torii` we can:
 
 - Submit transactions
 - Make queries
@@ -242,12 +241,12 @@ will help us to communicate with each Iroha Endpoint, i.e.:
 - Listen for blocks stream
 - and so on
 
-To initialize `Torii`, first we need to know Iroha Torii URLs. Our Iroha
+To initialize `Torii`, we need to know Iroha Torii URLs. Our Iroha
 Peer is configured to listen for API endpoints at `http://127.0.0.1:8080`
 and for telemetry endpoints at `http://127.0.0.1:8081`. Then, we need to
 provide appropriate HTTP / WebSocket adapters which `Torii` will use[^1].
-These adapters depends on the environment you are going to use
-`@iroha2/client` in.
+These adapters depend on the environment in which you are going to use
+`@iroha2/client`.
 
 [^1]:
     We have to pass environment-specific `ws` and `fetch`, because there is
@@ -287,7 +286,7 @@ as well.
 ::: info
 
 `fetch: nodeFetch as typeof fetch` type assertion is acceptable here for a
-reason. `Torii` expects the "classic", native `fetch` function which is
+reason. `Torii` expects the "classic", native `fetch` function, which is
 available natively in Browser. However, both `node-fetch` and `undici`
 don't provide `fetch` that is 100% compatible with the native one. Since
 `Torii` doesn't rely on those corner-features that are partially provided
@@ -331,7 +330,7 @@ declare const signer: Signer
 const client = new Client({ torii, signer })
 ```
 
-`Client` provides a couple of tiny, but useful utilities for transactions
+`Client` provides useful utilities for transactions
 and queries. Other things could be done without it directly via `Torii`.
 Both `Signer` and `Torii` are accessible with `client.torii` and
 `client.signer`.
@@ -674,9 +673,9 @@ in this guide!
 
 ::: tip
 
-Further we will roughly re-create the project that is a part of
+In this guide, we are roughly recreating the project that is a part of
 `iroha-javascript` integration tests. If you want to see the full project,
-please follow to the
+please refer to the
 [`@iroha2/client-test-web` sources](https://github.com/hyperledger/iroha-javascript/tree/iroha2/packages/client/test/integration/test-web).
 
 :::
@@ -758,7 +757,7 @@ import { crypto } from './crypto'
 import client_config from './config.json'
 
 const torii = new Torii({
-  // these ports are specified in the peer's own config
+  // these ports are specified in the peer config
   apiURL: client_config.torii.apiURL,
   telemetryURL: client_config.torii.telemetryURL,
   ws: WS,
