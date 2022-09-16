@@ -229,11 +229,14 @@ const accountId = AccountId({
 const signer = new Signer(accountId, keyPair)
 ```
 
-Well, now we are able to make signatures with `signer.sign(binary)`! However, to
-interact with Iroha, we need to be able to do more than just signing. We would need to send something to Iroha, like transactions or queries. `Torii` will help us with that.
+Well, now we are able to make signatures with `signer.sign(binary)`!
+However, to interact with Iroha, we need to be able to do more than just
+signing. We would need to send something to Iroha, like transactions or
+queries. `Torii` will help us with that.
 
-The `Torii` class handles HTTP / WebSocket communications with Iroha.
-We will use it to communicate with Iroha endpoints. With the help of `Torii` we can:
+The `Torii` class handles HTTP / WebSocket communications with Iroha. We
+will use it to communicate with Iroha endpoints. With the help of `Torii`
+we can:
 
 - Submit transactions
 - Make queries
@@ -241,11 +244,11 @@ We will use it to communicate with Iroha endpoints. With the help of `Torii` we 
 - Listen for blocks stream
 - and so on
 
-To initialize `Torii`, we need to know Iroha Torii URLs. Our Iroha
-Peer is configured to listen for API endpoints at `http://127.0.0.1:8080`
-and for telemetry endpoints at `http://127.0.0.1:8081`. Then, we need to
-provide appropriate HTTP / WebSocket adapters which `Torii` will use[^1].
-These adapters depend on the environment in which you are going to use
+To initialize `Torii`, we need to know Iroha Torii URLs. Our Iroha Peer is
+configured to listen for API endpoints at `http://127.0.0.1:8080` and for
+telemetry endpoints at `http://127.0.0.1:8081`. Then, we need to provide
+appropriate HTTP / WebSocket adapters which `Torii` will use[^1]. These
+adapters depend on the environment in which you are going to use
 `@iroha2/client`.
 
 [^1]:
@@ -327,10 +330,9 @@ declare const signer: Signer
 const client = new Client({ torii, signer })
 ```
 
-`Client` provides useful utilities for transactions
-and queries. Other things could be done without it directly via `Torii`.
-Both `Signer` and `Torii` are accessible with `client.torii` and
-`client.signer`.
+`Client` provides useful utilities for transactions and queries. Other
+things could be done without it directly via `Torii`. Both `Signer` and
+`Torii` are accessible with `client.torii` and `client.signer`.
 
 ## 3. Registering a Domain
 
