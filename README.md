@@ -77,13 +77,13 @@ We use [Prettier](https://prettier.io/) to format project sources. Its configura
 
 ### Linting
 
-To check whether ESLint rules passes, run:
+To check whether ESLint rules pass, run:
 
 ```bash
 pnpm lint
 ```
 
-Auto-fixable issues could be fixed with:
+To fix auto-fixable issues, run:
 
 ```bash
 pnpm lint --fix
