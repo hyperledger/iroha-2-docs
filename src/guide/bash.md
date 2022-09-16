@@ -584,7 +584,9 @@ asset.
 
 ```json
 {
-  "name": "can_transfer_user_assets",
+    "definition_id": {
+    "name": "can_transfer_user_assets"
+  },
   "params": {
     "asset_id": {
       "Id": {
