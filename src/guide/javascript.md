@@ -261,9 +261,6 @@ import { adapter as WS } from '@iroha2/client/web-socket/node'
 
 import nodeFetch from 'node-fetch'
 
-// another alternative
-import { fetch as undiciFetch } from 'undici'
-
 const torii = new Torii({
   apiURL: 'http://127.0.0.1:8080',
   telemetryURL: 'http://127.0.0.1:8081',
