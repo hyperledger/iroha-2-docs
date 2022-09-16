@@ -244,7 +244,7 @@ will help us to communicate with each Iroha Endpoint, i.e.:
 
 To initialize `Torii`, first we need to know Iroha Torii URLs. Our Iroha
 Peer is configured to listen for API endpoints at `http://127.0.0.1:8080`
-and for telemetry endpoints at `http://127.0.0.1:8080`. Then, we need to
+and for telemetry endpoints at `http://127.0.0.1:8081`. Then, we need to
 provide appropriate HTTP / WebSocket adapters which `Torii` will use[^1].
 These adapters depends on the environment you are going to use
 `@iroha2/client` in.
