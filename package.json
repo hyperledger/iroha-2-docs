@@ -8,7 +8,7 @@
     "format": "prettier-eslint --include-dot-files \"**/*.{js,ts,vue,json}\" \"src/**/*.md\"",
     "format:check": "pnpm format --list-different",
     "format:fix": "pnpm format --write",
-    "lint": "eslint --ext=js,ts,vue ."
+    "lint": "eslint \"./.*{js,ts}\" \"./.vitepress/**/*{vue,ts,js}\""
   },
   "devDependencies": {
     "@types/node": "^18.0.3",
