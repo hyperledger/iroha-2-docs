@@ -9,6 +9,7 @@ async function themeConfig() {
   const cfg: UserConfig = {
     markdown: {
       highlight: await customHighlight(),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any,
   }
   return cfg
