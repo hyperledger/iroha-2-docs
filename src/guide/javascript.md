@@ -330,8 +330,8 @@ declare const signer: Signer
 const client = new Client({ torii, signer })
 ```
 
-`Client` provides useful utilities for transactions and queries. Other
-things could be done without it directly via `Torii`. Both `Signer` and
+`Client` provides useful utilities for transactions and queries. You can
+also use `Torii` to communicate with the endpoints directly. Both `Signer` and
 `Torii` are accessible with `client.torii` and `client.signer`.
 
 ## 3. Registering a Domain
