@@ -239,7 +239,7 @@ will use it to communicate with Iroha endpoints. With the help of `Torii`
 we can:
 
 - Submit transactions
-- Make queries
+- Send queries
 - Listen for events
 - Listen for blocks stream
 - and so on
@@ -331,8 +331,8 @@ const client = new Client({ torii, signer })
 ```
 
 `Client` provides useful utilities for transactions and queries. You can
-also use `Torii` to communicate with the endpoints directly. Both `Signer` and
-`Torii` are accessible with `client.torii` and `client.signer`.
+also use `Torii` to communicate with the endpoints directly. Both `Signer`
+and `Torii` are accessible with `client.torii` and `client.signer`.
 
 ## 3. Registering a Domain
 
