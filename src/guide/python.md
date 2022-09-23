@@ -96,8 +96,6 @@ no duck-typing of the `Register` instruction.
 ```python
 from iroha2.data_model.isi import *
 from iroha2.data_model.domain import *
-from iroha2.data_model.expression import *
-from iroha2.data_model import *
 
 domain = Domain("looking_glass")
 register = Register(Expression(Value(Identifiable(domain))))
@@ -132,13 +130,10 @@ domain exists now, and if it doesn't, suggest a fix to the user.
 
 ```python
 from iroha2.data_model.isi import *
-from iroha2.data_model.domain import *
-from iroha2.data_model.expression import *
-from iroha2.data_model.events import EventFilter, pipeline
-from iroha2.data_model import *
+from iroha2.data_model.account import *
 
 public_key = … # Get this from white_rabbit.
-bunny = Account("white_rabbit", "looking_glass", signatories=[public_key])
+bunny = Account("white_rabbit@looking_glass", signatories=[public_key])
 register = Register(Expression(Value(Identifiable(bunny))))
 ```
 
