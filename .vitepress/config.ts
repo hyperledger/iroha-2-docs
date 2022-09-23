@@ -103,7 +103,7 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
         },
         {
           text: 'Expressions',
-          link: '/guide/advanced/expressions'
+          link: '/guide/advanced/expressions',
         },
         {
           text: 'Web Assembly',
