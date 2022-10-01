@@ -1,2 +1,3 @@
 .vitepress/dist
 /src/snippets
+/src/example_code
