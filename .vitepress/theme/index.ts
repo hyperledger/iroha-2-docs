@@ -7,6 +7,6 @@ import './style/index.scss'
 export default {
   ...ThemeDefault,
   enhanceApp({ app }) {
-    app.component('SnippetTabs', SnippetTabs);
-  }
+    app.component('SnippetTabs', SnippetTabs)
+  },
 }
