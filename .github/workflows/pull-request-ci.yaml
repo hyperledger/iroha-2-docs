@@ -40,11 +40,14 @@ jobs:
       - name: Install packages
         run: pnpm install
 
-      - name: Check formatting
-        run: pnpm format:check
+      - name: Type check
+        run: pnpm typecheck
 
-      - name: Run linter
+      - name: Lint
         run: pnpm lint
 
-      - name: Build documentation
+      - name: Format
+        run: pnpm format:check
+
+      - name: Build
         run: pnpm build

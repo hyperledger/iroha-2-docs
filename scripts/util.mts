@@ -31,9 +31,8 @@ export const validateSources = (sources: SourceDefinition[]): true | Error => {
 /**
  * Retrieves a URL. Supports http, https and file URLs.
  *
- * @param {SourceDefinition} source - definition for a source to retrieve a page, FS or not
- * @param {string} lookupPath - a path for file contents to support relative and absolute paths
- * @returns {Promise<SourceDefinition | Error>}
+ * @param source - definition for a source to retrieve a page, FS or not
+ * @param lookupPath - a path for file contents to support relative and absolute paths
  */
 export const collectPage = async (source: SourceDefinition, lookupPath: string): Promise<SourceDefinition | Error> => {
   let result: SourceDefinition | Error
@@ -55,11 +54,11 @@ export const collectPage = async (source: SourceDefinition, lookupPath: string):
     result = Object.assign(source, { content: resp })
   } else if (source.url.startsWith('/')) {
     const fileContent = pathToStr(source.url)
-    result = Object.assign(source, { content: fileContent })
+    result = { ...source, content: fileContent }
   } else if (source.url.startsWith('.')) {
     const resolvedPath: string = join(lookupPath, source.url.slice(2))
     const fileContent = pathToStr(resolvedPath)
-    result = Object.assign(source, { content: fileContent })
+    result = { ...source, content: fileContent }
   } else {
     result = new Error(`Wrong URL format: ${source.url}`)
   }
@@ -69,8 +68,8 @@ export const collectPage = async (source: SourceDefinition, lookupPath: string):
 /**
  * Converts a language name to file extension; case—insensitive.
  *
- * @param {string} lang - a language name
- * @returns {string} a file extension appropriate for a given language
+ * @param lang - a language name
+ * @returns a file extension appropriate for a given language
  */
 export const langToFileExt = (lang: string): string => {
   const ll = lang.toLowerCase()
@@ -80,8 +79,8 @@ export const langToFileExt = (lang: string): string => {
 /**
  * Formats an individual snippet filename
  *
- * @param {IndividualSnippet} snippet - snippet data needed from formatting
- * @returns {string} snippet filename with an extension
+ * @param snippet - snippet data needed from formatting
+ * @returns snippet filename with an extension
  */
 export const getSnippetFilename = function (snippet: IndividualSnippet): string {
   const ext = langToFileExt(snippet.lang)

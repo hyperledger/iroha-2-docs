@@ -33,8 +33,8 @@ const ensureOutputDirAccessible = async (pState: PreprocessingState) => {
   try {
     ensureDirExists(SNIPPET_SRC_DIR)
     spinner.succeed('An output directory is available.')
-  } catch (ode) {
-    spinner.fail('Unable to access or create the output directory.\n' + ode.message)
+  } catch (err) {
+    spinner.fail(`Unable to access or create the output directory.\n${String(err)}`)
   }
 }
 

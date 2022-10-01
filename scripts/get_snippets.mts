@@ -11,6 +11,11 @@ import { __dirname, SNIPPET_SRC_DIR, SOURCES } from './constants.mjs'
 import { writeStrToFile, ensureDirExists } from './file_utils.mjs'
 import { validateSources, collectPage, getSnippetFilename } from './util.mjs'
 
+function parseError(err: unknown): Error {
+  if (err instanceof Error) return err
+  throw new Error(`${String(err)} is not an Error`)
+}
+
 /**
  * Checks the sources for correctness.
  *
@@ -23,7 +28,7 @@ const validateSrcList = async (pState: SnippetProcessingState) => {
     if (sourceValidation !== true) throw sourceValidation
     spinner.succeed('Sources are correct.')
   } catch (sve) {
-    pState.error = sve
+    pState.error = parseError(sve)
     spinner.fail('Sources are empty.')
   }
 }
@@ -93,8 +98,8 @@ const parsePagesBeta = async (pState: SnippetProcessingState) => {
     })
     spinner.succeed('All pages parsed succesfully.')
   } catch (parserError) {
-    pState.error = parserError
-    spinner.fail(`Parsing failed: ${parserError.message}`)
+    pState.error = parseError(parserError)
+    spinner.fail(`Parsing failed: ${String(parserError)}`)
   }
 }
 
@@ -130,7 +135,7 @@ const ensureSnippetDirBeta = async (pState: SnippetProcessingState) => {
     spinner.succeed(`Snippet dir: ${SNIPPET_SRC_DIR}`)
   } catch (ensureDirError) {
     pState.output_dir_accessible = false
-    spinner.fail(`Unable to ensure output dir exists:\n${ensureDirError.message}`)
+    spinner.fail(`Unable to ensure output dir exists:\n${String(ensureDirError)}`)
   }
 }
 
@@ -150,7 +155,7 @@ const setSnippetNames = async (pState: SnippetProcessingState) => {
       pState.output_strings[snippetFilename] = snippet.text
     }
   } catch (fmtErr) {
-    pState.error = fmtErr
+    pState.error = parseError(fmtErr)
   }
 }
 
@@ -163,7 +168,7 @@ const saveSnippetMeta = async (pState: SnippetProcessingState) => {
   const spinner = ora('Saving snippet metadata JSON…').start()
   try {
     // Record matches between filenames and the metadata
-    const outputMeta = {}
+    const outputMeta: Record<string, { version: string; lang: string; name: string }> = {}
     // Process snippets in the current group, filling the contents
     for (const key in pState.parsed) {
       const rec: IndividualSnippet = pState.parsed[key]
@@ -177,7 +182,7 @@ const saveSnippetMeta = async (pState: SnippetProcessingState) => {
     writeStrToFile(JSON.stringify(outputMeta, null, 4), join(SNIPPET_SRC_DIR, 'meta.json'))
     spinner.succeed('Snippet metadata was saved.')
   } catch (snmtErr) {
-    pState.error = snmtErr
+    pState.error = parseError(snmtErr)
     spinner.fail('Unable to save snippet metadata.')
   }
 }

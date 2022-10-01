@@ -9,6 +9,7 @@
     "format:check": "pnpm format --list-different",
     "format:fix": "pnpm format --write",
     "lint": "eslint --ext .js,.ts,.mts,.vue . .vitepress",
+    "typecheck": "tsc --noEmit",
     "get_snippets": "tsx scripts/get_snippets_runner.mts",
     "postinstall": "tsx scripts/pre_runner.mts"
   },
