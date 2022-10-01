@@ -3,7 +3,11 @@
 ::: info
 
 This guide targets `@iroha2/client` and `@iroha/data-model` version
-**`^1.2`**.
+**`^3.0`**, which targets Iroha 2 LTS (`iroha2-lts`).
+
+:::
+
+::: info
 
 This guide assumes you are familiar with Node.js and NPM ecosystem.
 
@@ -114,14 +118,26 @@ installing the packages you need.
 
    :::
 
-::: info
+::: info NOTE
 
-**Note**: when you are creating files in the following steps, you must
-place them in the same directory that contains `node_modules`, like so:
+When you are creating files in the following steps, you must place them in
+the same directory that contains `node_modules`, like so:
 
-<img src="../img/js-files.jpg" alt="JS project" width="300"/>
+```
+╭───┬───────────────────┬──────╮
+│ # │       name        │ type │
+├───┼───────────────────┼──────┤
+│ 0 │ node_modules      │ dir  │
+│ 1 │ addClient.ts      │ file │
+│ 2 │ example.ts        │ file │
+│ 3 │ package.json      │ file │
+│ 4 │ pnpm-lock.yaml    │ file │
+│ 5 │ registerDomain.ts │ file │
+╰───┴───────────────────┴──────╯
+```
 
-Use `tsx` to run the scripts you've created. For example:
+We recommend using [`tsx`](https://www.npmjs.com/package/tsx) to run the
+scripts you've created. For example:
 
 ```bash
 tsx example.ts
@@ -180,7 +196,7 @@ function generateKeyPair(params: {
   return keyPair
 }
 
-const kp = generateKeyPair({
+const keyPair = generateKeyPair({
   publicKeyMultihash:
     'ed0120e555d194e8822da35ac541ce9eec8b45058f4d294d9426ef97ba92698766f7d3',
   privateKey: {
@@ -191,33 +207,132 @@ const kp = generateKeyPair({
 })
 ```
 
-A basic client setup requires a Torii configuration and an account ID. This
-allows you to perform basic operations like health or status checks. As
-described above, to use transactions or queries you'll need to have a
-`keyPair` parameter as a part of the `Client` instance definition:
+When you have a key pair, you might create a `Signer` using the key pair:
 
 ```ts
-import { Client } from '@iroha2/client'
+import { KeyPair } from '@iroha2/crypto-core'
+import { Signer } from '@iroha2/client'
+import { AccountId, DomainId } from '@iroha2/data-model'
 
-const client = new Client({
-  torii: {
-    // Both URLs are optional in case you only need one of them,
-    // e.g. only the telemetry endpoints
-    apiURL: 'http://127.0.0.1:8080',
-    telemetryURL: 'http://127.0.0.1:8081',
-  },
-  accountId: AccountId({
-    // Account name
-    name: 'alice',
-    // The domain where this account is registered
-    domain_id: DomainId({
-      name: 'wonderland',
-    }),
+// Key pair from the previous step
+declare const keyPair: KeyPair
+
+const accountId = AccountId({
+  // Account name
+  name: 'alice',
+  // The domain where this account is registered
+  domain_id: DomainId({
+    name: 'wonderland',
   }),
-  // A key pair, needed for transactions and queries
-  keyPair: kp,
+})
+
+const signer = new Signer(accountId, keyPair)
+```
+
+Well, now we are able to make signatures with `signer.sign(binary)`!
+However, to interact with Iroha, we need to be able to do more than just
+signing. We would need to send something to Iroha, like transactions or
+queries. `Torii` will help us with that.
+
+The `Torii` class handles HTTP / WebSocket communications with Iroha. We
+will use it to communicate with Iroha endpoints. With the help of `Torii`
+we can:
+
+- Submit transactions
+- Send queries
+- Listen for events
+- Listen for blocks stream
+- and so on
+
+To initialize `Torii`, we need to know Iroha Torii URLs. Our Iroha Peer is
+configured to listen for API endpoints at `http://127.0.0.1:8080` and for
+telemetry endpoints at `http://127.0.0.1:8081`. Then, we need to provide
+appropriate HTTP / WebSocket adapters which `Torii` will use[^1]. These
+adapters depend on the environment in which you are going to use
+`@iroha2/client`.
+
+[^1]:
+    We have to pass environment-specific `ws` and `fetch`, because there is
+    no way for Iroha Client to communicate with a peer in an
+    environment-agnostic way.
+
+In Node.js `Torii` initialization will look like this:
+
+```ts
+import { Torii } from '@iroha2/client'
+import { adapter as WS } from '@iroha2/client/web-socket/node'
+
+import nodeFetch from 'node-fetch'
+
+const torii = new Torii({
+  apiURL: 'http://127.0.0.1:8080',
+  telemetryURL: 'http://127.0.0.1:8081',
+  ws: WS,
+  fetch: nodeFetch as typeof fetch,
 })
 ```
+
+::: tip
+
+In the example above, we use
+[`node-fetch`](https://www.npmjs.com/package/node-fetch) package which
+implements [Fetch API](https://fetch.spec.whatwg.org/#fetch-method) in
+Node.js. However, you can use
+[`undici`](https://undici.nodejs.org/#/?id=undicifetchinput-init-promise)
+as well.
+
+:::
+
+::: info
+
+`fetch: nodeFetch as typeof fetch` type assertion is acceptable here for a
+reason. `Torii` expects the "classic", native `fetch` function, which is
+available natively in Browser. However, both `node-fetch` and `undici`
+don't provide `fetch` that is 100% compatible with the native one. Since
+`Torii` doesn't rely on those corner-features that are partially provided
+by `node-fetch` and `undici`, it's fine to ignore the TypeScript error
+here.
+
+:::
+
+And here is the sample of `Torii` initialization in Browser:
+
+```ts
+import { Torii } from '@iroha2/client'
+import { adapter as WS } from '@iroha2/client/web-socket/native'
+
+const torii = new Torii({
+  apiURL: 'http://127.0.0.1:8080',
+  telemetryURL: 'http://127.0.0.1:8081',
+  ws: WS,
+  // passing globally available `fetch`
+  fetch: fetch.bind(window),
+})
+```
+
+::: info NOTE
+
+We make `fetch.bind(window)` to avoid
+`TypeError: "'fetch' called on an object that does not implement interface Window."`.
+
+:::
+
+Great! Now we have `signer` and `torii`. Finally, we could create a
+`Client`:
+
+```ts
+import { Client, Signer, Torii } from '@iroha2/client'
+
+// --snip--
+declare const torii: Torii
+declare const signer: Signer
+
+const client = new Client({ torii, signer })
+```
+
+`Client` provides useful utilities for transactions and queries. You can
+also use `Torii` to communicate with the endpoints directly. Both `Signer`
+and `Torii` are accessible with `client.torii` and `client.signer`.
 
 ## 3. Registering a Domain
 
@@ -287,7 +402,7 @@ async function registerDomain(domainName: string) {
     }),
   })
 
-  await client.submit(
+  await client.submitExecutable(
     Executable(
       'Instructions',
       VecInstruction([Instruction('Register', registerBox)]),
@@ -308,7 +423,10 @@ create another function that wraps that functionality:
 ```ts
 async function ensureDomainExistence(domainName: string) {
   // Query all domains
-  const result = await client.request(QueryBox('FindAllDomains', null))
+  const result = await client.requestWithQueryBox(
+    QueryBox('FindAllDomains', null),
+  )
+
   // Display the request status
   console.log('%o', result)
 
@@ -318,6 +436,7 @@ async function ensureDomainExistence(domainName: string) {
     .result.as('Vec')
     .map((x) => x.as('Identifiable').as('Domain'))
     .find((x) => x.id.name === domainName)
+
   // Throw an error if the domain is unavailable
   if (!domain) throw new Error('Not found')
 }
@@ -551,6 +670,15 @@ all, this is the language in which Iroha 2 was built.
 Let's build a small Vue 3 application that uses each API we've discovered
 in this guide!
 
+::: tip
+
+In this guide, we are roughly recreating the project that is a part of
+`iroha-javascript` integration tests. If you want to see the full project,
+please refer to the
+[`@iroha2/client-test-web` sources](https://github.com/hyperledger/iroha-javascript/tree/iroha2/packages/client/test/integration/test-web).
+
+:::
+
 Our app will consist of 3 main views:
 
 - Status checker that periodically requests peer status (e.g. current
@@ -559,9 +687,27 @@ Our app will consist of 3 main views:
   name;
 - Listener with a toggle to setup listening for events.
 
-Our client config is the following (`config.json` file in the project):
+You can use this folder structure as a reference:
 
-```json
+```
+╭───┬──────────────────────────────╮
+│ # │             name             │
+├───┼──────────────────────────────┤
+│ 0 │ App.vue                      │
+│ 1 │ client.ts                    │
+│ 2 │ components/CreateDomain.vue  │
+│ 3 │ components/Listener.vue      │
+│ 4 │ components/StatusChecker.vue │
+│ 5 │ config.json                  │
+│ 6 │ crypto.ts                    │
+│ 7 │ main.ts                      │
+╰───┴──────────────────────────────╯
+```
+
+Our client config is the following:
+
+```jsonc
+// FILE: config.json
 {
   "torii": {
     "apiURL": "http://127.0.0.1:8080",
@@ -597,7 +743,8 @@ export { crypto }
 ```ts
 // FILE: client.ts
 
-import { Client, setCrypto } from '@iroha2/client'
+import { Client, Signer, Torii } from '@iroha2/client'
+import { adapter as WS } from '@iroha2/client/web-socket/native'
 import { KeyPair } from '@iroha2/crypto-core'
 import { hexToBytes } from 'hada'
 import { AccountId } from '@iroha2/data-model'
@@ -605,25 +752,28 @@ import { AccountId } from '@iroha2/data-model'
 // importing already initialized crypto
 import { crypto } from './crypto'
 
-// a config with stringified keys
-import client_config from './config'
+// the config with stringified keys, account id and torii URLs
+import client_config from './config.json'
 
-setCrypto(crypto)
+const torii = new Torii({
+  // these ports are specified in the peer config
+  apiURL: client_config.torii.apiURL,
+  telemetryURL: client_config.torii.telemetryURL,
+  ws: WS,
+  fetch: fetch.bind(window),
+})
 
-export const client = new Client({
-  torii: {
-    // these ports are specified in the peer's own config
-    apiURL: `http://localhost:8080`,
-    telemetryURL: `http://localhost:8081`,
-  },
+const signer = new Signer(
   // Account name and the domain where it's registered
-  accountId: client_config.account as AccountId,
+  client_config.account as AccountId,
   // A key pair, required for the account authentication
-  keyPair: generateKeyPair({
+  generateKeyPair({
     publicKeyMultihash: client_config.publicKey,
     privateKey: client_config.privateKey,
   }),
-})
+)
+
+export const client = new Client({ torii, signer })
 
 // an util function
 function generateKeyPair(params: {
@@ -654,28 +804,27 @@ Now we are ready to use the client. Let's start from the `StatusChecker`
 component:
 
 ```vue
+<!-- FILE: StatusChecker.vue -->
+
 <script setup lang="ts">
-import { useIntervalFn, useAsyncState } from '@vueuse/core'
+import { useIntervalFn } from '@vueuse/core'
+import { useStaleState, useTask } from '@vue-kakuyaku/core'
 import { client } from '../client'
 
-const { state: status, execute: updateStatus } = useAsyncState(
-  () => client.getStatus(),
-  null,
-  {
-    resetOnExecute: false,
-  },
-)
-
-useIntervalFn(() => updateStatus(), 1000)
+const { state, run } = useTask(() => client.torii.getStatus(), {
+  immediate: true,
+})
+const stale = useStaleState(state)
+useIntervalFn(run, 1000)
 </script>
 
 <template>
   <div>
     <h3>Status</h3>
 
-    <ul v-if="status">
-      <li>Blocks: {{ status.blocks }}</li>
-      <li>Uptime (sec): {{ status.uptime.secs }}</li>
+    <ul v-if="stale.fulfilled">
+      <li>Blocks: {{ stale.fulfilled.value.blocks }}</li>
+      <li>Uptime (sec): {{ stale.fulfilled.value.uptime.secs }}</li>
     </ul>
   </div>
 </template>
@@ -684,6 +833,8 @@ useIntervalFn(() => updateStatus(), 1000)
 Now let's build the `CreateDomain` component:
 
 ```vue
+<!-- FILE: CreateDomain.vue -->
+
 <script setup lang="ts">
 import {
   DomainId,
@@ -702,50 +853,42 @@ import {
 } from '@iroha2/data-model'
 import { ref } from 'vue'
 import { client } from '../client'
+import { useTask } from '@vue-kakuyaku/core'
 
 const domainName = ref('')
-const isPending = ref(false)
 
-async function register() {
-  try {
-    isPending.value = true
-
-    await client.submit(
-      Executable(
-        'Instructions',
-        VecInstruction([
-          Instruction(
-            'Register',
-            RegisterBox({
-              object: EvaluatesToRegistrableBox({
-                expression: Expression(
-                  'Raw',
-                  Value(
-                    'Identifiable',
-                    IdentifiableBox(
-                      'NewDomain',
-                      NewDomain({
-                        id: DomainId({
-                          name: domainName.value,
-                        }),
-                        metadata: Metadata({
-                          map: MapNameValue(new Map()),
-                        }),
-                        logo: OptionIpfsPath('None'),
+const { state, run: registerDomain } = useTask(async () => {
+  await client.submitExecutable(
+    Executable(
+      'Instructions',
+      VecInstruction([
+        Instruction(
+          'Register',
+          RegisterBox({
+            object: EvaluatesToRegistrableBox({
+              expression: Expression(
+                'Raw',
+                Value(
+                  'Identifiable',
+                  IdentifiableBox(
+                    'NewDomain',
+                    NewDomain({
+                      id: DomainId({
+                        name: domainName.value,
                       }),
-                    ),
+                      metadata: Metadata({ map: MapNameValue(new Map()) }),
+                      logo: OptionIpfsPath('None'),
+                    }),
                   ),
                 ),
-              }),
+              ),
             }),
-          ),
-        ]),
-      ),
-    )
-  } finally {
-    isPending.value = false
-  }
-}
+          }),
+        ),
+      ]),
+    ),
+  )
+})
 </script>
 
 <template>
@@ -756,8 +899,8 @@ async function register() {
       <input id="domain" v-model="domainName" />
     </p>
     <p>
-      <button @click="register">
-        Register domain{{ isPending ? '...' : '' }}
+      <button @click="registerDomain()">
+        Register domain{{ state.pending ? '...' : '' }}
       </button>
     </p>
   </div>
@@ -768,7 +911,8 @@ And finally, let's build the `Listener` component that will use Events API
 to set up a live connection with a peer:
 
 ```vue
-<script setup lang="ts">
+<!-- FILE: Listener.vue -->
+<script setup <script setup lang="ts">
 import { SetupEventsReturn } from '@iroha2/client'
 import {
   FilterBox,
@@ -800,7 +944,7 @@ const currentListener = shallowRef<null | SetupEventsReturn>(null)
 const isListening = computed(() => !!currentListener.value)
 
 async function startListening() {
-  currentListener.value = await client.listenForEvents({
+  currentListener.value = await client.torii.listenForEvents({
     filter: FilterBox(
       'Pipeline',
       PipelineEventFilter({
@@ -864,6 +1008,8 @@ That's it! Finally, we just need to wrap it up with the `App.vue` component
 and the `app` entrypoint:
 
 ```vue
+<!-- FILE: App.vue -->
+
 <script setup lang="ts">
 import CreateDomain from './components/CreateDomain.vue'
 import Listener from './components/Listener.vue'
@@ -887,7 +1033,7 @@ import StatusChecker from './components/StatusChecker.vue'
 ```
 
 ```ts
-// main.ts
+// FILE: main.ts
 
 import { createApp } from 'vue'
 import App from './App.vue'
