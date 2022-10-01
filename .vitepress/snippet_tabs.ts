@@ -247,10 +247,10 @@ export function snippets_plugin(md: MarkdownIt, options: Record<string, any>) {
     marker_str = ':',
     marker_char: number = marker_str.charCodeAt(0),
     marker_len: number = marker_str.length,
-    validate: Function = options.validate || validateDefault,
-    render: Function = snippetRender
+    validate: (params: string, markup: string) => boolean = options.validate || validateDefault,
+    render = snippetRender
 
-  if (!options.hasOwnProperty('snippet_root') || options.snippet_root.constructor.name !== 'String') {
+  if (!('snippet_root' in options) || options.snippet_root.constructor.name !== 'String') {
     const errTxt = 'Incorrect configuration. ' + 'A correct value for snippet_root is required for snippet_tabs plugin.'
     throw new Error(errTxt)
   }
@@ -258,12 +258,7 @@ export function snippets_plugin(md: MarkdownIt, options: Record<string, any>) {
   function snippet_container(state: StateBlock, startLine: number, endLine: number, silent: boolean) {
     let pos: number,
       nextLine: number,
-      marker_count: number,
-      markup: string,
-      params: string,
       token: Token,
-      old_parent: string,
-      old_line_max: number,
       auto_closed = false,
       start: number = state.bMarks[startLine] + state.tShift[startLine],
       max: number = state.eMarks[startLine]
@@ -281,14 +276,14 @@ export function snippets_plugin(md: MarkdownIt, options: Record<string, any>) {
       }
     }
 
-    marker_count = Math.floor((pos - start) / marker_len)
+    const marker_count = Math.floor((pos - start) / marker_len)
     if (marker_count < min_markers) {
       return false
     }
     pos -= (pos - start) % marker_len
 
-    markup = state.src.slice(start, pos)
-    params = state.src.slice(pos, max)
+    const markup = state.src.slice(start, pos)
+    const params = state.src.slice(pos, max)
     // Ignore a string that does not get validated
     if (!validate(params, markup)) {
       return false
@@ -352,8 +347,8 @@ export function snippets_plugin(md: MarkdownIt, options: Record<string, any>) {
       break
     }
 
-    old_parent = state.parentType
-    old_line_max = state.lineMax
+    const old_parent = state.parentType
+    const old_line_max = state.lineMax
     state.parentType = 'snippets'
 
     // Prevent the lazy continuations from ever going past an end marker
