@@ -4,11 +4,11 @@
  * Common utilities, used by the documentation scripts.
  */
 
-import { join } from "path";
-import axios from "axios";
-import { IndividualSnippet, SourceDefinition } from "./types.mjs";
-import { pathToStr } from "./file_utils.mjs";
-import { langExtensions } from "./constants.mjs";
+import { join } from 'path'
+import axios from 'axios'
+import { IndividualSnippet, SourceDefinition } from './types.mjs'
+import { pathToStr } from './file_utils.mjs'
+import { langExtensions } from './constants.mjs'
 
 /**
  * Checks if the source definitions are formatted correctly
@@ -16,17 +16,17 @@ import { langExtensions } from "./constants.mjs";
  * @param sources - a list of sources to be validated
  */
 export const validateSources = (sources: SourceDefinition[]): true | Error => {
-  let result: true | Error;
-  if (sources.constructor.name == "Array") {
+  let result: true | Error
+  if (sources.constructor.name == 'Array') {
     if (sources.length === 0) {
-      result = new Error("URL list should not be empty");
+      result = new Error('URL list should not be empty')
     } else {
-      result = true;
+      result = true
     }
-  } else if (sources instanceof Error) result = sources;
-  else result = new Error("URL list should contain a list");
-  return result;
-};
+  } else if (sources instanceof Error) result = sources
+  else result = new Error('URL list should contain a list')
+  return result
+}
 
 /**
  * Retrieves a URL. Supports http, https and file URLs.
@@ -35,39 +35,36 @@ export const validateSources = (sources: SourceDefinition[]): true | Error => {
  * @param {string} lookupPath - a path for file contents to support relative and absolute paths
  * @returns {Promise<SourceDefinition | Error>}
  */
-export const collectPage = async (
-  source: SourceDefinition,
-  lookupPath: string
-): Promise<SourceDefinition | Error> => {
-  let result: SourceDefinition | Error;
-  if (source.url.startsWith("http://") || source.url.startsWith("https://")) {
+export const collectPage = async (source: SourceDefinition, lookupPath: string): Promise<SourceDefinition | Error> => {
+  let result: SourceDefinition | Error
+  if (source.url.startsWith('http://') || source.url.startsWith('https://')) {
     const resp: string | Error = await axios({
-      method: "get",
-      url: source.url
+      method: 'get',
+      url: source.url,
     })
       .then((resp) => {
-        return resp.data;
+        return resp.data
       })
       .catch((error) => {
         return new Error(
           `Unable to retrieve a page.\n` +
             `HTTP status: ${error.response.status}.\n` +
-            `Status text: ${error.response.statusText}.`
-        );
-      });
-    result = Object.assign(source, { content: resp });
-  } else if (source.url.startsWith("/")) {
-    const fileContent = pathToStr(source.url);
-    result = Object.assign(source, { content: fileContent });
-  } else if (source.url.startsWith(".")) {
-    let resolvedPath: string = join(lookupPath, source.url.slice(2));
-    const fileContent = pathToStr(resolvedPath);
-    result = Object.assign(source, { content: fileContent });
+            `Status text: ${error.response.statusText}.`,
+        )
+      })
+    result = Object.assign(source, { content: resp })
+  } else if (source.url.startsWith('/')) {
+    const fileContent = pathToStr(source.url)
+    result = Object.assign(source, { content: fileContent })
+  } else if (source.url.startsWith('.')) {
+    const resolvedPath: string = join(lookupPath, source.url.slice(2))
+    const fileContent = pathToStr(resolvedPath)
+    result = Object.assign(source, { content: fileContent })
   } else {
-    result = new Error(`Wrong URL format: ${source.url}`);
+    result = new Error(`Wrong URL format: ${source.url}`)
   }
-  return result;
-};
+  return result
+}
 
 /**
  * Converts a language name to file extension; case—insensitive.
@@ -76,9 +73,9 @@ export const collectPage = async (
  * @returns {string} a file extension appropriate for a given language
  */
 export const langToFileExt = (lang: string): string => {
-  const ll = lang.toLowerCase();
-  return langExtensions.hasOwnProperty(ll) ? langExtensions[ll] : "";
-};
+  const ll = lang.toLowerCase()
+  return ll in langExtensions ? langExtensions[ll] : ''
+}
 
 /**
  * Formats an individual snippet filename
@@ -86,9 +83,7 @@ export const langToFileExt = (lang: string): string => {
  * @param {IndividualSnippet} snippet - snippet data needed from formatting
  * @returns {string} snippet filename with an extension
  */
-export const getSnippetFilename = function (
-  snippet: IndividualSnippet
-): string {
-  let ext = langToFileExt(snippet.lang);
-  return `${snippet.version}_${snippet.lang}_${snippet.name}.${ext}`;
-};
+export const getSnippetFilename = function (snippet: IndividualSnippet): string {
+  const ext = langToFileExt(snippet.lang)
+  return `${snippet.version}_${snippet.lang}_${snippet.name}.${ext}`
+}

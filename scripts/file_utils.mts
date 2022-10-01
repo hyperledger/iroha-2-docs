@@ -27,8 +27,8 @@ import {
 export function writeStrToFile(
   snippetStr: string,
   filePath: PathOrFileDescriptor
-): Boolean | Error {
-  let result: Boolean | Error;
+): boolean | Error {
+  let result: boolean | Error;
   try {
     writeFileSync(filePath, snippetStr);
     result = true;

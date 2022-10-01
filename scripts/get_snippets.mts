@@ -20,10 +20,10 @@ import { validateSources, collectPage, getSnippetFilename } from "./util.mjs";
  *
  * @param {SnippetProcessingState} pState
  */
-let validateSrcList = async (pState: SnippetProcessingState) => {
+const validateSrcList = async (pState: SnippetProcessingState) => {
   const spinner = ora("Validating the sources…").start();
   try {
-    let sourceValidation = validateSources(SOURCES);
+    const sourceValidation = validateSources(SOURCES);
     if (sourceValidation !== true) throw sourceValidation;
     spinner.succeed("Sources are correct.");
   } catch (sve) {
@@ -85,7 +85,7 @@ const parsePagesBeta = async (pState: SnippetProcessingState) => {
         throw new Error(`No content for ${src.url}`);
       // Parse content and fill the list in a "parsed" attribute
       const parserInst = new ExampleParser(src.content);
-      let snippetMap = parserInst.mapLines();
+      const snippetMap = parserInst.mapLines();
       const tmpItems = Object.entries(snippetMap).map((sn) => {
         const snippet: IndividualSnippet = {
           name: sn[0],
@@ -153,8 +153,8 @@ const setSnippetNames = async (pState: SnippetProcessingState) => {
   pState.output_strings = {};
   try {
     // Process snippets in the current group, filling the contents
-    for (let key in pState.parsed) {
-      let snippet: IndividualSnippet = pState.parsed[key];
+    for (const key in pState.parsed) {
+      const snippet: IndividualSnippet = pState.parsed[key];
       const snippetFilename = getSnippetFilename(snippet);
       pState.output_strings[snippetFilename] = snippet.text;
     }
@@ -172,10 +172,10 @@ const saveSnippetMeta = async (pState: SnippetProcessingState) => {
   const spinner = ora("Saving snippet metadata JSON…").start();
   try {
     // Record matches between filenames and the metadata
-    let outputMeta = {};
+    const outputMeta = {};
     // Process snippets in the current group, filling the contents
-    for (let key in pState.parsed) {
-      let rec: IndividualSnippet = pState.parsed[key];
+    for (const key in pState.parsed) {
+      const rec: IndividualSnippet = pState.parsed[key];
       const snippetFilename = getSnippetFilename(rec);
       outputMeta[snippetFilename] = {
         version: rec.version,
@@ -205,8 +205,8 @@ const exportSnippetFilesBeta = async (pState: SnippetProcessingState) => {
   try {
     // Delete the previous directory contents
     // Write the snippets
-    for (let filename in pState.output_strings) {
-      let snippet: string = pState.output_strings[filename];
+    for (const filename in pState.output_strings) {
+      const snippet: string = pState.output_strings[filename];
       spinner.text = `${sPrefix}: ${filename}`;
       writeStrToFile(snippet, join(SNIPPET_SRC_DIR, filename));
     }
@@ -222,7 +222,7 @@ const exportSnippetFilesBeta = async (pState: SnippetProcessingState) => {
  * building the documentation.
  */
 export async function main() {
-  let pState: SnippetProcessingState = {
+  const pState: SnippetProcessingState = {
     error: null,
     output_dir_accessible: false,
     sources: SOURCES,

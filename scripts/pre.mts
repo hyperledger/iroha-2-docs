@@ -25,7 +25,7 @@ export type PreprocessingState = {
  *
  * @param {PreprocessingState} pState - current execution state
  */
-let ensureOutputDirAccessible = async (pState: PreprocessingState) => {
+const ensureOutputDirAccessible = async (pState: PreprocessingState) => {
   const spinner = ora({
     isEnabled: !ci.isCI,
     text: "Locating the output file…"
@@ -45,7 +45,7 @@ let ensureOutputDirAccessible = async (pState: PreprocessingState) => {
  *
  * @param {PreprocessingState} pState - current execution state
  */
-let ensureOutputDirHasContents = async (pState: PreprocessingState) => {
+const ensureOutputDirHasContents = async (pState: PreprocessingState) => {
   const spinner = ora({
     isEnabled: !ci.isCI,
     text: "Checking if the output directory contains snippets…"
@@ -63,7 +63,7 @@ let ensureOutputDirHasContents = async (pState: PreprocessingState) => {
  *
  * @param pState - current execution state
  */
-let updateOutputIfNotExists = async (pState: PreprocessingState) => {
+const updateOutputIfNotExists = async (pState: PreprocessingState) => {
   if (!pState.outputDirHasContents) {
     console.log("Downloading the examples.\n");
     await get_examples_main();
@@ -77,7 +77,7 @@ let updateOutputIfNotExists = async (pState: PreprocessingState) => {
  * @export
  */
 export async function preMain() {
-  let pState: PreprocessingState = {
+  const pState: PreprocessingState = {
     error: null,
     outputDirHasContents: false
   };

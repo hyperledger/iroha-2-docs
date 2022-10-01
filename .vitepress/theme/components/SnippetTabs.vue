@@ -44,14 +44,13 @@ export default {
       return sp['data-name'] + '__' + sp['data-lang']
     },
     setupTabs: function () {
-      let self = this
       this.tabs = this.$slots.default().map((slotEl) => {
-        return self.getTabId(slotEl.props)
+        return this.getTabId(slotEl.props)
       })
       this.tab_names = Object.assign(
         {},
         ...this.$slots.default().map((slotEl) => {
-          const tabKey = self.getTabId(slotEl.props)
+          const tabKey = this.getTabId(slotEl.props)
           return {
             [tabKey]: slotEl.props['data-name'],
           }
@@ -60,7 +59,7 @@ export default {
       this.tab_icons = Object.assign(
         {},
         ...this.$slots.default().map((slotEl) => {
-          const tabKey = self.getTabId(slotEl.props)
+          const tabKey = this.getTabId(slotEl.props)
           const tabLang = slotEl.props['data-lang'].toLowerCase()
           return {
             [tabKey]: langIconURLs[tabLang],
@@ -69,7 +68,6 @@ export default {
       )
     },
     changeTab: function (tabName) {
-      let self = this
       // Cache DOM slots, containing the code snippets /
       // tab contents
       const slots = this.$slots.default()
@@ -82,7 +80,7 @@ export default {
       // Change an active tab content
       for (let slotId = 0; slotId < slots.length; slotId++) {
         const slotEl = slots[slotId]
-        if (tabName == self.getTabId(slotEl.props)) slotEl.el.classList.add('active')
+        if (tabName == this.getTabId(slotEl.props)) slotEl.el.classList.add('active')
       }
     },
     selectFirstTab: function () {
@@ -100,8 +98,7 @@ export default {
       this.$refs.tabs.scrollBy(scrollVal, 0)
     },
     handleTouchmove: function (e) {
-      if (this.touch_orig_x === undefined) {
-      } else {
+      if (this.touch_orig_x !== undefined) {
         let delta = this.touch_orig_x - e.touches[0].pageX
         this.$refs.tabs.scrollBy(delta, 0)
       }
