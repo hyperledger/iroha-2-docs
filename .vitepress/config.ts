@@ -2,8 +2,11 @@ import { defineConfig, UserConfig, DefaultTheme } from 'vitepress'
 import Windi from 'vite-plugin-windicss'
 import footnote from 'markdown-it-footnote'
 import customHighlight from './plugins/highlight'
-import path from 'path'
+import { resolve } from 'path'
 import { VitePWA } from 'vite-plugin-pwa'
+import { snippets_plugin } from './snippet_tabs'
+import svgLoader from 'vite-svg-loader'
+import { getHighlighter } from "shiki";
 
 async function themeConfig() {
   const cfg: UserConfig = {
@@ -83,6 +86,10 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
           text: 'Metadata',
           link: '/guide/objects/metadata',
         },
+        {
+          text: 'Instructions',
+          link: '/guide/objects/instructions',
+        },
       ],
     },
     {
@@ -95,6 +102,10 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
         {
           text: 'Iroha Special Instructions',
           link: '/guide/advanced/isi',
+        },
+        {
+          text: 'Expressions',
+          link: '/guide/advanced/expressions'
         },
         {
           text: 'Web Assembly',
@@ -157,6 +168,15 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
         },
       ],
     },
+    {
+        text: 'Documenting Iroha',
+        items: [
+          {
+            text: 'Code snippets',
+            link: '/documenting/snippets',
+          },
+        ],
+      },
   ]
 }
 
@@ -172,7 +192,7 @@ export default defineConfig({
   lang: 'en-US',
   vite: {
     plugins: [
-      Windi({ config: path.resolve(__dirname, '../windi.config.ts') }),
+      Windi({ config: resolve(__dirname, '../windi.config.ts') }),
       VitePWA({
         // Based on: https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs
         manifest: {
@@ -193,6 +213,7 @@ export default defineConfig({
         strategies: 'injectManifest',
         injectRegister: false,
       }),
+      svgLoader()
     ],
   },
   lastUpdated: true,
@@ -205,8 +226,14 @@ export default defineConfig({
   ],
 
   markdown: {
-    config(md) {
+    async config(md) {
       md.use(footnote)
+      snippets_plugin(md, {
+        'snippet_root': resolve(__dirname, '../src/snippets/'),
+        'highlighter': await getHighlighter({
+            theme: "github-light"
+        })
+      })
     },
   },
 
