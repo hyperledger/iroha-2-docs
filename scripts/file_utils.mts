@@ -5,16 +5,8 @@
  * by the other scripts.
  */
 
-import { resolve } from "path";
-import {
-  readFileSync,
-  writeFileSync,
-  PathOrFileDescriptor,
-  PathLike,
-  existsSync,
-  mkdirSync,
-  readdirSync
-} from "fs";
+import { resolve } from 'path'
+import { readFileSync, writeFileSync, PathOrFileDescriptor, PathLike, existsSync, mkdirSync, readdirSync } from 'fs'
 
 /**
  * Write a string to a file path synchronously
@@ -24,18 +16,15 @@ import {
  * @param {PathOrFileDescriptor} filePath
  * @returns  {(Boolean | Error)}
  */
-export function writeStrToFile(
-  snippetStr: string,
-  filePath: PathOrFileDescriptor
-): boolean | Error {
-  let result: boolean | Error;
+export function writeStrToFile(snippetStr: string, filePath: PathOrFileDescriptor): boolean | Error {
+  let result: boolean | Error
   try {
-    writeFileSync(filePath, snippetStr);
-    result = true;
+    writeFileSync(filePath, snippetStr)
+    result = true
   } catch (err) {
-    result = err;
+    result = err
   }
-  return result;
+  return result
 }
 
 /**
@@ -48,16 +37,16 @@ export function writeStrToFile(
  */
 export function pathToStr(txtPath: string): string | Error {
   // Start with an exception by default
-  let result: string | Error = new Error("No sources available");
+  let result: string | Error = new Error('No sources available')
   // Try to load a file, return an error instance otherwise
   try {
-    const txtPathResolved = resolve(txtPath);
-    result = readFileSync(txtPathResolved, "utf8");
+    const txtPathResolved = resolve(txtPath)
+    result = readFileSync(txtPathResolved, 'utf8')
   } catch (error) {
-    result = error;
+    result = error
   }
   // Return the sources or an Error instance
-  return result;
+  return result
 }
 
 /**
@@ -69,7 +58,7 @@ export function pathToStr(txtPath: string): string | Error {
  */
 export function ensureDirExists(dir: PathLike) {
   if (!existsSync(dir)) {
-    mkdirSync(dir, { recursive: true });
+    mkdirSync(dir, { recursive: true })
   }
 }
 
@@ -81,13 +70,13 @@ export function ensureDirExists(dir: PathLike) {
  * @returns {Boolean} - true if there are files in a given directory
  */
 export function checkDirHasContents(dirname: PathLike): boolean {
-  let result: boolean;
-  let fileList: string[] = [];
+  let result: boolean
+  let fileList: string[] = []
   try {
-    fileList = readdirSync(dirname);
-    result = fileList.length > 0;
+    fileList = readdirSync(dirname)
+    result = fileList.length > 0
   } catch (err) {
-    result = false;
+    result = false
   }
-  return result;
+  return result
 }

@@ -5,14 +5,14 @@
  */
 export type SourceDefinition = {
   // The software version to display in a tab title
-  version: string;
+  version: string
   // A url to query and parse
-  url: string;
+  url: string
   // A language highlight mode
-  lang: string;
+  lang: string
   // Text content of the page
-  content: string | undefined;
-};
+  content: string | undefined
+}
 
 /**
  * Defines an individual snippet
@@ -20,12 +20,12 @@ export type SourceDefinition = {
  * @typedef {object} IndividualSnippet
  */
 export type IndividualSnippet = {
-  name: string;
-  text: string;
-  lang: string;
-  url: string;
-  version: string;
-};
+  name: string
+  text: string
+  lang: string
+  url: string
+  version: string
+}
 
 /**
  * Defines the state of the snippet retrieval
@@ -33,10 +33,10 @@ export type IndividualSnippet = {
  * @typedef {object} SnippetProcessingState
  */
 export type SnippetProcessingState = {
-  output_dir_accessible: boolean;
-  error: Error | null;
-  sources: SourceDefinition[];
-  parsing_result: any;
-  output_strings: Record<string, string>;
-  parsed: IndividualSnippet[];
-};
+  output_dir_accessible: boolean
+  error: Error | null
+  sources: SourceDefinition[]
+  parsing_result: any
+  output_strings: Record<string, string>
+  parsed: IndividualSnippet[]
+}
