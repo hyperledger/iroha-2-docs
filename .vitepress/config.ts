@@ -6,12 +6,13 @@ import { resolve } from 'path'
 import { VitePWA } from 'vite-plugin-pwa'
 import { snippets_plugin } from './snippet_tabs'
 import svgLoader from 'vite-svg-loader'
-import { getHighlighter } from "shiki";
+import { getHighlighter } from 'shiki'
 
 async function themeConfig() {
   const cfg: UserConfig = {
     markdown: {
       highlight: await customHighlight(),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any,
   }
   return cfg
@@ -105,7 +106,7 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
         },
         {
           text: 'Expressions',
-          link: '/guide/advanced/expressions'
+          link: '/guide/advanced/expressions',
         },
         {
           text: 'Web Assembly',
@@ -125,7 +126,7 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
         },
         {
           text: 'Permissions',
-          link: '/guide/advanced/permissions',          
+          link: '/guide/advanced/permissions',
         },
       ],
     },
@@ -169,14 +170,14 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
       ],
     },
     {
-        text: 'Documenting Iroha',
-        items: [
-          {
-            text: 'Code snippets',
-            link: '/documenting/snippets',
-          },
-        ],
-      },
+      text: 'Documenting Iroha',
+      items: [
+        {
+          text: 'Code snippets',
+          link: '/documenting/snippets',
+        },
+      ],
+    },
   ]
 }
 
@@ -213,7 +214,7 @@ export default defineConfig({
         strategies: 'injectManifest',
         injectRegister: false,
       }),
-      svgLoader()
+      svgLoader(),
     ],
   },
   lastUpdated: true,
@@ -229,10 +230,10 @@ export default defineConfig({
     async config(md) {
       md.use(footnote)
       snippets_plugin(md, {
-        'snippet_root': resolve(__dirname, '../src/snippets/'),
-        'highlighter': await getHighlighter({
-            theme: "github-light"
-        })
+        snippet_root: resolve(__dirname, '../src/snippets/'),
+        highlighter: await getHighlighter({
+          theme: 'github-light',
+        }),
       })
     },
   },

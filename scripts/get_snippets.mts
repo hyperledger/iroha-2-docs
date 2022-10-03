@@ -2,35 +2,36 @@
  * Snippet downloader version utilizing a monad-like pattern.
  */
 
-import ora from "ora";
-import { join } from "path";
-import { resolve } from "path";
-import { ExampleParser } from "dst-parser";
-import {
-  SourceDefinition,
-  IndividualSnippet,
-  SnippetProcessingState
-} from "./types.mjs";
-import { __dirname, SNIPPET_SRC_DIR, SOURCES } from "./constants.mjs";
-import { writeStrToFile, ensureDirExists } from "./file_utils.mjs";
-import { validateSources, collectPage, getSnippetFilename } from "./util.mjs";
+import ora from 'ora'
+import { join } from 'path'
+import { resolve } from 'path'
+import { ExampleParser } from 'dst-parser'
+import { SourceDefinition, IndividualSnippet, SnippetProcessingState } from './types.mjs'
+import { __dirname, SNIPPET_SRC_DIR, SOURCES } from './constants.mjs'
+import { writeStrToFile, ensureDirExists } from './file_utils.mjs'
+import { validateSources, collectPage, getSnippetFilename } from './util.mjs'
+
+function parseError(err: unknown): Error {
+  if (err instanceof Error) return err
+  throw new Error(`${String(err)} is not an Error`)
+}
 
 /**
  * Checks the sources for correctness.
  *
  * @param {SnippetProcessingState} pState
  */
-let validateSrcList = async (pState: SnippetProcessingState) => {
-  const spinner = ora("Validating the sources…").start();
+const validateSrcList = async (pState: SnippetProcessingState) => {
+  const spinner = ora('Validating the sources…').start()
   try {
-    let sourceValidation = validateSources(SOURCES);
-    if (sourceValidation !== true) throw sourceValidation;
-    spinner.succeed("Sources are correct.");
+    const sourceValidation = validateSources(SOURCES)
+    if (sourceValidation !== true) throw sourceValidation
+    spinner.succeed('Sources are correct.')
   } catch (sve) {
-    pState.error = sve;
-    spinner.fail("Sources are empty.");
+    pState.error = parseError(sve)
+    spinner.fail('Sources are empty.')
   }
-};
+}
 
 /**
  * Displays the URLs from the source list
@@ -38,14 +39,14 @@ let validateSrcList = async (pState: SnippetProcessingState) => {
  * @param {SnippetProcessingState} pState
  */
 const printSourceList = async (pState: SnippetProcessingState) => {
-  const spinner = ora("Preparing a source list…").start();
-  let msg = "Source list:\n";
+  const spinner = ora('Preparing a source list…').start()
+  let msg = 'Source list:\n'
   pState.sources.forEach((sourceUrl: SourceDefinition) => {
-    msg += `* ${sourceUrl["url"]}\n`;
-  });
-  msg = msg.trimEnd();
-  spinner.succeed(msg);
-};
+    msg += `* ${sourceUrl['url']}\n`
+  })
+  msg = msg.trimEnd()
+  spinner.succeed(msg)
+}
 
 /**
  * Loads individual items from the source list
@@ -54,21 +55,19 @@ const printSourceList = async (pState: SnippetProcessingState) => {
  */
 const collectPagesBeta = async (pState: SnippetProcessingState) => {
   if (pState.error === null) {
-    const spinner = ora("Collecting pages in parallel").start();
+    const spinner = ora('Collecting pages in parallel').start()
     const sourcesNew: (SourceDefinition | Error)[] = await Promise.all(
-      pState.sources.map((source: SourceDefinition) =>
-        collectPage(source, resolve(__dirname, ".."))
-      )
-    );
-    pState.sources = [];
+      pState.sources.map((source: SourceDefinition) => collectPage(source, resolve(__dirname, '..'))),
+    )
+    pState.sources = []
     sourcesNew.forEach((source: SourceDefinition | Error) => {
-      if (source instanceof Error) pState.error = source;
-      else pState.sources.push(source);
-    });
-    if (pState.error === null) spinner.succeed("Pages were downloaded.");
-    else spinner.fail("Page downloading failed.");
+      if (source instanceof Error) pState.error = source
+      else pState.sources.push(source)
+    })
+    if (pState.error === null) spinner.succeed('Pages were downloaded.')
+    else spinner.fail('Page downloading failed.')
   }
-};
+}
 
 /**
  * Parses the pages with DST-parser
@@ -76,34 +75,33 @@ const collectPagesBeta = async (pState: SnippetProcessingState) => {
  * @param {SnippetProcessingState} pState
  */
 const parsePagesBeta = async (pState: SnippetProcessingState) => {
-  pState.parsed = [];
-  const spinner = ora("Parsing available pages…").start();
+  pState.parsed = []
+  const spinner = ora('Parsing available pages…').start()
   try {
     pState.sources.forEach((src: SourceDefinition) => {
       // Allow only the SourceDefinition instances with content
-      if (src.content === undefined)
-        throw new Error(`No content for ${src.url}`);
+      if (src.content === undefined) throw new Error(`No content for ${src.url}`)
       // Parse content and fill the list in a "parsed" attribute
-      const parserInst = new ExampleParser(src.content);
-      let snippetMap = parserInst.mapLines();
+      const parserInst = new ExampleParser(src.content)
+      const snippetMap = parserInst.mapLines()
       const tmpItems = Object.entries(snippetMap).map((sn) => {
         const snippet: IndividualSnippet = {
           name: sn[0],
           text: sn[1],
-          version: src.version || "",
-          lang: src.lang || "",
-          url: src.url || ""
-        };
-        return snippet;
-      });
-      pState.parsed.push(...tmpItems);
-    });
-    spinner.succeed("All pages parsed succesfully.");
+          version: src.version || '',
+          lang: src.lang || '',
+          url: src.url || '',
+        }
+        return snippet
+      })
+      pState.parsed.push(...tmpItems)
+    })
+    spinner.succeed('All pages parsed succesfully.')
   } catch (parserError) {
-    pState.error = parserError;
-    spinner.fail(`Parsing failed: ${parserError.message}`);
+    pState.error = parseError(parserError)
+    spinner.fail(`Parsing failed: ${String(parserError)}`)
   }
-};
+}
 
 /**
  * Displays a list of the available snippets
@@ -111,18 +109,18 @@ const parsePagesBeta = async (pState: SnippetProcessingState) => {
  * @param {SnippetProcessingState} pState
  */
 const printAvailableSnippetsBeta = async (pState: SnippetProcessingState) => {
-  const spinner = ora("Preparing a snippet list…").start();
+  const spinner = ora('Preparing a snippet list…').start()
   if (pState.parsed) {
-    let msg = "Snippet list:\n";
+    let msg = 'Snippet list:\n'
     pState.parsed.forEach((snippet: IndividualSnippet) => {
-      msg += `* [${snippet.lang}] ${snippet.name}\n`;
-    });
-    msg = msg.trimEnd();
-    spinner.succeed(msg);
+      msg += `* [${snippet.lang}] ${snippet.name}\n`
+    })
+    msg = msg.trimEnd()
+    spinner.succeed(msg)
   } else {
-    spinner.succeed("No snippets are currently available.");
+    spinner.succeed('No snippets are currently available.')
   }
-};
+}
 
 /**
  * Creates a snippet directory if it doesn't exist
@@ -130,18 +128,16 @@ const printAvailableSnippetsBeta = async (pState: SnippetProcessingState) => {
  * @param {SnippetProcessingState} pState
  */
 const ensureSnippetDirBeta = async (pState: SnippetProcessingState) => {
-  const spinner = ora("Ensuring snippet directory exists…").start();
+  const spinner = ora('Ensuring snippet directory exists…').start()
   try {
-    ensureDirExists(SNIPPET_SRC_DIR);
-    pState.output_dir_accessible = true;
-    spinner.succeed(`Snippet dir: ${SNIPPET_SRC_DIR}`);
+    ensureDirExists(SNIPPET_SRC_DIR)
+    pState.output_dir_accessible = true
+    spinner.succeed(`Snippet dir: ${SNIPPET_SRC_DIR}`)
   } catch (ensureDirError) {
-    pState.output_dir_accessible = false;
-    spinner.fail(
-      `Unable to ensure output dir exists:\n${ensureDirError.message}`
-    );
+    pState.output_dir_accessible = false
+    spinner.fail(`Unable to ensure output dir exists:\n${String(ensureDirError)}`)
   }
-};
+}
 
 /**
  * Sets snippet filenames
@@ -150,18 +146,18 @@ const ensureSnippetDirBeta = async (pState: SnippetProcessingState) => {
  */
 const setSnippetNames = async (pState: SnippetProcessingState) => {
   // Snippets to record
-  pState.output_strings = {};
+  pState.output_strings = {}
   try {
     // Process snippets in the current group, filling the contents
-    for (let key in pState.parsed) {
-      let snippet: IndividualSnippet = pState.parsed[key];
-      const snippetFilename = getSnippetFilename(snippet);
-      pState.output_strings[snippetFilename] = snippet.text;
+    for (const key in pState.parsed) {
+      const snippet: IndividualSnippet = pState.parsed[key]
+      const snippetFilename = getSnippetFilename(snippet)
+      pState.output_strings[snippetFilename] = snippet.text
     }
   } catch (fmtErr) {
-    pState.error = fmtErr;
+    pState.error = parseError(fmtErr)
   }
-};
+}
 
 /**
  * Export snippet metadata for a tabs component in JSON
@@ -169,30 +165,27 @@ const setSnippetNames = async (pState: SnippetProcessingState) => {
  * @param {SnippetProcessingState} pState
  */
 const saveSnippetMeta = async (pState: SnippetProcessingState) => {
-  const spinner = ora("Saving snippet metadata JSON…").start();
+  const spinner = ora('Saving snippet metadata JSON…').start()
   try {
     // Record matches between filenames and the metadata
-    let outputMeta = {};
+    const outputMeta: Record<string, { version: string; lang: string; name: string }> = {}
     // Process snippets in the current group, filling the contents
-    for (let key in pState.parsed) {
-      let rec: IndividualSnippet = pState.parsed[key];
-      const snippetFilename = getSnippetFilename(rec);
+    for (const key in pState.parsed) {
+      const rec: IndividualSnippet = pState.parsed[key]
+      const snippetFilename = getSnippetFilename(rec)
       outputMeta[snippetFilename] = {
         version: rec.version,
         lang: rec.lang,
-        name: rec.name
-      };
+        name: rec.name,
+      }
     }
-    writeStrToFile(
-      JSON.stringify(outputMeta, null, 4),
-      join(SNIPPET_SRC_DIR, "meta.json")
-    );
-    spinner.succeed("Snippet metadata was saved.");
+    writeStrToFile(JSON.stringify(outputMeta, null, 4), join(SNIPPET_SRC_DIR, 'meta.json'))
+    spinner.succeed('Snippet metadata was saved.')
   } catch (snmtErr) {
-    pState.error = snmtErr;
-    spinner.fail("Unable to save snippet metadata.");
+    pState.error = parseError(snmtErr)
+    spinner.fail('Unable to save snippet metadata.')
   }
-};
+}
 
 /**
  * Saves each snippet in its own file
@@ -200,43 +193,43 @@ const saveSnippetMeta = async (pState: SnippetProcessingState) => {
  * @param {SnippetProcessingState} pState
  */
 const exportSnippetFilesBeta = async (pState: SnippetProcessingState) => {
-  const sPrefix = "Saving individual snippet files";
-  const spinner = ora(`${sPrefix}…\n`).start();
+  const sPrefix = 'Saving individual snippet files'
+  const spinner = ora(`${sPrefix}…\n`).start()
   try {
     // Delete the previous directory contents
     // Write the snippets
-    for (let filename in pState.output_strings) {
-      let snippet: string = pState.output_strings[filename];
-      spinner.text = `${sPrefix}: ${filename}`;
-      writeStrToFile(snippet, join(SNIPPET_SRC_DIR, filename));
+    for (const filename in pState.output_strings) {
+      const snippet: string = pState.output_strings[filename]
+      spinner.text = `${sPrefix}: ${filename}`
+      writeStrToFile(snippet, join(SNIPPET_SRC_DIR, filename))
     }
     // Finish
-    spinner.succeed(`Individual snippet files are saved.`);
+    spinner.succeed(`Individual snippet files are saved.`)
   } catch (writeError) {
-    spinner.fail(`Unable to save the individual snippet files`);
+    spinner.fail(`Unable to save the individual snippet files`)
   }
-};
+}
 
 /**
  * Executes all currently required steps for
  * building the documentation.
  */
 export async function main() {
-  let pState: SnippetProcessingState = {
+  const pState: SnippetProcessingState = {
     error: null,
     output_dir_accessible: false,
     sources: SOURCES,
     parsing_result: null,
     parsed: [],
-    output_strings: {}
-  };
-  await validateSrcList(pState);
-  await printSourceList(pState);
-  await collectPagesBeta(pState);
-  await parsePagesBeta(pState);
-  await printAvailableSnippetsBeta(pState);
-  await ensureSnippetDirBeta(pState);
-  await setSnippetNames(pState);
-  await saveSnippetMeta(pState);
-  await exportSnippetFilesBeta(pState);
+    output_strings: {},
+  }
+  await validateSrcList(pState)
+  await printSourceList(pState)
+  await collectPagesBeta(pState)
+  await parsePagesBeta(pState)
+  await printAvailableSnippetsBeta(pState)
+  await ensureSnippetDirBeta(pState)
+  await setSnippetNames(pState)
+  await saveSnippetMeta(pState)
+  await exportSnippetFilesBeta(pState)
 }

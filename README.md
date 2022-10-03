@@ -57,21 +57,37 @@ pnpm dev
 
 It will start a local dev-server. You will be able to open a browser, observe rendered documentation, edit source files and see your edits on-demand.
 
-### Format documentation
+### Formatting
 
-We use [Prettier](https://prettier.io/) to format Markdown files. Its configuration is located at `./.prettierrc.js`. Check [options reference](https://prettier.io/docs/en/options.html) for all available options.
+We use [Prettier](https://prettier.io/) to format project sources. Its configuration is located at `./.prettierrc.js`. Check [options reference](https://prettier.io/docs/en/options.html) for all available options.
 
-- **Format doc files**: apply `Prettier` formatting to all Markdown files
-
-  ```bash
-  pnpm format:docs:fix
-  ```
-
-- **Check the formatting in doc files**: ensure that all documentation files match `Prettier` code style
+- **Format sources**: apply formatting to all project source files:
 
   ```bash
-  pnpm format:docs:check
+  pnpm format:fix
   ```
+
+- **Check the formatting in sources**: ensure that all project source files match `Prettier` code style
+
+  ```bash
+  pnpm format:check
+  ```
+
+> We use `prettier-eslint` tool to override Prettier formatting for Vue components.
+
+### Linting
+
+To check whether ESLint rules pass, run:
+
+```bash
+pnpm lint
+```
+
+To fix auto-fixable issues, run:
+
+```bash
+pnpm lint --fix
+```
 
 ## License
 

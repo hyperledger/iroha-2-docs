@@ -11,20 +11,45 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Node.js 14.x
-        uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: "14"
+          node-version: 16
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2.0.1
+      # --- Install with caching
+      # https://github.com/pnpm/action-setup#use-cache-to-reduce-installation-time
+
+      - uses: pnpm/action-setup@v2.0.1
+        name: Install pnpm
+        id: pnpm-install
         with:
-          version: 6.19.0
+          version: 7
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: |
+            ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+            /home/runner/.cache/Cypress
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install packages
         run: pnpm install
 
-      - name: Vitepress - build
+      - name: Check formatting
+        run: pnpm format:check
+
+      - name: Run linter
+        run: pnpm lint
+
+      - name: Build VitePress
         run: pnpm build
         env:
           PUBLIC_PATH: /iroha-2-docs/
