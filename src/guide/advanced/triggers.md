@@ -1,8 +1,8 @@
 # Triggers
 
 Certain things, such as changing the state of an entity, committing a block
-or [executing an ISI](#supported-isi), can emit events, and you can attach
-_triggers_ to these events.
+or [executing an Iroha Special Instruction (ISI)](#supported-isi), can emit
+events, and you can attach _triggers_ to these events.
 
 A _trigger_ is a fairly basic entity that can be registered. Just like with
 Accounts, to register a trigger, you submit a `RegisterBox::Trigger`, which
@@ -526,6 +526,8 @@ around with a particular implementation to optimise it.
 
 ## Supported ISI
 
+Iroha Special Instructions that work with triggers:
+
 - `Register<Trigger>`: Create a trigger object and subscribe it to global
   events.
 
@@ -546,6 +548,9 @@ the instruction fails to execute, and the transaction that it is part of is
 rejected.
 
 :::
+
+You can learn more about Iroha Special Instructions in the
+[dedicated section](isi.md).
 
 ## Supported Queries
 
