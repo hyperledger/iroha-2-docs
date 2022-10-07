@@ -526,7 +526,7 @@ around with a particular implementation to optimise it.
 
 ## Supported ISI
 
-Iroha Special Instructions that work with triggers:
+All Iroha Special Instructions work with triggers, specifically:
 
 - `Register<Trigger>`: Create a trigger object and subscribe it to global
   events.
