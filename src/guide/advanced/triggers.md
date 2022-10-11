@@ -131,10 +131,7 @@ that determine how this trigger works: its scope and repetition schema.
 
 ### Scope
 
-Triggers can be scoped and un-scoped. The LTS version of Iroha only
-supports un-scoped system-wide triggers with no permission validation. With
-the `iroha2-dev` you can use
-[domain-scoped triggers](#domain-scoped-triggers).
+Triggers can be scoped and un-scoped. Iroha supports both un-scoped system-wide triggers with no permission validation as well as [domain-scoped triggers](#domain-scoped-triggers).
 
 ::: info
 
@@ -149,23 +146,15 @@ amount of work grows quadratically.
 
 #### Domain-scoped Triggers
 
-::: dev
-
 While un-scoped triggers check all events of a specified type,
 domain-scoped triggers only look for events in a given domain. These
 triggers are more optimised compared to un-scoped triggers.
-
-Note that the
-[LTS version of Iroha 2](https://github.com/hyperledger/iroha/tree/iroha2-lts)
-**does not** support domain-scoped triggers.
 
 You can use [`FindTriggersByDomainId`](./queries.md#findtriggersbydomainid)
 query to find triggers for the given domain.
 
 When you register a domain-scoped trigger, you need to add the domain id to
 the trigger id using `$` symbol: `my_trigger$my_domain`.
-
-:::
 
 ### Repetition Schema
 

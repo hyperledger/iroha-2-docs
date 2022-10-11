@@ -3,16 +3,34 @@
 The peer configuration file (`/configs/peer/config.json`) determines how
 your blockchain operates.
 
-Let's take a closer look at the configurations you'll work with when you
-create a network: `TRUSTED_PEERS`, `KURA`, `TORII`, and `LOGGER`. We'll
-cover the `PUBLIC_KEY` and `PRIVATE_KEY` later when we talk about
-[public key cryptography](keys.md).
+Here's an example of how peer configuration file looks like:
 
-The remaining options are for fine-tuning Iroha, so you don't need to worry
-about them at this stage. Once you are familiar with the necessary basics,
-check
-[Iroha Configuration Reference](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md)
-for more details and all available options.
+::: details Peer configuration example
+
+<<< @/guide/configure/configs/peer-config.json
+
+:::
+
+Some of the configuration options are required, while others are used for fine-tuning.
+When you create a new peer, you are required to provide the following:
+
+- [Public and private keys for the peer](#iroha-keys) (`PUBLIC_KEY` and `PRIVATE_KEY`)
+- [Iroha public addresses](#iroha-public-addresses) (`P2P_ADDR`, `API_URL`, `TELEMETRY_URL`)
+- [Trusted peers](#trusted-peers) (`TRUSTED_PEERS`)
+- [Public and private keys for the genesis account](#genesis) (`ACCOUNT_PUBLIC_KEY` and `ACCOUNT_PRIVATE_KEY`)
+
+For the full list of configuration options, refer to [Iroha Configuration Reference](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md).
+
+::: info
+
+Configuration options have different underlying types and default values, which are denoted in code as types wrapped in a single `Option<..>` or in a double `Option<Option<..>>`. Refer to [configuration types](./configuration-types.md) for details.
+
+:::
+
+## Public and private keys
+
+When you are configuring a new peer, you have to provide its public and private keys: `PUBLIC_KEY` and `PRIVATE_KEY` configuration options.
+Refer to [public key cryptography](keys.md) to learn the details.
 
 ## Trusted Peers
 
@@ -32,24 +50,19 @@ peers. This is not too difficult with the provided client libraries. With
 Python's Beautiful Soup, the curated list of peers can be updated,
 registered, and un-registered on its own.
 
-## Kura
+Here's an example of `SUMERAGI_TRUSTED_PEERS` environment variable to configure trusted peers:
 
-KURA is the "warehouse" engine of Iroha. The `BLOCK_STORE_PATH` specifies
-where the blocks are stored. You can change it to a custom location if for
-some reason the default location (`./storage`) is not available or
-desirable.
-
-For more details, check
-[`KURA` configuration reference](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md#kura).
+```
+'[{"address":"iroha0:1337", "public_key": "ed01201c61faf8fe94e253b93114240394f79a607b7fa55f9e5a41ebec74b88055768b"}, {"address":"iroha1:1338", "public_key": "ed0120cc25624d62896d3a0bfd8940f928dc2abf27cc57cefeb442aa96d9081aae58a1"}, {"address": "iroha2:1339", "public_key": "ed0120faca9e8aa83225cb4d16d67f27dd4f93fc30ffa11adc1f5c88fd5495ecc91020"}, {"address": "iroha3:1340", "public_key": "ed01208e351a70b6a603ed285d666b8d689b680865913ba03ce29fb7d13a166c4e7f1f"}]'
+```
 
 ## Iroha Public Addresses
 
 `TORII` is the module in charge of handling incoming and outgoing
 connections.
 
-Here we only cover the `API_URL`, `P2P_ADDR`, and `TELEMETRY_URL`
-configurations. On Github you'll find
-[the detailed reference for `TORII`](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md#torii).
+Here we only cover the required configurations: `API_URL`, `P2P_ADDR`, and `TELEMETRY_URL`.
+Check [`TORII` configuration reference](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md#torii) for all available options.
 
 ### `API_URL`
 
@@ -78,6 +91,14 @@ top-level metrics, while a `GET` request to `127.0.0.1:8180/metrics` will
 give you a (somewhat verbose) list of all available metrics gathered in
 Iroha. You might want to change this if you're having trouble gathering
 metrics using `prometheus`.
+
+## Genesis
+
+When you configure a peer, you have to provide private and public keys for the genesis account.
+
+You can do this via configuration file (`ACCOUNT_PUBLIC_KEY`, `ACCOUNT_PRIVATE_KEY`) or environment variables (`IROHA_GENESIS_ACCOUNT_PUBLIC_KEY`, `IROHA_GENESIS_ACCOUNT_PRIVATE_KEY`).
+
+Read more about [genesis blocks](./genesis.md) and [public key cryptography](./keys.md).
 
 ## Logger
 
@@ -117,3 +138,13 @@ You can also set `LOG_FILE_PATH` to `/dev/stdout` if you want to use
 bunyan's logging facilities directly without saving the output.
 
 :::
+
+## Kura
+
+KURA is the "warehouse" engine of Iroha. The `BLOCK_STORE_PATH` specifies
+where the blocks are stored. You can change it to a custom location if for
+some reason the default location (`./storage`) is not available or
+desirable.
+
+For more details, check
+[`KURA` configuration reference](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md#kura).

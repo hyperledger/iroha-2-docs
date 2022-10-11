@@ -137,7 +137,14 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
           text: 'Introduction',
           link: '/guide/configure/intro',
         },
-
+        {
+          text: 'Configuration Types',
+          link: '/guide/configure/configuration-types',
+        },
+        {
+          text: 'Samples',
+          link: '/guide/configure/sample-configuration',
+        },
         {
           text: 'Peer Configuration',
           link: '/guide/configure/peer-configuration',

@@ -29,16 +29,6 @@ about [permissions and roles](../advanced/permissions.md) and
 [metadata](metadata.md) in the corresponding sections of the tutorial. The
 asset structure is illustrated in a [dedicated chapter](./assets.md).
 
-::: info
-
-Note that the diagram below depicts Account structure for the LTS version
-of Iroha. In the `iroha2-dev` version, permission tokens aren't stored
-within the account but rather in the world state (WSV).
-
-<!-- https://github.com/hyperledger/iroha/pull/2658 -->
-
-:::
-
 ![Untitled](/img/domain-account-asset-diagram.png)
 
 ## Triggers

@@ -1,7 +1,7 @@
 @startuml
 
 object domain_wonderland {
-  id = {name = "wonderland"}
+  id = "wonderland"
 }
 object account_alice #aliceblue {
   id = "alice@wonderland"
@@ -20,7 +20,7 @@ account_alice *-- asset_rose : registered by
 domain_wonderland *-- account_mad_hatter : registered in
 
 object domain_narnia {
-  id = {name = "narnia"}
+  id = "narnia"
 }
 
 object account_lion #aliceblue {

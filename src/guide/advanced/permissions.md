@@ -18,6 +18,35 @@ removed using `Revoke` instruction.
 
 ## Permission Tokens
 
+Permission token definitions have parameters. When a new permission token is registered, the names of the parameters and their types are checked against their names and types in the token definition. The token registration fails if there is a wrong parameter name or type as well as the wrong number of parameters.
+
+Here are some examples of parameters used for various permission tokens:
+
+- The permission token that grants the permission to set key-value in asset definition needs the `asset_definition_id` parameter of type `Id`:
+
+  ```json
+    "params": {
+       "asset_definition_id": "Id"
+  }
+  ```
+
+- The permission token that grants the permission to set key-value in user metadata needs the `account_id` parameter of type `Id`:
+
+  ```json
+  "params": {
+    "account_id": "Id"
+  }
+  ```
+
+- The permission token that grants the permission to transfer assets only a fixed number of times per some time period, needs these two parameters:
+
+  ```json
+  "params": {
+    "count": "U32",
+    "period": "U128"
+  }
+  ```
+
 <!-- pre-configured permissions: LTS version -->
 
 The following permission tokens are pre-configured in Iroha 2:
@@ -375,13 +404,9 @@ let grant_role_tx =
 ## Permission Validators
 
 Permissions exist so that only those accounts that have a required
-permission token to perform a certain action could do so. In the
-`iroha2-dev` version, permission checks are implemented differently
-compared to LTS and stable versions of Iroha 2.
+permission token to perform a certain action could do so.
 
-::: dev
-
-In the dev version, the `Judge` trait is used to check permissions. The
+The `Judge` trait is used to check permissions. The
 `Judge` decides whether a certain operation (instruction, query, or
 expression) could be performed based on the verdicts of multiple
 validators.
@@ -404,16 +429,6 @@ You can also build a custom permission validator by combining multiple
 validators, all of which should be of the same type (for checking
 instructions, queries, or expressions).
 
-:::
-
-::: lts
-
-In the LTS and stable versions, permissions to execute an operation
-(instruction, query, or expression) are checked via `IsAllowed` trait. If
-an operation is not allowed, an error occurs. Permission validators could
-also be combined.
-
-:::
 
 <!-- ### Runtime Validators
 
