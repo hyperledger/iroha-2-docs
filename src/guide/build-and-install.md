@@ -224,10 +224,10 @@ for details.
     cd ~/Git
     ```
 
-3.  Then `clone` the Iroha git repository into the folder `~/Git/iroha`:
+3.  Then `clone` the Iroha git repository into the folder `~/Git/iroha` with choose the right branch. You can use the `iroha2-lts` branch, which is the long-term support release, or the branch with the latest stable release (`iroha2-stable`). Clone with checkout the branch with the stable release, run:
 
     ```bash
-    git clone https://github.com/hyperledger/iroha.git
+    git clone https://github.com/hyperledger/iroha.git --branch iroha2-stable
     ```
 
     This will fetch all of Iroha, including Iroha 1, and the `iroha2-dev`
@@ -239,16 +239,7 @@ for details.
     cd ~/Git/iroha
     ```
 
-5.  Choose the right branch. You can use the `iroha2-lts` branch, which is
-    the long-term support release, or the branch with the latest stable
-    release (`iroha2-stable`). To checkout the branch with the stable
-    release, run:
-
-    ```bash
-    git checkout iroha2-stable
-    ```
-
-6.  After you have successfully cloned the Iroha git repository and are on
+5.  After you have successfully cloned the Iroha git repository and are on
     the correct branch, build the Iroha 2 client using:
 
     ```bash
