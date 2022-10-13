@@ -131,7 +131,12 @@ that determine how this trigger works: its scope and repetition schema.
 
 ### Scope
 
-Triggers can be scoped and un-scoped. Iroha supports both un-scoped system-wide triggers  as well as [domain-scoped triggers](#domain-scoped-triggers). Since system-wide triggers scan all events, and domain-scoped triggers only scane events emitted in a certain domain, it is highly recommended to use domain-scoped triggers where possible. 
+Triggers can be scoped and un-scoped. Iroha supports both un-scoped
+system-wide triggers as well as
+[domain-scoped triggers](#domain-scoped-triggers). Since system-wide
+triggers scan all events, and domain-scoped triggers only scane events
+emitted in a certain domain, it is highly recommended to use domain-scoped
+triggers where possible.
 
 ::: info
 

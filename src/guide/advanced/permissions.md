@@ -18,11 +18,16 @@ removed using `Revoke` instruction.
 
 ## Permission Tokens
 
-Permission token definitions have parameters. When a new permission token is registered, the names of the parameters and their types are checked against their names and types in the token definition. The token registration fails if there are too few parameters, if the parameter types don't match the definition, or parameters with unrecognised names. 
+Permission token definitions have parameters. When a new permission token
+is registered, the names of the parameters and their types are checked
+against their names and types in the token definition. The token
+registration fails if there are too few parameters, if the parameter types
+don't match the definition, or parameters with unrecognised names.
 
 Here are some examples of parameters used for various permission tokens:
 
-- A token that grants permission to change the values associated to keys in a `Store` asset needs the `asset_definition_id` parameter of type `Id`:
+- A token that grants permission to change the values associated to keys in
+  a `Store` asset needs the `asset_definition_id` parameter of type `Id`:
 
   ```json
     "params": {
@@ -30,7 +35,9 @@ Here are some examples of parameters used for various permission tokens:
   }
   ```
 
-- By contrast, the permission token that grants the permission to set keys to values in user _metadata_ needs the `account_id` parameter of type `Id`:
+- By contrast, the permission token that grants the permission to set keys
+  to values in user _metadata_ needs the `account_id` parameter of type
+  `Id`:
 
   ```json
   "params": {
@@ -38,7 +45,8 @@ Here are some examples of parameters used for various permission tokens:
   }
   ```
 
-- The permission token that grants the permission to transfer assets only a fixed number of times per some time period, needs these two parameters:
+- The permission token that grants the permission to transfer assets only a
+  fixed number of times per some time period, needs these two parameters:
 
   ```json
   "params": {
@@ -46,6 +54,10 @@ Here are some examples of parameters used for various permission tokens:
     "period": "U128"
   }
   ```
+
+  Where the `period` is specified as a standard Duration since the UNIX
+  epoch in milliseconds (more details about
+  [time in Rust](https://doc.rust-lang.org/std/time/struct.SystemTime.html)).
 
 <!-- pre-configured permissions: LTS version -->
 
@@ -406,10 +418,9 @@ let grant_role_tx =
 Permissions exist so that only those accounts that have a required
 permission token to perform a certain action could do so.
 
-The `Judge` trait is used to check permissions. The
-`Judge` decides whether a certain operation (instruction, query, or
-expression) could be performed based on the verdicts of multiple
-validators.
+The `Judge` trait is used to check permissions. The `Judge` decides whether
+a certain operation (instruction, query, or expression) could be performed
+based on the verdicts of multiple validators.
 
 Each validator returns one of the following verdicts: `Deny` (with the
 exact reason to deny an operation), `Skip` (if an operation is not
@@ -428,7 +439,6 @@ There are several implementations of the `Judge` trait in Iroha 2, such as:
 You can also build a custom permission validator by combining multiple
 validators, all of which should be of the same type (for checking
 instructions, queries, or expressions).
-
 
 <!-- ### Runtime Validators
 
