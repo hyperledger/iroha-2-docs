@@ -224,7 +224,7 @@ for details.
     cd ~/Git
     ```
 
-3.  Then `clone` the Iroha git repository into the folder `~/Git/iroha` with choose the right branch. You can use the `iroha2-lts` branch, which is the long-term support release, or the branch with the latest stable release (`iroha2-stable`). Clone with checkout the branch with the stable release, run:
+3.  Then `clone` the Iroha git repository into the folder `~/Git/iroha` and `checkout` the branch you choose to work on. You can use the `iroha2-lts` branch, which is the long-term support release, or the branch with the latest stable release (`iroha2-stable`). To clone the repository and checkout the stable release, run:
 
     ```bash
     git clone https://github.com/hyperledger/iroha.git --branch iroha2-stable
