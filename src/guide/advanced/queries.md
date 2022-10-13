@@ -23,7 +23,7 @@ allocate processing power to track the work instead of using it to do the
 actual work. By contrast, some functions are always required, e.g. having
 access to your account balance.
 
-Queries can be [sorted](#sorting), [paginated](#pagination) and [filtered](#filters). Sorting can be combined with pagination and filtering. 
+The results of queries can be [sorted](#sorting), [paginated](#pagination) and [filtered](#filters) peer-side all at once. Sorting is done lexicographically on metadata keys. Filtering can be done on a variety of principles, from domain-specific (individual IP address filter masks) to sub-string methods like e.g. `begins_with` combined using logical operations. 
 
 ## Conventions
 
@@ -111,7 +111,7 @@ that match the specified filter.
 
 ## Sorting
 
-Iroha 2 supports sorting query results. Sorting only applies to entities that have
+Iroha 2 can sort items with [metadata](../objects/metadata.md) lexicographically if you provide a key to sort by during the construction of the query. A typical use case is for accounts to have a `registered-on` metadata entry, which when sorted allows you to view the account registration history. 
 [metadata](../objects/metadata.md), as the metadata key is used to sort
 query results.
 

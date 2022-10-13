@@ -18,11 +18,11 @@ removed using `Revoke` instruction.
 
 ## Permission Tokens
 
-Permission token definitions have parameters. When a new permission token is registered, the names of the parameters and their types are checked against their names and types in the token definition. The token registration fails if there is a wrong parameter name or type as well as the wrong number of parameters.
+Permission token definitions have parameters. When a new permission token is registered, the names of the parameters and their types are checked against their names and types in the token definition. The token registration fails if there are too few parameters, if the parameter types don't match the definition, or parameters with unrecognised names. 
 
 Here are some examples of parameters used for various permission tokens:
 
-- The permission token that grants the permission to set key-value in asset definition needs the `asset_definition_id` parameter of type `Id`:
+- A token that grants permission to change the values associated to keys in a `Store` asset needs the `asset_definition_id` parameter of type `Id`:
 
   ```json
     "params": {
@@ -30,7 +30,7 @@ Here are some examples of parameters used for various permission tokens:
   }
   ```
 
-- The permission token that grants the permission to set key-value in user metadata needs the `account_id` parameter of type `Id`:
+- By contrast, the permission token that grants the permission to set keys to values in user _metadata_ needs the `account_id` parameter of type `Id`:
 
   ```json
   "params": {

@@ -96,7 +96,7 @@ metrics using `prometheus`.
 
 When you configure a peer, you have to provide private and public keys for the genesis account.
 
-You can do this via configuration file (`ACCOUNT_PUBLIC_KEY`, `ACCOUNT_PRIVATE_KEY`) or environment variables (`IROHA_GENESIS_ACCOUNT_PUBLIC_KEY`, `IROHA_GENESIS_ACCOUNT_PRIVATE_KEY`).
+You can do this via the configuration file (`ACCOUNT_PUBLIC_KEY`, `ACCOUNT_PRIVATE_KEY`) or environment variables (`IROHA_GENESIS_ACCOUNT_PUBLIC_KEY`, `IROHA_GENESIS_ACCOUNT_PRIVATE_KEY`).
 
 Read more about [genesis blocks](./genesis.md) and [public key cryptography](./keys.md).
 
@@ -141,7 +141,7 @@ bunyan's logging facilities directly without saving the output.
 
 ## Kura
 
-KURA is the "warehouse" engine of Iroha. The `BLOCK_STORE_PATH` specifies
+_Kura_ is the persistent storage engine of Iroha (Japanese for _warehouse_). The `BLOCK_STORE_PATH` specifies
 where the blocks are stored. You can change it to a custom location if for
 some reason the default location (`./storage`) is not available or
 desirable.
