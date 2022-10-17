@@ -54,13 +54,16 @@ way it works in the examples is that you just specify in four `config.json`
 files four peers with their public keys and API addresses.
 
 Since Iroha has no automatic peer discovery, the only other way to make
-peers known to each other is to use the `iroha_client_cli` to register new
-peers. This is not too difficult with the provided client libraries. With
-Python's Beautiful Soup, the curated list of peers can be updated,
-registered, and un-registered on its own.
+peers known to each other is to use the `iroha_client_cli` to
+[register new peers](register-unregister.md#registering-peers)). This is
+not too difficult with the provided client libraries. With Python's
+[Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/), the
+curated list of peers can be updated, registered, and un-registered on its
+own.
 
-Here's an example of `SUMERAGI_TRUSTED_PEERS` environment variable to
-configure trusted peers:
+The list of trusted peers is a part of `SUMERAGI` configuration. Here's an
+example of `SUMERAGI_TRUSTED_PEERS` environment variable to configure
+trusted peers:
 
 ```
 '[{"address":"iroha0:1337", "public_key": "ed01201c61faf8fe94e253b93114240394f79a607b7fa55f9e5a41ebec74b88055768b"}, {"address":"iroha1:1338", "public_key": "ed0120cc25624d62896d3a0bfd8940f928dc2abf27cc57cefeb442aa96d9081aae58a1"}, {"address": "iroha2:1339", "public_key": "ed0120faca9e8aa83225cb4d16d67f27dd4f93fc30ffa11adc1f5c88fd5495ecc91020"}, {"address": "iroha3:1340", "public_key": "ed01208e351a70b6a603ed285d666b8d689b680865913ba03ce29fb7d13a166c4e7f1f"}]'
