@@ -20,15 +20,15 @@ details about supported instructions.
 
 :::
 
-| Instruction                                                                | Objects                                                                                                               | Destination |
-| -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ----------- |
-| [Register/Unregister](../advanced/isi.md#unregister)                       | accounts, domains, asset definitions, triggers, roles, peers                                                          |             |
-| [Mint/Burn](../advanced/isi.md#mintburn)                                   | assets, triggers (trigger repetitions), permission tokens                                                             | accounts    |
-| [SetKeyValue/RemoveKeyValue](../advanced/isi.md#setkeyvalueremovekeyvalue) | any objects that have [metadata](./metadata.md): accounts, domains, assets, asset definitions, triggers, transactions |             |
-| [Grant/Revoke](../advanced/isi.md#grantrevoke)                             | [roles, permission tokens](../advanced/permissions.md)                                                                | accounts    |
-| [Transfer](../advanced/isi.md#transfer)                                    | assets                                                                                                                | accounts    |
-| [ExecuteTrigger](../advanced/isi.md#executetrigger)                        | triggers                                                                                                              |             |
-| [If, Pair, Sequence](../advanced/isi.md#composite-instructions)            | any instructions                                                                                                      |             |
+|                                                Instruction                                                 |                                                        Objects                                                        | Destination |
+| ---------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ----------- |
+| [Register/Unregister](../advanced/isi.md#un-register)                                                      | accounts, domains, asset definitions, triggers, roles, peers                                                          |             |
+| [Mint/Burn](../advanced/isi.md#mint-burn)                                                                  | assets, triggers (trigger repetitions), permission tokens                                                             | accounts    |
+| [SetKeyValue/RemoveKeyValue](../advanced/isi.md#setkeyvalue-- [Instructions](#instructions)removekeyvalue) | any objects that have [metadata](./metadata.md): accounts, domains, assets, asset definitions, triggers, transactions |             |
+| [Grant/Revoke](../advanced/isi.md#grant-revoke)                                                            | [roles, permission tokens](../advanced/permissions.md)                                                                | accounts    |
+| [Transfer](../advanced/isi.md#transfer)                                                                    | assets                                                                                                                | accounts    |
+| [ExecuteTrigger](../advanced/isi.md#executetrigger)                                                        | triggers                                                                                                              |             |
+| [If, Pair, Sequence](../advanced/isi.md#composite-instructions)                                            | any instructions                                                                                                      |             |
 
 There is also another way of looking at ISI, i.e. in terms of the target of
 each instruction. For example, when you register an account, you do so
