@@ -566,6 +566,12 @@ Iroha is an event-driven architecture. Every modification of the world
 state emits a corresponding event that can be captured by appropriate event
 listeners called filters.
 
+::: info
+
+Note that Iroha shut downs all listeners on panic.
+
+:::
+
 ### `FindAllActiveTriggerIds`
 
 - **Returns**: `Vec<TriggerId>`

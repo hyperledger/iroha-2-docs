@@ -440,12 +440,21 @@ You can also build a custom permission validator by combining multiple
 validators, all of which should be of the same type (for checking
 instructions, queries, or expressions).
 
-<!-- ### Runtime Validators
+### Runtime Validators
 
-TODO: https://github.com/hyperledger/iroha-2-docs/issues/140
-After https://github.com/hyperledger/iroha/pull/2641 is merged, add info about runtime validators
+Currently Iroha 2 has only built-in validators. In the future, built-in
+validators will be completely replaced with **runtime validators** that use
+WASM.
 
--->
+The **chain** of runtime validators is used to validate operations that
+require permissions. It works similarly to the
+[`Chain of responsibility`](https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern).
+
+All runtime validators return **validation verdict**. By default, all
+operations are considered **valid** unless proven otherwise. Validators
+check whether or not an operation is not allowed: each validator either
+allows an operation and passes it to the following validator, or denies the
+operation. The validation stops at the first `Deny` verdict.
 
 ## Supported Queries
 

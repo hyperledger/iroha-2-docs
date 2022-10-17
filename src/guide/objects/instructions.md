@@ -20,7 +20,7 @@ details about supported instructions.
 
 :::
 
-|                                                Instruction                                                 |                                                        Objects                                                        | Destination |
+| Instruction                                                                                                | Objects                                                                                                               | Destination |
 | ---------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ----------- |
 | [Register/Unregister](../advanced/isi.md#un-register)                                                      | accounts, domains, asset definitions, triggers, roles, peers                                                          |             |
 | [Mint/Burn](../advanced/isi.md#mint-burn)                                                                  | assets, triggers (trigger repetitions), permission tokens                                                             | accounts    |
