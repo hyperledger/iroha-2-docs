@@ -584,26 +584,16 @@ asset.
 
 ```json
 {
-  "definition_id": {
-    "name": "can_transfer_user_assets"
-  },
+  "definition_id": "can_transfer_user_assets",
   "params": {
     "asset_id": {
       "Id": {
-        "AssetId": {
-          "definition_id": {
-            "name": "tea",
-            "domain_id": {
-              "name": "looking_glass"
-            }
-          },
-          "account_id": {
-            "name": "mad_hatter",
-            "domain_id": {
-              "name": "looking_glass"
-            }
-          }
-        }
+        "AssetId": "tea#looking_glass"
+      }
+    },
+    "account_id": {
+      "Id": {
+        "AccountId": "mad_hatter@looking_glass"
       }
     }
   }

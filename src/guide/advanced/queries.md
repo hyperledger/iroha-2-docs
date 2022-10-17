@@ -23,17 +23,11 @@ allocate processing power to track the work instead of using it to do the
 actual work. By contrast, some functions are always required, e.g. having
 access to your account balance.
 
-::: info
-
-In the LTS version of Iroha 2, most queries can not sorted, but can be
-[paginated](#pagination) and [filtered](#filters). As such, some queries,
-which we'll mark with a warning sign, should be used with great care, and
-you should think about the pagination scheme for them.
-
-The `iroha2-dev` version implements [sorting](#sorting) that could be
-combined with pagination and filtering.
-
-:::
+The results of queries can be [sorted](#sorting), [paginated](#pagination)
+and [filtered](#filters) peer-side all at once. Sorting is done
+lexicographically on metadata keys. Filtering can be done on a variety of
+principles, from domain-specific (individual IP address filter masks) to
+sub-string methods like `begins_with` combined using logical operations.
 
 ## Conventions
 
@@ -121,11 +115,11 @@ that match the specified filter.
 
 ## Sorting
 
-The LTS version of Iroha 2 **does not** support sorting query results.
-However, in the latest (`iroha2-dev`) version of Iroha 2 we offer you the
-way to sort query results.
-
-::: dev
+Iroha 2 can sort items with [metadata](../objects/metadata.md)
+lexicographically if you provide a key to sort by during the construction
+of the query. A typical use case is for accounts to have a `registered-on`
+metadata entry, which, when sorted, allows you to view the account
+registration history.
 
 Sorting only applies to entities that have
 [metadata](../objects/metadata.md), as the metadata key is used to sort
@@ -133,8 +127,6 @@ query results.
 
 You can combine sorting with pagination and filters. Note that sorting is
 an optional feature, most queries with pagination won't need it.
-
-:::
 
 ## Create a query
 
@@ -228,13 +220,9 @@ We talk about permissions in more detail in a
 
 ### `FindAllPermissionTokenDefinitions`
 
-::: dev
-
 - **Returns**: `Vec<PermissionTokenDefinition>`
 
 - **Details**: Finds all registered permission token definitions.
-
-:::
 
 ### `FindPermissionTokensByAccountId`
 
@@ -452,23 +440,15 @@ that is used as a secure data storage for privileged information.
 
 ### FindAllBlockHeaders
 
-::: dev
-
 - **Returns**: `Vec<BlockHeader>`
 - **Details**: Returns all block headers for blocks in the blockchain.
 
-:::
-
 ### FindBlockHeaderByHash
-
-::: dev
 
 - **Parameters**: `Hash`
 - **Returns**: `BlockHeader`
 - **Details**: Gets the block header that matches the hash that was
   provided.
-
-:::
 
 ## Domain
 
@@ -561,7 +541,7 @@ applications.
   ```rust
   pub enum TransactionValue {
       /// Committed transaction
-      Transaction(Box<VersionedTransaction>),
+      Transaction(Box<VersionedSignedTransaction>),
       /// Rejected transaction with reason of rejection
       RejectedTransaction(Box<VersionedRejectedTransaction>),
   }
@@ -585,6 +565,12 @@ applications.
 Iroha is an event-driven architecture. Every modification of the world
 state emits a corresponding event that can be captured by appropriate event
 listeners called filters.
+
+::: info
+
+Note that Iroha shut downs all listeners on panic.
+
+:::
 
 ### `FindAllActiveTriggerIds`
 
@@ -614,12 +600,8 @@ listeners called filters.
 
 ### `FindTriggersByDomainId`
 
-::: dev
-
 - **Parameters**: `DomainId`
 
 - **Returns**: `Vec<Trigger>`
 
 - **Details**: Finds all domain triggers for the given domain ID.
-
-:::

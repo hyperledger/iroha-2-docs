@@ -18,7 +18,6 @@ Domain : metadata
 Account : id
 Account : assets
 Account : signatories
-Account : permission_tokens
 Account : signature_check_condition
 Account : metadata
 Account : roles

@@ -18,6 +18,47 @@ removed using `Revoke` instruction.
 
 ## Permission Tokens
 
+Permission token definitions have parameters. When a new permission token
+is registered, the names of the parameters and their types are checked
+against their names and types in the token definition. The token
+registration fails if there are too few parameters, if the parameter types
+don't match the definition, or parameters with unrecognised names.
+
+Here are some examples of parameters used for various permission tokens:
+
+- A token that grants permission to change the values associated to keys in
+  a `Store` asset needs the `asset_definition_id` parameter of type `Id`:
+
+  ```json
+    "params": {
+       "asset_definition_id": "Id"
+  }
+  ```
+
+- By contrast, the permission token that grants the permission to set keys
+  to values in user _metadata_ needs the `account_id` parameter of type
+  `Id`:
+
+  ```json
+  "params": {
+    "account_id": "Id"
+  }
+  ```
+
+- The permission token that grants the permission to transfer assets only a
+  fixed number of times per some time period, needs these two parameters:
+
+  ```json
+  "params": {
+    "count": "U32",
+    "period": "U128"
+  }
+  ```
+
+  Where the `period` is specified as a standard Duration since the UNIX
+  epoch in milliseconds (more details about
+  [time in Rust](https://doc.rust-lang.org/std/time/struct.SystemTime.html)).
+
 <!-- pre-configured permissions: LTS version -->
 
 The following permission tokens are pre-configured in Iroha 2:
@@ -375,16 +416,11 @@ let grant_role_tx =
 ## Permission Validators
 
 Permissions exist so that only those accounts that have a required
-permission token to perform a certain action could do so. In the
-`iroha2-dev` version, permission checks are implemented differently
-compared to LTS and stable versions of Iroha 2.
+permission token to perform a certain action could do so.
 
-::: dev
-
-In the dev version, the `Judge` trait is used to check permissions. The
-`Judge` decides whether a certain operation (instruction, query, or
-expression) could be performed based on the verdicts of multiple
-validators.
+The `Judge` trait is used to check permissions. The `Judge` decides whether
+a certain operation (instruction, query, or expression) could be performed
+based on the verdicts of multiple validators.
 
 Each validator returns one of the following verdicts: `Deny` (with the
 exact reason to deny an operation), `Skip` (if an operation is not
@@ -404,23 +440,21 @@ You can also build a custom permission validator by combining multiple
 validators, all of which should be of the same type (for checking
 instructions, queries, or expressions).
 
-:::
+### Runtime Validators
 
-::: lts
+Currently Iroha 2 has only built-in validators. In the future, built-in
+validators will be completely replaced with **runtime validators** that use
+WASM.
 
-In the LTS and stable versions, permissions to execute an operation
-(instruction, query, or expression) are checked via `IsAllowed` trait. If
-an operation is not allowed, an error occurs. Permission validators could
-also be combined.
+The **chain** of runtime validators is used to validate operations that
+require permissions. It works similarly to the
+[`Chain of responsibility`](https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern).
 
-:::
-
-<!-- ### Runtime Validators
-
-TODO: https://github.com/hyperledger/iroha-2-docs/issues/140
-After https://github.com/hyperledger/iroha/pull/2641 is merged, add info about runtime validators
-
--->
+All runtime validators return **validation verdict**. By default, all
+operations are considered **valid** unless proven otherwise. Validators
+check whether or not an operation is not allowed: each validator either
+allows an operation and passes it to the following validator, or denies the
+operation. The validation stops at the first `Deny` verdict.
 
 ## Supported Queries
 
