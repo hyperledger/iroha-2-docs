@@ -192,7 +192,7 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
       text: 'API',
       items: [
         {
-          text: 'Introduction',
+          text: 'Specification',
           link: '/api/index.md',
         },
       ],
