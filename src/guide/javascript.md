@@ -661,7 +661,75 @@ passed to the `Value.variantsUnwrapped.U32` factory method. Fixed precision
 values also need to be taken into consideration. Any attempt to add to or
 subtract from a negative Fixed-precision value will result in an error.
 
-## 6. Visualizing outputs
+## 6. Transferring assets
+
+After minting the assets, you can transfer them to another account. In the
+example below, Alice transfers to Mouse 100 units of `time` asset:
+
+```ts
+import {
+  AccountId,
+  AssetDefinitionId,
+  AssetId,
+  DomainId,
+  EvaluatesToIdBox,
+  EvaluatesToValue,
+  Expression,
+  IdBox,
+  Instruction,
+  TransferBox,
+  Value,
+} from '@iroha2/data-model'
+
+const domainId = DomainId({
+  name: 'wonderland',
+})
+
+const assetDefinitionId = AssetDefinitionId({
+  name: 'time',
+  domain_id: domainId,
+})
+
+const amountToTransfer = Value('U32', 100)
+
+const fromAccount = AccountId({
+  name: 'alice',
+  domain_id: domainId,
+})
+
+const toAccount = AccountId({
+  name: 'mouse',
+  domain_id: domainId,
+})
+
+const evaluatesToAssetId = (assetId: AssetId): EvaluatesToIdBox =>
+  EvaluatesToIdBox({
+    expression: Expression('Raw', Value('Id', IdBox('AssetId', assetId))),
+  })
+
+const transferAssetInstruction = Instruction(
+  'Transfer',
+  TransferBox({
+    source_id: evaluatesToAssetId(
+      AssetId({
+        definition_id: assetDefinitionId,
+        account_id: fromAccount,
+      }),
+    ),
+    destination_id: evaluatesToAssetId(
+      AssetId({
+        definition_id: assetDefinitionId,
+        account_id: toAccount,
+      }),
+    ),
+    object: EvaluatesToValue({
+      expression: Expression('Raw', amountToTransfer),
+    }),
+  }),
+)
+```
+
+## 7. Visualizing outputs
 
 Finally, we should talk about visualising data. The Rust API is currently
 the most complete in terms of available queries and instructions. After
@@ -704,6 +772,8 @@ You can use this folder structure as a reference:
 ╰───┴──────────────────────────────╯
 ```
 
+### Client configuration
+
 Our client config is the following:
 
 ```jsonc
@@ -726,6 +796,8 @@ Our client config is the following:
   }
 }
 ```
+
+### Initialization
 
 To use these, firstly, we need to initialize our client and crypto.
 
@@ -800,6 +872,8 @@ function generateKeyPair(params: {
 }
 ```
 
+### Status Checker
+
 Now we are ready to use the client. Let's start from the `StatusChecker`
 component:
 
@@ -829,6 +903,8 @@ useIntervalFn(run, 1000)
   </div>
 </template>
 ```
+
+### Domain Creator
 
 Now let's build the `CreateDomain` component:
 
@@ -906,6 +982,8 @@ const { state, run: registerDomain } = useTask(async () => {
   </div>
 </template>
 ```
+
+### Listener
 
 And finally, let's build the `Listener` component that will use Events API
 to set up a live connection with a peer:
@@ -1004,6 +1082,8 @@ onBeforeUnmount(stopListening)
 </template>
 ```
 
+### App
+
 That's it! Finally, we just need to wrap it up with the `App.vue` component
 and the `app` entrypoint:
 
@@ -1041,6 +1121,8 @@ import App from './App.vue'
 createApp(App).mount('#app')
 ```
 
+### Demo
+
 Here is a small demo with the usage of this component:
 
 <div class="border border-solid border-gray-300 rounded-md shadow-md">
@@ -1048,3 +1130,32 @@ Here is a small demo with the usage of this component:
 ![Demo of the sample Vue application](/img/sample-vue-app.gif)
 
 </div>
+
+## 8. Subscribing to Block Stream
+
+You can use
+[`/block/stream` endpoint](https://github.com/hyperledger/iroha/blob/iroha2-lts/docs/source/references/api_spec.md#blocks-stream)
+to send a subscription request for block streaming.
+
+Via this endpoint, the client first provides the starting block number
+(i.e. height) in the subscription request. After sending the confirmation
+message, the server starts streaming all the blocks from the given block
+number up to the current block, and continues to stream blocks as they are
+added to the blockchain.
+
+Here is an example of how to listen to the block stream:
+
+```ts
+import { Torii, ToriiRequirementsForApiWebSocket } from '@iroha2/client'
+
+declare const requirements: ToriiRequirementsForApiWebSocket
+
+const stream = await Torii.listenForBlocksStream(requirements, {
+  height: 0n,
+})
+
+stream.ee.on('block', (block) => {
+  const height = block.as('V1').header.height
+  console.log('Got block with height', height)
+})
+```
