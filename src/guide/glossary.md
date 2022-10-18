@@ -75,8 +75,8 @@ of conditions is met. In Iroha smart contracts are implemented using
 ### Triggers
 
 An event type that allows invoking an Iroha special instruction at specific
-block commit, time (with some caveats), etc. More on trigger
-[here](guide/../advanced/triggers.md).
+block commit, time (with some caveats), etc. More on triggers
+[here](../guide/advanced/triggers.md).
 
 ### Versioning
 
@@ -111,7 +111,8 @@ instructions like `If`, I/O related like `Notify` and compositions like
 ### Core Iroha Special Instructions
 
 [Special instructions](#iroha-special-instructions-isi) provided with every
-Iroha deployment. These include some [domain-specific](#dsisi) as well as
+Iroha deployment. These include some
+[domain-specific](#domain-specific-iroha-special-instructions) as well as
 [utility instructions](#utility-iroha-special-instructions).
 
 ### Domain-specific Iroha Special Instructions
@@ -123,8 +124,9 @@ safe manner.
 
 ### Custom Iroha Special Instruction
 
-Instructions provided in [Iroha Modules](#mod), by clients or 3rd parties.
-These can only be built using [the Core Instructions](#core). Forking and
+Instructions provided in [Iroha Modules](#iroha-modules), by clients or 3rd
+parties. These can only be built using
+[the Core Instructions](#core-iroha-special-instructions). Forking and
 modifying the Iroha source code is not recommended, as special instructions
 not agreed-upon by peers in an Iroha deployment will be treated as faults,
 thus peers running a modified instance will have their access revoked.
@@ -149,5 +151,6 @@ elected for the current epoch.
 
 In an iroha network, a peer is selected randomly and granted the special
 privilege of forming the next block. This privilege can be revoked in
-networks that achieve [Byzantine fault-torelance](#bft) via
+networks that achieve
+[Byzantine fault-torelance](#byzantine-fault-tolerance-bft) via
 [view change](#view-change).
