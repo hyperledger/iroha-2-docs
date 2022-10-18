@@ -45,6 +45,10 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
           text: 'Build and Install',
           link: '/guide/build-and-install',
         },
+        {
+          text: 'Glossary',
+          link: '/guide/glossary.md',
+        },
       ],
     },
     {
@@ -173,6 +177,23 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
         {
           text: 'Iroha On Bare Metal',
           link: '/guide/advanced/running-iroha-on-bare-metal',
+        },
+        {
+          text: 'Hot Reload Iroha',
+          link: '/guide/advanced/hot-reload',
+        },
+        {
+          text: 'Monitor Iroha Performance',
+          link: '/guide/advanced/metrics',
+        },
+      ],
+    },
+    {
+      text: 'API',
+      items: [
+        {
+          text: 'Introduction',
+          link: '/api/index.md',
         },
       ],
     },
