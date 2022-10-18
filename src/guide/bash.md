@@ -612,7 +612,18 @@ After that, you can transfer some of Mad Hatter's tea to White Rabbit:
 ./iroha_client_cli asset transfer --from mad_hatter@looking_glass --to white_rabbit@looking_glass --asset-id tea#looking_glass --quantity 5
 ```
 
-## 7. Visualizing outputs
+## 7. Burning assets
+
+Burning assets is quite similar to minting them:
+
+```bash
+./iroha_client_cli asset burn \
+    --account="mad_hatter@looking_glass" \
+    --asset="tea#looking_glass" \
+    --quantity="10"
+```
+
+## 8. Visualizing outputs
 
 Although you will get a constant data feed of the network within the
 terminal running docker compose, you can also configure an output to listen

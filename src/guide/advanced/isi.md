@@ -3,8 +3,8 @@
 When we spoke about [how Iroha operates](intro.md#how-iroha-works), we said
 that Iroha Special Instructions are the only way to modify the world state.
 So, what kind of special instructions do we have? If you've read the
-tutorial for [Rust](../rust.md) or [Python](../python.md), you've already
-seen a couple of instructions: `Register<Account>` and `Mint<Quantity>`.
+language-specific guides in this tutorial, you've already seen a couple of
+instructions: `Register<Account>` and `Mint<Quantity>`.
 
 In the chapter on blockchain objects, we provide you with
 [a summary](../objects/instructions.md) of Iroha Special Instructions: what
@@ -44,11 +44,12 @@ part of the original `TRUSTED_PEERS` array to the network.
 
 <!-- Check: a reference about future releases or work in progress -->
 
-Registering an account is different. Iroha can be compiled in two modes:
-_public_ and _private_. If it's compiled with _private_ permissions, to
-register an account, you need an account. This is the default. If you want
-your users to be able to register without access to a pre-existing account,
-you need to compile Iroha in the _public_ mode.
+Registering an account is different. Iroha can be compiled in two
+[modes](../configure/modes.md): _public_ and _private_. If it's compiled
+with _private_ permissions, to register an account, you need an account.
+This is the default. If you want your users to be able to register without
+access to a pre-existing account, you need to compile Iroha in the _public_
+mode.
 
 ::: info
 
@@ -83,16 +84,36 @@ usually the one that registered the asset in the first place. All assets
 are assumed to be non-negative as well, so you can never have `-1.0` of
 `time` or `Burn` a negative amount and get a `Mint`.
 
+Refer to one of the language-specific guides to walk you through the
+process of minting assets in a blockchain:
+
+- [Bash](../bash.md#_5-registering-and-minting-assets)
+- [Rust](../rust.md#_5-registering-and-minting-assets)
+- [Kotlin/Java](../kotlin-java.md#_5-registering-and-minting-assets)
+- [Python](../python.md#_5-registering-and-minting-assets)
+- [JavaScript/TypeScript ](../javascript.md#_5-registering-and-minting-assets)
+
+Here are examples of burning assets:
+
+- [Bash](../bash.md#_7-burning-assets)
+- [Rust](../rust.md#_6-burning-assets)
+
 ## Transfer
 
 Similar to mint and burn instructions, transferring refers to assets. You
 can transfer assets between different accounts.
 
+To do this, an account have to be granted the
+[permission to transfer assets](./permissions.md#cantransferuserassets).
+Refer to an example on how to
+[transfer assets in Bash](../bash.md#_6-transferring-assets).
+
 <!--TODO: add links to transferring assets example in which guide after https://github.com/hyperledger/iroha-2-docs/issues/81 is addressed -->
 
 ## Grant/Revoke
 
-These are used for [permissions and roles](permissions.md).
+Grant and revoke instructions are used for
+[permissions and roles](permissions.md) for accounts.
 
 `Grant` is used to permanently grant a user either a single permission, or
 a group of permissions (a "role"). Granted roles and permissions can only
