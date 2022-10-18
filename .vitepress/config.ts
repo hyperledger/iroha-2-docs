@@ -169,6 +169,10 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
           text: 'Peer Management',
           link: '/guide/configure/register-unregister',
         },
+        {
+          text: 'Public and Private Blockchains',
+          link: '/guide/configure/modes',
+        },
       ],
     },
     {

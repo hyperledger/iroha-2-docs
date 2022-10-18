@@ -37,8 +37,8 @@ Assets can be [registered](../advanced/isi.md#unregister) and
 Refer to one of the language-specific guide to walk you through the process
 of registering and minting assets in a blockchain:
 
-- [Bash](../bash.md#5-registering-and-minting-assets)
-- [Rust](../rust.md#5-registering-and-minting-assets)
-- [Kotlin/Java](../kotlin-java.md#5-registering-and-minting-assets)
-- [Python](../python.md#5-registering-and-minting-assets)
-- [JavaScript/TypeScript](../javascript.md#5-registering-and-minting-assets)
+- [Bash](../bash.md#_5-registering-and-minting-assets)
+- [Rust](../rust.md#_5-registering-and-minting-assets)
+- [Kotlin/Java](../kotlin-java.md#_5-registering-and-minting-assets)
+- [Python](../python.md#_5-registering-and-minting-assets)
+- [JavaScript/TypeScript](../javascript.md#_5-registering-and-minting-assets)

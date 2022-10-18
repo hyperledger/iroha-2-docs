@@ -380,7 +380,24 @@ in that transaction?_
 
 :::
 
-## 6. Visualising outputs
+## 6. Burning assets
+
+Burning assets is quite similar to minting. First, you crete the burn
+instruction indicating which asset to burn and its quantity. Then submit
+this instruction.
+
+```rust
+let burn_roses = BurnBox::new(
+    Value::U32(10),
+    IdBox::AssetId(AssetId::new(
+        roses.clone(),
+        alice.clone()
+    ))
+);
+iroha_client.submit(burn_roses)?;
+```
+
+## 7. Visualising outputs
 
 Finally, we should talk about visualising data. The Rust API is currently
 the most complete in terms of available queries and instructions. After
