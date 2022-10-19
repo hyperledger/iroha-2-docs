@@ -26,7 +26,7 @@ Automatic generation of FFI bindings and conversion of types alleviates the user
 
 ## Example
 
-```rs
+```rust
 #[derive(FfiType)]
 struct DaysSinceEquinox(u32);
 
@@ -40,7 +40,7 @@ impl DaysSinceEquinox {
 
 will generate the following binding with `DaysSinceEquinox` represented as an opaque pointer:
 
-```rs
+```rust
 pub extern fn DaysSinceEquinox__update_value(handle: *mut DaysSinceEquinox, a: *const u8) -> FfiReturn {
     // function implementation
 }
@@ -48,7 +48,7 @@ pub extern fn DaysSinceEquinox__update_value(handle: *mut DaysSinceEquinox, a: *
 
 ## FFI Binding Generation
 
-The `iroha_ffi` crate is used to generate functions that are callable via FFI out of existing `Rust` structs and methods.
+The `iroha_ffi` crate is used to generate functions that are callable via FFI. Given `Rust` structs and methods, they generate the `unsafe` code that you would need in order to cross the linking boundary. 
 
 A Rust type is converted into a robust `repr(C)` type that can cross FFI boundary with `FfiType::into_ffi`. This goes the other way around as well: FFI `ReprC` type is converted into a `Rust` type via `FfiType::try_from_ffi`. Obviously, the conversion in the other direction is fallible and the library makes the best effort to protect the caller from all possible forms of accidental UB. 
 
@@ -67,7 +67,7 @@ The main traits that enable binding generation are `ReprC`, `FfiType` and `FfiCo
 | `FfiType`    | This trait defines a corresponding `ReprC` type for a given `Rust` type. The defined `ReprC` type is used in place of the `Rust` type in the API of the generated FFI function.|
 | `FfiConvert` | This trait defines two methods `into_ffi` and `try_from_ffi` that are used to perform the conversion of the `Rust` type to/from `ReprC` type. |
 
-Note that there is no ownership transfer over FFI except for opaque pointer types. Any other types that carry ownership, such as `Vec<T>`, are cloned.
+Note that there is no ownership transfer over FFI except for opaque pointer types. All other types that carry ownership, such as `Vec<T>`, are cloned.
 
 ### Name Mangling
 
