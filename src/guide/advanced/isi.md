@@ -113,7 +113,7 @@ Refer to an example on how to
 ## Grant/Revoke
 
 Grant and revoke instructions are used for
-[permissions and roles](permissions.md) for accounts.
+account [permissions and roles](permissions.md).
 
 `Grant` is used to permanently grant a user either a single permission, or
 a group of permissions (a "role"). Granted roles and permissions can only
