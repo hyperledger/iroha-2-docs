@@ -71,9 +71,9 @@ The `iroha_ffi` crate is used to generate functions that are callable via
 FFI. Given `Rust` structs and methods, they generate the `unsafe` code that
 you would need in order to cross the linking boundary.
 
-A Rust type is converted into a robust `repr(C)` type that can cross the FFI
-boundary with `FfiType::into_ffi`. This goes the other way around as well:
-FFI `ReprC` type is converted into a `Rust` type via
+A Rust type is converted into a robust `repr(C)` type that can cross the
+FFI boundary with `FfiType::into_ffi`. This goes the other way around as
+well: FFI `ReprC` type is converted into a `Rust` type via
 `FfiType::try_from_ffi`.
 
 ::: warning
@@ -110,14 +110,15 @@ Note the use of double underscores in generated names of FFI objects:
 
 - For the `inherent_fn` method defined on the `StructName` struct, the FFI
   name would be `StructName__inherent_fn`.
-- For the `MethodName` method from the `TraitName` trait in the `StructName`
-  struct, the FFI name would be `StructName__TraitName__MethodName`.
+- For the `MethodName` method from the `TraitName` trait in the
+  `StructName` struct, the FFI name would be
+  `StructName__TraitName__MethodName`.
 - To set the `field_name` field in the `StructName` struct, the FFI
   function name would be `StructName__set_field_name`.
 - To get the `field_name` field in the `StructName` struct, the FFI
   function name would be `StructName__field_name`.
-- To get the mutable `field_name` field in the `StructName` struct, the
-  FFI function name would be `StrucuName__field_name_mut`.
+- To get the mutable `field_name` field in the `StructName` struct, the FFI
+  function name would be `StrucuName__field_name_mut`.
 - For the freestanding `module_name::fn_name`, the FFI name would be
   `module_name::__fn_name`.
 - For the traits that are not generic and allow sharing their
