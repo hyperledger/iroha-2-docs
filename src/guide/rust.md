@@ -382,7 +382,7 @@ in that transaction?_
 
 ## 6. Burning assets
 
-Burning assets is quite similar to minting. First, you crete the burn
+Burning assets is quite similar to minting. First, you create the burn
 instruction indicating which asset to burn and its quantity. Then submit
 this instruction.
 

@@ -4,7 +4,7 @@ Iroha can be compiled in two modes: **public** and **private**. The mode
 determines the set permissions granted to users as well as how peers can
 join the network.
 
-Below we will outline the differences between these two modes.
+Below we outline the major differences in these two use cases.
 
 ## Permissions
 
