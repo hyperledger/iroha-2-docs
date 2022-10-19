@@ -13,8 +13,9 @@ The **genesis account** is specified in the
 [peer configuration](./peer-configuration.md#genesis) file,
 `configs/peer/config.json`. This is the account that will submit the
 genesis block. The genesis account is like a super user account that has
-elevated privileges, but only during the genesis round. It should be signed
-by one of the peers (has the public key of this peer).
+elevated privileges, but only during the genesis round. The genesis account
+should be signed by one of the peers, or, in other words, it should have
+the public key of this peer.
 
 If you look at the example of a genesis block above, you will see that it
 contains instructions for registering a new domain (`wonderland`), two new
