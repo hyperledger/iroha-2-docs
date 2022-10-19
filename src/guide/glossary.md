@@ -57,7 +57,7 @@ block storage folder rotation, etc.
 
 ### Kagami(Teacher and Exemplar and/or looking glass)
 
-Generator for commonly used data. Can generate cryptographic key pairs,
+Generator for commonly used data. It can generate cryptographic key pairs,
 genesis blocks, documentation, etc.
 
 ### Merkle tree (hash tree)
