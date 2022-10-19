@@ -37,27 +37,33 @@ rule, everything that can be registered, can also be un-registered, but
 that is not a hard and fast rule.
 
 You can register domains, accounts, asset definitions, peers, roles, and
-triggers (more on them later).
+triggers.
+
+::: info
+
+Note that depending on how you decide to set up your
+[genesis block](../configure/genesis.md) in `genesis.json` (specifically,
+whether or not you include registration of permission tokens), the process
+for registering an account can be very different. In general, we can
+summarise it like this:
+
+- In a _public_ blockchain, anyone should be able to register an account.
+- In a _private_ blockchain, there can be a unique process for registering
+  accounts. In a _typical_ private blockchain, i.e. a blockchain without
+  any unique processes for registering accounts, you need an account to
+  register another account.
+
+We discuss these differences in great detail when we
+[compare private and public blockchains](../configure/modes.md).
+
+:::
+
+::: info
 
 Registering a peer is currently the only way of adding peers that were not
 part of the original `TRUSTED_PEERS` array to the network.
 
 <!-- Check: a reference about future releases or work in progress -->
-
-Registering an account is different. Iroha can be compiled in two
-[modes](../configure/modes.md): _public_ and _private_. If it's compiled
-with _private_ permissions, to register an account, you need an account.
-This is the default. If you want your users to be able to register without
-access to a pre-existing account, you need to compile Iroha in the _public_
-mode.
-
-::: info
-
-<!-- Check: a reference about future releases or work in progress -->
-
-As of writing, the set of public blockchain permissions is incomplete, and
-as such Iroha source code needs to be modified to run it in the _public_
-mode.
 
 :::
 
@@ -112,8 +118,8 @@ Refer to an example on how to
 
 ## Grant/Revoke
 
-Grant and revoke instructions are used for
-account [permissions and roles](permissions.md).
+Grant and revoke instructions are used for account
+[permissions and roles](permissions.md).
 
 `Grant` is used to permanently grant a user either a single permission, or
 a group of permissions (a "role"). Granted roles and permissions can only
