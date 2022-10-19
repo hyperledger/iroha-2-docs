@@ -22,7 +22,13 @@ compile to WASM, and it's stable. In principle, you could do everything
 manually, but Iroha provides you with a crate `iroha_ffi` which contains
 all you need to generate FFI-compliant functions out of your existing `Rust` API. 
 
-Automatic generation of FFI bindings and conversion of types alleviates the user of the mental dilligence required not to induce UB when interfacing `unsafe` code which essentially every FFI function call is. This is achieved by insisting that every type used in the generated extern function API is a **robust** `repr(C)` type. The only notable exception being pointers where, except for the null check, pointer validity cannot be determined.
+You can, of course, do this your way, the `iroha_ffi` crate merely generates the code that you would need to generate anyway. Writing the necessary boilerplate requires quite a bit of diligence and discipline. Every function call over the FFI boundary is `unsafe` with potential to cause undefined behaviour. The method by which we managed to solve it, revolves around using **robust** `repr(C)` types. 
+
+::: info 
+
+The only exception are pointers. The null check and the validity cannot be enforced globally, so using raw pointers (as always) is done in exceptional cases, if you know what you're doing. You shouldn't have to, however, given that we provide wrappers around almost every instance of object in the Iroha data model. 
+
+::: 
 
 ## Example
 
@@ -50,7 +56,12 @@ pub extern fn DaysSinceEquinox__update_value(handle: *mut DaysSinceEquinox, a: *
 
 The `iroha_ffi` crate is used to generate functions that are callable via FFI. Given `Rust` structs and methods, they generate the `unsafe` code that you would need in order to cross the linking boundary. 
 
-A Rust type is converted into a robust `repr(C)` type that can cross FFI boundary with `FfiType::into_ffi`. This goes the other way around as well: FFI `ReprC` type is converted into a `Rust` type via `FfiType::try_from_ffi`. Obviously, the conversion in the other direction is fallible and the library makes the best effort to protect the caller from all possible forms of accidental UB. 
+A Rust type is converted into a robust `repr(C)` type that can cross FFI boundary with `FfiType::into_ffi`. This goes the other way around as well: FFI `ReprC` type is converted into a `Rust` type via `FfiType::try_from_ffi`. 
+
+::: warning 
+
+Note that the opposite conversion is fallible and can cause undefined behaviour. While we can make the best effort to avoid the most obvious mistakes, you must ensure the correctness of the program on your end or suffer the consequences. 
+:::
 
 The diagram below uses the creation of a new domain as an example to show the conversion process (more on the name mangling semantics in a
 [separate section](#name-mangling)).
