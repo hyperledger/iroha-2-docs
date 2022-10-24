@@ -36,8 +36,16 @@ dependencies {
     implementation "jp.co.soramitsu.iroha2-java:test-tools:iroha2-dev-SNAPSHOT"
     implementation "jp.co.soramitsu.iroha2-java:testcontainers:iroha2-dev-SNAPSHOT"
 }
-
 ```
+
+You **should** replace the SNAPSHOT in the configuration above with a latest `iroha-java` snapshot.
+
+Snapshot versions match the Git commits.
+To get the latest snapshot,
+simply visit the [`iroha-java`](https://github.com/hyperledger/iroha-java/tree/iroha2-dev) repository
+on `iroha-2-dev` branch, look at the commit hashes and copy the full hash of the last one.
+
+<video autoplay="true" loop src="/img/iroha_java_hash.webm" />
 
 This will give you the latest development release of Iroha 2.
 
