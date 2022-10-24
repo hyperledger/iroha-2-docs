@@ -14,27 +14,33 @@ that you know how to build and deploy your program on the target platforms.
 The Iroha 2 JVM-compatible SDKs are as much a work-in-progress as the rest
 of this guide, and significantly more so than the Rust library.
 
-Without further ado, here's the example `build.gradle` file:
+Without further ado, here's a part of an example `build.gradle.kts` file,
+specifically, the `repositories` and `dependencies` sections:
 
 ```kotlin
-allprojects {
-    repositories {
-        maven {
-            url "https://nexus.iroha.tech/repository/maven-soramitsu/"
-            metadataSources {
-                artifact()
-            }
-        }
-        maven { url "https://jitpack.io" }
-    }
+repositories {
+    // Use Maven Central for resolving dependencies
+    mavenCentral()
+    // Use Jitpack
+    maven { url = uri("https://jitpack.io") }
 }
 
 dependencies {
-    implementation "jp.co.soramitsu.iroha2-java:client:iroha2-dev-SNAPSHOT"
-    implementation "jp.co.soramitsu.iroha2-java:block:iroha2-dev-SNAPSHOT"
-    implementation "jp.co.soramitsu.iroha2-java:model:iroha2-dev-SNAPSHOT"
-    implementation "jp.co.soramitsu.iroha2-java:test-tools:iroha2-dev-SNAPSHOT"
-    implementation "jp.co.soramitsu.iroha2-java:testcontainers:iroha2-dev-SNAPSHOT"
+    // Align versions of all Kotlin components
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
+    // Use the Kotlin JDK 8 standard library
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    // Load the dependency used by the application
+    implementation("com.google.guava:guava:31.0.1-jre")
+    // Use the Kotlin test library
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
+    // Use the Kotlin JUnit integration
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
+    // Load Iroha-related dependencies
+    implementation("com.github.hyperledger.iroha-java:client:SNAPSHOT")
+    implementation("com.github.hyperledger.iroha-java:block:SNAPSHOT")
+    implementation("com.github.hyperledger.iroha-java:model:SNAPSHOT")
+    implementation("com.github.hyperledger.iroha-java:test-tools:SNAPSHOT")
 }
 ```
 
