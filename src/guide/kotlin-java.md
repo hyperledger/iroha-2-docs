@@ -53,7 +53,7 @@ on `iroha-2-dev` branch and copy the short hash of the last commit on the main p
 
 ![](/img/iroha_java_hash.png)
 
-If it isn't available, check the [list of commits](https://github.com/hyperledger/iroha-java/commits/iroha2-dev) and find one of the previous hashes of a commit[^1].
+You can also check the [commit history](https://github.com/hyperledger/iroha-java/commits/iroha2-dev) and copy the commit hash of one of the previous commits.
 
 ![](/img/iroha_java_commits.png)
 
