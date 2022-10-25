@@ -132,8 +132,8 @@ configurations, such as:
 
 - `WAIT_FOR_PEERS_RETRY_COUNT_LIMIT`: the number of attempts to connect to
   peers before genesis block is submitted
-- `WAIT_FOR_PEERS_RETRY_PERIOD_MS`: how long to wait before retrying
-  a connection to peers
+- `WAIT_FOR_PEERS_RETRY_PERIOD_MS`: how long to wait before retrying a
+  connection to peers
 - `GENESIS_SUBMISSION_DELAY_MS`: the delay before the genesis block
   submission after the minimum number of peers were discovered.
 
