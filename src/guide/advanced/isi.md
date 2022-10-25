@@ -17,7 +17,7 @@ Here we present you with an overview of each instruction.
 | --------------------------------------------------------- | ------------------------------------------------- |
 | [Register/Unregister](#un-register)                       | Give an ID to a new entity on the blockchain.     |
 | [Mint/Burn](#mint-burn)                                   | Mint/burn assets, triggers, or permission tokens. |
-| [SetKeyValue/RemoveKeyValue](#setkeyvalue-removekeyvalue) | Update metadata of blockchain objects.            |
+| [SetKeyValue/RemoveKeyValue](#setkeyvalue-removekeyvalue) | Update blockchain object metadata.            |
 | [Grant/Revoke](#grant-revoke)                             | Give or remove certain permissions from accounts. |
 | [Transfer](#transfer)                                     | Transfer assets between accounts.                 |
 | [ExecuteTrigger](#executetrigger)                         | Execute triggers.                                 |

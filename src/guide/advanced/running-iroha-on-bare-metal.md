@@ -13,8 +13,8 @@ error-prone, particularly for exotic systems (Windows).
 
 For this chapter, we assume you have learned about
 [configuration and management](./../configure/intro.md) in Iroha 2. Here we
-offer you instructions for running Iroha on bare metal without going into
-details about various configuration options available to you.
+offer you instructions to run Iroha on bare metal without going into
+details about various configuration options available.
 
 You can always check
 [sample configuration files](./../configure/sample-configuration.md) for
@@ -22,7 +22,7 @@ You can always check
 [peer configuration options](./../configure/peer-configuration.md) for more
 details.
 
-You will find the complete list of options in
+The complete list of options is available in the
 [Iroha Configuration Reference](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md).
 
 :::
@@ -457,7 +457,7 @@ Iroha in the real world.
     ([`P2P_ADDR`](./../configure/peer-configuration.md#p2p_addr)) in your
     `/configs/peer/config.json`.
 
-5.  After you finished editing the configuration file, deploy Iroha by
+5.  After you have finished editing the configuration file, deploy Iroha by
     running
 
     ```bash

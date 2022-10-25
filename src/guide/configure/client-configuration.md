@@ -88,7 +88,7 @@ prometheus.
 
 ## Transaction Limits
 
-You can specify the transaction limits to which each transaction must
+You can specify the transaction limits that each transaction must
 adhere to: the maximum number of instructions and the maximum size of a
 WASM blob (in bytes). For example:
 

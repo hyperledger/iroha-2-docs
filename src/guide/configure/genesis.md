@@ -51,8 +51,8 @@ automatically recommited upon container restart.
 ## Generation
 
 You can add various instructions to the genesis block, such as registering
-new accounts or assets, minting assets. You can also register permission
-tokens and roles as well as grant them to the registered accounts.
+new accounts or assets, as well as minting assets. You can also register permission
+tokens and roles, as well as grant them to the registered accounts.
 
 ### Generate default genesis block
 
