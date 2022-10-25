@@ -1,9 +1,5 @@
 # Iroha on bare metal
 
-Having read most of the
-[configuration and management](./../configure/intro.md) section, you are
-now prepared to start Iroha in a more advanced mode.
-
 What we are going to do is replicate the setup that we have in
 `docker compose` and run Iroha directly, without going through the
 intermediary of containers. Running Iroha on bare metal involves
@@ -12,6 +8,24 @@ manipulating files and/or environment variables.
 The file-based approach is the easiest to get right. Using environment
 variables can offer a better user experience if done right, but is more
 error-prone, particularly for exotic systems (Windows).
+
+::: info
+
+For this chapter, we assume you have learned about
+[configuration and management](./../configure/intro.md) in Iroha 2. Here we
+offer you instructions for running Iroha on bare metal without going into
+details about various configuration options available to you.
+
+You can always check
+[sample configuration files](./../configure/sample-configuration.md) for
+`/configs/peer/genesis.json` and `/configs/peer/config.json`, or refer to
+[peer configuration options](./../configure/peer-configuration.md) for more
+details.
+
+You will find the complete list of options in
+[Iroha Configuration Reference](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md).
+
+:::
 
 ## Prerequisites
 
@@ -364,9 +378,9 @@ that `Control + Shift + V` is the appropriate `paste` shortcut.
 :::
 
 Also note that we asked this peer to `--submit` or `--submit-genesis`. This
-means that in the initial network topology, this peer is the leader. At
-least one peer (usually the first) needs to be the leader in the initial
-topology.
+means that in the initial network topology, this peer is the
+[leader](./../glossary.md#leader). At least one peer (usually the first)
+needs to be the leader in the initial topology.
 
 Now you should do the same for the other four peers. Be mindful not to mix
 up which address goes where, replace `irohaX` with `127.0.0.1` in the
@@ -400,14 +414,14 @@ iroha --submit-genesis
 
 We effectively asked this peer to `--submit` or `--submit-genesis` in the
 initial, or _bootstrap_, network. This means that in the initial network
-topology, this peer is the leader.
+topology, this peer is the [leader](./../glossary.md#leader).
 
 ::: info Note
 
 Only the leader of the genesis network needs to have access to
-`genesis.json`. Having the same genesis in the initial folders of the other
-peers could be useful, since future versions of `iroha` will also
-sanity-check the genesis blocks.
+`/configs/peer/genesis.json`. Having the same genesis in the initial
+folders of the other peers could be useful, since future versions of
+`iroha` will also sanity-check the genesis blocks.
 
 <!-- Check: a reference about future releases or work in progress -->
 
@@ -434,12 +448,14 @@ Iroha in the real world.
     ```
 
 3.  Register your peer to a network, and make sure to add at least four of
-    the peers on that network to the `TRUSTED_PEERS` array in your
-    configuration file.
+    the peers on that network to the
+    [`TRUSTED_PEERS`](./../configure/peer-configuration.md#trusted-peers)
+    array in your configuration file.
 
 4.  Determine the web socket that the other peers will use to connect to
-    you. Make sure that the port is open and use that Address in your
-    `config.json`.
+    you. Make sure that the port is open and use that address
+    ([`P2P_ADDR`](./../configure/peer-configuration.md#p2p_addr)) in your
+    `/configs/peer/config.json`.
 
 5.  After you finished editing the configuration file, deploy Iroha by
     running

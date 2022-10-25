@@ -107,6 +107,13 @@ give you a (somewhat verbose) list of all available metrics gathered in
 Iroha. You might want to change this if you're having trouble gathering
 metrics using `prometheus`.
 
+::: info
+
+Learn how to [monitor Iroha performance](./../advanced/metrics.md) using
+prometheus.
+
+:::
+
 ## Genesis
 
 When you configure a peer, you have to provide private and public keys for
@@ -118,6 +125,20 @@ You can do this via the configuration file (`ACCOUNT_PUBLIC_KEY`,
 
 Read more about [genesis blocks](./genesis.md) and
 [public key cryptography](./keys.md).
+
+Besides the public and private keys for genesis account, which are the
+required configuration options, you can also fine-tune other genesis block
+configurations, such as:
+
+- `WAIT_FOR_PEERS_RETRY_COUNT_LIMIT`: the number of attempts to connect to
+  peers before genesis block is submitted
+- `WAIT_FOR_PEERS_RETRY_PERIOD_MS`: how long to wait before retrying
+  connecting to peers
+- `GENESIS_SUBMISSION_DELAY_MS`: the delay before the genesis block
+  submission after the minimum number of peers were discovered.
+
+You can find more details in
+[`GENESIS` Iroha Configuration Reference](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md#genesis).
 
 ## Logger
 

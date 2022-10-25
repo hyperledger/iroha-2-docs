@@ -31,8 +31,8 @@ related to [metadata](metadata.md).
 
 ## Instructions
 
-Assets can be [registered](../advanced/isi.md#unregister) and
-[minted/burned](../advanced/isi.md#mintburn).
+Assets can be [registered](../advanced/isi.md#un-register) and
+[minted/burned](../advanced/isi.md#mint-burn).
 
 Refer to one of the language-specific guide to walk you through the process
 of registering and minting assets in a blockchain:
