@@ -474,5 +474,3 @@ public class JavaTest {
     }
 }
 ```
-
-[^1]: the short form, as well
