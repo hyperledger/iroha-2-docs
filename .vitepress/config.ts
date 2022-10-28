@@ -197,7 +197,7 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
         {
           text: 'Integration',
           link: '/guide/troubleshooting/integration-issues',
-        }
+        },
       ],
     },
     {
