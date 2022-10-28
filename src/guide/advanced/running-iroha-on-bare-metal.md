@@ -18,7 +18,7 @@ details about various configuration options available.
 
 You can always check
 [sample configuration files](./../configure/sample-configuration.md) for
-`/configs/peer/genesis.json` and `/configs/peer/config.json`, or refer to
+`configs/peer/genesis.json` and `configs/peer/config.json`, or refer to
 [peer configuration options](./../configure/peer-configuration.md) for more
 details.
 
@@ -419,9 +419,9 @@ topology, this peer is the [leader](./../glossary.md#leader).
 ::: info Note
 
 Only the leader of the genesis network needs to have access to
-`/configs/peer/genesis.json`. Having the same genesis in the initial
-folders of the other peers could be useful, since future versions of
-`iroha` will also sanity-check the genesis blocks.
+`configs/peer/genesis.json`. Having the same genesis in the initial folders
+of the other peers could be useful, since future versions of `iroha` will
+also sanity-check the genesis blocks.
 
 <!-- Check: a reference about future releases or work in progress -->
 
@@ -455,7 +455,7 @@ Iroha in the real world.
 4.  Determine the web socket that the other peers will use to connect to
     you. Make sure that the port is open and use that address
     ([`P2P_ADDR`](./../configure/peer-configuration.md#p2p_addr)) in your
-    `/configs/peer/config.json`.
+    `configs/peer/config.json`.
 
 5.  After you have finished editing the configuration file, deploy Iroha by
     running

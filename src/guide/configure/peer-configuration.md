@@ -1,6 +1,6 @@
 # Peer Configuration
 
-The peer configuration file (`/configs/peer/config.json`) determines how
+The peer configuration file (`configs/peer/config.json`) determines how
 your blockchain operates.
 
 Here's an example of how peer configuration file looks like:
