@@ -362,7 +362,7 @@ let grant = Instruction::Grant(GrantBox::new(
 ### `CanRegisterDomains`
 
 With `CanRegisterDomains` permission token, a user can
-[register](./isi.md#unregister) domains.
+[register](./isi.md#un-register) domains.
 
 ```rust
 let alice_id = AccountId::from_str("alice@test0")?;
