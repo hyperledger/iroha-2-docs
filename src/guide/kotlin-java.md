@@ -44,16 +44,20 @@ dependencies {
 }
 ```
 
-You **should** replace the SNAPSHOT in the configuration above with a latest `iroha-java` snapshot.
+You **should** replace the SNAPSHOT in the configuration above with a
+latest `iroha-java` snapshot.
 
-Snapshot versions match the Git commits.
-To get the latest snapshot,
-simply visit the [`iroha-java`](https://github.com/hyperledger/iroha-java/tree/iroha2-dev) repository
-on `iroha-2-dev` branch and copy the short hash of the last commit on the main page.
+Snapshot versions match the Git commits. To get the latest snapshot, simply
+visit the
+[`iroha-java`](https://github.com/hyperledger/iroha-java/tree/iroha2-dev)
+repository on `iroha-2-dev` branch and copy the short hash of the last
+commit on the main page.
 
 ![](/img/iroha_java_hash.png)
 
-You can also check the [commit history](https://github.com/hyperledger/iroha-java/commits/iroha2-dev) and copy the commit hash of one of the previous commits.
+You can also check the
+[commit history](https://github.com/hyperledger/iroha-java/commits/iroha2-dev)
+and copy the commit hash of one of the previous commits.
 
 ![](/img/iroha_java_commits.png)
 
