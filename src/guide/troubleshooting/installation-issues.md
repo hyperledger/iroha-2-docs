@@ -78,8 +78,8 @@ is not set as the default. Run:
 rustup default stable
 ```
 
-This can happen if you installed a `nightly` version, or set a specific Rust
-version, but forgot to un-set it.
+This can happen if you installed a `nightly` version, or set a specific
+Rust version, but forgot to un-set it.
 
 ### Check if there are other Rust versions
 
