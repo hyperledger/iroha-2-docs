@@ -24,7 +24,7 @@ For this tutorial, you will need:
 
 This is normally a straightforward process, but we've added
 [troubleshooting](./troubleshooting/installation-issues.md#troubleshooting-rust-toolchain)
-details for each stage in case you experience issues with installation
+details for each stage in case you experience issues with the installation
 process.
 
 The easiest way to get the official `rustup` script is to run:
