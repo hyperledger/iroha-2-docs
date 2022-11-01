@@ -59,7 +59,7 @@ rustup which rustc
 rustup which cargo
 ```
 
-The user installations of the toolchains are _usually_ in
+User installations of the toolchains are _usually_ in
 `~/.rustup/toolchains/stable-*/bin/`. If that is the case, you should be
 able to run
 
@@ -78,7 +78,7 @@ is not set as the default. Run:
 rustup default stable
 ```
 
-This can happen if you installed a `nightly` version or set a specific Rust
+This can happen if you installed a `nightly` version, or set a specific Rust
 version, but forgot to un-set it.
 
 ### Check if there are other Rust versions
@@ -100,7 +100,7 @@ alias rustc "~/.rustup/toolchains/stable-*/bin/rustc"
 alias cargo "~/.rustup/toolchains/stable-*/bin/cargo"
 ```
 
-because there is internal logic that could break regardless of how you
+because there is an internal logic that could break, regardless of how you
 re-arrange your shell aliases.
 
 The simplest solution would be to remove the versions that you don’t use.
