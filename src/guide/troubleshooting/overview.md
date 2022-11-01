@@ -15,16 +15,16 @@ If the issue you are experiencing is not described here, contact us via
 
 ## Check the keys
 
-Most issues arise as a result of the keys not matching. This is why we
+Most issues arise as a result of unmatched keys. This is why we
 recommend to follow this rule: **If something goes wrong, please check the
 keys first.**
 
-Here's a quick explanation. It is not possible to differentiate the error
-messages that arise when the keys of peers are not matching the keys in the
+Here's a quick explanation: It is not possible to differentiate the error
+messages that arise when peers' keys do not match the keys in the
 array of
 [trusted peers](./../configure/peer-configuration.md#trusted-peers), because
 it would expose the peers' public key. As such, if you have Helm
-charts, K8s deployments with keys defined via the environment variables,
+charts or K8s deployed with keys defined via the environment variables,
 you should check for Key definitions.
 
 If in doubt,

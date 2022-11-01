@@ -44,7 +44,7 @@ dependencies {
 }
 ```
 
-You **should** replace the SNAPSHOT in the configuration above with a
+You **should** replace the SNAPSHOT in the above configuration with the
 latest `iroha-java` snapshot.
 
 Snapshot versions match the Git commits. To get the latest snapshot, simply
