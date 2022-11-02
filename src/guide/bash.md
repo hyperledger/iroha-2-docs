@@ -172,6 +172,7 @@ SUBCOMMANDS:
     domain     The subcommand related to domains
     events     The subcommand related to event streaming
     help       Prints this message or the help of the given subcommand(s)
+    json       The subcommand related to multi-instructions as Json
     peer       The subcommand related to p2p networking
     wasm       The subcommand related to Wasm
 ```
