@@ -29,7 +29,11 @@ working with metadata. Let's take a closer look at this asset type.
 
 ## `MetadataChanged`
 
-`MetadataInserted` or `MetadataRemoved` events are emitted when metadata is inserted or removed from accounts, domains, assets, or asset definitions. The emitted event also contain the data that was inserted or removed from the object. This data is stored in `MetadataChanged` in a form of `(key, value)` pair.
+`MetadataInserted` or `MetadataRemoved` events are emitted when metadata is
+inserted or removed from accounts, domains, assets, or asset definitions.
+The emitted event also contain the data that was inserted or removed from
+the object. This data is stored in `MetadataChanged` in a form of
+`(key, value)` pair.
 
 ![Untitled](/img/metadata-changed.png)
 
