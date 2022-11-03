@@ -1,5 +1,16 @@
 # Build and Install Iroha 2
 
+## Iroha 2 Versions
+
+You can choose to work with one of the following versions of Iroha: `dev`,
+`lts`, or `stable`:
+
+|     Version     |                                                                                                                                                        Description                                                                                                                                                         |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `iroha2-dev`    | This is the latest state of Iroha and it is **not meant to be used in production**. This is an intermediate, untested, potentially broken state, and therefore we cannot guarantee that it is usable or stable.                                                                                                            |
+| `iroha2-stable` | This is the latest released version of Iroha. Stable versions are tested and released in accordance with our release schedule (once a month). You can use the stable version in production, and we will offer you tech support.                                                                                            |
+| `iroha2-lts`    | This is the long-term supported version. We guarantee its compatibility with SDKs, toolsets, and block stores released when it came out. We **recommend using the LTS version in production** since it is the version that will not change much over time. Similarly to the stable version, we offer tech support for LTS. |
+
 ## Prerequisites
 
 For this tutorial, you will need:
