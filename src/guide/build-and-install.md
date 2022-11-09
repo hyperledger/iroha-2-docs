@@ -34,8 +34,9 @@ For this tutorial, you will need:
 ## Install the Rust Toolchain
 
 This is normally a straightforward process, but we've added
-[troubleshooting](#troubleshooting-rust-toolchain) details for each stage
-in case you experience issues with installation process.
+[troubleshooting](./troubleshooting/installation-issues.md#troubleshooting-rust-toolchain)
+details for each stage in case you experience issues with the installation
+process.
 
 The easiest way to get the official `rustup` script is to run:
 
@@ -55,140 +56,6 @@ directly, without `rustup`.
 
 If you go with the one-line `curl` script, you will be guided through the
 setup process. Just go with the defaults.
-
-### Troubleshooting: Rust Toolchain
-
-::: details Click to expand
-
-Sometimes, things don’t go as planned. Especially if you had `rust` on your
-system a while ago, but didn’t upgrade. A similar problem can occur in
-Python: XKCD has a famous example of what that might look like:
-
-<div class="flex justify-center">
-
-<!-- FIXME untitled -->
-
-![Untitled](/img/install-troubles.png)
-
-</div>
-
-In the interest of preserving both your and our sanity, make sure that you
-have the right version of `cargo` paired with the right version of `rustc`
-(1.57 and 1.57) respectively. To show the versions, do
-
-```bash
-cargo -V
-cargo 1.60.0 (d1fd9fe 2022-03-01)
-```
-
-and then
-
-```bash
-rustc --version
-rustc 1.60.0 (7737e0b5c 2022-04-04)
-```
-
-If you have higher versions, you're fine. If you have lower versions, you
-can run the following command to update it:
-
-```bash
-rustup toolchain update stable
-```
-
----
-
-If you get lower version numbers **and** you updated the toolchain and it
-didn’t work… let’s just say it’s a common problem, but it doesn’t have a
-common solution.
-
-Firstly, you should establish where the version that you want to use is
-installed:
-
-```bash
-rustup which rustc
-rustup which cargo
-```
-
-The user installations of the toolchains are _usually_ in
-`~/.rustup/toolchains/stable-*/bin/`. If that is the case, you should be
-able to run
-
-```bash
-rustup toolchain update stable
-```
-
-and that should fix your problems.
-
----
-
-Another option is that you have the up-to-date `stable` toolchain, but it
-is not set as the default. Run:
-
-```bash
-rustup default stable
-```
-
-This can happen if you installed a `nightly` version or set a specific Rust
-version, but forgot to un-set it.
-
----
-
-Continuing down the troubleshooting rabbit-hole, we could have shell
-aliases:
-
-```bash
-type rustc
-type cargo
-```
-
-If these point to locations other than the one you saw when running
-`rustup which *`, then you have a problem. Note that it’s not enough to
-just
-
-```bash
-alias rustc "~/.rustup/toolchains/stable-*/bin/rustc"
-alias cargo "~/.rustup/toolchains/stable-*/bin/cargo"
-```
-
-because there is internal logic that could break regardless of how you
-re-arrange your shell aliases.
-
-The simplest solution would be to remove the versions that you don’t use.
-
-It’s easier _said_ than _done_, however, since it entails tracking all the
-versions of rustup installed and available to you. Usually, there are only
-two: the system package manager version and the one that got installed into
-the standard location in your home folder when you ran the command in the
-beginning of this tutorial. For the former, consult your (Linux)
-distribution’s manual, (`apt remove rust`). For the latter, run:
-
-```bash
-rustup toolchain list
-```
-
-And then, for every `<toolchain>` (without the angle brackets of course):
-
-```bash
-rustup remove <toolchain>
-```
-
-After that, make sure that
-
-```bash
-cargo --help
-```
-
-results in a command-not-found error, i.e. that you have no active Rust
-toolchain installed. Then, run:
-
-```bash
-rustup toolchain install stable
-```
-
-If after all of this work, you still don’t seem to have the right version,
-then the issue runs deeper.
-
-:::
 
 ## Install OpenSSL
 

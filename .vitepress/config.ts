@@ -176,6 +176,31 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
       ],
     },
     {
+      text: 'Troubleshooting',
+      items: [
+        {
+          text: 'Overview',
+          link: '/guide/troubleshooting/overview',
+        },
+        {
+          text: 'Installation',
+          link: '/guide/troubleshooting/installation',
+        },
+        {
+          text: 'Configuration',
+          link: '/guide/troubleshooting/configuration-issues',
+        },
+        {
+          text: 'Deployment',
+          link: '/guide/troubleshooting/deployment-issues',
+        },
+        {
+          text: 'Integration',
+          link: '/guide/troubleshooting/integration-issues',
+        },
+      ],
+    },
+    {
       text: 'Advanced Mode',
       items: [
         {
