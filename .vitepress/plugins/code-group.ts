@@ -170,7 +170,7 @@ export const codeGroupPlugin: MarkdownIt.PluginSimple = (md) => {
       const { idx } = token.meta as SlotMeta
       return `<template #block-${idx}>\n`
     } else {
-      return `</template>`
+      return `</template>\n`
     }
   }
 
