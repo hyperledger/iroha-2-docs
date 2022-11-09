@@ -27,6 +27,18 @@ The object's metadata can be transferred one by one, or in bulk via a
 [WASM](../advanced/wasm.md) transaction. The `Store` asset type is used for
 working with metadata. Let's take a closer look at this asset type.
 
+## `MetadataChanged`
+
+`MetadataInserted` or `MetadataRemoved` events are emitted when metadata is
+inserted or removed from accounts, domains, assets, or asset definitions.
+The emitted event also contains the data that was inserted or removed from
+the object. This data is stored in `MetadataChanged` in the form of a
+`(key, value)` pair.
+
+![Untitled](/img/metadata-changed.png)
+
+Check [data filters](./hierarchy.md#data-filters) for details.
+
 ## `Store` Asset
 
 In Iroha 2 there is an asset called `Store` that was designed to be a
