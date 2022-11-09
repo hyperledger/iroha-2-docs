@@ -4,9 +4,8 @@ import footnote from 'markdown-it-footnote'
 import customHighlight from './plugins/highlight'
 import { resolve } from 'path'
 import { VitePWA } from 'vite-plugin-pwa'
-import { snippets_plugin } from './snippet_tabs'
 import svgLoader from 'vite-svg-loader'
-import { getHighlighter } from 'shiki'
+import { codeGroupPlugin } from './plugins/code-group'
 
 async function themeConfig() {
   const cfg: UserConfig = {
@@ -261,12 +260,7 @@ export default defineConfig({
   markdown: {
     async config(md) {
       md.use(footnote)
-      snippets_plugin(md, {
-        snippet_root: resolve(__dirname, '../src/snippets/'),
-        highlighter: await getHighlighter({
-          theme: 'github-light',
-        }),
-      })
+      md.use(codeGroupPlugin)
     },
   },
 
