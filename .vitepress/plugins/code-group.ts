@@ -35,7 +35,7 @@ function isCodeGroupContainer(str: string): boolean {
   return str === ':::code-group'
 }
 
-function findClosingLine(state: StateBlock, startLine: number, endLine: number): number {
+function findCodeGroupClosingLine(state: StateBlock, startLine: number, endLine: number): number {
   let i = startLine
 
   while (++i < endLine) {
@@ -95,7 +95,7 @@ function parseFenceInfo(str: string): { lang: string; title?: string } | null {
 }
 
 export const codeGroupPlugin: MarkdownIt.PluginSimple = (md) => {
-  const parseContainer: RuleBlock = (state, startLine, endLine, silent) => {
+  const parseContainer: RuleBlock = (state, startLine, endLine) => {
     const { start, end } = getLineBoundaries(state, startLine)
     const markup = state.src.slice(start, end)
 
@@ -105,11 +105,12 @@ export const codeGroupPlugin: MarkdownIt.PluginSimple = (md) => {
 
       state.parentType = 'code-group' as any
 
-      const containerEndLine = findClosingLine(state, startLine, endLine)
+      const containerEndLine = findCodeGroupClosingLine(state, startLine, endLine)
 
       const tokenOpen = state.push(GROUP_TYPE_OPEN, '', NESTING_OPENING)
       tokenOpen.block = true
       tokenOpen.markup = markup
+      tokenOpen.map = [startLine, containerEndLine]
 
       state.md.block.tokenize(state, startLine + 1, containerEndLine)
 
@@ -119,7 +120,7 @@ export const codeGroupPlugin: MarkdownIt.PluginSimple = (md) => {
 
       state.parentType = oldParentType
       state.lineMax = oldLineMax
-      state.line = endLine + 1
+      state.line = containerEndLine + 1
 
       return true
     }

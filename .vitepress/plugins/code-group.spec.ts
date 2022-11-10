@@ -64,3 +64,79 @@ struct New;
     </CodeGroup>"
   `)
 })
+
+test('code-group within a list', () => {
+  const result = mdFactory().render(`
+- List item:
+  
+  :::code-group
+
+  :::
+  `)
+
+  expect(result).toMatchInlineSnapshot(`
+    "<ul>
+    <li>
+    <p>List item:</p>
+    <CodeGroup :blocks=\\"0\\" :langs=\\"{}\\">
+
+    </CodeGroup></li>
+    </ul>
+    "
+  `)
+})
+
+test('code-group within a blockquote', () => {
+  const result = mdFactory().render(`
+> Quote
+>
+> :::code-group
+>
+> :::
+  `)
+
+  expect(result).toMatchInlineSnapshot(`
+    "<blockquote>
+    <p>Quote</p>
+    <CodeGroup :blocks=\\"0\\" :langs=\\"{}\\">
+
+    </CodeGroup></blockquote>
+    "
+  `)
+})
+
+test('multiple code-groups in a document', () => {
+  const result = mdFactory().render(`
+:::code-group
+
+\`\`\`ts
+const foo = 'bar'
+\`\`\`
+
+:::
+
+:::code-group
+
+\`\`\`js
+const bar = 'baz'
+\`\`\`
+
+:::
+  `)
+
+  expect(result).toMatchInlineSnapshot(`
+    "<CodeGroup :blocks=\\"1\\" :langs=\\"{0: 'ts'}\\">
+
+    <template #block-0>
+    <pre><code class=\\"language-ts\\">const foo = 'bar'
+    </code></pre>
+    </template>
+    </CodeGroup><CodeGroup :blocks=\\"1\\" :langs=\\"{0: 'js'}\\">
+
+    <template #block-0>
+    <pre><code class=\\"language-js\\">const bar = 'baz'
+    </code></pre>
+    </template>
+    </CodeGroup>"
+  `)
+})
