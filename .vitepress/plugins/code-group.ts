@@ -1,16 +1,22 @@
-import MarkdownIt from 'markdown-it'
-import { type RuleBlock } from 'markdown-it/lib/parser_block'
-import { type RenderRule } from 'markdown-it/lib/renderer'
-import StateBlock from 'markdown-it/lib/rules_block/state_block'
-import { RuleCore } from 'markdown-it/lib/parser_core'
-import StateCore from 'markdown-it/lib/rules_core/state_core'
+import type MarkdownIt from 'markdown-it'
+import type { RuleBlock } from 'markdown-it/lib/parser_block'
+import type { RenderRule } from 'markdown-it/lib/renderer'
+import type StateBlock from 'markdown-it/lib/rules_block/state_block'
+import type { RuleCore } from 'markdown-it/lib/parser_core'
+import type StateCore from 'markdown-it/lib/rules_core/state_core'
+import type Token from 'markdown-it/lib/token'
+import invariant from 'tiny-invariant'
 
 const GROUP_TYPE_OPEN = 'code-group__open'
 const GROUP_TYPE_CLOSE = 'code-group__close'
 const SLOT_TYPE_OPEN = 'code-group-slot__open'
 const SLOT_TYPE_CLOSE = 'code-group-slot__close'
+const HEADING_TYPE_OPEN = 'code-group__heading-open'
+const HEADING_TYPE_CLOSE = 'code-group__heading-close'
 const NESTING_OPENING = 1
 const NESTING_CLOSING = -1
+
+const EnvWithinGroup = Symbol('Within code group')
 
 interface GroupMeta {
   fenceBlocks: FenceBlockMeta[]
@@ -18,7 +24,7 @@ interface GroupMeta {
 
 interface FenceBlockMeta {
   lang?: string
-  title?: string
+  title?: Token[] | null
 }
 
 interface SlotMeta {
@@ -47,12 +53,21 @@ function findCodeGroupClosingLine(state: StateBlock, startLine: number, endLine:
   return i
 }
 
+function findIndexAfter<T>(items: T[], start: number, fn: (item: T) => boolean): null | { idx: number } {
+  for (let i = start; i < items.length; i++) {
+    if (fn(items[i])) return { idx: i }
+  }
+  return null
+}
+
 function processFenceWithinCodeGroup(state: StateCore, idx: number): { codeGroupEndIdx: number } {
   const codeGroupOpenToken = state.tokens[idx]
 
   const fenceBlocks: FenceBlockMeta[] = []
 
   let i: number
+  let lastHeading: null | Token[] = null
+
   for (i = idx + 1; i < state.tokens.length; i++) {
     const token = state.tokens[i]
     if (token.type === 'fence') {
@@ -61,7 +76,8 @@ function processFenceWithinCodeGroup(state: StateCore, idx: number): { codeGroup
 
       const meta: SlotMeta = { idx: fenceBlocks.length }
 
-      fenceBlocks.push({ ...parsedInfo })
+      fenceBlocks.push({ lang: parsedInfo.lang, title: lastHeading })
+      lastHeading = null
 
       const tokenTemplateOpen = new state.Token(SLOT_TYPE_OPEN, 'template', NESTING_OPENING)
       tokenTemplateOpen.block = true
@@ -72,6 +88,13 @@ function processFenceWithinCodeGroup(state: StateCore, idx: number): { codeGroup
 
       state.tokens.splice(i, 1, tokenTemplateOpen, token, tokenTemplateClose)
       i += 2
+    } else if (token.type === HEADING_TYPE_OPEN) {
+      const end = findIndexAfter(state.tokens, i, (x) => x.type === HEADING_TYPE_CLOSE)
+      invariant(end)
+      const headingTokens = state.tokens.splice(i, end.idx - i + 1)
+      const children = headingTokens.slice(1, -1)
+      lastHeading = children
+      i -= 1
     } else if (token.type === GROUP_TYPE_CLOSE) break
   }
 
@@ -83,19 +106,33 @@ function processFenceWithinCodeGroup(state: StateCore, idx: number): { codeGroup
   return { codeGroupEndIdx: i }
 }
 
-const FENCE_INFO_RE = /(\w+)\s*(?:\[(.*?)\])?/
-
-function parseFenceInfo(str: string): { lang: string; title?: string } | null {
-  const matched = str.match(FENCE_INFO_RE)
-  if (matched) {
-    const [, lang, title] = matched as [string, string, string?]
-    return { lang, title }
-  }
-  return null
+function parseFenceInfo(str: string): { lang: string } {
+  return { lang: str.trim() }
 }
 
+/**
+ * Usage example:
+ *
+ * ````md
+ * :::code-group
+ *
+ * ```ts
+ * const foo = 'bar'
+ * ```
+ *
+ * ### Custom title (any heading level)
+ *
+ * ```
+ * hello world
+ * ```
+ *
+ * <<<@/snippets/lorem.py
+ *
+ * :::
+ * ````
+ */
 export const codeGroupPlugin: MarkdownIt.PluginSimple = (md) => {
-  const parseContainer: RuleBlock = (state, startLine, endLine) => {
+  const ruleBlockContainer: RuleBlock = (state, startLine, endLine) => {
     const { start, end } = getLineBoundaries(state, startLine)
     const markup = state.src.slice(start, end)
 
@@ -112,7 +149,9 @@ export const codeGroupPlugin: MarkdownIt.PluginSimple = (md) => {
       tokenOpen.markup = markup
       tokenOpen.map = [startLine, containerEndLine]
 
+      state.env[EnvWithinGroup] = true
       state.md.block.tokenize(state, startLine + 1, containerEndLine)
+      delete state.env[EnvWithinGroup]
 
       const tokenClose = state.push(GROUP_TYPE_CLOSE, '', NESTING_CLOSING)
       tokenClose.block = true
@@ -128,7 +167,36 @@ export const codeGroupPlugin: MarkdownIt.PluginSimple = (md) => {
     return false
   }
 
-  const parseSlots: RuleCore = (state) => {
+  const ruleBlockContainerHeadings: RuleBlock = (state, startLine) => {
+    if (state.env[EnvWithinGroup]) {
+      const { start, end } = getLineBoundaries(state, startLine)
+      const content = state.src.slice(start, end)
+      const headingMatch = content.match(/^(#{1,7})\s+(.+)$/)
+      if (headingMatch) {
+        const [, markup, headingRawContent] = headingMatch
+
+        state.line = startLine + 1
+
+        const tokenOpen = state.push(HEADING_TYPE_OPEN, '', NESTING_OPENING)
+        tokenOpen.markup = markup
+        tokenOpen.map = [startLine, state.line]
+
+        const tokenInline = state.push('inline', '', 0)
+        tokenInline.content = headingRawContent
+        tokenInline.map = [startLine, state.line]
+        tokenInline.children = []
+
+        const tokenClose = state.push(HEADING_TYPE_CLOSE, '', NESTING_CLOSING)
+        tokenClose.markup = markup
+
+        return true
+      }
+    }
+
+    return false
+  }
+
+  const ruleBlockSlots: RuleCore = (state) => {
     const findCodeGroupOpening = (start: number) => {
       for (let i = start; i < state.tokens.length; i++) {
         if (state.tokens[i].type === GROUP_TYPE_OPEN) return i
@@ -145,7 +213,7 @@ export const codeGroupPlugin: MarkdownIt.PluginSimple = (md) => {
     }
   }
 
-  const renderContainer: RenderRule = (tokens, idx) => {
+  const renderContainer: RenderRule = (tokens, idx, opts, env, self) => {
     const token = tokens[idx]
     if (token.nesting === NESTING_OPENING) {
       const { fenceBlocks } = token.meta as GroupMeta
@@ -156,7 +224,13 @@ export const codeGroupPlugin: MarkdownIt.PluginSimple = (md) => {
         .join(',')}}`
 
       const titleTemplates = fenceBlocks
-        .flatMap((x, i) => (x.title ? [`<template #block-${i}-title>${x.title}</template>`] : []))
+        .flatMap((x, i) => {
+          if (x.title) {
+            const rendered = self.render(x.title, opts, env)
+            return `<template #block-${i}-title>${rendered}</template>`
+          }
+          return []
+        })
         .join('\n')
 
       return `<CodeGroup :blocks="${fenceBlocks.length}" :langs="${langs}">\n${titleTemplates}\n`
@@ -175,8 +249,9 @@ export const codeGroupPlugin: MarkdownIt.PluginSimple = (md) => {
     }
   }
 
-  md.block.ruler.before('fence', 'code-group-container', parseContainer)
-  md.core.ruler.after('inline', 'code-group-slots', parseSlots)
+  md.block.ruler.before('fence', 'code-group-container', ruleBlockContainer)
+  md.block.ruler.before('heading', 'code-group-inner-headings', ruleBlockContainerHeadings)
+  md.core.ruler.after('inline', 'code-group-slots', ruleBlockSlots)
 
   md.renderer.rules[GROUP_TYPE_OPEN] = md.renderer.rules[GROUP_TYPE_CLOSE] = renderContainer
   md.renderer.rules[SLOT_TYPE_OPEN] = md.renderer.rules[SLOT_TYPE_CLOSE] = renderSlot
