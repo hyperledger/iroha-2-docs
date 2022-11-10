@@ -68,7 +68,7 @@ function onTabBlur() {
 <template>
   <div class="code-group my-4 rounded-lg">
     <div
-      class="px-4 pt-2 space-x-2"
+      class="px-4"
       role="tablist"
       aria-label="Code group"
       :tabindex="enableTabsFocus ? -1 : 0"
@@ -99,8 +99,6 @@ function onTabBlur() {
       </CodeGroupTab>
     </div>
 
-    <hr class="code-group__divider">
-
     <div
       :id="tabpanelId"
       role="tabpanel"
@@ -113,13 +111,9 @@ function onTabBlur() {
 
 <style lang="scss">
 .code-group {
-  // shiki's "github" theme background
-  background-color: rgb(34, 39, 46);
+  $github-dark-dimmed-bg: rgb(34, 39, 46);
 
-  hr {
-    border-color: rgba(235, 235, 235, 0.28);
-    margin: 0;
-  }
+  background-color: lighten($github-dark-dimmed-bg, 15);
 
   div[class*='language-'] {
     margin: 0;

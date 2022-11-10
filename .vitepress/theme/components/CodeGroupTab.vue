@@ -20,44 +20,51 @@ const maybeIcon = computed(() => props.lang && tryFindIcon(props.lang))
     :aria-selected="selected"
     :aria-controls="controls"
   >
-    <component
-      :is="maybeIcon"
-      v-if="maybeIcon"
-    />
+    <span>
+      <component
+        :is="maybeIcon"
+        v-if="maybeIcon"
+      />
 
-    <slot />
+      <slot />
+    </span>
   </button>
 </template>
 
 <style lang="scss" scoped>
-@use '../style/index';
-
 button {
   color: white;
-  padding: 4px 8px;
+  padding: 8px 12px;
   position: relative;
   border-radius: 2px;
 
   $active-bg: rgba(235, 235, 235, 0.1);
 
+  & > span {
+    border-radius: 2px;
+    padding: 2px;
+  }
+
   &:hover,
   &:focus,
   &:active {
-    background: $active-bg;
+    & > span {
+      outline: 2px solid transparentize(white, 0.3);
+    }
   }
 
   &:focus {
-    outline: 2px solid transparentize(white, 0.5);
+    outline: none;
   }
 
   &::before {
     content: '';
     position: absolute;
     bottom: 0;
-    right: 0;
-    left: 0;
+    right: 2px;
+    left: 2px;
     visibility: hidden;
-    border-top: 3px solid index.$iroha-brand-light;
+    border-top: 3px solid white;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
   }
@@ -69,9 +76,10 @@ button {
   }
 
   svg {
+    font-size: 1.2em;
     display: inline-block;
     vertical-align: middle;
-    margin-right: 4px;
+    margin-right: 6px;
   }
 }
 </style>
