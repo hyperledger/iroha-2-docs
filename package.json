@@ -11,7 +11,8 @@
     "lint": "eslint --ext .js,.ts,.mts,.vue . .vitepress",
     "typecheck": "tsc --noEmit",
     "get_snippets": "tsx scripts/get_snippets_runner.mts",
-    "postinstall": "tsx scripts/pre_runner.mts"
+    "postinstall": "tsx scripts/pre_runner.mts",
+    "test": "vitest"
   },
   "devDependencies": {
     "@types/markdown-it": "^12.2.3",
