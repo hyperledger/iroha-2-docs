@@ -26,8 +26,7 @@ Keeping in mind what we said above about key cryptography, note that if
 you're deploying your own network, you should change the keys in all three
 configuration files:
 
-- peer configuration:
-  [`/configs/peer/config.json`](./peer-configuration.md)
+- peer configuration: [`configs/peer/config.json`](./peer-configuration.md)
 - client configuration:
   [`configs/client_cli/config.json `](./client-configuration.md)
 - genesis block: [`configs/peer/genesis.json`](./genesis.md)

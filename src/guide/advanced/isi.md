@@ -13,15 +13,15 @@ available for each object.
 
 Here we present you with an overview of each instruction.
 
-| Instruction                                              | Descriptions                                      |
-| -------------------------------------------------------- | ------------------------------------------------- |
-| [Register/Unregister](#unregister)                       | Give an ID to a new entity on the blockchain.     |
-| [Mint/Burn](#mintburn)                                   | Mint/burn assets, triggers, or permission tokens. |
-| [SetKeyValue/RemoveKeyValue](#setkeyvalueremovekeyvalue) | Update metadata of blockchain objects.            |
-| [Grant/Revoke](#grantrevoke)                             | Give or remove certain permissions from accounts. |
-| [Transfer](#transfer)                                    | Transfer assets between accounts.                 |
-| [ExecuteTrigger](#executetrigger)                        | Execute triggers.                                 |
-| [If, Pair, Sequence](#composite-instructions)            | Use to create composite instructions.             |
+| Instruction                                               | Descriptions                                      |
+| --------------------------------------------------------- | ------------------------------------------------- |
+| [Register/Unregister](#un-register)                       | Give an ID to a new entity on the blockchain.     |
+| [Mint/Burn](#mint-burn)                                   | Mint/burn assets, triggers, or permission tokens. |
+| [SetKeyValue/RemoveKeyValue](#setkeyvalue-removekeyvalue) | Update blockchain object metadata.                |
+| [Grant/Revoke](#grant-revoke)                             | Give or remove certain permissions from accounts. |
+| [Transfer](#transfer)                                     | Transfer assets between accounts.                 |
+| [ExecuteTrigger](#executetrigger)                         | Execute triggers.                                 |
+| [If, Pair, Sequence](#composite-instructions)             | Use to create composite instructions.             |
 
 ## (Un)Register
 

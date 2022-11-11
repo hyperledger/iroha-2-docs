@@ -15,13 +15,19 @@ enum TriggerEventFilter {
 }
 
 enum TriggerEvent {
-    Created(TriggerId),
-    Deleted(TriggerId),
-    Extended(TriggerId),
-    Shortened(TriggerId),
+    Created(TriggerId)
+    Deleted(TriggerId)
+    Extended(TriggerNumberOfExecutionsChanged)
+    Shortened(TriggerNumberOfExecutionsChanged)
+}
+
+struct TriggerNumberOfExecutionsChanged {
+    trigger_id: TriggerId
+    by: u32
 }
 
 TriggerFilter .. TriggerEvent
+TriggerEvent .. TriggerNumberOfExecutionsChanged
 TriggerFilter .. TriggerEventFilter
 
 
@@ -36,11 +42,18 @@ enum RoleEventFilter {
 }
 
 enum RoleEvent {
-    Created(RoleId),
-    Deleted(RoleId),
+    Created(RoleId)
+    Deleted(RoleId)
+    PermissionRemoved(PermissionRemoved)
+}
+
+struct PermissionRemoved {
+    role_id: RoleId
+    permission_definition_id: <PermissionTokenDefinition as Identifiable>::Id
 }
 
 RoleFilter .. RoleEvent
+RoleEvent .. PermissionRemoved
 RoleFilter .. RoleEventFilter 
 
 
@@ -55,8 +68,8 @@ enum PeerEventFilter {
 }
 
 enum PeerEvent {
-    Added(PeerId),
-    Removed(PeerId),
+    Added(PeerId)
+    Removed(PeerId)
 }
 
 PeerFilter .. PeerEvent
@@ -79,14 +92,21 @@ enum AssetDefinitionEventFilter {
 }
 
 enum AssetDefinitionEvent {
-    Created(AssetDefinitionId),
-    MintabilityChanged(AssetDefinitionId),
-    Deleted(AssetDefinitionId),
-    MetadataInserted(AssetDefinitionId),
-    MetadataRemoved(AssetDefinitionId),
+    Created(AssetDefinitionId)
+    MintabilityChanged(AssetDefinitionId)
+    Deleted(AssetDefinitionId)
+    MetadataInserted(AssetDefinitionMetadataChanged)
+    MetadataRemoved(AssetDefinitionMetadataChanged)
+}
+
+struct AssetDefinitionMetadataChanged {
+    target_id: AssetDefinitionId
+    key: Name
+    value: Box<Value>
 }
 
 AssetDefinitionFilter .. AssetDefinitionEvent
+AssetDefinitionEvent .. AssetDefinitionMetadataChanged
 AssetDefinitionFilter .. AssetDefinitionEventFilter
 
 
@@ -106,15 +126,28 @@ enum AssetEventFilter {
 }
 
 enum AssetEvent {
-    Created(AssetId),
-    Deleted(AssetId),
-    Added(AssetId),
-    Removed(AssetId),
-    MetadataInserted(AssetId),
-    MetadataRemoved(AssetId),
+    Created(AssetId)
+    Deleted(AssetId)
+    Added(AssetChanged)
+    Removed(AssetChanged)
+    MetadataInserted(AssetMetadataChanged)
+    MetadataRemoved(AssetMetadataChanged)
+}
+
+struct AssetChanged {
+    asset_id: AssetId
+    amount: AssetValue
+}
+
+struct AssetMetadataChanged {
+    target_id: AssetId
+    key: Name
+    value: Box<Value>
 }
 
 AssetFilter .. AssetEvent
+AssetEvent .. AssetChanged
+AssetEvent .. AssetMetadataChanged
 AssetFilter .. AssetEventFilter
 
 
@@ -134,15 +167,22 @@ enum DomainEventFilter {
 }
 
 enum DomainEvent {
-    Account(AccountEvent),
-    AssetDefinition(AssetDefinitionEvent),
-    Created(DomainId),
-    Deleted(DomainId),
-    MetadataInserted(DomainId),
-    MetadataRemoved(DomainId),
+    Account(AccountEvent)
+    AssetDefinition(AssetDefinitionEvent)
+    Created(DomainId)
+    Deleted(DomainId)
+    MetadataInserted(DomainMetadataChanged)
+    MetadataRemoved(DomainMetadataChanged)
+}
+
+struct DomainMetadataChanged {
+    target_id: DomainId
+    key: Name
+    value: Box<Value>
 }
 
 DomainFilter .. DomainEvent
+DomainEvent .. DomainMetadataChanged
 DomainFilter .. DomainEventFilter
 
 
@@ -166,20 +206,39 @@ enum AccountEventFilter {
 }
 
 enum AccountEvent {
-    Asset(AssetEvent),
-    Created(AccountId),
-    Deleted(AccountId),
-    AuthenticationAdded(AccountId),
-    AuthenticationRemoved(AccountId),
-    PermissionAdded(AccountId),
-    PermissionRemoved(AccountId),
-    RoleRevoked(AccountId),
-    RoleGranted(AccountId),
-    MetadataInserted(AccountId),
-    MetadataRemoved(AccountId),
+    Asset(AssetEvent)
+    Created(AccountId)
+    Deleted(AccountId)
+    AuthenticationAdded(AccountId)
+    AuthenticationRemoved(AccountId)
+    PermissionAdded(AccountPermissionChanged)
+    PermissionRemoved(AccountPermissionChanged)
+    RoleRevoked(AccountRoleChanged)
+    RoleGranted(AccountRoleChanged)
+    MetadataInserted(AccountMetadataChanged)
+    MetadataRemoved(AccountMetadataChanged)
+}
+
+struct AccountPermissionChanged {
+    account_id: AccountId
+    permission_id: PermissionTokenId
+}
+
+struct AccountRoleChanged {
+    account_id: AccountId
+    role_id: RoleId
+}
+
+struct AccountMetadataChanged {
+    target_id: AccountId
+    key: Name
+    value: Box<Value>
 }
 
 AccountFilter .. AccountEvent
+AccountEvent .. AccountPermissionChanged
+AccountEvent .. AccountRoleChanged
+AccountEvent .. AccountMetadataChanged
 AccountFilter .. AccountEventFilter
 
 @enduml
