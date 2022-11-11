@@ -143,7 +143,7 @@ downloader doing their parts of the task, it is possible to import the
 snippets.
 
 Keeping in mind that a default snippet directory is `src/snippets/`, a
-snippet could be imported as following:
+snippet could be imported as follows:
 
 **Input**
 

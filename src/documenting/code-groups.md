@@ -59,14 +59,14 @@ Fence without lang or title
 
 - All fences (i.e. code blocks) within a `code-group` container are
   considered as dedicated tabs;
-- If fence has a heading before it, then the heading content is used as a
-  title. Heading could have any level (i.e. `#`, `##` and so on).
-- If fence doesn't have a title, then it's language is used as a title. If
-  there is no language, then titles fallbacks to `<block-#i>` placeholder.
+- If the fence has a heading before it, then the heading content is used as a
+  title. The heading could have any level (i.e. `#`, `##`, and so on).
+- If the fence doesn't have a title, then it's language is used as a title. If
+  there is no language, then the title falls back to the `<block-#i>` placeholder.
 
 ## HTML-based syntax
 
-It is more low-level, but might be used for advanced cases.
+It is lower-level but might be used for advanced cases.
 
 **Input**
 
