@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 import { defineConfig, UserConfig, DefaultTheme } from 'vitepress'
 import Windi from 'vite-plugin-windicss'
 import footnote from 'markdown-it-footnote'
@@ -204,8 +206,12 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
       text: 'Documenting Iroha',
       items: [
         {
-          text: 'Code snippets',
+          text: 'Code Snippets',
           link: '/documenting/snippets',
+        },
+        {
+          text: 'Code Groups',
+          link: '/documenting/code-groups',
         },
       ],
     },

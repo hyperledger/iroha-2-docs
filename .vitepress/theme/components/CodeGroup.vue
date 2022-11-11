@@ -93,7 +93,7 @@ function onTabBlur() {
             {{ lang }}
           </template>
           <template v-else>
-            &gt;block-{{ idx }}&lt;
+            &lt;block-{{ idx }}&gt;
           </template>
         </slot>
       </CodeGroupTab>
