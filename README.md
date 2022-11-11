@@ -93,7 +93,7 @@ pnpm lint --fix
 
 We use [Vitest](https://vitest.dev/) test framework to assure quality of non-trivial internal parts of the project.
 
-To check whether tests passes, run:
+To check whether tests pass, run:
 
 ```bash
 pnpm vitest run
