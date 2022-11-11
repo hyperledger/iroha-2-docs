@@ -96,8 +96,7 @@ function postprocessCodeGroupChildren(state: StateCore, idx: number): { codeGrou
       i += 2
     } else if (token.type === TOKEN_TYPES.BLOCK_TITLE) {
       const blockIdx = fenceBlocks.length
-
-      const meta: BlockTitleMeta = { idx: fenceBlocks.length }
+      const meta: BlockTitleMeta = { idx: blockIdx }
       token.meta = meta
     } else if (token.type === TOKEN_TYPES.CONTAINER.CLOSE) break
   }
@@ -111,6 +110,11 @@ function postprocessCodeGroupChildren(state: StateCore, idx: number): { codeGrou
 }
 
 function parseFenceInfo(str: string): { lang: string } {
+  const match = str.match(/^(\w+)/)
+  if (match) {
+    const [, lang] = match
+    return { lang }
+  }
   return { lang: str.trim() }
 }
 

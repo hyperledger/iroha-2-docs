@@ -136,3 +136,20 @@ const bar = 'baz'
     </CodeGroup>"
   `)
 })
+
+test('code fence within a group has line highlighting data', () => {
+  const result = mdFactory().render(`
+:::code-group
+\`\`\`ts{1-3}
+\`\`\`
+:::
+  `)
+
+  expect(result).toMatchInlineSnapshot(`
+    "<CodeGroup :blocks=\\"1\\" :langs=\\"{0: 'ts'}\\">
+    <template #block-0>
+    <pre><code class=\\"language-ts{1-3}\\"></code></pre>
+    </template>
+    </CodeGroup>"
+  `)
+})
