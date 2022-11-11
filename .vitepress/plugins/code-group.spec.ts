@@ -1,16 +1,11 @@
 import { test, expect } from 'vitest'
 import MarkdownIt from 'markdown-it'
-import { format } from 'prettier'
 import { codeGroupPlugin } from './code-group'
 
 function mdFactory() {
   const md = new MarkdownIt()
   md.use(codeGroupPlugin)
   return md
-}
-
-function formatHtml(str: string): string {
-  return format(str, { parser: 'html' })
 }
 
 test('single tab without title', () => {
@@ -25,15 +20,14 @@ console.log()
 
 :::`)
 
-  expect(formatHtml(result)).toMatchInlineSnapshot(`
+  expect(result).toMatchInlineSnapshot(`
     "<h1>Hello</h1>
     <CodeGroup :blocks=\\"1\\" :langs=\\"{0: 'ts'}\\">
-      <template #block-0>
-        <pre><code class=\\"language-ts\\">console.log()
+    <template #block-0>
+    <pre><code class=\\"language-ts\\">console.log()
     </code></pre>
-      </template>
-    </CodeGroup>
-    "
+    </template>
+    </CodeGroup>"
   `)
 })
 
@@ -53,19 +47,18 @@ struct New;
 
 :::`)
 
-  expect(formatHtml(result)).toMatchInlineSnapshot(`
+  expect(result).toMatchInlineSnapshot(`
     "<CodeGroup :blocks=\\"2\\" :langs=\\"{1: 'rs'}\\">
-      <template #block-1-title>My Title</template>
-      <template #block-0>
-        <pre><code>.-.
+    <template #block-0>
+    <pre><code>.-.
     </code></pre>
-      </template>
-      <template #block-1>
-        <pre><code class=\\"language-rs\\">struct New;
+    </template>
+    <template #block-1-title>My Title</template>
+    <template #block-1>
+    <pre><code class=\\"language-rs\\">struct New;
     </code></pre>
-      </template>
-    </CodeGroup>
-    "
+    </template>
+    </CodeGroup>"
   `)
 })
 
@@ -78,12 +71,12 @@ test('code-group within a list', () => {
   :::
   `)
 
-  expect(formatHtml(result)).toMatchInlineSnapshot(`
+  expect(result).toMatchInlineSnapshot(`
     "<ul>
-      <li>
-        <p>List item:</p>
-        <CodeGroup :blocks=\\"0\\" :langs=\\"{}\\"> </CodeGroup>
-      </li>
+    <li>
+    <p>List item:</p>
+    <CodeGroup :blocks=\\"0\\" :langs=\\"{}\\">
+    </CodeGroup></li>
     </ul>
     "
   `)
@@ -98,11 +91,11 @@ test('code-group within a blockquote', () => {
 > :::
   `)
 
-  expect(formatHtml(result)).toMatchInlineSnapshot(`
+  expect(result).toMatchInlineSnapshot(`
     "<blockquote>
-      <p>Quote</p>
-      <CodeGroup :blocks=\\"0\\" :langs=\\"{}\\"> </CodeGroup>
-    </blockquote>
+    <p>Quote</p>
+    <CodeGroup :blocks=\\"0\\" :langs=\\"{}\\">
+    </CodeGroup></blockquote>
     "
   `)
 })
@@ -128,20 +121,18 @@ const bar = 'baz'
 :::
   `)
 
-  expect(formatHtml(result)).toMatchInlineSnapshot(`
+  expect(result).toMatchInlineSnapshot(`
     "<CodeGroup :blocks=\\"1\\" :langs=\\"{0: 'ts'}\\">
-      <template #block-0>
-        <pre><code class=\\"language-ts\\">const foo = 'bar'
+    <template #block-0>
+    <pre><code class=\\"language-ts\\">const foo = 'bar'
     </code></pre>
-      </template>
-    </CodeGroup>
-    <hr />
+    </template>
+    </CodeGroup><hr>
     <CodeGroup :blocks=\\"1\\" :langs=\\"{0: 'js'}\\">
-      <template #block-0>
-        <pre><code class=\\"language-js\\">const bar = 'baz'
+    <template #block-0>
+    <pre><code class=\\"language-js\\">const bar = 'baz'
     </code></pre>
-      </template>
-    </CodeGroup>
-    "
+    </template>
+    </CodeGroup>"
   `)
 })
