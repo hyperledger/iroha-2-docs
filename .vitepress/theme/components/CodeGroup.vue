@@ -68,7 +68,7 @@ function onTabBlur() {
 <template>
   <div class="code-group my-4 rounded-lg">
     <div
-      class="px-4"
+      class="px-2"
       role="tablist"
       aria-label="Code group"
       :tabindex="enableTabsFocus ? -1 : 0"
