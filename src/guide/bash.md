@@ -591,12 +591,7 @@ asset.
   "params": {
     "asset_id": {
       "Id": {
-        "AssetId": "tea#looking_glass"
-      }
-    },
-    "account_id": {
-      "Id": {
-        "AccountId": "mad_hatter@looking_glass"
+        "AssetId": "tea##mad_hatter@looking_glass"
       }
     }
   }
