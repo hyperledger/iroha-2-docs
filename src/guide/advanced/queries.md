@@ -398,7 +398,7 @@ that is used as a secure data storage for privileged information.
 
 - **Parameters**: `AssetId`
 
-- **Returns**: `u32`
+- **Returns**: `NumericValue`
 
 - **Details**: Returns the asset quantity.
 
@@ -430,6 +430,16 @@ that is used as a secure data storage for privileged information.
 - **Details**: Gets the value keyed by the given name in the
   [metadata](../objects/metadata.md) of the asset definition corresponding
   to the given identifier.
+
+### `FindTotalAssetQuantityByAssetDefinitionId`
+
+- **Parameters**: `AssetDefinitionId`
+
+- **Returns**: `NumericValue`
+
+- **Details**: Finds the total asset quantity for the given asset
+  definition. For the `Store` asset value, finds the sum of asset
+  quantities through all accounts that hold the specified asset.
 
 ## Block
 
