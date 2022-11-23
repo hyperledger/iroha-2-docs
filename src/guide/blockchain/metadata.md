@@ -24,8 +24,8 @@ The metadata can be of very different types, such as:
 - request results
 
 The object's metadata can be transferred one by one, or in bulk via a
-[WASM](../advanced/wasm.md) transaction. The `Store` asset type is used for
-working with metadata. Let's take a closer look at this asset type.
+[WASM](../blockchain/wasm.md) transaction. The `Store` asset type is used
+for working with metadata. Let's take a closer look at this asset type.
 
 ## `MetadataChanged`
 
@@ -37,7 +37,7 @@ the object. This data is stored in `MetadataChanged` in the form of a
 
 ![Untitled](/img/metadata-changed.png)
 
-Check [data filters](./hierarchy.md#data-filters) for details.
+Check [data filters](./filters.md#data-filters) for details.
 
 ## `Store` Asset
 
@@ -70,7 +70,7 @@ let set_hat_color = SetKeyValueBox::new(
 ## Working with metadata
 
 The following example showcases how to register and grant a
-[role](../advanced/permissions.md#permission-groups-roles) for accessing
+[role](../blockchain/permissions.md#permission-groups-roles) for accessing
 the metadata of another account.
 
 ::: details Example
@@ -127,22 +127,22 @@ fn register_and_grant_role_for_metadata_access() -> Result<()> {
 ## Queries
 
 You can get the key value of an object metadata using
-[queries](../advanced/queries.md):
+[queries](../blockchain/queries.md):
 
-- [FindAccountKeyValueByIdAndKey](../advanced/queries.md#findaccountkeyvaluebyidandkey)
-- [FindAssetKeyValueByIdAndKey](../advanced/queries.md#findassetkeyvaluebyidandkey)
-- [FindAssetDefinitionKeyValueByIdAndKey](../advanced/queries.md#findassetdefinitionkeyvaluebyidandkey)
-- [FindDomainKeyValueByIdAndKey](../advanced/queries.md#finddomainkeyvaluebyidandkey)
-- [FindTriggerKeyValueByIdAndKey](../advanced/queries.md#findtriggerkeyvaluebyidandkey)
+- [FindAccountKeyValueByIdAndKey](../blockchain/queries.md#findaccountkeyvaluebyidandkey)
+- [FindAssetKeyValueByIdAndKey](../blockchain/queries.md#findassetkeyvaluebyidandkey)
+- [FindAssetDefinitionKeyValueByIdAndKey](../blockchain/queries.md#findassetdefinitionkeyvaluebyidandkey)
+- [FindDomainKeyValueByIdAndKey](../blockchain/queries.md#finddomainkeyvaluebyidandkey)
+- [FindTriggerKeyValueByIdAndKey](../blockchain/queries.md#findtriggerkeyvaluebyidandkey)
 
 ## Permissions
 
 Pre-configured tokens in Iroha 2 LTS version that allow to set or remove
 key-values in accounts, assets, or asset definitions:
 
-- [`CanSetKeyValueInUserMetadata`](../advanced/permissions.md#cansetkeyvalueinusermetadata)
-- [`CanRemoveKeyValueInUserMetadata`](../advanced/permissions.md#canremovekeyvalueinusermetadata)
-- [`CanSetKeyValueInUserAssets`](../advanced/permissions.md#cansetkeyvalueinuserassets)
-- [`CanRemoveKeyValueInUserAssets`](../advanced/permissions.md#canremovekeyvalueinuserassets)
-- [`CanSetKeyValueInAssetDefinition`](../advanced/permissions.md#cansetkeyvalueinassetdefinition)
-- [`CanRemoveKeyValueInAssetDefinition`](../advanced/permissions.md#canremovekeyvalueinassetdefinition)
+- [`CanSetKeyValueInUserMetadata`](../blockchain/permissions.md#cansetkeyvalueinusermetadata)
+- [`CanRemoveKeyValueInUserMetadata`](../blockchain/permissions.md#canremovekeyvalueinusermetadata)
+- [`CanSetKeyValueInUserAssets`](../blockchain/permissions.md#cansetkeyvalueinuserassets)
+- [`CanRemoveKeyValueInUserAssets`](../blockchain/permissions.md#canremovekeyvalueinuserassets)
+- [`CanSetKeyValueInAssetDefinition`](../blockchain/permissions.md#cansetkeyvalueinassetdefinition)
+- [`CanRemoveKeyValueInAssetDefinition`](../blockchain/permissions.md#canremovekeyvalueinassetdefinition)

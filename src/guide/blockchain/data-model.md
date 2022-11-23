@@ -1,13 +1,34 @@
-# Hierarchy
+# Data Model
 
 In language-specific guides we already walked you through registering
 domains, accounts, and assets. Here we merely wish to illustrate the
 relationship between various objects in the blockchain.
 
-## Domains, Accounts, Assets
+```
 
-Let's start with an example that shows the relationship between domains,
-accounts, and assets.
+   +-----------------------------------------------+
+   |                                               |
+   |     +-----------------+                       |
+   |     |Domain           |                       |
+   |     +--------------+  |                       |
+   |     ||Asset        |  |                       |
++--+--+  ||Definition(s)|  |                       |
+|World|  +--------------+  |                       |
++--+--+  |                 |                       |
+   |     +------------+    |                       |
+   |     ||Account(s)||    | has   +-----------+   |
+   |     |------------------------->Signatories|   |
+   |     +-----------------+       +-----------+   |
+   |                       |                       |
+   |                       |  has  +--------+      |
+   |                       +------->Asset(s)|      |
+   |                               +--------+      |
+   +-----------------------------------------------+
+
+```
+
+The following example shows the relationship between domains, accounts, and
+assets.
 
 ![Untitled](/img/domains-example.png)
 
@@ -25,33 +46,8 @@ accounts, and assets.
 
 The diagram below provides a more detailed illustration of the relationship
 between domains, accounts, and assets in the blockchain. You can learn more
-about [permissions and roles](../advanced/permissions.md) and
-[metadata](metadata.md) in the corresponding sections of the tutorial. The
-asset structure is illustrated in a [dedicated chapter](./assets.md).
+about [permissions and roles](./permissions.md) and [metadata](metadata.md)
+in the corresponding sections of the documentation. The asset structure is
+illustrated in a [dedicated chapter](./assets.md).
 
 ![Untitled](/img/domain-account-asset-diagram.png)
-
-## Triggers
-
-All triggers are essentially event triggers. We talk extensively about
-triggers and how they work in the
-[advanced section](../advanced/triggers.md) of this guide. Here we only
-wish to highlight the relationship between triggers as objects in a
-blockchain.
-
-![Untitled](/img/triggers.png)
-
-## Filters
-
-### Data Filters
-
-![Untitled](/img/data_filters.png)
-
-![Untitled](/img/entity_filters.png)
-
-## Instructions
-
-The diagram below shows the available Iroha Special Instructions. For more
-details, check out the [dedicated chapter](instructions.md).
-
-![Untitled](/img/instructions.png)

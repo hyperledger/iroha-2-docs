@@ -6,12 +6,7 @@ So, what kind of special instructions do we have? If you've read the
 language-specific guides in this tutorial, you've already seen a couple of
 instructions: `Register<Account>` and `Mint<Quantity>`.
 
-In the chapter on blockchain objects, we provide you with
-[a summary](../objects/instructions.md) of Iroha Special Instructions: what
-objects each instruction can be called for, and what are the instructions
-available for each object.
-
-Here we present you with an overview of each instruction.
+Here is the full list of Iroha Special Instructions:
 
 | Instruction                                               | Descriptions                                      |
 | --------------------------------------------------------- | ------------------------------------------------- |
@@ -22,6 +17,51 @@ Here we present you with an overview of each instruction.
 | [Transfer](#transfer)                                     | Transfer assets between accounts.                 |
 | [ExecuteTrigger](#executetrigger)                         | Execute triggers.                                 |
 | [If, Pair, Sequence](#composite-instructions)             | Use to create composite instructions.             |
+
+Let's start with the summary of Iroha Special Instructions: what objects
+each instruction can be called for, and what are the instructions available
+for each object.
+
+## Summary
+
+::: details Diagram: Iroha Special Instructions
+
+![Untitled](/img/instructions.png)
+
+:::
+
+For each instruction, there is a list of objects on which this instruction
+can be run on. For example, only assets can be transferred, while minting
+can refer to assets, triggers, and permission tokens.
+
+Some instructions require a destination to be specified. For example, if
+you transfer assets, you always need to specify to which account you are
+transferring them. On the other hand, when you registering something, all
+you need is the object that you want to register.
+
+| Instruction                                               | Objects                                                                                                               | Destination |
+| --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ----------- |
+| [Register/Unregister](#un-register)                       | accounts, domains, asset definitions, triggers, roles, peers                                                          |             |
+| [Mint/Burn](#mint-burn)                                   | assets, triggers (trigger repetitions), permission tokens                                                             | accounts    |
+| [SetKeyValue/RemoveKeyValue](#setkeyvalue-removekeyvalue) | any objects that have [metadata](./metadata.md): accounts, domains, assets, asset definitions, triggers, transactions |             |
+| [Grant/Revoke](#grant-revoke)                             | [roles, permission tokens](../blockchain/permissions.md)                                                              | accounts    |
+| [Transfer](#transfer)                                     | assets                                                                                                                | accounts    |
+| [ExecuteTrigger](#executetrigger)                         | triggers                                                                                                              |             |
+| [If, Pair, Sequence](#composite-instructions)             | any instructions                                                                                                      |             |
+
+There is also another way of looking at ISI, i.e. in terms of the target of
+each instruction. For example, when you register an account, you do so
+within a certain domain. This means that the _target_ of the
+`Register<Account>` instruction would be the domain within which it is
+being registered.
+
+| Target  | Instructions                                                                                                                                                                |
+| ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Account | (un)register assets, mint/burn account public key, mint/burn account signature condition check, update account metadata, grant/revoke a permission token, grant/revoke role |
+| Domain  | (un)register accounts, (un)register asset definitions, update asset metadata, update domain metadata                                                                        |
+| Asset   | update metadata, mint/burn, transfer                                                                                                                                        |
+| Trigger | (un)register, mint/burn trigger repetitions, execute trigger                                                                                                                |
+| World   | (un)register domains, peers, roles                                                                                                                                          |
 
 ## (Un)Register
 
@@ -129,9 +169,9 @@ be used carefully.
 ## `SetKeyValue`/`RemoveKeyValue`
 
 These instructions are used with the key/value
-[`Store` asset type](../objects/metadata.md#store-asset). This use case has
-not received much attention so far, because storing data in the blockchain
-is a rather advanced topic that we shall cover separately.
+[`Store` asset type](../blockchain/metadata.md#store-asset). This use case
+has not received much attention so far, because storing data in the
+blockchain is a rather advanced topic that we shall cover separately.
 
 ## `ExecuteTrigger`
 

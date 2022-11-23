@@ -34,7 +34,7 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
       text: 'Getting started',
       items: [
         {
-          text: 'Introduction',
+          text: 'How Iroha works',
           link: '/',
         },
         {
@@ -52,117 +52,142 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
       ],
     },
     {
-      text: 'Language-specific guides',
-      items: [
-        {
-          text: 'Bash',
-          link: '/guide/bash',
-        },
-        {
-          text: 'Python 3',
-          link: '/guide/python',
-        },
-        {
-          text: 'Rust',
-          link: '/guide/rust',
-        },
-        {
-          text: 'Kotlin/Java',
-          link: '/guide/kotlin-java',
-        },
-        {
-          text: 'JavaScript',
-          link: '/guide/javascript',
-        },
-      ],
-    },
-    {
-      text: 'Blockchain Objects',
-      items: [
-        {
-          text: 'Hierarchy',
-          link: '/guide/objects/hierarchy',
-        },
-        {
-          text: 'Assets',
-          link: '/guide/objects/assets',
-        },
-        {
-          text: 'Metadata',
-          link: '/guide/objects/metadata',
-        },
-        {
-          text: 'Instructions',
-          link: '/guide/objects/instructions',
-        },
-      ],
-    },
-    {
-      text: 'Advanced Topics',
+      text: 'Tutorial',
       items: [
         {
           text: 'Introduction',
-          link: '/guide/advanced/intro',
+          link: '/guide/intro',
+        },
+        /* a common lang-agnostic section will go here? */
+        {
+          text: 'Language-specific Guides',
+          items: [
+            {
+              text: 'Bash',
+              link: '/guide/bash',
+            },
+            {
+              text: 'Python 3',
+              link: '/guide/python',
+            },
+            {
+              text: 'Rust',
+              link: '/guide/rust',
+            },
+            {
+              text: 'Kotlin/Java',
+              link: '/guide/kotlin-java',
+            },
+            {
+              text: 'JavaScript',
+              link: '/guide/javascript',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      text: 'Blockchain',
+      items: [
+        {
+          text: 'Overview',
+          items: [
+            {
+              text: 'Transactions',
+              link: '/guide/blockchain/transactions'
+            },
+            {
+              text: 'Consensus',
+              link: '/guide/blockchain/consensus',
+            },
+            {
+              text: 'Data Model',
+              link: '/guide/blockchain/data-model',
+            },
+          ],
         },
         {
-          text: 'Iroha Special Instructions',
-          link: '/guide/advanced/isi',
+          text: 'Entities',
+          items: [
+            {
+              text: 'Assets',
+              link: '/guide/blockchain/assets',
+            },
+            {
+              text: 'Metadata',
+              link: '/guide/blockchain/metadata',
+            },
+            {
+              text: 'Filters',
+              link: '/guide/blockchain/filters',
+            },
+            {
+              text: 'Triggers',
+              link: '/guide/blockchain/triggers',
+            },
+            {
+              text: 'Queries',
+              link: '/guide/blockchain/queries',
+            },
+            {
+              text: 'Permissions',
+              link: '/guide/blockchain/permissions',
+            },
+            {
+              text: 'World',
+              link: '/guide/blockchain/world',
+            },
+          ],
         },
         {
-          text: 'Expressions',
-          link: '/guide/advanced/expressions',
-        },
-        {
-          text: 'Web Assembly',
-          link: '/guide/advanced/wasm',
-        },
-        {
-          text: 'Foreign Function Interfaces',
-          link: '/guide/advanced/ffi',
-        },
-        {
-          text: 'Triggers',
-          link: '/guide/advanced/triggers',
-        },
-        {
-          text: 'Queries',
-          link: '/guide/advanced/queries',
-        },
-        {
-          text: 'Permissions',
-          link: '/guide/advanced/permissions',
-        },
+          text: 'Operations',
+          items: [
+            {
+              text: 'Instructions',
+              link: '/guide/blockchain/instructions',
+            },
+            {
+              text: 'Expressions',
+              link: '/guide/blockchain/expressions',
+            },
+            {
+              text: 'Web Assembly',
+              link: '/guide/blockchain/wasm',
+            },
+          ],
+       },
       ],
     },
     {
       text: 'Configuration and Management',
       items: [
         {
-          text: 'Introduction',
-          link: '/guide/configure/intro',
+          text: 'Configure Iroha',
+          items: [
+            {
+              text: 'Configuration Types',
+              link: '/guide/configure/configuration-types',
+            },
+            {
+              text: 'Samples',
+              link: '/guide/configure/sample-configuration',
+            },
+            {
+              text: 'Peer Configuration',
+              link: '/guide/configure/peer-configuration',
+            },
+            {
+              text: 'Client Configuration',
+              link: '/guide/configure/client-configuration',
+            },
+            {
+              text: 'Genesis Block',
+              link: '/guide/configure/genesis',
+            },
+          ],
         },
         {
-          text: 'Configuration Types',
-          link: '/guide/configure/configuration-types',
-        },
-        {
-          text: 'Samples',
-          link: '/guide/configure/sample-configuration',
-        },
-        {
-          text: 'Peer Configuration',
-          link: '/guide/configure/peer-configuration',
-        },
-        {
-          text: 'Client Configuration',
-          link: '/guide/configure/client-configuration',
-        },
-        {
-          text: 'Genesis Block',
-          link: '/guide/configure/genesis',
-        },
-        {
-          text: 'Keys',
+          text: 'Public Key Cryptography',
           link: '/guide/configure/keys',
         },
         {
@@ -223,6 +248,10 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
         {
           text: 'Specification',
           link: '/api/index.md',
+        },
+        {
+          text: 'Foreign Function Interfaces',
+          link: '/api/ffi',
         },
       ],
     },

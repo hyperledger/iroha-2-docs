@@ -500,7 +500,7 @@ assets.
 ## 5. Registering and minting assets
 
 In order to mint assets, you need to register the
-[asset](./objects/assets.md) first. We are going to register the _tea_
+[asset](./blockchain/assets.md) first. We are going to register the _tea_
 token within the _looking_glass_ network. To do that, run:
 
 ```bash
@@ -578,8 +578,8 @@ sticking to English alphanumeric characters and underscores**.
 ## 6. Transferring assets
 
 After minting the assets, you can transfer them to another account. To be
-able to do this, you have to grant [permission](advanced/permissions.md) to
-transfer assets. Let's look at how this process works.
+able to do this, you have to grant [permission](blockchain/permissions.md)
+to transfer assets. Let's look at how this process works.
 
 First, create a file named `permission_token.json` with the permission you
 want to grant. In our case, we want Mad Hatter to be able to transfer `tea`

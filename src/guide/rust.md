@@ -297,9 +297,10 @@ Which is then **wrapped in a transaction** and **submitted to the peer** as
 
 ## 5. Registering and minting assets
 
-Iroha has been built with few [underlying assumptions](./objects/assets.md)
-about what the assets need to be in terms of their value type and
-characteristics (fungible or non-fungible, mintable or non-mintable).
+Iroha has been built with few
+[underlying assumptions](./blockchain/assets.md) about what the assets need
+to be in terms of their value type and characteristics (fungible or
+non-fungible, mintable or non-mintable).
 
 To register an asset, we first construct an
 `iroha_data_model::asset::DefinitionId` like so:

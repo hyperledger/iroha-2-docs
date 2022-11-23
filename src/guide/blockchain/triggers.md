@@ -117,7 +117,7 @@ accounts, domains, assets, or transactions. This is the storage for trigger
 data.
 
 You can learn more about metadata in a
-[dedicated section](../objects/metadata.md).
+[dedicated section](../blockchain/metadata.md).
 
 ## How Triggers Work
 
@@ -187,9 +187,9 @@ the detailed information on how to use each of them:
 
 All triggers are essentially **event triggers**. The type of a trigger is
 determined by the type of an event that trigger is associated with. This,
-in turn, is determined by the `filter` used to register a trigger. Check
-out this [diagram](./../objects/hierarchy.md#triggers) to understand the
-hierarchy of different kinds of triggers.
+in turn, is determined by the `filter` used to register a trigger.
+
+![Untitled](/img/triggers.png)
 
 ### Data Triggers
 
@@ -544,7 +544,7 @@ rejected.
 :::
 
 You can learn more about Iroha Special Instructions in the
-[dedicated section](isi.md).
+[dedicated section](instructions.md).
 
 ## Supported Queries
 

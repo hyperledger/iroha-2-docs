@@ -1,10 +1,9 @@
 # Foreign Function Interfaces (FFI)
 
-As we [mentioned before](./wasm.md), to reduce the sizes of smartcontracts,
-we provide a dynamic library in the execution environment. We shall detail
-how to link against that library and use the functions at a later date, but
-for now, let's explore how to include functions and trait implementations
-into that library.
+To reduce the sizes of smartcontracts, we provide a dynamic library in the
+execution environment. We shall detail how to link against that library and
+use the functions at a later date, but for now, let's explore how to
+include functions and trait implementations into that library.
 
 ## Why FFI
 
@@ -13,8 +12,9 @@ what a function should do, the way in which said functions are represented
 is very different. Moreover, in some languages (like Rust), the
 consequences of calling a function, and the things that it is allowed to do
 are different. Because one can use any language to create a
-[WASM smartcontract](./wasm.md), we need to level the playing field. This
-is where the concept of foreign function interface (FFI) comes in.
+[WASM smartcontract](./../guide/blockchain/wasm.md), we need to level the
+playing field. This is where the concept of foreign function interface
+(FFI) comes in.
 
 The main standard used today is the C application binary interface. It's
 simple, it's guaranteed to be available even in languages which can't

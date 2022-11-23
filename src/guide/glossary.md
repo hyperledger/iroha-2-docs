@@ -28,7 +28,7 @@ Here you can find definitions of all Iroha-related entities.
 ## Asset
 
 A representation of a valuable object on the blockchain. More on assets
-[here](../guide/objects/assets.md).
+[here](../guide/blockchain/assets.md).
 
 ## Byzantine fault-tolerance (BFT)
 
@@ -76,7 +76,7 @@ of conditions is met. In Iroha smart contracts are implemented using
 
 An event type that allows invoking an Iroha special instruction at specific
 block commit, time (with some caveats), etc. More on triggers
-[here](../guide/advanced/triggers.md).
+[here](../guide/blockchain/triggers.md).
 
 ### Versioning
 
@@ -99,7 +99,7 @@ Third party extensions to Iroha that provide custom functionality.
 
 A library of smart contracts provided with Iroha. These can be invoked via
 either transactions or registered event listeners. More on ISI
-[here](../guide/advanced/isi.md).
+[here](../guide/blockchain/instructions.md).
 
 #### Utility Iroha Special Instructions
 
@@ -134,7 +134,7 @@ thus peers running a modified instance will have their access revoked.
 ## Iroha Query
 
 A request to read the World State View without modifying said view. More on
-queries [here](../guide/advanced/queries.md).
+queries [here](../guide/blockchain/queries.md).
 
 ## View change
 

@@ -281,7 +281,8 @@ let grant = Instruction::Grant(GrantBox::new(
 ### `CanSetKeyValueInUserMetadata`
 
 With `CanSetKeyValueInUserMetadata` permission token, a user can set key
-value in the [metadata](../objects/metadata.md) for the specified account.
+value in the [metadata](../blockchain/metadata.md) for the specified
+account.
 
 ```rust
 let mouse_id = <Account as Identifiable>::Id::from_str("mouse@wonderland")?;
@@ -295,7 +296,7 @@ let permission_to_set_key_value_in_mouse_metadata: PermissionToken =
 ### `CanRemoveKeyValueInUserMetadata`
 
 With `CanRemoveKeyValueInUserMetadata` permission token, a user can remove
-key value in the [metadata](../objects/metadata.md) for the specified
+key value in the [metadata](../blockchain/metadata.md) for the specified
 account.
 
 ```rust
@@ -362,7 +363,7 @@ let grant = Instruction::Grant(GrantBox::new(
 ### `CanRegisterDomains`
 
 With `CanRegisterDomains` permission token, a user can
-[register](./isi.md#un-register) domains.
+[register](./instructions.md#un-register) domains.
 
 ```rust
 let alice_id = AccountId::from_str("alice@test0")?;
@@ -392,7 +393,7 @@ Before granting a role to an account, the role should be registered first.
 ### Register a new role
 
 Let's register a new role that, when granted, will allow another account
-access to the [metadata](../objects/metadata.md) in Mouse's account:
+access to the [metadata](../blockchain/metadata.md) in Mouse's account:
 
 ```rust
 let role_id = <Role as Identifiable>::Id::from_str("ACCESS_TO_MOUSE_METADATA")?;

@@ -23,7 +23,7 @@ Refer to the chapter on public key cryptography for more details:
 The `ACCOUNT_ID` should be self-explanatory. The only thing you need to
 worry about is that the account must already exist in the blockchain. In
 other words, the account you provide here should already be
-[registered](./../advanced/isi.md#un-register).
+[registered](./../blockchain/instructions.md#un-register).
 
 ::: info Note
 
