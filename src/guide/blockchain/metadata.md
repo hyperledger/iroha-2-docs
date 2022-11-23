@@ -71,7 +71,7 @@ let set_hat_color = SetKeyValueBox::new(
 
 The following example showcases how to register and grant a
 [role](/guide/blockchain/permissions.md#permission-groups-roles) for accessing
-the metadata of another account.
+another account's metadata.
 
 ::: details Example
 

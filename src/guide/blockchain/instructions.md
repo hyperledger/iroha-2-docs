@@ -18,8 +18,8 @@ Here is the full list of Iroha Special Instructions:
 | [ExecuteTrigger](#executetrigger)                         | Execute triggers.                                 |
 | [If, Pair, Sequence](#composite-instructions)             | Use to create composite instructions.             |
 
-Let's start with the summary of Iroha Special Instructions: what objects
-each instruction can be called for, and what are the instructions available
+Let's start with a summary of Iroha Special Instructions; what objects
+each instruction can be called for and what instructions are available
 for each object.
 
 ## Summary
@@ -36,7 +36,7 @@ can refer to assets, triggers, and permission tokens.
 
 Some instructions require a destination to be specified. For example, if
 you transfer assets, you always need to specify to which account you are
-transferring them. On the other hand, when you registering something, all
+transferring them. On the other hand, when you are registering something, all
 you need is the object that you want to register.
 
 |                        Instruction                        |                                                        Objects                                                        | Destination |
