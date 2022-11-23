@@ -58,7 +58,6 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
           text: 'Introduction',
           link: '/guide/intro',
         },
-        /* a common lang-agnostic section will go here? */
         {
           text: 'Language-specific Guides',
           items: [
@@ -94,7 +93,7 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
           items: [
             {
               text: 'Transactions',
-              link: '/guide/blockchain/transactions'
+              link: '/guide/blockchain/transactions',
             },
             {
               text: 'Consensus',
@@ -112,6 +111,14 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
             {
               text: 'Assets',
               link: '/guide/blockchain/assets',
+            },
+            {
+              text: 'Accounts',
+              link: '/guide/blockchain/accounts',
+            },
+            {
+              text: 'Domains',
+              link: '/guide/blockchain/domains',
             },
             {
               text: 'Metadata',
@@ -155,7 +162,7 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
               link: '/guide/blockchain/wasm',
             },
           ],
-       },
+        },
       ],
     },
     {
