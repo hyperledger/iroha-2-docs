@@ -25,16 +25,16 @@ In this guide, we shall
 We invite you to follow the tutorial in this order:
 
 0. If you are already familiar with Hyperledger Iroha, read about
-   [the differences](./guide/iroha-2.md) between two versions of Iroha.
-1. [Build and install Iroha 2](./guide/build-and-install.md).
+   [the differences](/guide/iroha-2.md) between two versions of Iroha.
+1. [Build and install Iroha 2](/guide/build-and-install.md).
 2. Follow one of the language-specific guides to learn how to set up and
    configure Iroha 2, register a domain and an account, register and mind
    assets, and visualize outputs:
-   - [Bash](./guide/bash.md)
-   - [Python](./guide/python.md)
-   - [Rust](./guide/rust.md)
-   - [Kotlin/Java](./guide/kotlin-java.md)
-   - [Javascript (TypeScript)](./guide/javascript.md)
+   - [Bash](/guide/bash.md)
+   - [Python](/guide/python.md)
+   - [Rust](/guide/rust.md)
+   - [Kotlin/Java](/guide/kotlin-java.md)
+   - [Javascript (TypeScript)](/guide/javascript.md)
 
 ## Tutorial Updates
 

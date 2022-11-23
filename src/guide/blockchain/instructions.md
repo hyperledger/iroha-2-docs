@@ -1,6 +1,6 @@
 # Iroha Special Instructions
 
-When we spoke about [how Iroha operates](intro.md#how-iroha-works), we said
+When we spoke about [how Iroha operates](/index.md#how-iroha-works), we said
 that Iroha Special Instructions are the only way to modify the world state.
 So, what kind of special instructions do we have? If you've read the
 language-specific guides in this tutorial, you've already seen a couple of
@@ -39,12 +39,12 @@ you transfer assets, you always need to specify to which account you are
 transferring them. On the other hand, when you registering something, all
 you need is the object that you want to register.
 
-| Instruction                                               | Objects                                                                                                               | Destination |
+|                        Instruction                        |                                                        Objects                                                        | Destination |
 | --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ----------- |
 | [Register/Unregister](#un-register)                       | accounts, domains, asset definitions, triggers, roles, peers                                                          |             |
 | [Mint/Burn](#mint-burn)                                   | assets, triggers (trigger repetitions), permission tokens                                                             | accounts    |
 | [SetKeyValue/RemoveKeyValue](#setkeyvalue-removekeyvalue) | any objects that have [metadata](./metadata.md): accounts, domains, assets, asset definitions, triggers, transactions |             |
-| [Grant/Revoke](#grant-revoke)                             | [roles, permission tokens](../blockchain/permissions.md)                                                              | accounts    |
+| [Grant/Revoke](#grant-revoke)                             | [roles, permission tokens](/guide/blockchain/permissions.md)                                                          | accounts    |
 | [Transfer](#transfer)                                     | assets                                                                                                                | accounts    |
 | [ExecuteTrigger](#executetrigger)                         | triggers                                                                                                              |             |
 | [If, Pair, Sequence](#composite-instructions)             | any instructions                                                                                                      |             |
@@ -55,7 +55,7 @@ within a certain domain. This means that the _target_ of the
 `Register<Account>` instruction would be the domain within which it is
 being registered.
 
-| Target  | Instructions                                                                                                                                                                |
+| Target  |                                                                                Instructions                                                                                 |
 | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Account | (un)register assets, mint/burn account public key, mint/burn account signature condition check, update account metadata, grant/revoke a permission token, grant/revoke role |
 | Domain  | (un)register accounts, (un)register asset definitions, update asset metadata, update domain metadata                                                                        |
@@ -82,7 +82,7 @@ triggers.
 ::: info
 
 Note that depending on how you decide to set up your
-[genesis block](../configure/genesis.md) in `genesis.json` (specifically,
+[genesis block](/guide/configure/genesis.md) in `genesis.json` (specifically,
 whether or not you include registration of permission tokens), the process
 for registering an account can be very different. In general, we can
 summarise it like this:
@@ -94,7 +94,7 @@ summarise it like this:
   register another account.
 
 We discuss these differences in great detail when we
-[compare private and public blockchains](../configure/modes.md).
+[compare private and public blockchains](/guide/configure/modes.md).
 
 :::
 
@@ -110,13 +110,13 @@ part of the original `TRUSTED_PEERS` array to the network.
 Refer to one of the language-specific guides to walk you through the
 process of registering objects in a blockchain:
 
-| Language              | Guide                                                                                                                                                                                      |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Bash                  | Register a [domain](../bash.md#_3-registering-a-domain), an [account](../bash.md#_4-registering-an-account), an [asset](../bash.md#_5-registering-and-minting-assets)                      |
-| Rust                  | Register a [domain](../rust.md#_3-registering-a-domain), an [account](../rust.md#_4-registering-an-account), an [asset](../rust.md#_5-registering-and-minting-assets)                      |
-| Kotlin/Java           | Register a [domain](../kotlin-java.md#_3-registering-a-domain), an [account](../kotlin-java.md#_4-registering-an-account), an [asset](../kotlin-java.md#_5-registering-and-minting-assets) |
-| Python                | Register a [domain](../python.md#_3-registering-a-domain), an [account](../python.md#_4-registering-an-account), an [asset](../python.md#_5-registering-and-minting-assets)                |
-| JavaScript/TypeScript | Register a [domain](../javascript.md#_3-registering-a-domain), an [account](../javascript.md#_4-registering-an-account), an [asset](../javascript.md#_5-registering-and-minting-assets)    |
+|       Language        |                                                                                                 Guide                                                                                                  |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Bash                  | Register a [domain](/guide/bash.md#_3-registering-a-domain), an [account](/guide/bash.md#_4-registering-an-account), an [asset](/guide/bash.md#_5-registering-and-minting-assets)                      |
+| Rust                  | Register a [domain](/guide/rust.md#_3-registering-a-domain), an [account](/guide/rust.md#_4-registering-an-account), an [asset](/guide/rust.md#_5-registering-and-minting-assets)                      |
+| Kotlin/Java           | Register a [domain](/guide/kotlin-java.md#_3-registering-a-domain), an [account](/guide/kotlin-java.md#_4-registering-an-account), an [asset](/guide/kotlin-java.md#_5-registering-and-minting-assets) |
+| Python                | Register a [domain](/guide/python.md#_3-registering-a-domain), an [account](/guide/python.md#_4-registering-an-account), an [asset](/guide/python.md#_5-registering-and-minting-assets)                |
+| JavaScript/TypeScript | Register a [domain](/guide/javascript.md#_3-registering-a-domain), an [account](/guide/javascript.md#_4-registering-an-account), an [asset](/guide/javascript.md#_5-registering-and-minting-assets)    |
 
 ## Mint/Burn
 
@@ -133,16 +133,16 @@ are assumed to be non-negative as well, so you can never have `-1.0` of
 Refer to one of the language-specific guides to walk you through the
 process of minting assets in a blockchain:
 
-- [Bash](../bash.md#_5-registering-and-minting-assets)
-- [Rust](../rust.md#_5-registering-and-minting-assets)
-- [Kotlin/Java](../kotlin-java.md#_5-registering-and-minting-assets)
-- [Python](../python.md#_5-registering-and-minting-assets)
-- [JavaScript/TypeScript ](../javascript.md#_5-registering-and-minting-assets)
+- [Bash](/guide/bash.md#_5-registering-and-minting-assets)
+- [Rust](/guide/rust.md#_5-registering-and-minting-assets)
+- [Kotlin/Java](/guide/kotlin-java.md#_5-registering-and-minting-assets)
+- [Python](/guide/python.md#_5-registering-and-minting-assets)
+- [JavaScript/TypeScript ](/guide/javascript.md#_5-registering-and-minting-assets)
 
 Here are examples of burning assets:
 
-- [Bash](../bash.md#_7-burning-assets)
-- [Rust](../rust.md#_6-burning-assets)
+- [Bash](/guide/bash.md#_7-burning-assets)
+- [Rust](/guide/rust.md#_6-burning-assets)
 
 ## Transfer
 
@@ -152,7 +152,7 @@ can transfer assets between different accounts.
 To do this, an account have to be granted the
 [permission to transfer assets](./permissions.md#cantransferuserassets).
 Refer to an example on how to
-[transfer assets in Bash](../bash.md#_6-transferring-assets).
+[transfer assets in Bash](/guide/bash.md#_6-transferring-assets).
 
 <!--TODO: add links to transferring assets example in which guide after https://github.com/hyperledger/iroha-2-docs/issues/81 is addressed -->
 
@@ -169,7 +169,7 @@ be used carefully.
 ## `SetKeyValue`/`RemoveKeyValue`
 
 These instructions are used with the key/value
-[`Store` asset type](../blockchain/metadata.md#store-asset). This use case
+[`Store` asset type](/guide/blockchain/metadata.md#store-asset). This use case
 has not received much attention so far, because storing data in the
 blockchain is a rather advanced topic that we shall cover separately.
 

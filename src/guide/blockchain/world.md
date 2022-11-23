@@ -4,17 +4,17 @@
 consist of:
 
 - the list of
-  [trusted peers](/src/guide/configure/peer-configuration#trusted-peers)
+  [trusted peers](/guide/configure/peer-configuration#trusted-peers)
 - registered domains
-- registered [triggers](./triggers.md)
-- registered [roles](./permissions.md#permission-groups-roles)
+- registered [triggers](/guide/blockchain/triggers.md)
+- registered [roles](/guide/blockchain/permissions.md#permission-groups-roles)
 - registered
-  [permission token definitions](./permissions.md#permission-tokens)
+  [permission token definitions](/guide/blockchain/permissions.md#permission-tokens)
 - permission tokens for all accounts
-- [the chain of runtime validators](./permissions.md#runtime-validators)
+- [the chain of runtime validators](/guide/blockchain/permissions.md#runtime-validators)
 
 When domains, peers, or roles are registered or unregistered, the `World`
-is the target of (un)register [instruction](./instructions.md).
+is the target of (un)register [instruction](/guide/blockchain/instructions.md).
 
 ## World State View (WSV)
 

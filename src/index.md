@@ -52,15 +52,15 @@ Kotlin, Javascript, or Python. The guides introduce you to the basic
 concepts and provide code snippets that you can run yourself.
 
 In the Blockchain chapter you can find documentation for Iroha features,
-such as [Iroha Special Instructions](./guide/blockchain/instructions.md),
-[triggers](./guide/blockchain/triggers.md),
-[queries](./guide/blockchain/queries.md).
+such as [Iroha Special Instructions](/guide/blockchain/instructions.md),
+[triggers](/guide/blockchain/triggers.md),
+[queries](/guide/blockchain/queries.md).
 
 The Configuration and Management section explains Iroha 2 configuration
 files in greater detail and covers topics such as
-[public key cryptography](./guide/configure/keys.md),
-[peer management](./guide/configure/register-unregister.md), and
-[public and private modes](./guide/configure/modes.md).
+[public key cryptography](/guide/configure/keys.md),
+[peer management](/guide/configure/peer-management.md), and
+[public and private modes](/guide/configure/modes.md).
 
 ## Learn More
 
