@@ -24,8 +24,9 @@ The metadata can be of very different types, such as:
 - request results
 
 The object's metadata can be transferred one by one, or in bulk via a
-[WASM](/guide/blockchain/wasm.md) transaction. The `Store` asset type is used
-for working with metadata. Let's take a closer look at this asset type.
+[WASM](/guide/blockchain/wasm.md) transaction. The `Store` asset type is
+used for working with metadata. Let's take a closer look at this asset
+type.
 
 ## `MetadataChanged`
 
@@ -70,7 +71,7 @@ let set_hat_color = SetKeyValueBox::new(
 ## Working with metadata
 
 The following example showcases how to register and grant a
-[role](/guide/blockchain/permissions.md#permission-groups-roles) for accessing
+[role](/guide/blockchain/permissions.md#permission-groups-roles) to access
 another account's metadata.
 
 ::: details Example

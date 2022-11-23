@@ -12,15 +12,16 @@ error-prone, particularly for exotic systems (Windows).
 ::: info
 
 For this chapter, we assume you have learned about
-[configuration](/guide/configure/sample-configuration.md) and [management](/guide/configure/peer-management.md) in Iroha 2. Here we
-offer you instructions to run Iroha on bare metal without going into
-details about various configuration options available.
+[configuration](/guide/configure/sample-configuration.md) and
+[management](/guide/configure/peer-management.md) in Iroha 2. Here we offer
+you instructions to run Iroha on bare metal without going into details
+about various configuration options available.
 
 You can always check
 [sample configuration files](/guide/configure/sample-configuration.md) for
 `configs/peer/genesis.json` and `configs/peer/config.json`, or refer to
-[peer configuration options](/guide/configure/peer-configuration.md) for more
-details.
+[peer configuration options](/guide/configure/peer-configuration.md) for
+more details.
 
 The complete list of options is available in the
 [Iroha Configuration Reference](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md).

@@ -122,8 +122,8 @@ metadata entry, which, when sorted, allows you to view the account
 registration history.
 
 Sorting only applies to entities that have
-[metadata](/guide/blockchain/metadata.md), as the metadata key is used to sort
-query results.
+[metadata](/guide/blockchain/metadata.md), as the metadata key is used to
+sort query results.
 
 You can combine sorting with pagination and filters. Note that sorting is
 an optional feature, most queries with pagination won't need it.
@@ -418,8 +418,8 @@ that is used as a secure data storage for privileged information.
 - **Returns**: `Value`
 
 - **Details**: Gets the value keyed by the given name in the
-  [metadata](/guide/blockchain/metadata.md) of the asset corresponding to the
-  given identifier.
+  [metadata](/guide/blockchain/metadata.md) of the asset corresponding to
+  the given identifier.
 
 ### `FindAssetDefinitionKeyValueByIdAndKey`
 
@@ -606,7 +606,8 @@ Note that Iroha shut downs all listeners on panic.
 - **Returns**: `Trigger`
 
 - **Details**: Finds the value corresponding to the key in the
-  [metadata](/guide/blockchain/metadata.md) of the trigger with the given ID.
+  [metadata](/guide/blockchain/metadata.md) of the trigger with the given
+  ID.
 
 ### `FindTriggersByDomainId`
 

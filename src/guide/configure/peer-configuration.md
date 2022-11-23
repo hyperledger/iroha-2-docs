@@ -55,8 +55,8 @@ files four peers with their public keys and API addresses.
 
 Since Iroha has no automatic peer discovery, the only other way to make
 peers known to each other is to use the `iroha_client_cli` to
-[register new peers](peer-management.md#registering-peers)). This is
-not too difficult with the provided client libraries. With Python's
+[register new peers](peer-management.md#registering-peers)). This is not
+too difficult with the provided client libraries. With Python's
 [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/), the
 curated list of peers can be updated, registered, and un-registered on its
 own.

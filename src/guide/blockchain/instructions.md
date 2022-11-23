@@ -1,8 +1,8 @@
 # Iroha Special Instructions
 
-When we spoke about [how Iroha operates](/index.md#how-iroha-works), we said
-that Iroha Special Instructions are the only way to modify the world state.
-So, what kind of special instructions do we have? If you've read the
+When we spoke about [how Iroha operates](/index.md#how-iroha-works), we
+said that Iroha Special Instructions are the only way to modify the world
+state. So, what kind of special instructions do we have? If you've read the
 language-specific guides in this tutorial, you've already seen a couple of
 instructions: `Register<Account>` and `Mint<Quantity>`.
 
@@ -18,9 +18,9 @@ Here is the full list of Iroha Special Instructions:
 | [ExecuteTrigger](#executetrigger)                         | Execute triggers.                                 |
 | [If, Pair, Sequence](#composite-instructions)             | Use to create composite instructions.             |
 
-Let's start with a summary of Iroha Special Instructions; what objects
-each instruction can be called for and what instructions are available
-for each object.
+Let's start with a summary of Iroha Special Instructions; what objects each
+instruction can be called for and what instructions are available for each
+object.
 
 ## Summary
 
@@ -36,10 +36,10 @@ can refer to assets, triggers, and permission tokens.
 
 Some instructions require a destination to be specified. For example, if
 you transfer assets, you always need to specify to which account you are
-transferring them. On the other hand, when you are registering something, all
-you need is the object that you want to register.
+transferring them. On the other hand, when you are registering something,
+all you need is the object that you want to register.
 
-|                        Instruction                        |                                                        Objects                                                        | Destination |
+| Instruction                                               | Objects                                                                                                               | Destination |
 | --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ----------- |
 | [Register/Unregister](#un-register)                       | accounts, domains, asset definitions, triggers, roles, peers                                                          |             |
 | [Mint/Burn](#mint-burn)                                   | assets, triggers (trigger repetitions), permission tokens                                                             | accounts    |
@@ -55,7 +55,7 @@ within a certain domain. This means that the _target_ of the
 `Register<Account>` instruction would be the domain within which it is
 being registered.
 
-| Target  |                                                                                Instructions                                                                                 |
+| Target  | Instructions                                                                                                                                                                |
 | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Account | (un)register assets, mint/burn account public key, mint/burn account signature condition check, update account metadata, grant/revoke a permission token, grant/revoke role |
 | Domain  | (un)register accounts, (un)register asset definitions, update asset metadata, update domain metadata                                                                        |
@@ -82,10 +82,10 @@ triggers.
 ::: info
 
 Note that depending on how you decide to set up your
-[genesis block](/guide/configure/genesis.md) in `genesis.json` (specifically,
-whether or not you include registration of permission tokens), the process
-for registering an account can be very different. In general, we can
-summarise it like this:
+[genesis block](/guide/configure/genesis.md) in `genesis.json`
+(specifically, whether or not you include registration of permission
+tokens), the process for registering an account can be very different. In
+general, we can summarise it like this:
 
 - In a _public_ blockchain, anyone should be able to register an account.
 - In a _private_ blockchain, there can be a unique process for registering
@@ -110,7 +110,7 @@ part of the original `TRUSTED_PEERS` array to the network.
 Refer to one of the language-specific guides to walk you through the
 process of registering objects in a blockchain:
 
-|       Language        |                                                                                                 Guide                                                                                                  |
+| Language              | Guide                                                                                                                                                                                                  |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Bash                  | Register a [domain](/guide/bash.md#_3-registering-a-domain), an [account](/guide/bash.md#_4-registering-an-account), an [asset](/guide/bash.md#_5-registering-and-minting-assets)                      |
 | Rust                  | Register a [domain](/guide/rust.md#_3-registering-a-domain), an [account](/guide/rust.md#_4-registering-an-account), an [asset](/guide/rust.md#_5-registering-and-minting-assets)                      |
@@ -169,8 +169,8 @@ be used carefully.
 ## `SetKeyValue`/`RemoveKeyValue`
 
 These instructions are used with the key/value
-[`Store` asset type](/guide/blockchain/metadata.md#store-asset). This use case
-has not received much attention so far, because storing data in the
+[`Store` asset type](/guide/blockchain/metadata.md#store-asset). This use
+case has not received much attention so far, because storing data in the
 blockchain is a rather advanced topic that we shall cover separately.
 
 ## `ExecuteTrigger`
