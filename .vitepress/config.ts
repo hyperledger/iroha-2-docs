@@ -285,7 +285,7 @@ export default defineConfig({
   srcDir: 'src',
   title: 'Hyperledger Iroha 2 Tutorial',
   description:
-    'Documented tutorial for Hyperledger Iroha 2 outlining the main differences between Iroha versions along with a walkthrough and additional resources.',
+    'Documentation for Hyperledger Iroha 2 offering step-by-step guides for SDKs and outlining the main differences between Iroha versions.',
   lang: 'en-US',
   vite: {
     plugins: [
