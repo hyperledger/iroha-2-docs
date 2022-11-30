@@ -115,15 +115,15 @@ that match the specified filter.
 
 ## Sorting
 
-Iroha 2 can sort items with [metadata](../objects/metadata.md)
+Iroha 2 can sort items with [metadata](/guide/blockchain/metadata.md)
 lexicographically if you provide a key to sort by during the construction
 of the query. A typical use case is for accounts to have a `registered-on`
 metadata entry, which, when sorted, allows you to view the account
 registration history.
 
 Sorting only applies to entities that have
-[metadata](../objects/metadata.md), as the metadata key is used to sort
-query results.
+[metadata](/guide/blockchain/metadata.md), as the metadata key is used to
+sort query results.
 
 You can combine sorting with pagination and filters. Note that sorting is
 an optional feature, most queries with pagination won't need it.
@@ -264,7 +264,7 @@ diverse set of queries.
 - **Details**: Returns the value keyed by the provided `Name` for the given
   account.
 
-  This is done by querying the [`metadata`](../objects/metadata.md)
+  This is done by querying the [`metadata`](/guide/blockchain/metadata.md)
   attached to the given account.
 
 ### `FindAccountsByName`
@@ -418,8 +418,8 @@ that is used as a secure data storage for privileged information.
 - **Returns**: `Value`
 
 - **Details**: Gets the value keyed by the given name in the
-  [metadata](../objects/metadata.md) of the asset corresponding to the
-  given identifier.
+  [metadata](/guide/blockchain/metadata.md) of the asset corresponding to
+  the given identifier.
 
 ### `FindAssetDefinitionKeyValueByIdAndKey`
 
@@ -428,8 +428,8 @@ that is used as a secure data storage for privileged information.
 - **Returns**: `Value`
 
 - **Details**: Gets the value keyed by the given name in the
-  [metadata](../objects/metadata.md) of the asset definition corresponding
-  to the given identifier.
+  [metadata](/guide/blockchain/metadata.md) of the asset definition
+  corresponding to the given identifier.
 
 ### `FindTotalAssetQuantityByAssetDefinitionId`
 
@@ -606,7 +606,8 @@ Note that Iroha shut downs all listeners on panic.
 - **Returns**: `Trigger`
 
 - **Details**: Finds the value corresponding to the key in the
-  [metadata](../objects/metadata.md) of the trigger with the given ID.
+  [metadata](/guide/blockchain/metadata.md) of the trigger with the given
+  ID.
 
 ### `FindTriggersByDomainId`
 

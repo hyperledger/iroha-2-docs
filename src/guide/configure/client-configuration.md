@@ -23,7 +23,7 @@ Refer to the chapter on public key cryptography for more details:
 The `ACCOUNT_ID` should be self-explanatory. The only thing you need to
 worry about is that the account must already exist in the blockchain. In
 other words, the account you provide here should already be
-[registered](./../advanced/isi.md#un-register).
+[registered](/guide/blockchain/instructions.md#un-register).
 
 ::: info Note
 
@@ -81,7 +81,7 @@ you're having trouble gathering metrics using `prometheus`.
 
 ::: info
 
-Learn how to [monitor Iroha performance](./../advanced/metrics.md) using
+Learn how to [monitor Iroha performance](/guide/advanced/metrics.md) using
 prometheus.
 
 :::

@@ -49,8 +49,8 @@ Permissions for registering a peer are under construction.
 
 :::
 
-We discuss permissions and roles in more detail in a
-[separate chapter](../advanced/permissions.md).
+We discuss permissions and roles with more detail in a
+[separate chapter](/guide/blockchain/permissions.md).
 
 #### 2. Set up a peer
 

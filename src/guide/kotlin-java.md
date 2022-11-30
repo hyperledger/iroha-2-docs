@@ -251,9 +251,10 @@ the transaction.
 
 ## 5. Registering and minting assets
 
-Iroha has been built with few [underlying assumptions](./objects/assets.md)
-about what the assets need to be in terms of their value type and
-characteristics (fungible or non-fungible, mintable or non-mintable).
+Iroha has been built with few
+[underlying assumptions](./blockchain/assets.md) about what the assets need
+to be in terms of their value type and characteristics (fungible or
+non-fungible, mintable or non-mintable).
 
 ::: info
 

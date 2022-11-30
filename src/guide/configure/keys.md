@@ -71,7 +71,7 @@ to connect to the given peer from the outside must know its `PRIVATE_KEY`
 specified in the `TRUSTED_PEERS` section.
 
 Let's consider an example of a minimum viable
-[BFT](../glossary.md#byzantine-fault-tolerance-bft) network. In this
+[BFT](/guide/glossary.md#byzantine-fault-tolerance-bft) network. In this
 network you have four peers, so that means that you need to create _four_
 different peer configuration files (`config.json`).
 

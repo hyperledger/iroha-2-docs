@@ -31,9 +31,9 @@ on-chain, as we explained earlier.
 
 In theory, you can do anything you want just using ISI as it is a
 Turing-complete language. However, it'll be less convenient and efficient
-since you'd need to use [metadata](../objects/metadata.md) as memory and
-write complex conditionals using just the tools that we've provided in the
-`Expression` and ISI infrastructure. We highly recommend choosing a
+since you'd need to use [metadata](/guide/blockchain/metadata.md) as memory
+and write complex conditionals using just the tools that we've provided in
+the `Expression` and ISI infrastructure. We highly recommend choosing a
 well-known programming language, such as Rust, to build the necessary logic
 out of simple instructions. This is much easier than trying to reinvent the
 wheel using ISI.
@@ -78,8 +78,8 @@ non-portable architecture and OS-specific static manner, but WASM is a
 portable format. Since C ABI is the _lingua franca_ of the programming
 world and there is no other stable Rust ABI (yet), Iroha relies on the
 C-linkage to generate WASM bindings. Thankfully, `iroha_wasm` takes care of
-everything related to [foreign function interfaces](ffi.md) (FFI), so you
-don't have to worry about things like `unsafe`, `repr(C)`, padding,
+everything related to [foreign function interfaces](/api/ffi.md) (FFI), so
+you don't have to worry about things like `unsafe`, `repr(C)`, padding,
 alignment, and others.
 
 The `iroha_wasm` crate contains all of the bindings, macros, and trait
