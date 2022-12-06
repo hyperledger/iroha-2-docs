@@ -1,32 +1,24 @@
 [
   {
-    "version": "debug",
-    "url": "./src/example_code/lorem.rs",
-    "lang": "rust"
+    "src": "./src/example_code/lorem.rs"
   },
   {
-    "version": "debug",
-    "url": "./src/example_code/lorem.py",
-    "lang": "python"
+    "src": "./src/example_code/lorem.py"
   },
   {
-    "version": "debug",
-    "url": "./src/example_code/lorem.js",
-    "lang": "javascript"
+    "src": "./src/example_code/lorem.js"
   },
   {
-    "version": "debug",
-    "url": "./src/example_code/lorem.ts",
-    "lang": "typescript"
+    "src": "./src/example_code/lorem.ts"
   },
   {
-    "version": "debug",
-    "url": "./src/example_code/ILorem.java",
-    "lang": "java"
+    "src": "./src/example_code/ILorem.java"
   },
   {
-    "version": "debug",
-    "url": "./src/example_code/lorem.sh",
-    "lang": "shell"
+    "src": "./src/example_code/lorem.sh"
+  },
+  {
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-2-docs/main/MAINTAINERS.md",
+    "filename": "maintainers-at-main.md"
   }
 ]
