@@ -1,10 +1,10 @@
 # Expressions, Conditionals, Logic
 
-All [Iroha Special Instructions](./isi.md) operate on expressions. Each
-expression has an `EvaluatesTo`, which is used in instruction execution.
-While you could specify the account name directly, you could also specify
-the account ID via some mathematical or string operation. You can check if
-an account is registered on the blockchain too.
+All [Iroha Special Instructions](./instructions.md) operate on expressions.
+Each expression has an `EvaluatesTo`, which is used in instruction
+execution. While you could specify the account name directly, you could
+also specify the account ID via some mathematical or string operation. You
+can check if an account is registered on the blockchain too.
 
 Using expressions that implement `EvaluatesTo<bool>`, you can set up
 conditional logic and execute more sophisticated operations on-chain. For

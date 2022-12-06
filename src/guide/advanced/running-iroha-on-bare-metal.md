@@ -12,15 +12,16 @@ error-prone, particularly for exotic systems (Windows).
 ::: info
 
 For this chapter, we assume you have learned about
-[configuration and management](./../configure/intro.md) in Iroha 2. Here we
-offer you instructions to run Iroha on bare metal without going into
-details about various configuration options available.
+[configuration](/guide/configure/sample-configuration.md) and
+[management](/guide/configure/peer-management.md) in Iroha 2. Here we offer
+you instructions to run Iroha on bare metal without going into details
+about various configuration options available.
 
 You can always check
-[sample configuration files](./../configure/sample-configuration.md) for
+[sample configuration files](/guide/configure/sample-configuration.md) for
 `configs/peer/genesis.json` and `configs/peer/config.json`, or refer to
-[peer configuration options](./../configure/peer-configuration.md) for more
-details.
+[peer configuration options](/guide/configure/peer-configuration.md) for
+more details.
 
 The complete list of options is available in the
 [Iroha Configuration Reference](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md).
@@ -379,7 +380,7 @@ that `Control + Shift + V` is the appropriate `paste` shortcut.
 
 Also note that we asked this peer to `--submit` or `--submit-genesis`. This
 means that in the initial network topology, this peer is the
-[leader](./../glossary.md#leader). At least one peer (usually the first)
+[leader](/guide/glossary.md#leader). At least one peer (usually the first)
 needs to be the leader in the initial topology.
 
 Now you should do the same for the other four peers. Be mindful not to mix
@@ -414,7 +415,7 @@ iroha --submit-genesis
 
 We effectively asked this peer to `--submit` or `--submit-genesis` in the
 initial, or _bootstrap_, network. This means that in the initial network
-topology, this peer is the [leader](./../glossary.md#leader).
+topology, this peer is the [leader](/guide/glossary.md#leader).
 
 ::: info Note
 
@@ -449,12 +450,12 @@ Iroha in the real world.
 
 3.  Register your peer to a network, and make sure to add at least four of
     the peers on that network to the
-    [`TRUSTED_PEERS`](./../configure/peer-configuration.md#trusted-peers)
+    [`TRUSTED_PEERS`](/guide/configure/peer-configuration.md#trusted-peers)
     array in your configuration file.
 
 4.  Determine the web socket that the other peers will use to connect to
     you. Make sure that the port is open and use that address
-    ([`P2P_ADDR`](./../configure/peer-configuration.md#p2p_addr)) in your
+    ([`P2P_ADDR`](/guide/configure/peer-configuration.md#p2p_addr)) in your
     `configs/peer/config.json`.
 
 5.  After you have finished editing the configuration file, deploy Iroha by

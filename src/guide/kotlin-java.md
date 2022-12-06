@@ -251,9 +251,10 @@ the transaction.
 
 ## 5. Registering and minting assets
 
-Iroha has been built with few [underlying assumptions](./objects/assets.md)
-about what the assets need to be in terms of their value type and
-characteristics (fungible or non-fungible, mintable or non-mintable).
+Iroha has been built with few
+[underlying assumptions](./blockchain/assets.md) about what the assets need
+to be in terms of their value type and characteristics (fungible or
+non-fungible, mintable or non-mintable).
 
 ::: info
 
@@ -367,114 +368,199 @@ submitted was processed correctly and provide feedback to the end-user.
 ## 7. Samples in pure Java
 
 ```java
+package jp.co.soramitsu.iroha2;
 
-import jp.co.soramitsu.iroha2.engine.DefaultGenesis;
-import jp.co.soramitsu.iroha2.engine.IrohaRunnerExtension;
-import jp.co.soramitsu.iroha2.engine.WithIroha;
-import jp.co.soramitsu.iroha2.generated.datamodel.Name;
+import jp.co.soramitsu.iroha2.client.Iroha2AsyncClient;
+import jp.co.soramitsu.iroha2.generated.datamodel.Value;
+import jp.co.soramitsu.iroha2.generated.datamodel.account.Account;
+import jp.co.soramitsu.iroha2.generated.datamodel.account.AccountId;
+import jp.co.soramitsu.iroha2.generated.datamodel.asset.AssetId;
 import jp.co.soramitsu.iroha2.generated.datamodel.asset.AssetValue;
 import jp.co.soramitsu.iroha2.generated.datamodel.asset.AssetValueType;
-import jp.co.soramitsu.iroha2.generated.datamodel.domain.Id;
+import jp.co.soramitsu.iroha2.generated.datamodel.domain.Domain;
+import jp.co.soramitsu.iroha2.generated.datamodel.domain.DomainId;
+import jp.co.soramitsu.iroha2.generated.datamodel.metadata.Metadata;
+import jp.co.soramitsu.iroha2.generated.datamodel.name.Name;
+import jp.co.soramitsu.iroha2.generated.datamodel.transaction.VersionedSignedTransaction;
+import jp.co.soramitsu.iroha2.query.QueryAndExtractor;
 import jp.co.soramitsu.iroha2.query.QueryBuilder;
+import jp.co.soramitsu.iroha2.testengine.DefaultGenesis;
+import jp.co.soramitsu.iroha2.testengine.IrohaTest;
+import jp.co.soramitsu.iroha2.testengine.WithIroha;
 import jp.co.soramitsu.iroha2.transaction.TransactionBuilder;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
-import org.junit.jupiter.api.extension.ExtendWith;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import static jp.co.soramitsu.iroha2.engine.TestConstsKt.*;
+import static jp.co.soramitsu.iroha2.testengine.TestConstsKt.*;
 
-@ExtendWith(IrohaRunnerExtension.class)
-public class JavaTest {
+public class JavaTest extends IrohaTest<Iroha2AsyncClient> {
 
-    public Iroha2Client client;
+    @Test
+    @WithIroha(genesis = DefaultGenesis.class)
+    public void instructionFailed() {
+        final VersionedSignedTransaction transaction = TransactionBuilder.Companion
+            .builder()
+            .account(ALICE_ACCOUNT_ID)
+            .fail("FAIL MESSAGE")
+            .buildSigned(ALICE_KEYPAIR);
+        final CompletableFuture<byte[]> future = client.sendTransactionAsync(transaction);
+        Assertions.assertThrows(ExecutionException.class,
+            () -> future.get(getTxTimeout().getSeconds(), TimeUnit.SECONDS)
+        );
+    }
 
     @Test
     @WithIroha(genesis = DefaultGenesis.class)
     public void registerDomainInstructionCommitted() throws ExecutionException, InterruptedException, TimeoutException {
-        final var domainId = new Id(new Name("new_domain_name"));
-        final var transaction = TransactionBuilder.Companion
+        final DomainId domainId = new DomainId(new Name("new_domain_name"));
+        final VersionedSignedTransaction transaction = TransactionBuilder.Companion
             .builder()
             .account(ALICE_ACCOUNT_ID)
             .registerDomain(domainId)
             .buildSigned(ALICE_KEYPAIR);
-        client.sendTransaction(transaction).get(10, TimeUnit.SECONDS);
+        client.sendTransactionAsync(transaction).get(getTxTimeout().getSeconds(), TimeUnit.SECONDS);
 
-        final var query = QueryBuilder
+        final QueryAndExtractor<Domain> query = QueryBuilder
             .findDomainById(domainId)
             .account(ALICE_ACCOUNT_ID)
             .buildSigned(ALICE_KEYPAIR);
-        final var future = client.sendQueryAsync(query);
-        final var domain = future.get(10, TimeUnit.SECONDS);
+        final CompletableFuture<Domain> future = client.sendQueryAsync(query);
+        final Domain domain = future.get(getTxTimeout().getSeconds(), TimeUnit.SECONDS);
         Assertions.assertEquals(domain.getId(), domainId);
     }
 
     @Test
     @WithIroha(genesis = DefaultGenesis.class)
     public void registerAccountInstructionCommitted() throws Exception {
-        final var accountId = new jp.co.soramitsu.iroha2.generated.datamodel.account.Id(
+        final AccountId accountId = new AccountId(
             new Name("new_account"),
             DEFAULT_DOMAIN_ID
         );
-        final var transaction = TransactionBuilder.Companion
+        final VersionedSignedTransaction transaction = TransactionBuilder.Companion
             .builder()
             .account(ALICE_ACCOUNT_ID)
-            .registerAccount(accountId, List.of())
+            .registerAccount(accountId, new ArrayList<>())
             .buildSigned(ALICE_KEYPAIR);
-        client.sendTransaction(transaction).get(10, TimeUnit.SECONDS);
+        client.sendTransactionAsync(transaction).get(getTxTimeout().getSeconds(), TimeUnit.SECONDS);
 
-        final var query = QueryBuilder
+        final QueryAndExtractor<Account> query = QueryBuilder
             .findAccountById(accountId)
             .account(ALICE_ACCOUNT_ID)
             .buildSigned(ALICE_KEYPAIR);
-        final var future = client.sendQueryAsync(query);
-        final var account = future.get(10, TimeUnit.SECONDS);
+        final CompletableFuture<Account> future = client.sendQueryAsync(query);
+        final Account account = future.get(getTxTimeout().getSeconds(), TimeUnit.SECONDS);
         Assertions.assertEquals(account.getId(), accountId);
     }
 
     @Test
     @WithIroha(genesis = DefaultGenesis.class)
     public void mintAssetInstructionCommitted() throws Exception {
-        final var registerAssetTx = TransactionBuilder.Companion
+        final VersionedSignedTransaction registerAssetTx = TransactionBuilder.Companion
             .builder()
             .account(ALICE_ACCOUNT_ID)
-            .registerAsset(DEFAULT_ASSET_DEFINITION_ID, new AssetValueType.Quantity())
+            .registerAssetDefinition(DEFAULT_ASSET_DEFINITION_ID, new AssetValueType.Quantity())
             .buildSigned(ALICE_KEYPAIR);
-        client.sendTransaction(registerAssetTx).get(10, TimeUnit.SECONDS);
+        client.sendTransactionAsync(registerAssetTx).get(getTxTimeout().getSeconds(), TimeUnit.SECONDS);
 
-        final var mintAssetTx = TransactionBuilder.Companion
+        final VersionedSignedTransaction mintAssetTx = TransactionBuilder.Companion
             .builder()
             .account(ALICE_ACCOUNT_ID)
             .mintAsset(DEFAULT_ASSET_ID, 5L)
             .buildSigned(ALICE_KEYPAIR);
-        client.sendTransaction(mintAssetTx).get(10, TimeUnit.SECONDS);
+        client.sendTransactionAsync(mintAssetTx).get(getTxTimeout().getSeconds(), TimeUnit.SECONDS);
 
-        final var query = QueryBuilder
+        final QueryAndExtractor<Account> query = QueryBuilder
             .findAccountById(ALICE_ACCOUNT_ID)
             .account(ALICE_ACCOUNT_ID)
             .buildSigned(ALICE_KEYPAIR);
-        final var future = client.sendQueryAsync(query);
-        final var account = future.get(10, TimeUnit.SECONDS);
-        final var value = account.getAssets().get(DEFAULT_ASSET_ID).getValue();
+        final CompletableFuture<Account> future = client.sendQueryAsync(query);
+        final Account account = future.get(getTxTimeout().getSeconds(), TimeUnit.SECONDS);
+        final AssetValue value = account.getAssets().get(DEFAULT_ASSET_ID).getValue();
         Assertions.assertEquals(5, ((AssetValue.Quantity) value).getU32());
     }
 
     @Test
     @WithIroha(genesis = DefaultGenesis.class)
-    public void instructionFailed() {
-        final var transaction = TransactionBuilder.Companion
+    public void updateKeyValueInstructionCommitted() throws Exception {
+        final Name assetMetadataKey = new Name("asset_metadata_key");
+        final Value.String assetMetadataValue = new Value.String("some string value");
+        final Value.String assetMetadataValue2 = new Value.String("some string value 2");
+        final Metadata metadata = new Metadata(new HashMap<Name, Value>() {{
+            put(assetMetadataKey, assetMetadataValue);
+        }});
+
+        final VersionedSignedTransaction registerAssetTx = TransactionBuilder.Companion
             .builder()
             .account(ALICE_ACCOUNT_ID)
-            .fail("FAIL MESSAGE")
+            .registerAssetDefinition(DEFAULT_ASSET_DEFINITION_ID, new AssetValueType.Store(), metadata)
             .buildSigned(ALICE_KEYPAIR);
-        final var future = client.sendTransaction(transaction);
-        Assertions.assertThrows(ExecutionException.class, () -> future.get(10, TimeUnit.SECONDS));
+        client.sendTransactionAsync(registerAssetTx).get(getTxTimeout().getSeconds(), TimeUnit.SECONDS);
+
+        final AssetId assetId = new AssetId(DEFAULT_ASSET_DEFINITION_ID, ALICE_ACCOUNT_ID);
+        final VersionedSignedTransaction keyValueTx = TransactionBuilder.Companion
+            .builder()
+            .account(ALICE_ACCOUNT_ID)
+            .setKeyValue(
+                assetId,
+                assetMetadataKey,
+                assetMetadataValue2
+            ).buildSigned(ALICE_KEYPAIR);
+        client.sendTransactionAsync(keyValueTx).get(10, TimeUnit.SECONDS);
+
+        final QueryAndExtractor<Value> assetDefinitionValueQuery = QueryBuilder
+            .findAssetKeyValueByIdAndKey(assetId, assetMetadataKey)
+            .account(ALICE_ACCOUNT_ID)
+            .buildSigned(ALICE_KEYPAIR);
+        final CompletableFuture<Value> future = client.sendQueryAsync(assetDefinitionValueQuery);
+
+        final Value value = future.get(10, TimeUnit.SECONDS);
+        Assertions.assertEquals(
+            ((Value.String) value).getString(),
+            assetMetadataValue2.getString()
+        );
+    }
+
+    @Test
+    @WithIroha(genesis = DefaultGenesis.class)
+    public void setKeyValueInstructionCommitted() throws Exception {
+        final Value.String assetValue = new Value.String("some string value");
+        final Name assetKey = new Name("asset_metadata_key");
+
+        final VersionedSignedTransaction registerAssetTx = TransactionBuilder.Companion
+            .builder()
+            .account(ALICE_ACCOUNT_ID)
+            .registerAssetDefinition(DEFAULT_ASSET_DEFINITION_ID, new AssetValueType.Store())
+            .buildSigned(ALICE_KEYPAIR);
+        client.sendTransactionAsync(registerAssetTx).get(getTxTimeout().getSeconds(), TimeUnit.SECONDS);
+
+        final VersionedSignedTransaction keyValueTx = TransactionBuilder.Companion
+            .builder()
+            .account(ALICE_ACCOUNT_ID)
+            .setKeyValue(
+                DEFAULT_ASSET_DEFINITION_ID,
+                assetKey,
+                assetValue
+            ).buildSigned(ALICE_KEYPAIR);
+        client.sendTransactionAsync(keyValueTx).get(10, TimeUnit.SECONDS);
+
+        final QueryAndExtractor<Value> assetDefinitionValueQuery = QueryBuilder
+            .findAssetDefinitionKeyValueByIdAndKey(DEFAULT_ASSET_DEFINITION_ID, assetKey)
+            .account(ALICE_ACCOUNT_ID)
+            .buildSigned(ALICE_KEYPAIR);
+        final CompletableFuture<Value> future = client.sendQueryAsync(assetDefinitionValueQuery);
+
+        final Value value = future.get(10, TimeUnit.SECONDS);
+        Assertions.assertEquals(
+            ((Value.String) value).getString(),
+            assetValue.getString()
+        );
     }
 }
 ```

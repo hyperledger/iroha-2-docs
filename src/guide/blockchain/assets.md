@@ -9,7 +9,7 @@ same as a £1 bill signed by the King of Spades).
 
 The assets can also be **mintable** (you can make more of them) and
 **non-mintable** (you can only specify their initial quantity in the
-[genesis block](../configure/genesis.md)).
+[genesis block](/guide/configure/genesis.md)).
 
 ## Value Types
 
@@ -31,14 +31,14 @@ related to [metadata](metadata.md).
 
 ## Instructions
 
-Assets can be [registered](../advanced/isi.md#un-register) and
-[minted/burned](../advanced/isi.md#mint-burn).
+Assets can be [registered](./instructions.md#un-register),
+[minted or burned](./instructions.md#mint-burn), and transferred.
 
 Refer to one of the language-specific guides to walk you through the
 process of registering and minting assets in a blockchain:
 
-- [Bash](../bash.md#_5-registering-and-minting-assets)
-- [Rust](../rust.md#_5-registering-and-minting-assets)
-- [Kotlin/Java](../kotlin-java.md#_5-registering-and-minting-assets)
-- [Python](../python.md#_5-registering-and-minting-assets)
-- [JavaScript/TypeScript](../javascript.md#_5-registering-and-minting-assets)
+- [Bash](/guide/bash.md#_5-registering-and-minting-assets)
+- [Rust](/guide/rust.md#_5-registering-and-minting-assets)
+- [Kotlin/Java](/guide/kotlin-java.md#_5-registering-and-minting-assets)
+- [Python](/guide/python.md#_5-registering-and-minting-assets)
+- [JavaScript/TypeScript](/guide/javascript.md#_5-registering-and-minting-assets)
