@@ -5,6 +5,15 @@ support code groups. It is achieved with `:::code-group` container.
 
 ## Markdown Syntax
 
+**Rules:**
+
+- Each fence (a code block) within a `code-group` container is
+  rendered as a tab;
+- If a fence has a heading before it, then the heading content is used as a
+  title. The heading could have any level (i.e. `#`, `##`, and so on).
+- If a fence doesn't have a title, then its language is used as a title. If
+  there is no language, then the title falls back to the `<block-#i>` placeholder.
+
 **Input**
 
 ````md
@@ -54,15 +63,6 @@ Fence without lang or title
 <<<@/snippets/debug_java_Lorem.java
 
 :::
-
-**Rules:**
-
-- Each fence (a code block) within a `code-group` container is
-  rendered as a tab;
-- If a fence has a heading before it, then the heading content is used as a
-  title. The heading could have any level (i.e. `#`, `##`, and so on).
-- If a fence doesn't have a title, then its language is used as a title. If
-  there is no language, then the title falls back to the `<block-#i>` placeholder.
 
 ## HTML-based syntax
 
