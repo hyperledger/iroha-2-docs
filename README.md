@@ -89,6 +89,22 @@ To fix auto-fixable issues, run:
 pnpm lint --fix
 ```
 
+### Testing
+
+We use [Vitest](https://vitest.dev/) test framework to assure quality of non-trivial internal parts of the project.
+
+To check whether tests pass, run:
+
+```bash
+pnpm vitest run
+```
+
+To run vitest in a watch-mode, run:
+
+```bash
+pnpm vitest
+```
+
 ## License
 
 Iroha documentation files are made available under the Creative Commons

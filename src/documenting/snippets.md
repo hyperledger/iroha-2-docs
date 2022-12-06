@@ -103,6 +103,8 @@ definition, represented as a dictionary, is required to have the properties
 displayed above: `version`, `url`, `lang`. At a later date, automatic
 language detection may be added.
 
+
+
 ## Code comment syntax
 
 Currently, the [dst-parser](https://github.com/soramitsu/dst-parser)
@@ -134,144 +136,71 @@ starting with a comment symbol(s). If there's common padding behind each
 line, it is also removed. If the content is too long, it won't fit normally
 and a scrollbar will appear.
 
-## Using the custom Markdown syntax
+## Using snippets in Markdown
 
 With the [dst-parser](https://github.com/soramitsu/dst-parser) and
 downloader doing their parts of the task, it is possible to import the
-snippets. A single file that was added may contain more than one example.
-The syntax may look like this:
+snippets.
 
-```
-::snippets
-debug_rust_Lorem.rs
-debug_typescript_Lorem.ts
-::
-```
+Keeping in mind that a default snippet directory is `src/snippets/`, a
+snippet could be imported as follows:
 
-For now, there's an
-[issue](https://github.com/prettier/prettier/issues/13512) that requires an
-override for a custom syntax, otherwise the formatting check and
-autoformatting can't be used:
+**Input**
 
-```
-<!-- prettier-ignore -->
-::snippets
-debug_rust_Lorem.rs
-debug_typescript_Lorem.ts
-::
-
-<!-- /prettier-ignore -->
+```md
+<<<@/snippets/debug_rust_Lorem.rs
 ```
 
-In this example, our snippet files (`A.rs`, `B.py`, `C.js`) are located in
-a default snippet directory: `src/snippets/`.
+**Output**
 
-One can include the snippets from different directories for debugging
-purposes if needed, using a path relative to the directory containing the
-snippets:
+<<<@/snippets/debug_rust_Lorem.rs
 
-```
-<!-- prettier-ignore -->
-::snippets
-../alt_path/debug_java_Lorem.java
-../alt_path/debug_python_Lorem.py
-::
+Follow
+[VitePress documentation](https://vitepress.vuejs.org/guide/markdown#import-code-snippets)
+for further details about snippets syntax.
 
-<!-- /prettier-ignore -->
-```
+## Organizing snippets into code groups
 
-The Markdown parser part is separated from the
-[dst-parser](https://www.npmjs.com/package/dst-parser) so that each file is
-not requested and parsed only a single time.
+**Input**
 
-A [markdown-it](https://github.com/markdown-it/markdown-it) parser plugin
-outputs a code for an internal
-[Vue component](https://vuejs.org/guide/essentials/component-basics.html),
-`SnippetTabs`. This plugin is based on a
-[container](https://github.com/markdown-it/markdown-it-container) plugin.
-It is called by [VitePress](https://vitepress.vuejs.org/) to display the
-result.
+```md
+:::code-group
 
-This [markdown-it](https://github.com/markdown-it/markdown-it) plugin needs
-the `meta.json` file mentioned above to add the metadata to the tabs and
-the metadata can be extended.
+<<<@/snippets/debug_java_Lorem.java
 
-## Demo
+### Title for Python
 
-<!-- prettier-ignore -->
-::snippets
-debug_java_Lorem.java
-debug_python_Lorem.py
-debug_javascript_Lorem.js
-debug_typescript_Lorem.ts
-debug_rust_Lorem.rs
-debug_shell_Lorem.sh
-::
+<<<@/snippets/debug_python_Lorem.py
 
-<!-- /prettier-ignore -->
+<<<@/snippets/debug_javascript_Lorem.js
 
-## Troubleshooting
+<<<@/snippets/debug_typescript_Lorem.ts
 
-### Missing files
+<<<@/snippets/debug_rust_Lorem.rs
 
-Sometimes, you may encounter an error while running documentation builds or
-the development mode.
+<<<@/snippets/debug_shell_Lorem.sh
 
-```
-SnippetAccessError: Unable to read a file.
-Ensure it exists, its location is correct and its access rights allow to read it.
-Filename: "snippet_x.rs".
-Directory path: "…src/snippets".
+:::
 ```
 
-This error will be displayed with both the `pnpm run build` and
-`pnpm run dev` commands. These details are necessary for the documentation
-quality, so it won't build without such errors being resolved.
+**Output**
 
-To resolve this error, rebuild the snippets with the
-`pnpm run get_snippets` command. A new file should appear in
-`src/snippets`.
+:::code-group
 
-If there is no new file, make sure that `snippet_sources.json` contains the
-path to that snippet. Also, make sure the doc comment in the said file
-matches the name in the snippet tabs definition.
+<<<@/snippets/debug_java_Lorem.java
 
-## Internals
+### Title for Python
 
-### Vue tab component
+<<<@/snippets/debug_python_Lorem.py
 
-The custom component file that displays tabs is called `SnippetTabs.vue`.
-It is located in the `.vitepress/theme/components/` directory.
+<<<@/snippets/debug_javascript_Lorem.js
 
-```typescript
-import SnippetTabs from './components/SnippetTabs.vue'
-// …
-export default {
-  // …
-  enhanceApp({ app }) {
-    app.component('SnippetTabs', SnippetTabs)
-  },
-}
-```
+<<<@/snippets/debug_typescript_Lorem.ts
 
-### Parser plugin integration
+<<<@/snippets/debug_rust_Lorem.rs
 
-The Markdown parser section is enabled in `.vitepress/config.ts`, in the
-`markdown` → `config` section:
+<<<@/snippets/debug_shell_Lorem.sh
 
-```javascript
-{
-    markdown: {
-        config(md) {
-            md.use(footnote);
-            snippets_plugin(md, {'snippet_root': resolve(__dirname, '../src/snippets/')})
-        }
-    }
-}
-```
+:::
 
-Note that `snippet_root` directory path is required, otherwise the user has
-to point out the paths.
-
-[^1]: JSON dictionaries with `version`, `url`, and `lang` parameters
-[^2]: which were only tested on Linux
+Follow [Code Groups](./code-groups.md) documentation for further details.
