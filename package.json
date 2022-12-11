@@ -11,8 +11,9 @@
     "format:fix": "pnpm format --write",
     "lint": "eslint --ext .js,.ts,.mts,.vue . .vitepress",
     "typecheck": "tsc --noEmit",
-    "get-snippets": "tsx etc/cli get-snippets",
-    "test": "vitest"
+    "get-snippets": "pnpm cli get-snippets",
+    "test": "vitest",
+    "cli": "tsx etc/cli"
   },
   "devDependencies": {
     "@types/markdown-it": "^12.2.3",

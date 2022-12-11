@@ -1,6 +1,14 @@
 import { SnippetSourceDefinition } from './types'
 import { match, P } from 'ts-pattern'
 import path from 'path'
+import fs from 'fs/promises'
+
+export async function isAccessible(path: string): Promise<boolean> {
+  return fs
+    .access(path)
+    .then(() => true)
+    .catch(() => false)
+}
 
 export function parseSnippetSrc(src: string): ParsedSource | { type: 'error' } {
   if (src.startsWith('./')) return { type: 'fs-relative', path: src }

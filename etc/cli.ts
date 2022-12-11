@@ -3,8 +3,8 @@ import { hideBin } from 'yargs/helpers'
 import { SNIPPET_SRC_DIR, SOURCES } from './const'
 import { SnippetSourceDefinition } from './types'
 import ora from 'ora'
-import { concurrentTasks, parseDefinition } from './util'
-import { match, P } from 'ts-pattern'
+import { concurrentTasks, parseDefinition, isAccessible } from './util'
+import { match } from 'ts-pattern'
 import fs from 'fs/promises'
 import chalk from 'chalk'
 import fetch from 'node-fetch'
@@ -12,9 +12,14 @@ import path from 'path'
 import makeDir from 'make-dir'
 import { deleteAsync } from 'del'
 
-async function prepareOutputDir() {
-  const spinner = ora(`Re-recreating ${chalk.blue.bold(path.relative(process.cwd(), SNIPPET_SRC_DIR))}`)
-  return deleteAsync([SNIPPET_SRC_DIR])
+async function prepareOutputDir(options?: { clean?: boolean }) {
+  const optionClean = options?.clean ?? false
+
+  const dirDisplay = chalk.blue.bold(path.relative(process.cwd(), SNIPPET_SRC_DIR))
+  const spinner = ora(optionClean ? `Re-recreating ${dirDisplay}` : `Creating ${dirDisplay} if not exists`)
+
+  return Promise.resolve()
+    .then<unknown>(() => optionClean && deleteAsync([SNIPPET_SRC_DIR]))
     .then(() => makeDir(SNIPPET_SRC_DIR))
     .then(() => spinner.succeed())
     .catch((err) => {
@@ -23,14 +28,23 @@ async function prepareOutputDir() {
     })
 }
 
-async function processSnippet(source: SnippetSourceDefinition): Promise<void> {
-  const spinner = ora('asdf')
+async function processSnippet(source: SnippetSourceDefinition, options?: { force?: boolean }): Promise<void> {
+  const spinner = ora()
+  const srcDisplay = chalk.green.bold(source.src)
 
   const parsedDefinition = parseDefinition(source)
 
   if (parsedDefinition.type === 'error') {
     spinner.fail(`Invalid snippet source definition: ${parsedDefinition.err}`)
     throw new Error('Invalid src')
+  }
+
+  const writePath = path.join(SNIPPET_SRC_DIR, parsedDefinition.saveFilename)
+  const writePathDisplay = chalk.blue.bold(path.relative(process.cwd(), writePath))
+
+  if (!options?.force && (await isAccessible(writePath))) {
+    spinner.succeed(`${writePathDisplay} exists, skipping update of ${srcDisplay}`)
+    return
   }
 
   const fileContent: string = await match(parsedDefinition.source)
@@ -43,7 +57,7 @@ async function processSnippet(source: SnippetSourceDefinition): Promise<void> {
       return content
     })
     .with({ type: 'hyper' }, async ({ url }) => {
-      spinner.start(`Fetching ${chalk.green.bold(url)}`)
+      spinner.start(`Fetching ${chalk.magenta.bold(url)}`)
       const content = await fetch(url)
         .then((x) => {
           if (x.ok) return x.text()
@@ -54,26 +68,26 @@ async function processSnippet(source: SnippetSourceDefinition): Promise<void> {
           throw err
         })
 
-      await new Promise((r) => setTimeout(r, Math.random() * 5_000))
       return content
     })
     .exhaustive()
 
-  const writePath = path.join(SNIPPET_SRC_DIR, parsedDefinition.saveFilename)
-
-  spinner.text = `Writing ${chalk.green.bold(source.src)} into ${chalk.blue.bold(
-    path.relative(process.cwd(), writePath),
-  )}`
+  spinner.text = `Writing into ${writePathDisplay}`
   await fs.writeFile(writePath, fileContent)
 
-  spinner.succeed()
+  spinner.succeed(`Written ${writePathDisplay}`)
 }
 
 yargs(hideBin(process.argv))
-  .command('get-snippets', 'todo', {}, async () => {
-    await prepareOutputDir()
-    await concurrentTasks(SOURCES, processSnippet)
-    ora('Snippets are updated').succeed()
-  })
+  .command(
+    'get-snippets',
+    'Parses `snippet_sources.json` and collects all snippets',
+    (y) => y.option('force', { type: 'boolean', default: false }),
+    async (opts) => {
+      await prepareOutputDir({ clean: opts.force })
+      await concurrentTasks(SOURCES, (src) => processSnippet(src, { force: opts.force }))
+      ora('Snippets are updated').succeed()
+    },
+  )
   .showHelpOnFail(false)
   .parse()
