@@ -18,7 +18,7 @@
     "src": "./src/example_code/lorem.sh"
   },
   {
-    "src": "https://raw.githubusercontent.com/hyperledger/iroha-2-docs/main/MAINTAINERS.md",
-    "filename": "maintainers-at-main.md"
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha/iroha2-stable/MAINTAINERS.md",
+    "filename": "iroha-maintainers-at-stable.md"
   }
 ]
