@@ -1,16 +1,16 @@
 # Source Snippets
 
-In order to make code snippets in the documentation more "real" and robust,
-they might be included directly from the source files, located in other
-repos, that are built, run and tested.
+To make code snippets in the documentation more "real" and robust,
+it is better to fetch them directly from the source files. The sources are located in other
+repositories, where they are built, run, and tested.
 
 ## How it works
 
 ### Snippet Sources
 
-Snippet sources are defined at the
-[`snippet_sources.json`](https://github.com/hyperledger/iroha-2-docs/blob/main/snippet_sources.json)
-at the documentation repository root. Itss format is the following:
+Snippet sources are defined in
+[`snippet_sources.json`](https://github.com/hyperledger/iroha-2-docs/blob/main/snippet_sources.json). The `snippet_sources.json` file is located
+at the documentation repository root and has the following format:
 
 ```json
 [
@@ -26,30 +26,28 @@ at the documentation repository root. Itss format is the following:
 
 - `src` defines the source file location and could be either an HTTP(s) URI
   or a relative file path.
-- `filename` (optional) explicitly defines the local filename
+- `filename` (optional) explicitly defines the local filename.
 
 ### Fetching Snippets
 
-According to the `snippet_sources.json`, the snippets are fetched and
-written into the `/src/snippets` directory. It happens in several cases:
+Code snippets are fetched from the locations specified in `snippet_sources.json` and
+written into the `/src/snippets` directory. There are two ways to fetch the snippets:
 
 - Automatically after packages installation (i.e. `pnpm install`)
 - Manually by calling `pnpm get-snippets`
 
 ::: info
 
-By default, snippets are deleted and reloaded each time when
-`pnpm get-snippets` is called. Sometimes in local development it might be
+By default, snippets are deleted and reloaded each time
+`pnpm get-snippets` is called. For local development it might be
 more convenient to enable "lazy" behavior by calling
-`pnpm get-snippets --force false`
+`pnpm get-snippets --force false`.
 
 :::
 
 ### Using Snippets in Markdown
 
-Snippets might be included into the documentation source using VitePress'
-[Code Snippets](https://vitepress.vuejs.org/guide/markdown#import-code-snippets)
-feature:
+Use [Code Snippets feature in VitePress](https://vitepress.vuejs.org/guide/markdown#import-code-snippets) to include snippets into documentation:
 
 **Input**
 
@@ -65,20 +63,19 @@ feature:
 
 <<<@/snippets/lorem.rs#ipsum
 
-Pay attention to how we included only `#ipsum` code region. This feature is
-essential when it comes to including real source files content into the
+Note that we included only the `#ipsum` code region, not the entire file. This feature is
+essential when it comes to including code from real source files into the
 documentation.
 
 ## Example
 
-Let's add a code snippets from the Iroha JavaScript SDK, for example
-[`/packages/docs-recipes/src/1.client-install.ts`](https://github.com/hyperledger/iroha-javascript/blob/e300886e76c777776efad1e2f5cb245bfb8ed02e/packages/docs-recipes/src/1.client-install.ts).
-To do so, the first thing we need is to get a permalink to the file.
-Clicking by the "Raw" button at GitHub, we got it:
+Let's add a code snippet from Iroha JavaScript SDK. For example, this one: [`/packages/docs-recipes/src/1.client-install.ts`](https://github.com/hyperledger/iroha-javascript/blob/e300886e76c777776efad1e2f5cb245bfb8ed02e/packages/docs-recipes/src/1.client-install.ts).
+
+1. First, get a permalink to the file. Open the file on GitHub and click `Raw` button to get the link.
 
 - https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/1.client-install.ts
 
-Then, we define the new snippet in the [Snippet Sources](#snippet-sources):
+2. Define the new snippet in the [Snippet Sources](#snippet-sources):
 
 ```json
 {
@@ -87,7 +84,7 @@ Then, we define the new snippet in the [Snippet Sources](#snippet-sources):
 }
 ```
 
-Then, it can be [included](#using-snippets-in-markdown) in any Markdown
+3. [Include](#using-snippets-in-markdown) the snippet in any Markdown
 file in the documentation as follows:
 
 **Input**
