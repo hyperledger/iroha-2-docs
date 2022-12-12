@@ -270,7 +270,7 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
       text: 'Documenting Iroha',
       items: [
         {
-          text: 'Source Snippets',
+          text: 'Code Snippets',
           link: '/documenting/snippets',
         },
         {

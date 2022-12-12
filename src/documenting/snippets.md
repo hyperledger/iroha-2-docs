@@ -1,16 +1,17 @@
-# Source Snippets
+# Code Snippets
 
-To make code snippets in the documentation more "real" and robust,
-it is better to fetch them directly from the source files. The sources are located in other
-repositories, where they are built, run, and tested.
+To make code snippets in the documentation more "real" and robust, it is
+better to fetch them directly from the source files. The sources are
+located in other repositories, where they are built, run, and tested.
 
 ## How it works
 
 ### Snippet Sources
 
 Snippet sources are defined in
-[`snippet_sources.json`](https://github.com/hyperledger/iroha-2-docs/blob/main/snippet_sources.json). The `snippet_sources.json` file is located
-at the documentation repository root and has the following format:
+[`snippet_sources.json`](https://github.com/hyperledger/iroha-2-docs/blob/main/snippet_sources.json).
+The `snippet_sources.json` file is located at the documentation repository
+root and has the following format:
 
 ```json
 [
@@ -30,24 +31,26 @@ at the documentation repository root and has the following format:
 
 ### Fetching Snippets
 
-Code snippets are fetched from the locations specified in `snippet_sources.json` and
-written into the `/src/snippets` directory. There are two ways to fetch the snippets:
+Code snippets are fetched from the locations specified in
+`snippet_sources.json` and written into the `/src/snippets` directory.
+There are two ways to fetch the snippets:
 
 - Automatically after packages installation (i.e. `pnpm install`)
 - Manually by calling `pnpm get-snippets`
 
 ::: info
 
-By default, snippets are deleted and reloaded each time
-`pnpm get-snippets` is called. For local development it might be
-more convenient to enable "lazy" behavior by calling
-`pnpm get-snippets --force false`.
+By default, snippets are deleted and reloaded each time `pnpm get-snippets`
+is called. For local development it might be more convenient to enable
+"lazy" behavior by calling `pnpm get-snippets --force false`.
 
 :::
 
 ### Using Snippets in Markdown
 
-Use [Code Snippets feature in VitePress](https://vitepress.vuejs.org/guide/markdown#import-code-snippets) to include snippets into documentation:
+Use
+[Code Snippets feature in VitePress](https://vitepress.vuejs.org/guide/markdown#import-code-snippets)
+to include snippets into documentation:
 
 **Input**
 
@@ -63,36 +66,40 @@ Use [Code Snippets feature in VitePress](https://vitepress.vuejs.org/guide/markd
 
 <<<@/snippets/lorem.rs#ipsum
 
-Note that we included only the `#ipsum` code region, not the entire file. This feature is
-essential when it comes to including code from real source files into the
-documentation.
+Note that we included only the `#ipsum` code region, not the entire file.
+This feature is essential when it comes to including code from real source
+files into the documentation.
 
 ## Example
 
-Let's add a code snippet from Iroha JavaScript SDK. For example, this one: [`/packages/docs-recipes/src/1.client-install.ts`](https://github.com/hyperledger/iroha-javascript/blob/e300886e76c777776efad1e2f5cb245bfb8ed02e/packages/docs-recipes/src/1.client-install.ts).
+Let's add a code snippet from Iroha JavaScript SDK. For example, this one:
+[`/packages/docs-recipes/src/1.client-install.ts`](https://github.com/hyperledger/iroha-javascript/blob/e300886e76c777776efad1e2f5cb245bfb8ed02e/packages/docs-recipes/src/1.client-install.ts).
 
-1. First, get a permalink to the file. Open the file on GitHub and click `Raw` button to get the link.
+1. First, get a permalink to the file. Open the file on GitHub and click
+   `Raw` button to get the link.
 
-- https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/1.client-install.ts
+   ```
+   https://raw.githubusercontent.com/hyperledger/iroha-javascript/e300886e76c777776efad1e2f5cb245bfb8ed02e/packages/docs-recipes/src/1.client-install.ts
+   ```
 
 2. Define the new snippet in the [Snippet Sources](#snippet-sources):
 
-```json
-{
-  "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/1.client-install.ts",
-  "filename": "js-sdk-1-client-install.ts"
-}
-```
+   ```json
+   {
+     "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/e300886e76c777776efad1e2f5cb245bfb8ed02e/packages/docs-recipes/src/1.client-install.ts",
+     "filename": "js-sdk-1-client-install.ts"
+   }
+   ```
 
-3. [Include](#using-snippets-in-markdown) the snippet in any Markdown
-file in the documentation as follows:
+3. [Include](#using-snippets-in-markdown) the snippet in any Markdown file
+   in the documentation as follows:
 
-**Input**
+   **Input**
 
-```md
-<<<@/snippets/js-sdk-1-client-install.ts
-```
+   ```md
+   <<<@/snippets/js-sdk-1-client-install.ts
+   ```
 
-**Output**
+   **Output**
 
-<<<@/snippets/js-sdk-1-client-install.ts
+   <<<@/snippets/js-sdk-1-client-install.ts
