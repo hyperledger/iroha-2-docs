@@ -1,24 +1,13 @@
 [
   {
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha/iroha2-stable/MAINTAINERS.md",
+    "filename": "iroha-maintainers-at-stable.md"
+  },
+  {
     "src": "./src/example_code/lorem.rs"
   },
   {
-    "src": "./src/example_code/lorem.py"
-  },
-  {
-    "src": "./src/example_code/lorem.js"
-  },
-  {
-    "src": "./src/example_code/lorem.ts"
-  },
-  {
-    "src": "./src/example_code/ILorem.java"
-  },
-  {
-    "src": "./src/example_code/lorem.sh"
-  },
-  {
-    "src": "https://raw.githubusercontent.com/hyperledger/iroha/iroha2-stable/MAINTAINERS.md",
-    "filename": "iroha-maintainers-at-stable.md"
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/1.client-install.ts",
+    "filename": "js-sdk-1-client-install.ts"
   }
 ]

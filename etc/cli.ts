@@ -82,7 +82,7 @@ yargs(hideBin(process.argv))
   .command(
     'get-snippets',
     'Parses `snippet_sources.json` and collects all snippets',
-    (y) => y.option('force', { type: 'boolean', default: false }),
+    (y) => y.option('force', { type: 'boolean', default: true }),
     async (opts) => {
       await prepareOutputDir({ clean: opts.force })
       await concurrentTasks(SOURCES, (src) => processSnippet(src, { force: opts.force }))

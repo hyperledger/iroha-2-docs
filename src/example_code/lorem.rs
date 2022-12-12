@@ -1,5 +1,5 @@
-// BEGIN FRAGMENT: Lorem
 fn main() {
+    // #region ipsum
     println!("Lorem ipsum");
+    // #endregion
 }
-// END FRAGMENT

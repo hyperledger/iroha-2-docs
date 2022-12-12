@@ -1,206 +1,101 @@
-# Code snippets
+# Source Snippets
 
-Iroha development happens around three important branches:
-[`dev`](https://github.com/hyperledger/iroha/tree/iroha2-dev),
-[`stable`](https://github.com/hyperledger/iroha/tree/iroha2-stable), and
-[`LTS`](https://github.com/hyperledger/iroha/tree/iroha2-lts).
+In order to make code snippets in the documentation more "real" and robust,
+they might be included directly from the source files, located in other
+repos, that are built, run and tested.
 
-With that in mind, documenting all the API versions manually has
-limitations: at some point, the content in one of the branches will be
-different compared to the documentation. Moreover, code in the
-documentation may contain typos sometimes, and being able to run it won't
-be guaranteed without testing. This raises questions about showing the
-differences between branches for the new developers semi-automatically.
+## How it works
 
-Our solution is to use a custom syntax in the code comments to mark the
-snippets with the [dst-parser](https://github.com/soramitsu/dst-parser). We
-configure URLs in a custom JSON config file and automatically query the
-related URLs both on local builds and CI.
+### Snippet Sources
 
-In addition, we're also using a custom
-[markdown-it](https://github.com/markdown-it/markdown-it) plugin, so that
-we can easily include the resulting snippets.
-
-## Workflow
-
-### Preparing the requirements
-
-After you run `pnpm install`, a prebuilder script will run to ensure that
-an output directory for the snippets (`src/snippets`) exists. It will also
-download the snippets if those are not available.
-
-Alternatively, you can run the prebuilder with the `pnpm run postinstall`
-commands.
-
-### Getting snippets
-
-To download and convert the raw files, type: `pnpm run get_snippets`.
-
-This will run a script that:
-
-- downloads each snippet file in parallel
-- parses them using a
-  [dst-parser](https://www.npmjs.com/package/dst-parser) and extracts
-  individual snippets
-- exports the parsed snippets into the individual code files in the
-  `src/snippets` directory
-- exports the JSON metadata file (`meta.json`) into the same directory
-
-The filename is formatted like this: `version_lang_name.extension`.
-
-This approach allows attaching all the snippets by their names from the
-custom component of the project's documentation system. This component is
-implemented using [Vue](https://en.wikipedia.org/wiki/Vue.js), which is
-already used in the [VitePress](https://vitepress.vuejs.org/) documentation
-generator and is called with a custom Markdown syntax described below in
-this article.
-
-### Defining the sources for the documentation
-
-To collect the code, we're using a custom [pnpm](https://pnpm.io/) script;
-it reads a configuration list from a file named `snippet_sources.json` in
-the documentation root, obtaining a list of items, each of which contains:
-
-- `url`: the `URL` of a file to parse, it supports `http://`, `https://`,
-  and relative file URLs, and it is mainly used for
-  [GitHub](https://github.com/) raw files
-- `lang`: a language to highlight using
-  [Shiki](https://github.com/shikijs/shiki/)
-- `version`: a branch or Iroha version (for example, `stable`, `dev`, or
-  `lts`), which is used in file prefixes to distinguish between similar
-  snippet names
-
-Generally, we want two types of files to be used as documentation sources:
-
-- raw sources from [GitHub](https://github.com/), because they are easy to
-  parse and there's no additional markup
-- source code files to use in this demo
-
-Let's check the contents of the `snippet_sources.json` example:
+Snippet sources are defined at the
+[`snippet_sources.json`](https://github.com/hyperledger/iroha-2-docs/blob/main/snippet_sources.json)
+at the documentation repository root. Itss format is the following:
 
 ```json
 [
   {
-    "version": "stable",
-    "url": "https://raw.githubusercontent.com/username/project/stable/examples/filename.rs",
-    "lang": "rust"
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha/iroha2-stable/MAINTAINERS.md",
+    "filename": "iroha-maintainers-at-stable.md"
   },
   {
-    "version": "dev",
-    "url": "https://raw.githubusercontent.com/username/project/dev/examples/filename.rs",
-    "lang": "rust"
-  },
-  {
-    "version": "lts",
-    "url": "https://raw.githubusercontent.com/username/project/lts/examples/filename.rs",
-    "lang": "rust"
+    "src": "./src/example_code/lorem.rs"
   }
 ]
 ```
 
-We could have many source definitions[^1] inside this list, but each
-definition, represented as a dictionary, is required to have the properties
-displayed above: `version`, `url`, `lang`. At a later date, automatic
-language detection may be added.
+- `src` defines the source file location and could be either an HTTP(s) URI
+  or a relative file path.
+- `filename` (optional) explicitly defines the local filename
 
+### Fetching Snippets
 
+According to the `snippet_sources.json`, the snippets are fetched and
+written into the `/src/snippets` directory. It happens in several cases:
 
-## Code comment syntax
+- Automatically after packages installation (i.e. `pnpm install`)
+- Manually by calling `pnpm get-snippets`
 
-Currently, the [dst-parser](https://github.com/soramitsu/dst-parser)
-supports two comment formats: C-like (`//`) and Pythonic (`#`). Multiline
-comments (`/* … */` and `""" … """`) are not parsed. The supported
-languages are Rust, C, C++, Java, JavaScript, and Python.
+::: info
 
-A piece of code is considered a named fragment when it is located between
-`// BEGIN FRAGMENT: <name>` and `// END FRAGMENT`, where `<>` signs are not
-included. This syntax is case-sensitive. Names support alphanumeric
-characters, underscores, minus signs, and white spaces.
+By default, snippets are deleted and reloaded each time when
+`pnpm get-snippets` is called. Sometimes in local development it might be
+more convenient to enable "lazy" behavior by calling
+`pnpm get-snippets --force false`
 
-Fragments can be included in one another. In that case, the lines matching
-`// BEGIN FRAGMENT: <name>` and `// END FRAGMENT` are removed.
+:::
 
-Elements between `// BEGIN ESCAPE` and `// END ESCAPE` are excluded
-unconditionally from the tutorial.
+### Using Snippets in Markdown
 
-While defining code documentation, you can use both underscores and white
-spaces. It is preferable to use white spaces because they're used for
-prefixing branch names.
-
-The current version of the snippet collection script supports both normal
-URLs and file paths[^2].
-
-Considering the current design, specifically the layout and font
-configuration, the optimal width for doc comments is 66 characters,
-starting with a comment symbol(s). If there's common padding behind each
-line, it is also removed. If the content is too long, it won't fit normally
-and a scrollbar will appear.
-
-## Using snippets in Markdown
-
-With the [dst-parser](https://github.com/soramitsu/dst-parser) and
-downloader doing their parts of the task, it is possible to import the
-snippets.
-
-Keeping in mind that a default snippet directory is `src/snippets/`, a
-snippet could be imported as follows:
+Snippets might be included into the documentation source using VitePress'
+[Code Snippets](https://vitepress.vuejs.org/guide/markdown#import-code-snippets)
+feature:
 
 **Input**
 
 ```md
-<<<@/snippets/debug_rust_Lorem.rs
+<<<@/snippets/lorem.rs
+
+<<<@/snippets/lorem.rs#ipsum
 ```
 
 **Output**
 
-<<<@/snippets/debug_rust_Lorem.rs
+<<<@/snippets/lorem.rs
 
-Follow
-[VitePress documentation](https://vitepress.vuejs.org/guide/markdown#import-code-snippets)
-for further details about snippets syntax.
+<<<@/snippets/lorem.rs#ipsum
 
-## Organizing snippets into code groups
+Pay attention to how we included only `#ipsum` code region. This feature is
+essential when it comes to including real source files content into the
+documentation.
+
+## Example
+
+Let's add a code snippets from the Iroha JavaScript SDK, for example
+[`/packages/docs-recipes/src/1.client-install.ts`](https://github.com/hyperledger/iroha-javascript/blob/e300886e76c777776efad1e2f5cb245bfb8ed02e/packages/docs-recipes/src/1.client-install.ts).
+To do so, the first thing we need is to get a permalink to the file.
+Clicking by the "Raw" button at GitHub, we got it:
+
+- https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/1.client-install.ts
+
+Then, we define the new snippet in the [Snippet Sources](#snippet-sources):
+
+```json
+{
+  "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/1.client-install.ts",
+  "filename": "js-sdk-1-client-install.ts"
+}
+```
+
+Then, it can be [included](#using-snippets-in-markdown) in any Markdown
+file in the documentation as follows:
 
 **Input**
 
 ```md
-:::code-group
-
-<<<@/snippets/debug_java_Lorem.java
-
-### Title for Python
-
-<<<@/snippets/debug_python_Lorem.py
-
-<<<@/snippets/debug_javascript_Lorem.js
-
-<<<@/snippets/debug_typescript_Lorem.ts
-
-<<<@/snippets/debug_rust_Lorem.rs
-
-<<<@/snippets/debug_shell_Lorem.sh
-
-:::
+<<<@/snippets/js-sdk-1-client-install.ts
 ```
 
 **Output**
 
-:::code-group
-
-<<<@/snippets/debug_java_Lorem.java
-
-### Title for Python
-
-<<<@/snippets/debug_python_Lorem.py
-
-<<<@/snippets/debug_javascript_Lorem.js
-
-<<<@/snippets/debug_typescript_Lorem.ts
-
-<<<@/snippets/debug_rust_Lorem.rs
-
-<<<@/snippets/debug_shell_Lorem.sh
-
-:::
-
-Follow [Code Groups](./code-groups.md) documentation for further details.
+<<<@/snippets/js-sdk-1-client-install.ts
