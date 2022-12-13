@@ -35,7 +35,7 @@ Code snippets are fetched from the locations specified in
 `snippet_sources.json` and written into the `/src/snippets` directory.
 There are two ways to fetch the snippets:
 
-- Automatically after packages installation (i.e. `pnpm install`)
+- Automatically after dependencies were installed (i.e. `pnpm install`)
 - Manually by calling `pnpm get-snippets`
 
 ::: info
