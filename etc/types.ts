@@ -1,15 +1,15 @@
 export interface SnippetSourceDefinition {
   /**
-   * URI to get the snippet from.
+   * URI from which to get the snippet.
    *
    * Could be:
    *
-   * - File system relative path - `./file.ts`
-   * - HTTP(S) URL - `http://example.com/hack.rs`
+   * - File system relative path (e. g. `./file.ts`) 
+   * - HTTP(S) URL (e. g. `http://example.com/hack.rs`) 
    */
   src: string
   /**
-   * Optional filename the source file will have in the snippets directory.
+   * (Optional) The name that the source file will have in the snippets directory.
    */
   filename?: string
 }
