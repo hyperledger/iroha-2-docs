@@ -5,5 +5,9 @@
   },
   {
     "src": "./src/example_code/lorem.rs"
+  },
+  {
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/e300886e76c777776efad1e2f5cb245bfb8ed02e/packages/docs-recipes/src/1.client-install.ts",
+    "filename": "js-sdk-1-client-install.ts"
   }
 ]
