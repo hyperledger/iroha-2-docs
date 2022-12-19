@@ -1,32 +1,13 @@
 [
   {
-    "version": "debug",
-    "url": "./src/example_code/lorem.rs",
-    "lang": "rust"
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha/iroha2-stable/MAINTAINERS.md",
+    "filename": "iroha-maintainers-at-stable.md"
   },
   {
-    "version": "debug",
-    "url": "./src/example_code/lorem.py",
-    "lang": "python"
+    "src": "./src/example_code/lorem.rs"
   },
   {
-    "version": "debug",
-    "url": "./src/example_code/lorem.js",
-    "lang": "javascript"
-  },
-  {
-    "version": "debug",
-    "url": "./src/example_code/lorem.ts",
-    "lang": "typescript"
-  },
-  {
-    "version": "debug",
-    "url": "./src/example_code/ILorem.java",
-    "lang": "java"
-  },
-  {
-    "version": "debug",
-    "url": "./src/example_code/lorem.sh",
-    "lang": "shell"
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/e300886e76c777776efad1e2f5cb245bfb8ed02e/packages/docs-recipes/src/1.client-install.ts",
+    "filename": "js-sdk-1-client-install.ts"
   }
 ]
