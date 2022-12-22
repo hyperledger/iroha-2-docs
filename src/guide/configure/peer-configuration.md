@@ -7,7 +7,7 @@ Here's an example of how peer configuration file looks like:
 
 ::: details Peer configuration example
 
-<<< @/guide/configure/configs/peer-config.json
+<<< @/snippets/peer-config.json
 
 :::
 

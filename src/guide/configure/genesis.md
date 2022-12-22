@@ -5,7 +5,7 @@ empty, even if `configs/peer/genesis.json` is. Here's an example:
 
 ::: details Genesis Block Example: alice@wonderland
 
-<<< @/guide/configure/configs/genesis.json
+<<< @/snippets/genesis.json
 
 :::
 
