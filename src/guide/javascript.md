@@ -3,7 +3,7 @@
 ::: info
 
 This guide targets `@iroha2/client` and `@iroha/data-model` version
-**`^3.0`**, which targets Iroha 2 LTS (`iroha2-lts`).
+**`^4.0`**, which targets Iroha 2 LTS (`2.0.0-pre-rc.9`).
 
 :::
 
@@ -101,12 +101,7 @@ installing the packages you need.
 
    For example, Node.js users need the following:
 
-   ```ts
-   import { crypto } from '@iroha2/crypto-target-node'
-   import { setCrypto } from '@iroha2/client'
-
-   setCrypto(crypto)
-   ```
+   <<<@/snippets/js-sdk-1-client-install.ts
 
    ::: info
 
@@ -165,86 +160,39 @@ client, let's set up this part. Let's assume that you have stringified
 public & private keys (more on that later). Thus, a key-pair generation
 could look like this:
 
-```ts
-import { crypto } from '@iroha2/crypto-target-node'
-import { KeyPair } from '@iroha2/crypto-core'
-
-// the package for hex-bytes transform
-import { hexToBytes } from 'hada'
-
-function generateKeyPair(params: {
-  publicKeyMultihash: string
-  privateKey: {
-    digestFunction: string
-    payload: string
-  }
-}): KeyPair {
-  const multihashBytes = Uint8Array.from(
-    hexToBytes(params.publicKeyMultihash),
-  )
-  const multihash = crypto.createMultihashFromBytes(multihashBytes)
-  const publicKey = crypto.createPublicKeyFromMultihash(multihash)
-  const privateKey = crypto.createPrivateKeyFromJsKey(params.privateKey)
-
-  const keyPair = crypto.createKeyPairFromKeys(publicKey, privateKey)
-
-  // don't forget to "free" created structures
-  for (const x of [publicKey, privateKey, multihash]) {
-    x.free()
-  }
-
-  return keyPair
-}
-
-const keyPair = generateKeyPair({
-  publicKeyMultihash:
-    'ed0120e555d194e8822da35ac541ce9eec8b45058f4d294d9426ef97ba92698766f7d3',
-  privateKey: {
-    digestFunction: 'ed25519',
-    payload:
-      'de757bcb79f4c63e8fa0795edc26f86dfdba189b846e903d0b732bb644607720e555d194e8822da35ac541ce9eec8b45058f4d294d9426ef97ba92698766f7d3',
-  },
-})
-```
+<<<@/snippets/js-sdk-2-1-1-key-pair.ts
 
 When you have a key pair, you might create a `Signer` using the key pair:
 
-```ts
-import { KeyPair } from '@iroha2/crypto-core'
-import { Signer } from '@iroha2/client'
-import { AccountId, DomainId } from '@iroha2/data-model'
-
-// Key pair from the previous step
-declare const keyPair: KeyPair
-
-const accountId = AccountId({
-  // Account name
-  name: 'alice',
-  // The domain where this account is registered
-  domain_id: DomainId({
-    name: 'wonderland',
-  }),
-})
-
-const signer = new Signer(accountId, keyPair)
-```
+<<<@/snippets/js-sdk-2-1-2-signer.ts
 
 Well, now we are able to make signatures with `signer.sign(binary)`!
 However, to interact with Iroha, we need to be able to do more than just
 signing. We would need to send something to Iroha, like transactions or
 queries. `Torii` will help us with that.
 
-The `Torii` class handles HTTP / WebSocket communications with Iroha. We
-will use it to communicate with Iroha endpoints. With the help of `Torii`
-we can:
+The `Torii` handles HTTP / WebSocket communications with Iroha. We will use
+it to communicate with Iroha endpoints. With the help of `Torii` we can:
 
-- Submit transactions
-- Send queries
-- Listen for events
-- Listen for blocks stream
+- Submit transactions with `Torii.submit()`
+- Send queries with `Torii.request()`
+- Listen for events with `Torii.listenForEvents()`
+- Listen for blocks stream with `Torii.listenForBlocksStream()`
 - and so on
 
-To initialize `Torii`, we need to know Iroha Torii URLs. Our Iroha Peer is
+`Torii` is just a stateless object which is a compendium of methods. You
+can look at it as it is a class with only static methods. Each method has
+its own _requirements_ to be passed in &mdash; some of them need only an
+HTTP transport and Iroha Torii Telemetry URL, others &mdash; a WebSocket
+transport and Iroha Torii API URL. To better understand how `Torii` is
+used, look at this example:
+
+<<<@/snippets/js-sdk-2-2-1-torii-usage-example.ts
+
+At this example, we pass `fetch` (the HTTP transport) and `apiURL` as the
+first parameter, and the query itself as the second.
+
+To work with `Torii`, we need to know Iroha Torii URLs. Our Iroha Peer is
 configured to listen for API endpoints at `http://127.0.0.1:8080` and for
 telemetry endpoints at `http://127.0.0.1:8081`. Then, we need to provide
 appropriate HTTP / WebSocket adapters which `Torii` will use[^1]. These
@@ -256,21 +204,11 @@ adapters depend on the environment in which you are going to use
     no way for Iroha Client to communicate with a peer in an
     environment-agnostic way.
 
-In Node.js `Torii` initialization will look like this:
+In Node.js full `Torii` requirements[^2] will look like this:
 
-```ts
-import { Torii } from '@iroha2/client'
-import { adapter as WS } from '@iroha2/client/web-socket/node'
+<<<@/snippets/js-sdk-2-2-2-torii-pre-node.ts
 
-import nodeFetch from 'node-fetch'
-
-const torii = new Torii({
-  apiURL: 'http://127.0.0.1:8080',
-  telemetryURL: 'http://127.0.0.1:8081',
-  ws: WS,
-  fetch: nodeFetch as typeof fetch,
-})
-```
+[^2]: i.e. these requirements will cover all `Torii` methods.
 
 ::: tip
 
@@ -295,20 +233,9 @@ here.
 
 :::
 
-And here is the sample of `Torii` initialization in Browser:
+And here is the sample of full `Torii` requirements in Browser:
 
-```ts
-import { Torii } from '@iroha2/client'
-import { adapter as WS } from '@iroha2/client/web-socket/native'
-
-const torii = new Torii({
-  apiURL: 'http://127.0.0.1:8080',
-  telemetryURL: 'http://127.0.0.1:8081',
-  ws: WS,
-  // passing globally available `fetch`
-  fetch: fetch.bind(window),
-})
-```
+<<<@/snippets/js-sdk-2-2-3-torii-pre-web.ts
 
 ::: info NOTE
 
@@ -317,22 +244,14 @@ We make `fetch.bind(window)` to avoid
 
 :::
 
-Great! Now we have `signer` and `torii`. Finally, we could create a
-`Client`:
+Great! Now we have `signer` and `Torii` requirements to work with. Finally,
+we could create a `Client`:
 
-```ts
-import { Client, Signer, Torii } from '@iroha2/client'
-
-// --snip--
-declare const torii: Torii
-declare const signer: Signer
-
-const client = new Client({ torii, signer })
-```
+<<<@/snippets/js-sdk-2-3-client.ts
 
 `Client` provides useful utilities for transactions and queries. You can
-also use `Torii` to communicate with the endpoints directly. Both `Signer`
-and `Torii` are accessible with `client.torii` and `client.signer`.
+also use `Torii` to communicate with the endpoints directly. `Signer` is
+accessible with `client.signer`.
 
 ## 3. Registering a Domain
 
@@ -352,101 +271,26 @@ account, _alice@wondeland_.
 First, we need to import necessary models and a pre-configured client
 instance:
 
-```ts
-import { Client } from '@iroha2/client'
-import {
-  DomainId,
-  EvaluatesToRegistrableBox,
-  Executable,
-  Expression,
-  IdentifiableBox,
-  Instruction,
-  MapNameValue,
-  Metadata,
-  NewDomain,
-  OptionIpfsPath,
-  QueryBox,
-  RegisterBox,
-  Value,
-  VecInstruction,
-} from '@iroha2/data-model'
-
-// --snip--
-declare const client: Client
-```
+<<<@/snippets/js-sdk-3-register-domain.ts#pre
 
 To register a new domain, we need to submit a transaction with a single
 instruction: to register a new domain. Let's wrap it all in an async
 function:
 
-```ts
-async function registerDomain(domainName: string) {
-  const registerBox = RegisterBox({
-    object: EvaluatesToRegistrableBox({
-      expression: Expression(
-        'Raw',
-        Value(
-          'Identifiable',
-          IdentifiableBox(
-            'NewDomain',
-            NewDomain({
-              id: DomainId({
-                name: domainName,
-              }),
-              metadata: Metadata({ map: MapNameValue(new Map()) }),
-              logo: OptionIpfsPath('None'),
-            }),
-          ),
-        ),
-      ),
-    }),
-  })
-
-  await client.submitExecutable(
-    Executable(
-      'Instructions',
-      VecInstruction([Instruction('Register', registerBox)]),
-    ),
-  )
-}
-```
+<<<@/snippets/js-sdk-3-register-domain.ts#reg-domain-fn
 
 Which we use to register the domain like so:
 
-```ts
-await registerDomain('looking_glass')
-```
+<<<@/snippets/js-sdk-3-register-domain.ts#do-reg
 
 We can also use Query API to ensure that the new domain is created. Let's
 create another function that wraps that functionality:
 
-```ts
-async function ensureDomainExistence(domainName: string) {
-  // Query all domains
-  const result = await client.requestWithQueryBox(
-    QueryBox('FindAllDomains', null),
-  )
-
-  // Display the request status
-  console.log('%o', result)
-
-  // Obtain the domain
-  const domain = result
-    .as('Ok')
-    .result.as('Vec')
-    .map((x) => x.as('Identifiable').as('Domain'))
-    .find((x) => x.id.name === domainName)
-
-  // Throw an error if the domain is unavailable
-  if (!domain) throw new Error('Not found')
-}
-```
+<<<@/snippets/js-sdk-3-register-domain.ts#ensure-fn
 
 Now you can ensure that domain is created by calling:
 
-```ts
-await ensureDomainExistence('looking_glass')
-```
+<<<@/snippets/js-sdk-3-register-domain.ts#do-ensure
 
 ## 4. Registering an Account
 
@@ -462,34 +306,11 @@ account named _white_rabbit_.
 
 Imports we need:
 
-```ts
-import {
-  AccountId,
-  DomainId,
-  EvaluatesToRegistrableBox,
-  Expression,
-  IdentifiableBox,
-  Instruction,
-  MapNameValue,
-  Metadata,
-  NewAccount,
-  PublicKey,
-  RegisterBox,
-  Value,
-  VecPublicKey,
-} from '@iroha2/data-model'
-```
+<<<@/snippets/js-sdk-4-register-account.ts#imports
 
 The `AccountId` structure:
 
-```ts
-const accountId = AccountId({
-  name: 'white_rabbit',
-  domain_id: DomainId({
-    name: 'looking_glass',
-  }),
-})
-```
+<<<@/snippets/js-sdk-4-register-account.ts#account
 
 Second, you should provide the account with a public key. It is tempting to
 generate both it and the private key at this time, but it isn't the
@@ -503,40 +324,11 @@ they know if you don't have a copy of their private key? Instead, the best
 way is to **ask** _white_rabbit_ to generate a new key-pair, and give you
 the public half of it.
 
-```ts
-const pubKey = PublicKey({
-  payload: new Uint8Array([
-    /* put bytes here */
-  ]),
-  digest_function: 'some_digest',
-})
-```
+<<<@/snippets/js-sdk-4-register-account.ts#pubkey
 
 Only then do we build an instruction from it:
 
-```ts
-const registerAccountInstruction = Instruction(
-  'Register',
-  RegisterBox({
-    object: EvaluatesToRegistrableBox({
-      expression: Expression(
-        'Raw',
-        Value(
-          'Identifiable',
-          IdentifiableBox(
-            'NewAccount',
-            NewAccount({
-              id: accountId,
-              signatories: VecPublicKey([pubKey]),
-              metadata: Metadata({ map: MapNameValue(new Map()) }),
-            }),
-          ),
-        ),
-      ),
-    }),
-  }),
-)
-```
+<<<@/snippets/js-sdk-4-register-account.ts#isi
 
 Which is then wrapped in a transaction and submitted to the peer the same
 way as in the previous section when we registered a domain.
@@ -550,48 +342,7 @@ non-fungible, mintable or non-mintable).
 
 In JS, you can create a new asset with the following construction:
 
-```ts
-import {
-  NewAssetDefinition,
-  AssetDefinitionId,
-  AssetValueType,
-  DomainId,
-  EvaluatesToRegistrableBox,
-  Expression,
-  IdentifiableBox,
-  Instruction,
-  MapNameValue,
-  Metadata,
-  Mintable,
-  RegisterBox,
-  Value,
-} from '@iroha2/data-model'
-
-const newTimeAsset = NewAssetDefinition({
-  value_type: AssetValueType('Quantity'),
-  id: AssetDefinitionId({
-    name: 'time',
-    domain_id: DomainId({ name: 'looking_glass' }),
-  }),
-  metadata: Metadata({ map: MapNameValue(new Map()) }),
-  mintable: Mintable('Not'), // If only we could mint more time.
-})
-
-const register = Instruction(
-  'Register',
-  RegisterBox({
-    object: EvaluatesToRegistrableBox({
-      expression: Expression(
-        'Raw',
-        Value(
-          'Identifiable',
-          IdentifiableBox('NewAssetDefinition', newTimeAsset),
-        ),
-      ),
-    }),
-  }),
-)
-```
+<<<@/snippets/js-sdk-5-1-register-asset.ts
 
 Pay attention to the fact that we have defined the asset as
 `Mintable('Not')`. What this means is that we cannot create more of `time`.
@@ -608,53 +359,7 @@ always be late.
 If we had set `mintable: Mintable('Infinitely')` on our time asset, we
 could mint it:
 
-```ts
-import {
-  AssetDefinitionId,
-  DomainId,
-  EvaluatesToIdBox,
-  EvaluatesToValue,
-  Expression,
-  IdBox,
-  AssetId,
-  AccountId,
-  Instruction,
-  MintBox,
-  Value,
-} from '@iroha2/data-model'
-
-const mint = Instruction(
-  'Mint',
-  MintBox({
-    object: EvaluatesToValue({
-      expression: Expression('Raw', Value('U32', 42)),
-    }),
-    destination_id: EvaluatesToIdBox({
-      expression: Expression(
-        'Raw',
-        Value(
-          'Id',
-          IdBox(
-            'AssetId',
-            AssetId({
-              account_id: AccountId({
-                name: 'alice',
-                domain_id: DomainId({
-                  name: 'wonderland',
-                }),
-              }),
-              definition_id: AssetDefinitionId({
-                name: 'time',
-                domain_id: DomainId({ name: 'looking_glass' }),
-              }),
-            }),
-          ),
-        ),
-      ),
-    }),
-  }),
-)
-```
+<<<@/snippets/js-sdk-5-2-mint-asset.ts
 
 Again it should be emphasised that an Iroha 2 network is strongly typed.
 You need to take special care to make sure that only unsigned integers are
@@ -667,70 +372,31 @@ subtract from a negative Fixed-precision value will result in an error.
 After minting the assets, you can transfer them to another account. In the
 example below, Alice transfers to Mouse 100 units of `time` asset:
 
-```ts
-import {
-  AccountId,
-  AssetDefinitionId,
-  AssetId,
-  DomainId,
-  EvaluatesToIdBox,
-  EvaluatesToValue,
-  Expression,
-  IdBox,
-  Instruction,
-  TransferBox,
-  Value,
-} from '@iroha2/data-model'
+<<<@/snippets/js-sdk-6-transfer-assets.ts
 
-const domainId = DomainId({
-  name: 'wonderland',
-})
+## 7. Querying for Domains, Accounts and Assets
 
-const assetDefinitionId = AssetDefinitionId({
-  name: 'time',
-  domain_id: domainId,
-})
+TODO
 
-const amountToTransfer = Value('U32', 100)
+<<<@/snippets/js-sdk-7-querying.ts#intro
 
-const fromAccount = AccountId({
-  name: 'alice',
-  domain_id: domainId,
-})
+:::code-group
 
-const toAccount = AccountId({
-  name: 'mouse',
-  domain_id: domainId,
-})
+##### Domains
 
-const evaluatesToAssetId = (assetId: AssetId): EvaluatesToIdBox =>
-  EvaluatesToIdBox({
-    expression: Expression('Raw', Value('Id', IdBox('AssetId', assetId))),
-  })
+<<<@/snippets/js-sdk-7-querying.ts#domains
 
-const transferAssetInstruction = Instruction(
-  'Transfer',
-  TransferBox({
-    source_id: evaluatesToAssetId(
-      AssetId({
-        definition_id: assetDefinitionId,
-        account_id: fromAccount,
-      }),
-    ),
-    destination_id: evaluatesToAssetId(
-      AssetId({
-        definition_id: assetDefinitionId,
-        account_id: toAccount,
-      }),
-    ),
-    object: EvaluatesToValue({
-      expression: Expression('Raw', amountToTransfer),
-    }),
-  }),
-)
-```
+##### Accounts
 
-## 7. Visualizing outputs
+<<<@/snippets/js-sdk-7-querying.ts#accounts
+
+##### Assets
+
+<<<@/snippets/js-sdk-7-querying.ts#assets
+
+:::
+
+## 8. Visualizing outputs in Web UI
 
 Finally, we should talk about visualising data. The Rust API is currently
 the most complete in terms of available queries and instructions. After
@@ -773,354 +439,58 @@ You can use this folder structure as a reference:
 ╰───┴──────────────────────────────╯
 ```
 
-### Client configuration
+:::code-group
 
-Our client config is the following:
+### config.json
 
-```jsonc
-// FILE: config.json
-{
-  "torii": {
-    "apiURL": "http://127.0.0.1:8080",
-    "telemetryURL": "http://127.0.0.1:8081"
-  },
-  "account": {
-    "name": "alice",
-    "domain_id": {
-      "name": "wonderland"
-    }
-  },
-  "publicKey": "ed01207233bfc89dcbd68c19fde6ce6158225298ec1131b6a130d1aeb454c1ab5183c0",
-  "privateKey": {
-    "digestFunction": "ed25519",
-    "payload": "9ac47abf59b356e0bd7dcbbbb4dec080e302156a48ca907e47cb6aea1d32719e7233bfc89dcbd68c19fde6ce6158225298ec1131b6a130d1aeb454c1ab5183c0"
-  }
-}
-```
+<<<@/snippets/js-sdk-8-config.json
 
-### Initialization
+### crypto.ts
 
-To use these, firstly, we need to initialize our client and crypto.
+<<<@/snippets/js-sdk-8-crypto.ts
 
-```ts
-// FILE: crypto.ts
+### client.ts
 
-import { init, crypto } from '@iroha2/crypto-target-web'
+<<<@/snippets/js-sdk-8-client.ts
 
-// using top-level module await
-await init()
+### components/StatusChecker.vue
 
-export { crypto }
-```
+<<<@/snippets/js-sdk-8-components-StatusChecker.vue
 
-```ts
-// FILE: client.ts
+### components/CreateDomain.vue
 
-import { Client, Signer, Torii } from '@iroha2/client'
-import { adapter as WS } from '@iroha2/client/web-socket/native'
-import { KeyPair } from '@iroha2/crypto-core'
-import { hexToBytes } from 'hada'
-import { AccountId } from '@iroha2/data-model'
+<<<@/snippets/js-sdk-8-components-CreateDomain.vue
 
-// importing already initialized crypto
-import { crypto } from './crypto'
+### components/EventListener.vue
 
-// the config with stringified keys, account id and torii URLs
-import client_config from './config.json'
+<<<@/snippets/js-sdk-8-components-EventListener.vue
 
-const torii = new Torii({
-  // these ports are specified in the peer config
-  apiURL: client_config.torii.apiURL,
-  telemetryURL: client_config.torii.telemetryURL,
-  ws: WS,
-  fetch: fetch.bind(window),
-})
+### App.vue
 
-const signer = new Signer(
-  // Account name and the domain where it's registered
-  client_config.account as AccountId,
-  // A key pair, required for the account authentication
-  generateKeyPair({
-    publicKeyMultihash: client_config.publicKey,
-    privateKey: client_config.privateKey,
-  }),
-)
+<<<@/snippets/js-sdk-8-App.vue
 
-export const client = new Client({ torii, signer })
+### main.ts
 
-// an util function
-function generateKeyPair(params: {
-  publicKeyMultihash: string
-  privateKey: {
-    digestFunction: string
-    payload: string
-  }
-}): KeyPair {
-  const multihashBytes = Uint8Array.from(
-    hexToBytes(params.publicKeyMultihash),
-  )
-  const multihash = crypto.createMultihashFromBytes(multihashBytes)
-  const publicKey = crypto.createPublicKeyFromMultihash(multihash)
-  const privateKey = crypto.createPrivateKeyFromJsKey(params.privateKey)
+<<<@/snippets/js-sdk-8-main.ts
 
-  const keyPair = crypto.createKeyPairFromKeys(publicKey, privateKey)
+:::
 
-  for (const x of [publicKey, privateKey, multihash]) {
-    x.free()
-  }
+:::info
 
-  return keyPair
-}
-```
-
-### Status Checker
-
-Now we are ready to use the client. Let's start from the `StatusChecker`
-component:
-
-```vue
-<!-- FILE: StatusChecker.vue -->
-
-<script setup lang="ts">
-import { useIntervalFn } from '@vueuse/core'
-import { useStaleState, useTask } from '@vue-kakuyaku/core'
-import { client } from '../client'
-
-const { state, run } = useTask(() => client.torii.getStatus(), {
-  immediate: true,
-})
-const stale = useStaleState(state)
-useIntervalFn(run, 1000)
-</script>
-
-<template>
-  <div>
-    <h3>Status</h3>
-
-    <ul v-if="stale.fulfilled">
-      <li>Blocks: {{ stale.fulfilled.value.blocks }}</li>
-      <li>Uptime (sec): {{ stale.fulfilled.value.uptime.secs }}</li>
-    </ul>
-  </div>
-</template>
-```
-
-### Domain Creator
-
-Now let's build the `CreateDomain` component:
-
-```vue
-<!-- FILE: CreateDomain.vue -->
-
-<script setup lang="ts">
-import {
-  DomainId,
-  EvaluatesToRegistrableBox,
-  Executable,
-  Expression,
-  IdentifiableBox,
-  Instruction,
-  MapNameValue,
-  Metadata,
-  NewDomain,
-  OptionIpfsPath,
-  RegisterBox,
-  Value,
-  VecInstruction,
-} from '@iroha2/data-model'
-import { ref } from 'vue'
-import { client } from '../client'
-import { useTask } from '@vue-kakuyaku/core'
-
-const domainName = ref('')
-
-const { state, run: registerDomain } = useTask(async () => {
-  await client.submitExecutable(
-    Executable(
-      'Instructions',
-      VecInstruction([
-        Instruction(
-          'Register',
-          RegisterBox({
-            object: EvaluatesToRegistrableBox({
-              expression: Expression(
-                'Raw',
-                Value(
-                  'Identifiable',
-                  IdentifiableBox(
-                    'NewDomain',
-                    NewDomain({
-                      id: DomainId({
-                        name: domainName.value,
-                      }),
-                      metadata: Metadata({ map: MapNameValue(new Map()) }),
-                      logo: OptionIpfsPath('None'),
-                    }),
-                  ),
-                ),
-              ),
-            }),
-          }),
-        ),
-      ]),
-    ),
-  )
-})
-</script>
-
-<template>
-  <div>
-    <h3>Create Domain</h3>
-    <p>
-      <label for="domain">New domain name:</label>
-      <input id="domain" v-model="domainName" />
-    </p>
-    <p>
-      <button @click="registerDomain()">
-        Register domain{{ state.pending ? '...' : '' }}
-      </button>
-    </p>
-  </div>
-</template>
-```
-
-### Listener
-
-And finally, let's build the `Listener` component that will use Events API
-to set up a live connection with a peer:
-
-```vue
-<!-- FILE: Listener.vue -->
-<script setup <script setup lang="ts">
-import { SetupEventsReturn } from '@iroha2/client'
-import {
-  FilterBox,
-  OptionHash,
-  OptionPipelineEntityKind,
-  OptionPipelineStatusKind,
-  PipelineEntityKind,
-  PipelineEventFilter,
-  PipelineStatusKind,
-} from '@iroha2/data-model'
-import {
-  computed,
-  onBeforeUnmount,
-  shallowReactive,
-  shallowRef,
-} from 'vue'
-import { bytesToHex } from 'hada'
-import { client } from '../client'
-
-interface EventData {
-  hash: string
-  status: string
-}
-
-const events = shallowReactive<EventData[]>([])
-
-const currentListener = shallowRef<null | SetupEventsReturn>(null)
-
-const isListening = computed(() => !!currentListener.value)
-
-async function startListening() {
-  currentListener.value = await client.torii.listenForEvents({
-    filter: FilterBox(
-      'Pipeline',
-      PipelineEventFilter({
-        entity_kind: OptionPipelineEntityKind(
-          'Some',
-          PipelineEntityKind('Transaction'),
-        ),
-        status_kind: OptionPipelineStatusKind(
-          'Some',
-          PipelineStatusKind('Committed'),
-        ),
-        hash: OptionHash('None'),
-      }),
-    ),
-  })
-
-  currentListener.value.ee.on('event', (event) => {
-    const { hash, status } = event.as('Pipeline')
-    events.push({
-      hash: bytesToHex([...hash]),
-      status: status.match({
-        Validating: () => 'validating',
-        Committed: () => 'committed',
-        Rejected: (_reason) => 'rejected with some reason',
-      }),
-    })
-  })
-}
-
-async function stopListening() {
-  await currentListener.value?.stop()
-  currentListener.value = null
-}
-
-onBeforeUnmount(stopListening)
-</script>
-
-<template>
-  <div>
-    <h3>Listening</h3>
-
-    <p>
-      <button @click="isListening ? stopListening() : startListening()">
-        {{ isListening ? 'Stop' : 'Listen' }}
-      </button>
-    </p>
-
-    <p>Events:</p>
-
-    <ul>
-      <li v-for="{ hash, status } in events" :key="hash">
-        Transaction <code>{{ hash }}</code> status:
-        {{ status }}
-      </li>
-    </ul>
-  </div>
-</template>
-```
-
-### App
-
-That's it! Finally, we just need to wrap it up with the `App.vue` component
-and the `app` entrypoint:
-
-```vue
-<!-- FILE: App.vue -->
-
-<script setup lang="ts">
-import CreateDomain from './components/CreateDomain.vue'
-import Listener from './components/Listener.vue'
-import StatusChecker from './components/StatusChecker.vue'
-</script>
-
-<template>
-  <StatusChecker />
-  <hr />
-  <CreateDomain />
-  <hr />
-  <Listener />
-</template>
-
-<style lang="scss">
-#app {
-  padding: 16px;
-  font-family: sans-serif;
-}
-</style>
-```
+In `client.ts`, we don't import `config.json`, but do this:
 
 ```ts
-// FILE: main.ts
-
-import { createApp } from 'vue'
-import App from './App.vue'
-
-createApp(App).mount('#app')
+import { client_config } from '../../config'
 ```
+
+It is a detail of how the source code of this application really works. For
+simplicity, read this line as the following:
+
+```ts
+import client_config from 'config.json'
+```
+
+:::
 
 ### Demo
 
@@ -1132,7 +502,7 @@ Here is a small demo with the usage of this component:
 
 </div>
 
-## 8. Subscribing to Block Stream
+## 9. Subscribing to Block Stream
 
 You can use
 [`/block/stream` endpoint](https://github.com/hyperledger/iroha/blob/iroha2-lts/docs/source/references/api_spec.md#blocks-stream)
@@ -1146,17 +516,4 @@ added to the blockchain.
 
 Here is an example of how to listen to the block stream:
 
-```ts
-import { Torii, ToriiRequirementsForApiWebSocket } from '@iroha2/client'
-
-declare const requirements: ToriiRequirementsForApiWebSocket
-
-const stream = await Torii.listenForBlocksStream(requirements, {
-  height: 0n,
-})
-
-stream.ee.on('block', (block) => {
-  const height = block.as('V1').header.height
-  console.log('Got block with height', height)
-})
-```
+<<<@/snippets/js-sdk-9-blocks-stream.ts
