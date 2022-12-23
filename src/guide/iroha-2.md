@@ -1,7 +1,8 @@
 # Iroha 2 vs. Iroha 1
 
-Iroha 2 is a **complete** re-write of Hyperledger Iroha in Rust. As of
-writing, the two projects are developed concurrently.
+Iroha 2 is a **complete** re-write of
+[Hyperledger Iroha](https://iroha.readthedocs.io/en/develop/index.html) in
+Rust. As of writing, the two projects are developed concurrently.
 
 In this introduction we outline the differences between the two versions of
 Iroha and highlight the new features of Iroha 2. It should be of particular

@@ -69,6 +69,9 @@ For more information on Iroha 2, please take a look at the
 as well as the Hyperledger Iroha section within the
 [Hyperledger Foundation Wiki](https://wiki.hyperledger.org/display/iroha).
 
+For more information on Iroha 1, take a look at the
+[Iroha 1 documentation](https://iroha.readthedocs.io/en/develop/index.html).
+
 ::: tip
 
 If you want to contribute to Hyperledger Iroha, please look at our
