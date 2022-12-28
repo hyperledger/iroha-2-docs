@@ -69,7 +69,7 @@ You can use `kagami` to generate the default genesis block:
   specified file:
 
   ```bash
-  kagami genesis >genesis.json
+  kagami genesis > genesis.json
   ```
 
 - Generate a synthetic genesis block in JSON format and write the `n`
