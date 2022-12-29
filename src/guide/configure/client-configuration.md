@@ -8,6 +8,14 @@ Let's look at the client configuration options.
 
 :::
 
+## Generation
+
+You can use `kagami` to generate the default client configuration:
+
+```bash
+kagami config client > client-config.json
+```
+
 ## Public and Private Keys
 
 Client configuration files should contain the pair of public (`PUBLIC_KEY`)

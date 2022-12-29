@@ -35,6 +35,14 @@ double `Option<Option<..>>`. Refer to
 
 :::
 
+## Generation
+
+You can use `kagami` to generate the default peer configuration:
+
+```bash
+kagami config peer > peer-config.json
+```
+
 ## Public and private keys
 
 When you are configuring a new peer, you have to provide its public and
