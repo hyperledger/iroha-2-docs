@@ -335,6 +335,19 @@ export default defineConfig({
     ['link', { rel: 'icon', href: BASE + 'favicon.ico', sizes: 'any' }],
     ['link', { rel: 'icon', href: BASE + 'icon.svg', sizes: 'image/svg+xml' }],
     ['link', { ref: 'apple-touch-icon', href: BASE + 'apple-touch-icon.png' }],
+    // Google analytics integration
+    ['script', { src: 'https://www.googletagmanager.com/gtag/js?id=G-D6ETK9TN47' }],
+    [
+      'script',
+      {},
+      `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        
+        gtag('config', 'G-D6ETK9TN47');
+    `,
+    ],
   ],
 
   markdown: {
