@@ -35,7 +35,7 @@ This idea is reflected in the blockchain-based systems that can check the stored
 
 ## Asset
 
-While the word itself means a valuable object, with blockchain being involved, we'll be talking about a representation of a valuable object on the blockchain.
+In the context of blockchains, an asset is the representation of a valuable object on the blockchain.
 
 Additional information on assets is available [here](/guide/blockchain/assets.md).
 
