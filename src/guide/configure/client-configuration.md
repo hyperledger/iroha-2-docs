@@ -4,9 +4,17 @@ Let's look at the client configuration options.
 
 ::: details Client configuration example
 
-<<< @/guide/configure/configs/client-cli-config.json
+<<< @/snippets/client-cli-config.json
 
 :::
+
+## Generation
+
+You can use `kagami` to generate the default client configuration:
+
+```bash
+kagami config client > client-config.json
+```
 
 ## Public and Private Keys
 

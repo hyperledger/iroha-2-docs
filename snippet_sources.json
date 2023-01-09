@@ -7,6 +7,30 @@
     "src": "./src/example_code/lorem.rs"
   },
   {
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha/iroha2-dev/configs/client_cli/config.json",
+    "filename": "client-cli-config.json"
+  },
+  {
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha/iroha2-dev/configs/peer/config.json",
+    "filename": "peer-config.json"
+  },
+  {
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha/iroha2-dev/configs/peer/genesis.json",
+    "filename": "genesis.json"
+  },
+  {
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha/iroha2-dev/configs/client_cli/config.json",
+    "filename": "client-cli-config.json"
+  },
+  {
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha/iroha2-dev/configs/peer/config.json",
+    "filename": "peer-config.json"
+  },
+  {
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha/iroha2-dev/configs/peer/genesis.json",
+    "filename": "genesis.json"
+  },
+  {
     "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/docs-recipes/src/1.client-install.ts",
     "filename": "js-sdk-1-client-install.ts"
   },

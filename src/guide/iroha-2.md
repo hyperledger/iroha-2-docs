@@ -1,7 +1,8 @@
 # Iroha 2 vs. Iroha 1
 
-Iroha 2 is a **complete** re-write of Hyperledger Iroha in Rust. As of
-writing, the two projects are developed concurrently.
+Iroha 2 is a **complete** re-write of
+[Hyperledger Iroha](https://iroha.readthedocs.io/en/develop/index.html) in
+Rust. As of writing, the two projects are developed concurrently.
 
 In this introduction we outline the differences between the two versions of
 Iroha and highlight the new features of Iroha 2. It should be of particular
@@ -25,7 +26,7 @@ would be accessible from Iroha 2.
 
 Iroha 2 learned a great deal from the development of the original Iroha. Of
 particular importance is the new and improved Byzantine-fault-tolerant
-consensus algorithm: _Sumeragi_. This new consensus allowed us to expand
+consensus algorithm: [_Sumeragi_](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/iroha_2_whitepaper.md#28-consensus). This new consensus allowed us to expand
 what could be done on a blockchain without any security risks.
 
 ::: info

@@ -2,24 +2,28 @@
 
 Here you can find sample configuration files for Iroha 2:
 
-- [Peer Configuration (`configs/peer/config.json`)](#peer-configuration-configspeerconfigjson)
-- [Genesis Block (`configs/peer/genesis.json`)](#genesis-block-configspeergenesisjson)
-- [Client Configuration (`configs/client_cli/config.json`)](#client-configuration-configsclient_cliconfigjson)
+- Peer Configuration (`configs/peer/config.json`)
+- Genesis Block (`configs/peer/genesis.json`)
+- Client Configuration (`configs/client_cli/config.json`)
 
-## Peer Configuration (`configs/peer/config.json`)
+:::code-group
+
+## Peer Configuration
 
 Refer to [peer configuration](peer-configuration.md) for details.
 
-<<< @/guide/configure/configs/peer-config.json
+<<< @/snippets/peer-config.json
 
-## Genesis Block (`configs/peer/genesis.json`)
+## Genesis Block
 
 Refer to [genesis block](genesis.md) for details.
 
-<<< @/guide/configure/configs/genesis.json
+<<< @/snippets/genesis.json
 
-## Client Configuration (`configs/client_cli/config.json`)
+## Client Configuration
 
 Refer to [client configuration](client-configuration.md) for details.
 
-<<< @/guide/configure/configs/client-cli-config.json
+<<< @/snippets/client-cli-config.json
+
+:::

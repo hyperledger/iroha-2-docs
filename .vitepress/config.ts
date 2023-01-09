@@ -209,7 +209,7 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
         },
         {
           text: 'Installation',
-          link: '/guide/troubleshooting/installation',
+          link: '/guide/troubleshooting/installation-issues',
         },
         {
           text: 'Configuration',

@@ -7,7 +7,7 @@ Here's an example of how peer configuration file looks like:
 
 ::: details Peer configuration example
 
-<<< @/guide/configure/configs/peer-config.json
+<<< @/snippets/peer-config.json
 
 :::
 
@@ -34,6 +34,14 @@ double `Option<Option<..>>`. Refer to
 [configuration types](./configuration-types.md) for details.
 
 :::
+
+## Generation
+
+You can use `kagami` to generate the default peer configuration:
+
+```bash
+kagami config peer > peer-config.json
+```
 
 ## Public and private keys
 
