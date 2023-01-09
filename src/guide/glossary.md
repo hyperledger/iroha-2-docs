@@ -25,10 +25,44 @@ Here you can find definitions of all Iroha-related entities.
 - [World state view (WSV)](#world-state-view-wsv)
 - [Leader](#leader)
 
+## Blockchain ledgers
+
+Blockchain ledgers are digital record-keeping systems that use blockchain technology to keep financial records.
+These are named after old-fashioned books that were used for financial records such as prices, news, and transaction information.
+
+During medieval times, ledger books were open for public viewing and accuracy verification.
+This idea is reflected in the blockchain-based systems that can check the stored data for validity.
+
 ## Asset
 
-A representation of a valuable object on the blockchain. More on assets
-[here](/guide/blockchain/assets.md).
+In the context of blockchains, an asset is the representation of a valuable object on the blockchain.
+
+Additional information on assets is available [here](/guide/blockchain/assets.md).
+
+### Fungible assets
+
+Such assets can be easily swapped for other assets of the same type because they are interchangeable.
+
+As an example, all units of the same currency are equal in their value and can be used to purchase goods.
+Typically, fungible assets are identical in appearance, aside from the wear of banknotes and coins.
+
+### Non-fungible assets
+
+Non-fungible assets are unique and valuable due to their specific characteristics and rarity; their value cannot be compared to other assets.
+
+* A painting's value can vary based on the artist, the time period it was painted, and the public's interest in it.
+* Two houses on the same street may have differing levels of maintenance.
+* Jewellery manufacturers typically offer a range of different designs.
+
+### Mintable assets
+
+An asset is mintable if more of the same type can be issued.
+
+### Non-mintable assets
+
+If the initial amount of an asset is specified once and doesn't change, it is considered non-mintable.
+
+The [Genesis block](/guide/configure/genesis.md) sets this information for the Iroha configuration.
 
 ## Byzantine fault-tolerance (BFT)
 
