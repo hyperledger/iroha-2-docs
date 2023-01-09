@@ -1,10 +1,10 @@
 # Iroha 2 Documentation
 
-Iroha is a fully-featured blockchain ledger. With Iroha you can:
+Iroha is a fully-featured [blockchain ledger](guide/glossary.md#blockchain-ledgers). With Iroha you can:
 
-- Create and manage custom fungible assets, such as currencies, gold, and
+- Create and manage custom [fungible assets](guide/glossary.md#fungible-assets), such as currencies, gold, and
   others
-- Create and manage non-fungible assets
+- Create and manage [non-fungible](guide/glossary.md#non-fungible-assets) assets
 - Manage user accounts with a domain hierarchy and multi-signature
   transactions
 - Use efficient portable smart contracts implemented either via [WebAssembly](guide/blockchain/wasm.md)
