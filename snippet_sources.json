@@ -19,6 +19,10 @@
     "filename": "genesis.json"
   },
   {
+    "src": "https://raw.githubusercontent.com/outoftardis/iroha/doc-update-snippets-tutorial/client/examples/tutorial.rs",
+    "filename": "tutorial-snippets.rs"
+  },
+  {
     "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/e300886e76c777776efad1e2f5cb245bfb8ed02e/packages/docs-recipes/src/1.client-install.ts",
     "filename": "js-sdk-1-client-install.ts"
   }

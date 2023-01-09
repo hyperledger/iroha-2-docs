@@ -91,11 +91,8 @@ let cfg: ClientConfiguration = serde_json::from_reader(file)?;
 
 Using said configuration, instantiate a client:
 
-```rust
-use iroha_client::client::Client;
+<<< @/snippets/tutorial-snippets.rs#rust_client_create
 
-let iroha_client = Client::new(cfg)?;
-```
 
 Note that it used to be necessary to create a mutable client. Sending and
 receiving messages affects the client's internal state, but now that state
@@ -176,21 +173,19 @@ key-pair in places where it makes sense.
 
 Registering a domain is a relatively easy operation. Most of the
 boilerplate code has to do with setting up the Iroha 2 client and
-deserialising its configuration. To register a domain, you need the domain
-name;
+deserialising its configuration. 
 
 ```rust
 use iroha_data_model::prelude::*;
-
-let looking_glass: DomainId = "looking_glass".parse()?;
 ```
+
+To register a domain, you need the domain name:
+
+<<< @/snippets/tutorial-snippets.rs#domain_register_example_create_domain
 
 Which we convert into an instruction:
 
-```rust
-
-let create_looking_glass = RegisterBox::new(Domain::new(looking_glass.clone()));
-```
+<<< @/snippets/tutorial-snippets.rs#domain_register_example_create_isi
 
 Note that we use `RegisterBox` and `IdentifiableBox`. Despite what your
 instincts as a Rust developer might suggest, we're not actually using any
@@ -204,15 +199,11 @@ on GitHub, or do that by yourself on a local fork of Iroha.
 
 The instruction is then batched into a transaction:
 
-```rust
-let tx = iroha_client.build_transaction([create_looking_glass], Metadata::default())?;
-```
+<<< @/snippets/tutorial-snippets.rs#domain_register_example_prepare_tx
 
 Which is then submitted into the pipeline:
 
-```rust
-iroha_client.submit_transaction(tx)?;
-```
+<<< @/snippets/tutorial-snippets.rs#domain_register_example_submit_tx
 
 Note the question mark here. This will return an `Err` variant if there's
 something immediately and obviously wrong with the transaction: for
@@ -223,7 +214,7 @@ that the `submit_transaction` function is synchronous.
 We could have also done the following:
 
 ```rust
-iroha_client.submit_with_metadata(create_looking_glass, Metadata::default())?;
+iroha_client.submit_with_metadata(create_looking_glass, UnlimitedMetadata::default())?;
 ```
 
 or
@@ -259,15 +250,7 @@ dictate that you should check if the requested domain exists _now_, and if
 it doesn't, suggest a fix to the user. After that, we can create a new
 account named _white_rabbit_.
 
-```rust
-let longhand_id = iroha_data_model::account::Id {
-    name: "white_rabbit".parse()?,
-    domain_name: "looking_glass".parse()?,
-};
-
-let account_id: AccountId = "white_rabbit@looking_glass".parse();
-assert_eq!(longhand_id, id);
-```
+<<< @/snippets/tutorial-snippets.rs#account_definition_comparison
 
 Second, you should provide the account with a public key. It is tempting to
 generate both it and the private key at this time, but it isn't the
