@@ -166,12 +166,12 @@ When you have a key pair, you might create a `Signer` using the key pair:
 
 <<<@/snippets/js-sdk-2-1-2-signer.ts
 
-Well, now we are able to make signatures with `signer.sign(binary)`!
+Now we're able to make signatures with `signer.sign(binary)`!
 However, to interact with Iroha, we need to be able to do more than just
 signing. We would need to send something to Iroha, like transactions or
 queries. `Torii` will help us with that.
 
-The `Torii` handles HTTP / WebSocket communications with Iroha. We will use
+`Torii` handles HTTP / WebSocket communications with Iroha. We will use
 it to communicate with Iroha endpoints. With the help of `Torii` we can:
 
 - Submit transactions with `Torii.submit()`
@@ -180,16 +180,16 @@ it to communicate with Iroha endpoints. With the help of `Torii` we can:
 - Listen for blocks stream with `Torii.listenForBlocksStream()`
 - and so on
 
-`Torii` is just a stateless object which is a compendium of methods. You
-can look at it as it is a class with only static methods. Each method has
-its own _requirements_ to be passed in &mdash; some of them need only an
+`Torii` is a stateless object, a compendium of methods. You
+can look at it as if it is a class with only static methods. Each method has
+its own _requirements_ to be passed in &mdash; some of them only need an
 HTTP transport and Iroha Torii Telemetry URL, others &mdash; a WebSocket
 transport and Iroha Torii API URL. To better understand how `Torii` is
 used, look at this example:
 
 <<<@/snippets/js-sdk-2-2-1-torii-usage-example.ts
 
-At this example, we pass `fetch` (the HTTP transport) and `apiURL` as the
+In this example, we pass `fetch` (the HTTP transport) and `apiURL` as the
 first parameter, and the query itself as the second.
 
 To work with `Torii`, we need to know Iroha Torii URLs. Our Iroha Peer is
@@ -204,11 +204,10 @@ adapters depend on the environment in which you are going to use
     no way for Iroha Client to communicate with a peer in an
     environment-agnostic way.
 
-In Node.js full `Torii` requirements[^2] will look like this:
+In Node.js, the full list of `Torii` requirements (i.e. covering all its methods) will look like this:
 
 <<<@/snippets/js-sdk-2-2-2-torii-pre-node.ts
 
-[^2]: i.e. these requirements will cover all `Torii` methods.
 
 ::: tip
 
@@ -233,7 +232,7 @@ here.
 
 :::
 
-And here is the sample of full `Torii` requirements in Browser:
+And here is a sample of full `Torii` in-Browser requirements:
 
 <<<@/snippets/js-sdk-2-2-3-torii-pre-web.ts
 
@@ -245,7 +244,7 @@ We make `fetch.bind(window)` to avoid
 :::
 
 Great! Now we have `signer` and `Torii` requirements to work with. Finally,
-we could create a `Client`:
+we can create a `Client`:
 
 <<<@/snippets/js-sdk-2-3-client.ts
 
@@ -477,7 +476,7 @@ You can use this folder structure as a reference:
 
 :::info
 
-In `client.ts`, we don't import `config.json`, but do this:
+In `client.ts`, we don't import `config.json`, but do this instead:
 
 ```ts
 import { client_config } from '../../config'
