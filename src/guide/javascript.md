@@ -476,18 +476,14 @@ You can use this folder structure as a reference:
 
 :::info
 
-In `client.ts`, we don't import `config.json`, but do this instead:
+In `client.ts`, we import the configuration file like this:
 
 ```ts
 import { client_config } from '../../config'
 ```
 
-It is a detail of how the source code of this application really works. For
-simplicity, read this line as the following:
+Note that you need to import the config in this way because this is how the source code of this application works. You can interpret this line as `import client_config from 'config.json'`.
 
-```ts
-import client_config from 'config.json'
-```
 
 :::
 
