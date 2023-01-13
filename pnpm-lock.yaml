@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@betahuhn/feedback-js': ^2.1.21
   '@types/markdown-it': ^12.2.3
   '@types/node': ^18.11.13
   '@types/yargs': ^17.0.17
@@ -35,6 +36,7 @@ specifiers:
   yargs: ^17.6.2
 
 dependencies:
+  '@betahuhn/feedback-js': 2.1.21
   '@vueuse/core': 9.6.0_vue@3.2.45
   tiny-invariant: 1.3.1
   vue: 3.2.45
@@ -1359,6 +1361,10 @@ packages:
       '@babel/helper-string-parser': 7.19.4
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
+
+  /@betahuhn/feedback-js/2.1.21:
+    resolution: {integrity: sha512-EVMgiQ2ARHuZkkutAE+Lr4xpUXTAX2s1RfCupAHuMXfTN5MIQ5eOeHp29aVJZwMyW9rZuN5zg818dWsxFZR/KQ==}
+    dev: false
 
   /@docsearch/css/3.3.0:
     resolution: {integrity: sha512-rODCdDtGyudLj+Va8b6w6Y85KE85bXRsps/R4Yjwt5vueXKXZQKYw0aA9knxLBT6a/bI/GMrAcmCR75KYOM6hg==}
