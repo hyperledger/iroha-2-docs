@@ -4,8 +4,8 @@ export interface SnippetSourceDefinition {
    *
    * Could be:
    *
-   * - File system relative path (e. g. `./file.ts`)
    * - HTTP(S) URL (e. g. `http://example.com/hack.rs`)
+   * - File system path (e. g. `./file.ts`, `src/file.ts`)
    */
   src: string
   /**

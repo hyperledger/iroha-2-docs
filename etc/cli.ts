@@ -48,7 +48,7 @@ async function processSnippet(source: SnippetSourceDefinition, options?: { force
   }
 
   const fileContent: string = await match(parsedDefinition.source)
-    .with({ type: 'fs-relative' }, async ({ path: snippetPath }) => {
+    .with({ type: 'fs' }, async ({ path: snippetPath }) => {
       spinner.start(`Reading ${chalk.green.bold(snippetPath)}`)
       const content = await fs.readFile(snippetPath, { encoding: 'utf-8' }).catch((err) => {
         spinner.fail()

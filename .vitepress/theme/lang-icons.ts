@@ -9,6 +9,8 @@ const ALIASES = {
   TypeScript: new Set(['typescript', 'ts']),
   Rust: new Set(['rust', 'rs']),
   Java: new Set(['java']),
+  Vue: new Set(['vue']),
+  Json: new Set(['json']),
 }
 
 const ALIAS_TO_ICON = new Map<string, Component | undefined>(

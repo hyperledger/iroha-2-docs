@@ -10,13 +10,12 @@ export async function isAccessible(path: string): Promise<boolean> {
     .catch(() => false)
 }
 
-export function parseSnippetSrc(src: string): ParsedSource | { type: 'error' } {
-  if (src.startsWith('./')) return { type: 'fs-relative', path: src }
+export function parseSnippetSrc(src: string): ParsedSource {
   if (/^http(s)?:\/\//.test(src)) return { type: 'hyper', url: src }
-  return { type: 'error' }
+  return { type: 'fs', path: src }
 }
 
-type ParsedSource = { type: 'fs-relative'; path: string } | { type: 'hyper'; url: string }
+type ParsedSource = { type: 'fs'; path: string } | { type: 'hyper'; url: string }
 
 interface ParsedSnippetDefinition {
   source: ParsedSource
@@ -27,18 +26,14 @@ export type ParseDefinitionResult = ({ type: 'ok' } & ParsedSnippetDefinition) |
 
 export function parseDefinition(definition: SnippetSourceDefinition): ParseDefinitionResult {
   return match(parseSnippetSrc(definition.src))
-    .with(
-      { type: 'error' },
-      (): ParseDefinitionResult => ({ type: 'error', err: new Error(`"${definition.src}" is not a valid src`) }),
-    )
-    .with({ type: P.union('fs-relative', 'hyper') }, (source): ParseDefinitionResult => {
+    .with({ type: P.union('fs', 'hyper') }, (source): ParseDefinitionResult => {
       let saveFilename: string
 
       if (definition.filename) {
         saveFilename = definition.filename
       } else {
         const uri = match(source)
-          .with({ type: 'fs-relative' }, (x) => x.path)
+          .with({ type: 'fs' }, (x) => x.path)
           .with({ type: 'hyper' }, (x) => x.url)
           .exhaustive()
 
