@@ -31,91 +31,91 @@
     "filename": "genesis.json"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/docs-recipes/src/1.client-install.ts",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/1.client-install.ts",
     "filename": "js-sdk-1-client-install.ts"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/docs-recipes/src/2.1.1.key-pair.ts",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/2.1.1.key-pair.ts",
     "filename": "js-sdk-2-1-1-key-pair.ts"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/docs-recipes/src/2.1.2.signer.ts",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/2.1.2.signer.ts",
     "filename": "js-sdk-2-1-2-signer.ts"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/docs-recipes/src/2.2.1.torii-usage-example.ts",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/2.2.1.torii-usage-example.ts",
     "filename": "js-sdk-2-2-1-torii-usage-example.ts"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/docs-recipes/src/2.2.2.torii-pre-node.ts",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/2.2.2.torii-pre-node.ts",
     "filename": "js-sdk-2-2-2-torii-pre-node.ts"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/docs-recipes/src/2.2.3.torii-pre-web.ts",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/2.2.3.torii-pre-web.ts",
     "filename": "js-sdk-2-2-3-torii-pre-web.ts"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/docs-recipes/src/2.3.client.ts",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/2.3.client.ts",
     "filename": "js-sdk-2-3-client.ts"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/docs-recipes/src/3.register-domain.ts",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/3.register-domain.ts",
     "filename": "js-sdk-3-register-domain.ts"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/docs-recipes/src/4.register-account.ts",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/4.register-account.ts",
     "filename": "js-sdk-4-register-account.ts"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/docs-recipes/src/5.1.register-asset.ts",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/5.1.register-asset.ts",
     "filename": "js-sdk-5-1-register-asset.ts"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/docs-recipes/src/5.2.mint-registered-asset.ts",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/5.2.mint-registered-asset.ts",
     "filename": "js-sdk-5-2-mint-asset.ts"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/docs-recipes/src/6.transfer-assets.ts",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/6.transfer-assets.ts",
     "filename": "js-sdk-6-transfer-assets.ts"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/docs-recipes/src/7.query-domains-accounts-assets.ts",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/7.query-domains-accounts-assets.ts",
     "filename": "js-sdk-7-querying.ts"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/client/test/integration/test-web/src/main.ts",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/client/test/integration/test-web/src/main.ts",
     "filename": "js-sdk-8-main.ts"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/client/test/integration/config/client_config.json",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/client/test/integration/config/client_config.json",
     "filename": "js-sdk-8-config.json"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/client/test/integration/test-web/src/App.vue",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/client/test/integration/test-web/src/App.vue",
     "filename": "js-sdk-8-App.vue"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/client/test/integration/test-web/src/client.ts",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/client/test/integration/test-web/src/client.ts",
     "filename": "js-sdk-8-client.ts"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/client/test/integration/test-web/src/crypto.ts",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/client/test/integration/test-web/src/crypto.ts",
     "filename": "js-sdk-8-crypto.ts"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/client/test/integration/test-web/src/components/CreateDomain.vue",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/client/test/integration/test-web/src/components/CreateDomain.vue",
     "filename": "js-sdk-8-components-CreateDomain.vue"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/client/test/integration/test-web/src/components/StatusChecker.vue",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/client/test/integration/test-web/src/components/StatusChecker.vue",
     "filename": "js-sdk-8-components-StatusChecker.vue"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/client/test/integration/test-web/src/components/EventListener.vue",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/client/test/integration/test-web/src/components/EventListener.vue",
     "filename": "js-sdk-8-components-EventListener.vue"
   },
   {
-    "src": "https://raw.githubusercontent.com/0x009922/iroha-javascript/update-snippets-for-docs/packages/docs-recipes/src/9.blocks-stream.ts",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/9.blocks-stream.ts",
     "filename": "js-sdk-9-blocks-stream.ts"
   }
 ]
