@@ -19,16 +19,8 @@
     "filename": "genesis.json"
   },
   {
-    "src": "https://raw.githubusercontent.com/hyperledger/iroha/iroha2-dev/configs/client_cli/config.json",
-    "filename": "client-cli-config.json"
-  },
-  {
-    "src": "https://raw.githubusercontent.com/hyperledger/iroha/iroha2-dev/configs/peer/config.json",
-    "filename": "peer-config.json"
-  },
-  {
-    "src": "https://raw.githubusercontent.com/hyperledger/iroha/iroha2-dev/configs/peer/genesis.json",
-    "filename": "genesis.json"
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha/iroha2-dev/client/examples/tutorial.rs",
+    "filename": "tutorial-snippets.rs"
   },
   {
     "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/1.client-install.ts",

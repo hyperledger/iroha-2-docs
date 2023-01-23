@@ -43,9 +43,10 @@ client's `Cargo.toml`:
 
 ```toml
 [dependencies]
-iroha_client = { version = "=2.0.0-pre-rc.4", path = "~/Git/iroha/client" }
-iroha_data_model = { version = "=2.0.0-pre-rc.4", path = "~/Git/iroha/data_model" }
-iroha_crypto = { version = "=2.0.0-pre-rc.4", path = "~/Git/iroha/crypto" }
+iroha_client = { version = "=2.0.0-pre-rc.11", path = "~/Git/iroha/client" }
+iroha_data_model = { version = "=2.0.0-pre-rc.11", path = "~/Git/iroha/data_model" }
+iroha_crypto = { version = "=2.0.0-pre-rc.11", path = "~/Git/iroha/crypto" }
+iroha_config = { version = "=2.0.0-pre-rc.11", path = "~/Git/iroha/config" }
 ```
 
 The added benefit of using a local copy is that you have access to the
@@ -83,19 +84,13 @@ Your application written in Rust needs to instantiate a client. The client
 typically needs specific configuration options, which you could either
 generate or load from the provided `config.json`. Let's do that now:
 
-```rust
-use iroha_client::config::Configuration as ClientConfiguration;
+<<< @/snippets/tutorial-snippets.rs#rust_config_crates
 
-let cfg: ClientConfiguration = serde_json::from_reader(file)?;
-```
+<<< @/snippets/tutorial-snippets.rs#rust_config_load
 
 Using said configuration, instantiate a client:
 
-```rust
-use iroha_client::client::Client;
-
-let iroha_client = Client::new(cfg)?;
-```
+<<< @/snippets/tutorial-snippets.rs#rust_client_create
 
 Note that it used to be necessary to create a mutable client. Sending and
 receiving messages affects the client's internal state, but now that state
@@ -126,7 +121,7 @@ let kp = KeyPair::new(
 let (public_key, private_key) = kp.clone().into();
 let account_id: AccountId = "alice@wonderland".parse()?;
 
-let cfg = ClientConfiguration {
+let config = ClientConfiguration {
     public_key,
     private_key,
     account_id,
@@ -145,21 +140,17 @@ are experiencing issues parsing the keys in this format,
 
 Registering a domain is a relatively easy operation. Most of the
 boilerplate code has to do with setting up the Iroha 2 client and
-deserialising its configuration. To register a domain, you need the domain
-name;
+deserialising its configuration. 
 
-```rust
-use iroha_data_model::prelude::*;
+<<< @/snippets/tutorial-snippets.rs#domain_register_example_crates
 
-let looking_glass: DomainId = "looking_glass".parse()?;
-```
+To register a domain, you need the domain name:
+
+<<< @/snippets/tutorial-snippets.rs#domain_register_example_create_domain
 
 Which we convert into an instruction:
 
-```rust
-
-let create_looking_glass = RegisterBox::new(Domain::new(looking_glass.clone()));
-```
+<<< @/snippets/tutorial-snippets.rs#domain_register_example_create_isi
 
 Note that we use `RegisterBox` and `IdentifiableBox`. Despite what your
 instincts as a Rust developer might suggest, we're not actually using any
@@ -173,15 +164,11 @@ on GitHub, or do that by yourself on a local fork of Iroha.
 
 The instruction is then batched into a transaction:
 
-```rust
-let tx = iroha_client.build_transaction([create_looking_glass], Metadata::default())?;
-```
+<<< @/snippets/tutorial-snippets.rs#domain_register_example_prepare_tx
 
 Which is then submitted into the pipeline:
 
-```rust
-iroha_client.submit_transaction(tx)?;
-```
+<<< @/snippets/tutorial-snippets.rs#domain_register_example_submit_tx
 
 Note the question mark here. This will return an `Err` variant if there's
 something immediately and obviously wrong with the transaction: for
@@ -192,7 +179,8 @@ that the `submit_transaction` function is synchronous.
 We could have also done the following:
 
 ```rust
-iroha_client.submit_with_metadata(create_looking_glass, Metadata::default())?;
+iroha_client
+    .submit_with_metadata(create_looking_glass, UnlimitedMetadata::default())?;
 ```
 
 or
@@ -228,15 +216,7 @@ dictate that you should check if the requested domain exists _now_, and if
 it doesn't, suggest a fix to the user. After that, we can create a new
 account named _white_rabbit_.
 
-```rust
-let longhand_id = iroha_data_model::account::Id {
-    name: "white_rabbit".parse()?,
-    domain_name: "looking_glass".parse()?,
-};
-
-let account_id: AccountId = "white_rabbit@looking_glass".parse();
-assert_eq!(longhand_id, id);
-```
+<<< @/snippets/tutorial-snippets.rs#account_definition_comparison
 
 Second, you should provide the account with a public key. It is tempting to
 generate both it and the private key at this time, but it isn't the
@@ -274,9 +254,7 @@ non-fungible, mintable or non-mintable).
 To register an asset, we first construct an
 `iroha_data_model::asset::DefinitionId` like so:
 
-```rust
-let id = AssetDefinitionId::from_str("time#looking_glass")?;
-```
+<<< @/snippets/tutorial-snippets.rs#register_asset_create_asset
 
 ::: info
 
@@ -290,10 +268,7 @@ be only one, regardless of type.
 
 Then construct an instruction:
 
-```rust
-let register_time = RegisterBox::new(AssetDefinition::fixed(id).mintable_once());
-iroha_client.submit(register_time)?;
-```
+<<< @/snippets/tutorial-snippets.rs#register_asset_init_submit
 
 This creates an asset `time` that can only be minted once and has the type
 `fixed`. `AssetDefinition::fixed` just like its other cousins (`quantity`
@@ -303,16 +278,7 @@ This asset is `mintable_once`, which means that the next time we mint it,
 we have to specify the entire amount that is going to exist for the rest of
 the existence of the blockchain.
 
-```rust
-let mint = MintBox::new(
-    Value::Fixed(12.34_f64.try_into()?),
-    IdBox::AssetId(AssetId::new(
-        id.clone(),
-        account_id.clone()
-    ))
-);
-iroha_client.submit(mint)?;
-```
+<<< @/snippets/tutorial-snippets.rs#register_asset_mint_submit
 
 Now imagine that the `white_rabbit@looking_glass` was not very keen and
 didn't notice that he wanted `123.4_f64` as the amount of time. Now white
@@ -327,14 +293,11 @@ genesis round, and belong to _alice@wonderland_. Moreover, when they were
 registered, we didn't add the restriction, so we can mint them again and
 again as _alice_:
 
-```rust
-let mint_roses = MintBox::new(
-    Value::U32(42),
-    IdBox::AssetId(AssetId::new(roses.clone(), alice.clone())),
-);
-```
+<<< @/snippets/tutorial-snippets.rs#mint_asset_mint
 
-Which we then submit as usual.
+Then submit the instruction as usual:
+
+<<< @/snippets/tutorial-snippets.rs#mint_asset_submit_tx
 
 ::: info
 
@@ -353,17 +316,13 @@ in that transaction?_
 ## 6. Burning assets
 
 Burning assets is quite similar to minting. First, you create the burn
-instruction indicating which asset to burn and its quantity. Then submit
-this instruction.
+instruction indicating which asset to burn and its quantity.
+
+<<< @/snippets/tutorial-snippets.rs#burn_asset_burn
+
+Then submit this instruction:
 
 ```rust
-let burn_roses = BurnBox::new(
-    Value::U32(10),
-    IdBox::AssetId(AssetId::new(
-        roses.clone(),
-        alice.clone()
-    ))
-);
 iroha_client.submit(burn_roses)?;
 ```
 
