@@ -36,6 +36,10 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
           link: '/guide/build-and-install',
         },
         {
+          text: 'Receive support',
+          link: '/guide/support.md',
+        },
+        {
           text: 'Glossary',
           link: '/guide/glossary.md',
         },
