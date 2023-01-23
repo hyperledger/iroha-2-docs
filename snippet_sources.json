@@ -19,7 +19,7 @@
     "filename": "genesis.json"
   },
   {
-    "src": "https://raw.githubusercontent.com/outoftardis/iroha/doc-update-snippets-tutorial/client/examples/tutorial.rs",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha/iroha2-dev/client/examples/tutorial.rs",
     "filename": "tutorial-snippets.rs"
   },
   {
