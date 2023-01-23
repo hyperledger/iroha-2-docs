@@ -1,7 +1,7 @@
 # Receive support
 
 From time to time, you may have questions about Iroha that you would like to discuss in detail with others.
-There are three ways to quickly get in touch with our community: Telegram, Discord and GitHub.
+There are three ways to quickly get in touch with our community: Telegram, Discord, and GitHub.
 
 A large part of the community currently uses [Telegram](https://t.me/hyperledgeriroha) for communication.
 The Hyperledger part of the team prefers [Discord](https://discord.gg/hyperledger), with two dedicated channels: `iroha` and `iroha-2-contributors`.
