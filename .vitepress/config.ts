@@ -1,23 +1,12 @@
 /// <reference types="vite/client" />
 
-import { defineConfig, UserConfig, DefaultTheme } from 'vitepress'
+import { defineConfig, DefaultTheme } from 'vitepress'
 import Windi from 'vite-plugin-windicss'
 import footnote from 'markdown-it-footnote'
-import customHighlight from './plugins/highlight'
 import { resolve } from 'path'
 import { VitePWA } from 'vite-plugin-pwa'
 import svgLoader from 'vite-svg-loader'
 import { codeGroupPlugin } from './plugins/code-group'
-
-async function themeConfig() {
-  const cfg: UserConfig = {
-    markdown: {
-      highlight: await customHighlight(),
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } as any,
-  }
-  return cfg
-}
 
 function getNav(): DefaultTheme.NavItem[] {
   return [
@@ -45,6 +34,10 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
         {
           text: 'Build and Install',
           link: '/guide/build-and-install',
+        },
+        {
+          text: 'Receive support',
+          link: '/guide/support.md',
         },
         {
           text: 'Glossary',
@@ -285,7 +278,6 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
 const BASE = process.env.PUBLIC_PATH ?? '/'
 
 export default defineConfig({
-  extends: themeConfig,
   base: BASE,
   srcDir: 'src',
   title: 'Hyperledger Iroha 2 Tutorial',
@@ -332,6 +324,7 @@ export default defineConfig({
       md.use(footnote)
       md.use(codeGroupPlugin)
     },
+    theme: 'github-dark-dimmed',
   },
 
   themeConfig: {

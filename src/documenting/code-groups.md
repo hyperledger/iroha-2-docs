@@ -74,8 +74,7 @@ It is lower-level but might be used for advanced cases.
 ````md
 <CodeGroup :blocks="2" :langs="{ 1: 'rs' }">
 
-<template #block-0-title>
-  <span class="line-through">Lorem</span> ipsum
+<template #block-0-title> <span class="line-through">Lorem</span> ipsum
 </template>
 
 <template #block-0>
@@ -101,8 +100,7 @@ struct New;
 
 <CodeGroup :blocks="2" :langs="{ 1: 'rs' }">
 
-<template #block-0-title>
-  <span class="line-through">Lorem</span> ipsum
+<template #block-0-title> <span class="line-through">Lorem</span> ipsum
 </template>
 
 <template #block-0>
@@ -130,11 +128,9 @@ HTML syntax might be combined with `:::code-group` as well:
 ````md
 :::code-group
 
-<template #block-0-title>
-  <span class="text-red-400">How</span>
-  <span class="text-green-400"> are </span>
-  <span class="text-blue-400">you?</span>
-</template>
+<template #block-0-title> <span class="text-red-400">How</span>
+<span class="text-green-400"> are </span>
+<span class="text-blue-400">you?</span> </template>
 
 ```elixir
 case mood do
@@ -150,11 +146,9 @@ end
 
 :::code-group
 
-<template #block-0-title>
-  <span class="text-red-400">How</span>
-  <span class="text-green-400"> are </span>
-  <span class="text-blue-400">you?</span>
-</template>
+<template #block-0-title> <span class="text-red-400">How</span>
+<span class="text-green-400"> are </span>
+<span class="text-blue-400">you?</span> </template>
 
 ```elixir
 case mood do

@@ -1,25 +1,30 @@
 # Iroha 2 Documentation
 
-Iroha is a fully-featured [blockchain ledger](guide/glossary.md#blockchain-ledgers). With Iroha you can:
+Iroha is a fully-featured
+[blockchain ledger](guide/glossary.md#blockchain-ledgers). With Iroha you
+can:
 
-- Create and manage custom [fungible assets](guide/glossary.md#fungible-assets), such as currencies, gold, and
-  others
-- Create and manage [non-fungible](guide/glossary.md#non-fungible-assets) assets
+- Create and manage custom
+  [fungible assets](guide/glossary.md#fungible-assets), such as currencies,
+  gold, and others
+- Create and manage [non-fungible](guide/glossary.md#non-fungible-assets)
+  assets
 - Manage user accounts with a domain hierarchy and multi-signature
   transactions
-- Use efficient portable smart contracts implemented either via [WebAssembly](guide/blockchain/wasm.md)
-  or [Iroha Special Instructions](guide/blockchain/instructions.md)
+- Use efficient portable smart contracts implemented either via
+  [WebAssembly](guide/blockchain/wasm.md) or
+  [Iroha Special Instructions](guide/blockchain/instructions.md)
 - Use both permissioned and permission-less blockchain deployments
 
 ## How Iroha works
 
 To understand how Iroha operates, let's draw parallels between a blockchain
 and a computer. If the blockchain is the computer, then in this metaphor of
-ours the client binary (for example: [`iroha_client_cli`](guide/bash.md)) is the keyboard,
-the blockchain is the hard drive, and the Iroha peer software is the
-processor. Like a processor, Iroha accepts portable instructions that
-modify what's written to the blockchain, allow certain users to use the
-network, and lock others out.
+ours the client binary (for example: [`iroha_client_cli`](guide/bash.md))
+is the keyboard, the blockchain is the hard drive, and the Iroha peer
+software is the processor. Like a processor, Iroha accepts portable
+instructions that modify what's written to the blockchain, allow certain
+users to use the network, and lock others out.
 
 Any operation that is run on-chain is written in terms of
 [Iroha Special Instructions (ISI)](guide/blockchain/instructions.md), and
@@ -43,13 +48,15 @@ no trace in the blockchain.
 ## Navigation
 
 If you have previously worked with Iroha, start with our comparison of
-[Iroha 1 and Iroha 2](guide/iroha-2.md). That will help you understand
-the differences between the two versions and upgrade to the newer one.
+[Iroha 1 and Iroha 2](guide/iroha-2.md). That will help you understand the
+differences between the two versions and upgrade to the newer one.
 
 Check the [tutorial](guide/intro.md) part of this documentation where you
-can follow one of the available language-specific guides in [Bash](guide/bash.md), [Rust](guide/rust.md),
-[Kotlin](guide/kotlin-java.md), [Javascript](guide/javascript.md), or [Python](guide/python.md). The guides introduce you to the basic
-concepts and provide code snippets that you can run yourself.
+can follow one of the available language-specific guides in
+[Bash](guide/bash.md), [Rust](guide/rust.md),
+[Kotlin](guide/kotlin-java.md), [Javascript](guide/javascript.md), or
+[Python](guide/python.md). The guides introduce you to the basic concepts
+and provide code snippets that you can run yourself.
 
 In the Blockchain chapter you can find documentation for Iroha features,
 such as [Iroha Special Instructions](guide/blockchain/instructions.md),
