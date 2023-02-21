@@ -22,8 +22,8 @@
 
    ![Untitled](/img/install-cli.png)
 
-4. Follow [Bash tutorial](./bash.md) to check out Iroha capabilities.
-5. When you're done with test network, just hit `Control + C` to stop the
+4. Follow the [Bash tutorial](./bash.md) to check out Iroha's capabilities.
+5. When you're done with the test network, just hit `Control + C` to stop the
    containers (`^ + C` on Mac).
 
 ## Docker Options
@@ -38,7 +38,7 @@ You might also be interested in other options for local compilation:
 
 ::: info
 
-Please note that there is an ongoing work to make our configurations for
+Please note that there is ongoing work to make our configurations for
 Docker even more customizable with the help of Swarm.
 
 <!-- Check: a reference about future releases or work in progress -->

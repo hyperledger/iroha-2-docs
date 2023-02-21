@@ -1,7 +1,7 @@
 # Build Iroha 2 Client
 
-After you [installed Iroha](./install.md) from GitHub, follow these
-instructions to build Iroha 2 client:
+After you have [installed Iroha](./install.md) from GitHub, follow these
+instructions to build the Iroha 2 client:
 
 1. [Install the Rust Toolchain](#install-the-rust-toolchain)
 2. [Build Iroha 2 Client](#build-iroha-client)
@@ -17,10 +17,10 @@ You need
     (2021 edition), please consult the
     [troubleshooting](#troubleshooting-rust-toolchain) section.
 
-The installation of Rust Toolchain is normally a straightforward process,
+Installing the Rust Toolchain is normally a straightforward process,
 but we've added
 [troubleshooting](./troubleshooting/installation-issues.md#troubleshooting-rust-toolchain)
-details for each stage in case you experience issues with the installation
+details for each stage, in case you experience issues with the installation
 process.
 
 The easiest way to get the official `rustup` script is to run:
@@ -39,12 +39,12 @@ directly, without `rustup`.
 
 :::
 
-If you go with the one-line `curl` script, you will be guided through the
+If you chose to use the one-line `curl` script, you will be guided through the
 setup process. Just go with the defaults.
 
 ## Build Iroha Client
 
-1. Navigate to the directory containing Iroha repository. If you followed
+1. Navigate to the directory containing the Iroha repository. If you followed
    the installation instructions
    [here](./install.md#install-iroha-from-github), run:
 
@@ -64,7 +64,7 @@ setup process. Just go with the defaults.
 
    We take pride in the fact that Iroha is extremely quick to compile. For
    reference, compiling hyperledger/substrate takes a good part of ten
-   minutes on a modern M1 machine. Iroha, for comparison, compiles in
+   minutes on a modern M1 machine. Iroha, in comparison, compiles in
    around one minute.
 
    :::

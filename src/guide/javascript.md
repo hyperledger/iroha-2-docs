@@ -167,7 +167,7 @@ When you have a key pair, you might create a `Signer` using the key pair:
 <<<@/snippets/js-sdk-2-1-2-signer.ts
 
 Now we're able to make signatures with `signer.sign(binary)`! However, to
-interact with Iroha, we need to be able to do more than just signing. We
+interact with Iroha, we need to be able to do more than just sign. We
 would need to send something to Iroha, like transactions or queries.
 `Torii` will help us with that.
 

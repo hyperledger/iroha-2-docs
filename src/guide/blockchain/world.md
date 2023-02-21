@@ -1,7 +1,7 @@
 # World
 
 `World` is the global entity that contains other entities. The `World`
-consist of:
+consists of:
 
 - Iroha [configuration parameters](./../configure/client-configuration.md)
 - the list of

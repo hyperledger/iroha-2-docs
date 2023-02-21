@@ -2,7 +2,7 @@
 
 To install Iroha, follow these instructions:
 
-1. [Choose Iroha 2 version to work with](#choose-version)
+1. [Choose the Iroha 2 version to work with](#choose-version)
 2. [Install prerequisites](#install-prerequisites)
 3. [Install Iroha from GitHub](#install-iroha-from-github)
 
@@ -14,7 +14,7 @@ You can choose to work with one of the following versions of Iroha: `dev`,
 | Version         | Description                                                                                                                                                                                                                                                                                                                |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `iroha2-dev`    | This is the latest state of Iroha and it is **not meant to be used in production**. This is an intermediate, untested, potentially broken state, and therefore we cannot guarantee that it is usable or stable.                                                                                                            |
-| `iroha2-stable` | This is the latest released version of Iroha. Stable versions are tested and released in accordance with our release schedule (once a month). You can use the stable version in production, and we will offer you tech support.                                                                                            |
+| `iroha2-stable` | This is the latest released version of Iroha. Stable versions are tested and released once a month, in accordance with our release schedule. You can use the stable version in production, and we will offer you tech support.                                                                                            |
 | `iroha2-lts`    | This is the long-term supported version. We guarantee its compatibility with SDKs, toolsets, and block stores released when it came out. We **recommend using the LTS version in production** since it is the version that will not change much over time. Similarly to the stable version, we offer tech support for LTS. |
 
 ## Install Prerequisites
@@ -42,7 +42,7 @@ already available to you.
   ```
 
 Check
-[OpenSSL installation guide](https://github.com/openssl/openssl/blob/master/INSTALL.md)
+the [OpenSSL installation guide](https://github.com/openssl/openssl/blob/master/INSTALL.md)
 for details.
 
 ## Install Iroha from GitHub

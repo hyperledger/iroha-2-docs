@@ -1,6 +1,6 @@
 # Naming Conventions
 
-When you names accounts, domains, or assets, you have to keep in mind the
+When you are naming accounts, domains, or assets, you have to keep in mind the
 following conventions used in Iroha 2:
 
 1. There is a number of reserved characters that are used for specific

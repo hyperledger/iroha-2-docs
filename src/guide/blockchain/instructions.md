@@ -178,7 +178,7 @@ blockchain is a rather advanced topic that we shall cover separately.
 
 ## `NewParameter`/`SetParameter`
 
-With these instructions you can create (`NewParameter`) amd change
+With these instructions, you can create (`NewParameter`) and change
 (`SetParameter`) chain-wide
 [configuration parameters](./../configure/client-configuration.md) for
 Iroha.

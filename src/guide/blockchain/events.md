@@ -15,7 +15,7 @@ Pipeline events are emitted when transactions are submitted, executed, or
 committed to a block. A pipeline event contains the following information:
 the kind of entity that caused an event (transaction or block), its hash
 and status. The status can be either `Validating` (validation in progress),
-`Rejected`, or `Committed`. If an entity was rejected, the rejection reason
+`Rejected`, or `Committed`. If an entity was rejected, the reason for the rejection
 is provided.
 
 ## Data Events
