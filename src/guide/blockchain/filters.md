@@ -1,7 +1,7 @@
 # Filters
 
-Iroha uses _filter-map paradigm_ to monitor events. Let's look at different
-types of filters that can be used in Iroha.
+Iroha uses _filter-map paradigm_ to monitor [events](./events.md). Let's
+look at different types of filters that can be used in Iroha.
 
 ## Data Filters
 

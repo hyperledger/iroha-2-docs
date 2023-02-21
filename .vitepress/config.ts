@@ -33,7 +33,20 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
         },
         {
           text: 'Build and Install',
-          link: '/guide/build-and-install',
+          items: [
+            {
+              text: 'Quick Start with Docker',
+              link: '/guide/quick-start',
+            },
+            {
+              text: 'Install Iroha',
+              link: '/guide/install',
+            },
+            {
+              text: 'Build Iroha Client',
+              link: '/guide/build',
+            },
+          ],
         },
         {
           text: 'Receive support',
@@ -98,6 +111,10 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
               text: 'Data Model',
               link: '/guide/blockchain/data-model',
             },
+            {
+              text: 'Naming Conventions',
+              link: '/guide/blockchain/naming.md',
+            },
           ],
         },
         {
@@ -120,6 +137,10 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
             {
               text: 'Metadata',
               link: '/guide/blockchain/metadata',
+            },
+            {
+              text: 'Events',
+              link: '/guide/blockchain/events',
             },
             {
               text: 'Filters',

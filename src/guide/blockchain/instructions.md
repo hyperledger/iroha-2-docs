@@ -13,6 +13,7 @@ Here is the full list of Iroha Special Instructions:
 | [Register/Unregister](#un-register)                       | Give an ID to a new entity on the blockchain.     |
 | [Mint/Burn](#mint-burn)                                   | Mint/burn assets, triggers, or permission tokens. |
 | [SetKeyValue/RemoveKeyValue](#setkeyvalue-removekeyvalue) | Update blockchain object metadata.                |
+| [NewParameter/SetParameter](#newparameter-setparameter)   | Create/set a chain-wide config parameter.         |
 | [Grant/Revoke](#grant-revoke)                             | Give or remove certain permissions from accounts. |
 | [Transfer](#transfer)                                     | Transfer assets between accounts.                 |
 | [ExecuteTrigger](#executetrigger)                         | Execute triggers.                                 |
@@ -44,6 +45,7 @@ all you need is the object that you want to register.
 | [Register/Unregister](#un-register)                       | accounts, domains, asset definitions, triggers, roles, peers                                                          |             |
 | [Mint/Burn](#mint-burn)                                   | assets, triggers (trigger repetitions), permission tokens                                                             | accounts    |
 | [SetKeyValue/RemoveKeyValue](#setkeyvalue-removekeyvalue) | any objects that have [metadata](./metadata.md): accounts, domains, assets, asset definitions, triggers, transactions |             |
+| [NewParameter/SetParameter](#newparameter-setparameter)   | Iroha configuration parameters                                                                                        |             |
 | [Grant/Revoke](#grant-revoke)                             | [roles, permission tokens](/guide/blockchain/permissions.md)                                                          | accounts    |
 | [Transfer](#transfer)                                     | assets                                                                                                                | accounts    |
 | [ExecuteTrigger](#executetrigger)                         | triggers                                                                                                              |             |
@@ -77,7 +79,8 @@ rule, everything that can be registered, can also be un-registered, but
 that is not a hard and fast rule.
 
 You can register domains, accounts, asset definitions, peers, roles, and
-triggers.
+triggers. Check our [naming conventions](./naming.md) to learn about the
+restrictions put on entity names.
 
 ::: info
 
@@ -172,6 +175,13 @@ These instructions are used with the key/value
 [`Store` asset type](/guide/blockchain/metadata.md#store-asset). This use
 case has not received much attention so far, because storing data in the
 blockchain is a rather advanced topic that we shall cover separately.
+
+## `NewParameter`/`SetParameter`
+
+With these instructions you can create (`NewParameter`) amd change
+(`SetParameter`) chain-wide
+[configuration parameters](./../configure/client-configuration.md) for
+Iroha.
 
 ## `ExecuteTrigger`
 

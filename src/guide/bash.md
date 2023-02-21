@@ -113,9 +113,7 @@ directory:
 cp ./target/debug/iroha_client_cli test_docker/
 ```
 
-Make sure you
-[bring up the test network](build-and-install.md#bring-up-a-minimal-network)
-as well.
+Make sure you [bring up the test network](./quick-start.md) as well.
 
 ## 2. Configuring Iroha 2
 
