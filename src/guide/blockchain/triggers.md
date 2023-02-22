@@ -2,7 +2,7 @@
 
 Certain things, such as changing the state of an entity, committing a block
 or [executing an Iroha Special Instruction (ISI)](#supported-isi), can emit
-events, and you can attach _triggers_ to these events.
+[events](./events.md), and you can attach _triggers_ to these events.
 
 A _trigger_ is a fairly basic entity that can be registered. Just like with
 Accounts, to register a trigger, you submit a `RegisterBox::Trigger`, which
@@ -134,7 +134,7 @@ that determine how this trigger works: its scope and repetition schema.
 Triggers can be scoped and un-scoped. Iroha supports both un-scoped
 system-wide triggers as well as
 [domain-scoped triggers](#domain-scoped-triggers). Since system-wide
-triggers scan all events, and domain-scoped triggers only scane events
+triggers scan all events, and domain-scoped triggers only scan events
 emitted in a certain domain, it is highly recommended to use domain-scoped
 triggers where possible.
 
@@ -195,9 +195,9 @@ in turn, is determined by the `filter` used to register a trigger.
 
 This category includes the largest variety of triggers. The events that are
 associated with this trigger type account for the vast majority of events
-in Ethereum. These are data-related events, such as: an account got
-registered, an asset got transferred, the Queen of Hearts decided to burn
-all of her assets.
+in Ethereum. These are [data-related events](./events.md#data-events), such
+as: an account got registered, an asset got transferred, the Queen of
+Hearts decided to burn all of her assets.
 
 ### Time Triggers
 

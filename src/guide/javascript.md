@@ -166,13 +166,13 @@ When you have a key pair, you might create a `Signer` using the key pair:
 
 <<<@/snippets/js-sdk-2-1-2-signer.ts
 
-Now we're able to make signatures with `signer.sign(binary)`!
-However, to interact with Iroha, we need to be able to do more than just
-signing. We would need to send something to Iroha, like transactions or
-queries. `Torii` will help us with that.
+Now we're able to make signatures with `signer.sign(binary)`! However, to
+interact with Iroha, we need to be able to do more than just sign. We
+would need to send something to Iroha, like transactions or queries.
+`Torii` will help us with that.
 
-`Torii` handles HTTP / WebSocket communications with Iroha. We will use
-it to communicate with Iroha endpoints. With the help of `Torii` we can:
+`Torii` handles HTTP / WebSocket communications with Iroha. We will use it
+to communicate with Iroha endpoints. With the help of `Torii` we can:
 
 - Submit transactions with `Torii.submit()`
 - Send queries with `Torii.request()`
@@ -180,10 +180,10 @@ it to communicate with Iroha endpoints. With the help of `Torii` we can:
 - Listen for blocks stream with `Torii.listenForBlocksStream()`
 - and so on
 
-`Torii` is a stateless object, a compendium of methods. You
-can look at it as if it is a class with only static methods. Each method has
-its own _requirements_ to be passed in &mdash; some of them only need an
-HTTP transport and Iroha Torii Telemetry URL, others &mdash; a WebSocket
+`Torii` is a stateless object, a compendium of methods. You can look at it
+as if it is a class with only static methods. Each method has its own
+_requirements_ to be passed in &mdash; some of them only need an HTTP
+transport and Iroha Torii Telemetry URL, others &mdash; a WebSocket
 transport and Iroha Torii API URL. To better understand how `Torii` is
 used, look at this example:
 
@@ -204,10 +204,10 @@ adapters depend on the environment in which you are going to use
     no way for Iroha Client to communicate with a peer in an
     environment-agnostic way.
 
-In Node.js, the full list of `Torii` requirements (i.e. covering all its methods) will look like this:
+In Node.js, the full list of `Torii` requirements (i.e. covering all its
+methods) will look like this:
 
 <<<@/snippets/js-sdk-2-2-2-torii-pre-node.ts
-
 
 ::: tip
 
@@ -482,8 +482,9 @@ In `client.ts`, we import the configuration file like this:
 import { client_config } from '../../config'
 ```
 
-Note that you need to import the config in this way because this is how the source code of this application works. You can interpret this line as `import client_config from 'config.json'`.
-
+Note that you need to import the config in this way because this is how the
+source code of this application works. You can interpret this line as
+`import client_config from 'config.json'`.
 
 :::
 

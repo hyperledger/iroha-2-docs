@@ -38,8 +38,8 @@ number of dependencies to start your own client, similar to
 Once the initial `v2.0.0` release is complete, we plan to create a package
 on [crates.io](https://crates.io/) with all the documentation. In the
 meantime, you could use the local copy that you've just created in the
-[previous step](/guide/build-and-install) as a local installation in your
-client's `Cargo.toml`:
+[previous step](/guide/build) as a local installation in your client's
+`Cargo.toml`:
 
 ```toml
 [dependencies]
@@ -140,7 +140,7 @@ are experiencing issues parsing the keys in this format,
 
 Registering a domain is a relatively easy operation. Most of the
 boilerplate code has to do with setting up the Iroha 2 client and
-deserialising its configuration. 
+deserialising its configuration.
 
 <<< @/snippets/tutorial-snippets.rs#domain_register_example_crates
 
