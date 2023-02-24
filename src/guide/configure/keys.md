@@ -22,7 +22,7 @@ verify that the person who wrote that message used your private key.
 
 ## Key Generation with Kagami
 
-You can use one of Iroha tools, `kagami`, to generate key pairs. To create
+You can use one of Iroha's tools, `kagami`, to generate key pairs. To create
 a new key pair, run:
 
 ```bash
