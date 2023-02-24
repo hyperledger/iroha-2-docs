@@ -23,8 +23,8 @@
    ![Untitled](/img/install-cli.png)
 
 4. Follow the [Bash tutorial](./bash.md) to check out Iroha's capabilities.
-5. When you're done with the test network, just hit `Control + C` to stop the
-   containers (`^ + C` on Mac).
+5. When you're done with the test network, just hit `Control + C` to stop
+   the containers (`^ + C` on Mac).
 
 ## Docker Options
 
