@@ -48,7 +48,7 @@ Digest function: secp256k1
 ::: details Working with Kagami
 
 Since there is currently no `kagami` package available, if you want to copy
-the program somewhere convenient e.g. `/bin` for system-wide use you need
+the program somewhere convenient e.g. `/bin` for system-wide use, you need
 to build it first:
 
 ```bash
