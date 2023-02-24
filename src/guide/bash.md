@@ -284,7 +284,7 @@ domain, run:
 The `--id` argument in the above code snippet specifies the _account id_,
 the unique name assigned to that account in the blockchain. This name
 includes the _domain_, which is a group of things like asset definitions,
-account ids and other objects that we'll talk about later. The `--key`
+account ids, and other objects that we'll talk about later. The `--key`
 argument specifies the public key, which is the one we generated above
 using `kagami`.
 
