@@ -21,29 +21,29 @@ Let's create a separate folder for Iroha Python and clone its GitHub
 repository into it:
 
 ```bash
-cd ~/Git/
-git clone https://github.com/hyperledger/iroha-python/ --branch iroha2
-cd iroha-python
+$ cd ~/Git/
+$ git clone https://github.com/hyperledger/iroha-python/ --branch iroha2
+$ cd iroha-python
 ```
 
 Iroha Python is written in Rust using the PyO3 library. Thus, unlike most
 Python packages, you must build it first:
 
 ```bash
-pip install maturin
-maturin build
+$ pip install maturin
+$ maturin build
 ```
 
 After the build is complete, install it into your system:
 
 ```bash
-pip install ./target/wheels/iroha_python-*.whl
+$ pip install ./target/wheels/iroha_python-*.whl
 ```
 
 Finally, you will need a working client configuration:
 
 ```bash
-cp -vfr ~/Git/iroha/configs/client_cli/config.json example/config.json
+$ cp -vfr ~/Git/iroha/configs/client_cli/config.json example/config.json
 ```
 
 ::: tip

@@ -13,7 +13,7 @@ Let's look at the client configuration options.
 You can use `kagami` to generate the default client configuration:
 
 ```bash
-kagami config client > client-config.json
+$ kagami config client > client-config.json
 ```
 
 ## Public and Private Keys

@@ -71,16 +71,16 @@ There are different ways to do this. You can copy the contents of the
 run all commands from that directory:
 
 ```bash
-cd ~/Git/iroha/configs/peer
+$ cd ~/Git/iroha/configs/peer
 ```
 
 The third option is to specify the full path to the configuration file in
 an environment variable. For simplicity, we shall do the latter:
 
 ```bash
-cd ~
-export IROHA2_GENESIS_PATH="$(pwd)/Git/iroha/configs/peer/genesis.json"
-export IROHA2_CONFIG_PATH="$(pwd)/Git/iroha/configs/peer/config.json"
+$ cd ~
+$ export IROHA2_GENESIS_PATH="$(pwd)/Git/iroha/configs/peer/genesis.json"
+$ export IROHA2_CONFIG_PATH="$(pwd)/Git/iroha/configs/peer/config.json"
 ```
 
 For extra convenience, you could add the Iroha 2 `target` directory to your
@@ -89,7 +89,7 @@ executable `iroha`, you can instead type `iroha` directly into your command
 line.
 
 ```bash
-export PATH="$PATH:$(pwd)/Git/iroha/target/debug"
+$ export PATH="$PATH:$(pwd)/Git/iroha/target/debug"
 ```
 
 ::: tip
@@ -116,9 +116,9 @@ Copy these instructions to the specified files (replace `debug` with
 `release` when you are ready to deploy):
 
 ```bash
-export IROHA2_GENESIS_PATH="$(pwd)/Git/iroha/configs/peer/genesis.json"
-export IROHA2_CONFIG_PATH="$(pwd)/Git/iroha/configs/peer/config.json"
-export PATH="$PATH:$(pwd)/Git/iroha/target/debug"
+$ export IROHA2_GENESIS_PATH="$(pwd)/Git/iroha/configs/peer/genesis.json"
+$ export IROHA2_CONFIG_PATH="$(pwd)/Git/iroha/configs/peer/config.json"
+$ export PATH="$PATH:$(pwd)/Git/iroha/target/debug"
 ```
 
 :::
@@ -154,19 +154,19 @@ This is the recommended method of bringing up an Iroha peer. What we do is:
 1. Create a new directory for the configuration files:
 
    ```bash
-   mkdir -p ~/Git/iroha/deploy
+   $ mkdir -p ~/Git/iroha/deploy
    ```
 
 2. Copy the `peer` configuration into it:
 
    ```bash
-   cp -vfr ~/Git/iroha/configs/peer/*.json ~/Git/iroha/deploy
+   $ cp -vfr ~/Git/iroha/configs/peer/*.json ~/Git/iroha/deploy
    ```
 
 3. Copy the respective Iroha binary into your binary folder:
 
    ```bash
-   sudo cp -vfr ~/Git/iroha/target/debug/iroha /usr/bin/
+   $ sudo cp -vfr ~/Git/iroha/target/debug/iroha /usr/bin/
    ```
 
    which will install Iroha 2 system wide.
@@ -184,7 +184,7 @@ so: `./iroha` instead of `iroha`.
 If you’ve done everything correctly, you can now do
 
 ```bash
-iroha
+$ iroha
 ```
 
 to start your first peer and be greeted with
@@ -362,11 +362,11 @@ experience of actually maintaining a functional Iroha peer.
 To run the First peer, we need to write
 
 ```bash
-TORII_P2P_ADDR="127.0.0.1:1337"
-TORII_API_URL="127.0.0.1:8080"
-TORII_STATUS_URL="127.0.0.1:8180"
-IROHA_PUBLIC_KEY="ed01207233bfc89dcbd68c19fde6ce6158225298ec1131b6a130d1aeb454c1ab5183c0" IROHA_PRIVATE_KEY='{"digest_function": "ed25519", "payload": "9ac47abf59b356e0bd7dcbbbb4dec080e302156a48ca907e47cb6aea1d32719e7233bfc89dcbd68c19fde6ce6158225298ec1131b6a130d1aeb454c1ab5183c0"}'
-iroha --submit
+$ TORII_P2P_ADDR="127.0.0.1:1337"
+$ TORII_API_URL="127.0.0.1:8080"
+$ TORII_STATUS_URL="127.0.0.1:8180"
+$ IROHA_PUBLIC_KEY="ed01207233bfc89dcbd68c19fde6ce6158225298ec1131b6a130d1aeb454c1ab5183c0" IROHA_PRIVATE_KEY='{"digest_function": "ed25519", "payload": "9ac47abf59b356e0bd7dcbbbb4dec080e302156a48ca907e47cb6aea1d32719e7233bfc89dcbd68c19fde6ce6158225298ec1131b6a130d1aeb454c1ab5183c0"}'
+$ iroha --submit
 ```
 
 and three other similar lines of bash code for the remaining deployments.
@@ -404,13 +404,13 @@ right public key.
 Then, in each of the new folders (with the exception of `peer0`) run:
 
 ```bash
-iroha
+$ iroha
 ```
 
 In the first folder `peer0` you should run:
 
 ```bash
-iroha --submit-genesis
+$ iroha --submit-genesis
 ```
 
 We effectively asked this peer to `--submit` or `--submit-genesis` in the
@@ -439,13 +439,13 @@ Iroha in the real world.
 1.  Build Iroha in release mode:
 
     ```bash
-    cargo build --release
+    $ cargo build --release
     ```
 
 2.  Generate a key pair for your peer and take note of that key:
 
     ```bash
-    cargo run --bin iroha_crypto_cli
+    $ cargo run --bin iroha_crypto_cli
     ```
 
 3.  Register your peer to a network, and make sure to add at least four of
@@ -462,7 +462,7 @@ Iroha in the real world.
     running
 
     ```bash
-    ~/Git/iroha/target/release/iroha
+    $ ~/Git/iroha/target/release/iroha
     ```
 
 ::: info Note

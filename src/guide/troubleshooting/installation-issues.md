@@ -27,22 +27,22 @@ have the right version of `cargo` paired with the right version of `rustc`
 (1.57 and 1.57) respectively. To show the versions, do
 
 ```bash
-cargo -V
-cargo 1.60.0 (d1fd9fe 2022-03-01)
+$ cargo -V
+$ cargo 1.60.0 (d1fd9fe 2022-03-01)
 ```
 
 and then
 
 ```bash
-rustc --version
-rustc 1.60.0 (7737e0b5c 2022-04-04)
+$ rustc --version
+$ rustc 1.60.0 (7737e0b5c 2022-04-04)
 ```
 
 If you have higher versions, you're fine. If you have lower versions, you
 can run the following command to update it:
 
 ```bash
-rustup toolchain update stable
+$ rustup toolchain update stable
 ```
 
 ### Check installation location
@@ -55,8 +55,8 @@ Firstly, you should establish where the version that you want to use is
 installed:
 
 ```bash
-rustup which rustc
-rustup which cargo
+$ rustup which rustc
+$ rustup which cargo
 ```
 
 User installations of the toolchains are _usually_ in
@@ -64,7 +64,7 @@ User installations of the toolchains are _usually_ in
 able to run
 
 ```bash
-rustup toolchain update stable
+$ rustup toolchain update stable
 ```
 
 and that should fix your problems.
@@ -75,7 +75,7 @@ Another option is that you have the up-to-date `stable` toolchain, but it
 is not set as the default. Run:
 
 ```bash
-rustup default stable
+$ rustup default stable
 ```
 
 This can happen if you installed a `nightly` version, or set a specific
@@ -87,8 +87,8 @@ Continuing down the troubleshooting rabbit-hole, we could have shell
 aliases:
 
 ```bash
-type rustc
-type cargo
+$ type rustc
+$ type cargo
 ```
 
 If these point to locations other than the one you saw when running
@@ -96,8 +96,8 @@ If these point to locations other than the one you saw when running
 just
 
 ```bash
-alias rustc "~/.rustup/toolchains/stable-*/bin/rustc"
-alias cargo "~/.rustup/toolchains/stable-*/bin/cargo"
+$ alias rustc "~/.rustup/toolchains/stable-*/bin/rustc"
+$ alias cargo "~/.rustup/toolchains/stable-*/bin/cargo"
 ```
 
 because there is an internal logic that could break, regardless of how you
@@ -113,24 +113,24 @@ beginning of this tutorial. For the former, consult your (Linux)
 distribution’s manual, (`apt remove rust`). For the latter, run:
 
 ```bash
-rustup toolchain list
+$ rustup toolchain list
 ```
 
 And then, for every `<toolchain>` (without the angle brackets of course):
 
 ```bash
-rustup remove <toolchain>
+$ rustup remove <toolchain>
 ```
 
 After that, make sure that
 
 ```bash
-cargo --help
+$ cargo --help
 ```
 
 results in a command-not-found error, i.e. that you have no active Rust
 toolchain installed. Then, run:
 
 ```bash
-rustup toolchain install stable
+$ rustup toolchain install stable
 ```

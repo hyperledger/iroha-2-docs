@@ -20,7 +20,7 @@ After that, use the IP address to access the data from the running Iroha
 instance. For example:
 
 ```bash
-curl http://127.0.0.1:8080/metrics
+$ curl http://127.0.0.1:8080/metrics
 ```
 
 This will give you a result like this:
