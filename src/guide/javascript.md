@@ -379,19 +379,13 @@ TODO
 
 <<<@/snippets/js-sdk-7-querying.ts#intro
 
-:::code-group
+::: code-group
 
-##### Domains
+<<<@/snippets/js-sdk-7-querying.ts#domains [Domains]
 
-<<<@/snippets/js-sdk-7-querying.ts#domains
+<<<@/snippets/js-sdk-7-querying.ts#accounts [Accounts]
 
-##### Accounts
-
-<<<@/snippets/js-sdk-7-querying.ts#accounts
-
-##### Assets
-
-<<<@/snippets/js-sdk-7-querying.ts#assets
+<<<@/snippets/js-sdk-7-querying.ts#assets [Assets]
 
 :::
 
@@ -438,39 +432,23 @@ You can use this folder structure as a reference:
 ╰───┴──────────────────────────────╯
 ```
 
-:::code-group
+::: code-group
 
-### config.json
+<<<@/snippets/js-sdk-8-config.json [config.json]
 
-<<<@/snippets/js-sdk-8-config.json
+<<<@/snippets/js-sdk-8-crypto.ts [crypto.ts]
 
-### crypto.ts
+<<<@/snippets/js-sdk-8-client.ts [client.ts]
 
-<<<@/snippets/js-sdk-8-crypto.ts
+<<<@/snippets/js-sdk-8-components-StatusChecker.vue [components/StatusChecker.vue]
 
-### client.ts
+<<<@/snippets/js-sdk-8-components-CreateDomain.vue [components/CreateDomain.vue]
 
-<<<@/snippets/js-sdk-8-client.ts
+<<<@/snippets/js-sdk-8-components-EventListener.vue [components/EventListener.vue]
 
-### components/StatusChecker.vue
+<<<@/snippets/js-sdk-8-App.vue [App.vue]
 
-<<<@/snippets/js-sdk-8-components-StatusChecker.vue
-
-### components/CreateDomain.vue
-
-<<<@/snippets/js-sdk-8-components-CreateDomain.vue
-
-### components/EventListener.vue
-
-<<<@/snippets/js-sdk-8-components-EventListener.vue
-
-### App.vue
-
-<<<@/snippets/js-sdk-8-App.vue
-
-### main.ts
-
-<<<@/snippets/js-sdk-8-main.ts
+<<<@/snippets/js-sdk-8-main.ts [main.ts]
 
 :::
 
