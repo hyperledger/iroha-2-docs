@@ -26,7 +26,7 @@ You can use one of Iroha's tools, `kagami`, to generate key pairs. To create
 a new key pair, run:
 
 ```bash
-cargo run --bin kagami  -- crypto
+$ cargo run --bin kagami  -- crypto
 ```
 
 Use the `-a` flag to specify the algorithm for key-pair generation and the
@@ -34,7 +34,7 @@ Use the `-a` flag to specify the algorithm for key-pair generation and the
 pair, run:
 
 ```bash
-cargo run --bin kagami -- crypto --algorithm secp256k1
+$ cargo run --bin kagami -- crypto --algorithm secp256k1
 ```
 
 The output will look like this:
@@ -84,22 +84,22 @@ Fix the PATH variable for [Bash](https://www.gnu.org/software/bash/) and
 reload the `.bashrc` script:
 
 ```bash
-echo "export PATH='${HOME}/.local/bin:${PATH}'" >> ~/.bashrc
-source ~/.bashrc
+$ echo "export PATH='${HOME}/.local/bin:${PATH}'" >> ~/.bashrc
+$ source ~/.bashrc
 ```
 
 Fix the `PATH` variable for the [Z shell](https://www.zsh.org/) and reload
 the `.zshrc` script:
 
 ```bash
-echo "export PATH='${HOME}/.local/bin:${PATH}'" >> ~/.zshrc
-source ~/.zshrc
+$ echo "export PATH='${HOME}/.local/bin:${PATH}'" >> ~/.zshrc
+$ source ~/.zshrc
 ```
 
 Fix the `PATH` variable for the Fish permanently:
 
 ```bash
-fish_add_path ~/.local/bin
+$ fish_add_path ~/.local/bin
 ```
 
 :::
@@ -124,8 +124,8 @@ configuration files:
 To get new key-pairs, use the `iroha_crypto_cli` program:
 
 ```bash
-cargo build -p iroha_crypto_cli
-./target/debug/iroha_crypto_cli
+$ cargo build -p iroha_crypto_cli
+$ ./target/debug/iroha_crypto_cli
 ```
 
 This will print a fresh pair of keys.
@@ -135,7 +135,7 @@ This will print a fresh pair of keys.
 You can also use `kagami` to generate the pair of keys:
 
 ```bash
-cargo run --bin kagami -- crypto --json
+$ cargo run --bin kagami -- crypto --json
 ```
 
 Check
