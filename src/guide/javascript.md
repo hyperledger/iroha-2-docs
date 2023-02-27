@@ -362,7 +362,7 @@ could mint it:
 
 Again it should be emphasised that an Iroha 2 network is strongly typed.
 You need to take special care to make sure that only unsigned integers are
-passed to the `Value.variantsUnwrapped.U32` factory method. Fixed precision
+passed to the `Value('U32', ...)` factory method. Fixed precision
 values also need to be taken into consideration. Any attempt to add to or
 subtract from a negative Fixed-precision value will result in an error.
 
