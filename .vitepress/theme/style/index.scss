@@ -6,14 +6,18 @@ $iroha-brand-dark: rgba(187, 2, 24, 1);
   --vp-c-brand: #{$iroha-brand};
   --vp-c-brand-light: #{$iroha-brand-light};
   --vp-c-brand-dark: #{$iroha-brand-dark};
-}
-
-:root {
   --vp-font-family-mono: 'JetBrains Mono', 'Fira Code', Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-div[class*='language-'] {
-  pre {
-    font-size: 14px;
+.vp-doc {
+  div[class*='language-'] {
+    pre {
+      font-size: 14px;
+      font-variant-ligatures: none;
+    }
+  }
+
+  code {
+    font-variant-ligatures: none;
   }
 }
