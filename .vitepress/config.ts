@@ -6,7 +6,6 @@ import footnote from 'markdown-it-footnote'
 import { resolve } from 'path'
 import { VitePWA } from 'vite-plugin-pwa'
 import svgLoader from 'vite-svg-loader'
-import { codeGroupPlugin } from './plugins/code-group'
 
 function getNav(): DefaultTheme.NavItem[] {
   return [
@@ -287,10 +286,6 @@ function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
           text: 'Code Snippets',
           link: '/documenting/snippets',
         },
-        {
-          text: 'Code Groups',
-          link: '/documenting/code-groups',
-        },
       ],
     },
   ]
@@ -343,7 +338,6 @@ export default defineConfig({
   markdown: {
     async config(md) {
       md.use(footnote)
-      md.use(codeGroupPlugin)
     },
     theme: 'github-dark-dimmed',
   },
