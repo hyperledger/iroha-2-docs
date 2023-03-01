@@ -130,11 +130,11 @@ fn register_and_grant_role_for_metadata_access() -> Result<()> {
 You can get the key value of an object metadata using
 [queries](/guide/blockchain/queries.md):
 
-- [FindAccountKeyValueByIdAndKey](/guide/blockchain/queries.md#findaccountkeyvaluebyidandkey)
-- [FindAssetKeyValueByIdAndKey](/guide/blockchain/queries.md#findassetkeyvaluebyidandkey)
-- [FindAssetDefinitionKeyValueByIdAndKey](/guide/blockchain/queries.md#findassetdefinitionkeyvaluebyidandkey)
-- [FindDomainKeyValueByIdAndKey](/guide/blockchain/queries.md#finddomainkeyvaluebyidandkey)
-- [FindTriggerKeyValueByIdAndKey](/guide/blockchain/queries.md#findtriggerkeyvaluebyidandkey)
+- [`FindAccountKeyValueByIdAndKey`](/guide/blockchain/queries.md#findaccountkeyvaluebyidandkey)
+- [`FindAssetKeyValueByIdAndKey`](/guide/blockchain/queries.md#findassetkeyvaluebyidandkey)
+- [`FindAssetDefinitionKeyValueByIdAndKey`](/guide/blockchain/queries.md#findassetdefinitionkeyvaluebyidandkey)
+- [`FindDomainKeyValueByIdAndKey`](/guide/blockchain/queries.md#finddomainkeyvaluebyidandkey)
+- [`FindTriggerKeyValueByIdAndKey`](/guide/blockchain/queries.md#findtriggerkeyvaluebyidandkey)
 
 ## Permissions
 
