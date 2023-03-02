@@ -101,18 +101,18 @@ function doSubmit() {
             <textarea
               id="feedback-input-text"
               v-model="feedbackText"
-              placeholder="What we can do to improve the overall documentation browsing experience?"
+              placeholder="What can we do to improve the overall documentation browsing experience?"
               rows="5"
             />
           </div>
 
           <div>
-            <label for="feedback-input-contact"><i>(optional)</i> Contact address</label>
+            <label for="feedback-input-contact"><i>(optional)</i> Contact information</label>
 
             <input
               id="feedback-input-contact"
               v-model="contact"
-              placeholder="Email or any other contact address"
+              placeholder="Email address or any other way to contact you (Discord, Telegram)"
             >
           </div>
         </div>
