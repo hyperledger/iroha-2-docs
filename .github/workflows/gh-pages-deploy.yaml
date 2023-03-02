@@ -56,6 +56,7 @@ jobs:
         run: pnpm build
         env:
           PUBLIC_PATH: /iroha-2-docs/
+          VITE_FEEDBACK_URL: http://164.92.190.45/feedback/form
 
       - name: Push static content into master:gh-pages
         working-directory: .vitepress/dist
