@@ -325,6 +325,7 @@ export default defineConfig({
       }),
       svgLoader(),
     ],
+    envDir: resolve(__dirname, '../')
   },
   lastUpdated: true,
 
