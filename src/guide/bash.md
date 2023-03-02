@@ -269,9 +269,6 @@ Private key: 14d382c5bd8c0bfbaefdef1133196b78839ed3c136e296e0d969b7a3fca2fb42459
 Digest function: ed25519
 ```
 
-Save the key pair, so you can use it for authentication by
-[configuring the corresponding parameters](#_1-iroha-2-client-setup).
-
 To register a new account called _mad_hatter_ within the _looking_glass_
 domain, run:
 
