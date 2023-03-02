@@ -20,6 +20,94 @@ When you encrypt data with a private key, you _sign_ it. When something is
 _signed_, everyone can read it, and everyone with your public key can
 verify that the person who wrote that message used your private key.
 
+## Key Generation with Kagami
+
+You can use one of Iroha's tools, `kagami`, to generate key pairs. To create
+a new key pair, run:
+
+```bash
+$ cargo run --bin kagami  -- crypto
+```
+
+Use the `-a` flag to specify the algorithm for key-pair generation and the
+`-s` flag to specify the seed. For example, to generate a `secp256k1` key
+pair, run:
+
+```bash
+$ cargo run --bin kagami -- crypto --algorithm secp256k1
+```
+
+The output will look like this:
+
+```
+Public key (multihash): e701210250a46ea6e1688d1ac64fa653eb6220ea21591eb8cb850695c64b04d95853d527
+Private key: d46c33e69e0bd21de8cb969eb395bdf0d86c6727d73db917436508e42963bc74
+Digest function: secp256k1
+```
+
+::: details Working with Kagami
+
+Since there is currently no `kagami` package available, if you want to copy
+the program somewhere convenient e.g. `/bin` for system-wide use, you need
+to build it first:
+
+```bash
+$ cargo build --bin kagami
+```
+
+To move the `kagami` executable to the system's bin directory, making it
+globally available, type:
+
+```bash
+$ sudo mv kagami /bin
+```
+
+You can also move `kagami` to your user's `.local/bin` directory, so it
+would only be available in your user's shell session:
+
+```bash
+$ mv target/debug/kagami ~/.local/bin
+```
+
+If you want to use `kagami` from your user's directory, make sure that
+`~/.local/bin` directory is available in your shell's `.rc` file, be it
+`~/.bashrc` for [Bash](https://www.gnu.org/software/bash/) or `~/.zshrc`
+for the [Z shell](https://www.zsh.org/).
+
+```bash
+# Check kagami is available
+$ whereis kagami
+kagami:
+```
+
+Fix the PATH variable for [Bash](https://www.gnu.org/software/bash/) and
+reload the `.bashrc` script:
+
+```bash
+$ echo "export PATH='${HOME}/.local/bin:${PATH}'" >> ~/.bashrc
+$ source ~/.bashrc
+```
+
+Fix the `PATH` variable for the [Z shell](https://www.zsh.org/) and reload
+the `.zshrc` script:
+
+```bash
+$ echo "export PATH='${HOME}/.local/bin:${PATH}'" >> ~/.zshrc
+$ source ~/.zshrc
+```
+
+Fix the `PATH` variable for the Fish permanently:
+
+```bash
+$ fish_add_path ~/.local/bin
+```
+
+:::
+
+Check
+[`kagami` documentation](https://github.com/hyperledger/iroha/tree/iroha2-dev/tools/kagami#crypto)
+for more details.
+
 ## Keys for Deploying a Network
 
 Keeping in mind what we said above about key cryptography, note that if
@@ -36,8 +124,8 @@ configuration files:
 To get new key-pairs, use the `iroha_crypto_cli` program:
 
 ```bash
-cargo build -p iroha_crypto_cli
-./target/debug/iroha_crypto_cli
+$ cargo build -p iroha_crypto_cli
+$ ./target/debug/iroha_crypto_cli
 ```
 
 This will print a fresh pair of keys.
@@ -47,7 +135,7 @@ This will print a fresh pair of keys.
 You can also use `kagami` to generate the pair of keys:
 
 ```bash
-cargo run --bin kagami -- crypto --json
+$ cargo run --bin kagami -- crypto --json
 ```
 
 Check
