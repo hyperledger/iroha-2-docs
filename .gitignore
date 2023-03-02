@@ -5,3 +5,5 @@ dist
 /src/flymd.html
 /src/*.temp
 /src/snippets
+.vitepress/cache
+.idea
