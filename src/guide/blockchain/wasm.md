@@ -53,7 +53,7 @@ crates. Don't worry, it doesn't have to be big.
 To get started, create a new project:
 
 ```bash
-cargo new --lib
+$ cargo new --lib
 ```
 
 Yes! We need the `lib` type; more on that later.
@@ -191,7 +191,7 @@ crate (e.g. `alloc`) to exclude the leftover panic-related code that comes
 with the prebuilt `core` library[^3]:
 
 ```bash
-cargo +nightly build -Z build-std -Z build-std-features=panic_immediate_abort --target wasm32-unknown-unknown
+$ cargo +nightly build -Z build-std -Z build-std-features=panic_immediate_abort --target wasm32-unknown-unknown
 ```
 
 Unfortunately, this is an unstable feature. In other words, the developers
@@ -209,7 +209,7 @@ We highly advise using `wasm-opt` because it will often significantly
 reduce your binary size:
 
 ```bash
-wasm-opt -Os -o output.wasm input.wasm
+$ wasm-opt -Os -o output.wasm input.wasm
 ```
 
 ### Conclusion

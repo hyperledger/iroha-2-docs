@@ -26,7 +26,7 @@ process.
 The easiest way to get the official `rustup` script is to run:
 
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
 Or, alternatively, you can install `rustup` via your operating system’s
@@ -49,13 +49,13 @@ the setup process. Just go with the defaults.
    [here](./install.md#install-iroha-from-github), run:
 
    ```bash
-   cd ~/Git/iroha
+   $ cd ~/Git/iroha
    ```
 
 2. Build the Iroha 2 client using:
 
    ```bash
-   cargo build -p iroha_client_cli
+   $ cargo build -p iroha_client_cli
    ```
 
    Build artifacts are created in the `./target/debug/` directory.

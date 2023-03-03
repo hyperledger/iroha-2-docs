@@ -8,7 +8,7 @@ container:
    To avoid issues with dynamic linking, run:
 
    ```bash
-   cargo build --release --target x86_64-unknown-linux-musl --features "vendored"
+   $ cargo build --release --target x86_64-unknown-linux-musl --features "vendored"
    ```
 
    <details> <summary> An explanation for using `cargo build` with these parameters. </summary>
@@ -27,13 +27,13 @@ container:
 2. Enter Docker container. For example:
 
    ```bash
-   docker exec -it iroha-iroha0-1 bash
+   $ docker exec -it iroha-iroha0-1 bash
    ```
 
 3. Copy Iroha to the current directory:
 
    ```bash
-   docker cp root/soramitsu/iroha/target/x86_64-unknown-linux-musl/release/iroha .
+   $ docker cp root/soramitsu/iroha/target/x86_64-unknown-linux-musl/release/iroha .
    ```
 
 4. (Optional) Make any modifications you need:
@@ -62,7 +62,7 @@ To recommit a custom genesis block, remove the previously stored blocks
 before restarting the container:
 
 ```bash
-rm blocks/*
+$ rm blocks/*
 ```
 
 The new genesis block will be automatically recommited upon container
@@ -82,7 +82,7 @@ To use custom environment variables (e.g. `IROHA_PUBLIC_KEY`), simply
 modify them before restarting the Docker container. For example:
 
 ```bash
-    IROHA_PUBLIC_KEY=<new_key> docker restart
+$ IROHA_PUBLIC_KEY=<new_key> docker restart
 ```
 
 The changes will take effect upon container restart.

@@ -32,13 +32,13 @@ already available to you.
 - Install OpenSSL on Ubuntu:
 
   ```bash
-  sudo apt-get install libssl-dev
+  $ sudo apt-get install libssl-dev
   ```
 
 - Install OpenSSL on macOS using [brew](https://brew.sh/):
 
   ```bash
-  brew install openssl
+  $ brew install openssl
   ```
 
 Check the
@@ -51,7 +51,7 @@ for details.
     Iroha 2, to keep things tidy.
 
     ```bash
-    mkdir -p ~/Git
+    $ mkdir -p ~/Git
     ```
 
     ::: tip
@@ -66,7 +66,7 @@ for details.
 2.  Enter the directory you have just created using
 
     ```bash
-    cd ~/Git
+    $ cd ~/Git
     ```
 
 3.  Then `clone` the Iroha git repository into the folder `~/Git/iroha` and
@@ -76,7 +76,7 @@ for details.
     and checkout the stable release, run:
 
     ```bash
-    git clone https://github.com/hyperledger/iroha.git --branch iroha2-stable
+    $ git clone https://github.com/hyperledger/iroha.git --branch iroha2-stable
     ```
 
     This will fetch all of Iroha, including Iroha 1, and the `iroha2-dev`

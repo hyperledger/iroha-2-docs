@@ -12,7 +12,7 @@
    <!-- Check Docker releases: `docker compose` is going to replace `docker-compose` -->
 
    ```bash
-   docker-compose up
+   $ docker-compose up
    ```
 
    Depending on your set-up, this might either
