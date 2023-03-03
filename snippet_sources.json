@@ -109,5 +109,17 @@
   {
     "src": "https://raw.githubusercontent.com/hyperledger/iroha-javascript/iroha2/packages/docs-recipes/src/9.blocks-stream.ts",
     "filename": "js-sdk-9-blocks-stream.ts"
+  },
+  {
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-java/iroha2-dev/modules/test-tools/src/main/kotlin/jp/co/soramitsu/iroha2/testengine/IrohaConfig.kt",
+    "filename": "IrohaConfig.kt"
+  },
+  {
+    "src": "https://raw.githubusercontent.com/outoftardis/iroha-java/doc-snippets/modules/client/src/test/kotlin/jp/co/soramitsu/iroha2/InstructionsTest.kt",
+    "filename": "InstructionsTest.kt"
+  },
+  {
+    "src": "https://raw.githubusercontent.com/outoftardis/iroha-java/iroha2-dev/modules/client/src/test/java/jp/co/soramitsu/iroha2/JavaTest.java",
+    "filename": "JavaTest.java"
   }
 ]
