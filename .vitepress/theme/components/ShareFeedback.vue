@@ -107,12 +107,12 @@ function doSubmit() {
           </div>
 
           <div>
-            <label for="feedback-input-contact"><i>(optional)</i> Contact information</label>
+            <label for="feedback-input-contact"><i>(optional)</i> Email address or any other way to contact you (Discord, Telegram)</label>
 
             <input
               id="feedback-input-contact"
               v-model="contact"
-              placeholder="Email address or any other way to contact you (Discord, Telegram)"
+              placeholder="Contact information"
             >
           </div>
         </div>
