@@ -44,7 +44,7 @@ function doSubmit() {
     <template #icon>
       <IconFeedback class="-mb-2px" />
     </template>
-    Provide feedback
+    Share feedback
   </SButton>
 
   <SModal
