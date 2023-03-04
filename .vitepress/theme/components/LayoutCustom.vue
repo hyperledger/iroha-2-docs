@@ -27,5 +27,9 @@ const FEEDBACK_URL: string | undefined = import.meta.env.VITE_FEEDBACK_URL
   top: 0;
   background: var(--vp-sidebar-bg-color);
   z-index: 9;
+
+  :deep(.VPSidebar.open) & {
+    top: -32px;
+  }
 }
 </style>
