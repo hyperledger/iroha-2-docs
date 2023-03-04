@@ -40,7 +40,7 @@ double `Option<Option<..>>`. Refer to
 You can use `kagami` to generate the default peer configuration:
 
 ```bash
-kagami config peer > peer-config.json
+$ kagami config peer > peer-config.json
 ```
 
 ## Public and private keys

@@ -12,7 +12,7 @@
    <!-- Check Docker releases: `docker compose` is going to replace `docker-compose` -->
 
    ```bash
-   docker-compose up
+   $ docker-compose up
    ```
 
    Depending on your set-up, this might either
@@ -23,6 +23,7 @@
    <<< @/guide/quick-start.docker-compose-output.ansi
 
 4. Follow the [Bash tutorial](./bash.md) to check out Iroha's capabilities.
+
 5. When you're done with the test network, just hit `Control + C` to stop the
    containers (`⌃ + C` on Mac).
 

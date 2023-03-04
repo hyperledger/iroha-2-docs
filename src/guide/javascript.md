@@ -36,7 +36,7 @@ the active development is happening. Clone the repository and check out the
 `iroha2` branch:
 
 ```bash
-git clone https://github.com/hyperledger/iroha-javascript.git --branch iroha2
+$ git clone https://github.com/hyperledger/iroha-javascript.git --branch iroha2
 ```
 
 Please note that this guide does not cover the details of this workflow.
@@ -53,19 +53,19 @@ installing the packages you need.
 1. Set up a registry. In shell, run:
 
    ```bash
-   echo "@iroha2:registry=https://nexus.iroha.tech/repository/npm-group/" > .npmrc
+   $ echo "@iroha2:registry=https://nexus.iroha.tech/repository/npm-group/" > .npmrc
    ```
 
 2. Install Iroha 2 packages as any other NPM package. If you are following
    the tutorial, we recommend installing all of the following:
 
    ```bash
-   npm i @iroha2/client
-   npm i @iroha2/data-model
-   npm i @iroha2/crypto-core
-   npm i @iroha2/crypto-target-node
-   npm i @iroha2/crypto-target-web
-   npm i @iroha2/crypto-target-bundler
+   $ npm i @iroha2/client
+   $ npm i @iroha2/data-model
+   $ npm i @iroha2/crypto-core
+   $ npm i @iroha2/crypto-target-node
+   $ npm i @iroha2/crypto-target-web
+   $ npm i @iroha2/crypto-target-bundler
    ```
 
    ::: info
@@ -75,8 +75,8 @@ installing the packages you need.
    installation. For example:
 
    ```bash
-   yarn add @iroha2/data-model
-   pnpm add @iroha2/crypto-target-web
+   $ yarn add @iroha2/data-model
+   $ pnpm add @iroha2/crypto-target-web
    ```
 
    :::
@@ -90,8 +90,8 @@ installing the packages you need.
 3. Install the following packages as well:
 
    ```bash
-   npm i hada
-   npm i tsx -g
+   $ npm i hada
+   $ npm i tsx -g
    ```
 
 4. If you are planning to use the Transaction or Query API, you'll also
@@ -135,7 +135,7 @@ We recommend using [`tsx`](https://www.npmjs.com/package/tsx) to run the
 scripts you've created. For example:
 
 ```bash
-tsx example.ts
+$ tsx example.ts
 ```
 
 :::
@@ -167,9 +167,9 @@ When you have a key pair, you might create a `Signer` using the key pair:
 <<<@/snippets/js-sdk-2-1-2-signer.ts
 
 Now we're able to make signatures with `signer.sign(binary)`! However, to
-interact with Iroha, we need to be able to do more than just sign. We
-would need to send something to Iroha, like transactions or queries.
-`Torii` will help us with that.
+interact with Iroha, we need to be able to do more than just sign. We would
+need to send something to Iroha, like transactions or queries. `Torii` will
+help us with that.
 
 `Torii` handles HTTP / WebSocket communications with Iroha. We will use it
 to communicate with Iroha endpoints. With the help of `Torii` we can:

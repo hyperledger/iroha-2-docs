@@ -62,21 +62,21 @@ You can use `kagami` to generate the default genesis block:
 - Generate a genesis block in JSON format:
 
   ```bash
-  kagami genesis
+  $ kagami genesis
   ```
 
 - Generate a genesis block in JSON format and write the output to the
   specified file:
 
   ```bash
-  kagami genesis > genesis.json
+  $ kagami genesis > genesis.json
   ```
 
 - Generate a synthetic genesis block in JSON format and write the `n`
   domains, `m` accounts per domain and `p` assets per domain:
 
   ```bash
-  kagami genesis --synthetic --domains n --accounts-per-domain m --assets-per-domain p
+  $ kagami genesis --synthetic --domains n --accounts-per-domain m --assets-per-domain p
   ```
 
 The genesis block should be located in `configs/peer/genesis.json`.

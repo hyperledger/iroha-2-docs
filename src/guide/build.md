@@ -17,8 +17,8 @@ You need
     (2021 edition), please consult the
     [troubleshooting](#troubleshooting-rust-toolchain) section.
 
-Installing the Rust Toolchain is normally a straightforward process,
-but we've added
+Installing the Rust Toolchain is normally a straightforward process, but
+we've added
 [troubleshooting](./troubleshooting/installation-issues.md#troubleshooting-rust-toolchain)
 details for each stage, in case you experience issues with the installation
 process.
@@ -26,7 +26,7 @@ process.
 The easiest way to get the official `rustup` script is to run:
 
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
 Or, alternatively, you can install `rustup` via your operating system’s
@@ -39,23 +39,23 @@ directly, without `rustup`.
 
 :::
 
-If you chose to use the one-line `curl` script, you will be guided through the
-setup process. Just go with the defaults.
+If you chose to use the one-line `curl` script, you will be guided through
+the setup process. Just go with the defaults.
 
 ## Build Iroha Client
 
-1. Navigate to the directory containing the Iroha repository. If you followed
-   the installation instructions
+1. Navigate to the directory containing the Iroha repository. If you
+   followed the installation instructions
    [here](./install.md#install-iroha-from-github), run:
 
    ```bash
-   cd ~/Git/iroha
+   $ cd ~/Git/iroha
    ```
 
 2. Build the Iroha 2 client using:
 
    ```bash
-   cargo build -p iroha_client_cli
+   $ cargo build -p iroha_client_cli
    ```
 
    Build artifacts are created in the `./target/debug/` directory.
@@ -64,7 +64,7 @@ setup process. Just go with the defaults.
 
    We take pride in the fact that Iroha is extremely quick to compile. For
    reference, compiling hyperledger/substrate takes a good part of ten
-   minutes on a modern M1 machine. Iroha, in comparison, compiles in
-   around one minute.
+   minutes on a modern M1 machine. Iroha, in comparison, compiles in around
+   one minute.
 
    :::

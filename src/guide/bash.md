@@ -82,13 +82,13 @@ executable, when we ran the build command.
 Create a fresh directory for the client:
 
 ```bash
-mkdir -p test_docker
+$ mkdir -p test_docker
 ```
 
 Copy the configuration file to the client directory:
 
 ```bash
-cp ./configs/client_cli/config.json test_docker/
+$ cp ./configs/client_cli/config.json test_docker/
 ```
 
 ::: tip
@@ -103,14 +103,14 @@ To test Iroha 2 metadata capabilities, let's also create a dummy
 `metadata.json` file:
 
 ```bash
-echo '{"comment":{"String": "Hello Meta!"}}' > test_docker/metadata.json
+$ echo '{"comment":{"String": "Hello Meta!"}}' > test_docker/metadata.json
 ```
 
 To get the CLI started, copy the `iroha_client_cli` binary into the client
 directory:
 
 ```bash
-cp ./target/debug/iroha_client_cli test_docker/
+$ cp ./target/debug/iroha_client_cli test_docker/
 ```
 
 Make sure you [bring up the test network](./quick-start.md) as well.
@@ -127,7 +127,7 @@ the pipeline events as they are output.
 On a new terminal tab run:
 
 ```bash
-cd ~/Git/iroha/test_docker
+$ cd ~/Git/iroha/test_docker
 ```
 
 If you followed the steps correctly, this should contain the
@@ -143,7 +143,7 @@ Use `ls` to make sure both files are there, and if not,
 Run
 
 ```bash
-./iroha_client_cli
+$ ./iroha_client_cli
 ```
 
 ::: details Expand to see the expected output
@@ -180,7 +180,7 @@ SUBCOMMANDS:
 To configure the Iroha client, run:
 
 ```bash
-./iroha_client_cli --config ./test_docker/config.json
+$ ./iroha_client_cli --config ./test_docker/config.json
 ```
 
 It should be noted that this is not _persistent configuration_: each time
@@ -205,7 +205,7 @@ To make sure that your configuration options worked, try to run a query,
 e.g.:
 
 ```bash
-./iroha_client_cli domain list all
+$ ./iroha_client_cli domain list all
 ```
 
 If the output looks like some form of JSON (but not quite), then the
@@ -216,7 +216,7 @@ configuration was successful!
 To get started, you must register a domain:
 
 ```bash
-./iroha_client_cli domain register --id="looking_glass"
+$ ./iroha_client_cli domain register --id="looking_glass"
 ```
 
 You will receive a confirmation of the domain creation. However, this
@@ -224,7 +224,7 @@ information will not be clearly visible within the message. To confirm that
 the new domain _looking_glass_ has been created successfully, run:
 
 ```bash
-./iroha_client_cli domain list all
+$ ./iroha_client_cli domain list all
 ```
 
 The printout should contain the recently-created _looking_glass_ domain
@@ -244,117 +244,46 @@ With a domain available, it is time to register an account.
 
 ## 4. Registering an Account
 
-To register a new account called _mad_hatter_ within the _looking_glass_
-domain, run:
-
-```bash
-./iroha_client_cli account register \
-    --id="mad_hatter@looking_glass" \
-    --key="ed0120a753146e75b910ae5e2994dc8adea9e7d87e5d53024cfa310ce992f17106f92c"
-```
-
-The `--id` argument in the above code snippet specifies the _account id_,
-the unique name assigned to that account in the blockchain. This name
-includes the _domain_, which is a group of things like asset definitions,
-account ids and other objects that we'll talk about later. The `--key`
-argument specifies the [public key](./configure/keys.md), think of it as
-the "password" used by `mad_hatter@looking_glass`.
+To register an account, you need a [public key](./configure/keys.md), think
+of it as the "password" used by `mad_hatter@looking_glass`.
 
 Keys always come in pairs. It is possible to generate a pair of `public`
 and `private` keys using one of our tools, `kagami`. Once Iroha is
 released, you will be able to install it separately and call it like any
 other program on your system. For now you can either ask `cargo` to `run`
 it for you, or build the program and find it in one of the target
-directories (either `target/debug` or `target/release`).
+directories (either `target/debug` or `target/release`)
 
-To generate a new key pair, run it without any arguments.
-
-To use `cargo`, run
+Create a new key pair:
 
 ```bash
 $ cargo run --bin kagami  -- crypto
-Public key (multihash): ed012088a5d0cada6edfd4ad8046da64ffce820c16f0e68a21f98df505becd5011e18a
-Private key: 749682bd40695cfc77b5ad599220a80d69b72db5e5078c259635f8e8d8f3559088a5d0cada6edfd4ad8046da64ffce820c16f0e68a21f98df505becd5011e18a
+```
+
+For the purpose of this tutorial, we are going to use the following keys
+for `mad_hatter@looking_glass`:
+
+```bash
+Public key (multihash): ed01204595da8957c5598d4de20fe5f3eb4c14820678e1a1957a535db1fd4b3d1607c5
+Private key: 14d382c5bd8c0bfbaefdef1133196b78839ed3c136e296e0d969b7a3fca2fb424595da8957c5598d4de20fe5f3eb4c14820678e1a1957a535db1fd4b3d1607c5
 Digest function: ed25519
 ```
 
-::: info
-
-You can also use the `-a` flag to specify the algorithm for key-pair
-generation and the `-s` flag to specify the seed.
-
-For example, there's a command to generate a `secp256k1` key pair.
+To register a new account called _mad_hatter_ within the _looking_glass_
+domain, run:
 
 ```bash
-$ cargo run --bin kagami -- crypto --algorithm secp256k1
-Public key (multihash): e701210250a46ea6e1688d1ac64fa653eb6220ea21591eb8cb850695c64b04d95853d527
-Private key: d46c33e69e0bd21de8cb969eb395bdf0d86c6727d73db917436508e42963bc74
-Digest function: secp256k1
+$ ./iroha_client_cli account register \
+    --id="mad_hatter@looking_glass" \
+    --key="ed01204595da8957c5598d4de20fe5f3eb4c14820678e1a1957a535db1fd4b3d1607c5"
 ```
 
-Save the key pair, so you can use it for authentication by
-[configuring the corresponding parameters](#_1-iroha-2-client-setup).
-
-:::
-
-::: tip
-
-Since there is currently no `kagami` package available, if you want to copy
-the program somewhere convenient e.g. `/bin` for system-wide use you need
-to build it first:
-
-```bash
-$ cargo build --bin kagami
-```
-
-To move the `kagami` executable to the system's bin directory, making it
-globally available, type:
-
-```bash
-$ sudo mv kagami /bin
-```
-
-You can also move `kagami` to your user's `.local/bin` directory, so it
-would only be available in your user's shell session:
-
-```bash
-$ mv target/debug/kagami ~/.local/bin
-```
-
-If you want to use `kagami` from your user's directory, make sure that
-`~/.local/bin` directory is available in your shell's `.rc` file, be it
-`~/.bashrc` for [Bash](https://www.gnu.org/software/bash/) or `~/.zshrc`
-for the [Z shell](https://www.zsh.org/).
-
-```bash
-# Check kagami is available
-$ whereis kagami
-kagami:
-```
-
-Fix the PATH variable for [Bash](https://www.gnu.org/software/bash/) and
-reload the `.bashrc` script:
-
-```bash
-echo "export PATH='${HOME}/.local/bin:${PATH}'" >> ~/.bashrc
-source ~/.bashrc
-```
-
-Fix the `PATH` variable for the [Z shell](https://www.zsh.org/) and reload
-the `.zshrc` script:
-
-```bash
-echo "export PATH='${HOME}/.local/bin:${PATH}'" >> ~/.zshrc
-source ~/.zshrc
-```
-
-Fix the `PATH` variable for the Fish permanently:
-
-```bash
-fish_add_path ~/.local/bin
-```
-
-:::
+The `--id` argument in the above code snippet specifies the _account id_,
+the unique name assigned to that account in the blockchain. This name
+includes the _domain_, which is a group of things like asset definitions,
+account ids, and other objects that we'll talk about later. The `--key`
+argument specifies the public key, which is the one we generated above
+using `kagami`.
 
 If the account registration is successful, you will receive a confirmation
 message. Like before, it is necessary to query the accounts to verify that
@@ -363,7 +292,7 @@ _mad_hatter_ has been registered.
 To see all the accounts on the network, run:
 
 ```bash
-./iroha_client_cli account list all
+$ ./iroha_client_cli account list all
 ```
 
 This will list the active accounts on the network, along with their assets.
@@ -424,7 +353,7 @@ Another way to create a user (and the user's keys) is as follows:
 1. Open a new tab and navigate to the `/iroha` directory, then run:
 
    ```bash
-   ./target/debug/iroha_crypto_cli
+   $ ./target/debug/iroha_crypto_cli
    ```
 
 2. Copy the public key and repeat the instructions to register a new
@@ -435,7 +364,7 @@ In this case, we will create an account for _white_rabbit_ within the
 _looking_glass_ domain, so we will run:
 
 ```bash
-./iroha_client_cli account register \
+$ ./iroha_client_cli account register \
     --id="white_rabbit@looking_glass" \
     --key="ed0120a4c4dadd9f18b0f63d6a420151fe0748d785475dec63034a15fcf999ceda1e65"
 ```
@@ -502,7 +431,7 @@ In order to mint assets, you need to register the
 token within the _looking_glass_ network. To do that, run:
 
 ```bash
-./iroha_client_cli asset register \
+$ ./iroha_client_cli asset register \
     --id="tea#looking_glass" \
     --value-type=Quantity
 ```
@@ -514,7 +443,7 @@ to see that there are new events in the pipeline.
 With the asset created, you can now mint tokens. Run:
 
 ```bash
-./iroha_client_cli asset mint \
+$ ./iroha_client_cli asset mint \
     --account="mad_hatter@looking_glass" \
     --asset="tea#looking_glass" \
     --quantity="100"
@@ -524,7 +453,7 @@ After minting one hundred _tea_, you will see more pipeline events in the
 logger, and you can also query the assets that you have just minted:
 
 ```bash
-./iroha_client_cli asset list all
+$ ./iroha_client_cli asset list all
 ```
 
 After running this command, you will be able to see the tokens currently
@@ -605,7 +534,7 @@ Then grant Mad Hatter the permission to transfer the tea asset:
 After that, you can transfer some of Mad Hatter's tea to White Rabbit:
 
 ```bash
-./iroha_client_cli asset transfer --from mad_hatter@looking_glass --to white_rabbit@looking_glass --asset-id tea#looking_glass --quantity 5
+$ ./iroha_client_cli asset transfer --from mad_hatter@looking_glass --to white_rabbit@looking_glass --asset-id tea#looking_glass --quantity 5
 ```
 
 ## 7. Burning assets
@@ -613,7 +542,7 @@ After that, you can transfer some of Mad Hatter's tea to White Rabbit:
 Burning assets is quite similar to minting them:
 
 ```bash
-./iroha_client_cli asset burn \
+$ ./iroha_client_cli asset burn \
     --account="mad_hatter@looking_glass" \
     --asset="tea#looking_glass" \
     --quantity="10"
@@ -628,7 +557,7 @@ to events on the network.
 From a terminal tab/window run:
 
 ```bash
-./iroha_client_cli events pipeline
+$ ./iroha_client_cli events pipeline
 ```
 
 This view will output all the events related to Iroha 2, such as
