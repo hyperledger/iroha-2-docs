@@ -147,7 +147,8 @@ function doSubmit() {
 .feedback-card {
   background: var(--vp-c-bg);
   border-radius: 8px;
-  width: 420px;
+  width: calc(100vw - 32px);
+  max-width: 420px;
   border: 1px solid var(--vp-c-border);
 
   &_header {
