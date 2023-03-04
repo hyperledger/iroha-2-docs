@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { SButton, SModal } from '@soramitsu-ui/ui'
 import { ref } from 'vue'
-import { usePromise, wheneverFulfilled } from '@vue-kakuyaku/core'
+import { usePromise, wheneverFulfilled, wheneverRejected } from '@vue-kakuyaku/core'
 import { mande } from 'mande'
 import IconClose from './icons/IconClose.vue'
 import IconFeedback from './icons/IconFeedback.vue'
@@ -13,6 +13,16 @@ const props = defineProps<{
 
 const openModal = ref(false)
 
+type FeedbackKind = (typeof KINDS)[number]
+
+const KINDS = ['bug', 'suggestion', 'other'] as const
+const KINDS_LABELS: Record<FeedbackKind, string> = {
+  suggestion: 'Suggestion ✨',
+  bug: 'Bug 🐞',
+  other: 'Other',
+}
+
+const feedbackKind = ref<null | FeedbackKind>(null)
 const feedbackText = ref('')
 const contact = ref('')
 
@@ -24,12 +34,21 @@ wheneverFulfilled(action.state, () => {
   feedbackText.value = contact.value = ''
 })
 
+wheneverRejected(action.state, (reason) => {
+  console.error('Feedback rejection reason:', reason)
+})
+
 function onAfterClose() {
   success.value = false
 }
 
 function doSubmit() {
-  const data = { feedback: feedbackText.value, contact: contact.value, location: window.location }
+  const data = {
+    kind: feedbackKind.value,
+    feedback: feedbackText.value,
+    contact: contact.value,
+    location: window.location,
+  }
   const api = mande(props.feedbackUrl)
   action.set(api.post(data))
 }
@@ -53,7 +72,7 @@ function doSubmit() {
     described-by="share-feedback-description"
     @after-close="onAfterClose"
   >
-    <div class="feedback-card shadow-lg">
+    <div class="feedback-card shadow-lg flex flex-col">
       <div class="feedback-card_header flex items-center">
         <div
           :id="api.labelledBy"
@@ -86,7 +105,11 @@ function doSubmit() {
         </div>
       </template>
 
-      <template v-else>
+      <div
+        v-else
+        class="flex-1 overflow-y-scroll"
+        tabindex="-1"
+      >
         <div class="p-4 space-y-4">
           <p
             id="share-feedback-description"
@@ -96,7 +119,37 @@ function doSubmit() {
           </p>
 
           <div>
-            <label for="feedback-input-text">Feedback</label>
+            <fieldset class="space-y-1">
+              <legend class="field-label">
+                What kind of feedback?*
+              </legend>
+
+              <div
+                v-for="value of KINDS"
+                :key="value"
+                class="flex space-x-2 items-center"
+              >
+                <input
+                  :id="`feedback-kind-${value}`"
+                  v-model="feedbackKind"
+                  class="max-w-min"
+                  :value="value"
+                  type="radio"
+                  name="feedback-kind"
+                >
+                <label
+                  :for="`feedback-kind-${value}`"
+                  class="flex-1 text-sm"
+                >{{ KINDS_LABELS[value] }}</label>
+              </div>
+            </fieldset>
+          </div>
+
+          <div>
+            <label
+              for="feedback-input-text"
+              class="field-label"
+            >Feedback*</label>
 
             <textarea
               id="feedback-input-text"
@@ -107,7 +160,12 @@ function doSubmit() {
           </div>
 
           <div>
-            <label for="feedback-input-contact"><i>(optional)</i> Email address or any other way to contact you (Discord, Telegram)</label>
+            <label
+              for="feedback-input-contact"
+              class="field-label"
+            >
+              <i>(optional)</i> Email address or any other way to contact you (Discord, Telegram)
+            </label>
 
             <input
               id="feedback-input-contact"
@@ -121,7 +179,7 @@ function doSubmit() {
           v-if="action.state.rejected"
           class="px-4 text-xs"
         >
-          Unable to send feedback: {{ action.state.rejected.reason }}
+          Unable to send feedback
         </div>
 
         <div class="flex p-4 items-center space-x-2">
@@ -131,14 +189,14 @@ function doSubmit() {
           </SButton>
           <SButton
             type="primary"
-            :disabled="!feedbackText"
+            :disabled="!feedbackText || !feedbackKind"
             :loading="action.state.pending"
             @click="doSubmit"
           >
             Submit
           </SButton>
         </div>
-      </template>
+      </div>
     </div>
   </SModal>
 </template>
@@ -149,6 +207,7 @@ function doSubmit() {
   border-radius: 8px;
   width: calc(100vw - 32px);
   max-width: 420px;
+  max-height: calc(100vh - 32px);
   border: 1px solid var(--vp-c-border);
 
   &_header {
@@ -185,7 +244,7 @@ input {
   color: var(--vp-c-text-2);
 }
 
-label {
+.field-label {
   font-size: 12px;
   font-weight: bolder;
   display: block;
