@@ -108,7 +108,6 @@ function doSubmit() {
       <div
         v-else
         class="flex-1 overflow-y-scroll"
-        tabindex="-1"
       >
         <div class="p-4 space-y-4">
           <p
