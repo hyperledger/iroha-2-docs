@@ -219,4 +219,4 @@ submitted was processed correctly and provide feedback to the end-user.
 
 ## 7. Samples in pure Java
 
-<<<@/snippets/JavaTest.java{java}
+<<<@/snippets/JavaTest.java
