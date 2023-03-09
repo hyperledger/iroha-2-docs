@@ -112,7 +112,7 @@
   },
   {
     "src": "https://raw.githubusercontent.com/hyperledger/iroha-java/iroha2-dev/modules/test-tools/src/main/kotlin/jp/co/soramitsu/iroha2/testengine/IrohaConfig.kt",
-    "filename": "IrohaConfig.kt"
+    "filename": "IrohaConfig.kotlin"
   },
   {
     "src": "https://raw.githubusercontent.com/hyperledger/iroha-java/iroha2-dev/modules/client/src/test/kotlin/jp/co/soramitsu/iroha2/InstructionsTest.kt",

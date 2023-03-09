@@ -75,7 +75,7 @@ resident `config.json` in the working directory.
 If you are so inclined, you can have a look at the `testcontainers` module,
 and see how the `Iroha2Config` is implemented.
 
-<<<@/snippets/IrohaConfig.kt{kotlin}
+<<<@/snippets/IrohaConfig.kotlin
 
 ## 3. Registering a Domain
 
