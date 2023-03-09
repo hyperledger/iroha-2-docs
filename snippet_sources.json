@@ -115,11 +115,11 @@
     "filename": "IrohaConfig.kt"
   },
   {
-    "src": "https://raw.githubusercontent.com/outoftardis/iroha-java/doc-snippets/modules/client/src/test/kotlin/jp/co/soramitsu/iroha2/InstructionsTest.kt",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-java/doc-snippets/modules/client/src/test/kotlin/jp/co/soramitsu/iroha2/InstructionsTest.kt",
     "filename": "InstructionsTest.kt"
   },
   {
-    "src": "https://raw.githubusercontent.com/outoftardis/iroha-java/iroha2-dev/modules/client/src/test/java/jp/co/soramitsu/iroha2/JavaTest.java",
+    "src": "https://raw.githubusercontent.com/hyperledger/iroha-java/iroha2-dev/modules/client/src/test/java/jp/co/soramitsu/iroha2/JavaTest.java",
     "filename": "JavaTest.java"
   }
 ]
