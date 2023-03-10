@@ -75,27 +75,7 @@ resident `config.json` in the working directory.
 If you are so inclined, you can have a look at the `testcontainers` module,
 and see how the `Iroha2Config` is implemented.
 
-```kotlin
-package jp.co.soramitsu.iroha2.testcontainers
-
-import jp.co.soramitsu.iroha2.Genesis
-import jp.co.soramitsu.iroha2.generated.core.genesis.GenesisTransaction
-import jp.co.soramitsu.iroha2.generated.core.genesis.RawGenesisBlock
-import org.slf4j.LoggerFactory.getLogger
-import org.testcontainers.containers.Network
-import org.testcontainers.containers.Network.newNetwork
-import org.testcontainers.containers.output.OutputFrame
-import org.testcontainers.containers.output.Slf4jLogConsumer
-import java.util.function.Consumer
-
-class IrohaConfig(
-    var networkToJoin: Network = newNetwork(),
-    var logConsumer: Consumer<OutputFrame> = Slf4jLogConsumer(getLogger(IrohaContainer::class.java)),
-    var genesis: Genesis = Genesis(RawGenesisBlock(listOf(GenesisTransaction(listOf())))),
-    var shouldCloseNetwork: Boolean = true,
-    var imageTag: String = IrohaContainer.DEFAULT_IMAGE_TAG
-)
-```
+<<<@/snippets/IrohaConfig.kotlin
 
 ## 3. Registering a Domain
 
@@ -128,35 +108,7 @@ is passed an instance of a domain registration box, which we get as a
 result of evaluating `registerDomain(domainName)`. Then the client is sent
 a transaction which consists of that one instruction. And that's it.
 
-```kotlin
-@ExtendWith(IrohaRunnerExtension::class)
-class Test {
-
-    lateinit var client: Iroha2Client
-
-    @Test
-    @WithIroha(genesis = DefaultGenesis.class)
-    fun `register domain instruction committed`(): Unit = runBlocking {
-        val domainName = "looking_glass"
-        val aliceAccountId = AccountId("alice", "wonderland")
-        client.sendTransaction {
-            accountId = AccountId("alice", "wonderland")
-            registerDomain(domainName)
-            buildSigned(ALICE_KEYPAIR)
-        }.also {
-            Assertions.assertDoesNotThrow {
-                it.get(10, TimeUnit.SECONDS)
-            }
-        }
-
-        QueryBuilder.findDomainByName(domainName)
-            .account(aliceAccountId)
-            .buildSigned(ALICE_KEYPAIR)
-            .let { query -> client.sendQuery(query) }
-            .also { result -> assertEquals(result.name, domainName) }
-    }
-}
-```
+<<<@/snippets/InstructionsTest.kt#java_register_domain{kotlin}
 
 Well, almost. You may have noticed that we had to do this on behalf of
 `aliceAccountId`. This is because any transaction on the Iroha 2 blockchain
@@ -195,50 +147,7 @@ the public half of it.
 Similarly to the previous example, we provide the instructions in the form
 of a test:
 
-```kotlin
-import org.junit.jupiter.api.extension.ExtendWith
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions
-import jp.co.soramitsu.iroha2.engine.IrohaRunnerExtension
-import jp.co.soramitsu.iroha2.Iroha2Client
-import jp.co.soramitsu.iroha2.generateKeyPair
-import jp.co.soramitsu.iroha2.engine.WithIroha
-import kotlinx.coroutines.runBlocking
-import kotlin.test.assertEquals
-import java.util.concurrent.TimeUnit
-import jp.co.soramitsu.iroha2.generated.datamodel.account.Id as AccountId
-
-@ExtendWith(IrohaRunnerExtension::class)
-class Test {
-
-    lateinit var client: Iroha2Client
-
-    @Test
-    @WithIroha(genesis = DefaultGenesis.class)
-    fun `register account instruction committed`(): Unit = runBlocking {
-        val aliceAccountId = AccountId("alice", "wonderland")
-        val newAccountId = AccountId("white_rabbit", "looking_glass")
-        val keyPair = generateKeyPair()
-        val signatories = listOf(keyPair.public.toIrohaPublicKey())
-
-        client.sendTransaction {
-            accountId = aliceAccountId
-            registerAccount(newAccountId, signatories)
-            buildSigned(ALICE_KEYPAIR)
-        }.also {
-            Assertions.assertDoesNotThrow {
-                it.get(10, TimeUnit.SECONDS)
-            }
-        }
-
-        QueryBuilder.findAccountById(newAccountId)
-            .account(aliceAccountId)
-            .buildSigned(ALICE_KEYPAIR)
-            .let { query -> client.sendQuery(query) }
-            .also { account -> assertEquals(account.id, newAccountId) }
-    }
-}
-```
+<<<@/snippets/InstructionsTest.kt#java_register_account{kotlin}
 
 As you can see, for _illustrative purposes_, we have generated a new
 key-pair. We converted that key-pair into an Iroha-compatible format using
@@ -266,66 +175,9 @@ Kotlin SDK.
 
 :::
 
-```kotlin
-import org.junit.jupiter.api.extension.ExtendWith
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions
-import jp.co.soramitsu.iroha2.engine.IrohaRunnerExtension
-import jp.co.soramitsu.iroha2.Iroha2Client
-import jp.co.soramitsu.iroha2.engine.WithIroha
-import kotlinx.coroutines.runBlocking
-import kotlin.test.assertEquals
-import java.util.concurrent.TimeUnit
-import jp.co.soramitsu.iroha2.generated.datamodel.asset.AssetValue
-import jp.co.soramitsu.iroha2.generated.datamodel.asset.AssetValueType
-import jp.co.soramitsu.iroha2.generated.datamodel.account.Id as AccountId
-import jp.co.soramitsu.iroha2.generated.datamodel.asset.Id as AssetId
-import jp.co.soramitsu.iroha2.generated.datamodel.asset.DefinitionId
+<<<@/snippets/InstructionsTest.kt#java_register_asset{kotlin}
 
-@ExtendWith(IrohaRunnerExtension::class)
-class Test {
-
-    lateinit var client: Iroha2Client
-
-    @Test
-    @WithIroha(genesis = DefaultGenesis.class)
-    fun `mint asset instruction committed`(): Unit = runBlocking {
-        val aliceAccountId = AccountId("alice", "wonderland")
-        val definitionId = DefinitionId("time", "looking_glass")
-        val assetId = AssetId(definitionId, aliceAccountId)
-				val newAccountId = AccountId("white_rabbit", "looking_glass")
-        val keyPair = generateKeyPair()
-        val signatories = listOf(keyPair.public.toIrohaPublicKey())
-
-        client.sendTransaction {
-            account(aliceAccountId)
-            registerAsset(definitionId, AssetValueType.Fixed())
-            buildSigned(ALICE_KEYPAIR)
-        }.also {
-            Assertions.assertDoesNotThrow {
-                it.get(10, TimeUnit.SECONDS)
-            }
-        }
-
-        client.sendTransaction {
-            account(aliceAccountId)
-            mintAsset(assetId, 5)
-            buildSigned(ALICE_KEYPAIR)
-        }.also {
-            Assertions.assertDoesNotThrow {
-                it.get(10, TimeUnit.SECONDS)
-            }
-        }
-
-        QueryBuilder.findAccountById(aliceAccountId)
-            .account(aliceAccountId)
-            .buildSigned(ALICE_KEYPAIR)
-            .let { query -> client.sendQuery(query) }
-            .also { result ->
-                assertEquals(5, (result.assets[assetId]?.value as? AssetValue.Quantity)?.u32)
-            }
-    }
-```
+<<<@/snippets/InstructionsTest.kt#java_mint_asset{kotlin}
 
 Note that our original intention was to register an asset named
 _time#looking_glass_ that was non-mintable. Due to a technical limitation
@@ -367,200 +219,4 @@ submitted was processed correctly and provide feedback to the end-user.
 
 ## 7. Samples in pure Java
 
-```java
-package jp.co.soramitsu.iroha2;
-
-import jp.co.soramitsu.iroha2.client.Iroha2AsyncClient;
-import jp.co.soramitsu.iroha2.generated.datamodel.Value;
-import jp.co.soramitsu.iroha2.generated.datamodel.account.Account;
-import jp.co.soramitsu.iroha2.generated.datamodel.account.AccountId;
-import jp.co.soramitsu.iroha2.generated.datamodel.asset.AssetId;
-import jp.co.soramitsu.iroha2.generated.datamodel.asset.AssetValue;
-import jp.co.soramitsu.iroha2.generated.datamodel.asset.AssetValueType;
-import jp.co.soramitsu.iroha2.generated.datamodel.domain.Domain;
-import jp.co.soramitsu.iroha2.generated.datamodel.domain.DomainId;
-import jp.co.soramitsu.iroha2.generated.datamodel.metadata.Metadata;
-import jp.co.soramitsu.iroha2.generated.datamodel.name.Name;
-import jp.co.soramitsu.iroha2.generated.datamodel.transaction.VersionedSignedTransaction;
-import jp.co.soramitsu.iroha2.query.QueryAndExtractor;
-import jp.co.soramitsu.iroha2.query.QueryBuilder;
-import jp.co.soramitsu.iroha2.testengine.DefaultGenesis;
-import jp.co.soramitsu.iroha2.testengine.IrohaTest;
-import jp.co.soramitsu.iroha2.testengine.WithIroha;
-import jp.co.soramitsu.iroha2.transaction.TransactionBuilder;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
-import static jp.co.soramitsu.iroha2.testengine.TestConstsKt.*;
-
-public class JavaTest extends IrohaTest<Iroha2AsyncClient> {
-
-    @Test
-    @WithIroha(genesis = DefaultGenesis.class)
-    public void instructionFailed() {
-        final VersionedSignedTransaction transaction = TransactionBuilder.Companion
-            .builder()
-            .account(ALICE_ACCOUNT_ID)
-            .fail("FAIL MESSAGE")
-            .buildSigned(ALICE_KEYPAIR);
-        final CompletableFuture<byte[]> future = client.sendTransactionAsync(transaction);
-        Assertions.assertThrows(ExecutionException.class,
-            () -> future.get(getTxTimeout().getSeconds(), TimeUnit.SECONDS)
-        );
-    }
-
-    @Test
-    @WithIroha(genesis = DefaultGenesis.class)
-    public void registerDomainInstructionCommitted() throws ExecutionException, InterruptedException, TimeoutException {
-        final DomainId domainId = new DomainId(new Name("new_domain_name"));
-        final VersionedSignedTransaction transaction = TransactionBuilder.Companion
-            .builder()
-            .account(ALICE_ACCOUNT_ID)
-            .registerDomain(domainId)
-            .buildSigned(ALICE_KEYPAIR);
-        client.sendTransactionAsync(transaction).get(getTxTimeout().getSeconds(), TimeUnit.SECONDS);
-
-        final QueryAndExtractor<Domain> query = QueryBuilder
-            .findDomainById(domainId)
-            .account(ALICE_ACCOUNT_ID)
-            .buildSigned(ALICE_KEYPAIR);
-        final CompletableFuture<Domain> future = client.sendQueryAsync(query);
-        final Domain domain = future.get(getTxTimeout().getSeconds(), TimeUnit.SECONDS);
-        Assertions.assertEquals(domain.getId(), domainId);
-    }
-
-    @Test
-    @WithIroha(genesis = DefaultGenesis.class)
-    public void registerAccountInstructionCommitted() throws Exception {
-        final AccountId accountId = new AccountId(
-            new Name("new_account"),
-            DEFAULT_DOMAIN_ID
-        );
-        final VersionedSignedTransaction transaction = TransactionBuilder.Companion
-            .builder()
-            .account(ALICE_ACCOUNT_ID)
-            .registerAccount(accountId, new ArrayList<>())
-            .buildSigned(ALICE_KEYPAIR);
-        client.sendTransactionAsync(transaction).get(getTxTimeout().getSeconds(), TimeUnit.SECONDS);
-
-        final QueryAndExtractor<Account> query = QueryBuilder
-            .findAccountById(accountId)
-            .account(ALICE_ACCOUNT_ID)
-            .buildSigned(ALICE_KEYPAIR);
-        final CompletableFuture<Account> future = client.sendQueryAsync(query);
-        final Account account = future.get(getTxTimeout().getSeconds(), TimeUnit.SECONDS);
-        Assertions.assertEquals(account.getId(), accountId);
-    }
-
-    @Test
-    @WithIroha(genesis = DefaultGenesis.class)
-    public void mintAssetInstructionCommitted() throws Exception {
-        final VersionedSignedTransaction registerAssetTx = TransactionBuilder.Companion
-            .builder()
-            .account(ALICE_ACCOUNT_ID)
-            .registerAssetDefinition(DEFAULT_ASSET_DEFINITION_ID, new AssetValueType.Quantity())
-            .buildSigned(ALICE_KEYPAIR);
-        client.sendTransactionAsync(registerAssetTx).get(getTxTimeout().getSeconds(), TimeUnit.SECONDS);
-
-        final VersionedSignedTransaction mintAssetTx = TransactionBuilder.Companion
-            .builder()
-            .account(ALICE_ACCOUNT_ID)
-            .mintAsset(DEFAULT_ASSET_ID, 5L)
-            .buildSigned(ALICE_KEYPAIR);
-        client.sendTransactionAsync(mintAssetTx).get(getTxTimeout().getSeconds(), TimeUnit.SECONDS);
-
-        final QueryAndExtractor<Account> query = QueryBuilder
-            .findAccountById(ALICE_ACCOUNT_ID)
-            .account(ALICE_ACCOUNT_ID)
-            .buildSigned(ALICE_KEYPAIR);
-        final CompletableFuture<Account> future = client.sendQueryAsync(query);
-        final Account account = future.get(getTxTimeout().getSeconds(), TimeUnit.SECONDS);
-        final AssetValue value = account.getAssets().get(DEFAULT_ASSET_ID).getValue();
-        Assertions.assertEquals(5, ((AssetValue.Quantity) value).getU32());
-    }
-
-    @Test
-    @WithIroha(genesis = DefaultGenesis.class)
-    public void updateKeyValueInstructionCommitted() throws Exception {
-        final Name assetMetadataKey = new Name("asset_metadata_key");
-        final Value.String assetMetadataValue = new Value.String("some string value");
-        final Value.String assetMetadataValue2 = new Value.String("some string value 2");
-        final Metadata metadata = new Metadata(new HashMap<Name, Value>() {{
-            put(assetMetadataKey, assetMetadataValue);
-        }});
-
-        final VersionedSignedTransaction registerAssetTx = TransactionBuilder.Companion
-            .builder()
-            .account(ALICE_ACCOUNT_ID)
-            .registerAssetDefinition(DEFAULT_ASSET_DEFINITION_ID, new AssetValueType.Store(), metadata)
-            .buildSigned(ALICE_KEYPAIR);
-        client.sendTransactionAsync(registerAssetTx).get(getTxTimeout().getSeconds(), TimeUnit.SECONDS);
-
-        final AssetId assetId = new AssetId(DEFAULT_ASSET_DEFINITION_ID, ALICE_ACCOUNT_ID);
-        final VersionedSignedTransaction keyValueTx = TransactionBuilder.Companion
-            .builder()
-            .account(ALICE_ACCOUNT_ID)
-            .setKeyValue(
-                assetId,
-                assetMetadataKey,
-                assetMetadataValue2
-            ).buildSigned(ALICE_KEYPAIR);
-        client.sendTransactionAsync(keyValueTx).get(10, TimeUnit.SECONDS);
-
-        final QueryAndExtractor<Value> assetDefinitionValueQuery = QueryBuilder
-            .findAssetKeyValueByIdAndKey(assetId, assetMetadataKey)
-            .account(ALICE_ACCOUNT_ID)
-            .buildSigned(ALICE_KEYPAIR);
-        final CompletableFuture<Value> future = client.sendQueryAsync(assetDefinitionValueQuery);
-
-        final Value value = future.get(10, TimeUnit.SECONDS);
-        Assertions.assertEquals(
-            ((Value.String) value).getString(),
-            assetMetadataValue2.getString()
-        );
-    }
-
-    @Test
-    @WithIroha(genesis = DefaultGenesis.class)
-    public void setKeyValueInstructionCommitted() throws Exception {
-        final Value.String assetValue = new Value.String("some string value");
-        final Name assetKey = new Name("asset_metadata_key");
-
-        final VersionedSignedTransaction registerAssetTx = TransactionBuilder.Companion
-            .builder()
-            .account(ALICE_ACCOUNT_ID)
-            .registerAssetDefinition(DEFAULT_ASSET_DEFINITION_ID, new AssetValueType.Store())
-            .buildSigned(ALICE_KEYPAIR);
-        client.sendTransactionAsync(registerAssetTx).get(getTxTimeout().getSeconds(), TimeUnit.SECONDS);
-
-        final VersionedSignedTransaction keyValueTx = TransactionBuilder.Companion
-            .builder()
-            .account(ALICE_ACCOUNT_ID)
-            .setKeyValue(
-                DEFAULT_ASSET_DEFINITION_ID,
-                assetKey,
-                assetValue
-            ).buildSigned(ALICE_KEYPAIR);
-        client.sendTransactionAsync(keyValueTx).get(10, TimeUnit.SECONDS);
-
-        final QueryAndExtractor<Value> assetDefinitionValueQuery = QueryBuilder
-            .findAssetDefinitionKeyValueByIdAndKey(DEFAULT_ASSET_DEFINITION_ID, assetKey)
-            .account(ALICE_ACCOUNT_ID)
-            .buildSigned(ALICE_KEYPAIR);
-        final CompletableFuture<Value> future = client.sendQueryAsync(assetDefinitionValueQuery);
-
-        final Value value = future.get(10, TimeUnit.SECONDS);
-        Assertions.assertEquals(
-            ((Value.String) value).getString(),
-            assetValue.getString()
-        );
-    }
-}
-```
+<<<@/snippets/JavaTest.java
