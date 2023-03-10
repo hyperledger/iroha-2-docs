@@ -120,7 +120,7 @@ function doSubmit() {
           <div>
             <fieldset class="space-y-1">
               <legend class="field-label">
-                What kind of feedback?*
+                Feedback type*
               </legend>
 
               <div
@@ -163,13 +163,13 @@ function doSubmit() {
               for="feedback-input-contact"
               class="field-label"
             >
-              <i>(optional)</i> Email address or any other way to contact you (Discord, Telegram)
+              <i>(optional)</i> Contact information
             </label>
 
             <input
               id="feedback-input-contact"
               v-model="contact"
-              placeholder="Contact information"
+              placeholder="Email address, Discord, or Telegram"
             >
           </div>
         </div>
