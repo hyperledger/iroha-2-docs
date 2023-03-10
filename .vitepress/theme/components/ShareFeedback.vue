@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { SButton, SModal } from '@soramitsu-ui/ui'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { usePromise, wheneverFulfilled, wheneverRejected } from '@vue-kakuyaku/core'
 import { mande } from 'mande'
 import IconClose from './icons/IconClose.vue'
@@ -25,6 +25,15 @@ const KINDS_LABELS: Record<FeedbackKind, string> = {
 const feedbackKind = ref<null | FeedbackKind>(null)
 const feedbackText = ref('')
 const contact = ref('')
+
+const feedbackTextPlaceholder = computed<string>(() => {
+  switch (feedbackKind.value) {
+    case 'bug':
+      return 'Report any bugs or issues you found in Iroha 2 documentation'
+    default:
+      return 'What can we do to improve the overall documentation browsing experience?'
+  }
+})
 
 const action = usePromise()
 const success = ref(false)
@@ -153,7 +162,7 @@ function doSubmit() {
             <textarea
               id="feedback-input-text"
               v-model="feedbackText"
-              placeholder="What can we do to improve the overall documentation browsing experience?"
+              :placeholder="feedbackTextPlaceholder"
               rows="5"
             />
           </div>
@@ -162,9 +171,7 @@ function doSubmit() {
             <label
               for="feedback-input-contact"
               class="field-label"
-            >
-              <i>(optional)</i> Contact information
-            </label>
+            > <i>(optional)</i> Contact information </label>
 
             <input
               id="feedback-input-contact"
