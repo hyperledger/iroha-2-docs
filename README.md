@@ -107,15 +107,15 @@ pnpm vitest
 
 ### Enabling feedback form
 
-In order to enable "Share feedback" button, the following environment variable should be provided:
+In order to enable the "Share feedback" button, the following environment variable should be provided:
 
 ```bash
 VITE_FEEDBACK_URL=https://example.com/get-feedback
 ```
 
-When user submits the form, a simple POST request with JSON body is sent to this URL.
+When a user submits the form, a simple POST request with a JSON body is sent to this URL.
 
-This variable will be picked up by the application during dev/build mode. Read more about it in [Vite documentation](https://vitejs.dev/guide/env-and-mode.html).
+This variable will be picked up by the application during dev/build mode. Read more about it in the [Vite documentation](https://vitejs.dev/guide/env-and-mode.html).
 
 ## License
 
