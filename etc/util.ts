@@ -1,5 +1,6 @@
 import { SnippetSourceDefinition } from './types'
 import { match, P } from 'ts-pattern'
+// import {} from 'immutable'
 import path from 'path'
 import fs from 'fs/promises'
 
@@ -17,7 +18,7 @@ export function parseSnippetSrc(src: string): ParsedSource {
 
 type ParsedSource = { type: 'fs'; path: string } | { type: 'hyper'; url: string }
 
-interface ParsedSnippetDefinition {
+export interface ParsedSnippetDefinition {
   source: ParsedSource
   saveFilename: string
 }
@@ -45,7 +46,23 @@ export function parseDefinition(definition: SnippetSourceDefinition): ParseDefin
     .exhaustive()
 }
 
-export function concurrentTasks<T>(data: T[], fn: (data: T) => Promise<void>, maxConcurrency = 10): Promise<void> {
+export function detectSaveCollisions(
+  parsedDefinitions: ParsedSnippetDefinition[],
+): Map<string, [ParsedSource, ParsedSource, ...ParsedSource[]]> {
+  const map = new Map<string, ParsedSource[]>()
+
+  for (const i of parsedDefinitions) {
+    const items = map.get(i.saveFilename) ?? []
+    items.push(i.source)
+    map.set(i.saveFilename, items)
+  }
+
+  return new Map(
+    [...map].filter((x): x is [string, [ParsedSource, ParsedSource, ...ParsedSource[]]] => x[1].length > 1),
+  )
+}
+
+export function concurrentTasks<T>(data: T[], fn: (data: T) => Promise<void>, maxConcurrency = 20): Promise<void> {
   let cursor = 0
   let wip = 0
 
