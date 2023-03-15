@@ -147,6 +147,7 @@ export default [
 
   {
     src: `https://raw.githubusercontent.com/hyperledger/iroha-java/${IROHA_JAVA_REV_DEV}/modules/test-tools/src/main/kotlin/jp/co/soramitsu/iroha2/testengine/IrohaConfig.kt`,
+    filename: 'IrohaConfig.kotlin'
   },
   {
     src: `https://raw.githubusercontent.com/hyperledger/iroha-java/${IROHA_JAVA_REV_DEV}/modules/client/src/test/kotlin/jp/co/soramitsu/iroha2/InstructionsTest.kt`,
