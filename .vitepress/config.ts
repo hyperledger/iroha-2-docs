@@ -375,7 +375,7 @@ export default defineConfig({
 
     algolia: {
       appId: 'V04UIXRXW5',
-      apiKey: 'df91faea581b3b5145f676e262d5afc8',
+      apiKey: '48be1c36c1445f37c950a060f43e428d',
       indexName: 'hyperledger',
     },
   },
