@@ -1,6 +1,7 @@
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
-import { SNIPPET_SRC_DIR, SOURCES } from './const'
+import { SNIPPET_SRC_DIR } from './const'
+import SOURCES from './snippet_sources'
 import { SnippetSourceDefinition } from './types'
 import ora from 'ora'
 import { concurrentTasks, parseDefinition, isAccessible } from './util'
