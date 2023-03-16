@@ -76,8 +76,8 @@ Let's add a code snippet from Iroha JavaScript SDK. For example, this one:
 [`/packages/docs-recipes/src/1.client-install.ts`](https://github.com/hyperledger/iroha-javascript/blob/e300886e76c777776efad1e2f5cb245bfb8ed02e/packages/docs-recipes/src/1.client-install.ts).
 
 1. First, get a permalink to the file. Open the file on GitHub and click
-   `Raw` button to get the link. For example: https://raw.githubusercontent.com/hyperledger/iroha-javascript/e300886e76c777776efad1e2f5cb245bfb8ed02e/packages/docs-recipes/src/1.client-install.ts
-   
+   `Raw` button to get the link. For example:
+   https://raw.githubusercontent.com/hyperledger/iroha-javascript/e300886e76c777776efad1e2f5cb245bfb8ed02e/packages/docs-recipes/src/1.client-install.ts
 
 2. Define the new snippet in the [Snippet Sources](#snippet-sources):
 
@@ -91,6 +91,43 @@ Let's add a code snippet from Iroha JavaScript SDK. For example, this one:
      },
    ]
    ```
+
+   ::: tip
+
+   Since `snippet_sources.ts` is a TypeScript file, we can use all
+   scripting features in it. Meanwhile, we are trying to keep it as simple
+   as possible, so even the one who doesn't know TypeScript at all could
+   edit it.
+
+   However, we use _a bit_ of scripting. We defined several constants with
+   git revisions from multiple repositories:
+
+   ```ts
+   const IROHA_REV_STABLE = 'c4af68c4f7959b154eb5380aa93c894e2e63fe4e'
+
+   const IROHA_REV_DEV = '...'
+
+   const IROHA_JS_REV = '...'
+   ```
+
+   Then we use them in links to snippet sources in place of git revisions,
+   like this:
+
+   ```ts
+   export default [
+     // ...
+
+     {
+       src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_STABLE}/MAINTAINERS.md`,
+       //                                                        ^^^^^^^^^^^^^^^^^^^
+       filename: 'iroha-maintainers-at-stable.md',
+     },
+   ]
+   ```
+
+   It helps us to reduce repetitions and keep sources clean.
+
+   :::
 
 3. [Include](#using-snippets-in-markdown) the snippet in any Markdown file
    in the documentation as follows:
