@@ -3,12 +3,12 @@ import type { SnippetSourceDefinition } from './types'
 /**
  * hyperledger/iroha#iroha2-stable
  */
-const IROHA_REV_STABLE = 'iroha2-stable'
+const IROHA_REV_STABLE = 'c4af68c4f7959b154eb5380aa93c894e2e63fe4e'
 
 /**
  * hyperledger/iroha#iroha2-dev
  */
-const IROHA_REV_DEV = 'iroha2-dev'
+const IROHA_REV_DEV = '5310dd4c5467c526570177d6b770ebdf0fbf79ea'
 
 /**
  * hyperledger/iroha-javascript#iroha2
@@ -18,7 +18,7 @@ const IROHA_JS_REV = 'd59fc767ddf0d1a66f5c6914a9be1560f614d791'
 /**
  * hyperledger/iroha-java#iroha2-dev
  */
-const IROHA_JAVA_REV_DEV = 'iroha2-dev'
+const IROHA_JAVA_REV_DEV = 'e176225f935cc7f976d17384191ef0c0043ca0f6'
 
 // *****
 
