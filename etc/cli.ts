@@ -1,92 +1,138 @@
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
-import { SNIPPET_SRC_DIR, SOURCES } from './const'
+import { SNIPPET_SRC_DIR } from './const'
+import SOURCES from './snippet_sources'
 import { SnippetSourceDefinition } from './types'
-import ora from 'ora'
-import { concurrentTasks, parseDefinition, isAccessible } from './util'
-import { match } from 'ts-pattern'
+import { concurrentTasks, detectSaveCollisions, isAccessible, parseDefinition, ParsedSnippetDefinition } from './util'
+import { match, P } from 'ts-pattern'
 import fs from 'fs/promises'
 import chalk from 'chalk'
 import fetch from 'node-fetch'
 import path from 'path'
 import makeDir from 'make-dir'
 import { deleteAsync } from 'del'
+import logUpdate from 'log-update'
 
 async function prepareOutputDir(options?: { clean?: boolean }) {
   const optionClean = options?.clean ?? false
 
-  const dirDisplay = chalk.blue.bold(path.relative(process.cwd(), SNIPPET_SRC_DIR))
-  const spinner = ora(optionClean ? `Re-recreating ${dirDisplay}` : `Creating ${dirDisplay} if not exists`)
+  const dirDisplay = chalk.bold(path.relative(process.cwd(), SNIPPET_SRC_DIR))
 
   return Promise.resolve()
-    .then<unknown>(() => optionClean && deleteAsync([SNIPPET_SRC_DIR]))
-    .then(() => makeDir(SNIPPET_SRC_DIR))
-    .then(() => spinner.succeed())
-    .catch((err) => {
-      spinner.fail()
-      throw err
-    })
+    .then<unknown>(
+      () => optionClean && deleteAsync([SNIPPET_SRC_DIR]).then(() => console.info(chalk`Deleted ${dirDisplay}`)),
+    )
+    .then(() => makeDir(SNIPPET_SRC_DIR).then(() => console.info(chalk`Created ${dirDisplay}`)))
 }
 
-async function processSnippet(source: SnippetSourceDefinition, options?: { force?: boolean }): Promise<void> {
-  const spinner = ora()
-  const srcDisplay = chalk.green.bold(source.src)
-
-  const parsedDefinition = parseDefinition(source)
-
-  if (parsedDefinition.type === 'error') {
-    spinner.fail(`Invalid snippet source definition: ${parsedDefinition.err}`)
-    throw new Error('Invalid src')
-  }
-
-  const writePath = path.join(SNIPPET_SRC_DIR, parsedDefinition.saveFilename)
-  const writePathDisplay = chalk.blue.bold(path.relative(process.cwd(), writePath))
+async function processSnippet(
+  parsed: ParsedSnippetDefinition,
+  options?: { force?: boolean },
+): Promise<'skipped' | 'written'> {
+  const writePath = path.join(SNIPPET_SRC_DIR, parsed.saveFilename)
 
   if (!options?.force && (await isAccessible(writePath))) {
-    spinner.succeed(`${writePathDisplay} exists, skipping update of ${srcDisplay}`)
-    return
+    return 'skipped'
   }
 
-  const fileContent: string = await match(parsedDefinition.source)
+  const fileContent: string = await match(parsed.source)
     .with({ type: 'fs' }, async ({ path: snippetPath }) => {
-      spinner.start(`Reading ${chalk.green.bold(snippetPath)}`)
-      const content = await fs.readFile(snippetPath, { encoding: 'utf-8' }).catch((err) => {
-        spinner.fail()
-        throw err
-      })
-      return content
+      return fs.readFile(snippetPath, { encoding: 'utf-8' })
     })
     .with({ type: 'hyper' }, async ({ url }) => {
-      spinner.start(`Fetching ${chalk.magenta.bold(url)}`)
-      const content = await fetch(url)
-        .then((x) => {
-          if (x.ok) return x.text()
-          throw new Error(`Failed to fetch: ${x.status}`)
-        })
-        .catch((err) => {
-          spinner.fail()
-          throw err
-        })
-
-      return content
+      return fetch(url).then((x) => {
+        if (x.ok) return x.text()
+        throw new Error(`Failed to fetch: ${x.status}`)
+      })
     })
     .exhaustive()
 
-  spinner.text = `Writing into ${writePathDisplay}`
   await fs.writeFile(writePath, fileContent)
 
-  spinner.succeed(`Written ${writePathDisplay}`)
+  return 'written'
 }
 
 yargs(hideBin(process.argv))
   .command(
     'get-snippets',
-    'Parses `snippet_sources.json` and collects all snippets',
+    'Parses snippet sources and collects them',
     (y) => y.option('force', { type: 'boolean', default: true }),
     async (opts) => {
+      const parseResult = SOURCES.map((x) => [x, parseDefinition(x)] as const).reduce<{
+        ok: ParsedSnippetDefinition[]
+        err: { source: SnippetSourceDefinition; err: Error }[]
+      }>(
+        (acc, [item, result]) => {
+          match([result, acc] as const)
+            .with([{ type: 'error' }, P._], ([{ err }]) => acc.err.push({ source: item, err }))
+            .with([{ type: 'ok' }, P.when((x) => !x.err.length)], ([res]) => acc.ok.push(res))
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            .otherwise(() => {})
+
+          return acc
+        },
+        { ok: [], err: [] },
+      )
+
+      if (parseResult.err.length) {
+        for (const { source, err } of parseResult.err) {
+          console.error(chalk.red`Failed to parse snippet with source {bold ${source.src}}: ${String(err)}`)
+        }
+        throw new Error('Failed to parse sources')
+      }
+
+      const { ok: parsed } = parseResult
+
+      {
+        const collisions = detectSaveCollisions(parsed)
+        let thereAreCollisions = false
+        for (const [saveFile, sources] of collisions) {
+          thereAreCollisions = true
+
+          const sourcesJoined = sources
+            .map((x) =>
+              chalk.bold(
+                match(x)
+                  .with({ type: 'fs' }, ({ path }) => `(fs) ${path}`)
+                  .with({ type: 'hyper' }, ({ url }) => `(http) ${url}`)
+                  .exhaustive(),
+              ),
+            )
+            .join(', ')
+          console.error(
+            chalk.red`Multiple sources resolves into the same save file name {bold ${saveFile}}: ${sourcesJoined}`,
+          )
+        }
+        if (thereAreCollisions) throw new Error('Collisions found')
+      }
+
       await prepareOutputDir({ clean: opts.force })
-      await concurrentTasks(SOURCES, (src) => processSnippet(src, { force: opts.force }))
-      ora('Snippets are updated').succeed()
+
+      {
+        let progress = 0
+        const total = parsed.length
+
+        const printProgress = () => logUpdate(`Progress: ${progress} / ${total}`)
+        printProgress()
+
+        await concurrentTasks(parsed, async (src) => {
+          try {
+            const result = await processSnippet(src, { force: opts.force })
+            match(result)
+              .with('written', () => logUpdate(chalk.green`Written {bold ${src.saveFilename}}`))
+              .with('skipped', () => logUpdate(chalk.gray`Skipped {bold ${src.saveFilename}}`))
+              .exhaustive()
+            logUpdate.done()
+            progress++
+            printProgress()
+          } catch (err) {
+            logUpdate(chalk.red`Failed to process {bold ${src.saveFilename}}`)
+            throw err
+          }
+        })
+
+        logUpdate('Done')
+      }
     },
   )
   .showHelpOnFail(false)
