@@ -1,7 +1,7 @@
 import { SnippetSourceDefinition } from './types'
 import { match, P } from 'ts-pattern'
-// import {} from 'immutable'
 import path from 'path'
+import { URL } from 'url'
 import fs from 'fs/promises'
 
 export async function isAccessible(path: string): Promise<boolean> {
@@ -21,6 +21,7 @@ type ParsedSource = { type: 'fs'; path: string } | { type: 'hyper'; url: string 
 export interface ParsedSnippetDefinition {
   source: ParsedSource
   saveFilename: string
+  transform: null | ((content: string) => Promise<string>)
 }
 
 export type ParseDefinitionResult = ({ type: 'ok' } & ParsedSnippetDefinition) | { type: 'error'; err: Error }
@@ -41,7 +42,14 @@ export function parseDefinition(definition: SnippetSourceDefinition): ParseDefin
         saveFilename = path.basename(uri)
       }
 
-      return { type: 'ok', source, saveFilename }
+      const { transform } = definition
+
+      return {
+        type: 'ok',
+        source,
+        saveFilename,
+        transform: transform ? async (x) => transform(x) : null,
+      }
     })
     .exhaustive()
 }
@@ -93,4 +101,20 @@ export function concurrentTasks<T>(data: T[], fn: (data: T) => Promise<void>, ma
 
   executeTasks()
   return promise
+}
+
+/**
+ * Replace relative to some URL Markdown links with actual links to that URL
+ *
+ * Examples:
+ *
+ * - `(./config.md#some_hash)` -> `(<base>/config.md#some_hash)`
+ * - `(../../client)` -> `(<base with applied ../../>/client)`
+ */
+export function rewriteMdLinks(base: string): (markdown: string) => string {
+  return (markdown) =>
+    markdown.replaceAll(/\((\..+?)([)#])/g, (_sub, relative, ending) => {
+      const rewritten = new URL(path.join(base, relative)).href
+      return `(${rewritten}${ending}`
+    })
 }

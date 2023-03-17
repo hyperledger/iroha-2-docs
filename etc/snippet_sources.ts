@@ -1,4 +1,5 @@
 import type { SnippetSourceDefinition } from './types'
+import { rewriteMdLinks } from './util'
 
 /**
  * hyperledger/iroha#iroha2-stable
@@ -126,6 +127,7 @@ export default [
   {
     src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/docs/source/references/api_spec.md`,
     filename: `iroha2_dev_api_spec.md`,
+    transform: rewriteMdLinks(`https://github.com/hyperledger/iroha/tree/${IROHA_REV_DEV}/docs/sources/references/`),
   },
   {
     src: './src/example_code/lorem.rs',
