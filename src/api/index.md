@@ -6,12 +6,12 @@ const { page } = useData()
 
 ::: info
 
-This page contains the copy of `api_spec.md` from
+This page contains a copy of `api_spec.md` from
 `hyperledger/iroha#iroha2-dev`. You can read the most up-to-date version of
 it on
 [GitHub](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/api_spec.md).
 
-Please note that this page was last updated at <b>{{ new Date(page.lastUpdated).toLocaleString() }}</b>.
+Please note this page was last updated on <b>{{ new Date(page.lastUpdated).toLocaleString() }}</b>.
 
 :::
 
