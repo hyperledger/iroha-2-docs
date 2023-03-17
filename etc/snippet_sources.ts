@@ -127,7 +127,11 @@ export default [
   {
     src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/docs/source/references/api_spec.md`,
     filename: `iroha2_dev_api_spec.md`,
-    transform: rewriteMdLinks(`https://github.com/hyperledger/iroha/tree/${IROHA_REV_DEV}/docs/sources/references/`),
+    transform: (source) =>
+      Promise.resolve(source)
+        .then(rewriteMdLinks(`https://github.com/hyperledger/iroha/tree/${IROHA_REV_DEV}/docs/sources/references/`))
+        // remove the title header (`# ...`)
+        .then((x) => x.replace(/# .+\n/m, '')),
   },
   {
     src: './src/example_code/lorem.rs',

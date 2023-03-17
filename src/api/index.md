@@ -4,6 +4,8 @@ import { useData } from 'vitepress'
 const { page } = useData()
 </script>
 
+# API Specification
+
 ::: info
 
 This page contains a copy of `api_spec.md` from
