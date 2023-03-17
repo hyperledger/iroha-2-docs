@@ -296,6 +296,7 @@ const BASE = process.env.PUBLIC_PATH ?? '/'
 export default defineConfig({
   base: BASE,
   srcDir: 'src',
+  srcExclude: ['snippets/*.md'],
   title: 'Hyperledger Iroha 2 Tutorial',
   description:
     'Documentation for Hyperledger Iroha 2 offering step-by-step guides for SDKs and outlining the main differences between Iroha versions.',
