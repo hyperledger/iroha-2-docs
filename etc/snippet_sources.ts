@@ -8,7 +8,7 @@ const IROHA_REV_STABLE = 'c4af68c4f7959b154eb5380aa93c894e2e63fe4e'
 /**
  * hyperledger/iroha#iroha2-dev
  */
-const IROHA_REV_DEV = '5310dd4c5467c526570177d6b770ebdf0fbf79ea'
+const IROHA_REV_DEV = '726f5eabf65a79ea618b4fce62a09cee7a5b13d1'
 
 /**
  * hyperledger/iroha-javascript#iroha2
@@ -122,6 +122,10 @@ export default [
   {
     src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_STABLE}/MAINTAINERS.md`,
     filename: 'iroha-maintainers-at-stable.md',
+  },
+  {
+    src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/docs/source/references/api_spec.md`,
+    filename: `iroha2_dev_api_spec.md`,
   },
   {
     src: './src/example_code/lorem.rs',
