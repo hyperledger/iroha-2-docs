@@ -35,7 +35,7 @@ async function processSnippet(
     return 'skipped'
   }
 
-  const fileContent: string = await match(parsed.source)
+  const fileContent: string = await match<typeof parsed.source, Promise<string>>(parsed.source)
     .with({ type: 'fs' }, async ({ path: snippetPath }) => {
       return fs.readFile(snippetPath, { encoding: 'utf-8' })
     })
@@ -46,6 +46,7 @@ async function processSnippet(
       })
     })
     .exhaustive()
+    .then((content) => parsed.transform?.(content) ?? content)
 
   await fs.writeFile(writePath, fileContent)
 

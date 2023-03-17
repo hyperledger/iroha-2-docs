@@ -12,4 +12,8 @@ export interface SnippetSourceDefinition {
    * (Optional) The name that the source file will have in the snippets directory.
    */
   filename?: string
+  /**
+   * **Advanced:** transform loaded content before writing it in the snippets directory
+   */
+  transform?: (content: string) => string | Promise<string>
 }
