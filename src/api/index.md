@@ -6,7 +6,7 @@ const { page } = useData()
 
 ::: info
 
-This page contains the `api_spec.md` right from
+This page contains the copy of `api_spec.md` from
 `hyperledger/iroha#iroha2-dev`. You can read the most up-to-date version of
 it on
 [GitHub](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/api_spec.md).
