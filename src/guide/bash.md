@@ -77,7 +77,7 @@ make do with what one has.
 ## 1. Iroha 2 Client Setup
 
 Note, first, that we have already created the `iroha_client_cli` binary
-executable, when we ran the build command.
+executable, when we [ran the `build` command](./build.md#build-iroha-client).
 
 Create a fresh directory for the client:
 
