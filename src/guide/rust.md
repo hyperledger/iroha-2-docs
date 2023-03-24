@@ -130,11 +130,15 @@ let config = ClientConfiguration {
 };
 ```
 
+::: info
+
 Note that the keys in
 [client configuration](/guide/configure/client-configuration.md) are given
 in [multi-hash format](https://github.com/multiformats/multihash). If you
 are experiencing issues parsing the keys in this format,
 [check the troubleshooting section](/guide/troubleshooting/configuration-issues#multihash-format-of-private-and-public-keys).
+
+:::
 
 ## 3. Registering a Domain
 

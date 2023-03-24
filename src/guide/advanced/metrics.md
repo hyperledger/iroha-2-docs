@@ -12,7 +12,7 @@ configuration.
 
 To use metrics, you need to configure the `/metrics` endpoint in the
 [Iroha configuration](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md).
-By default, the endpoint is exposed at `127.0.0.1:8180/metrics`. If the
+By default, the endpoint is exposed at [`127.0.0.1:8180/metrics`](http://127.0.0.1:8180/metrics). If the
 port is not available, Iroha will still start and work normally, but
 metrics won't be accessible.
 
