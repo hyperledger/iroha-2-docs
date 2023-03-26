@@ -61,6 +61,8 @@ You could also make use of our `test_network` crate, which is available via
 [GitHub](https://github.com/hyperledger/iroha/tree/iroha2/core/test_network)
 but not via crates.io.
 
+[//]: # (FIXME currently Iroha is not distributed via crates.io. In fact, there is existing `iroha` crate which doesn't have something to do with Hyperledger Iroha)
+
 :::
 
 You would also benefit from having immediate access to the example
@@ -78,7 +80,9 @@ operates on behalf of a pre-existing account. These accounts are identified
 by a _name@domain_name_ ID and can only be accessed provided that you know
 their specific key.
 
-## 2. Configuring Iroha 2
+## 2. Configuring Iroha Client
+
+[//]: # (FIXME It should be "Configuring Iroha Client")
 
 Your application written in Rust needs to instantiate a client. The client
 typically needs specific configuration options, which you could either
@@ -200,6 +204,7 @@ strongly advise using explicit construction in production code.
 It is likely that we shall replace most if not all instances of `submit` in
 our code base with explicit transactions.
 
+[//]: # (FIXME this comment is not clear for me)
 <!-- Check: a reference about future releases or work in progress -->
 
 :::
@@ -214,20 +219,22 @@ First of all, we need to create an `AccountId`. Note that we can only
 register an account to an existing domain. The best UX design practices
 dictate that you should check if the requested domain exists _now_, and if
 it doesn't, suggest a fix to the user. After that, we can create a new
-account named _white_rabbit_.
+account named `white_rabbit`.
+
+[//]: # (FIXME note about UX design looks redundant here)
 
 <<< @/snippets/tutorial-snippets.rs#account_definition_comparison
 
 Second, you should provide the account with a public key. It is tempting to
 generate both it and the private key at this time, but it isn't the
-brightest idea. Remember, that _the white_rabbit_ trusts _you,
-alice@wonderland_, to create an account for them in the domain
-\_looking_glass, **but doesn't want you to have access to that account
+brightest idea. Remember, that the `white_rabbit` trusts _you_,
+`alice@wonderland`, to create an account for them in the domain
+`looking_glass`, **but doesn't want you to have access to that account
 after creation**.
 
-If you gave _white_rabbit_ a key that you generated yourself, how would
+If you gave `white_rabbit` a key that you generated yourself, how would
 they know if you don't have a copy of their private key? Instead, the best
-way is to **ask** _white_rabbit_ to generate a new key-pair, and give you
+way is to **ask** `white_rabbit` to generate a new key-pair, and give you
 the public half of it:
 
 ```rust
@@ -270,7 +277,7 @@ Then construct an instruction:
 
 <<< @/snippets/tutorial-snippets.rs#register_asset_init_submit
 
-This creates an asset `time` that can only be minted once and has the type
+This creates an asset `time` that **can only be minted once** and has the type
 `fixed`. `AssetDefinition::fixed` just like its other cousins (`quantity`
 and `big_quantity`) returns a builder of an `AssetDefinition`.
 
@@ -288,10 +295,10 @@ request with `111.06_f64` instead of the original `12.34_f64`. But, alas,
 no such luck. The white rabbit cannot mint more time and is thus
 perpetually late.
 
-Roses, by contrast, are already registered in the network during the
-genesis round, and belong to _alice@wonderland_. Moreover, when they were
+Roses, by contrast, are already registered in the network during [the
+genesis round](./configure/genesis.md), and belong to `alice@wonderland`. Moreover, when they were
 registered, we didn't add the restriction, so we can mint them again and
-again as _alice_:
+again as `alice`:
 
 <<< @/snippets/tutorial-snippets.rs#mint_asset_mint
 
@@ -308,7 +315,7 @@ numerical literals with their type.
 
 Contrary to what you might think, this restriction isn't just for pedantry.
 Implicit conversion errors are the bane of all programmers, if you got the
-_AssetValueType_ incorrect, _how do you know that it was the only mistake
+`AssetValueType` incorrect, _how do you know that it was the only mistake
 in that transaction?_
 
 :::

@@ -25,6 +25,8 @@ several permission tokens and roles. Both new accounts are signed with the
 `ed01207233bfc89dcbd68c19fde6ce6158225298ec1131b6a130d1aeb454c1ab5183c0`
 public key.
 
+[//]: # (TODO current genesis block sample contains much more that just this. Describe it here?)
+
 ::: info Note
 
 Iroha is **case-sensitive**, meaning that _Alice_@wonderland is different

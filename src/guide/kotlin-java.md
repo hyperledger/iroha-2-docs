@@ -79,10 +79,10 @@ and see how the `Iroha2Config` is implemented.
 
 ## 3. Registering a Domain
 
-Registering a domain is one of the easier operations. The usual boilerplate
-code, that often only serves to instantiate a client from an on-disk
-configuration file, is unnecessary. Instead, you have to deal with a few
-imports:
+Registering a domain is one of the easiest operations. The usual
+boilerplate code, that often only serves to instantiate a client from an
+on-disk configuration file, is unnecessary. Instead, you have to deal with
+a few imports:
 
 ```kotlin
 import org.junit.jupiter.api.extension.ExtendWith
@@ -111,37 +111,39 @@ a transaction which consists of that one instruction. And that's it.
 <<<@/snippets/InstructionsTest.kt#java_register_domain{kotlin}
 
 Well, almost. You may have noticed that we had to do this on behalf of
-`aliceAccountId`. This is because any transaction on the Iroha 2 blockchain
-has to be done by an account. This is a special account that must already
-exist on the blockchain. You can ensure that point by reading through
-`genesis.json` and seeing that **_alice_** indeed has an account, with a
-public key. Furthermore, the account's public key must be included in the
-configuration. If either of these two is missing, you will not be able to
-register an account, and will be greeted by an exception of an appropriate
-type.
+`ALICE_ACCOUNT_ID`. This is because any transaction on the Iroha 2
+blockchain has to be done by an account. This is a special account that
+must already exist on the blockchain. You can ensure that point by reading
+through [the default genesis block](./configure/genesis.md) and seeing that
+**_alice_** indeed has an account, with a public key. Furthermore, the
+account's public key must be included in the configuration. If either of
+these two is missing, you will not be able to register an account, and will
+be greeted by an exception of an appropriate type.
 
 ## 4. Registering an Account
 
 Registering an account is more involved than the aforementioned functions.
 Previously, we only had to worry about submitting a single instruction,
 with a single string-based registration box (in Rust terminology, the
-heap-allocated reference types are all called boxes).
+heap-allocated reference types are all called boxes[^1]).
+
+[^1]: [Box in std::boxed - Rust](https://doc.rust-lang.org/std/boxed/struct.Box.html).
 
 When registering an account, there are a few more variables. The account
 can only be registered to an existing domain. Also, an account typically
-has to have a key pair. So if e.g. _alice@wonderland_ was registering an
-account for _white_rabbit@looking_glass_, she should provide his public
+has to have a key pair. So if e.g. `alice@wonderland` was registering an
+account for `white_rabbit@looking_glass`, she should provide his public
 key.
 
 It is tempting to generate both the private and public keys at this time,
-but it isn't the brightest idea. Remember that _the white_rabbit_ trusts
-_you, alice@wonderland,_ to create an account for them in the domain
-_looking_glass_, **but doesn't want you to have access to that account
+but it isn't the brightest idea. Remember that the `white_rabbit` trusts
+_you_, `alice@wonderland`, to create an account for them in the domain
+`looking_glass`, **but doesn't want you to have access to that account
 after creation**.
 
-If you gave _white_rabbit_ a key that you generated yourself, how would
+If you gave `white_rabbit` a key that you generated yourself, how would
 they know if you don't have a copy of their private key? Instead, the best
-way is to **ask** _white_rabbit_ to generate a new key-pair, and give you
+way is to **ask** `white_rabbit` to generate a new key-pair, and give you
 the public half of it.
 
 Similarly to the previous example, we provide the instructions in the form
@@ -149,12 +151,14 @@ of a test:
 
 <<<@/snippets/InstructionsTest.kt#java_register_account{kotlin}
 
+[//]: # (FIXME this snippet does not generate a new key pair)
+
 As you can see, for _illustrative purposes_, we have generated a new
 key-pair. We converted that key-pair into an Iroha-compatible format using
 `toIrohaPublicKey`, and added the public key to the instruction to register
 an account.
 
-Again, it's important to note that we are using _alice@wonderland_ as a
+Again, it's important to note that we are using `alice@wonderland` as a
 proxy to interact with the blockchain, hence her credentials also appear in
 the transaction.
 
@@ -173,6 +177,8 @@ The non-mintable assets are a relatively recent addition to Iroha 2, thus
 registering and minting such assets is not presently possible through the
 Kotlin SDK.
 
+[//]: # (FIXME is it still this way?)
+
 :::
 
 <<<@/snippets/InstructionsTest.kt#java_register_asset{kotlin}
@@ -180,9 +186,9 @@ Kotlin SDK.
 <<<@/snippets/InstructionsTest.kt#java_mint_asset{kotlin}
 
 Note that our original intention was to register an asset named
-_time#looking_glass_ that was non-mintable. Due to a technical limitation
+`time#looking_glass` that was non-mintable. Due to a technical limitation
 we cannot prevent that asset from being minted. However, we can ensure that
-the late bunny is always late: _alice@wonderland_ can mint time but only to
+the late bunny is always late: `alice@wonderland` can mint time but only to
 her account initially.
 
 If she tried to mint an asset that was registered using a different client,
@@ -216,6 +222,8 @@ What this short code snippet does is the following: It creates an event
 pipeline filter that checks if a transaction with the specified hash was
 submitted/rejected. This can then be used to see if the transaction we
 submitted was processed correctly and provide feedback to the end-user.
+
+[//]: # (FIXME pointless section)
 
 ## 7. Samples in pure Java
 

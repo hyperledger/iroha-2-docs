@@ -49,4 +49,16 @@ html.dark {
   code {
     font-variant-ligatures: none;
   }
+
+  // patch footnotes - they increase line height and uglify layout
+  sup.footnote-ref {
+
+    display: inline-block;
+    margin-top: -4px;
+  }
+
+
+  .custom-block ul li + li {
+    margin-top: 4px;
+  }
 }

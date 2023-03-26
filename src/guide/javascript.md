@@ -1,30 +1,241 @@
-# JavaScript/TypeScript Guide
+# TypeScript/JavaScript Guide
 
-::: info
+::: tip Prerequisites
 
-This guide targets `@iroha2/client` and `@iroha/data-model` version
-**`^4.0`**, which targets Iroha 2 LTS (`2.0.0-pre-rc.9`).
+- Familiarity with the command line
+- Familiarity with [Node.js](https://nodejs.org/). Install version 16.0 or
+  higher.
+
+:::
+
+In this section we will introduce how Iroha 2 JavaScript SDK is organised
+and how to use it to communicate with Iroha from Node.js and Browser.
+
+All code snippets are written in TypeScript, however it is completely fine
+to use pure JavaScript with the SDK &mdash; you should just omit
+TypeScript-specific syntax and everything should work just fine.
+
+Please notice that the SDK, as well as its documentation, are work in
+progress. Everything could change. Not everything is implemented perfectly.
+Don't hesitate to keep in touch with us if you have any ideas how to
+improve things.
+
+[//]: # 'todo'
+
+This guide is organised a set of snippets with no specific instruction how
+to run them. The intention is to give you an understanding of how things
+are done and how to use it. We don't say you "write this code into this
+file, then run this file using this command and see that result".
+
+::: tip Version notice
+
+[//]: # 'TODO update versions after packages publishing'
+
+This tutorial is based on `@iroha2/client` and `@iroha2/data-model` version
+`x.x.x` (todo put link with hash to `hyperledger/iroha-javascript`). This
+version is built for Iroha of version `2.0.0-pre-rc.XX` (todo put the same
+hash link but to iroha repo).
 
 :::
 
-::: info
+## SDK Overview
 
-This guide assumes you are familiar with Node.js and NPM ecosystem.
+Iroha 2 JavaScript SDK is a set of Node.js packages. They are distributed
+through Iroha Nexus Registry[^1]. It is just like the main NPM Registry,
+but requires a bit of configuration for NPM to fetch SDK packages from the
+right place. We will explain details [a little further](#install-packages).
+
+[^1]:
+    In the future, the packages will be published in the main NPM Registry,
+    but as for now we decided to keep it in a controllable "sandbox"
+    registry due to the WIP state of the SDK.
+
+The SDK consists of multiple packages:
+
+| Package                                                           | Description                                                                                                                                        |
+| ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@iroha2/data-model`                                              | Provides [SCALE](https://github.com/paritytech/parity-scale-codec) (Simple Concatenated Aggregate Little-Endian)-codecs for the Iroha 2 Data Model |
+| `@iroha2/client`                                                  | Submits requests to Iroha Peer                                                                                                                     |
+| `@iroha2/crypto-core`                                             | Contains cryptography types and target-agnostic utils.                                                                                             |
+| `@iroha2/crypto-target-node`                                      | Provides compiled crypto WASM[^2] for the Node.js environment                                                                                      |
+| `@iroha2/crypto-target-web`                                       | Provides compiled crypto WASM for native Web (ESM)                                                                                                 |
+| <code class="whitespace-pre">@iroha2/crypto-target-bundler</code> | Provides compiled crypto WASM to use with bundlers such as Webpack                                                                                 |
+
+[^2]: [Web Assembly](https://webassembly.org/)
+
+::: tip Online API documentation
+
+We are planning to deploy online API documentation for all SDK packages.
+You can track its progress in
+[the related issue](https://github.com/hyperledger/iroha-javascript/issues/154).
 
 :::
+
+We will explore each component in a bit more depth.
+
+### How to install packages
+
+1. Depending on your setup, there are different ways to configure an NPM
+   Registry. Usually it is done with `.npmrc` file, located in your NPM
+   project directory. You need to set up Iroha Nexus Registry for `iroha2`
+   scope:
+
+   ```ini
+   # .npmrc
+   @iroha2:registry=https://nexus.iroha.tech/repository/npm-group/
+   ```
+
+2. Install a particular package (or packages) you need as any other NPM
+   packages:
+
+   ```bash
+   $ npm install @iroha2/client @iroha2/data-model
+   ```
+
+### Data Model
+
+In order to communicate Iroha our intentions, we need to speak its
+language. This language is built with different structures which we call
+**the data model**. From the JavaScript side, we build those structures in
+JS-land notation, then _encode_ them into SCALE binary representation and
+send to Iroha. When we receive data from Iroha, we _decode_ it to
+JavaScript-land representation and do with it whatever we need to.
+
+`@iroha2/data-model` package provides each data model structure:
+
+```ts
+import { datamodel } from '@iroha2/data-model'
+```
+
+::: tip Data-model schema
+
+**Note**: currently data-model is defined through schema generated by
+Kagami. However, it's format is pretty raw and each SDK uses its own
+approach for code generation. JavaScript SDK, in particular, flatten all
+schema names into a single namespace where things like `pipeline::Event`
+and `trigger::Event` are flattened to `PipelineEvent` and `TriggerEvent` so
+that they don't conflict with each other.
+
+[//]: # (TODO expose schema on our site? https://github.com/hyperledger/iroha-2-docs/issues/301)
+
+:::
+
+Each `datamodel.*` item is a codec and a value factory:
+
+```js
+// using factory to define `NumericValue`
+const value = datamodel.NumericValue('U32', 42)
+
+// using codec's `toBuffer` to encode it to binary
+const encoded = datamodel.NumericValue.toBuffer(value)
+
+// decode it back
+const decoded = datamodel.NumericValue.fromBuffer(value)
+```
+
+Data model package is built using SCALE codec library. See the links below
+to explore them in depth.
+
+::: tip TypeScript
+
+Each data model item is a codec from the runtime side, but **an opaque
+value type** from the type side: Each codec is also **an opaque type** for
+better type safety.
+
+```ts
+declare function test(value: datamodel.NumericValue)
+
+test(datamodel.NumericValue('U128'))
+```
+
+All values under the hood are just plain JavaScript objects and primitives.
+You can avoid defining values with factories by constructing values
+directly and using `as`:
+
+```ts
+import { variant } from '@iroha2/data-model'
+
+const domain = { name: 'wonderland' } as datamodel.DomainId
+const num = { enum: variant('Fixed', '0.2') } as datamodel.NumericValue
+```
+
+:::
+
+This guide heavily relies on the **"sugar"** feature. It is an experimental
+and not complete opt-in API that helps to build common data-model
+structures in a convenient way:
+
+```js
+import { datamodel, sugar } from '@iroha2/data-model'
+
+// equivalent definitions
+
+const accountId1 = sugar.accountId('alice', 'wonderland')
+const accountId2 = datamodel.AccountId({
+  name: 'alice',
+  domain_id: datamodel.DomainId({ name: 'wonderland' }),
+})
+
+const value1 = sugar.value.numericU32(51)
+const value2 = datamodel.Value(
+  'Numeric',
+  datamodel.NumericValue('U32', 51),
+)
+
+// todo add example of instruction and executable
+```
+
+::: warning
+
+Sugar API is experimental and not complete. However, we believe that even
+in its current state it is useful for educational purposes and makes
+reading of this tutorial easier. Sugar API will probably change in the future.
+
+:::
+
+Links:
+
+- data model package in repo
+- scale codec compiler
+- scale codec runtime
+- scale codec enum
+
+### Crypto
+
+Crypto helps to work with keys, signatures and hashes. It uses Web Assembly compiled from Rust. There are three different WASMs for different targets - `web`, `node` and `bundler`. 
+
+
+Notes about how to use crypto
+
+Put link to the crypto core
+
+Put link to the crypto util and freeing
+
+put link to each crypto target package
+
+Links:
+
+- core
+- target web
+- target node
+- target bundler
+- util (you can read about freeing here)
+
+### Client
+
+Notes how to combine Data Model, Crypto and Client to send transactions,
+queries, listen for events and blocks. And now you are ready to read this
+guide!
+
+put link to the client.
+
+Links:
+
+- client lib
+
+## 0. Prepare project
 
 ## 1. Client Installation
-
-The Iroha 2 JavaScript library consists of multiple packages:
-
-| Package                                                   | Description                                                                                                                                        |
-| --------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `client`                                                  | Submits requests to Iroha Peer                                                                                                                     |
-| `data-model`                                              | Provides [SCALE](https://github.com/paritytech/parity-scale-codec) (Simple Concatenated Aggregate Little-Endian)-codecs for the Iroha 2 Data Model |
-| `crypto-core`                                             | Contains cryptography types                                                                                                                        |
-| `crypto-target-node`                                      | Provides compiled crypto WASM ([Web Assembly](https://webassembly.org/)) for the Node.js environment                                               |
-| `crypto-target-web`                                       | Provides compiled crypto WASM for native Web (ESM)                                                                                                 |
-| <code class="whitespace-pre">crypto-target-bundler</code> | Provides compiled crypto WASM to use with bundlers such as Webpack                                                                                 |
 
 All of these are published under the `@iroha2` scope into Iroha Nexus
 Registry. In the future, they will be published in the main NPM Registry.
@@ -40,6 +251,8 @@ $ git clone https://github.com/hyperledger/iroha-javascript.git --branch iroha2
 ```
 
 Please note that this guide does not cover the details of this workflow.
+
+[//]: # 'FIXME Why do we need this here?'
 
 :::
 
@@ -334,6 +547,8 @@ way as in the previous section when we registered a domain.
 
 ## 5. Registering and minting assets
 
+[//]: # 'TODO'
+
 Iroha has been built with few
 [underlying assumptions](./blockchain/assets.md) about what the assets need
 to be in terms of their value type and characteristics (fungible or
@@ -341,7 +556,7 @@ non-fungible, mintable or non-mintable).
 
 In JS, you can create a new asset with the following construction:
 
-<<<@/snippets/js-sdk-5-1-register-asset.ts
+[//]: # '<<<@/snippets/js-sdk-5-1-register-asset.ts'
 
 Pay attention to the fact that we have defined the asset as
 `Mintable('Not')`. What this means is that we cannot create more of `time`.
@@ -358,13 +573,13 @@ always be late.
 If we had set `mintable: Mintable('Infinitely')` on our time asset, we
 could mint it:
 
-<<<@/snippets/js-sdk-5-2-mint-asset.ts
+[//]: # '<<<@/snippets/js-sdk-5-2-mint-asset.ts'
 
 Again it should be emphasised that an Iroha 2 network is strongly typed.
 You need to take special care to make sure that only unsigned integers are
-passed to the `Value('U32', ...)` factory method. Fixed precision
-values also need to be taken into consideration. Any attempt to add to or
-subtract from a negative Fixed-precision value will result in an error.
+passed to the `Value('U32', ...)` factory method. Fixed precision values
+also need to be taken into consideration. Any attempt to add to or subtract
+from a negative Fixed-precision value will result in an error.
 
 ## 6. Transferring assets
 
@@ -440,11 +655,14 @@ You can use this folder structure as a reference:
 
 <<<@/snippets/js-sdk-8-client.ts [client.ts]
 
-<<<@/snippets/js-sdk-8-components-StatusChecker.vue [components/StatusChecker.vue]
+<<<@/snippets/js-sdk-8-components-StatusChecker.vue
+[components/StatusChecker.vue]
 
-<<<@/snippets/js-sdk-8-components-CreateDomain.vue [components/CreateDomain.vue]
+<<<@/snippets/js-sdk-8-components-CreateDomain.vue
+[components/CreateDomain.vue]
 
-<<<@/snippets/js-sdk-8-components-EventListener.vue [components/EventListener.vue]
+<<<@/snippets/js-sdk-8-components-EventListener.vue
+[components/EventListener.vue]
 
 <<<@/snippets/js-sdk-8-App.vue [App.vue]
 

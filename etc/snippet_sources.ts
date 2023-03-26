@@ -23,97 +23,103 @@ const IROHA_JAVA_REV_DEV = 'e176225f935cc7f976d17384191ef0c0043ca0f6'
 
 // *****
 
-const javascriptSnippets = [
-  {
-    src: 'packages/docs-recipes/src/1.client-install.ts',
-    local: '1-client-install.ts',
-  },
-  {
-    src: 'packages/docs-recipes/src/2.1.1.key-pair.ts',
-    local: '2-1-1-key-pair.ts',
-  },
-  {
-    src: 'packages/docs-recipes/src/2.1.2.signer.ts',
-    local: '2-1-2-signer.ts',
-  },
-  {
-    src: 'packages/docs-recipes/src/2.2.1.torii-usage-example.ts',
-    local: '2-2-1-torii-usage-example.ts',
-  },
-  {
-    src: 'packages/docs-recipes/src/2.2.2.torii-pre-node.ts',
-    local: '2-2-2-torii-pre-node.ts',
-  },
-  {
-    src: 'packages/docs-recipes/src/2.2.3.torii-pre-web.ts',
-    local: '2-2-3-torii-pre-web.ts',
-  },
-  {
-    src: 'packages/docs-recipes/src/2.3.client.ts',
-    local: '2-3-client.ts',
-  },
-  {
-    src: 'packages/docs-recipes/src/3.register-domain.ts',
-    local: '3-register-domain.ts',
-  },
-  {
-    src: 'packages/docs-recipes/src/4.register-account.ts',
-    local: '4-register-account.ts',
-  },
-  {
-    src: 'packages/docs-recipes/src/5.1.register-asset.ts',
-    local: '5-1-register-asset.ts',
-  },
-  {
-    src: 'packages/docs-recipes/src/5.2.mint-registered-asset.ts',
-    local: '5-2-mint-asset.ts',
-  },
-  {
-    src: 'packages/docs-recipes/src/6.transfer-assets.ts',
-    local: '6-transfer-assets.ts',
-  },
-  {
-    src: 'packages/docs-recipes/src/7.query-domains-accounts-assets.ts',
-    local: '7-querying.ts',
-  },
-  {
-    src: 'packages/client/test/integration/test-web/src/main.ts',
-    local: '8-main.ts',
-  },
-  {
-    src: 'packages/client/test/integration/config/client_config.json',
-    local: '8-config.json',
-  },
-  {
-    src: 'packages/client/test/integration/test-web/src/App.vue',
-    local: '8-App.vue',
-  },
-  {
-    src: 'packages/client/test/integration/test-web/src/client.ts',
-    local: '8-client.ts',
-  },
-  {
-    src: 'packages/client/test/integration/test-web/src/crypto.ts',
-    local: '8-crypto.ts',
-  },
-  {
-    src: 'packages/client/test/integration/test-web/src/components/CreateDomain.vue',
-    local: '8-components-CreateDomain.vue',
-  },
-  {
-    src: 'packages/client/test/integration/test-web/src/components/StatusChecker.vue',
-    local: '8-components-StatusChecker.vue',
-  },
-  {
-    src: 'packages/client/test/integration/test-web/src/components/EventListener.vue',
-    local: '8-components-EventListener.vue',
-  },
-  {
-    src: 'packages/docs-recipes/src/9.blocks-stream.ts',
-    local: '9-blocks-stream.ts',
-  },
-].map<SnippetSourceDefinition>(({ src, local }) => ({
-  src: `https://raw.githubusercontent.com/hyperledger/iroha-javascript/${IROHA_JS_REV}/${src}`,
+const javascriptSnippets = (
+  [
+    {
+      src: 'packages/docs-recipes/src/1.client-install.ts',
+      local: '1-client-install.ts',
+    },
+    {
+      src: 'packages/docs-recipes/src/2.1.1.key-pair.ts',
+      local: '2-1-1-key-pair.ts',
+    },
+    {
+      src: 'packages/docs-recipes/src/2.1.2.signer.ts',
+      local: '2-1-2-signer.ts',
+    },
+    {
+      src: 'packages/docs-recipes/src/2.1.3.free.ts',
+      local: '2-1-3-free.ts',
+    },
+    {
+      src: 'packages/docs-recipes/src/2.2.1.torii-usage-example.ts',
+      local: '2-2-1-torii-usage-example.ts',
+    },
+    {
+      src: 'packages/docs-recipes/src/2.2.2.torii-pre-node.ts',
+      local: '2-2-2-torii-pre-node.ts',
+    },
+    {
+      src: 'packages/docs-recipes/src/2.2.3.torii-pre-web.ts',
+      local: '2-2-3-torii-pre-web.ts',
+    },
+    {
+      src: 'packages/docs-recipes/src/2.3.client.ts',
+      local: '2-3-client.ts',
+    },
+    {
+      src: 'packages/docs-recipes/src/3.register-domain.ts',
+      local: '3-register-domain.ts',
+    },
+    {
+      src: 'packages/docs-recipes/src/4.register-account.ts',
+      local: '4-register-account.ts',
+    },
+    {
+      src: 'packages/docs-recipes/src/5.register-and-mint-asset.ts',
+      local: '5-register-and-mint-asset.ts',
+    },
+    {
+      src: 'packages/docs-recipes/src/6.transfer-assets.ts',
+      local: '6-transfer-assets.ts',
+    },
+    {
+      src: 'packages/docs-recipes/src/7.query-domains-accounts-assets.ts',
+      local: '7-querying.ts',
+    },
+    {
+      src: 'packages/client/test/integration/test-web/src/main.ts',
+      local: '8-main.ts',
+    },
+    {
+      src: 'packages/client/test/integration/config/client_config.json',
+      local: '8-config.json',
+    },
+    {
+      src: 'packages/client/test/integration/test-web/src/App.vue',
+      local: '8-App.vue',
+    },
+    {
+      src: 'packages/client/test/integration/test-web/src/client.ts',
+      local: '8-client.ts',
+    },
+    {
+      src: 'packages/client/test/integration/test-web/src/crypto.ts',
+      local: '8-crypto.ts',
+    },
+    {
+      src: 'packages/client/test/integration/test-web/src/components/CreateDomain.vue',
+      local: '8-components-CreateDomain.vue',
+    },
+    {
+      src: 'packages/client/test/integration/test-web/src/components/StatusChecker.vue',
+      local: '8-components-StatusChecker.vue',
+    },
+    {
+      src: 'packages/client/test/integration/test-web/src/components/EventListener.vue',
+      local: '8-components-EventListener.vue',
+    },
+    {
+      src: 'packages/docs-recipes/src/9.blocks-stream.ts',
+      local: '9-blocks-stream.ts',
+    },
+    {
+      src: `packages/client/test/integration/test-node/test/multisignature.ts`,
+      local: 'multisignature-transaction.ts',
+    },
+  ] satisfies { src: string; local: string }[]
+).map<SnippetSourceDefinition>(({ src, local }) => ({
+  src: `https://raw.githubusercontent.com/0x009922/iroha-javascript/9367e562a74748a8d32e5473248548a02f7ca03c/${src}`,
   filename: `js-sdk-${local}`,
 }))
 
