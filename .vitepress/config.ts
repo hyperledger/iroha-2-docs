@@ -14,10 +14,15 @@ function getNav(): DefaultTheme.NavItem[] {
       link: '/',
       activeMatch: '^/$|^/guide/',
     },
+    {
+      text: 'Schema',
+      link: '/data-model-schema/',
+      activeMatch: '^/data-model-schema/',
+    },
   ]
 }
 
-function getGuideSidebar(): DefaultTheme.SidebarGroup[] {
+function getGuideSidebar(): DefaultTheme.SidebarItem[] {
   return [
     {
       text: 'Getting started',
@@ -370,6 +375,17 @@ export default defineConfig({
 
     sidebar: {
       '/guide/': getGuideSidebar(),
+      '/data-model-schema': [
+        {
+          text: 'Channel',
+          items: [
+            {
+              link: '/data-model-schema/stable',
+              text: 'iroha2-stable',
+            },
+          ],
+        },
+      ],
       '/': getGuideSidebar(),
     },
     nav: getNav(),
