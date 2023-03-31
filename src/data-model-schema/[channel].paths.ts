@@ -16,7 +16,7 @@ export default {
     return CHANNELS.map((channel) => {
       const json = MAP[channel]
       const schema = renderSchema(json)
-      const content = `# Data Model Schema on \`iroha2-${channel}\`\n\n${schema}`
+      const content = `# Data Model Schema in \`iroha2-${channel}\`\n\n${schema}`
 
       return { params: { channel }, content }
     })
