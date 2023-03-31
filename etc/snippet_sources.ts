@@ -110,7 +110,7 @@ export default [
     filename: `iroha2_dev_api_spec.md`,
     transform: (source) =>
       Promise.resolve(source)
-        .then(rewriteMdLinks(`https://github.com/hyperledger/iroha/tree/${IROHA_REV_DEV}/docs/sources/references/`))
+        .then(rewriteMdLinks(`https://github.com/hyperledger/iroha/tree/${IROHA_REV_DEV}/docs/source/references/`))
         // remove the title header (`# ...`)
         .then((x) => x.replace(/# .+\n/m, '')),
   },
