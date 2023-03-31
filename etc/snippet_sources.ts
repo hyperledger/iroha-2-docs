@@ -1,7 +1,6 @@
 import type { SnippetSourceDefinition } from './types'
 import { rewriteMdLinks } from './util'
 import { IROHA_JAVA_REV_DEV, IROHA_REV_STABLE, IROHA_JS_REV, IROHA_REV_DEV, IROHA_REV_LTS } from './meta'
-import { renderSchema } from './render-schema'
 
 // *****
 
@@ -116,12 +115,11 @@ export default [
         .then((x) => x.replace(/# .+\n/m, '')),
   },
   ...(['dev', 'lts', 'stable'] as const).map<SnippetSourceDefinition>((channel) => {
-    const revision = ({dev: IROHA_REV_DEV, lts: IROHA_REV_LTS, stable: IROHA_REV_STABLE } as const)[channel]
+    const revision = ({ dev: IROHA_REV_DEV, lts: IROHA_REV_LTS, stable: IROHA_REV_STABLE } as const)[channel]
 
     return {
       src: `https://raw.githubusercontent.com/hyperledger/iroha/${revision}/docs/source/references/schema.json`,
-      transform: renderSchema,
-      filename: `data-model-schema.${channel}.md`
+      filename: `data-model-schema.${channel}.json`,
     }
   }),
   {

@@ -5,14 +5,16 @@ import { match, P } from 'ts-pattern'
 // https://github.com/vuejs/vitepress/blob/b16340acbd3c60fee023daadb0ec5a0292060a1e/src/node/markdown/markdown.ts#L13
 import { slugify } from '@mdit-vue/shared'
 
-type Segment = Exclude<RustTypeDefinitionVariant, { TupleStruct: unknown }>
+export type Segment = Exclude<RustTypeDefinitionVariant, { TupleStruct: unknown }>
+
+export type Schema = Record<string, Segment>
 
 function segmentHeading(content: string) {
-  return `#### ${code(content)}`
+  return `## ${code(content)}`
 }
 
 function segmentPropNameOnly(prop: string) {
-  return `- **${prop}:**`
+  return `**${prop}:**`
 }
 
 function segmentProp(name: string, content: string) {
@@ -155,8 +157,7 @@ function renderSegment(segment: Segment, segmentName: string): string {
 /**
  * Returns Markdown
  */
-export function renderSchema(schema_json_raw: string): string {
-  const entries = Object.entries(JSON.parse(schema_json_raw) as RustTypeDefinitionVariant)
-
+export function renderSchema(schema: Schema): string {
+  const entries = Object.entries(schema)
   return joinDouble(...entries.map(([name, segment]) => renderSegment(segment, name)))
 }
