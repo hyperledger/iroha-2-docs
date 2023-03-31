@@ -29,10 +29,6 @@ function joinDouble(...lines: string[]): string {
   return lines.join('\n\n')
 }
 
-function joinSingle(...lines: string[]) {
-  return lines.join('\n')
-}
-
 function tyMdLink(ty: string) {
   return match(ty)
     .with(
@@ -89,7 +85,7 @@ function renderSegment(segment: Segment, segmentName: string): string {
 
   const body = match<Segment, string>(segment)
     .with({ Struct: P.select() }, ({ declarations }) =>
-      joinSingle(
+      joinDouble(
         segmentType('Struct'),
         segmentPropNameOnly('Declarations'),
         table(
@@ -103,7 +99,7 @@ function renderSegment(segment: Segment, segmentName: string): string {
       ),
     )
     .with({ Enum: P.select() }, ({ variants }) =>
-      joinSingle(
+      joinDouble(
         segmentType('Enum'),
         segmentPropNameOnly('Variants'),
         table(
@@ -114,10 +110,10 @@ function renderSegment(segment: Segment, segmentName: string): string {
       ),
     )
     .with({ Tuple: P.select() }, ({ types }) =>
-      joinSingle(segmentType('Tuple'), segmentProp('Values', `(` + types.map((ty) => tyMdLink(ty)).join(', ') + `)`)),
+      joinDouble(segmentType('Tuple'), segmentProp('Values', `(` + types.map((ty) => tyMdLink(ty)).join(', ') + `)`)),
     )
     .with({ Map: P.select() }, ({ key, value, sorted_by_key }) =>
-      joinSingle(
+      joinDouble(
         ...[
           segmentType('Map'),
           segmentProp('Key', tyMdLink(key)),
@@ -127,7 +123,7 @@ function renderSegment(segment: Segment, segmentName: string): string {
       ),
     )
     .with({ Vec: P.select() }, ({ ty, sorted }) =>
-      joinSingle(
+      joinDouble(
         ...[
           //
           segmentType('Vec'),
@@ -136,19 +132,19 @@ function renderSegment(segment: Segment, segmentName: string): string {
         ].filter(predicateNotFalse),
       ),
     )
-    .with({ Int: P.select() }, (str) => joinSingle(segmentType('Int'), segmentProp('Kind', str)))
+    .with({ Int: P.select() }, (str) => joinDouble(segmentType('Int'), segmentProp('Kind', str)))
     .with({ FixedPoint: P.select() }, ({ base, decimal_places }) =>
-      joinSingle(
+      joinDouble(
         segmentType('Fixed Point'),
         segmentProp('Base', code(base)),
         segmentProp('Decimal places', String(decimal_places)),
       ),
     )
     .with({ Array: P.select() }, ({ ty, len }) =>
-      joinSingle(segmentType('Array'), segmentProp('Length', String(len)), segmentProp('Value', tyMdLink(ty))),
+      joinDouble(segmentType('Array'), segmentProp('Length', String(len)), segmentProp('Value', tyMdLink(ty))),
     )
-    .with({ Option: P.select() }, (ty) => joinSingle(segmentType('Option'), segmentProp('Some', tyMdLink(ty))))
-    .with(P.string, (alias) => joinSingle(segmentType('Alias'), segmentProp('To', tyMdLink(alias))))
+    .with({ Option: P.select() }, (ty) => joinDouble(segmentType('Option'), segmentProp('Some', tyMdLink(ty))))
+    .with(P.string, (alias) => joinDouble(segmentType('Alias'), segmentProp('To', tyMdLink(alias))))
     .exhaustive()
 
   return joinDouble(heading, body)
