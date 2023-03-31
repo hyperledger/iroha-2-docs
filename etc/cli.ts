@@ -12,7 +12,6 @@ import path from 'path'
 import makeDir from 'make-dir'
 import { deleteAsync } from 'del'
 import logUpdate from 'log-update'
-import { renderSchema } from './render-schema'
 
 async function prepareOutputDir(options?: { clean?: boolean }) {
   const optionClean = options?.clean ?? false
@@ -137,15 +136,5 @@ yargs(hideBin(process.argv))
       }
     },
   )
-  .command('render-schema', 'Renders Iroha schema as Markdown', async () => {
-    for (const channel of ['stable'] as const) {
-      const md = renderSchema(channel)
-      const file = path.join(SNIPPET_SRC_DIR, `iroha_schema_${channel}.md`)
-
-      await fs.writeFile(file, md)
-
-      console.log(chalk.green`Written {bold ${path.basename(file)}}`)
-    }
-  })
   .showHelpOnFail(false)
   .parse()

@@ -378,12 +378,10 @@ export default defineConfig({
       '/data-model-schema': [
         {
           text: 'Channel',
-          items: [
-            {
-              link: '/data-model-schema/stable',
-              text: 'iroha2-stable',
-            },
-          ],
+          items: ['stable', 'lts', 'dev'].map((channel) => ({
+            link: `/data-model-schema/${channel}`,
+            text: `iroha2-${channel}`,
+          })),
         },
       ],
       '/': getGuideSidebar(),

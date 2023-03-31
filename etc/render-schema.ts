@@ -1,10 +1,9 @@
-import { SCHEMA as SCHEMA_STABLE } from '@iroha2/data-model-schema'
-import { RustTypeDefinitionVariant } from '@iroha2/data-model-schema/src/transform/types'
+// FIXME fix the package, then update imports and dependencies
+//       https://github.com/hyperledger/iroha-javascript/issues/155
+import type { RustTypeDefinitionVariant } from '@iroha2/data-model-schema/src/transform/types'
 import { match, P } from 'ts-pattern'
 // https://github.com/vuejs/vitepress/blob/b16340acbd3c60fee023daadb0ec5a0292060a1e/src/node/markdown/markdown.ts#L13
 import { slugify } from '@mdit-vue/shared'
-
-const SCHEMAS = { stable: SCHEMA_STABLE } as const
 
 type Segment = Exclude<RustTypeDefinitionVariant, { TupleStruct: unknown }>
 
@@ -156,8 +155,8 @@ function renderSegment(segment: Segment, segmentName: string): string {
 /**
  * Returns Markdown
  */
-export function renderSchema(channel: 'stable' = 'stable'): string {
-  const entries = Object.entries(SCHEMAS[channel]) satisfies [string, Segment][]
+export function renderSchema(schema_json_raw: string): string {
+  const entries = Object.entries(JSON.parse(schema_json_raw) as RustTypeDefinitionVariant)
 
   return joinDouble(...entries.map(([name, segment]) => renderSegment(segment, name)))
 }

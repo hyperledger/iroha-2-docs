@@ -2,4 +2,4 @@
 
 ---
 
-<!--@include:../snippets/iroha_schema_stable.md -->
+<!--@include:../snippets/data-model-schema.stable.md -->
