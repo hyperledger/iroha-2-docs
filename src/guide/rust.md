@@ -103,7 +103,7 @@ is hidden behind interior mutable smart pointers.
 Of course, depending on your application, you might want to de-serialise
 your `ClientConfiguration` structure from a different location. Perhaps,
 you might want to build the configuration in place using the command-line
-arguments, or perhaps, you're using the XDG specification to store the file
+arguments, or perhaps, you're using the [XDG specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-0.6.html) to store the file
 persistently in a different location. For this purpose, it's useful to try
 and construct an instance of `ClientConfiguration`:
 

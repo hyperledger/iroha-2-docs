@@ -1,25 +1,6 @@
 import type { SnippetSourceDefinition } from './types'
 import { rewriteMdLinks } from './util'
-
-/**
- * hyperledger/iroha#iroha2-stable
- */
-const IROHA_REV_STABLE = 'c4af68c4f7959b154eb5380aa93c894e2e63fe4e'
-
-/**
- * hyperledger/iroha#iroha2-dev
- */
-const IROHA_REV_DEV = '726f5eabf65a79ea618b4fce62a09cee7a5b13d1'
-
-/**
- * hyperledger/iroha-javascript#iroha2
- */
-const IROHA_JS_REV = 'd59fc767ddf0d1a66f5c6914a9be1560f614d791'
-
-/**
- * hyperledger/iroha-java#iroha2-dev
- */
-const IROHA_JAVA_REV_DEV = 'e176225f935cc7f976d17384191ef0c0043ca0f6'
+import { IROHA_JAVA_REV_DEV, IROHA_REV_STABLE, IROHA_JS_REV, IROHA_REV_DEV, IROHA_REV_LTS } from './meta'
 
 // *****
 
@@ -135,10 +116,18 @@ export default [
     filename: `iroha2_dev_api_spec.md`,
     transform: (source) =>
       Promise.resolve(source)
-        .then(rewriteMdLinks(`https://github.com/hyperledger/iroha/tree/${IROHA_REV_DEV}/docs/sources/references/`))
+        .then(rewriteMdLinks(`https://github.com/hyperledger/iroha/tree/${IROHA_REV_DEV}/docs/source/references/`))
         // remove the title header (`# ...`)
         .then((x) => x.replace(/# .+\n/m, '')),
   },
+  ...(['dev', 'lts', 'stable'] as const).map<SnippetSourceDefinition>((channel) => {
+    const revision = ({ dev: IROHA_REV_DEV, lts: IROHA_REV_LTS, stable: IROHA_REV_STABLE } as const)[channel]
+
+    return {
+      src: `https://raw.githubusercontent.com/hyperledger/iroha/${revision}/docs/source/references/schema.json`,
+      filename: `data-model-schema.${channel}.json`,
+    }
+  }),
   {
     src: './src/example_code/lorem.rs',
   },
