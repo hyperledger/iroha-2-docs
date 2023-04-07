@@ -1,3 +1,6 @@
 {
-  "eslint.workingDirectories": [".vitepress", "."]
+  "eslint.workingDirectories": [".vitepress", "."],
+  "markdown.validate.enabled": true,
+  "markdown.preview.typographer": false,
+  "markdown.extension.completion.root": "src"
 }

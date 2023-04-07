@@ -191,10 +191,7 @@ register a non-genesis account (for example, _alice_@wonderland) and
 `iroha_client_cli` currently doesn't support unregister instructions. If
 you plan on creating a private blockchain, you should consider writing your
 own client based on the `client` Rust crate, or any of the provided client
-libraries: [iroha-python](https://github.com/hyperledger/iroha-python),
-[iroha-iOS](https://github.com/hyperledger/iroha-ios),
-[iroha-java](https://github.com/hyperledger/iroha-java), or
-[iroha-javascript](https://github.com/hyperledger/iroha-javascript/tree/iroha2).
+libraries: [Python](../python.md), [Kotlin/Java](../kotlin-java.md), [TypeScript/JavaScript](../javascript.md).
 
 :::
 

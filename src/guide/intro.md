@@ -34,7 +34,7 @@ We invite you to follow the tutorial in this order:
    - [Python](/guide/python.md)
    - [Rust](/guide/rust.md)
    - [Kotlin/Java](/guide/kotlin-java.md)
-   - [Javascript (TypeScript)](/guide/javascript.md)
+   - [TypeScript/JavaScript](/guide/javascript.md)
 
 ## Tutorial Updates
 

@@ -27,7 +27,7 @@ related to [metadata](metadata.md).
 
 ## Asset Structure
 
-![Untitled](/img/asset-diagram.png)
+![Asset Diagram](/img/asset-diagram.png)
 
 ## Instructions
 
@@ -41,4 +41,4 @@ process of registering and minting assets in a blockchain:
 - [Rust](/guide/rust.md#_5-registering-and-minting-assets)
 - [Kotlin/Java](/guide/kotlin-java.md#_5-registering-and-minting-assets)
 - [Python](/guide/python.md#_5-registering-and-minting-assets)
-- [JavaScript/TypeScript](/guide/javascript.md#_5-registering-and-minting-assets)
+- [TypeScript/JavaScript](/guide/javascript.md#_5-registering-and-minting-assets)

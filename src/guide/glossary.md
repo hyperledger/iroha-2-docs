@@ -8,7 +8,7 @@ Here you can find definitions of all Iroha-related entities.
   - [Sumeragi (Emperor)](#sumeragi-emperor)
   - [Torii (Gate)](#torii-gate)
   - [Kura (Warehouse)](#kura-warehouse)
-  - [Kagami(Teacher and Exemplar and/or looking glass)](#kagamiteacher-and-exemplar-andor-looking-glass)
+  - [Kagami (Teacher and Exemplar and/or looking glass)](#kagamiteacher-and-exemplar-andor-looking-glass)
   - [Merkle tree (hash tree)](#merkle-tree-hash-tree)
   - [Smart contracts](#smart-contracts)
   - [Triggers](#triggers)

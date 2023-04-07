@@ -90,7 +90,7 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
               link: '/guide/kotlin-java',
             },
             {
-              text: 'JavaScript',
+              text: 'TypeScript/JavaScript',
               link: '/guide/javascript',
             },
           ],

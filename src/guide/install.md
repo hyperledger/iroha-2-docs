@@ -21,7 +21,7 @@ You can choose to work with one of the following versions of Iroha: `dev`,
 
 To install Iroha from GitHub, you need:
 
-- [git](https://githowto.com/)
+- [Git](https://githowto.com/)
 - [OpenSSL](https://www.openssl.org/)
 
 ### Install OpenSSL
