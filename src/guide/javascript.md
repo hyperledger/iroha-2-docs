@@ -8,24 +8,36 @@
 
 :::
 
-In this section we will introduce how Iroha 2 JavaScript SDK is organised
-and how to use it to communicate with Iroha from Node.js and Browser.
+Welcome to the Iroha 2 JavaScript SDK tutorial! In this tutorial, we'll
+guide you through using the Iroha 2 JavaScript SDK to interact with the
+Iroha blockchain.
 
-All code snippets are written in TypeScript, however it is completely fine
-to use pure JavaScript with the SDK &mdash; you should just omit
-TypeScript-specific syntax and everything should work just fine.
+The Iroha 2 JavaScript SDK is a set of tools that allows users to send
+transactions, queries, and to listen for events and blocks. It provides an
+easy-to-use API for building and submitting transactions, executing
+queries, and monitoring the state of the blockchain.
 
-Please notice that the SDK, as well as its documentation, are work in
-progress. Everything could change. Not everything is implemented perfectly.
-Don't hesitate to keep in touch with us if you have any ideas how to
-improve things.
+Throughout this tutorial, we'll cover the basics of working with the Iroha
+2 JavaScript SDK. We'll walk through the process of setting up your
+development environment, creating a new Iroha account, building and
+submitting transactions, and executing queries to retrieve data from the
+blockchain.
 
-[//]: # 'todo'
+By the end of this tutorial, you'll have a solid understanding of how to
+use the Iroha 2 JavaScript SDK to interact with the Iroha blockchain and
+build your own decentralized applications. So let's get started!
 
-This guide is organised a set of snippets with no specific instruction how
-to run them. The intention is to give you an understanding of how things
-are done and how to use it. We don't say you "write this code into this
-file, then run this file using this command and see that result".
+::: warning Work In Progress
+
+Please note that the Iroha 2 JavaScript SDK and its documentation are still
+in development and subject to change. Not everything is implemented
+perfectly, and we welcome your feedback and suggestions for improvements.
+Please don't hesitate to get in touch with us if you have any ideas on how
+we can make things better.
+
+:::
+
+## SDK Overview
 
 ::: tip Version notice
 
@@ -37,8 +49,6 @@ version is built for Iroha of version `2.0.0-pre-rc.XX` (todo put the same
 hash link but to iroha repo).
 
 :::
-
-## SDK Overview
 
 Iroha 2 JavaScript SDK is a set of Node.js packages. They are distributed
 through Iroha Nexus Registry[^1]. It is just like the main NPM Registry,
