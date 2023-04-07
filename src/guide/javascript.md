@@ -43,7 +43,8 @@ hash link but to iroha repo).
 Iroha 2 JavaScript SDK is a set of Node.js packages. They are distributed
 through Iroha Nexus Registry[^1]. It is just like the main NPM Registry,
 but requires a bit of configuration for NPM to fetch SDK packages from the
-right place. We will explain details [a little further](#install-packages).
+right place. We will explain details
+[a little further](#installing-iroha-2-javascript-sdk-packages).
 
 [^1]:
     In the future, the packages will be published in the main NPM Registry,
@@ -57,9 +58,28 @@ The SDK consists of multiple packages:
 | `@iroha2/data-model`                                              | Provides [SCALE](https://github.com/paritytech/parity-scale-codec) (Simple Concatenated Aggregate Little-Endian)-codecs for the Iroha 2 Data Model |
 | `@iroha2/client`                                                  | Submits requests to Iroha Peer                                                                                                                     |
 | `@iroha2/crypto-core`                                             | Contains cryptography types and target-agnostic utils.                                                                                             |
-| `@iroha2/crypto-target-node`                                      | Provides compiled crypto WASM[^2] for the Node.js environment                                                                                      |
+| `@iroha2/crypto-target-node`                                      | Provides compiled crypto WebAssembly[^2] (WASM) for the Node.js environment                                                                        |
 | `@iroha2/crypto-target-web`                                       | Provides compiled crypto WASM for native Web (ESM)                                                                                                 |
 | <code class="whitespace-pre">@iroha2/crypto-target-bundler</code> | Provides compiled crypto WASM to use with bundlers such as Webpack                                                                                 |
+
+[SCALE](https://github.com/paritytech/parity-scale-codec) is a binary
+format used to efficiently serialize and deserialize data. The
+`@iroha2/data-model` package in the Iroha 2 JavaScript SDK provides the
+SCALE codecs for the Iroha 2 Data Model. The Data Model is a collection of
+types that are used to represent various aspects of the Iroha 2 blockchain,
+such as transactions, blocks, assets, and more. By using SCALE to encode
+these types, the data can be transmitted more efficiently across the
+network, reducing bandwidth usage and improving performance.
+
+As for the `@iroha2/crypto-core` package, it provides various
+cryptography-related types and utility functions. This includes
+cryptographic primitives such as hashes, signatures, and keypairs, as well
+as utilities for encoding and decoding keys in various formats. The
+`@iroha2/crypto-target-node` and `@iroha2/crypto-target-web` packages
+provide compiled WebAssembly implementations of these primitives for use in
+Node.js and web environments, respectively. Finally, the
+`@iroha2/crypto-target-bundler` package provides a version of the
+WebAssembly code that is optimized for use with bundlers like Webpack.
 
 [^2]: [Web Assembly](https://webassembly.org/)
 
@@ -73,35 +93,50 @@ You can track its progress in
 
 We will explore each component in a bit more depth.
 
-### How to install packages
+### Installing Iroha 2 JavaScript SDK packages
 
-1. Depending on your setup, there are different ways to configure an NPM
-   Registry. Usually it is done with `.npmrc` file, located in your NPM
-   project directory. You need to set up Iroha Nexus Registry for `iroha2`
-   scope:
+To use the Iroha 2 JavaScript SDK, you'll need to install the required
+packages. The SDK consists of multiple packages, which are distributed
+through Iroha Nexus Registry. This registry is similar to the main NPM
+Registry, but requires some configuration to ensure that NPM fetches SDK
+packages from the correct place.
+
+1. **Setting up Iroha Nexus Registry.** To set up Iroha Nexus Registry for
+   the `iroha2` scope, you need to configure your NPM project's `.npmrc`
+   file. This file is typically located in your NPM project directory. Add
+   the following line to the `.npmrc` file:
 
    ```ini
-   # .npmrc
    @iroha2:registry=https://nexus.iroha.tech/repository/npm-group/
    ```
 
-2. Install a particular package (or packages) you need as any other NPM
-   packages:
+2. **Installing packages.** After configuring your NPM project to use Iroha
+   Nexus Registry, you can install the necessary packages using the npm
+   install command. Here's an example command that installs the
+   `@iroha2/client` and `@iroha2/data-model` packages:
 
    ```bash
    $ npm install @iroha2/client @iroha2/data-model
    ```
 
+   You can also install individual packages if you only need to use
+   specific components of the SDK.
+
+Note that the SDK is still a work in progress and everything may change. If
+you have any ideas for improving the SDK or its documentation, don't
+hesitate to get in touch with the developers.
+
 ### Data Model
 
-In order to communicate Iroha our intentions, we need to speak its
-language. This language is built with different structures which we call
-**the data model**. From the JavaScript side, we build those structures in
-JS-land notation, then _encode_ them into SCALE binary representation and
-send to Iroha. When we receive data from Iroha, we _decode_ it to
-JavaScript-land representation and do with it whatever we need to.
+To interact with Iroha, we need to speak its language, which is built using
+various structures collectively referred to as **the data model**. In
+JavaScript, we construct these structures using JS-land notation and then
+encode them into the SCALE binary representation for transmission to Iroha.
+When Iroha sends data back, we decode it from the SCALE representation to
+JavaScript-land notation for further processing.
 
-`@iroha2/data-model` package provides each data model structure:
+The `@iroha2/data-model` package provides each data model structure as
+follows:
 
 ```ts
 import { datamodel } from '@iroha2/data-model'
@@ -109,18 +144,20 @@ import { datamodel } from '@iroha2/data-model'
 
 ::: tip Data-model schema
 
-**Note**: currently data-model is defined through schema generated by
-Kagami. However, it's format is pretty raw and each SDK uses its own
-approach for code generation. JavaScript SDK, in particular, flatten all
-schema names into a single namespace where things like `pipeline::Event`
-and `trigger::Event` are flattened to `PipelineEvent` and `TriggerEvent` so
+**Note:** Currently, the data model is defined through a schema generated
+by Kagami, but it has a raw format, and each SDK uses its approach for code
+generation. In particular, the JavaScript SDK flattens all schema names
+into a single namespace where things like `pipeline::Event` and
+`trigger::Event` are flattened to `PipelineEvent` and `TriggerEvent` so
 that they don't conflict with each other.
 
-[//]: # (TODO expose schema on our site? https://github.com/hyperledger/iroha-2-docs/issues/301)
+See also:
+
+- [Issue related to the schema unification](https://github.com/hyperledger/iroha/pull/3317)
 
 :::
 
-Each `datamodel.*` item is a codec and a value factory:
+Each `datamodel.*` item is both a codec and a value factory:
 
 ```js
 // using factory to define `NumericValue`
@@ -133,13 +170,13 @@ const encoded = datamodel.NumericValue.toBuffer(value)
 const decoded = datamodel.NumericValue.fromBuffer(value)
 ```
 
-Data model package is built using SCALE codec library. See the links below
-to explore them in depth.
+The data model package is built using the SCALE codec library. Refer to the
+links below to explore these concepts in-depth.
 
 ::: tip TypeScript
 
-Each data model item is a codec from the runtime side, but **an opaque
-value type** from the type side: Each codec is also **an opaque type** for
+Each data model item is a codec from the runtime side but an opaque value
+type from the type side. In other words, each codec is an opaque type for
 better type safety.
 
 ```ts
@@ -148,12 +185,12 @@ declare function test(value: datamodel.NumericValue)
 test(datamodel.NumericValue('U128'))
 ```
 
-All values under the hood are just plain JavaScript objects and primitives.
-You can avoid defining values with factories by constructing values
-directly and using `as`:
+All values under the hood are plain JavaScript objects and primitives. You
+can avoid defining values with factories by constructing values directly
+and using `as`:
 
 ```ts
-import { variant } from '@iroha2/data-model'
+import { datamodel, variant } from '@iroha2/data-model'
 
 const domain = { name: 'wonderland' } as datamodel.DomainId
 const num = { enum: variant('Fixed', '0.2') } as datamodel.NumericValue
@@ -161,15 +198,16 @@ const num = { enum: variant('Fixed', '0.2') } as datamodel.NumericValue
 
 :::
 
-This guide heavily relies on the **"sugar"** feature. It is an experimental
-and not complete opt-in API that helps to build common data-model
-structures in a convenient way:
+This guide heavily relies on the "sugar" feature, an experimental and
+incomplete opt-in API that helps build common data model structures
+conveniently:
+
+js
 
 ```js
 import { datamodel, sugar } from '@iroha2/data-model'
 
-// equivalent definitions
-
+// Equivalent definitions.
 const accountId1 = sugar.accountId('alice', 'wonderland')
 const accountId2 = datamodel.AccountId({
   name: 'alice',
@@ -181,57 +219,168 @@ const value2 = datamodel.Value(
   'Numeric',
   datamodel.NumericValue('U32', 51),
 )
-
-// todo add example of instruction and executable
 ```
+
+[//]: # 'TODO: Add an example of instruction and executable.'
 
 ::: warning
 
-Sugar API is experimental and not complete. However, we believe that even
-in its current state it is useful for educational purposes and makes
-reading of this tutorial easier. Sugar API will probably change in the future.
+The Sugar API is experimental and incomplete. However, even in its current
+state, we believe it's useful for educational purposes and makes it easier
+to read this tutorial. The Sugar API is likely to change in the future.
 
 :::
 
 Links:
 
-- data model package in repo
-- scale codec compiler
-- scale codec runtime
-- scale codec enum
+- Data model package in the repository
+- SCALE codec compiler
+- SCALE codec runtime
+- SCALE codec enum
 
 ### Crypto
 
-Crypto helps to work with keys, signatures and hashes. It uses Web Assembly compiled from Rust. There are three different WASMs for different targets - `web`, `node` and `bundler`. 
+Crypto is an essential part of blockchain development, and the Iroha 2 SDK
+provides a robust set of cryptographic tools to work with keys, signatures,
+and hashes.
 
+The SDK's crypto module is built on Web Assembly (WASM) compiled from Rust.
+There are three different WASM builds available for different targets:
+`web`, `node`, and `bundler`. Each build provides the same set of
+cryptographic functions and can be used in the corresponding target
+environment.
 
-Notes about how to use crypto
+#### Using Crypto
 
-Put link to the crypto core
+To use @iroha2/crypto, you must first install the target-specific
+package(s) that you require. Refer to
+[the Packages Installation section](#installing-iroha-2-javascript-sdk-packages)
+for instructions on how to do this.
 
-Put link to the crypto util and freeing
+Once the target-specific package(s) are installed, you can import the
+necessary functions and classes from them. Refer to the READMEs for the
+target-specific packages for detailed API explanations (links below).
 
-put link to each crypto target package
+Note that the core package, which contains types and re-exported utils, is
+named `@iroha2/crypto-core`, while the target-specific packages are named
+`@iroha2/crypto-target-<target>`.
 
-Links:
+#### Memory Management
 
-- core
-- target web
-- target node
-- target bundler
-- util (you can read about freeing here)
+It is important to manage memory carefully when working with WebAssembly.
+`@iroha2/crypto-*` provides utilities to help manage memory, such as the
+`freeScope` function from the `@iroha2/crypto-core` (re-exported from
+`@iroha2/crypto-util`) package.
+
+Objects that reflect some struct in WASM have a `.free()` method to trigger
+deallocation manually. However, all such objects are wrapped and tracked,
+so this process can be automated using the `freeScope` function.
+
+The following code example shows how to use the `freeScope` function to
+achieve automatic memory deallocation:
+
+```ts
+import { freeScope } from '@iroha2/crypto-core'
+import { crypto } from '@iroha2/crypto-target-node'
+
+const keypair = freeScope((scope) => {
+  const seed = crypto.Hash.hash('hex', '00aa11').bytes()
+  const keypair = crypto.KeyGenConfiguration.default()
+    .useSeed('array', seed)
+    .generate()
+  scope.forget(keypair)
+  return keypair
+})
+```
+
+Refer to the `@iroha2/crypto-util` package documentation for more details
+on memory management.
+
+#### Links to Crypto
+
+- [`@iroha2/crypto-core` (GitHub)](https://github.com/hyperledger/iroha-javascript/tree/iroha2/packages/crypto/packages/core)
+- [`@iroha2/crypto-target-web` (GitHub)](https://github.com/hyperledger/iroha-javascript/tree/iroha2/packages/crypto/packages/target-web)
+- [`@iroha2/crypto-target-node` (GitHub)](https://github.com/hyperledger/iroha-javascript/tree/iroha2/packages/crypto/packages/target-node)
+- [`@iroha2/crypto-target-bundler` (GitHub)](https://github.com/hyperledger/iroha-javascript/tree/iroha2/packages/crypto/packages/target-bundler)
+- [`@iroha2/crypto-util` (GitHub)](https://github.com/hyperledger/iroha-javascript/tree/iroha2/packages/crypto/packages/util)
 
 ### Client
 
-Notes how to combine Data Model, Crypto and Client to send transactions,
-queries, listen for events and blocks. And now you are ready to read this
-guide!
+The Iroha 2 JavaScript SDK Client is the entry point for interacting with
+the Iroha blockchain. The `@iroha2/client` library provides a set of tools
+that allows users to send transactions, queries, and listen for events and
+blocks.
 
-put link to the client.
+The client library consists of several components:
 
-Links:
+- Payload Helpers: a set of functions that help to build a transaction or
+  query payload, sign it, compute its hash, and more. For example:
 
-- client lib
+  ```ts
+  // example of how to use payload helpers
+  ```
+
+- `Torii`: the core object with static methods to work with an Iroha peer.
+  It provides several methods including:
+
+  - `.submit` (Transactions API)
+  - `.request` (Query API)
+  - `.getStatus` (Telemetry)
+  - `.listenForEvents` (Events API)
+  - `.listenForBlocksStream` (Block Stream API)
+  - ...and others
+
+  Each method has its own **prerequisites** - an object with required URLs
+  and `fetch`/`ws` instance. There are 2 URLs - for main API endpoints and
+  for Telemetry ones. `Torii` uses an isomorphic transport approach, so the
+  actual WebSocket and HTTP clients should be provided manually according
+  to the environment (e.g. Node.js or Browser).
+
+  ```ts
+  // example of how to invoke Torii methods
+  ```
+
+- `Signer`: a simple class that produces a digital signature for a given
+  binary payload. It is constructed with an `datamodel.AccountId` and
+  `cryptoTypes.KeyPair`. The `.sign()` method accepts any binary payload
+  and produces a `datamodel.Signature`. Although only the key pair is
+  needed to produce the signature, `accountId` is required by `Client`.
+
+  ```ts
+  // example of how to call the `sign()` method
+  ```
+
+- `Client`: an opinionated high-level class that combines `Torii`,
+  `Signer`, and helper functions to provide two convenient methods to work
+  with the Transaction API and Query API. For example, instead of building
+  and signing a transaction from a `datamodel.Executable`, you can pass it
+  to the `client.submitExecutable()` method, and it will handle the rest.
+
+Before using crypto-related functions from `@iroha2/client`, you must
+inject a crypto instance first. The client library is made to be
+environment-agnostic, so you should install the appropriate
+`@iroha2/crypto-target-*` package and pass its crypto instance to the
+`setCrypto()` method. For example, in a Node.js environment:
+
+```ts
+import { crypto } from '@iroha2/crypto-target-node'
+import { setCrypto, computeTransactionHash } from '@iroha2/client'
+
+setCrypto(crypto)
+
+// now you can use it
+computeTransactionHash()
+```
+
+Here is an example of how all the described features look in code:
+
+```
+TODO
+```
+
+Refer to the
+[`@iroha2/client`](https://github.com/hyperledger/iroha-javascript/tree/iroha2/packages/client)
+package documentation for detailed API explanations.
 
 ## 0. Prepare project
 
