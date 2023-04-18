@@ -6,6 +6,7 @@ import footnote from 'markdown-it-footnote'
 import { resolve } from 'path'
 import { VitePWA } from 'vite-plugin-pwa'
 import svgLoader from 'vite-svg-loader'
+import { mermaid } from './md-mermaid'
 
 function getNav(): DefaultTheme.NavItem[] {
   return [
@@ -344,7 +345,7 @@ export default defineConfig({
 
   markdown: {
     async config(md) {
-      md.use(footnote)
+      md.use(footnote).use(mermaid)
     },
     theme: 'github-dark-dimmed',
   },
