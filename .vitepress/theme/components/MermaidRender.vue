@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useParamScope, useTask } from '@vue-kakuyaku/core'
 import { computedEager, templateRef, useIntersectionObserver } from '@vueuse/core'
 import { useData } from 'vitepress'
@@ -28,9 +28,24 @@ const scope = useParamScope(
   },
 )
 
-const svg = computedEager<string | null>(() => scope.value?.expose.state.fulfilled?.value.svg ?? null)
+const svg = computed<string | null>(() => scope.value?.expose.state.fulfilled?.value.svg ?? null)
+
+const svgCached = ref<string | null>(null)
+watch(svg, (v) => {
+  if (v) {
+    svgCached.value = v;
+  }
+})
 </script>
 
 <template>
-  <pre ref="root" data-mermaid v-html="svg" />
+  <pre ref="root" data-mermaid v-html="svgCached" />
+  <pre v-if="scope?.expose.state.rejected" class="text-xs border-2 border-red-300 break-all">Failed to render the diagram! {{ scope.expose.state.rejected.reason }}</pre>
 </template>
+
+<style lang="scss" scoped>
+pre[data-mermaid] {
+  display: flex;
+  justify-content: center;
+}
+</style>

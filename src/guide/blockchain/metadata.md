@@ -36,7 +36,27 @@ The emitted event also contains the data that was inserted or removed from
 the object. This data is stored in `MetadataChanged` in the form of a
 `(key, value)` pair.
 
-![Untitled](/img/metadata-changed.png)
+```mermaid
+classDiagram
+
+direction LR
+
+class MetadataChanged~ID~ {
+    target_id: ID
+    key: Name
+    value: Box~Value~
+}
+
+class AccountMetadataChanged~AccountId~
+class AssetMetadataChanged~AssetId~
+class AssetDefinitionMetadataChanged~AssetDefinitionId~
+class DomainMetadataChanged~DomainId~
+
+MetadataChanged --> AccountMetadataChanged
+MetadataChanged --> AssetMetadataChanged
+MetadataChanged --> AssetDefinitionMetadataChanged
+MetadataChanged --> DomainMetadataChanged
+```
 
 Check [data filters](./filters.md#data-filters) for details.
 
