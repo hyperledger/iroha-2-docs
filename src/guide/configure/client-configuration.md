@@ -81,9 +81,9 @@ address. You can set `TORII_TELEMETRY_URL` like this:
 "TORII_TELEMETRY_URL": "http://127.0.0.1:8180"
 ```
 
-A `GET` request to the [`127.0.0.1:8180/status`](http://127.0.0.1:8180/status) will give you a JSON-encoded
+A `GET` request to the `127.0.0.1:8180/status` will give you a JSON-encoded
 representation of the top-level metrics, while a `GET` request to
-[`127.0.0.1:8180/metrics`](http://127.0.0.1:8180/metrics) will give you a (somewhat verbose) list of all
+`127.0.0.1:8180/metrics` will give you a (somewhat verbose) list of all
 available metrics gathered in Iroha. You might want to change this if
 you're having trouble gathering metrics using `prometheus`.
 
