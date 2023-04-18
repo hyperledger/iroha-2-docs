@@ -14,9 +14,9 @@ export const IROHA_REV_DEV = '726f5eabf65a79ea618b4fce62a09cee7a5b13d1'
 export const IROHA_REV_LTS = '6e75248b84c73bf0415e1718024c75f406b5d354'
 
 /**
- * hyperledger/iroha-javascript#iroha2
+ * hyperledger/iroha-javascript#iroha2 (rc13)
  */
-export const IROHA_JS_REV = 'd59fc767ddf0d1a66f5c6914a9be1560f614d791'
+export const IROHA_JS_REV = '9c630fab14f063962b2508ac60e49789a160e443'
 
 /**
  * hyperledger/iroha-java#iroha2-dev
