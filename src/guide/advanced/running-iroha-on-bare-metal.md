@@ -338,8 +338,8 @@ services:
 For every peer, the `environment` section is a set of things that you
 should put in front of the `iroha` command, replacing colons with equals
 signs. All the socket addresses are also given internal to the docker
-network, so we should replace them with [`localhost`](http://localhost),
-which is [`127.0.0.1`](http://127.0.0.1) on most machines.
+network, so we should replace them with `[localhost](http://localhost)`,
+which is `127.0.0.1` on most machines.
 
 ::: tip
 
@@ -384,7 +384,7 @@ means that in the initial network topology, this peer is the
 needs to be the leader in the initial topology.
 
 Now you should do the same for the other four peers. Be mindful not to mix
-up which address goes where, replace `irohaX` with [`127.0.0.1`](http://127.0.0.1) in the
+up which address goes where, replace `irohaX` with `127.0.0.1` in the
 addresses, and make sure that they correspond to the right public key.
 
 ### Using Files
@@ -398,7 +398,7 @@ What you need to do is change the `TORII:P2P_ADDR`, `TORII:API_URL`
 their `docker-compose.yml` counterparts.
 
 Be mindful not to mix up which address goes where, replace `irohaX` with
-[`127.0.0.1`](http://127.0.0.1) in the addresses, and make sure that they correspond to the
+`127.0.0.1` in the addresses, and make sure that they correspond to the
 right public key.
 
 Then, in each of the new folders (with the exception of `peer0`) run:

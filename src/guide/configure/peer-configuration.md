@@ -110,7 +110,7 @@ section of the configuration file.
 
 It's not meant to be human-readable. However, a `GET` request to the
 `127.0.0.1:8180/status` will give you a JSON-encoded representation of the
-top-level metrics, while a `GET` request to [`127.0.0.1:8180/metrics`](https://127.0.0.1:8180/metrics) will
+top-level metrics, while a `GET` request to `127.0.0.1:8180/metrics` will
 give you a (somewhat verbose) list of all available metrics gathered in
 Iroha. You might want to change this if you're having trouble gathering
 metrics using `prometheus`.
