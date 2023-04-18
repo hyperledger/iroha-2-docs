@@ -3,7 +3,7 @@
 ::: info
 
 This guide targets `@iroha2/client` and `@iroha/data-model` version
-**`^4.0`**, which targets Iroha 2 LTS (`2.0.0-pre-rc.9`).
+**`^5.0`**, which targets Iroha 2 stable (`2.0.0-pre-rc.13`, `c4af68c4f7959b154eb5380aa93c894e2e63fe4e`).
 
 :::
 
