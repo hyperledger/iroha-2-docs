@@ -20,7 +20,7 @@ If you want to contribute to Iroha 2 tutorial, please clone the repository and f
 
 ### Prepare the environment
 
-1. **Install Node.js v16.** To install it without a headache, use [NVM](https://github.com/nvm-sh/nvm#installing-and-updating) (Node Version Manager). You can run something like this:
+1. **Install Node.js v16.9+.** To install it without a headache, use [NVM](https://github.com/nvm-sh/nvm#installing-and-updating) (Node Version Manager). You can run something like this:
 
    ```bash
    # Install NVM itself
@@ -31,22 +31,22 @@ If you want to contribute to Iroha 2 tutorial, please clone the repository and f
    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
    ```
 
-   Then you can install Node 16:
+   Then you can install Node 18:
 
    ```bash
-   nvm install 16
+   nvm install 18
    ```
 
-2. **Install PNPM**, a package manager used by this project. If you've installed Node.js, you can install PNPM with this command:
+2. **Enable [Corepack](https://github.com/nodejs/corepack)**:
 
    ```bash
-   npm i -g pnpm
+   corepack enable
    ```
 
-3. **Install the packages for this project.** From the root of the cloned repository, run:
+3. **Install project dependencies.** From the root of the cloned repository, run:
 
    ```bash
-   pnpm i
+   pnpm install
    ```
 
 ### Run dev mode
