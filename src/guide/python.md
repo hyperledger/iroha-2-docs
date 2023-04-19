@@ -2,7 +2,7 @@
 
 ::: warning
 
-WIP: `iroha-python` SDK works only with [`iroha2-lts`](https://github.com/hyperledger/iroha/tree/iroha2-lts) for now.
+WIP: The `iroha-python` SDK only works with the [`iroha2-lts`](https://github.com/hyperledger/iroha/tree/iroha2-lts) for now.
 It applies both to the
 [`iroha2-edge`](https://github.com/hyperledger/iroha-python/tree/iroha2-edge) and
 the [`iroha2`](https://github.com/hyperledger/iroha-python/tree/iroha2) branches.
