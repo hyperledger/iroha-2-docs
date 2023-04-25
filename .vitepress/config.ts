@@ -293,6 +293,15 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
         },
       ],
     },
+    {
+      text: 'Reports'
+      items: [
+        {
+          text: 'CSD/RTGS linkages via on-chain scripting',
+          link: '/guide/reports/csd-rtgs'
+          }
+      ]
+    },
   ]
 }
 
