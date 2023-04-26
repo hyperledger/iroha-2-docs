@@ -5,7 +5,7 @@ import { type EnhanceAppContext } from 'vitepress'
 import LayoutCustom from './components/LayoutCustom.vue'
 import MermaidRenderWrap from './components/MermaidRenderWrap.vue'
 
-import 'virtual:windi.css'
+import 'virtual:uno.css'
 import './style/index.scss'
 
 export default {
