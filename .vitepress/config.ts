@@ -1,11 +1,11 @@
 /// <reference types="vite/client" />
 
 import { defineConfig, DefaultTheme } from 'vitepress'
-import Windi from 'vite-plugin-windicss'
 import footnote from 'markdown-it-footnote'
 import { resolve } from 'path'
 import { VitePWA } from 'vite-plugin-pwa'
-import svgLoader from 'vite-svg-loader'
+import ViteSvgLoader from 'vite-svg-loader'
+import ViteUnoCSS from 'unocss/vite'
 
 function getNav(): DefaultTheme.NavItem[] {
   return [
@@ -317,7 +317,7 @@ export default defineConfig({
   lang: 'en-US',
   vite: {
     plugins: [
-      Windi({ config: resolve(__dirname, '../windi.config.ts') }),
+      ViteUnoCSS(),
       VitePWA({
         // Based on: https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs
         manifest: {
@@ -338,7 +338,7 @@ export default defineConfig({
         strategies: 'injectManifest',
         injectRegister: false,
       }),
-      svgLoader(),
+      ViteSvgLoader(),
     ],
     envDir: resolve(__dirname, '../'),
   },
