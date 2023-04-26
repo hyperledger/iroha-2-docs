@@ -410,10 +410,8 @@ export default defineConfig({
     },
     nav: getNav(),
 
-    algolia: {
-      appId: 'V04UIXRXW5',
-      apiKey: '48be1c36c1445f37c950a060f43e428d',
-      indexName: 'hyperledger',
+    search: {
+      provider: 'local'
     },
   },
 })
