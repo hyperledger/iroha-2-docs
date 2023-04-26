@@ -2,7 +2,11 @@
 
 ::: warning
 
-WIP: `iroha-python` works only with `iroha v2-pre-rc.1` for now.
+WIP: The `iroha-python` SDK only works with the [`iroha2-lts`](https://github.com/hyperledger/iroha/tree/iroha2-lts) for now.
+It applies both to the
+[`iroha2-edge`](https://github.com/hyperledger/iroha-python/tree/iroha2-edge) and
+the [`iroha2`](https://github.com/hyperledger/iroha-python/tree/iroha2) branches.
+Our team recommends using the `iroha2-edge` branch while we update the `iroha2` one.
 
 <!-- Check: a reference about future releases or work in progress -->
 
