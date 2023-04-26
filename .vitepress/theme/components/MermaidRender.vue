@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 import { useParamScope, useTask } from '@vue-kakuyaku/core'
 import { computedEager, templateRef, useIntersectionObserver } from '@vueuse/core'
 import { useData } from 'vitepress'
 import { renderSvg } from '../mermaid-render'
+import { SSpinner, SAlert, Status } from '@soramitsu-ui/ui'
 
 const props = defineProps<{ id: string; text: string }>()
 
@@ -24,28 +25,50 @@ const scope = useParamScope(
       payload: { id: props.id, text: textDecoded.value, theme: theme.value },
     },
   ({ payload: { id, text, theme } }) => {
-    return useTask(() => renderSvg(id, text, { theme }), { immediate: true })
+    return useTask(
+      () =>
+        renderSvg(id, text, {
+          theme,
+        }),
+      {
+        immediate: true,
+      },
+    )
   },
 )
 
-const svg = computed<string | null>(() => scope.value?.expose.state.fulfilled?.value.svg ?? null)
-
-const svgCached = ref<string | null>(null)
-watch(svg, (v) => {
-  if (v) {
-    svgCached.value = v;
-  }
-})
+const taskState = computed(() => scope.value?.expose.state)
 </script>
 
 <template>
-  <pre ref="root" data-mermaid v-html="svgCached" />
-  <pre v-if="scope?.expose.state.rejected" class="text-xs border-2 border-red-300 break-all">Failed to render the diagram! {{ scope.expose.state.rejected.reason }}</pre>
-</template>
+  <div ref="root">
+    <template v-if="taskState && !taskState.pending">
+      <pre
+        v-if="taskState.fulfilled"
+        data-mermaid
+        class="flex justify-center"
+        v-html="taskState.fulfilled.value.svg"
+      />
+      <template v-else>
+        <SAlert
+          title="Unable to render the diagram"
+          :status="Status.Error"
+        >
+          <template #description>
+            {{ taskState.rejected.reason }}
+          </template>
+        </SAlert>
+        <div class="language-mermaid">
+          <pre><code>{{ textDecoded }}</code></pre>
+        </div>
+      </template>
+    </template>
 
-<style lang="scss" scoped>
-pre[data-mermaid] {
-  display: flex;
-  justify-content: center;
-}
-</style>
+    <div
+      v-else
+      class="flex justify-center p-8"
+    >
+      <SSpinner />
+    </div>
+  </div>
+</template>

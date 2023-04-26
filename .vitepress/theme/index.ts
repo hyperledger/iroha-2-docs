@@ -1,6 +1,5 @@
 /// <reference types="vite/client" />
 
-
 import ThemeDefault from 'vitepress/theme'
 import { type EnhanceAppContext } from 'vitepress'
 import LayoutCustom from './components/LayoutCustom.vue'
