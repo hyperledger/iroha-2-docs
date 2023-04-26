@@ -411,7 +411,7 @@ export default defineConfig({
     nav: getNav(),
 
     search: {
-      provider: 'local'
+      provider: 'local',
     },
   },
 })
