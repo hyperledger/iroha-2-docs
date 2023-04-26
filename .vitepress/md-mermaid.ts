@@ -13,7 +13,7 @@ export const mermaid = (md: MarkdownIt) => {
     if (token.info.trim() === 'mermaid') {
       const content = token.content.trim()
       const id = `mermaid_${hasha(content)}`
-      return `<Mermaid id="${id}" text="${encodeURIComponent(content)}" />`
+      return `<MermaidRenderWrap id="${id}" text="${encodeURIComponent(content)}" />`
     }
 
     // Shiki will highlight `mmd` as `mermaid`

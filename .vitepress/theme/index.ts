@@ -12,6 +12,6 @@ export default {
   ...ThemeDefault,
   Layout: LayoutCustom,
   enhanceApp({ app }: EnhanceAppContext) {
-    app.component('Mermaid', MermaidRenderWrap)
+    app.component('MermaidRenderWrap', MermaidRenderWrap)
   },
 }
