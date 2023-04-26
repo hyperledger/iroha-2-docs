@@ -43,10 +43,10 @@ meantime, you could use the local copy that you've just created in the
 
 ```toml
 [dependencies]
-iroha_client = { version = "=2.0.0-pre-rc.11", path = "~/Git/iroha/client" }
-iroha_data_model = { version = "=2.0.0-pre-rc.11", path = "~/Git/iroha/data_model" }
-iroha_crypto = { version = "=2.0.0-pre-rc.11", path = "~/Git/iroha/crypto" }
-iroha_config = { version = "=2.0.0-pre-rc.11", path = "~/Git/iroha/config" }
+iroha_client = { version = "=2.0.0-pre-rc.13", path = "~/Git/iroha/client" }
+iroha_data_model = { version = "=2.0.0-pre-rc.13", path = "~/Git/iroha/data_model" }
+iroha_crypto = { version = "=2.0.0-pre-rc.13", path = "~/Git/iroha/crypto" }
+iroha_config = { version = "=2.0.0-pre-rc.13", path = "~/Git/iroha/config" }
 ```
 
 The added benefit of using a local copy is that you have access to the
@@ -130,11 +130,15 @@ let config = ClientConfiguration {
 };
 ```
 
+::: info
+
 Note that the keys in
 [client configuration](/guide/configure/client-configuration.md) are given
 in [multi-hash format](https://github.com/multiformats/multihash). If you
 are experiencing issues parsing the keys in this format,
 [check the troubleshooting section](/guide/troubleshooting/configuration-issues#multihash-format-of-private-and-public-keys).
+
+:::
 
 ## 3. Registering a Domain
 
