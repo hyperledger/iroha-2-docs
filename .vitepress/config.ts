@@ -215,7 +215,7 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
             },
             {
               text: 'Metadata and Store assets',
-              link: '/guide/configure/metadata-and-store-assets.md',
+              link: '/guide/configure/metadata-and-store-assets',
             },
           ],
         },
