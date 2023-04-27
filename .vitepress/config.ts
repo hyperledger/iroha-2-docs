@@ -220,6 +220,10 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
           link: '/guide/configure/keys',
         },
         {
+            text: 'Working with the Keys',
+            link: '/guide/configure/working-with-the-keys',
+        },
+        {
           text: 'Peer Management',
           link: '/guide/configure/peer-management',
         },
