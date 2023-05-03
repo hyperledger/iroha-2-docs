@@ -27,7 +27,46 @@ related to [metadata](metadata.md).
 
 ## Asset Structure
 
-![Untitled](/img/asset-diagram.png)
+```mermaid
+classDiagram
+
+class Asset
+class AssetDefinition
+
+class Id {
+  definition_id
+  account_id
+}
+
+class Mintable {
+  <<enumeration>>
+  Infinitely
+  Once
+  Not
+}
+
+class AssetValue {
+  <<enumeration>>
+  Quantity
+  BigQuantity
+  Fixed
+  Store
+}
+
+Asset -- AssetDefinition
+Asset -- Id
+AssetDefinition -- Mintable
+AssetDefinition -- AssetValue 
+AssetDefinition -- Id
+
+Asset : id {Id}
+Asset : value
+
+AssetDefinition : id {Id}
+AssetDefinition : value_type {AssetValueType}
+AssetDefinition : mintable {Mintable}
+AssetDefinition : metadata
+```
 
 ## Instructions
 

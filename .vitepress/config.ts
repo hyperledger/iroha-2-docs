@@ -6,6 +6,7 @@ import { resolve } from 'path'
 import { VitePWA } from 'vite-plugin-pwa'
 import ViteSvgLoader from 'vite-svg-loader'
 import ViteUnoCSS from 'unocss/vite'
+import { mermaid } from './md-mermaid'
 
 function getNav(): DefaultTheme.NavItem[] {
   return [
@@ -366,7 +367,7 @@ export default defineConfig({
 
   markdown: {
     async config(md) {
-      md.use(footnote)
+      md.use(footnote).use(mermaid)
     },
     theme: 'github-dark-dimmed',
   },
