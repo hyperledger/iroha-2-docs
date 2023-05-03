@@ -189,7 +189,27 @@ All triggers are essentially **event triggers**. The type of a trigger is
 determined by the type of an event that trigger is associated with. This,
 in turn, is determined by the `filter` used to register a trigger.
 
-![Untitled](/img/triggers.png)
+```mermaid
+classDiagram
+
+class Trigger~F: Filter~
+
+class time_trigger~TimeEventFilter~
+class data_trigger~DataEventFilter~
+class by_call_trigger~ExecuteTriggerEventFilter~
+class pipeline_trigger~PipelineEventFilter~
+
+class precommit_trigger~TimeEventFilter(ExecutionTime::PreCommit)~
+class scheduled_trigger~TimeEventFilter(ExecutionTime::Schedule(schedule))~
+
+Trigger --> time_trigger
+Trigger --> by_call_trigger
+Trigger --> data_trigger
+Trigger --> pipeline_trigger
+
+time_trigger --> precommit_trigger 
+time_trigger --> scheduled_trigger
+```
 
 ### Data Triggers
 

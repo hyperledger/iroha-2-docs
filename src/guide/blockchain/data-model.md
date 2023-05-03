@@ -27,10 +27,61 @@ relationship between various objects in the blockchain.
 
 ```
 
+[//]: # 'TODO: rewrite above schema with mermaid'
+
 The following example shows the relationship between domains, accounts, and
 assets.
 
-![Untitled](/img/domains-example.png)
+<div class="domains-example-scope">
+
+```mermaid
+classDiagram
+
+class domain_wonderland {
+  id = "wonderland"
+}
+class account_alice:::aliceblue {
+  id = "alice@wonderland"
+}
+class account_mad_hatter:::aliceblue {
+  id = "mad_hatter@wonderland"
+}
+
+class asset_rose:::pink {
+  id = "rose#wonderland"
+}
+
+domain_wonderland *-- account_alice : registered in
+domain_wonderland *-- asset_rose : registered in
+account_alice *-- asset_rose : registered by
+domain_wonderland *-- account_mad_hatter : registered in
+
+class domain_looking_glass {
+  id = "looking_glass"
+}
+
+class account_rabbit:::aliceblue {
+  id = "white_rabbit@looking_glass"
+}
+
+domain_looking_glass *-- account_rabbit : registered in
+```
+
+</div>
+
+<style scoped lang="scss">
+.domains-example-scope {
+  :deep(.aliceblue) rect {
+      stroke: rgba(59, 130, 246, 0.8) !important;
+      stroke-width: 4 !important;
+  }
+
+  :deep(.pink) rect {
+    stroke: rgba(246, 50, 100, 0.8) !important;
+    stroke-width: 4 !important;
+  }
+}
+</style>
 
 ::: details Language-specific guidance on registering these objects
 
@@ -50,4 +101,39 @@ about [permissions and roles](./permissions.md) and [metadata](metadata.md)
 in the corresponding sections. The asset structure is illustrated in a
 [dedicated chapter](./assets.md).
 
-![Untitled](/img/domain-account-asset-diagram.png)
+```mermaid
+classDiagram
+
+class Domain
+class Account
+class AssetDefinition
+class Asset
+
+Domain *-- "many" Account : contains
+Domain *-- "many" AssetDefinition : contains
+Account *-- "many" Asset : contains
+Asset -- AssetDefinition
+
+Domain : id
+Domain : accounts
+Domain : asset_definitions
+Domain : logo
+Domain : metadata
+
+Account : id
+Account : assets
+Account : signatories
+Account : signature_check_condition
+Account : metadata
+Account : roles
+
+
+AssetDefinition : id
+AssetDefinition : value_type
+AssetDefinition : mintable
+AssetDefinition : metadata
+
+Asset : id
+Asset : value
+```
+
