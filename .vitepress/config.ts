@@ -214,6 +214,10 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
               text: 'Genesis Block',
               link: '/guide/configure/genesis',
             },
+            {
+              text: 'Metadata and Store assets',
+              link: '/guide/configure/metadata-and-store-assets',
+            },
           ],
         },
         {
