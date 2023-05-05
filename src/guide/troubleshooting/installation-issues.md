@@ -134,3 +134,26 @@ toolchain installed. Then, run:
 ```bash
 $ rustup toolchain install stable
 ```
+
+## Troubleshooting Python toolchain
+
+When you install the Python Wheel package using pip on the "[client setup](../python#_1-iroha-2-client-setup)" step, you may encounter an error like:
+"iroha_python-*.whl is not a supported wheel on this platform".
+
+This error means that pip is outdated, so you need to update it.
+First of all, it is recommended to check your OS for updates and perform a system upgrade.
+
+If this doesn't work, you can try updating `pip` for your user directory.
+
+`python -m pip install --upgrade pip`
+
+Make sure that `pip` that is installed in your home directory. To do this, run `whereis pip` and check if `/home/username/.local/bin/pip` is among the paths. If not, update your shell's `PATH` variable.
+
+If the issue persists, please [contact us](../support) and report the outputs.
+
+```
+python --version
+python3 --version
+pip --version
+pip3 --version
+```
