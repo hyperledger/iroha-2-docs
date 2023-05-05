@@ -147,7 +147,7 @@ If this doesn't work, you can try updating `pip` for your user directory.
 
 `python -m pip install --upgrade pip`
 
-Make sure that `pip` that is installed in your home directory by running `whereis pip` and checking if `/home/username/.local/bin/pip` is among the paths. You may need to update your shell's `PATH` variable otherwise.
+Make sure that `pip` that is installed in your home directory. To do this, run `whereis pip` and check if `/home/username/.local/bin/pip` is among the paths. If not, update your shell's `PATH` variable.
 
 If the issue persists, please [contact us](../support) and report the outputs.
 
