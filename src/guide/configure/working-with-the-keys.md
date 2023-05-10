@@ -3,7 +3,7 @@
 ## Creating and using the keys
 
 ::: warning
-We have several code tutorials and an article about [public-key cryptography](./keys.html). Despite us using `JSON` in tutorial examples to store the keys plainly, this approach is only used for demonstration purposes because you need a more secure one for production use. Iroha 2 will directly support better practices with time.
+We have created several code tutorials and an article about [public-key cryptography](./keys.html). Despite us using `JSON` in tutorial examples to store the keys plainly, this approach is only used for demonstration purposes because you need a more secure one for production use. Iroha 2 will directly support better practices with time.
 
 Your case may not require us to roll out the new features since you’ll probably use it as a framework in your blockchain setup and can partially implement your solution.
 :::
