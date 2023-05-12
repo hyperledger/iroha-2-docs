@@ -296,7 +296,8 @@ experimenting with it. For this, we'll need to modify the `PUBLIC_KEY`,
 we registered earlier, which is located in the same directory as 
 `iroha_client_cli`.
 
-::: Your updated config.json should look like this
+::: tip
+Your updated config.json should look like this
 
 
 ```json
