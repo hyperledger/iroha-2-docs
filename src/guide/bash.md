@@ -291,7 +291,7 @@ _mad_hatter_ has been registered.
 
 
 Now, let's switch to the newly created account, _mad_hatter_, and continue
-experimenting with it. For this, we'll need to modify the `PUBLIC_KEY`, 
+experimenting with it. For this, we need to modify the `PUBLIC_KEY`, 
 `PRIVATE_KEY`, and `ACCOUNT_ID` in the `config.json` file with the ones 
 we registered earlier, which is located in the same directory as 
 `iroha_client_cli`.
