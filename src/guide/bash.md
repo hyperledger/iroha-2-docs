@@ -289,7 +289,45 @@ If the account registration is successful, you will receive a confirmation
 message. Like before, it is necessary to query the accounts to verify that
 _mad_hatter_ has been registered.
 
-To see all the accounts on the network, run:
+
+Now, let's switch to the newly created account, _mad_hatter_, and continue
+experimenting with it. For this, we need to modify the `PUBLIC_KEY`, 
+`PRIVATE_KEY`, and `ACCOUNT_ID` in the `config.json` file with the ones 
+we registered earlier, which is located in the same directory as 
+`iroha_client_cli`.
+
+::: tip
+Your updated config.json should look like this
+
+
+```json
+{
+  "PUBLIC_KEY": "ed01204595da8957c5598d4de20fe5f3eb4c14820678e1a1957a535db1fd4b3d1607c5",
+  "PRIVATE_KEY": {
+    "digest_function": "ed25519",
+    "payload": "14d382c5bd8c0bfbaefdef1133196b78839ed3c136e296e0d969b7a3fca2fb424595da8957c5598d4de20fe5f3eb4c14820678e1a1957a535db1fd4b3d1607c5"
+  },
+  "ACCOUNT_ID": "mad_hatter@looking_glass",
+  "BASIC_AUTH": {
+    "web_login": "mad_hatter",
+    "password": "ilovetea"
+  },
+  "TORII_API_URL": "http://127.0.0.1:8080",
+  "TORII_TELEMETRY_URL": "http://127.0.0.1:8180",
+  "TRANSACTION_TIME_TO_LIVE_MS": 100000,
+  "TRANSACTION_STATUS_TIMEOUT_MS": 15000,
+  "TRANSACTION_LIMITS": {
+    "max_instruction_number": 4096,
+    "max_wasm_size_bytes": 4194304
+  },
+  "ADD_TRANSACTION_NONCE": false
+}
+```
+
+:::
+
+
+To see all the accounts on the network as _mad_hatter_, run:
 
 ```bash
 $ ./iroha_client_cli account list all
@@ -504,34 +542,7 @@ sticking to English alphanumeric characters and underscores**.
 
 ## 6. Transferring assets
 
-After minting the assets, you can transfer them to another account. To be
-able to do this, you have to grant [permission](blockchain/permissions.md)
-to transfer assets. Let's look at how this process works.
-
-First, create a file named `permission_token.json` with the permission you
-want to grant. In our case, we want Mad Hatter to be able to transfer `tea`
-asset.
-
-```json
-{
-  "definition_id": "can_transfer_user_assets",
-  "params": {
-    "asset_id": {
-      "Id": {
-        "AssetId": "tea##mad_hatter@looking_glass"
-      }
-    }
-  }
-}
-```
-
-Then grant Mad Hatter the permission to transfer the tea asset:
-
-```
-./iroha_client_cli account grant --id "mad_hatter@looking_glass" --permission permission_token.json
-```
-
-After that, you can transfer some of Mad Hatter's tea to White Rabbit:
+After minting the assets, you can transfer some of Mad Hatter's tea to White Rabbit:
 
 ```bash
 $ ./iroha_client_cli asset transfer --from mad_hatter@looking_glass --to white_rabbit@looking_glass --asset-id tea#looking_glass --quantity 5
