@@ -200,7 +200,7 @@ When registering an account, there are a few more variables. The account
 can only be registered to an existing domain. Also, an account typically
 has to have a key pair. 
 
-To register a new account add next lines on Main.kt
+To register a new account, add the following lines to `Main.kt`:
 
 ```Kotlin
     val joe = "joe_${System.currentTimeMillis()}$ACCOUNT_ID_DELIMITER$domain"
