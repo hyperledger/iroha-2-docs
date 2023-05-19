@@ -11,7 +11,7 @@ the unusual, and provide some instructions for creating your own Iroha
 We assume that you know how to create a new package and have basic
 understanding of the fundamental Kotlin code. Specifically, we shall assume
 that you know how to build and deploy your program on the target platforms.
-To clone Iroha 2 JVM compatible SDKs, you can use https://github.com/hyperledger/iroha-java.
+To clone Iroha 2 JVM compatible SDKs, you can use [Iroha Java](https://github.com/hyperledger/iroha-java).
 
 Without further ado, here's a part of an example `build.gradle.kts` file,
 specifically, the `repositories` and `dependencies` sections:
