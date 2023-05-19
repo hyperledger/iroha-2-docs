@@ -158,7 +158,7 @@ val domain = "domain_${System.currentTimeMillis()}"
     sendTransaction.registerDomain(domain).also { println("DOMAIN $domain CREATED") }
 ```
 
-And create new open class SendTransaction to your project.
+Then create new open class `SendTransaction` in your project:
 
 ```kotlin
 open class SendTransaction (peerUrl: String,
