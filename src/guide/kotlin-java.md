@@ -139,7 +139,7 @@ open class Query (peerUrl: String,
 }
 ```
 
-The output in the terminal will contain a list of all domains that are currently registered
+The output in the terminal will contain a list of all domains that are currently registered.
 
 ::: details Expand to see the expected output
 
