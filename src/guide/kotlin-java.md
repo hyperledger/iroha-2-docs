@@ -118,16 +118,14 @@ fun main(args: Array<String>): Unit = runBlocking{
         "9ac47abf59b356e0bd7dcbbbb4dec080e302156a48ca907e47cb6aea1d32719e")
 
     val client = AdminIroha2Client(URL(peerUrl), URL(telemetryUrl), log = true)
-    val query = Query(peerUrl, telemetryUrl, client, admin, adminKeyPair)
+    val query = Query(client, admin, adminKeyPair)
 
     query.findAllDomains()
         .also { println("ALL DOMAINS: ${it.map { d -> d.id.asString() }}") }
 
 }
 
-open class Query (peerUrl: String,
-                  telemetryUrl: String,
-                  private val client: AdminIroha2Client,
+open class Query (private val client: AdminIroha2Client,
                   private val admin: AccountId,
                   private val keyPair: KeyPair) {
     
@@ -152,7 +150,7 @@ ALL DOMAINS: [wonderland, genesis, garden_of_live_flowers]
 To register a new domain add next lines on Main.kt
 
 ```kotlin
-val sendTransaction = SendTransaction(peerUrl, telemetryUrl, client, admin, adminKeyPair)
+val sendTransaction = SendTransaction(client, admin, adminKeyPair)
 
 val domain = "domain_${System.currentTimeMillis()}"
     sendTransaction.registerDomain(domain).also { println("DOMAIN $domain CREATED") }
@@ -161,12 +159,10 @@ val domain = "domain_${System.currentTimeMillis()}"
 And create new open class SendTransaction to your project.
 
 ```kotlin
-open class SendTransaction (peerUrl: String,
-                    telemetryUrl: String,
-                    private val client: AdminIroha2Client,
-                    private val admin: AccountId,
-                    private val keyPair: KeyPair,
-                    private val timeout: Long = 10000) {
+open class SendTransaction (private val client: AdminIroha2Client,
+                            private val admin: AccountId,
+                            private val keyPair: KeyPair,
+                            private val timeout: Long = 10000) {
 
     suspend fun registerDomain(
         id: String,
