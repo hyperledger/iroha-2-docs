@@ -14,7 +14,7 @@ that you know how to build and deploy your program on the target platforms.
 To clone Iroha 2 JVM compatible SDKs, you can use [Iroha Java](https://github.com/hyperledger/iroha-java).
 
 Without further ado, here's a part of an example `build.gradle.kts` file,
-specifically, the `repositories` and `dependencies` sections:
+specifically, the `plugins`, `repositories` and `dependencies` sections:
 
 ```kotlin
 plugins {
@@ -265,20 +265,91 @@ Kotlin SDK.
 
 :::
 
-<<<@/snippets/InstructionsTest.kt#java_register_asset{kotlin}
+To register new assets definition, add the following lines of code to `main`
 
-<<<@/snippets/InstructionsTest.kt#java_mint_asset{kotlin}
+```Kotlin
+    val assetDefinition = "asset_${System.currentTimeMillis()}$ASSET_ID_DELIMITER$domain"
+    sendTransaction.registerAssetDefinition(assetDefinition, AssetValueType.Quantity())
+        .also { println("ASSET DEFINITION $assetDefinition CREATED") }
+```
 
-Note that our original intention was to register an asset named
-_time#looking_glass_ that was non-mintable. Due to a technical limitation
-we cannot prevent that asset from being minted. However, we can ensure that
-the late bunny is always late: _alice@wonderland_ can mint time but only to
-her account initially.
+Then implement new method for class `SendTransaction` in your project.
 
-If she tried to mint an asset that was registered using a different client,
-which was non-mintable, this attempt would have been rejected, _and Alice
-alongside her long-eared, perpetually stressed friend would have no way of
-making more time_.
+```Kotlin
+    suspend fun registerAssetDefinition(
+        id: String,
+        type: AssetValueType = AssetValueType.Store(),
+        metadata: Map<Name, Value> = mapOf(),
+        mintable: Mintable = Mintable.Infinitely(),
+        admin: AccountId = this.admin,
+        keyPair: KeyPair = this.keyPair
+    ) {
+        client.sendTransaction {
+            account(admin)
+            this.registerAssetDefinition(id.asAssetDefinitionId(), type, Metadata(metadata), mintable)
+            buildSigned(keyPair)
+        }.also {
+            withTimeout(timeout) { it.await() }
+        }
+    }
+```
+
+To mint new assets, add the following lines of code to `main`
+
+```Kotlin
+    val joeAsset = "$assetDefinition$ASSET_ID_DELIMITER$joe"
+    sendTransaction.registerAsset(joeAsset, AssetValue.Quantity(100))
+        .also { println("ASSET $joeAsset CREATED") }
+```
+
+Then implement new method for class `SendTransaction` in your project.
+
+```Kotlin
+    suspend fun registerAsset(
+        id: String,
+        value: AssetValue,
+        admin: AccountId = this.admin,
+        keyPair: KeyPair = this.keyPair
+        ) {
+        client.sendTransaction {
+            account(admin)
+            this.registerAsset(id.asAssetId(), value)
+            buildSigned(keyPair)
+        }.also {
+            withTimeout(timeout) { it.await() }
+            }
+        }
+```
+
+To check the result, add the following line of code to the class `main`
+
+```Kotlin
+    query.findAllAssets()
+        .also { println("ALL ASSETS: ${it.map { a -> a.id.asString() }}") }
+```
+
+Also, a new method has been added to the `open class Query`
+
+```Kotlin
+    suspend fun findAllAssets(queryFilter: GenericValuePredicateBox<ValuePredicate>? = null) = QueryBuilder
+        .findAllAssets(queryFilter)
+        .account(admin)
+        .buildSigned(keyPair)
+        .let { client.sendQuery(it) }
+```
+
+::: details Expand to see the expected output
+
+```
+DOMAIN domain_1684491906610 CREATED
+ACCOUNT joe_1684491909340@domain_1684491906610 CREATED
+ALL ACCOUNTS: [joe_1684414800075@domain_1684414798255, alice@wonderland, bob@wonderland, genesis@genesis, carpenter@garden_of_live_flowers]
+ASSET DEFINITION asset_1684499583943#domain_1684499580075 CREATED
+ASSET asset_1684499583943#domain_1684499580075#joe_1684499582934@domain_1684499580075 CREATED
+ALL ASSETS: [asset_1684414801045#domain_1684414798255#joe_1684414800075@domain_1684414798255, cabbage#garden_of_live_flowers#alice@wonderland, rose#wonderland#alice@wonderland]
+```
+
+:::
 
 ## 6. Visualizing outputs
 
