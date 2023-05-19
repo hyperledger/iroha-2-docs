@@ -11,10 +11,10 @@ the unusual, and provide some instructions for creating your own Iroha
 We assume that you know how to create a new package and have basic
 understanding of the fundamental Kotlin code. Specifically, we shall assume
 that you know how to build and deploy your program on the target platforms.
-To clone Iroha 2 JVM compatible SDKs, you can use https://github.com/hyperledger/iroha-java.
+To clone Iroha 2 JVM compatible SDKs, you can use [Iroha Java](https://github.com/hyperledger/iroha-java).
 
 Without further ado, here's a part of an example `build.gradle.kts` file,
-specifically, the `repositories` and `dependencies` sections:
+specifically, the `plugins`, `repositories` and `dependencies` sections:
 
 ```kotlin
 plugins {
@@ -80,9 +80,9 @@ and see how the `Iroha2Config` is implemented.
 
 <<<@/snippets/IrohaConfig.kotlin
 
-## 3. Domain search and registration
+## 3. Querying and Registering Domains
 
-Search Registering a domain is one of the easier operations. The usual boilerplate
+Querying and Registering a domain are among the easier operations. The usual boilerplate
 code, that often only serves to instantiate a client from an on-disk
 configuration file, is unnecessary. Instead, you have to deal with a few
 imports:
@@ -137,7 +137,7 @@ open class Query (private val client: AdminIroha2Client,
 }
 ```
 
-The output in the terminal will contain a list of all domains that are currently registered
+The output in the terminal will contain a list of all domains that are currently registered.
 
 ::: details Expand to see the expected output
 
@@ -147,7 +147,7 @@ ALL DOMAINS: [wonderland, genesis, garden_of_live_flowers]
 
 :::
 
-To register a new domain add next lines on Main.kt
+To register a new domain, add the following lines to Main.kt:
 
 ```kotlin
 val sendTransaction = SendTransaction(client, admin, adminKeyPair)
@@ -156,7 +156,7 @@ val domain = "domain_${System.currentTimeMillis()}"
     sendTransaction.registerDomain(domain).also { println("DOMAIN $domain CREATED") }
 ```
 
-And create new open class SendTransaction to your project.
+Then create new open class `SendTransaction` in your project:
 
 ```kotlin
 open class SendTransaction (private val client: AdminIroha2Client,
@@ -198,34 +198,55 @@ heap-allocated reference types are all called boxes).
 
 When registering an account, there are a few more variables. The account
 can only be registered to an existing domain. Also, an account typically
-has to have a key pair. So if e.g. _alice@wonderland_ was registering an
-account for _white_rabbit@looking_glass_, she should provide his public
-key.
+has to have a key pair. 
 
-It is tempting to generate both the private and public keys at this time,
-but it isn't the brightest idea. Remember that _the white_rabbit_ trusts
-_you, alice@wonderland,_ to create an account for them in the domain
-_looking_glass_, **but doesn't want you to have access to that account
-after creation**.
+To register a new account, add the following lines to `Main.kt`:
 
-If you gave _white_rabbit_ a key that you generated yourself, how would
-they know if you don't have a copy of their private key? Instead, the best
-way is to **ask** _white_rabbit_ to generate a new key-pair, and give you
-the public half of it.
+```Kotlin
+    val joe = "joe_${System.currentTimeMillis()}$ACCOUNT_ID_DELIMITER$domain"
+    val joeKeyPair = generateKeyPair()
+    sendTransaction.registerAccount(joe, listOf(joeKeyPair.public.toIrohaPublicKey()))
+        .also { println("ACCOUNT $joe CREATED") }
 
-Similarly to the previous example, we provide the instructions in the form
-of a test:
+    query.findAllAccounts()
+        .also { println("ALL ACCOUNTS: ${it.map { a -> a.id.asString() }}") }
+```
 
-<<<@/snippets/InstructionsTest.kt#java_register_account{kotlin}
+Then implement new method for class `SendTransaction` in your project.
+
+```Kotlin
+    suspend fun registerAccount(
+        id: String,
+        signatories: List<PublicKey>,
+        metadata: Map<Name, Value> = mapOf(),
+        admin: AccountId = this.admin,
+        keyPair: KeyPair = this.keyPair
+    ) {
+        client.sendTransaction {
+            account(admin)
+            this.registerAccount(id.asAccountId(), signatories, Metadata(metadata))
+            buildSigned(keyPair)
+        }.also {
+            withTimeout(timeout) { it.await() }
+        }
+    }
+```
+
+::: details Expand to see the expected output
+
+```
+DOMAIN domain_1684491906610 CREATED
+ACCOUNT joe_1684491909340@domain_1684491906610 CREATED
+ALL ACCOUNTS: [joe_1684414800075@domain_1684414798255, alice@wonderland, bob@wonderland, genesis@genesis, carpenter@garden_of_live_flowers]
+
+```
+
+:::
 
 As you can see, for _illustrative purposes_, we have generated a new
 key-pair. We converted that key-pair into an Iroha-compatible format using
 `toIrohaPublicKey`, and added the public key to the instruction to register
 an account.
-
-Again, it's important to note that we are using _alice@wonderland_ as a
-proxy to interact with the blockchain, hence her credentials also appear in
-the transaction.
 
 ## 5. Registering and minting assets
 
@@ -244,20 +265,91 @@ Kotlin SDK.
 
 :::
 
-<<<@/snippets/InstructionsTest.kt#java_register_asset{kotlin}
+To register new assets definition, add the following lines of code to `main`
 
-<<<@/snippets/InstructionsTest.kt#java_mint_asset{kotlin}
+```Kotlin
+    val assetDefinition = "asset_${System.currentTimeMillis()}$ASSET_ID_DELIMITER$domain"
+    sendTransaction.registerAssetDefinition(assetDefinition, AssetValueType.Quantity())
+        .also { println("ASSET DEFINITION $assetDefinition CREATED") }
+```
 
-Note that our original intention was to register an asset named
-_time#looking_glass_ that was non-mintable. Due to a technical limitation
-we cannot prevent that asset from being minted. However, we can ensure that
-the late bunny is always late: _alice@wonderland_ can mint time but only to
-her account initially.
+Then implement new method for class `SendTransaction` in your project.
 
-If she tried to mint an asset that was registered using a different client,
-which was non-mintable, this attempt would have been rejected, _and Alice
-alongside her long-eared, perpetually stressed friend would have no way of
-making more time_.
+```Kotlin
+    suspend fun registerAssetDefinition(
+        id: String,
+        type: AssetValueType = AssetValueType.Store(),
+        metadata: Map<Name, Value> = mapOf(),
+        mintable: Mintable = Mintable.Infinitely(),
+        admin: AccountId = this.admin,
+        keyPair: KeyPair = this.keyPair
+    ) {
+        client.sendTransaction {
+            account(admin)
+            this.registerAssetDefinition(id.asAssetDefinitionId(), type, Metadata(metadata), mintable)
+            buildSigned(keyPair)
+        }.also {
+            withTimeout(timeout) { it.await() }
+        }
+    }
+```
+
+To mint new assets, add the following lines of code to `main`
+
+```Kotlin
+    val joeAsset = "$assetDefinition$ASSET_ID_DELIMITER$joe"
+    sendTransaction.registerAsset(joeAsset, AssetValue.Quantity(100))
+        .also { println("ASSET $joeAsset CREATED") }
+```
+
+Then implement new method for class `SendTransaction` in your project.
+
+```Kotlin
+    suspend fun registerAsset(
+        id: String,
+        value: AssetValue,
+        admin: AccountId = this.admin,
+        keyPair: KeyPair = this.keyPair
+        ) {
+        client.sendTransaction {
+            account(admin)
+            this.registerAsset(id.asAssetId(), value)
+            buildSigned(keyPair)
+        }.also {
+            withTimeout(timeout) { it.await() }
+            }
+        }
+```
+
+To check the result, add the following line of code to the class `main`
+
+```Kotlin
+    query.findAllAssets()
+        .also { println("ALL ASSETS: ${it.map { a -> a.id.asString() }}") }
+```
+
+Also, a new method has been added to the `open class Query`
+
+```Kotlin
+    suspend fun findAllAssets(queryFilter: GenericValuePredicateBox<ValuePredicate>? = null) = QueryBuilder
+        .findAllAssets(queryFilter)
+        .account(admin)
+        .buildSigned(keyPair)
+        .let { client.sendQuery(it) }
+```
+
+::: details Expand to see the expected output
+
+```
+DOMAIN domain_1684491906610 CREATED
+ACCOUNT joe_1684491909340@domain_1684491906610 CREATED
+ALL ACCOUNTS: [joe_1684414800075@domain_1684414798255, alice@wonderland, bob@wonderland, genesis@genesis, carpenter@garden_of_live_flowers]
+ASSET DEFINITION asset_1684499583943#domain_1684499580075 CREATED
+ASSET asset_1684499583943#domain_1684499580075#joe_1684499582934@domain_1684499580075 CREATED
+ALL ASSETS: [asset_1684414801045#domain_1684414798255#joe_1684414800075@domain_1684414798255, cabbage#garden_of_live_flowers#alice@wonderland, rose#wonderland#alice@wonderland]
+```
+
+:::
 
 ## 6. Visualizing outputs
 
