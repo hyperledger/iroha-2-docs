@@ -80,7 +80,7 @@ and see how the `Iroha2Config` is implemented.
 
 <<<@/snippets/IrohaConfig.kotlin
 
-## 3. Domain search and registration
+## 3. Querying and Registering Domains
 
 Querying and Registering a domain are among the easier operations. The usual boilerplate
 code, that often only serves to instantiate a client from an on-disk
