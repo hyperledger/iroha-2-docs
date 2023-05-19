@@ -212,7 +212,7 @@ To register a new account add next lines on Main.kt
         .also { println("ALL ACCOUNTS: ${it.map { a -> a.id.asString() }}") }
 ```
 
-And implement new method on class SendTransaction to your project.
+Then implement new method for class `SendTransaction` in your project.
 
 ```Kotlin
     suspend fun registerAccount(
