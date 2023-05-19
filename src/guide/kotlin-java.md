@@ -198,34 +198,55 @@ heap-allocated reference types are all called boxes).
 
 When registering an account, there are a few more variables. The account
 can only be registered to an existing domain. Also, an account typically
-has to have a key pair. So if e.g. _alice@wonderland_ was registering an
-account for _white_rabbit@looking_glass_, she should provide his public
-key.
+has to have a key pair. 
 
-It is tempting to generate both the private and public keys at this time,
-but it isn't the brightest idea. Remember that _the white_rabbit_ trusts
-_you, alice@wonderland,_ to create an account for them in the domain
-_looking_glass_, **but doesn't want you to have access to that account
-after creation**.
+To register a new account add next lines on Main.kt
 
-If you gave _white_rabbit_ a key that you generated yourself, how would
-they know if you don't have a copy of their private key? Instead, the best
-way is to **ask** _white_rabbit_ to generate a new key-pair, and give you
-the public half of it.
+```Kotlin
+    val joe = "joe_${System.currentTimeMillis()}$ACCOUNT_ID_DELIMITER$domain"
+    val joeKeyPair = generateKeyPair()
+    sendTransaction.registerAccount(joe, listOf(joeKeyPair.public.toIrohaPublicKey()))
+        .also { println("ACCOUNT $joe CREATED") }
 
-Similarly to the previous example, we provide the instructions in the form
-of a test:
+    query.findAllAccounts()
+        .also { println("ALL ACCOUNTS: ${it.map { a -> a.id.asString() }}") }
+```
 
-<<<@/snippets/InstructionsTest.kt#java_register_account{kotlin}
+And implement new method on class SendTransaction to your project.
+
+```Kotlin
+    suspend fun registerAccount(
+        id: String,
+        signatories: List<PublicKey>,
+        metadata: Map<Name, Value> = mapOf(),
+        admin: AccountId = this.admin,
+        keyPair: KeyPair = this.keyPair
+    ) {
+        client.sendTransaction {
+            account(admin)
+            this.registerAccount(id.asAccountId(), signatories, Metadata(metadata))
+            buildSigned(keyPair)
+        }.also {
+            withTimeout(timeout) { it.await() }
+        }
+    }
+```
+
+::: details Expand to see the expected output
+
+```
+DOMAIN domain_1684491906610 CREATED
+ACCOUNT joe_1684491909340@domain_1684491906610 CREATED
+ALL ACCOUNTS: [joe_1684414800075@domain_1684414798255, alice@wonderland, bob@wonderland, genesis@genesis, carpenter@garden_of_live_flowers]
+
+```
+
+:::
 
 As you can see, for _illustrative purposes_, we have generated a new
 key-pair. We converted that key-pair into an Iroha-compatible format using
 `toIrohaPublicKey`, and added the public key to the instruction to register
 an account.
-
-Again, it's important to note that we are using _alice@wonderland_ as a
-proxy to interact with the blockchain, hence her credentials also appear in
-the transaction.
 
 ## 5. Registering and minting assets
 
