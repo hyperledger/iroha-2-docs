@@ -11,13 +11,16 @@ the unusual, and provide some instructions for creating your own Iroha
 We assume that you know how to create a new package and have basic
 understanding of the fundamental Kotlin code. Specifically, we shall assume
 that you know how to build and deploy your program on the target platforms.
-The Iroha 2 JVM-compatible SDKs are as much a work-in-progress as the rest
-of this guide, and significantly more so than the Rust library.
+To clone Iroha 2 JVM compatible SDKs, you can use https://github.com/hyperledger/iroha-java.
 
 Without further ado, here's a part of an example `build.gradle.kts` file,
 specifically, the `repositories` and `dependencies` sections:
 
 ```kotlin
+plugins {
+    kotlin("jvm") version "1.6.10"
+}
+
 repositories {
     // Use Maven Central for resolving dependencies
     mavenCentral()
@@ -77,24 +80,22 @@ and see how the `Iroha2Config` is implemented.
 
 <<<@/snippets/IrohaConfig.kotlin
 
-## 3. Registering a Domain
+## 3. Domain search and registration
 
-Registering a domain is one of the easier operations. The usual boilerplate
+Search Registering a domain is one of the easier operations. The usual boilerplate
 code, that often only serves to instantiate a client from an on-disk
 configuration file, is unnecessary. Instead, you have to deal with a few
 imports:
 
 ```kotlin
-import org.junit.jupiter.api.extension.ExtendWith
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions
-import jp.co.soramitsu.iroha2.engine.IrohaRunnerExtension
-import jp.co.soramitsu.iroha2.Iroha2Client
-import jp.co.soramitsu.iroha2.engine.WithIroha
+import jp.co.soramitsu.iroha2.*
+import jp.co.soramitsu.iroha2.generated.datamodel.account.AccountId
+import jp.co.soramitsu.iroha2.generated.datamodel.predicate.GenericValuePredicateBox
+import jp.co.soramitsu.iroha2.generated.datamodel.predicate.value.ValuePredicate
+import jp.co.soramitsu.iroha2.query.QueryBuilder
 import kotlinx.coroutines.runBlocking
-import kotlin.test.assertEquals
-import java.util.concurrent.TimeUnit
-import jp.co.soramitsu.iroha2.generated.datamodel.account.Id as AccountId
+import java.net.URL
+import java.security.KeyPair
 ```
 
 We shall write this example in the form of a test class, hence the presence
@@ -103,22 +104,94 @@ Iroha makes extensive use of asynchronous programming (in Rust
 terminology), hence blocking is not necessarily the only mode of
 interaction with the Iroha 2 code.
 
-We have started by creating a mutable lazy-initialised client. This client
-is passed an instance of a domain registration box, which we get as a
-result of evaluating `registerDomain(domainName)`. Then the client is sent
-a transaction which consists of that one instruction. And that's it.
+In order to make sure that the raised peers work correctly, you can do a simple 
+operation to get all registered domains.
 
-<<<@/snippets/InstructionsTest.kt#java_register_domain{kotlin}
+Next, we will add wrappers to the classes created in this section.
 
-Well, almost. You may have noticed that we had to do this on behalf of
-`aliceAccountId`. This is because any transaction on the Iroha 2 blockchain
-has to be done by an account. This is a special account that must already
-exist on the blockchain. You can ensure that point by reading through
-`genesis.json` and seeing that **_alice_** indeed has an account, with a
-public key. Furthermore, the account's public key must be included in the
-configuration. If either of these two is missing, you will not be able to
-register an account, and will be greeted by an exception of an appropriate
-type.
+```kotlin
+fun main(args: Array<String>): Unit = runBlocking{
+    val peerUrl = "http://127.0.0.1:8080"
+    val telemetryUrl = "http://127.0.0.1:8180"
+    val admin = AccountId("bob".asName(), "wonderland".asDomainId())
+    val adminKeyPair = keyPairFromHex("7233bfc89dcbd68c19fde6ce6158225298ec1131b6a130d1aeb454c1ab5183c0",
+        "9ac47abf59b356e0bd7dcbbbb4dec080e302156a48ca907e47cb6aea1d32719e")
+
+    val client = AdminIroha2Client(URL(peerUrl), URL(telemetryUrl), log = true)
+    val query = Query(peerUrl, telemetryUrl, client, admin, adminKeyPair)
+
+    query.findAllDomains()
+        .also { println("ALL DOMAINS: ${it.map { d -> d.id.asString() }}") }
+
+}
+
+open class Query (peerUrl: String,
+                  telemetryUrl: String,
+                  private val client: AdminIroha2Client,
+                  private val admin: AccountId,
+                  private val keyPair: KeyPair) {
+    
+    suspend fun findAllDomains(queryFilter: GenericValuePredicateBox<ValuePredicate>? = null) = QueryBuilder
+        .findAllDomains(queryFilter)
+        .account(admin)
+        .buildSigned(keyPair)
+        .let { client.sendQuery(it) }
+}
+```
+
+The output in the terminal will contain a list of all domains that are currently registered
+
+::: details Expand to see the expected output
+
+```
+ALL DOMAINS: [wonderland, genesis, garden_of_live_flowers]
+```
+
+:::
+
+To register a new domain add next lines on Main.kt
+
+```kotlin
+val sendTransaction = SendTransaction(peerUrl, telemetryUrl, client, admin, adminKeyPair)
+
+val domain = "domain_${System.currentTimeMillis()}"
+    sendTransaction.registerDomain(domain).also { println("DOMAIN $domain CREATED") }
+```
+
+And create new open class SendTransaction to your project.
+
+```kotlin
+open class SendTransaction (peerUrl: String,
+                    telemetryUrl: String,
+                    private val client: AdminIroha2Client,
+                    private val admin: AccountId,
+                    private val keyPair: KeyPair,
+                    private val timeout: Long = 10000) {
+
+    suspend fun registerDomain(
+        id: String,
+        metadata: Map<Name, Value> = mapOf(),
+        admin: AccountId = this.admin,
+        keyPair: KeyPair = this.keyPair
+    ) {
+        client.sendTransaction {
+            account(admin)
+            this.registerDomain(id.asDomainId(), metadata)
+            buildSigned(keyPair)
+        }.also {
+            withTimeout(timeout) { it.await() }
+        }
+    }
+}
+```
+
+::: details Expand to see the expected output
+
+```
+ALL DOMAINS: [wonderland, domain_1684411658477, genesis, garden_of_live_flowers]
+```
+
+:::
 
 ## 4. Registering an Account
 
