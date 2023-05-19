@@ -82,7 +82,7 @@ and see how the `Iroha2Config` is implemented.
 
 ## 3. Domain search and registration
 
-Search Registering a domain is one of the easier operations. The usual boilerplate
+Querying and Registering a domain are among the easier operations. The usual boilerplate
 code, that often only serves to instantiate a client from an on-disk
 configuration file, is unnecessary. Instead, you have to deal with a few
 imports:
