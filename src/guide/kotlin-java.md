@@ -149,7 +149,7 @@ ALL DOMAINS: [wonderland, genesis, garden_of_live_flowers]
 
 :::
 
-To register a new domain add next lines on Main.kt
+To register a new domain, add the following lines to Main.kt:
 
 ```kotlin
 val sendTransaction = SendTransaction(peerUrl, telemetryUrl, client, admin, adminKeyPair)
