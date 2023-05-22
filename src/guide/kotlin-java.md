@@ -396,7 +396,7 @@ In the `sendTransaction` class, add a method for transferring assets.
     }
 ```
 
-To check the result of the transfer of assets, add the `getAccountAmount()` method to the `Query` class
+To check the result of the asset transferring, add the `getAccountAmount()` method to the `Query` class:
 
 ```Kotlin
     suspend fun getAccountAmount(accountId: String, assetId: String): Long {
