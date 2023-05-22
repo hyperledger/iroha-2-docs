@@ -355,7 +355,7 @@ ALL ASSETS: [asset_1684414801045#domain_1684414798255#joe_1684414800075@domain_1
 
 After we have registered and minted Joe's assets, let's transfer 
 some of them to another blockchain user. To do this, we will create a new 
-user, register their asset in the `main` method and add asset transfer operations.
+user, register their asset with the `main` method and add transfer operations for the asset.
 
 ```Kotlin
 
