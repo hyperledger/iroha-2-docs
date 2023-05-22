@@ -351,58 +351,6 @@ ALL ASSETS: [asset_1684414801045#domain_1684414798255#joe_1684414800075@domain_1
 
 :::
 
-## 7. Burning assets
-
-Burning assets is quite similar to minting them. Add the following lines
-of code to the `main` method.
-
-```Kotlin
-    sendTransaction.burnAssets(joeAsset, 10, joe.asAccountId(), joeKeyPair)
-        .also { println("${joe.asAccountId()} WAS BURN") }
-
-    query.getAccountAmount(joe, joeAsset).also { println("$joeAsset BALANCE: $it AFTER ASSETS BURNING") }
-```
-
-implement a wrapper over the `burnAssets()` method in the `sendTransaction class`.
-
-```Kotlin
-    suspend fun burnAssets(
-        assetId: String,
-        value: Int,
-        admin: AccountId = this.admin,
-        keyPair: KeyPair = this.keyPair
-    ) {
-        client.sendTransaction {
-            account(admin)
-            this.burnAsset(assetId.asAssetId(), value)
-            buildSigned(keyPair)
-        }.also {
-            withTimeout(timeout) { it.await() }
-        }
-    }
-```
-
-::: details Expand to see the expected output
-
-```
-DOMAIN domain_1684747358101 CREATED
-ACCOUNT joe_1684747360408@domain_1684747358101 CREATED
-ACCOUNT joe_1684747361144@domain_1684747358101 CREATED
-ASSET DEFINITION asset_1684747362188#domain_1684747358101 CREATED
-ASSET asset_1684747362188#domain_1684747358101#joe_1684747360408@domain_1684747358101 CREATED
-ASSET asset_1684747362188#domain_1684747358101#joe_1684747361144@domain_1684747358101 CREATED
-joe_1684747360408@domain_1684747358101 TRANSFERRED FROM asset_1684747362188#domain_1684747358101#joe_1684747360408@domain_1684747358101 TO asset_1684747362188#domain_1684747358101#joe_1684747361144@domain_1684747358101: 10
-asset_1684747362188#domain_1684747358101#joe_1684747360408@domain_1684747358101 BALANCE: 90
-asset_1684747362188#domain_1684747358101#joe_1684747361144@domain_1684747358101 BALANCE: 10
-AccountId(name=Name(string=joe_1684747360408), domainId=DomainId(name=Name(string=domain_1684747358101))) WAS BURN
-asset_1684747362188#domain_1684747358101#joe_1684747360408@domain_1684747358101 BALANCE: 80 AFTER ASSETS BURNING
-ALL ASSETS: [asset_1684740821148#domain_1684740817675#joe_1684740819381@domain_1684740817675, asset_1684740821148#domain_1684740817675#joe_1684740820096@domain_1684740817675]
-
-```
-
-:::
-
-
 ## 6. Visualizing outputs
 
 Finally, we should talk about visualising data. The Rust API is currently
