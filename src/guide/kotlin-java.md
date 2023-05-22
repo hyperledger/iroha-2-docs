@@ -353,8 +353,8 @@ ALL ASSETS: [asset_1684414801045#domain_1684414798255#joe_1684414800075@domain_1
 
 ## 7. Burning assets
 
-Burning assets is quite similar to minting them. Add a couple of lines 
-to the `main()` method.
+Burning assets is quite similar to minting them. First. let's add the following lines 
+to the `main()` method:
 
 ```Kotlin
     sendTransaction.burnAssets(joeAsset, 10, joe.asAccountId(), joeKeyPair)
