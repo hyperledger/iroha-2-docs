@@ -363,7 +363,7 @@ to the `main()` method:
     query.getAccountAmount(joe, joeAsset).also { println("$joeAsset BALANCE: $it AFTER ASSETS BURNING") }
 ```
 
-Implement a wrapper over the `burnAssets()` method in the `sendTransaction` class.
+Then implement a wrapper over the `burnAssets()` method in the `sendTransaction` class:
 
 ```Kotlin
     suspend fun burnAssets(
