@@ -351,44 +351,30 @@ ALL ASSETS: [asset_1684414801045#domain_1684414798255#joe_1684414800075@domain_1
 
 :::
 
-## 6. Transferring assets
+## 7. Burning assets
 
-After we have registered and minted Joe's assets, let's transfer 
-some of them to another blockchain user. To do this, we will create a new 
-user, register their asset with the `main` method and add transfer operations for the asset.
+Burning assets is quite similar to minting them. To get started, let's add the following lines 
+to the `main()` method:
 
 ```Kotlin
+    sendTransaction.burnAssets(joeAsset, 10, joe.asAccountId(), joeKeyPair)
+        .also { println("${joe.asAccountId()} WAS BURN") }
 
-    //...
-    
-    val carl = "joe_${System.currentTimeMillis()}$ACCOUNT_ID_DELIMITER$domain"
-    val carlKeyPair = generateKeyPair()
-    sendTransaction.registerAccount(carl, listOf(carlKeyPair.public.toIrohaPublicKey()))
-        .also { println("ACCOUNT $carl CREATED") }
-
-    val carlAsset = "$assetDefinition$ASSET_ID_DELIMITER$carl"
-    sendTransaction.registerAsset(carlAsset, AssetValue.Quantity(0))
-        .also { println("ASSET $carlAsset CREATED") }
-
-    sendTransaction.transferAsset(joeAsset, 10, carlAsset, joe.asAccountId(), joeKeyPair)
-        .also { println("$joe TRANSFERRED FROM $joeAsset TO $carlAsset: 10") }
-    query.getAccountAmount(joe, joeAsset).also { println("$joeAsset BALANCE: $it") }
-    query.getAccountAmount(carl, carlAsset).also { println("$carlAsset BALANCE: $it") }
+    query.getAccountAmount(joe, joeAsset).also { println("$joeAsset BALANCE: $it AFTER ASSETS BURNING") }
 ```
 
-In the `sendTransaction` class, add a method for transferring assets.
+Then implement a wrapper over the `burnAssets()` method in the `sendTransaction` class:
 
 ```Kotlin
-    suspend fun transferAsset(
-        from: String,
+    suspend fun burnAssets(
+        assetId: String,
         value: Int,
-        to: String,
         admin: AccountId = this.admin,
         keyPair: KeyPair = this.keyPair
     ) {
         client.sendTransaction {
             account(admin)
-            this.transferAsset(from.asAssetId(), value, to.asAssetId())
+            this.burnAsset(assetId.asAssetId(), value)
             buildSigned(keyPair)
         }.also {
             withTimeout(timeout) { it.await() }
@@ -396,41 +382,24 @@ In the `sendTransaction` class, add a method for transferring assets.
     }
 ```
 
-To check the result of the asset transfer, add the `getAccountAmount()` method to the `Query` class:
-
-```Kotlin
-    suspend fun getAccountAmount(accountId: String, assetId: String): Long {
-        return QueryBuilder.findAccountById(accountId.asAccountId())
-            .account(admin)
-            .buildSigned(keyPair)
-            .let { query ->
-                client.sendQuery(query).assets[assetId.asAssetId()]?.value
-            }.let { value ->
-                value?.cast<AssetValue.Quantity>()?.u32
-            } ?: throw RuntimeException("NOT FOUND")
-    }
-```
-
-The console output should contain similar information.
-
 ::: details Expand to see the expected output
 
 ```
-DOMAIN domain_1684740817675 CREATED
-ACCOUNT joe_1684740819381@domain_1684740817675 CREATED
-ACCOUNT joe_1684740820096@domain_1684740817675 CREATED
-ASSET DEFINITION asset_1684740821148#domain_1684740817675 CREATED
-ASSET asset_1684740821148#domain_1684740817675#joe_1684740819381@domain_1684740817675 CREATED
-ASSET asset_1684740821148#domain_1684740817675#joe_1684740820096@domain_1684740817675 CREATED
-joe_1684740819381@domain_1684740817675 TRANSFERRED FROM asset_1684740821148#domain_1684740817675#joe_1684740819381@domain_1684740817675 TO asset_1684740821148#domain_1684740817675#joe_1684740820096@domain_1684740817675: 10
-asset_1684740821148#domain_1684740817675#joe_1684740819381@domain_1684740817675 BALANCE: 90
-asset_1684740821148#domain_1684740817675#joe_1684740820096@domain_1684740817675 BALANCE: 10
-ALL ASSETS: [asset_1684740821148#domain_1684740817675#joe_1684740819381@domain_1684740817675, asset_1684740821148#domain_1684740817675#joe_1684740820096@domain_1684740817675]
+DOMAIN domain_1684747757611 CREATED
+ACCOUNT joe_1684747759261@domain_1684747757611 CREATED
+ACCOUNT joe_1684747760244@domain_1684747757611 CREATED
+ASSET DEFINITION asset_1684747761291#domain_1684747757611 CREATED
+ASSET asset_1684747761291#domain_1684747757611#joe_1684747759261@domain_1684747757611 CREATED
+ASSET asset_1684747761291#domain_1684747757611#joe_1684747760244@domain_1684747757611 CREATED
+joe_1684747759261@domain_1684747757611 TRANSFERRED FROM asset_1684747761291#domain_1684747757611#joe_1684747759261@domain_1684747757611 TO asset_1684747761291#domain_1684747757611#joe_1684747760244@domain_1684747757611: 10
+asset_1684747761291#domain_1684747757611#joe_1684747759261@domain_1684747757611 BALANCE: 90
+asset_1684747761291#domain_1684747757611#joe_1684747760244@domain_1684747757611 BALANCE: 10
+AccountId(name=Name(string=joe_1684747759261), domainId=DomainId(name=Name(string=domain_1684747757611))) WAS BURN
+asset_1684747761291#domain_1684747757611#joe_1684747759261@domain_1684747757611 BALANCE: 80 AFTER ASSETS BURNING
+ALL ASSETS: [asset_1684747761291#domain_1684747757611#joe_1684747759261@domain_1684747757611, asset_1684747761291#domain_1684747757611#joe_1684747760244@domain_1684747757611]
 ```
 
 :::
-
-
 
 ## 6. Visualizing outputs
 
