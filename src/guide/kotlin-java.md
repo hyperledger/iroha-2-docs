@@ -351,6 +351,87 @@ ALL ASSETS: [asset_1684414801045#domain_1684414798255#joe_1684414800075@domain_1
 
 :::
 
+## 6. Transferring assets
+
+After we have registered and minting the assets for Joe, let's transfer 
+some amount to another blockchain user. To do this, we will create a new 
+user, register his asset in the `main` method and add assets transfer operations.
+
+```Kotlin
+
+    //...
+    
+    val carl = "joe_${System.currentTimeMillis()}$ACCOUNT_ID_DELIMITER$domain"
+    val carlKeyPair = generateKeyPair()
+    sendTransaction.registerAccount(carl, listOf(carlKeyPair.public.toIrohaPublicKey()))
+        .also { println("ACCOUNT $carl CREATED") }
+
+    val carlAsset = "$assetDefinition$ASSET_ID_DELIMITER$carl"
+    sendTransaction.registerAsset(carlAsset, AssetValue.Quantity(0))
+        .also { println("ASSET $carlAsset CREATED") }
+
+    sendTransaction.transferAsset(joeAsset, 10, carlAsset, joe.asAccountId(), joeKeyPair)
+        .also { println("$joe TRANSFERRED FROM $joeAsset TO $carlAsset: 10") }
+    query.getAccountAmount(joe, joeAsset).also { println("$joeAsset BALANCE: $it") }
+    query.getAccountAmount(carl, carlAsset).also { println("$carlAsset BALANCE: $it") }
+```
+
+In the `sendTransaction` class, add a method for transferring assets.
+
+```Kotlin
+    suspend fun transferAsset(
+        from: String,
+        value: Int,
+        to: String,
+        admin: AccountId = this.admin,
+        keyPair: KeyPair = this.keyPair
+    ) {
+        client.sendTransaction {
+            account(admin)
+            this.transferAsset(from.asAssetId(), value, to.asAssetId())
+            buildSigned(keyPair)
+        }.also {
+            withTimeout(timeout) { it.await() }
+        }
+    }
+```
+
+To check the result of the transfer of assets, add the `getAccountAmount()` method to the `Query` class
+
+```Kotlin
+    suspend fun getAccountAmount(accountId: String, assetId: String): Long {
+        return QueryBuilder.findAccountById(accountId.asAccountId())
+            .account(admin)
+            .buildSigned(keyPair)
+            .let { query ->
+                client.sendQuery(query).assets[assetId.asAssetId()]?.value
+            }.let { value ->
+                value?.cast<AssetValue.Quantity>()?.u32
+            } ?: throw RuntimeException("NOT FOUND")
+    }
+```
+
+Console output should contain similar information
+
+::: details Expand to see the expected output
+
+```
+DOMAIN domain_1684740817675 CREATED
+ACCOUNT joe_1684740819381@domain_1684740817675 CREATED
+ACCOUNT joe_1684740820096@domain_1684740817675 CREATED
+ASSET DEFINITION asset_1684740821148#domain_1684740817675 CREATED
+ASSET asset_1684740821148#domain_1684740817675#joe_1684740819381@domain_1684740817675 CREATED
+ASSET asset_1684740821148#domain_1684740817675#joe_1684740820096@domain_1684740817675 CREATED
+joe_1684740819381@domain_1684740817675 TRANSFERRED FROM asset_1684740821148#domain_1684740817675#joe_1684740819381@domain_1684740817675 TO asset_1684740821148#domain_1684740817675#joe_1684740820096@domain_1684740817675: 10
+asset_1684740821148#domain_1684740817675#joe_1684740819381@domain_1684740817675 BALANCE: 90
+asset_1684740821148#domain_1684740817675#joe_1684740820096@domain_1684740817675 BALANCE: 10
+ALL ASSETS: [asset_1684740821148#domain_1684740817675#joe_1684740819381@domain_1684740817675, asset_1684740821148#domain_1684740817675#joe_1684740820096@domain_1684740817675]
+```
+
+:::
+
+
+
 ## 6. Visualizing outputs
 
 Finally, we should talk about visualising data. The Rust API is currently
