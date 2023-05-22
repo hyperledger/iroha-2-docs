@@ -353,7 +353,7 @@ ALL ASSETS: [asset_1684414801045#domain_1684414798255#joe_1684414800075@domain_1
 
 ## 7. Burning assets
 
-Burning assets is quite similar to minting them. First. let's add the following lines 
+Burning assets is quite similar to minting them. To get started, let's add the following lines 
 to the `main()` method:
 
 ```Kotlin
