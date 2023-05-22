@@ -411,7 +411,7 @@ To check the result of the transfer of assets, add the `getAccountAmount()` meth
     }
 ```
 
-Console output should contain similar information
+Console output should contain similar information.
 
 ::: details Expand to see the expected output
 
