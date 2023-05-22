@@ -411,7 +411,7 @@ To check the result of the asset transfer, add the `getAccountAmount()` method t
     }
 ```
 
-Console output should contain similar information.
+The console output should contain similar information.
 
 ::: details Expand to see the expected output
 
