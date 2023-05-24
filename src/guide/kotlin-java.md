@@ -83,16 +83,24 @@ and see how the `Iroha2Config` is implemented.
 
 Querying and Registering a domain are easier operations. The usual boilerplate
 code, that often only serves to instantiate a client from an on-disk
-configuration file, is unnecessary. Instead, you have to deal with a few
-imports:
+configuration file, is unnecessary. We will immediately add all the necessary 
+imports to implement this client:
 
 ```kotlin
 import jp.co.soramitsu.iroha2.*
+import jp.co.soramitsu.iroha2.generated.crypto.PublicKey
+import jp.co.soramitsu.iroha2.generated.datamodel.Value
 import jp.co.soramitsu.iroha2.generated.datamodel.account.AccountId
+import jp.co.soramitsu.iroha2.generated.datamodel.asset.AssetValue
+import jp.co.soramitsu.iroha2.generated.datamodel.asset.AssetValueType
+import jp.co.soramitsu.iroha2.generated.datamodel.asset.Mintable
+import jp.co.soramitsu.iroha2.generated.datamodel.metadata.Metadata
+import jp.co.soramitsu.iroha2.generated.datamodel.name.Name
 import jp.co.soramitsu.iroha2.generated.datamodel.predicate.GenericValuePredicateBox
 import jp.co.soramitsu.iroha2.generated.datamodel.predicate.value.ValuePredicate
 import jp.co.soramitsu.iroha2.query.QueryBuilder
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
 import java.net.URL
 import java.security.KeyPair
 ```
@@ -201,10 +209,6 @@ can only be registered to an existing domain. Also, an account typically
 has to have a key pair. 
 
 To register a new account, add the following lines to `Main.kt`:
-
-```Kotlin
-import jp.co.soramitsu.iroha2.generated.crypto.PublicKey
-```
 
 ```Kotlin
     val madHatter = "madHatter_${System.currentTimeMillis()}$ACCOUNT_ID_DELIMITER$domain"
