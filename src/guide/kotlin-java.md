@@ -19,31 +19,30 @@ specifically, the `plugins`, `repositories` and `dependencies` sections:
 ```kotlin
 plugins {
     kotlin("jvm") version "1.6.10"
+    application
 }
 
+group = "jp.co.soramitsu"
+version = "1.0-SNAPSHOT"
+
 repositories {
-    // Use Maven Central for resolving dependencies
     mavenCentral()
-    // Use Jitpack
-    maven { url = uri("https://jitpack.io") }
+    maven(url = "https://jitpack.io")
 }
 
 dependencies {
-    // Align versions of all Kotlin components
-    implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
-    // Use the Kotlin JDK 8 standard library
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    // Load the dependency used by the application
-    implementation("com.google.guava:guava:31.0.1-jre")
-    // Use the Kotlin test library
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
-    // Use the Kotlin JUnit integration
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
-    // Load Iroha-related dependencies
-    implementation("com.github.hyperledger.iroha-java:client:SNAPSHOT")
-    implementation("com.github.hyperledger.iroha-java:block:SNAPSHOT")
+    val iroha2Ver by System.getProperties()
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.0")
+
+    api("com.github.hyperledger.iroha-java:admin-client:SNAPSHOT")
     implementation("com.github.hyperledger.iroha-java:model:SNAPSHOT")
-    implementation("com.github.hyperledger.iroha-java:test-tools:SNAPSHOT")
+    implementation("com.github.hyperledger.iroha-java:block:SNAPSHOT")
+
+    implementation("net.i2p.crypto:eddsa:0.3.0")
+    implementation("org.bouncycastle:bcprov-jdk15on:1.65")
+    implementation("com.github.multiformats:java-multihash:1.3.0")
 }
 ```
 
@@ -84,16 +83,24 @@ and see how the `Iroha2Config` is implemented.
 
 Querying and Registering a domain are easier operations. The usual boilerplate
 code, that often only serves to instantiate a client from an on-disk
-configuration file, is unnecessary. Instead, you have to deal with a few
-imports:
+configuration file, is unnecessary. We will immediately add all the necessary 
+imports to implement this client:
 
 ```kotlin
 import jp.co.soramitsu.iroha2.*
+import jp.co.soramitsu.iroha2.generated.crypto.PublicKey
+import jp.co.soramitsu.iroha2.generated.datamodel.Value
 import jp.co.soramitsu.iroha2.generated.datamodel.account.AccountId
+import jp.co.soramitsu.iroha2.generated.datamodel.asset.AssetValue
+import jp.co.soramitsu.iroha2.generated.datamodel.asset.AssetValueType
+import jp.co.soramitsu.iroha2.generated.datamodel.asset.Mintable
+import jp.co.soramitsu.iroha2.generated.datamodel.metadata.Metadata
+import jp.co.soramitsu.iroha2.generated.datamodel.name.Name
 import jp.co.soramitsu.iroha2.generated.datamodel.predicate.GenericValuePredicateBox
 import jp.co.soramitsu.iroha2.generated.datamodel.predicate.value.ValuePredicate
 import jp.co.soramitsu.iroha2.query.QueryBuilder
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
 import java.net.URL
 import java.security.KeyPair
 ```
@@ -152,7 +159,7 @@ To register a new domain, add the following lines to Main.kt:
 ```kotlin
 val sendTransaction = SendTransaction(client, admin, adminKeyPair)
 
-val domain = "domain_${System.currentTimeMillis()}"
+val domain = "looking_glass_${System.currentTimeMillis()}"
     sendTransaction.registerDomain(domain).also { println("DOMAIN $domain CREATED") }
 ```
 
@@ -184,7 +191,8 @@ open class SendTransaction (private val client: AdminIroha2Client,
 ::: details Expand to see the expected output
 
 ```
-ALL DOMAINS: [wonderland, domain_1684411658477, genesis, garden_of_live_flowers]
+DOMAIN looking_glass CREATED
+ALL DOMAINS: [looking_glass, garden_of_live_flowers, genesis, wonderland]
 ```
 
 :::
@@ -203,10 +211,10 @@ has to have a key pair.
 To register a new account, add the following lines to `Main.kt`:
 
 ```Kotlin
-    val joe = "joe_${System.currentTimeMillis()}$ACCOUNT_ID_DELIMITER$domain"
-    val joeKeyPair = generateKeyPair()
-    sendTransaction.registerAccount(joe, listOf(joeKeyPair.public.toIrohaPublicKey()))
-        .also { println("ACCOUNT $joe CREATED") }
+    val madHatter = "madHatter_${System.currentTimeMillis()}$ACCOUNT_ID_DELIMITER$domain"
+    val madHatterKeyPair = generateKeyPair()
+    sendTransaction.registerAccount(madHatter, listOf(madHatterKeyPair.public.toIrohaPublicKey()))
+        .also { println("ACCOUNT $madHatter CREATED") }
 
     query.findAllAccounts()
         .also { println("ALL ACCOUNTS: ${it.map { a -> a.id.asString() }}") }
@@ -232,13 +240,25 @@ Then implement new method for class `SendTransaction` in your project.
     }
 ```
 
+Also, a new method has been added to the `Query` class.
+
+```Kotlin
+    suspend fun findAllAccounts(queryFilter: GenericValuePredicateBox<ValuePredicate>? = null) = QueryBuilder
+        .findAllAccounts(queryFilter)
+        .account(admin)
+        .buildSigned(keyPair)
+        .let {
+            client.sendQuery(it)
+    }
+```
+
 ::: details Expand to see the expected output
 
 ```
-DOMAIN domain_1684491906610 CREATED
-ACCOUNT joe_1684491909340@domain_1684491906610 CREATED
-ALL ACCOUNTS: [joe_1684414800075@domain_1684414798255, alice@wonderland, bob@wonderland, genesis@genesis, carpenter@garden_of_live_flowers]
-
+DOMAIN looking_glass_1684835731653 CREATED
+ALL DOMAINS: [looking_glass, garden_of_live_flowers, genesis, wonderland, looking_glass_1684835731653]
+ACCOUNT madHatter_1684835733686@looking_glass_1684835731653 CREATED
+ALL ACCOUNTS: [carpenter@garden_of_live_flowers, genesis@genesis, alice@wonderland, bob@wonderland, madHatter_1684835733686@looking_glass_1684835731653]
 ```
 
 :::
@@ -268,7 +288,7 @@ Kotlin SDK.
 To register new assets definition, add the following lines of code to `main`
 
 ```Kotlin
-    val assetDefinition = "asset_${System.currentTimeMillis()}$ASSET_ID_DELIMITER$domain"
+    val assetDefinition = "asset_time_${System.currentTimeMillis()}$ASSET_ID_DELIMITER$domain"
     sendTransaction.registerAssetDefinition(assetDefinition, AssetValueType.Quantity())
         .also { println("ASSET DEFINITION $assetDefinition CREATED") }
 ```
@@ -297,9 +317,9 @@ Then implement new method for class `SendTransaction` in your project.
 To mint new assets, add the following lines of code to `main`
 
 ```Kotlin
-    val joeAsset = "$assetDefinition$ASSET_ID_DELIMITER$joe"
-    sendTransaction.registerAsset(joeAsset, AssetValue.Quantity(100))
-        .also { println("ASSET $joeAsset CREATED") }
+    val madHatterAsset = "$assetDefinition$ASSET_ID_DELIMITER$madHatter"
+    sendTransaction.registerAsset(madHatterAsset, AssetValue.Quantity(100))
+        .also { println("ASSET $madHatterAsset CREATED") }
 ```
 
 Then implement new method for class `SendTransaction` in your project.
@@ -341,12 +361,91 @@ Also, a new method has been added to the `open class Query`
 ::: details Expand to see the expected output
 
 ```
-DOMAIN domain_1684491906610 CREATED
-ACCOUNT joe_1684491909340@domain_1684491906610 CREATED
-ALL ACCOUNTS: [joe_1684414800075@domain_1684414798255, alice@wonderland, bob@wonderland, genesis@genesis, carpenter@garden_of_live_flowers]
-ASSET DEFINITION asset_1684499583943#domain_1684499580075 CREATED
-ASSET asset_1684499583943#domain_1684499580075#joe_1684499582934@domain_1684499580075 CREATED
-ALL ASSETS: [asset_1684414801045#domain_1684414798255#joe_1684414800075@domain_1684414798255, cabbage#garden_of_live_flowers#alice@wonderland, rose#wonderland#alice@wonderland]
+DOMAIN looking_glass_1684842996549 CREATED
+ALL DOMAINS: [looking_glass, garden_of_live_flowers, genesis, looking_glass_1684842996549, wonderland, looking_glass_1684835731653]
+ACCOUNT madHatter_1684842997930@looking_glass_1684842996549 CREATED
+ALL ACCOUNTS: [carpenter@garden_of_live_flowers, genesis@genesis, madHatter_1684842997930@looking_glass_1684842996549, alice@wonderland, bob@wonderland, madHatter_1684835733686@looking_glass_1684835731653]
+ASSET DEFINITION asset_time_1684842998891#looking_glass_1684842996549 CREATED
+ASSET asset_time_1684842998891#looking_glass_1684842996549#madHatter_1684842997930@looking_glass_1684842996549 CREATED
+ALL ASSETS: [asset_time_1684842998891#looking_glass_1684842996549#madHatter_1684842997930@looking_glass_1684842996549, cabbage#garden_of_live_flowers#alice@wonderland, rose#wonderland#alice@wonderland]```
+```
+
+:::
+
+## 6. Transferring assets
+
+After we have registered and minted madHatter's assets, let's transfer
+some of them to another blockchain user. To do this, we will create a new
+user, register their asset with the `main` method and add transfer operations for the asset.
+
+```Kotlin
+    val whiteRabbit = "whiteRabbit_${System.currentTimeMillis()}$ACCOUNT_ID_DELIMITER$domain"
+    val whiteRabbitKeyPair = generateKeyPair()
+    sendTransaction.registerAccount(whiteRabbit, listOf(whiteRabbitKeyPair.public.toIrohaPublicKey()))
+        .also { println("ACCOUNT $whiteRabbit CREATED") }
+    
+    val whiteRabbitAsset = "$assetDefinition$ASSET_ID_DELIMITER$whiteRabbit"
+    sendTransaction.registerAsset(whiteRabbitAsset, AssetValue.Quantity(0))
+        .also { println("ASSET $whiteRabbitAsset CREATED") }
+    
+    sendTransaction.transferAsset(madHatterAsset, 10, whiteRabbitAsset, madHatter.asAccountId(), madHatterKeyPair)
+        .also { println("$madHatter TRANSFERRED FROM $madHatterAsset TO $whiteRabbitAsset: 10") }
+    query.getAccountAmount(madHatter, madHatterAsset).also { println("$madHatterAsset BALANCE: $it") }
+    query.getAccountAmount(whiteRabbit, whiteRabbitAsset).also { println("$whiteRabbitAsset BALANCE: $it") }
+```
+
+In the `sendTransaction` class, add a method for transferring assets.
+
+```Kotlin
+    suspend fun transferAsset(
+        from: String,
+        value: Int,
+        to: String,
+        admin: AccountId = this.admin,
+        keyPair: KeyPair = this.keyPair
+    ) {
+        client.sendTransaction {
+            account(admin)
+            this.transferAsset(from.asAssetId(), value, to.asAssetId())
+            buildSigned(keyPair)
+        }.also {
+            withTimeout(timeout) { it.await() }
+        }
+    }
+```
+
+To check the result of the asset transfer, add the `getAccountAmount()` method to the `Query` class:
+
+```Kotlin
+    suspend fun getAccountAmount(accountId: String, assetId: String): Long {
+        return QueryBuilder.findAccountById(accountId.asAccountId())
+            .account(admin)
+            .buildSigned(keyPair)
+            .let { query ->
+                client.sendQuery(query).assets[assetId.asAssetId()]?.value
+            }.let { value ->
+                value?.cast<AssetValue.Quantity>()?.u32
+            } ?: throw RuntimeException("NOT FOUND")
+    }
+```
+
+The console output should contain similar information.
+
+::: details Expand to see the expected output
+
+```
+DOMAIN looking_glass_1684843200289 CREATED
+ALL DOMAINS: [looking_glass, garden_of_live_flowers, genesis, looking_glass_1684843200289, looking_glass_1684842996549, wonderland, looking_glass_1684835731653]
+ACCOUNT madHatter_1684843202389@looking_glass_1684843200289 CREATED
+ALL ACCOUNTS: [carpenter@garden_of_live_flowers, genesis@genesis, madHatter_1684843202389@looking_glass_1684843200289, madHatter_1684842997930@looking_glass_1684842996549, alice@wonderland, bob@wonderland, madHatter_1684835733686@looking_glass_1684835731653]
+ASSET DEFINITION asset_time_1684843203337#looking_glass_1684843200289 CREATED
+ASSET asset_time_1684843203337#looking_glass_1684843200289#madHatter_1684843202389@looking_glass_1684843200289 CREATED
+ACCOUNT whiteRabbit_1684843205383@looking_glass_1684843200289 CREATED
+ASSET asset_time_1684843203337#looking_glass_1684843200289#whiteRabbit_1684843205383@looking_glass_1684843200289 CREATED
+madHatter_1684843202389@looking_glass_1684843200289 TRANSFERRED FROM asset_time_1684843203337#looking_glass_1684843200289#madHatter_1684843202389@looking_glass_1684843200289 TO asset_time_1684843203337#looking_glass_1684843200289#whiteRabbit_1684843205383@looking_glass_1684843200289: 10
+asset_time_1684843203337#looking_glass_1684843200289#madHatter_1684843202389@looking_glass_1684843200289 BALANCE: 90
+asset_time_1684843203337#looking_glass_1684843200289#whiteRabbit_1684843205383@looking_glass_1684843200289 BALANCE: 10
+ALL ASSETS: [asset_time_1684843203337#looking_glass_1684843200289#madHatter_1684843202389@looking_glass_1684843200289, cabbage#garden_of_live_flowers#alice@wonderland, rose#wonderland#alice@wonderland]
 ```
 
 :::
@@ -357,10 +456,11 @@ Burning assets is quite similar to minting them. To get started, let's add the f
 to the `main()` method:
 
 ```Kotlin
-    sendTransaction.burnAssets(joeAsset, 10, joe.asAccountId(), joeKeyPair)
-        .also { println("${joe.asAccountId()} WAS BURN") }
+    sendTransaction.burnAssets(madHatterAsset, 10, madHatter.asAccountId(), madHatterKeyPair)
+        .also { println("${madHatterAsset} WAS BURN") }
 
-    query.getAccountAmount(joe, joeAsset).also { println("$joeAsset BALANCE: $it AFTER ASSETS BURNING") }
+    query.getAccountAmount(madHatter, madHatterAsset)
+        .also { println("$madHatterAsset BALANCE: $it AFTER ASSETS BURNING") }
 ```
 
 Then implement a wrapper over the `burnAssets()` method in the `sendTransaction` class:
@@ -385,23 +485,25 @@ Then implement a wrapper over the `burnAssets()` method in the `sendTransaction`
 ::: details Expand to see the expected output
 
 ```
-DOMAIN domain_1684747757611 CREATED
-ACCOUNT joe_1684747759261@domain_1684747757611 CREATED
-ACCOUNT joe_1684747760244@domain_1684747757611 CREATED
-ASSET DEFINITION asset_1684747761291#domain_1684747757611 CREATED
-ASSET asset_1684747761291#domain_1684747757611#joe_1684747759261@domain_1684747757611 CREATED
-ASSET asset_1684747761291#domain_1684747757611#joe_1684747760244@domain_1684747757611 CREATED
-joe_1684747759261@domain_1684747757611 TRANSFERRED FROM asset_1684747761291#domain_1684747757611#joe_1684747759261@domain_1684747757611 TO asset_1684747761291#domain_1684747757611#joe_1684747760244@domain_1684747757611: 10
-asset_1684747761291#domain_1684747757611#joe_1684747759261@domain_1684747757611 BALANCE: 90
-asset_1684747761291#domain_1684747757611#joe_1684747760244@domain_1684747757611 BALANCE: 10
-AccountId(name=Name(string=joe_1684747759261), domainId=DomainId(name=Name(string=domain_1684747757611))) WAS BURN
-asset_1684747761291#domain_1684747757611#joe_1684747759261@domain_1684747757611 BALANCE: 80 AFTER ASSETS BURNING
-ALL ASSETS: [asset_1684747761291#domain_1684747757611#joe_1684747759261@domain_1684747757611, asset_1684747761291#domain_1684747757611#joe_1684747760244@domain_1684747757611]
+DOMAIN looking_glass_1684843511587 CREATED
+ALL DOMAINS: [looking_glass, garden_of_live_flowers, looking_glass_1684843344208, genesis, looking_glass_1684843200289, looking_glass_1684842996549, wonderland, looking_glass_1684843511587, looking_glass_1684843451130, looking_glass_1684835731653]
+ACCOUNT madHatter_1684843513272@looking_glass_1684843511587 CREATED
+ALL ACCOUNTS: [carpenter@garden_of_live_flowers, madHatter_1684843345604@looking_glass_1684843344208, whiteRabbit_1684843348692@looking_glass_1684843344208, genesis@genesis, madHatter_1684835733686@looking_glass_1684835731653]
+ASSET DEFINITION asset_time_1684843514251#looking_glass_1684843511587 CREATED
+ASSET asset_time_1684843514251#looking_glass_1684843511587#madHatter_1684843513272@looking_glass_1684843511587 CREATED
+ACCOUNT whiteRabbit_1684843516303@looking_glass_1684843511587 CREATED
+ASSET asset_time_1684843514251#looking_glass_1684843511587#whiteRabbit_1684843516303@looking_glass_1684843511587 CREATED
+madHatter_1684843513272@looking_glass_1684843511587 TRANSFERRED FROM asset_time_1684843514251#looking_glass_1684843511587#madHatter_1684843513272@looking_glass_1684843511587 TO asset_time_1684843514251#looking_glass_1684843511587#whiteRabbit_1684843516303@looking_glass_1684843511587: 10
+asset_time_1684843514251#looking_glass_1684843511587#madHatter_1684843513272@looking_glass_1684843511587 BALANCE: 90
+asset_time_1684843514251#looking_glass_1684843511587#whiteRabbit_1684843516303@looking_glass_1684843511587 BALANCE: 10
+asset_time_1684843514251#looking_glass_1684843511587#madHatter_1684843513272@looking_glass_1684843511587 WAS BURN
+asset_time_1684843514251#looking_glass_1684843511587#madHatter_1684843513272@looking_glass_1684843511587 BALANCE: 80 AFTER ASSETS BURNING
+ALL ASSETS: [asset_time_1684843514251#looking_glass_1684843511587#whiteRabbit_1684843516303@looking_glass_1684843511587, asset_time_1684843454049#looking_glass_1684843451130#madHatter_1684843453085@looking_glass_1684843451130, asset_time_1684843454049#looking_glass_1684843451130#whiteRabbit_1684843456091@looking_glass_1684843451130]
 ```
 
 :::
 
-## 6. Visualizing outputs
+## 8. Visualizing outputs
 
 Finally, we should talk about visualising data. The Rust API is currently
 the most complete in terms of available queries and instructions. After
@@ -428,6 +530,6 @@ pipeline filter that checks if a transaction with the specified hash was
 submitted/rejected. This can then be used to see if the transaction we
 submitted was processed correctly and provide feedback to the end-user.
 
-## 7. Samples in pure Java
+## 9. Samples in pure Java
 
 <<<@/snippets/JavaTest.java
