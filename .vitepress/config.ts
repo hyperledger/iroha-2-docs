@@ -273,6 +273,10 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
           text: 'Monitor Iroha Performance',
           link: '/guide/advanced/metrics',
         },
+        {
+            text: 'Security principles',
+            link: '/guide/configure/working-with-the-keys',
+        },
       ],
     },
     {
