@@ -7,11 +7,16 @@ import MermaidRenderWrap from './components/MermaidRenderWrap.vue'
 
 import 'virtual:uno.css'
 import './style/index.scss'
+import { defineAsyncComponent } from 'vue'
 
 export default {
   ...ThemeDefault,
   Layout: LayoutCustom,
   enhanceApp({ app }: EnhanceAppContext) {
     app.component('MermaidRenderWrap', MermaidRenderWrap)
+    app.component(
+      'CompatibilityMatrixTable',
+      defineAsyncComponent(() => import('./components/CompatibilityMatrixTable.vue')),
+    )
   },
 }
