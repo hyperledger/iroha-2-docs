@@ -117,6 +117,10 @@ When a user submits the form, a simple POST request with a JSON body is sent to 
 
 This variable will be picked up by the application during dev/build mode. Read more about it in the [Vite documentation](https://vitejs.dev/guide/env-and-mode.html).
 
+### Compatibility matrix
+
+TODO
+
 ## License
 
 Iroha documentation files are made available under the Creative Commons
