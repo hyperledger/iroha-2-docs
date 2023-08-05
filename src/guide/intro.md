@@ -28,7 +28,7 @@ We invite you to follow the tutorial in this order:
    [the differences](/guide/iroha-2.md) between the two versions of Iroha.
 1. [Install Iroha 2](/guide/install.md).
 2. Follow one of the language-specific guides to learn how to set up and
-   configure Iroha 2, register a domain and an account, register and mind
+   configure Iroha 2, register a domain and an account, register and mint
    assets, and visualize outputs:
    - [Bash](/guide/bash.md)
    - [Python](/guide/python.md)
