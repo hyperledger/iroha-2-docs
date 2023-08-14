@@ -123,6 +123,11 @@ The SDK Compatibility Matrix provides an insightful look into the interoperabili
 
 The underlying data for the matrix is actively sourced from our backend "SDK Compatibility Matrix Service", ensuring up-to-date and precise data representation at all times.
 
+To access the SDK Compatibility Matrix directly, you can set the following environment variable:
+```
+VITE_COMPAT_MATRIX_URL=https://docs-compat.iroha2.tachi.soramitsu.co.jp/compat-matrix
+```
+
 ## License
 
 Iroha documentation files are made available under the Creative Commons
