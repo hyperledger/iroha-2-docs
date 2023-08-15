@@ -2,7 +2,7 @@
 
 To ensure secure interactions with Iroha installations, organizations and individual users need to work together. This topic explains the basic principles behind this cooperation.
 
-## General Security Principles
+## General Security Principles {#general}
 
 1. Use a Virtual Private Network (VPN):
 
@@ -20,7 +20,7 @@ To ensure secure interactions with Iroha installations, organizations and indivi
 
     - Always have copies of your important information saved somewhere safe. This way, if you lose your data or something goes wrong, you can quickly get everything back on track. Keep these backups in a different secure place from where you usually keep your data.
 
-## Security Principles for Individual Users
+## Security Principles for Individual Users {#users}
 
 1. Adopt robust authentication rules:
 
@@ -44,7 +44,7 @@ To ensure secure interactions with Iroha installations, organizations and indivi
 
     - Be mindful of the personal information you share on social media platforms, as malicious parties can exploit this information.
 
-## Security Principles for Organizations
+## Security Principles for Organizations {#orgs}
 
 1. Establish clear security policies and procedures:
 

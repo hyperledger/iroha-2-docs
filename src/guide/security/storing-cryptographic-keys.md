@@ -4,13 +4,13 @@ Your sensitive data only remains private if you adopt Operational Security (OpSE
 
 For more information on OpSEC and its best practices, see [Operational Security](/operational-security.md).
 
-## Storing Cryptographic Keys Digitally
+## Storing Cryptographic Keys Digitally {#store-digitally}
 
 When it comes to protecting cryptographic keys digitally, mainly only two approaches—[SSH](https://www.ssh.com/) and [GPG](https://www.gnupg.org/)—are available. These methods provide layers of security to prevent unauthorized access to your cryptographic keys.
 
 Many of Iroha 2's architectural decisions have been influenced by the principles of the **Secure Shell** (`SSH`) protocol, which is why this section primarily focuses on the `SSH` approach, offering instructions on how to effectively implement the protocol for storing your cryptographic keys within the Iroha 2 ecosystem.
 
-### Using SSH and SSH Agent
+### Using SSH and SSH Agent {#ssh-and-ssh-agent}
 
 **Secure Shell Protocol** (`SSH`) is a cryptographic network protocol that serves as a virtual gateway, enabling secure access to remote machines via potentially not-so-secure networks by using SSH keys—access credentials. It provides an efficient way to remotely interact with systems without the necessity of physical presence. In this context, `SSH` offers two primary authentication mechanisms: the conventional password-based approach and the more secure public-private key pair method.
 
@@ -34,7 +34,7 @@ For a detailed overview of the `SSH` protocol and the `ssh-agent` tool, see the 
 
 :::
 
-### Adding a Password Manager Program
+### Adding a Password Manager Program {#password-manager}
 
 It is recommended to enhance the security of your `SSH` keys by protecting them with a password, which acts as an additional obstacle in the way of malicious parties aiming to obtain your sensitive information.
 
@@ -53,7 +53,7 @@ We recommend any of the following: [KeePassX](https://www.keepassx.org/) or [Kee
 
 :::
 
-#### Configuring KeePassXC
+#### Configuring KeePassXC {#keepassxc}
 
 To configure KeePassXC, perform the following steps:
 
@@ -109,11 +109,11 @@ Without enabling the **Require user confirmation when this key is used** option,
 
 :::
 
-## Storing Cryptographic Keys Physically
+## Storing Cryptographic Keys Physically {#store-physically}
 
 For those who seek the highest level of offline security, the option of storing cryptographic keys physically ensures that the keys remain completely disconnected from digital networks, thus minimizing the risk of unauthorized access. Acknowledging the physical option underscores our commitment to catering to diverse security needs.
 
-### Using a Hardware Key
+### Using a Hardware Key {#hardware-key}
 
 Our team considers hardware keys to be one of the best safety measures. A hardware key—a compact device that connects via a USB port and has a size of a typical flash drive—only processes security-related events when it is connected to a machine. This allows you to easily disconnect the device in case of a security breach, or simply reconnect it to a different machine whenever it is required.
 
@@ -133,6 +133,6 @@ To read more about _the method above_, see the answer by one of the KeePassXC de
 
 :::
 
-### Using a Mnemonic Phrase
+### Using a Mnemonic Phrase {#mnemonic-phrase}
 
 Alternatively, you can memorize a private key as a series of words, known as a _mnemonic phrase_. This method, used in many wallets, requires remembering around 25 specific words. You can generate these words using the [XKCD password generator](https://xkpasswd.net/s/).

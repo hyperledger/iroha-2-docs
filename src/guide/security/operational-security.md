@@ -6,7 +6,7 @@ While protecting cryptographic keys and passwords is essential, OpSEC does more 
 
 Since Iroha 2 is used to process financial operations, OpSEC measures and practices must be taken seriously. Individuals and organizations utilizing Iroha 2 in their operations should consider iplementing OpSEC measures as part of their extensive security protocol.
 
-## Recommended OpSEC Measures
+## Recommended OpSEC Measures {#measures}
 
 - When interacting with others, maintain a cautious approach and stay vigilant, avoid sharing sensitive information without proper validation.
 
@@ -26,7 +26,7 @@ Since Iroha 2 is used to process financial operations, OpSEC measures and practi
 
 - Develop a routine for periodically updating passwords and software keys. This proactive approach significantly contributes to enhancing overall security posture.
 
-## Using Browsers
+## Using Browsers {#browsers}
 
 If an application connected to Iroha 2 features a web UI, your browser can either aid the security or pose a potential threat. It is essential to exercise caution, especially when it comes to the plugins you choose to install.
 
@@ -34,7 +34,7 @@ Consider the following measures to enhance your browser's security:
 
   - Update your browser to the latest version whenever possible. Updates often include critical security patches that address vulnerabilities.
 
-  - Be cautious of what browser extenstions you install. Only use well-known and trusted extensions from reputable sources. Rogue extensions can compromise your data and privacy.
+  - Be cautious of what browser extensions you install. Only use well-known and trusted extensions from reputable sources. Rogue extensions can compromise your data and privacy.
 
   - Create separate browser profiles for various tasks. Use one profile for everyday browsing and another for activities involving high security and sensitive data. This way, extensions installed on the profile for everyday browsing cannot access the sensitive data from the secure one.
 
@@ -42,7 +42,7 @@ Consider the following measures to enhance your browser's security:
 
   - Periodically clear your browser's cache and cookies to remove potentially sensitive data that may accidentally be stored on your device.
 
-## Recovery Plan
+## Recovery Plan {#recovery}
 
 In the event of an emergency, such as losing a key or facing a security breach, a well-structured and prepared in advance recovery plan is an essential lifeline. Creating a clear set of steps to follow can help mitigate potential damage and promptly reinstate security.
 
