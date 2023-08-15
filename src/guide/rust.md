@@ -69,7 +69,7 @@ configurations in the `~/Git/iroha/configs` folder.
 So let's copy the example client configuration somewhere useful:
 
 ```bash
-$ cp -vfr ~/Git/iroha/configs/client_cli/config.json example/config.json
+$ cp -vfr ~/Git/iroha/configs/client/config.json example/config.json
 ```
 
 We recommend looking through it to familiarise yourself with the key pieces

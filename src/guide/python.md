@@ -47,7 +47,7 @@ $ pip install ./target/wheels/iroha_python-*.whl
 Finally, you will need a working client configuration:
 
 ```bash
-$ cp -vfr ~/Git/iroha/configs/client_cli/config.json example/config.json
+$ cp -vfr ~/Git/iroha/configs/client/config.json example/config.json
 ```
 
 ::: tip
