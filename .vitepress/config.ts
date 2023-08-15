@@ -64,6 +64,38 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
       ],
     },
     {
+      text: 'Security',
+      link: '/guide/security/security.md',
+      items: [
+        {
+          text: 'Security Principles',
+          link: '/guide/security/security-principles.md',
+        },
+        {
+          text: 'Operational Security',
+          link: '/guide/security/operational-security.md',
+        },
+        {
+          text: 'Public Key Cryptography',
+          link: '/guide/security/public-key-cryptography.md',
+          items: [
+            {
+              text: 'Generating Cryptographic Keys',
+              link: '/guide/security/generating-cryptographic-keys.md',
+            },
+            {
+              text: 'Storing Cryptographic Keys',
+              link: '/guide/security/storing-cryptographic-keys.md',
+            },
+            {
+              text: 'Keys for Deploying a Network',
+              link: '/guide/security/keys-for-network-deployment.md',
+            },
+              ],
+            },
+          ],
+        },
+    {
       text: 'Tutorial',
       items: [
         {
@@ -363,7 +395,7 @@ export default defineConfig({
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        
+
         gtag('config', 'G-D6ETK9TN47');
     `,
     ],
