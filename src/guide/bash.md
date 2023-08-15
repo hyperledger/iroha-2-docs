@@ -88,7 +88,7 @@ $ mkdir -p test_docker
 Copy the configuration file to the client directory:
 
 ```bash
-$ cp ./configs/client_cli/config.json test_docker/
+$ cp ./configs/client/config.json test_docker/
 ```
 
 ::: tip
