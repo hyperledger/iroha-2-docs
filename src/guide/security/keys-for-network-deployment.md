@@ -69,11 +69,11 @@ When delving into the realm of cryptographic keys' utilization on the client sid
 
 Every transaction involves a signature representing a user, therefore every transaction requires a corresponding cryptographic key for authentication. However, this doesn't imply a constant manual key entry.
 
-Consider this analogy: an existing user is required to register a new user—just as an existing pair of scissors is required to remove the tag from a new pair of scissors. However, in order to register a new user, you must also provide their unique _public_ key, so that the network can verify that the `mad_hatter@wonderland` user—and not some `mad_hatter@wunderland`—is indeed communicating with it. Here, this scenario does imply a one-time manual key entry.
+Consider this analogy: an existing user is required to register a new user—just as an existing pair of scissors is required to remove the tag from a new pair of scissors. However, in order to register a new user, you must also provide their unique _public_ key, so that the network can verify that the mad_hatter@wonderland user—and not some mad_hatter@wunderland—is indeed communicating with it. Here, this scenario does imply a one-time manual key entry.
 
-In instances where Iroha's command-line interface (`iroha_client_cli`) prompts for a --key argument, it's prudent to consider generating a fresh key-pair, aligning with the security-enhancing principle of regularly renewing cryptographic keys.
+In instances where Iroha's command-line interface (iroha_client_cli) prompts for a --key argument, it's prudent to consider generating a fresh key-pair, aligning with the security-enhancing principle of regularly renewing cryptographic keys.
 
-::: tip Note
+:::
 
 Any time `iroha_client_cli` asks you to provide it with a specific `--key` argument, it is advised to generate a new cryptographic key pair.
 

@@ -1,6 +1,6 @@
 # Public Key Cryptography
 
-Public key cryptography provides the means for secure communication and data protection, enabling activities such as secure online data transactions.
+Public key cryptography provides the means for secure communication and data protection, enabling activities such as secure online transactions, encrypted email communication, and many more `(+more examples?)`.
 
 Public key cryptography employs a pair of cryptographic keys—a _public_ key and a _private_ key—to create a highly secure method of transmitting information over online networks.
 

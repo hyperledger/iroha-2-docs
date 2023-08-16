@@ -37,7 +37,7 @@ You can specify a number of different parameters to tailor the generated key pai
 
   - `--compact` (`-c`): Specifies that the output private and public keys are displayed on separate lines and are not labeled.
 
-::: tip Note
+::: details Note
 
 You can also use the `--help` (`-h`) command to retrieve a brief summary of all the usable parameters within the CLI you are using.
 
@@ -134,9 +134,9 @@ Private key (bls_normal): "0000000000000000000000000000000035D9120A174E35E966DD9
 
 ---
 
-## Other Operations with Kagami {#kagami-other}
+### Other Operations with Kagami {#kagami-other}
 
-### 1. Building `kagami` {#kagami-op1}
+#### 1. Building `kagami` {#kagami-op1}
 
 `kagami` is not deliverable as a standalone package. Therefore, it must be built first before it can be moved to a custom location (e.g., `/bin` directory for system-wide use).
 
@@ -148,7 +148,7 @@ $ cargo build --bin kagami
 
 ```
 
-### 2. Moving `kagami` to the `/bin` directory {#kagami-op2}
+#### 2. Moving `kagami` to the `/bin` directory {#kagami-op2}
 
 To move the built `kagami` executable to your system's `/bin` directory and make it globally available, run the following:
 
@@ -158,7 +158,7 @@ $ sudo mv kagami /bin
 
 ```
 
-### 3. Moving `kagami` to the `.local/bin` directory {#kagami-op3}
+#### 3. Moving `kagami` to the `.local/bin` directory {#kagami-op3}
 
 To move `kagami` to the authenticated user's `.local/bin` directory, making it uniquely accessbible by that user, run the following:
 
@@ -168,7 +168,7 @@ $ mv target/debug/kagami ~/.local/bin
 
 ```
 
-### 4. Making the `<username>/.local/bin` directory available to the shell {#kagami-op4}
+#### 4. Making the `<username>/.local/bin` directory available to the shell {#kagami-op4}
 
 If you want to use `kagami` from your user's directory, make sure that the `~/.local/bin` directory is available in your shell's `.rc` file—be it `~/.bashrc` for [Bash](https://www.gnu.org/software/bash/) or `~/.zshrc` for the [Z shell](https://www.zsh.org/), perform the following:
 
@@ -176,37 +176,37 @@ To use `kagami` as a specific user, the `<username>/.local/bin` directory muse b
 
 To make the `<username>/.local/bin` directory available to your shell's `.rc` file, perform the following:
 
-1. Check if `kagami` is available by running the following:
-
-```bash
-
-$ whereis kagami
-kagami:
-
-```
-
-2. Depending on the shell that you are using, perform one of the following:
-
-  - **If using [Bash](https://www.gnu.org/software/bash/)**: Fix the `PATH` variable for the shell and then reload the `.bashrc` script by running the following:
+  1. Check if `kagami` is available by running the following:
 
   ```bash
 
-  $ echo "export PATH='${HOME}/.local/bin:${PATH}'" >> ~/.bashrc
-  $ source ~/.bashrc
+  $ whereis kagami
+  kagami:
 
   ```
 
-  - **If using [Zsh](https://www.zsh.org/)**: Fix the `PATH` variable for the shell and reload the `.zshrc` script by running the following:
+  2. Depending on the shell that you are using, perform one of the following:
 
-  ```bash
+    - **If using [Bash](https://www.gnu.org/software/bash/)**: Fix the `PATH` variable for the shell and then reload the `.bashrc` script by running the following:
 
-  $ echo "export PATH='${HOME}/.local/bin:${PATH}'" >> ~/.zshrc
-  $ source ~/.zshrc
+      ```bash
 
-  ```
+      $ echo "export PATH='${HOME}/.local/bin:${PATH}'" >> ~/.bashrc
+      $ source ~/.bashrc
 
-  - **If using [fish](https://fishshell.com/)**: Fix the `PATH` variable for the shell variable permanently by running the following:
+      ```
 
-  ```bash
-  $ fish_add_path ~/.local/bin
-  ```
+    - **If using [Zsh](https://www.zsh.org/)**: Fix the `PATH` variable for the shell and reload the `.zshrc` script by running the following:
+
+      ```bash
+
+      $ echo "export PATH='${HOME}/.local/bin:${PATH}'" >> ~/.zshrc
+      $ source ~/.zshrc
+
+      ```
+
+    - **If using [fish](https://fishshell.com/)**: Fix the `PATH` variable for the shell variable permanently by running the following:
+
+      ```bash
+      $ fish_add_path ~/.local/bin
+      ```
