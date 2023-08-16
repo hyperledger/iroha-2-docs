@@ -244,7 +244,7 @@ With a domain available, it is time to register an account.
 
 ## 4. Registering an Account
 
-To register an account, you need a [public key](./security/public-key-cryptography.md), think
+To register an account, you need a [public key](./configure/keys.md), think
 of it as the "password" used by `mad_hatter@looking_glass`.
 
 Keys always come in pairs. It is possible to generate a pair of `public`
@@ -291,9 +291,9 @@ _mad_hatter_ has been registered.
 
 
 Now, let's switch to the newly created account, _mad_hatter_, and continue
-experimenting with it. For this, we need to modify the `PUBLIC_KEY`,
-`PRIVATE_KEY`, and `ACCOUNT_ID` in the `config.json` file with the ones
-we registered earlier, which is located in the same directory as
+experimenting with it. For this, we need to modify the `PUBLIC_KEY`, 
+`PRIVATE_KEY`, and `ACCOUNT_ID` in the `config.json` file with the ones 
+we registered earlier, which is located in the same directory as 
 `iroha_client_cli`.
 
 ::: tip

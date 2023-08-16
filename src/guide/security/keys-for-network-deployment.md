@@ -2,13 +2,13 @@
 
 Keeping in mind what we said [about public key cryptography earlier](/public-key-cryptography.md), note that if you're deploying your own network, you should change the keys in all three of the configuration files:
 
-  1. Peer configuration file: [`configs/peer/config.json`](./peer-configuration.md)
+1. Peer configuration file: [`configs/peer/config.json`](./peer-configuration.md)
 
-  2. Client configuration file: [`configs/client_cli/config.json `](./client-configuration.md)
+2. Client configuration file: [`configs/client_cli/config.json `](./client-configuration.md)
 
-  3. Genesis block file: [`configs/peer/genesis.json`](./genesis.md)
+3. Genesis block file: [`configs/peer/genesis.json`](./genesis.md)
 
-## Setting Keys For a New Network {#setting-keys}
+## Setting Keys For a New Network
 
 ### 1. Generate New Key Pairs
 
@@ -49,7 +49,7 @@ Even though the private key for the genesis account is known to all peers, the a
 
 :::
 
-### 3. Register a Non-Genesis Account
+## 3. Register a non-genesis account
 
 Finally, while the first client _could_ use the genesis account to register new users, it's not a great idea for private networks. You should, instead, register a non-genesis account (for example, _alice_@wonderland) and `unregister` the genesis account.
 
@@ -63,18 +63,12 @@ Finally, while the first client _could_ use the genesis account to register new 
 
 :::
 
-## Keys on the Client Side {#client-side}
+# Keys on the Client Side
 
-When delving into the realm of cryptographic keys' utilization on the client side, it's essential to grasp their significance in ensuring secure operations within Iroha 2.
+Let's talk about how keys are used in the client.
 
-Every transaction involves a signature representing a user, therefore every transaction requires a corresponding cryptographic key for authentication. However, this doesn't imply a constant manual key entry.
+Every transaction is signed on behalf of some user, thus every operation requires a key. That doesn't mean that you need to explicitly provide a key every time.
 
-Consider this analogy: an existing user is required to register a new user—just as an existing pair of scissors is required to remove the tag from a new pair of scissors. However, in order to register a new user, you must also provide their unique _public_ key, so that the network can verify that the mad_hatter@wonderland user—and not some mad_hatter@wunderland—is indeed communicating with it. Here, this scenario does imply a one-time manual key entry.
+For example, you need to have a user to register a user (just like you need scissors to cut off the tag from a pair of new scissors). But in order to register a user, you must also provide a new public key, so that the network can verify that it's that trustworthy mad_hatter@wonderland, and not some impostor (possibly sent by the mad_hatter@wunderland), so there are cases where you need to provide a key explicitly.
 
-In instances where Iroha's command-line interface (iroha_client_cli) prompts for a --key argument, it's prudent to consider generating a fresh key-pair, aligning with the security-enhancing principle of regularly renewing cryptographic keys.
-
-:::
-
-Any time `iroha_client_cli` asks you to provide it with a specific `--key` argument, it is advised to generate a new cryptographic key pair.
-
-:::
+Each time iroha_client_cli asks you to provide a --key argument, it's probably a good idea to generate a new key-pair.
