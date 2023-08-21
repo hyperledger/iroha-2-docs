@@ -2,7 +2,7 @@
 
 Operational Security (OpSEC) is a collection of strategies and advice tailored to specific use-cases to protect one's data from leaking. 
 
-While protecting cryptographic keys and passwords is essential, OpSEC does more than that. It looks at the bigger picture and considers such factors as physical security, personnel training, secure communication protocols, threat analysis, and risk mitigation.
+OpSec is what most companies operate in order to ensure the availability and stability of their assets. This includes physical security (making sure that someone's post-it notes don't contain sensitive data), secure communication protocols (so that sensitive data isn't sent over unencrypted SMS), threat analysis (exploits which involve physical access, are prevented by physical counter-measures, not software). 
 
 Iroha v2 is likely to be deployed as a financial ledger, meaning that operation security is paramount. As such, this document provides some general advice on operational security measures that we believe to be the bare minimum. Following these guidelines, is a necessary but insufficient condition for total security. 
 
