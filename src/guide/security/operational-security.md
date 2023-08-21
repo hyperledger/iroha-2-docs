@@ -10,7 +10,7 @@ Since Iroha 2 is used to process financial operations, OpSEC measures and practi
 
 - When interacting with others, maintain a cautious approach and stay vigilant, avoid sharing sensitive information without proper validation.
 
-- Encrypt the disks of your portable devices to protect the data they contain. This allows to prevent unauthorized access in case of a loss or theft of a portable device.
+- Encrypt your disks. The boot device encryption allows data protection if an attacker gains access to your physical hardware. The same advice doubly applies to portable devices.
 
 - Only use software that comes from trusted sources. Refrain from downloading applications from untrusted or questionable sources, and use corporate software with caution.
 
