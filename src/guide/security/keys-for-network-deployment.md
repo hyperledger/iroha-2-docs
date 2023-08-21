@@ -67,7 +67,7 @@ Finally, while the first client _could_ use the genesis account to register new 
 
 Let's talk about how keys are used in the client.
 
-Every transaction is signed on behalf of some user, thus every operation requires a key. That doesn't mean that you need to explicitly provide a key every time.
+Every transaction is signed on behalf of some user, thus every operation requires a private key. The private key is to be kept secret (hence the name). As such the client program must handle the storage and secure signing of transactions. All clients are different, but `iroha_client_cli` is the least secure in this regard, as it stores the private key in multihash format in a plain text file and can optionally be overridden with an environment variable. This is only a reference implementation and _is not meant for production use_. 
 
 For example, you need to have a user to register a user (just like you need scissors to cut off the tag from a pair of new scissors). But in order to register a user, you must also provide a new public key, so that the network can verify that it's that trustworthy mad_hatter@wonderland, and not some impostor (possibly sent by the mad_hatter@wunderland), so there are cases where you need to provide a key explicitly.
 
