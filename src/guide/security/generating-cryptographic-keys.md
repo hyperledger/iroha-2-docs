@@ -8,7 +8,7 @@ In the future, alternative methods of generating public keys shall be added.
 
 ## Generating Cryptographic Keys with Kagami {#kagami}
 
-To generate a new key pair with `kagami`, run the following:
+To generate a new key pair having only just cloned the Iroha repo, run the following command from the project root. 
 
 ```bash
 
