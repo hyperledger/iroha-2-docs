@@ -18,5 +18,9 @@ export default {
       'CompatibilityMatrixTable',
       defineAsyncComponent(() => import('./components/CompatibilityMatrixTable.vue')),
     )
+    app.component(
+      'CompatibilityMatrixTableIcon',
+      defineAsyncComponent(async () => import('./components/CompatibilityMatrixTableIcon.vue')),
+    )
   },
 }

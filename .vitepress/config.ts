@@ -73,7 +73,6 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
         /* a common lang-agnostic section will go here */
         {
           text: 'Language-specific Guides',
-          link: '/guide/compatibility-matrix',
           items: [
             {
               text: 'Bash',
@@ -94,6 +93,10 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
             {
               text: 'JavaScript',
               link: '/guide/javascript',
+            },
+            {
+              text: 'Compatibility Matrix',
+              link: '/guide/compatibility-matrix',
             },
           ],
         },

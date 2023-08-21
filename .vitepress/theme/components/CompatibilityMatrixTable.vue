@@ -2,9 +2,7 @@
 import { useTask } from '@vue-kakuyaku/core'
 import { SSpinner } from '@soramitsu-ui/ui'
 import { computed } from 'vue'
-import IconCheck from './icons/IconCheck.vue'
-import IconCancelOutlineRounded from './icons/IconCancelOutlineRounded.vue'
-import IconQuestionMarkRounded from './icons/IconQuestionMarkRounded.vue'
+import CompatibilityMatrixTableIcon, { type Status } from './CompatibilityMatrixTableIcon.vue'
 
 interface Matrix {
   included_sdks: MatrixSdkDeclaration[]
@@ -21,7 +19,7 @@ interface MatrixStory {
 }
 
 interface MatrixStoryResult {
-  status: 'ok' | 'failed' | 'no-data'
+  status: Status
 }
 
 const COMPAT_MATRIX_URL: string = import.meta.env.VITE_COMPAT_MATRIX_URL
@@ -66,15 +64,9 @@ const table = computed(() => {
           v-for="(status, j) in row.results"
           :key="j"
           class="status-cell"
-          :data-status="status"
           :title="`Status: ${status}`"
         >
-          <IconCheck v-if="status === 'ok'" />
-          <IconCancelOutlineRounded v-else-if="status === 'failed'" />
-          <IconQuestionMarkRounded v-else-if="status === 'no-data'" />
-          <template v-else>
-            {{ status }}
-          </template>
+          <CompatibilityMatrixTableIcon :status="status" />
         </td>
       </tr>
     </tbody>
@@ -108,18 +100,6 @@ td.status-cell {
   svg {
     margin-left: auto;
     margin-right: auto;
-  }
-
-  &[data-status='ok'] {
-    color: var(--vp-c-green);
-  }
-
-  &[data-status='failed'] {
-    color: var(--vp-c-red);
-  }
-
-  &[data-status='no-data'] {
-    color: var(--vp-c-yellow);
   }
 }
 </style>
