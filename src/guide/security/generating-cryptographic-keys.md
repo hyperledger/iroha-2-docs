@@ -16,7 +16,7 @@ $ cargo run --bin kagami crypto
 
 ```
 
-You can specify a number of different parameters to tailor the generated key pair to your specific needs. The following parameters are available for customization:
+You can specify a number of different parameters to tailor the generated key pair to your specific needs. The following parameters are available:
 
   - `--algorithm` (`-a`): Specifies the algorithm used for the key pair generation and encryption. If no algorithm is specified, `ed25519` is used by default.
     Can be one of the following:
