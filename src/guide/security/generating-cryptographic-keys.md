@@ -98,7 +98,7 @@ Private key (ed25519): "2669BB1099477B970E1D7D7C54E345A64A54213FCFBA2465CBCD6D4E
 # Input
 $ cargo run --bin kagami crypto -j
 
-# Output
+# Possible output
 {
   "public_key": "ed0120B678073CFAE6E247A58B442661C7DA0E13BAC5031CBC6343EF566B8718D47D04",
   "private_key": {
