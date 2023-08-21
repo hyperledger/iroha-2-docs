@@ -71,4 +71,4 @@ Every transaction is signed on behalf of some user, thus every operation require
 
 For example, you need to have a user register a user (just like you need scissors to cut off the tag from a pair of new scissors). But in order to register a user, you must also provide a new public key so that the network can verify that it's the trustworthy mad_hatter@wonderland, and not some impostor (possibly sent by the mad_hatter@wunderland), so there are cases where you need to provide a key explicitly.
 
-Each time iroha_client_cli asks you to provide a --key argument, it's probably a good idea to generate a new key-pair.
+For public key cryptography to work effectively, avoid re-using keys when you need to specify a new key. While in principle, there's nothing stopping you from doing that, an attacker will know that the private keys are identical, because they can usually see the public key. Private keys operate on slightly different principles than passwords, although most of the advice (to make them as random as possible, to never store them unencrypted, and to never send them to anyone under any circumstances), applies. 
