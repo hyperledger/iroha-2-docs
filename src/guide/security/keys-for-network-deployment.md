@@ -39,7 +39,7 @@ If you want to set up your own network, you should change the keys for all your 
 
 To create a minimum [BFT](guide/glossary.md#byzantine-fault-tolerance-bft) network one needs four peers, which means four different private keys split across four different configuration files (or environment variables). 
 
-Each peer must have their own `PUBLIC_KEY` and `PRIVATE_KEY` variables specified. All four of the public keys—including the peer that is being configured—must be added to the `TRUSTED_PEERS` array. The same `TRUSTED_PEERS` array must be copied across all four of the configuration files.
+Each peer must have their own `PUBLIC_KEY` and `PRIVATE_KEY` variables specified. All four of the public keys—including the peer that is being configured—must be added to the `TRUSTED_PEERS` array. The same `TRUSTED_PEERS` array must be copied across all four of the configuration files. If either one of the peers is missing, or there's an extraneous peer or one of the peers has the incorrect key, the network will fail to start. 
 
 After that, make sure that the peers agree on the `GENESIS_ACCOUNT` key pairs.
 
