@@ -150,15 +150,12 @@ $ cargo build --bin kagami
 
 ```
 
-#### 2. Moving `kagami` to the `/bin` directory
+#### 2. Installing the source-built `kagami` into `/bin`
 
-To move the built `kagami` executable to your system's `/bin` directory and make it globally available, run the following:
+There are multiple ways to make your command line be able to use the `kagami` version that you have just compiled. One of the easiest ways that should work on most systems is to move or link the binary into the `/bin` directory on UNIX systems. 
 
 ```bash
-
-$ sudo mv kagami /bin
-
-```
+$ sudo mv target/debug/kagami /bin
 
 #### 3. Moving `kagami` to the `.local/bin` directory
 
