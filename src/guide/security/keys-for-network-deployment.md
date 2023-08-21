@@ -51,7 +51,7 @@ Even though the private key for the genesis account is known to all peers, the a
 
 ## 3. Register a non-genesis account
 
-Finally, while the first client _could_ use the genesis account to register new users, it's not a great idea for private networks. You should, instead, register a non-genesis account (for example, _alice_@wonderland) and `unregister` the genesis account.
+Finally, while the first client _could_ use the genesis account to register new users, it's not a great idea for most networks. You should, instead, register a non-genesis account (for example, _alice_@wonderland).
 
 ::: warning NB
 
