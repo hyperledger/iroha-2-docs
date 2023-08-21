@@ -140,7 +140,7 @@ Private key (bls_normal): "0000000000000000000000000000000035D9120A174E35E966DD9
 
 #### 1. Building `kagami`
 
-`kagami` is not deliverable as a standalone package. Therefore, it must be built first before it can be moved to a custom location (e.g., `/bin` directory for system-wide use).
+The Iroha v2 node binary as well as all supporting tools are supplied in the official docker image. However, such usage is cumbersome, as `kagami` is meant to be used as a standalone external tool. As such, it is useful to show how to build `kagami` from source. 
 
 To build `kagami`, run the following:
 
