@@ -57,7 +57,7 @@ To ensure secure interactions with Iroha installations, organizations and indivi
 2. Cultivate employee awareness:
 
     - Educate employees about data and operational security measures. Heightened awareness and comprehensive training are pivotal in fortifying organizational
-    security.
+ 
 
     - Encourage employees to report any suspicious activities or security concerns promptly.
 
