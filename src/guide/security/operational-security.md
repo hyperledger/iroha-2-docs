@@ -18,7 +18,7 @@ Since Iroha 2 is used to process financial operations, OpSEC measures and practi
 
 - To prevent unauthorized access, always secure your laptop or personal computer when leaving it unattended. Use strong passwords, lock the screen, and follow best practices for securing your devices.
 
-- Keep a close watch on portable storage devices that hold sensitive information, make sure they are never left unattended to avoid possible data breaches.
+- Don't leave portable devices unattended. A split second is enough to steal your device. 
 
 - Enhance the security of your smartphone device by utilizing biometric access methods like fingerprints or facial recognition. Additionally, make sure to update your device's software whenever possible and regularly review and manage permissions granted to the installed applications.
 
