@@ -4,7 +4,7 @@ In the realm of blockchain technology, cryptographic keys play a crucial role in
 
 This section describes how to generate keys using `kagami` a supporting tool shipped alongside the node program. 
 
-While this guide focuses solely on key generation by means of `kagami`, it is important to note that instructions for alternative methods might be included in the upcoming updates.
+In the future, alternative methods of generating public keys shall be added. 
 
 ## Generating Cryptographic Keys with Kagami {#kagami}
 
