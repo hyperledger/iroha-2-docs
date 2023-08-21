@@ -22,7 +22,7 @@ Iroha v2 is likely to be deployed as a financial ledger, meaning that operation 
 
 - Enhance the security of your smartphone device by utilizing biometric access methods like fingerprints or facial recognition. Additionally, make sure to update your device's software whenever possible and regularly review and manage permissions granted to the installed applications.
 
-- Establish a secure offline location for storing your private keys. This adds an extra layer of protection against digital threats by isolating the keys from the online network.
+- Air-gap your keys. Encrypt them, store them in an offline-only device, ideally with good electromagnetic shielding. Hardware keys are tailored to this purpose. 
 
 - Always keep your software updated to their latest version across all devices, including computers and phones. Regular updates help patch vulnerabilities and minimize potential risks associated with outdated software.
 
