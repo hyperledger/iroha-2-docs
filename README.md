@@ -119,7 +119,14 @@ This variable will be picked up by the application during dev/build mode. Read m
 
 ### Compatibility matrix
 
-TODO
+The SDK Compatibility Matrix provides an insightful look into the interoperability of various stories across multiple SDKs within Hyperledger Iroha 2. 
+
+The underlying data for the matrix is actively sourced from our backend "SDK Compatibility Matrix Service", ensuring up-to-date and precise data representation at all times.
+
+To access the SDK Compatibility Matrix directly, you can set the following environment variable:
+```
+VITE_COMPAT_MATRIX_URL=https://docs-compat.iroha2.tachi.soramitsu.co.jp/compat-matrix
+```
 
 ## License
 
