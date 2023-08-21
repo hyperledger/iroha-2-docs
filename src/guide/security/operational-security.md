@@ -4,7 +4,7 @@ Operational Security (OpSEC) is a collection of strategies and advice tailored t
 
 While protecting cryptographic keys and passwords is essential, OpSEC does more than that. It looks at the bigger picture and considers such factors as physical security, personnel training, secure communication protocols, threat analysis, and risk mitigation.
 
-Since Iroha 2 is used to process financial operations, OpSEC measures and practices must be taken seriously. Individuals and organizations utilizing Iroha 2 in their operations should consider iplementing OpSEC measures as part of their extensive security protocol.
+Iroha v2 is likely to be deployed as a financial ledger, meaning that operation security is paramount. As such, this document provides some general advice on operational security measures that we believe to be the bare minimum. Following these guidelines, is a necessary but insufficient condition for total security. 
 
 ## Recommended OpSEC Measures
 
