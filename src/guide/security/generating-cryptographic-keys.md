@@ -29,7 +29,9 @@ You can specify a number of different parameters to tailor the generated key pai
 
     - `bls_normal` — Boneh-Lynn-Shacham algorithm with a _standard_ parameter configuration. This configuration of the BLS cryptographic scheme offers a balanced approach between efficiency and security, making it suitable for a wide range of applications in blockchain and cryptographic protocols.
 
-  - `--seed` (`-s`): Specifies a string that serves as a starting point for the key pair generation. If no seed is specified, a random `seed` value is chosen. This parameter accepts all of the [Unicode](https://home.unicode.org/) characters, i.e., not only numeric and latin, but also cyrillic, logographic (e.g., Japanese kanji characters) and ideographic (e.g., emojis) characters, as well as any font-related variations of those characters introduced to Unicode over the years.
+  - `--seed` (`-s`): Specifies a string that serves as a deterministic starting point for the key pair generation. If a seed string is specified, `kagami` crypto will generate the same key for the same string. If no seed is specified, a random `seed` value is chosen, and each invocation of `kagami crypto` will result in a different key. This parameter accepts a valid string of [Unicode](https://home.unicode.org/) characters. For example, the seed string can contain not only numeric and latin, but also cyrillic, logographic (e.g., Japanese kanji characters) and ideographic (e.g., emojis) characters, as well as any font-related variations of those characters introduced to Unicode over the years.
+  
+  If one chooses to use a `seed` it must be treated as if it were a password: more randomness and longer seed strings make the cryptographic keys more resilient to [dictionary attacks](https://en.wikipedia.org/wiki/Dictionary_attack). 
 
   - `--private-key` (`-p`): Specifies an existing private key as a string in the [`multihash`](https://github.com/multiformats/multihash) format that is used as to generate a _public_ key.
 
