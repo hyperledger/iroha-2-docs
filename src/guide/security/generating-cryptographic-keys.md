@@ -31,7 +31,7 @@ You can specify a number of different parameters to tailor the generated key pai
 
   - `--seed` (`-s`): Specifies a string that serves as a starting point for the key pair generation. If no seed is specified, a random `seed` value is chosen. This parameter accepts all of the [Unicode](https://home.unicode.org/) characters, i.e., not only numeric and latin, but also cyrillic, logographic (e.g., Japanese kanji characters) and ideographic (e.g., emojis) characters, as well as any font-related variations of those characters introduced to Unicode over the years.
 
-  - `--private-key` (`-p`): Specifies an existing private key that is used as to generate a _public_ key.
+  - `--private-key` (`-p`): Specifies an existing private key as a string in the [`multihash`](https://github.com/multiformats/multihash) format that is used as to generate a _public_ key.
 
   - `--json` (`-j`): Specifies that the output must be generated in the JSON format.
 
