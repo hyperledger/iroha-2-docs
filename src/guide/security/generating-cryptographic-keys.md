@@ -2,7 +2,7 @@
 
 In the realm of blockchain technology, cryptographic keys play a crucial role in upholding the security and authenticity of data transactions. With Iroha 2, you hold the capability to create these vital keys for safeguarding your digital assets and communications.
 
-This section offers step-by-step instructions on how to generate cryptographic keys using `kagami`, the designated tool in-built into the Iroha 2 framework.
+This section describes how to generate keys using `kagami` a supporting tool shipped alongside the node program. 
 
 While this guide focuses solely on key generation by means of `kagami`, it is important to note that instructions for alternative methods might be included in the upcoming updates.
 
