@@ -10,6 +10,7 @@ const props = defineProps<{
   status: Status
 }>()
 
+// eslint-disable-next-line vue/return-in-computed-property
 const chosenComponent = computed(() => {
   switch (props.status) {
     case 'ok':
