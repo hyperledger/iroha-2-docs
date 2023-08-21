@@ -159,7 +159,10 @@ $ sudo mv target/debug/kagami /bin
 
 #### 3. Moving `kagami` to the `.local/bin` directory
 
-To move `kagami` to the authenticated user's `.local/bin` directory, making it uniquely accessbible by that user, run the following:
+
+To circumvent the requirement of having the binary in the global binary folder, and thus necessarily exposing the binary to all other users, as well as requiring root authentication (which is not always available), one can instead install the application as a regular user. 
+
+To move `kagami` to the authenticated user's `.local/bin` directory, making it uniquely accessbible only by that user, run the following:
 
 ```bash
 
