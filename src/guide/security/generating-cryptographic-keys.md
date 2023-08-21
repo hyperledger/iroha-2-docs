@@ -52,7 +52,7 @@ You can also use the `--help` (`-h`) command to retrieve a brief summary of all 
 # Input
 $ cargo run --bin kagami crypto
 
-# Output
+# Possible Output (same layout, different keys)
 Public key (multihash): "ed01206B0F56F58761060056355DBA0E0FC489CFB2F974481ED64873082E6032796235"
 Private key (ed25519): "F71EA9D897C4338CBF4F1DC7B492AAD0BF6CE896B803D7CDB9CF25ECC15109826B0F56F58761060056355DBA0E0FC489CFB2F974481ED64873082E6032796235"
 
