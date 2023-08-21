@@ -12,7 +12,9 @@ Since Iroha 2 is used to process financial operations, OpSEC measures and practi
 
 - Encrypt your disks. The boot device encryption allows data protection if an attacker gains access to your physical hardware. The same advice doubly applies to portable devices.
 
-- Only use software that comes from trusted sources. Refrain from downloading applications from untrusted or questionable sources, and use corporate software with caution.
+- Use trusted software. Software that ships via reproducible binary builds, and that you build from source, is the most trustworthy. Proprietary software or open source software that wasn't audited is a potential risk that must be taken seriously. 
+
+- Verify the signatures on binary packages. This is not too different from the public key cryptography used inside Iroha v2. 
 
 - To prevent unauthorized access, always secure your laptop or personal computer when leaving it unattended. Use strong passwords, lock the screen, and follow best practices for securing your devices.
 
