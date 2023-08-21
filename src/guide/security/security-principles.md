@@ -44,7 +44,7 @@ To ensure secure interactions with Iroha installations, organizations and indivi
 
     - Be mindful of the personal information you share on social media platforms, as malicious parties can exploit this information.
 
-## Security Principles for Organizations
+## Security Principles for Organisations
 
 1. Establish clear security policies and procedures:
 
