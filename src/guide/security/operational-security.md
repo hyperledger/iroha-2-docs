@@ -33,7 +33,34 @@ Since Iroha 2 is used to process financial operations, OpSEC measures and practi
 If an application connected to Iroha 2 features a web UI, your browser can either aid the security or pose a potential threat. It is essential to exercise caution, especially when it comes to the plugins you choose to install.
 
 Consider the following measures to enhance your browser's security:
+- Avoid using browsers with known bad security models. Specifically
+  * Chrome (proprietary)
+  * Safari (proprietary, WebKit known to have fundamental security problems)
+  * Opera (proprietary, known to leak data)
+  * Firefox (known to leak data and pre-install questionable extensions)
+  * Vivaldi (proprietary)
+  * Edge (all of the above)
+  * `surf` (extremely outdated)
+- Prefer browsers with known good track records, and supporting user privacy and security first:
+  * Librewolf, Icecat, Firedragon, _etc._.  -- Firefox forks with enhanced security features
+  * Ungoogled chromium -- highly audited open source version of Chrome, 
+  * Brave -- highly audited, adblock browser with privacy enhancing features
+  * Falkon -- known good track record of security. All plugins come from the KDE store
+  * Qutebrowser -- known good track record of security. The preferred browser of many security specialists. 
+  
+- Avoid enabling Java Script unless necessary. 
 
+- Use the browser's built-in confinement mechanism for plugins. 
+
+- Clear cookies before and after important operations. Avoid the "keep me signed in" style of buttons. 
+
+- Enable ad-block features. These protect against more than just advertisements, and disable site tracking features. 
+
+- Be mindful of lookalike characters (`0` and `O` and `О` are three different characters), make sure that you're able to spot them in a URL. 
+
+- Avoid webmail in favour of clients. Set up your email client to sign and verify GPG key signatures. 
+
+- Avoid using web-based messaging services. Be mindful that `electron` is itself a web browser meaning that e.g. Discord is susceptible to many of the same attacks as would a chromium window with the web version of Discord open. 
   - Update your browser to the latest version whenever possible. Updates often include critical security patches that address vulnerabilities.
 
   - Be cautious of what browser extenstions you install. Only use well-known and trusted extensions from reputable sources. Rogue extensions can compromise your data and privacy.
