@@ -26,7 +26,7 @@ Iroha v2 is likely to be deployed as a financial ledger, meaning that operation 
 
 - Always keep your software updated to their latest version across all devices, including computers and phones. Regular updates help patch vulnerabilities and minimize potential risks associated with outdated software.
 
-- Develop a routine for periodically updating passwords and software keys. This proactive approach significantly contributes to enhancing overall security posture.
+- Routinely refresh keys and passwords. It is much harder to hit a moving target.
 
 ## Using Browsers
 
