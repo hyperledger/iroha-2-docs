@@ -15,4 +15,6 @@ The matrix consists of:
 
 <CompatibilityMatrixTable />
 
-_Note: The data for this matrix is retrieved dynamically from our [backend service](https://github.com/soramitsu/iroha2-docs-compat-matrix-service), balancing the latest information with a swift response for documentation readers._
+::: info
+The data for this matrix is retrieved dynamically from our [backend service](https://github.com/soramitsu/iroha2-docs-compat-matrix-service), balancing the latest information with a swift response for documentation readers.
+:::
