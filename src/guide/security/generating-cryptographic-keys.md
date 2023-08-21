@@ -168,11 +168,6 @@ $ mv target/debug/kagami ~/.local/bin
 
 ```
 
-#### 4. Making the `<username>/.local/bin` directory available to the shell
-
-If you want to use `kagami` from your user's directory, make sure that the `~/.local/bin` directory is available in your shell's `.rc` file—be it `~/.bashrc` for [Bash](https://www.gnu.org/software/bash/) or `~/.zshrc` for the [Z shell](https://www.zsh.org/), perform the following:
-
-To use `kagami` as a specific user, the `<username>/.local/bin` directory muse be made available in the `.rc` file of a shell—be it `~/.bashrc` for [Bash](https://www.gnu.org/software/bash/) or `~/.zshrc` for the [Z shell](https://www.zsh.org/)—that is being used.
 
 To make the `<username>/.local/bin` directory available to your shell's `.rc` file, perform the following:
 
