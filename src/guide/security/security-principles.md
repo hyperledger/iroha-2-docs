@@ -24,7 +24,7 @@ To ensure secure interactions with Iroha installations, organizations and indivi
 
 1. Adopt robust authentication rules:
 
-    - Utilize strong and unique passwords for all accounts.
+    - Utilise strong and unique passwords for all accounts.
 
     - Never reuse passwords.
 
