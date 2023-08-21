@@ -37,7 +37,7 @@ If you plan to use the generated `private_key` with one of our SDKs, note that e
 
 If you want to set up your own network, you should change the keys for all your peers: in `peer/config.json` change `PUBLIC_KEY` and `PRIVATE_KEY` to the fresh pair. When you've done that, you should add the keys to the `TRUSTED_PEERS` array in the same configuration file. Every peer that wants to connect to the given peer from the outside must know its `PRIVATE_KEY` specified in the `TRUSTED_PEERS` section.
 
-If a minimum viable [BFT](/guide/glossary.md#byzantine-fault-tolerance-bft) network is being utilized—since such a network utilizes _four_ peers—_four_ different (`config.json`) peer configuration files must be created.
+To create a minimum [BFT](guide/glossary.md#byzantine-fault-tolerance-bft) network one needs four peers, which means four different private keys split across four different configuration files (or environment variables). 
 
 Each peer must have their own `PUBLIC_KEY` and `PRIVATE_KEY` variables specified. All four of the public keys—including the peer that is being configured—must be added to the `TRUSTED_PEERS` array. The same `TRUSTED_PEERS` array must be copied across all four of the configuration files.
 
