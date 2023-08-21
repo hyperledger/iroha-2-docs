@@ -35,7 +35,7 @@ You can specify a number of different parameters to tailor the generated key pai
 
   - `--private-key` (`-p`): Specifies an existing private key as a string in the [`multihash`](https://github.com/multiformats/multihash) format that is used as to generate a _public_ key.
 
-  - `--json` (`-j`): Specifies that the output must be generated in the JSON format.
+  - `--json` (`-j`): Specifies that the output must be generated in the JSON format, which is mostly useful for copy-and-pasting into the `config.json`. 
 
   - `--compact` (`-c`): Specifies that the output private and public keys are displayed on separate lines and are not labeled.
 
