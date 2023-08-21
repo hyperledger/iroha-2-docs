@@ -12,7 +12,7 @@ Keeping in mind what we said [about public key cryptography earlier](/public-key
 
 ### 1. Generate New Key Pairs
 
-To generate a new a key pair, a wide variety of methods can be used. However, within the Iroha 2 framework, any the following method can be utilized conveniently:
+To generate a new key pair, a wide variety of methods can be used. However, within the Iroha 2 framework, any of the following methods can be utilized conveniently:
 
 Run the in-built `kagami` program by executing the following:
 
