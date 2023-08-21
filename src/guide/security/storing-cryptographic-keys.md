@@ -40,7 +40,7 @@ It is recommended to enhance the security of your `SSH` keys by protecting them 
 
 A variety of password managers can be used for the temporary storage of the user passwords and `SSH` keys. For the sake of clarity, [KeePass](https://keepass.info/) is used as an example password manager, specifically its [KeePassXC](https://keepassxc.org/) port running on Linux-based operating systems.
 
-For instructions on how to set up KeePassXC to ee [Configuring KeePassXC](#configuring-keepassxc) below.
+For instructions on how to set up KeePassXC see the [Configuring KeePassXC](#configuring-keepassxc) section below.
 
 ![](../../img/KeePassXC.png)
 
