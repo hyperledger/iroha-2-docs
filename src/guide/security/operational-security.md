@@ -1,6 +1,6 @@
 # Operational Security
 
-Operational Security (OpSEC) is a systematic approach to cybersecurity and risk management. It involves a range of strategies to prevent unauthorized access and protect sensitive data from leaking.
+Operational Security (OpSEC) is a collection of strategies and advice tailored to specific use-cases to protect one's data from leaking. 
 
 While protecting cryptographic keys and passwords is essential, OpSEC does more than that. It looks at the bigger picture and considers such factors as physical security, personnel training, secure communication protocols, threat analysis, and risk mitigation.
 
