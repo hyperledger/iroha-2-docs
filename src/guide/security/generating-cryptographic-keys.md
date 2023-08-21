@@ -1,6 +1,6 @@
 # Generating Cryptographic Keys
 
-In the realm of blockchain technology, cryptographic keys play a crucial role in upholding the security and authenticity of data transactions. With Iroha 2, you hold the capability to create these vital keys for safeguarding your digital assets and communications.
+In the realm of blockchain technology, cryptographic keys play a crucial role in upholding the security and authenticity of data transactions. With Iroha 2, you can create these vital keys for safeguarding your digital assets and communications.
 
 This section describes how to generate keys using `kagami` a supporting tool shipped alongside the node program. 
 
