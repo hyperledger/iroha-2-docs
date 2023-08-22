@@ -34,7 +34,7 @@ To ensure secure interactions with Iroha installations, organizations and indivi
     - Set up an email client to sign and verify signatures of all the received emails.  While it is possible to impersonate the sender's address and even pose as a bank, it is not possible to fake a signature. 
     - Disable both HTML messages and loading of external resources from unknown or unverified addresses. 
 
-    - Learn about common phishing techniques to recognize and avoid suspicious emails, links, and requests for personal information.
+    - Learn about common phishing techniques to recognise and avoid suspicious emails, links, and requests for personal information.
 
 3. Safeguard personal information:
 
