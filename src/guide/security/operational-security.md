@@ -8,7 +8,7 @@ Iroha v2 is likely to be deployed as a financial ledger, meaning that operation 
 
 ## Recommended OpSEC Measures
 
-- When interacting with others, maintain a cautious approach and stay vigilant, avoid sharing sensitive information without proper validation.
+- Stay vigilant. The [most likely](https://arxiv.org/pdf/2209.08356.pdf) way in which one can lose their assets in a blockchain is by giving away their sensitive details. 
 
 - Encrypt your disks. The boot device encryption allows data protection if an attacker gains access to your physical hardware. The same advice doubly applies to portable devices.
 
