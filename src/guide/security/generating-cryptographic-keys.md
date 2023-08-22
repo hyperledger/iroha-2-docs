@@ -161,11 +161,14 @@ To circumvent the requirement of having the binary in the global binary folder, 
 
 To move `kagami` to the authenticated user's `.local/bin` directory, making it uniquely accessbible only by that user, run the following:
 
+
+::: info Note
+
+This trick works on most GNU Linux distributions, but is not guaranteed to do so. In order to have the desired effect please do the following:
+
+1. Ensure that the directory exists, easiest method to do so is to run 
 ```bash
-
-$ mv target/debug/kagami ~/.local/bin
-
-```
+mkdir -p ~/.local/bin
 
 
 To make the `<username>/.local/bin` directory available to your shell's `.rc` file, perform the following:
