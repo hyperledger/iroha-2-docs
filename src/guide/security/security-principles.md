@@ -32,7 +32,7 @@ To ensure secure interactions with Iroha installations, organizations and indivi
 
 2. Exercise caution in digital communication:
     - Set up an email client to sign and verify signatures of all the received emails.  While it is possible to impersonate the sender's address and even pose as a bank, it is not possible to fake a signature. 
-    - Be careful with email attachments and suspicious links, these could be phishing or malware attempts that aim to trick you or harm your device. Make sure you know who sent the email and that the link is safe before you do anything.
+    - Disable both HTML messages and loading of external resources from unknown or unverified addresses. 
 
     - Learn about common phishing techniques to recognize and avoid suspicious emails, links, and requests for personal information.
 
