@@ -145,10 +145,7 @@ The Iroha v2 node binary as well as all supporting tools are supplied in the off
 To build `kagami`, run the following:
 
 ```bash
-
 $ cargo build --bin kagami
-
-```
 
 #### 2. Installing the source-built `kagami` into `/bin`
 
