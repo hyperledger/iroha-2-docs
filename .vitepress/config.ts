@@ -94,6 +94,10 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
               text: 'JavaScript',
               link: '/guide/javascript',
             },
+            {
+              text: 'Compatibility Matrix',
+              link: '/guide/compatibility-matrix',
+            },
           ],
         },
       ],
