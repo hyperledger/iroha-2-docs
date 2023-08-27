@@ -167,3 +167,5 @@ key-values in accounts, assets, or asset definitions:
 - [`CanRemoveKeyValueInUserAssets`](/guide/blockchain/permissions.md#canremovekeyvalueinuserassets)
 - [`CanSetKeyValueInAssetDefinition`](/guide/blockchain/permissions.md#cansetkeyvalueinassetdefinition)
 - [`CanRemoveKeyValueInAssetDefinition`](/guide/blockchain/permissions.md#canremovekeyvalueinassetdefinition)
+- [`add author : sammyfilly]
+- [`mail: openworkspacesource@gmail.com`]
