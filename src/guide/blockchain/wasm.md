@@ -7,7 +7,7 @@ problems with this approach.
 - The ISI syntax is verbose and ugly.
 - The ISI syntax is not familiar for most programmers.
 - While simple ISI smart contracts are compact (usually a few bytes), they
-  need different kinds of manual optimisations.
+  need different kinds of manual optimisations. 
 
 In the long run, all of these problems are taken care of by using a
 **domain-specific language**, which gets optimised and compiled into a
