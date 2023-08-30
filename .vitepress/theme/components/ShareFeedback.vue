@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { SButton, SModal } from '@soramitsu-ui/ui'
+import { SModal } from '@soramitsu-ui/ui'
 import { computed, ref } from 'vue'
 import { usePromise, wheneverFulfilled, wheneverRejected } from '@vue-kakuyaku/core'
 import { mande } from 'mande'
 import IconClose from './icons/IconClose.vue'
 import IconFeedback from './icons/IconFeedback.vue'
 import IconCheck from './icons/IconCheck.vue'
+import VBtnPrimary from './VBtnPrimary.vue'
+import VBtnSecondary from './VBtnSecondary.vue'
 
 const props = defineProps<{
   feedbackUrl: string
@@ -64,19 +66,16 @@ function doSubmit() {
 </script>
 
 <template>
-  <SButton
-    type="primary"
-    size="sm"
+  <VBtnPrimary
+    class="inline-flex items-center space-x-2"
     @click="openModal = true"
   >
-    <template #icon>
-      <IconFeedback class="-mb-2px" />
-    </template>
-    Share feedback
-  </SButton>
+    <IconFeedback />
+    <span>Share feedback</span>
+  </VBtnPrimary>
 
   <SModal
-    v-slot="api"
+    v-slot="modal"
     v-model:show="openModal"
     described-by="share-feedback-description"
     @after-close="onAfterClose"
@@ -84,21 +83,18 @@ function doSubmit() {
     <div class="feedback-card shadow-lg flex flex-col">
       <div class="feedback-card_header flex items-center">
         <div
-          :id="api.labelledBy"
+          :id="modal.labelledBy"
           class="feedback-card_title flex-1"
         >
           Share feedback
         </div>
 
-        <SButton
-          size="sm"
-          type="action"
-          @click="api.close()"
+        <VBtnSecondary
+          class="text-base p-2 -m-2"
+          @click="modal.close()"
         >
-          <template #icon>
-            <IconClose />
-          </template>
-        </SButton>
+          <IconClose />
+        </VBtnSecondary>
       </div>
 
       <template v-if="success">
@@ -108,9 +104,9 @@ function doSubmit() {
         </div>
 
         <div class="flex flex-row-reverse p-4">
-          <SButton @click="api.close()">
+          <VBtnSecondary @click="modal.close()">
             Close
-          </SButton>
+          </VBtnSecondary>
         </div>
       </template>
 
@@ -190,17 +186,15 @@ function doSubmit() {
 
         <div class="flex p-4 items-center space-x-2">
           <div class="flex-1" />
-          <SButton @click="api.close()">
+          <VBtnSecondary @click="modal.close()">
             Cancel
-          </SButton>
-          <SButton
-            type="primary"
-            :disabled="!feedbackText || !feedbackKind"
-            :loading="action.state.pending"
+          </VBtnSecondary>
+          <VBtnPrimary
+            :disabled="!feedbackText || !feedbackKind || action.state.pending"
             @click="doSubmit"
           >
             Submit
-          </SButton>
+          </VBtnPrimary>
         </div>
       </div>
     </div>

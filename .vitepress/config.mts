@@ -322,7 +322,7 @@ export default defineConfig({
   lang: 'en-US',
   vite: {
     plugins: [
-      ViteUnoCSS(),
+      ViteUnoCSS('../uno.config.ts'),
       VitePWA({
         // Based on: https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs
         manifest: {
@@ -373,7 +373,6 @@ export default defineConfig({
     async config(md) {
       md.use(footnote).use(mermaid)
     },
-    theme: 'github-dark-dimmed',
   },
 
   themeConfig: {
