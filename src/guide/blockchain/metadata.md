@@ -8,7 +8,7 @@ blockchain. The following can contain metadata:
 - assets
 - asset definitions
 - triggers
-- transactions
+- transactions 
 
 The metadata can be of very different types, such as:
 
