@@ -22,8 +22,8 @@ module.exports = {
       files: ['.vitepress/theme/components/MermaidRender.vue'],
       rules: {
         // FIXME: find a way to disable this it for the particular line
-        'vue/no-v-html': 'off'
-      }
-    }
-  ]
+        'vue/no-v-html': 'off',
+      },
+    },
+  ],
 }
