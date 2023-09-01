@@ -4,7 +4,6 @@ import { useParamScope, useTask } from '@vue-kakuyaku/core'
 import { computedEager, templateRef, useIntersectionObserver } from '@vueuse/core'
 import { useData } from 'vitepress'
 import { renderSvg } from '../mermaid-render'
-import { SSpinner, SAlert, Status } from '@soramitsu-ui/ui'
 
 const props = defineProps<{ id: string; text: string }>()
 
@@ -50,14 +49,12 @@ const taskState = computed(() => scope.value?.expose.state)
         v-html="taskState.fulfilled.value.svg"
       />
       <template v-else>
-        <SAlert
-          title="Unable to render the diagram"
-          :status="Status.Error"
-        >
-          <template #description>
-            {{ taskState.rejected.reason }}
-          </template>
-        </SAlert>
+        <div class="custom-block danger">
+          <p class="custom-block-title">
+            Unable to render the diagram
+          </p>
+          <p>{{ taskState.rejected.reason }}</p>
+        </div>
         <div class="language-mermaid">
           <pre><code>{{ textDecoded }}</code></pre>
         </div>
@@ -68,7 +65,7 @@ const taskState = computed(() => scope.value?.expose.state)
       v-else
       class="flex justify-center p-8"
     >
-      <SSpinner />
+      Rendering the diagram...
     </div>
   </div>
 </template>
