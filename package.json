@@ -55,8 +55,6 @@
   },
   "dependencies": {
     "@headlessui/vue": "^1.7.16",
-    "@soramitsu-ui/theme": "^0.3.0",
-    "@soramitsu-ui/ui": "^0.10.0",
     "@vue-kakuyaku/core": "^0.4.3",
     "@vueuse/core": "^10.4.1",
     "@vueuse/math": "^10.4.1",

@@ -1,10 +1,5 @@
-@use '@soramitsu-ui/theme/sass' as theme;
-@import '@soramitsu-ui/ui/styles';
-
 :root {
   --vp-font-family-mono: 'JetBrains Mono', 'Fira Code', Menlo, Monaco, Consolas, 'Courier New', monospace;
-
-  @include theme.tokens-preset-light;
 }
 
 .vp-doc {
