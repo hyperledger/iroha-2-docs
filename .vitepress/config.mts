@@ -3,7 +3,6 @@
 import { defineConfig, DefaultTheme } from 'vitepress'
 import footnote from 'markdown-it-footnote'
 import { resolve } from 'path'
-import { VitePWA } from 'vite-plugin-pwa'
 import ViteSvgLoader from 'vite-svg-loader'
 import ViteUnoCSS from 'unocss/vite'
 import { mermaid } from './md-mermaid'
@@ -323,26 +322,6 @@ export default defineConfig({
   vite: {
     plugins: [
       ViteUnoCSS('../uno.config.ts'),
-      VitePWA({
-        // Based on: https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs
-        manifest: {
-          name: 'Hyperledger Iroha 2 Tutorial',
-          icons: [
-            {
-              src: BASE + 'icon-192.png',
-              type: 'image/png',
-              sizes: '192x192',
-            },
-            {
-              src: BASE + 'icon-512.png',
-              type: 'image/png',
-              sizes: '512x512',
-            },
-          ],
-        },
-        strategies: 'injectManifest',
-        injectRegister: false,
-      }),
       ViteSvgLoader(),
     ],
     envDir: resolve(__dirname, '../'),
@@ -353,8 +332,9 @@ export default defineConfig({
     // Based on: https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs
     ['link', { rel: 'icon', href: BASE + 'favicon.ico', sizes: 'any' }],
     ['link', { rel: 'icon', href: BASE + 'icon.svg', sizes: 'image/svg+xml' }],
-    ['link', { ref: 'apple-touch-icon', href: BASE + 'apple-touch-icon.png' }],
-    // Google analytics integration
+    ['link', { rel: 'apple-touch-icon', href: BASE + 'apple-touch-icon.png' }],
+    ['link', { rel: 'manifest', href: BASE + 'manifest.webmanifest' }],
+    // Google Analytics integration
     ['script', { src: 'https://www.googletagmanager.com/gtag/js?id=G-D6ETK9TN47' }],
     [
       'script',
