@@ -138,10 +138,32 @@ export default [
     src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/configs/peer/genesis.json`,
   },
   {
-    src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/client/examples/tutorial.rs`,
+    // src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/client/examples/tutorial.rs`,
+    src: `https://raw.githubusercontent.com/6r1d/iroha/8f8dbe1bbb734f2a85dbd0c866fd8c4309caf335/client/examples/tutorial.rs`,
     filename: 'tutorial-snippets.rs',
   },
-
+  // FIXME: update after the Iroha side is merged
+  {
+    src: `https://raw.githubusercontent.com/6r1d/iroha/8f8dbe1bbb734f2a85dbd0c866fd8c4309caf335/client/examples/Cargo.toml.rc13`,
+    filename: 'tutorial-cargo.rc13.toml',
+  },
+  {
+    src: `https://raw.githubusercontent.com/6r1d/iroha/8f8dbe1bbb734f2a85dbd0c866fd8c4309caf335/client/examples/ClientConfiguration.rs`,
+    filename: 'ClientConfiguration.rs',
+  },
+  {
+    src: `https://raw.githubusercontent.com/6r1d/iroha/8f8dbe1bbb734f2a85dbd0c866fd8c4309caf335/client/examples/domain_registration_tests.rs`,
+    filename: 'domain_registration_tests.rs'
+  },
+  {
+    src: `https://raw.githubusercontent.com/6r1d/iroha/3acfb3ae8ce9a668fb51f0f4d6930c1de93a834d/client/examples/account_registration.rs`,
+    filename: 'account_registration.rs'
+  },
+  {
+    src: `https://raw.githubusercontent.com/6r1d/iroha/e9c8d9744bacf1bb9cae376887797e84bd231344/client/examples/output_filter.rs`,
+    filename: 'output_filter.rs'
+  },
+  // /FIXME
   ...javascriptSnippets,
 
   {

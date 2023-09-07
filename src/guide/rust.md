@@ -41,13 +41,7 @@ meantime, you could use the local copy that you've just created in the
 [previous step](/guide/build) as a local installation in your client's
 `Cargo.toml`:
 
-```toml
-[dependencies]
-iroha_client = { version = "=2.0.0-pre-rc.13", path = "~/Git/iroha/client" }
-iroha_data_model = { version = "=2.0.0-pre-rc.13", path = "~/Git/iroha/data_model" }
-iroha_crypto = { version = "=2.0.0-pre-rc.13", path = "~/Git/iroha/crypto" }
-iroha_config = { version = "=2.0.0-pre-rc.13", path = "~/Git/iroha/config" }
-```
+<<< @/snippets/tutorial-cargo.rc13.toml
 
 The added benefit of using a local copy is that you have access to the
 minimal BFT network in the form of `docker-compose.yml`, which allows you
@@ -101,34 +95,22 @@ your `ClientConfiguration` structure from a different location. Perhaps,
 you might want to build the configuration in place using the command-line
 arguments, or perhaps, you're using the [XDG specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-0.6.html) to store the file
 persistently in a different location. For this purpose, it's useful to try
-and construct an instance of `ClientConfiguration`:
+and construct an instance of `ClientConfiguration`.
 
-```rust
-use iroha_core::prelude::*;
-use iroha_data_model::prelude::*;
+To test it, we'll need the Iroha `data_model` and `core` crates.
 
-let kp = KeyPair::new(
-    PublicKey::from_str(
-        r#"ed01207233bfc89dcbd68c19fde6ce6158225298ec1131b6a130d1aeb454c1ab5183c0"#,
-    )?,
-    PrivateKey::from_hex(
-        Algorithm::Ed25519,
-        "9ac47abf59b356e0bd7dcbbbb4dec080e302156a48ca907e47cb6aea1d32719e7233bfc89dcbd68c19fde6ce6158225298ec1131b6a130d1aeb454c1ab5183c0"
-            .into(),
-    )?
-)?;
+<<< @/snippets/ClientConfiguration.rs#rust_config_crates
 
-let (public_key, private_key) = kp.clone().into();
-let account_id: AccountId = "alice@wonderland".parse()?;
+<!-- TODO does `public_str` here represent a `Ed25519` key? -->
+<!-- TODO complete a doctest for ClientConfiguration, run it locally. -->
 
-let config = ClientConfiguration {
-    public_key,
-    private_key,
-    account_id,
-    torii_api_url: SmallStr::from_string(iroha_config::torii::uri::DEFAULT_API_URL.to_owned()),
-    ..ClientConfiguration::default()
-};
-```
+We can start with the string representations of a public and private key.
+<!-- TODO tell about the role of the public and private key. Are they needed for a connection, do they represent a user account, or what is the extent of each? -->
+<!-- TODO why do we derive a public key from a string and a private key from a hex representation? Can it be explained better? -->
+<!-- TODO how do we turn a KeyPair into (public_key, private_key)? -->
+<!-- TODO explain the role of multihash better than a link. -->
+
+<<< @/snippets/ClientConfiguration.rs#client_configuration_test
 
 ::: info
 
@@ -180,18 +162,15 @@ example, if it couldn't submit the transaction to the peer (e.g. there's no
 connection), or if the transaction got rejected with an error. The cost is
 that the `submit_transaction` function is synchronous.
 
+<!-- TODO is it possible to have the mock tests on the Rust side for the doctests? -->
+
 We could have also done the following:
 
-```rust
-iroha_client
-    .submit_with_metadata(create_looking_glass, UnlimitedMetadata::default())?;
-```
+<<< @/snippets/domain_registration_tests.rs#submit_with_metadata
 
 or
 
-```rust
-iroha_client.submit(create_looking_glass)?;
-```
+<<< @/snippets/domain_registration_tests.rs#submit
 
 The latter style is just syntactic sugar. Every submission comes in the
 form of a transaction that has metadata.
@@ -234,16 +213,11 @@ they know if you don't have a copy of their private key? Instead, the best
 way is to **ask** _white_rabbit_ to generate a new key-pair, and give you
 the public half of it:
 
-```rust
-let key: PublicKey = get_key_from_white_rabbit();
-```
+<<< @/snippets/account_registration.rs#get_key_from
 
 Only then do we build an instruction from it:
 
-```rust
-let create_account =
-    RegisterBox::new(IdentifiableBox::from(NewAccount::with_signatory(id, key)));
-```
+<<< @/snippets/account_registration.rs#create_account
 
 Which is then **wrapped in a transaction** and **submitted to the peer** as
 [in the previous section](#_3-registering-a-domain).
@@ -326,9 +300,25 @@ instruction indicating which asset to burn and its quantity.
 
 Then submit this instruction:
 
-```rust
-iroha_client.submit(burn_roses)?;
-```
+<<< @/snippets/tutorial-snippets.rs#burn_asset_submit_tx
+
+The full syntax to select an asset looks like this: `asset_name#asset_domain#account_name@account_domain`.
+
+There are more ways to select assets to burn:
+
+* `roses.to_string() + "#" + alice.to_string()`
+* `rose##alice@wonderland`
+
+The `##` is a short-hand for the rose which belongs to the same domain as the account
+to which it belongs to.
+
+There aren't many changes needed for the alternative syntax:
+
+<<< @/snippets/tutorial-snippets.rs#burn_asset_burn_alt
+
+The `submit` syntax stays the same, besides the variable.
+
+<<< @/snippets/tutorial-snippets.rs#burn_asset_submit_tx_alt
 
 ## 7. Visualising outputs
 
@@ -348,24 +338,17 @@ There are two possible event filters: `PipelineEventFilter` and
 pertaining to the process of submitting a transaction, executing a
 transaction, and committing it to a block.
 
-First, let's build a filter:
+First, `iroha_data_model::prelude::*` is required for this code to work:
 
-```rust
-use iroha_data_model::prelude::*;
+<<< @/snippets/output_filter.rs#filter_requirements
 
-let filter = FilterBox::Pipeline(PipelineEventFilter::identity());
-```
+Let's build a filter:
+
+<<< @/snippets/output_filter.rs#build_a_filter
 
 Then, we start listening for events in an infinite loop:
 
-```rust
-for event in iroha_client.listen_for_events(filter)? {
-    match event {
-        Ok(event) => println!("Success: {:#?}", event),
-        Err(err) => println!("Sadness:( {:#?}",  err),
-    }
-};
-```
+<<< @/snippets/output_filter.rs#listen
 
 Needless to say, an synchronous infinite blocking loop is bad UX for
 anything but a command-line program, but for illustration purposes, this
