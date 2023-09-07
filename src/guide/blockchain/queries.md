@@ -445,7 +445,7 @@ that is used as a secure data storage for privileged information.
 
 ### FindAllBlocks
 
-- **Returns**: `Vec<Block>`
+- **Returns**: `Vec<VersionedCommittedBlock>`
 - **Details**: Returns all blocks in the blockchain.
 
 ### FindAllBlockHeaders
