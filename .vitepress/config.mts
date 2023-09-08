@@ -15,9 +15,9 @@ function getNav(): DefaultTheme.NavItem[] {
       activeMatch: '^/$|^/guide/',
     },
     {
-      text: 'Schema',
-      link: '/data-model-schema/',
-      activeMatch: '^/data-model-schema/',
+      text: 'Reference',
+      link: '/reference/',
+      activeMatch: '^/reference/',
     },
   ]
 }
@@ -217,6 +217,10 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
               text: 'Metadata and Store assets',
               link: '/guide/configure/metadata-and-store-assets',
             },
+            {
+              text: '[wip] Reference',
+              link: '/configuration-reference',
+            },
           ],
         },
         {
@@ -275,19 +279,19 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
         },
       ],
     },
-    {
-      text: 'API',
-      items: [
-        {
-          text: 'Specification',
-          link: '/api/index.md',
-        },
-        {
-          text: 'Foreign Function Interfaces',
-          link: '/api/ffi',
-        },
-      ],
-    },
+    // {
+    //   text: 'API',
+    //   items: [
+    //     {
+    //       text: 'Specification',
+    //       link: '/api/index.md',
+    //     },
+    //     {
+    //       text: 'Foreign Function Interfaces',
+    //       link: '/api/ffi',
+    //     },
+    //   ],
+    // },
     {
       text: 'Documenting Iroha',
       items: [
@@ -320,10 +324,7 @@ export default defineConfig({
     'Documentation for Hyperledger Iroha 2 offering step-by-step guides for SDKs and outlining the main differences between Iroha versions.',
   lang: 'en-US',
   vite: {
-    plugins: [
-      ViteUnoCSS('../uno.config.ts'),
-      ViteSvgLoader(),
-    ],
+    plugins: [ViteUnoCSS('../uno.config.ts'), ViteSvgLoader()],
     envDir: resolve(__dirname, '../'),
   },
   lastUpdated: true,
@@ -358,6 +359,7 @@ export default defineConfig({
   themeConfig: {
     logo: '/icon.svg',
     siteTitle: 'Iroha 2',
+    outline: 'deep',
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/hyperledger/iroha-2-docs' },
@@ -377,15 +379,33 @@ export default defineConfig({
       text: 'Edit this page on GitHub',
     },
 
-    lastUpdatedText: 'Last Updated',
+    // lastUpdatedText: 'Last Updated',
 
     sidebar: {
       '/guide/': getGuideSidebar(),
-      '/data-model-schema': [
+      '/reference/': [
         {
-          text: 'Channel',
+          text: 'Overview',
+          link: '/reference/',
+        },
+        {
+          text: 'Configuration',
+          link: '/reference/configuration',
+        },
+        {
+          text: 'Command Line Interface (CLI)',
+          link: '/reference/cli'
+        },
+        {
+          text: 'API Specification',
+          link: '/reference/api',
+        },
+        { text: 'Foreign Function Interfaces (FFI)', link: '/reference/ffi' },
+        {
+          text: 'Data Model Schema',
+          link: '/reference/data-model-schema/',
           items: ['stable', 'lts', 'dev'].map((channel) => ({
-            link: `/data-model-schema/${channel}`,
+            link: `/reference/data-model-schema/${channel}`,
             text: `iroha2-${channel}`,
           })),
         },

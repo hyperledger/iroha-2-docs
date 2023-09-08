@@ -1,7 +1,7 @@
-import { renderSchema, type Schema } from '../../etc/render-schema'
-import SCHEMA_DEV from '../snippets/data-model-schema.dev.json'
-import SCHEMA_STABLE from '../snippets/data-model-schema.stable.json'
-import SCHEMA_LTS from '../snippets/data-model-schema.lts.json'
+import { renderSchema, type Schema } from '../../../etc/render-schema'
+import SCHEMA_DEV from '../../snippets/data-model-schema.dev.json'
+import SCHEMA_STABLE from '../../snippets/data-model-schema.stable.json'
+import SCHEMA_LTS from '../../snippets/data-model-schema.lts.json'
 
 const MAP = {
   dev: SCHEMA_DEV,
