@@ -2,6 +2,7 @@
 
 Here you can find definitions of all Iroha-related entities.
 
+- [Peer](#peer)
 - [Asset](#asset)
 - [Byzantine fault-tolerance (BFT)](#byzantine-fault-tolerance-bft)
 - [Iroha Components](#iroha-components)
@@ -35,6 +36,20 @@ transaction information.
 During medieval times, ledger books were open for public viewing and
 accuracy verification. This idea is reflected in the blockchain-based
 systems that can check the stored data for validity.
+
+## Peer
+
+A peer in Iroha means an Iroha process instance to which other Iroha processes
+and client applications can connect.
+A single machine can host several Iroha peers.
+Peers are equal regarding their resources and capabilities,
+with an important exception: only one of the peers runs
+the genesis block at the bootstrapping stage of the Iroha network.
+
+Other blockchains may refer to the same concept as a node or a validator.
+
+A peer can be a process on its host system.
+It also can be contained in a Docker container and a Kubernetes pod.
 
 ## Asset
 
@@ -91,7 +106,7 @@ The Iroha module responsible for consensus.
 
 ### Torii (Gate)
 
-Module with the incoming request handling logic for the peer. It is used to
+Module with the incoming request handling logic for the [peer](#peer). It is used to
 receive, accept and route incoming instructions, and HTTP queries, as well
 as run-time configuration updates.
 
@@ -132,9 +147,9 @@ Iroha network.
 
 ### Hijiri (peer reputation system)
 
-Iroha's reputation system. It allows prioritising communication with peers
+Iroha's reputation system. It allows prioritising communication with [peers](#peer)
 that have a good track-record, and reducing the harm that can be caused by
-malicious peers.
+malicious [peers](#peer).
 
 ## Iroha Modules
 
@@ -173,8 +188,8 @@ Instructions provided in [Iroha Modules](#iroha-modules), by clients or 3rd
 parties. These can only be built using
 [the Core Instructions](#core-iroha-special-instructions). Forking and
 modifying the Iroha source code is not recommended, as special instructions
-not agreed-upon by peers in an Iroha deployment will be treated as faults,
-thus peers running a modified instance will have their access revoked.
+not agreed-upon by [peers](#peer) in an Iroha deployment will be treated as faults,
+thus [peers](#peer) running a modified instance will have their access revoked.
 
 ## Iroha Query
 
@@ -189,7 +204,7 @@ Usually this entails the election of a new [Leader](#leader).
 ## World state view (WSV)
 
 In-memory representation of the current blockchain state. This includes all
-currently loaded blocks, with all of their contents, as well as peers
+currently loaded blocks, with all of their contents, as well as [peers](#peer)
 elected for the current epoch.
 
 ## Leader
