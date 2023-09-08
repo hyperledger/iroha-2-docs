@@ -357,7 +357,7 @@ export default defineConfig({
   },
 
   themeConfig: {
-    logo: '/icon.svg',
+    // logo: '/icon.svg',
     siteTitle: 'Iroha 2',
     outline: 'deep',
 
