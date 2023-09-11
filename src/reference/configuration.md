@@ -137,14 +137,14 @@ private-key = { digest = "", payload = "" }
 Explain the purpose of this block. Maybe explain both keys in a single
 section?
 
-#### `genesis.public-key`
+### `genesis.public-key`
 
 - **Type:** [Multi-hash](#type-multi-hash)
 - **Required**
 
 The public key of the genesis account, should be supplied to all peers.
 
-#### `genesis.private-key`
+### `genesis.private-key`
 
 - **Type:** Table, [Private Key](#type-private-key)
 - **Required** if the configured peer submits the genesis block, and
@@ -207,8 +207,12 @@ Optional _(?)_ list of predefined trusted peers.
 
 Peer Id:
 
-- `address` - String, [Socket-Address](#type-socket-address)
-- `public-key` - [Multi-hash](#type-multi-hash)
+- **`address`:** Address of the peer. See: [`network.address`](#network-address).
+  - **Type:** String, [Socket-Address](#type-socket-address)
+  - **Required**
+- **`public-key`:** Public key of the peer.
+  - **Type:** String, [Multi-hash](#type-multi-hash)
+  - **Required**
 
 ```toml
 peer-id = { address = "", public-key = "" }
