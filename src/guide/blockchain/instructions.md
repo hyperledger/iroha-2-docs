@@ -257,7 +257,7 @@ only once after registration.
 
 Assets and permission tokens need to be minted to a specific account,
 usually the one that registered the asset in the first place. All assets
-are assumed to be non-negative as well, so you can never have `-1.0` of
+are assumed to be non-negative as well, so you can never have $-1.0$ of
 `time` or `Burn` a negative amount and get a `Mint`.
 
 Refer to one of the language-specific guides to walk you through the

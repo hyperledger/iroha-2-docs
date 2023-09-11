@@ -7,6 +7,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 import ViteSvgLoader from 'vite-svg-loader'
 import ViteUnoCSS from 'unocss/vite'
 import { mermaid } from './md-mermaid'
+import { katex } from '@mdit/plugin-katex'
 
 function getNav(): DefaultTheme.NavItem[] {
   return [
@@ -371,11 +372,13 @@ export default defineConfig({
         gtag('config', 'G-D6ETK9TN47');
     `,
     ],
+    // KaTeX stylesheet
+    ['link', { rel: 'stylesheet', href: 'https://esm.sh/katex@0.16.8/dist/katex.min.css' }],
   ],
 
   markdown: {
     async config(md) {
-      md.use(footnote).use(mermaid)
+      md.use(footnote).use(mermaid).use(katex)
     },
     theme: 'github-dark-dimmed',
   },
