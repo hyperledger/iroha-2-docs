@@ -106,7 +106,7 @@ public-key = ""
 api-address = "localhost:8080"
 ```
 
-## Parameters
+## Base Options
 
 ### `public-key`
 
@@ -132,7 +132,7 @@ Private key of this peer
 private-key = { digest = "", payload = "" }
 ```
 
-### Genesis
+## Genesis Options
 
 Explain the purpose of this block. Maybe explain both keys in a single
 section?
@@ -169,11 +169,11 @@ The warning will be printed if
 
 :::
 
-### Network
+## Network Options
 
 Explain network module
 
-#### `network.address`
+### `network.address`
 
 - **Type:** String, [Socket-Address](#type-socket-address)
 - **Required**
@@ -188,18 +188,18 @@ This address is what other peers should specify in their
 
 :::
 
-#### `network.actor-channel-capacity`
+### `network.actor-channel-capacity`
 
 - **Type:** Number
 - **Default:** 100
 
 See: [Actor Channel Capacity](#actor-channel-capacity)
 
-### Sumeragi
+## Sumeragi Options
 
 Explain sumeragi module
 
-#### `sumeragi.trusted-peers`
+### `sumeragi.trusted-peers`
 
 - **Type:** Array of Peer Ids
 
@@ -241,7 +241,7 @@ trusted-peers = [
 ]
 ```
 
-#### `sumeragi.block-time`
+### `sumeragi.block-time`
 
 - **Type:** String or Number, [Duration](#type-duration)
 - **Default:** 2 seconds
@@ -249,21 +249,21 @@ trusted-peers = [
 The period of time a peer waits for the `CreatedBlock` message after
 getting a `TransactionReceipt`
 
-#### `sumeragi.commit-time-limit`
+### `sumeragi.commit-time-limit`
 
 - **Type:** String or Number, [Duration](#type-duration)
 - **Default:** 4 seconds
 
 The period of time a peer waits for `CommitMessage` from the proxy tail.
 
-#### `sumeragi.gossip-period`
+### `sumeragi.gossip-period`
 
 - **Type:** String or Number, [Duration](#type-duration)
 - **Default:** 1 second
 
 Period in milliseconds for pending transaction gossiping between peers.
 
-#### `sumeragi.gossip-batch-size`
+### `sumeragi.gossip-batch-size`
 
 - **Type:** Number
 - **Default:** 500
@@ -271,18 +271,18 @@ Period in milliseconds for pending transaction gossiping between peers.
 max number of transactions in tx gossip batch message. While configuring
 this, pay attention to `p2p` max message size.
 
-#### `sumeragi.max-transactions-in-block`
+### `sumeragi.max-transactions-in-block`
 
 - **Type:** u32
 - **Default:** 2_u32.pow(9)
 
 The upper limit of the number of transactions per block.
 
-### Torii
+## Torii Options
 
 Explain Torii module
 
-#### `torii.api-address`
+### `torii.api-address`
 
 - **ENV:** `API_ENDPOINT`
 - **Type:** String, [Socket-Address](#type-socket-address)
@@ -295,7 +295,7 @@ Address for client API.
 api-address = "localhost:8080"
 ```
 
-#### `torii.telemetry-address`
+### `torii.telemetry-address`
 
 - **Type:** String, [Socket-Address](#type-socket-address)
 - **Optional**
@@ -310,7 +310,7 @@ about "active" outbound telemetry, actively produced by Iroha.
 
 :::
 
-#### `torii.max-transaction-size`
+### `torii.max-transaction-size`
 
 - **Type:** String or Number, [Byte Size](#type-byte-size)
 - **Default:** 2 pow 15 (todo mathjax?) `32_768` (2 \*\* 15)
@@ -318,14 +318,14 @@ about "active" outbound telemetry, actively produced by Iroha.
 Maximum number of bytes in raw transaction. Used to prevent from DOS
 attacks.
 
-#### `torii.max-content-len`
+### `torii.max-content-len`
 
 - **Type:** String or Number, [Byte Size](#type-byte-size)
 - **Default:** `2 ** 12 * 4000`
 
 Maximum number of bytes in raw message. Used to prevent from DOS attacks.
 
-#### `torii.fetch-size`
+### `torii.fetch-size`
 
 TODO: use "amount" instead of size. Usually "size" means bytes in this
 document
@@ -335,25 +335,25 @@ document
 
 How many query results are returned in one batch
 
-#### `torii.query-idle-time`
+### `torii.query-idle-time`
 
 - **Type:** String or Number, [Duration](#type-duration)
 - **Default:** `30_000`
 
 Time query can remain in the store if unaccessed
 
-### Queue
+## Queue Options
 
 Explain Queue module
 
-#### `queue.max-transactions-in-queue`
+### `queue.max-transactions-in-queue`
 
 - **Type:** u32
 - **Default:** `2 ** 16`
 
 The upper limit of the number of transactions waiting in the queue.
 
-#### `queue.max-transactions-in-queue-per-user`
+### `queue.max-transactions-in-queue-per-user`
 
 - **Type:** u32
 - **Default:** 2 \*\* 16
@@ -361,7 +361,7 @@ The upper limit of the number of transactions waiting in the queue.
 The upper limit of the number of transactions waiting in the queue for
 single user. Use this option to apply throttling.
 
-#### `queue.transaction-time-to-live`
+### `queue.transaction-time-to-live`
 
 - **Type:** String or Number, [Duration](#type-duration)
 - **Default:** 24 hours
@@ -369,7 +369,7 @@ single user. Use this option to apply throttling.
 The transaction will be dropped after this time if it is still in the
 queue.
 
-#### `queue.future-threshold`
+### `queue.future-threshold`
 
 - **Type:** String or Number, [Duration](#type-duration)
 - **Default:** 1 second
@@ -377,11 +377,11 @@ queue.
 The threshold to determine if a transaction has been tampered to have a
 future timestamp.
 
-### Kura
+## Kura Options
 
 Explain Kura module
 
-#### `kura.init-mode`
+### `kura.init-mode`
 
 - **Type:** String
 - **Possible Values:** `strict` or `fast`
@@ -390,7 +390,7 @@ Explain Kura module
 `strict` - Strict validation of all blocks. `fast` - Fast initialization
 with basic checks.
 
-#### `kura.block-store-path`
+### `kura.block-store-path`
 
 - **Type:** String
 - **Default:** `./storage`
@@ -405,25 +405,25 @@ with a snippet pointing to the configuration
 
 :::
 
-#### `kura.blocks-per-storage-file`
+### `kura.blocks-per-storage-file`
 
 - **Type:** non zero u64
 - **Default:** 1000
 
 Maximum number of blocks to write into a single storage file.
 
-#### `kura.actor-channel-capacity`
+### `kura.actor-channel-capacity`
 
 - **Type:** Number
 - **Default:** 100
 
 See: [Actor Channel Capacity](#actor-channel-capacity)
 
-### Logger
+## Logger Options
 
 Explain module
 
-#### `logger.level`
+### `logger.level`
 
 - **ENV:** `LOG`, `LOG_LEVEL`, `IROHA_LOG_LEVEL`
 - **Type:** String
@@ -433,14 +433,14 @@ Explain module
 
 Maximum log level
 
-#### `logger.compact-mode`
+### `logger.compact-mode`
 
 - **Type:** Boolean
 - **Default:** `false`
 
 Compact mode (no spans from telemetry)
 
-#### `logger.log-file-path`
+### `logger.log-file-path`
 
 - **Type:** String
 - **Optional**
@@ -450,7 +450,7 @@ TODO: Find a standard name for log file path? (i.e. posix)
 If provided, logs will be copied to said file in the format readable by
 [bunyan](https://lib.rs/crates/bunyan)
 
-#### `logger.terminal-colors`
+### `logger.terminal-colors`
 
 - **Type:** Boolean
 - **Default:** depends on `logger.compact-mode`. If compact mode is
@@ -470,11 +470,11 @@ colorize-output = true # INVALID: should be `false` or omitted
 
 :::
 
-### Block Sync
+## Block Sync Options
 
 Explain module
 
-#### `block-sync.actor-channel-capacity`
+### `block-sync.actor-channel-capacity`
 
 - **Type:** Number
 - **Default:** 100
@@ -488,7 +488,7 @@ Buffer capacity of actor's MPSC channel
 actor-channel-capacity = 100
 ```
 
-#### `block-sync.block-batch-size`
+### `block-sync.block-batch-size`
 
 - **Type:** Number
 - **Default:** 4
@@ -500,7 +500,7 @@ The number of blocks that can be sent in one message.
 block-batch-size = 4
 ```
 
-#### `block-sync.gossip-period`
+### `block-sync.gossip-period`
 
 - **Type:** String or Number, [Duration](#type-duration)
 - **Default:** 10 seconds
@@ -512,11 +512,11 @@ The period of time to wait between sending requests for the latest block.
 gossip-period = "5 secs"
 ```
 
-### World State View
+## World State View Options
 
 Explain module
 
-#### `wsv.asset-metadata-limits`
+### `wsv.asset-metadata-limits`
 
 - **Type:** Table, [Metadata Limits](#type-metadata-limits)
 - **Default:** [Default Metadata Limits](#default-metadata-limits)
@@ -529,31 +529,31 @@ max-len = 30
 max-entry-byte-size = "2mb"
 ```
 
-#### `wsv.asset-definition-metadata-limits`
+### `wsv.asset-definition-metadata-limits`
 
 TODO
 
-#### `wsv.account-metadata-limits`
+### `wsv.account-metadata-limits`
 
 TODO
 
-#### `wsv.domain-metadata-limits`
+### `wsv.domain-metadata-limits`
 
 TODO
 
-#### `wsv.ident-length-limits`
+### `wsv.ident-length-limits`
 
 Limits for the number of characters in identifiers that can be stored in
 the WSV.
 
 FIXME: rename `ident` to something more readable?
 
-#### `wsv.transaction-limits`
+### `wsv.transaction-limits`
 
 Limits that all transactions need to obey, in terms of size of WASM blob
 and number of instructions.
 
-#### `wsv.wasm-runtime.fuel-limit`
+### `wsv.wasm-runtime.fuel-limit`
 
 The fuel limit determines the maximum number of instructions that can be
 executed within a smart contract. Every WASM instruction costs
@@ -572,7 +572,7 @@ Example:
 fuel-limit = 40_000_000
 ```
 
-#### `wsv.wasm-runtime.max-memory`
+### `wsv.wasm-runtime.max-memory`
 
 Maximum amount of linear memory a given smart contract can allocate.
 
@@ -588,11 +588,11 @@ Example:
 max-memory = "1gb"
 ```
 
-## Telemetry
+## Telemetry Options
 
 Two Telemetries are supported: Substrate-based and File-based.
 
-#### `telemetry.substrate`
+### `telemetry.substrate`
 
 Enable Substrate active outbound telemetry.
 
@@ -621,7 +621,7 @@ name = "iroha"
 url = "ws://127.0.0.1:8001/submit"
 ```
 
-#### `telemetry.file-output`
+### `telemetry.file-output`
 
 Enable file-based active outbound telemetry.
 
