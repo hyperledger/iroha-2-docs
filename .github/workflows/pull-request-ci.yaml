@@ -50,3 +50,6 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+      - name: Validate links
+        run: pnpm cli validate-links .vitepress/dist

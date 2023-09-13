@@ -49,7 +49,9 @@ jobs:
         run: pnpm test
 
       - name: Build VitePress
-        run: pnpm build
+        run: |
+          pnpm build
+          pnpm cli validate-links .vitepress/dist --public-path $PUBLIC_PATH
         env:
           PUBLIC_PATH: /iroha-2-docs/
 
