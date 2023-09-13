@@ -42,7 +42,7 @@ export async function scanAndReport(options: Options) {
   if (count === 0) {
     console.log(chalk`{green ✓ Haven't detected any broken links}`)
   } else {
-    const sortByFileName = <T extends [string, any]>(items: T[]): T[] => {
+    const sortByFileName = <T extends [string, unknown]>(items: T[]): T[] => {
       const arr = [...items]
       arr.sort(([a], [b]) => {
         return a < b ? -1 : a > b ? 1 : 0
@@ -61,7 +61,7 @@ export async function scanAndReport(options: Options) {
 
       // format diffs
       const diffs = similar.map((x) => {
-        const diff =  fastDiff(origin, x)
+        const diff = fastDiff(origin, x)
           .map(([kind, piece]) => {
             return match(kind)
               .with(fastDiff.EQUAL, () => chalk.gray.dim(piece))
@@ -163,24 +163,20 @@ function scanLinksAndAnchorsInHTML(html: string): {
   const doc = htmlparser.parseDocument(html)
 
   const links = cssSelect.selectAll('main a[href]', doc.children).map((elem) => {
-    const href = match(elem)
+    return match(elem)
       .with({ name: 'a', attribs: { href: P.select(P.string) } }, (href) => href)
       .otherwise(() => {
         throw new Error('unexpected <a>')
       })
-
-    return href
   })
 
   const anchors = new Set(
     cssSelect.selectAll('main [id]', doc.children).map((elem) => {
-      const id = match(elem)
+      return match(elem)
         .with({ attribs: { id: P.select(P.string) } }, (id) => id)
         .otherwise(() => {
           throw new Error('unexpected element')
         })
-
-      return id
     }),
   )
 
