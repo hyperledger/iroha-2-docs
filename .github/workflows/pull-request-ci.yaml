@@ -54,4 +54,5 @@ jobs:
       - name: Validate links
         run: pnpm cli validate-links .vitepress/dist
         env:
+          # chalk has a color detection bug
           FORCE_COLOR: 2
