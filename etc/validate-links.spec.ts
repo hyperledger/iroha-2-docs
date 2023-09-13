@@ -53,6 +53,5 @@ describe('Parse link', () => {
       file: '/root/index.html',
       anchor: 'zzz',
     } satisfies LinkOtherFile)
-
   })
 })
