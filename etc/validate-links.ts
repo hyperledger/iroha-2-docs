@@ -116,7 +116,7 @@ async function scan(options: Options): Promise<LinkIssues> {
       const { links, anchors } = scanLinksAndAnchorsInHTML(html)
 
       const parsedLinks = links
-        .map((x) => parseLink({ root: options.root, source: file, href: x }))
+        .map((x) => parseLink({ root: options.root, source: file, href: x, publicPath: options.publicPath }))
         .filter((x): x is Exclude<ParsedLink, LinkExternal> => x.type !== 'external')
 
       return { file, links: parsedLinks, anchors }
@@ -185,23 +185,30 @@ export interface LinkExternal {
 }
 
 // export for tests
-export function parseLink(opts: { root: string; source: string; href: string }): ParsedLink {
+export function parseLink(opts: { root: string; source: string; href: string; publicPath?: string }): ParsedLink {
   const relative = path.relative(opts.root, opts.source)
   const DUMMY_ORIGIN = 'http://dummy.dummy'
-  const url = new URL(opts.href, DUMMY_ORIGIN + `/${relative}`)
+  const url = new URL(opts.href, DUMMY_ORIGIN + (opts.publicPath ?? '/') + `${relative}`)
 
   return match(url)
     .with(
       { origin: DUMMY_ORIGIN, pathname: P.select('pathname'), hash: P.select('hash') },
       ({ pathname, hash }): ParsedLink => {
         const anchor = hash ? hash.slice(1) : undefined
-        let file = path.join(opts.root, pathname)
-        if (file.endsWith('/')) file += `index.html`
+
+        let pathProcessed = pathname
+        if (opts.publicPath && pathProcessed.startsWith(opts.publicPath)) {
+          pathProcessed = pathProcessed.slice(opts.publicPath.length)
+        }
+        let file = path.join(opts.root, pathProcessed)
+        if (path.extname(file) !== '.html') file = path.join(file, 'index.html')
 
         if (path.normalize(file) === path.normalize(opts.source)) {
           if (!anchor) throw new Error('found self link without anchor')
           return { type: 'self', anchor }
         }
+
+        if (!file) throw new Error('STOP')
 
         return {
           type: 'other',
@@ -252,6 +259,7 @@ function findIssuesInGraph(graph: Graph): LinkIssues {
             })
           }
         })
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         .otherwise(() => {})
     }
 
@@ -262,8 +270,11 @@ function findIssuesInGraph(graph: Graph): LinkIssues {
 }
 
 function findSimilarIds(existing: Set<string>, id: string): string[] {
-  return [...existing].filter((x) => {
-    const distance = leven(x, id)
-    return distance >= 1 && distance <= 3 // todo: 3
-  })
+  const withDist = [...existing]
+    .map((x) => ({ dist: leven(x, id), id: x }))
+    .filter(({ dist }) => dist >= 1 && dist <= 3)
+
+  withDist.sort((a, b) => a.dist - b.dist)
+
+  return withDist.map(({ id }) => id)
 }
