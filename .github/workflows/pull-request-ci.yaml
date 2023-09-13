@@ -53,3 +53,5 @@ jobs:
 
       - name: Validate links
         run: pnpm cli validate-links .vitepress/dist
+        env:
+          FORCE_COLOR: 2
