@@ -67,7 +67,7 @@ connections. For client configuration, you can set up two addresses:
 ### `TORII_API_URL`
 
 First, the `TORII_API_URL` is the same as `TORII` `API_URL` in the
-[peer configuration](peer-configuration.md#api_url). This is the module
+[peer configuration](peer-configuration.md#api-url). This is the module
 responsible for handling incoming and outgoing connections. You should also
 add the prefix `http://` or (_preferably_) `https://` to the address. For
 example:

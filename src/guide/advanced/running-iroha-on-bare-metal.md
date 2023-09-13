@@ -455,7 +455,7 @@ Iroha in the real world.
 
 4.  Determine the web socket that the other peers will use to connect to
     you. Make sure that the port is open and use that address
-    ([`P2P_ADDR`](/guide/configure/peer-configuration.md#p2p_addr)) in your
+    ([`P2P_ADDR`](/guide/configure/peer-configuration.md#p2p-addr)) in your
     `configs/peer/config.json`.
 
 5.  After you have finished editing the configuration file, deploy Iroha by
