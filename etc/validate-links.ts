@@ -6,6 +6,7 @@ import path from 'path'
 import * as htmlparser from 'htmlparser2'
 import * as cssSelect from 'css-select'
 import leven from 'leven'
+import fastDiff from 'fast-diff'
 
 interface Options {
   root: string
@@ -39,7 +40,7 @@ export async function scanAndReport(options: Options) {
 
   const count = countIssues(issues)
   if (count === 0) {
-    console.log('OK havent found any issues')
+    console.log(chalk`{green ✓ Haven't detected any broken links}`)
   } else {
     const sortByFileName = <T extends [string, any]>(items: T[]): T[] => {
       const arr = [...items]
@@ -55,9 +56,25 @@ export async function scanAndReport(options: Options) {
       return chalk`${relative.slice(0, -ext.length)}{reset.dim ${ext}}`
     }
 
-    const formatSimilar = (items?: string[]) => {
-      if (!items?.length) return ''
-      return `. Here are similar ones:\n      ` + items.map((x) => chalk.blue(x)).join('\n      ')
+    const formatSimilar = (origin: string, similar?: string[]) => {
+      if (!similar?.length) return ''
+
+      // format diffs
+      const diffs = similar.map((x) => {
+        const diff =  fastDiff(origin, x)
+          .map(([kind, piece]) => {
+            return match(kind)
+              .with(fastDiff.EQUAL, () => chalk.gray.dim(piece))
+              .with(fastDiff.INSERT, () => chalk.bgGreenBright.black(piece))
+              .with(fastDiff.DELETE, () => chalk.bgRedBright.black(piece))
+              .exhaustive()
+          })
+          .join('')
+
+        return chalk`{blue ${x}} {gray.dim (diff: ${diff}})`
+      })
+
+      return `. Here are similar ones:\n      ` + diffs.join('\n      ')
     }
 
     const formattedIssues = sortByFileName([...issues])
@@ -68,19 +85,23 @@ export async function scanAndReport(options: Options) {
               match(issue)
                 // actually, it should never happen: VitePress disallows dead links to other pages
                 .with({ type: 'missing-other-file' }, (x) => {
-                  return chalk`  Broken link: {bold.red ${formatFile(x.file)}}\n    Cannot find the file.`
+                  return (
+                    chalk`  Broken link: {bold.red ${formatFile(x.file)}}\n    ` + chalk`{red Cannot find the file.}`
+                  )
                 })
                 .with({ type: 'missing-id-in-other' }, (x) => {
                   return (
-                    chalk`  Broken link: {bold ${formatFile(x.file)}{red #${
-                      x.id
-                    }}}\n    Cannot find the ID in the other file` + formatSimilar(x.similar)
+                    chalk`  Broken link: {bold ${formatFile(x.file)}{red #${x.id}}}` +
+                    `\n    ` +
+                    chalk`{red Cannot find the ID in the other file}` +
+                    formatSimilar(x.id, x.similar)
                   )
                 })
                 .with({ type: 'missing-id-in-self' }, (x) => {
                   return (
-                    chalk`  Broken link: {bold.red #${x.id}}\n    Cannot find the ID within the file itself` +
-                    formatSimilar(x.similar)
+                    chalk`  Broken link: {bold.red #${x.id}}\n    ` +
+                    chalk`{red Cannot find the ID within the file itself}` +
+                    formatSimilar(x.id, x.similar)
                   )
                 })
                 .exhaustive()
