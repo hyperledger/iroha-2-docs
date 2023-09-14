@@ -9,7 +9,7 @@ Here you can find definitions of all Iroha-related entities.
   - [Sumeragi (Emperor)](#sumeragi-emperor)
   - [Torii (Gate)](#torii-gate)
   - [Kura (Warehouse)](#kura-warehouse)
-  - [Kagami(Teacher and Exemplar and/or looking glass)](#kagamiteacher-and-exemplar-andor-looking-glass)
+  - [Kagami(Teacher and Exemplar and/or looking glass)](#kagami-teacher-and-exemplar-and-or-looking-glass)
   - [Merkle tree (hash tree)](#merkle-tree-hash-tree)
   - [Smart contracts](#smart-contracts)
   - [Triggers](#triggers)
@@ -165,8 +165,8 @@ either transactions or registered event listeners. More on ISI
 
 This set of [isi](#iroha-special-instructions-isi) contains logical
 instructions like `If`, I/O related like `Notify` and compositions like
-`Sequence`. They are mostly used by
-[custom instructions](#custom-iroha-special-instructions).
+`Sequence`. They are mostly used as
+[custom instructions](#custom-iroha-special-instruction).
 
 ### Core Iroha Special Instructions
 

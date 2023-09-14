@@ -26,7 +26,7 @@ variables.
 :::
 
 All the default values can be freely obtained from a provided
-[sample configuration file](./sample-configuration.md#peer-configuration-configspeerconfigjson),
+[sample configuration file](./sample-configuration),
 but it is only a starting point. \*\*If left unchanged, the sample
 configuration file will not work. All `null` values in place of public and
 private keys as well as
