@@ -99,7 +99,7 @@ class RoleEvent {
 
 class PermissionRemoved {
     role_id: RoleId
-    permission_definition_id: <PermissionTokenDefinition as Identifiable>::Id
+    permission_definition_id: PermissionTokenDefinitionId
 }
 
 RoleFilter .. RoleEvent

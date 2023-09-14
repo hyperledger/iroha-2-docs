@@ -141,7 +141,7 @@ Here is an example of a query that finds Alice's assets:
 
 ```rust
 let alice_id =
-    <Account as Identifiable>::Id::from_str("alice@wonderland")?;
+    AccountId::from_str("alice@wonderland")?;
 let query = QueryBox::FindAssetsByAccountId(
     FindAssetsByAccountId::new(alice_id)
   );
