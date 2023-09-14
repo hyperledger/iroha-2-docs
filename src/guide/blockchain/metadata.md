@@ -70,15 +70,15 @@ instruction:
 
 ```rust
 // Mouse's account
-let mouse_id: <Account as Identifiable>::Id = "mouse@wonderland".parse();
+let mouse_id: AccountId = "mouse@wonderland".parse();
 
 // Registering `Store` asset definition
-let hat_definition_id: <AssetDefinition as Identifiable>::Id =
+let hat_definition_id: AssetDefinitionId =
     "hat#wonderland".parse();
 let new_hat_definition = AssetDefinition::store(hat_definition_id);
 let register_hat = RegisterBox::new(new_hat_definition);
 
-let mouse_hat_id = <Asset as Identifiable>::Id::new(hat_definition_id, mouse_id);
+let mouse_hat_id = AssetId::new(hat_definition_id, mouse_id);
 
 // New Iroha Special Instruction for setting key-value pairs for Mouse's hats:
 let set_hat_color = SetKeyValueBox::new(
@@ -102,8 +102,8 @@ fn register_and_grant_role_for_metadata_access() -> Result<()> {
     let (_rt, _peer, test_client) = <PeerBuilder>::new().start_with_runtime();
     wait_for_genesis_committed(&vec![test_client.clone()], 0);
 
-    let alice_id = <Account as Identifiable>::Id::from_str("alice@wonderland")?;
-    let mouse_id = <Account as Identifiable>::Id::from_str("mouse@wonderland")?;
+    let alice_id = AccountId::from_str("alice@wonderland")?;
+    let mouse_id = AccountId::from_str("mouse@wonderland")?;
 
     // Registering Mouse
     let mouse_key_pair = KeyPair::generate()?;
