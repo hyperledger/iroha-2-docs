@@ -165,7 +165,7 @@ either transactions or registered event listeners. More on ISI
 
 This set of [isi](#iroha-special-instructions-isi) contains logical
 instructions like `If`, I/O related like `Notify` and compositions like
-`Sequence`. They are mostly used by
+`Sequence`. They are mostly used as
 [custom instructions](#custom-iroha-special-instruction).
 
 ### Core Iroha Special Instructions

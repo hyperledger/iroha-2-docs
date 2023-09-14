@@ -13,7 +13,7 @@ You need
 `cargo`, `rustc` v1.60 and up. [^1]
 
 [^1]:
-    If you're having issues with installing Rust compatible with our code
+    If you're having issues installing Rust compatible with our code
     (2021 edition), please consult the
     [troubleshooting](./troubleshooting/installation-issues#troubleshooting-rust-toolchain) section.
 

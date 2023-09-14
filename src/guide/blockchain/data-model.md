@@ -83,7 +83,7 @@ domain_looking_glass *-- account_rabbit : registered in
 }
 </style>
 
-::: details Language-specific guidance on registering these objects
+::: details Language-specific guides to register these objects
 
 | Language              | Guide                                                                                                                                                                                                              |
 | --------------------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
