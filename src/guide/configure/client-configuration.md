@@ -45,7 +45,11 @@ these accounts belong to different domains, `wonderland` and
 
 ## Basic Authentication Credentials
 
-Provide basic authentication credentials (login and password):
+The idea of basic authentication credentials is to provide the access control using a web server with a reverse proxy like [Nginx](https://www.nginx.com/) while these credentials are ignored by the Iroha peers.
+
+The login and password will be filled by the client and used for the [`Authorization`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization) HTTP [header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers).
+
+Use this style of configuration to provide the basic authentication credentials (login and password):
 
 ```json
   "BASIC_AUTH": {
@@ -63,7 +67,7 @@ connections. For client configuration, you can set up two addresses:
 ### `TORII_API_URL`
 
 First, the `TORII_API_URL` is the same as `TORII` `API_URL` in the
-[peer configuration](peer-configuration.md#api_url). This is the module
+[peer configuration](peer-configuration.md#api-url). This is the module
 responsible for handling incoming and outgoing connections. You should also
 add the prefix `http://` or (_preferably_) `https://` to the address. For
 example:

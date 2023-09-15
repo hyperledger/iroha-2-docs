@@ -98,9 +98,9 @@ let mut genesis = RawGenesisBlock::new(
     get_key_pair().public_key().clone(),
 );
 let rose_definition_id =
-    <AssetDefinition as Identifiable>::Id::from_str("rose#wonderland")?;
+    AssetDefinitionId::from_str("rose#wonderland")?;
 let alice_id =
-    <Account as Identifiable>::Id::from_str("alice@wonderland")?;
+    AccountId::from_str("alice@wonderland")?;
 
 // Create a new `CanMintUserAssetDefinitions` permission token
 // to mint rose assets (`rose_definition_id`)
@@ -125,9 +125,9 @@ let mut genesis = RawGenesisBlock::new(
     get_key_pair().public_key().clone(),
 );
 let rose_definition_id =
-    <AssetDefinition as Identifiable>::Id::from_str("rose#wonderland")?;
+    AssetDefinitionId::from_str("rose#wonderland")?;
 let alice_id =
-    <Account as Identifiable>::Id::from_str("alice@wonderland")?;
+    AccountId::from_str("alice@wonderland")?;
 
 // Create a new `CanBurnAssetWithDefinition` permission token
 // to burn rose assets (`rose_definition_id`)
@@ -148,7 +148,7 @@ asset.
 ```rust
 let alice_id = AccountId::from_str("alice@test")?;
 let bob_id = AccountId::from_str("bob@test")?;
-let alice_xor_id = <Asset as Identifiable>::Id::new(
+let alice_xor_id = AssetId::new(
     AssetDefinitionId::from_str("xor#test")?,
     AccountId::from_str("alice@test")?,
 );
@@ -195,7 +195,7 @@ specified asset.
 ```rust
 let alice_id = AccountId::from_str("alice@test")?;
 let bob_id = AccountId::from_str("bob@test")?;
-let alice_xor_id = <Asset as Identifiable>::Id::new(
+let alice_xor_id = AssetId::new(
     AssetDefinitionId::from_str("xor#test")?,
     AccountId::from_str("alice@test")?,
 );
@@ -235,7 +235,7 @@ value in the specified asset.
 ```rust
 let bob_id = AccountId::from_str("bob@test")?;
 let alice_id = AccountId::from_str("alice@test")?;
-let alice_xor_id = <Asset as Identifiable>::Id::new(
+let alice_xor_id = AssetId::new(
     AssetDefinitionId::from_str("xor#test")?,
     AccountId::from_str("alice@test")?,
 );
@@ -261,7 +261,7 @@ key value in the specified asset.
 ```rust
 let bob_id = AccountId::from_str("bob@test")?;
 let alice_id = AccountId::from_str("alice@test")?;
-let alice_xor_id = <Asset as Identifiable>::Id::new(
+let alice_xor_id = AssetId::new(
     AssetDefinitionId::from_str("xor#test")?,
     AccountId::from_str("alice@test")?,
 );
@@ -285,7 +285,7 @@ value pair in the [metadata](/guide/blockchain/metadata.md) for the
 specified account.
 
 ```rust
-let mouse_id = <Account as Identifiable>::Id::from_str("mouse@wonderland")?;
+let mouse_id = AccountId::from_str("mouse@wonderland")?;
 
 // Create a new `CanSetKeyValueInUserMetadata` token that, when granted to another account,
 // allows it to set key value to the metadata in Mouse's account
@@ -300,7 +300,7 @@ a key value pair in the [metadata](/guide/blockchain/metadata.md) for the
 specified account.
 
 ```rust
-let mouse_id = <Account as Identifiable>::Id::from_str("mouse@wonderland")?;
+let mouse_id = AccountId::from_str("mouse@wonderland")?;
 
 // Create a new `CanRemoveKeyValueInUserMetadata` token that, when granted to another account,
 // allows it to remove key value from the metadata in Mouse's account
@@ -316,7 +316,7 @@ value in the corresponding asset definition.
 ```rust
 let bob_id = AccountId::from_str("bob@test")?;
 let alice_id = AccountId::from_str("alice@test")?;
-let alice_xor_id = <Asset as Identifiable>::Id::new(
+let alice_xor_id = AssetId::new(
     AssetDefinitionId::from_str("xor#test")?,
     AccountId::from_str("alice@test")?,
 );
@@ -342,7 +342,7 @@ remove key value in the corresponding asset definition.
 ```rust
 let bob_id = AccountId::from_str("bob@test")?;
 let alice_id = AccountId::from_str("alice@test")?;
-let alice_xor_id = <Asset as Identifiable>::Id::new(
+let alice_xor_id = AssetId::new(
     AssetDefinitionId::from_str("xor#test")?,
     AccountId::from_str("alice@test")?,
 );
@@ -396,7 +396,7 @@ Let's register a new role that, when granted, will allow another account
 access to the [metadata](/guide/blockchain/metadata.md) in Mouse's account:
 
 ```rust
-let role_id = <Role as Identifiable>::Id::from_str("ACCESS_TO_MOUSE_METADATA")?;
+let role_id = RoleId::from_str("ACCESS_TO_MOUSE_METADATA")?;
 let role = iroha_data_model::role::Role::new(role_id)
     .add_permission(CanSetKeyValueInUserMetadata::new(mouse_id))
     .add_permission(CanRemoveKeyValueInUserMetadata::new(mouse_id));

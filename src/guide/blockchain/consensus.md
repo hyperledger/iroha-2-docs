@@ -1,4 +1,4 @@
-## Consensus
+# Consensus
 
 Each time you send a transaction to Iroha, it gets put into a queue. When
 it's time to produce a new block, the queue is emptied, and the consensus

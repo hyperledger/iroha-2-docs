@@ -15,7 +15,7 @@ Some of the configuration options are required, while others are used for
 fine-tuning. When you create a new peer, you are required to provide the
 following:
 
-- [Public and private keys for the peer](#iroha-keys) (`PUBLIC_KEY` and
+- [The peer's Public and private keys](#public-and-private-keys) (`PUBLIC_KEY` and
   `PRIVATE_KEY`)
 - [Iroha public addresses](#iroha-public-addresses) (`P2P_ADDR`, `API_URL`,
   `TELEMETRY_URL`)
