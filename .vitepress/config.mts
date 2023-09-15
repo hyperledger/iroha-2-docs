@@ -325,10 +325,7 @@ export default defineConfig({
     'Documentation for Hyperledger Iroha 2 offering step-by-step guides for SDKs and outlining the main differences between Iroha versions.',
   lang: 'en-US',
   vite: {
-    plugins: [
-      ViteUnoCSS('../uno.config.ts'),
-      ViteSvgLoader(),
-    ],
+    plugins: [ViteUnoCSS('../uno.config.ts'), ViteSvgLoader()],
     envDir: resolve(__dirname, '../'),
   },
   lastUpdated: true,

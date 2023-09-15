@@ -112,20 +112,20 @@ yargs(hideBin(process.argv))
       {
         let done = 0
         const total = String(parsed.length)
-          const progressLabel = () => `[${(String(done).padStart(total.length, ' '))}/${total}]`
+        const progressLabel = () => `[${String(done).padStart(total.length, ' ')}/${total}]`
 
-          console.log('Fetching snippets...')
+        console.log('Fetching snippets...')
 
         await concurrentTasks(parsed, async (src) => {
           try {
             const result = await processSnippet(src, { force: opts.force })
-              done++
+            done++
             match(result)
               .with('written', () => console.log(chalk.green`${progressLabel()} Written {bold ${src.saveFilename}}`))
               .with('skipped', () => console.log(chalk.gray`${progressLabel()} Skipped {bold ${src.saveFilename}}`))
               .exhaustive()
           } catch (err) {
-              console.log(chalk.red`Failed to process {bold ${src.saveFilename}}`)
+            console.log(chalk.red`Failed to process {bold ${src.saveFilename}}`)
             throw err
           }
         })
