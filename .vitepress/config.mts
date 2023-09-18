@@ -3,7 +3,6 @@
 import { defineConfig, DefaultTheme } from 'vitepress'
 import footnote from 'markdown-it-footnote'
 import { resolve } from 'path'
-import { VitePWA } from 'vite-plugin-pwa'
 import ViteSvgLoader from 'vite-svg-loader'
 import ViteUnoCSS from 'unocss/vite'
 import { mermaid } from './md-mermaid'
@@ -326,30 +325,7 @@ export default defineConfig({
     'Documentation for Hyperledger Iroha 2 offering step-by-step guides for SDKs and outlining the main differences between Iroha versions.',
   lang: 'en-US',
   vite: {
-    plugins: [
-      ViteUnoCSS(),
-      VitePWA({
-        // Based on: https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs
-        manifest: {
-          name: 'Hyperledger Iroha 2 Tutorial',
-          icons: [
-            {
-              src: BASE + 'icon-192.png',
-              type: 'image/png',
-              sizes: '192x192',
-            },
-            {
-              src: BASE + 'icon-512.png',
-              type: 'image/png',
-              sizes: '512x512',
-            },
-          ],
-        },
-        strategies: 'injectManifest',
-        injectRegister: false,
-      }),
-      ViteSvgLoader(),
-    ],
+    plugins: [ViteUnoCSS('../uno.config.ts'), ViteSvgLoader()],
     envDir: resolve(__dirname, '../'),
   },
   lastUpdated: true,
@@ -358,8 +334,9 @@ export default defineConfig({
     // Based on: https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs
     ['link', { rel: 'icon', href: BASE + 'favicon.ico', sizes: 'any' }],
     ['link', { rel: 'icon', href: BASE + 'icon.svg', sizes: 'image/svg+xml' }],
-    ['link', { ref: 'apple-touch-icon', href: BASE + 'apple-touch-icon.png' }],
-    // Google analytics integration
+    ['link', { rel: 'apple-touch-icon', href: BASE + 'apple-touch-icon.png' }],
+    ['link', { rel: 'manifest', href: BASE + 'manifest.webmanifest' }],
+    // Google Analytics integration
     ['script', { src: 'https://www.googletagmanager.com/gtag/js?id=G-D6ETK9TN47' }],
     [
       'script',
@@ -378,13 +355,17 @@ export default defineConfig({
 
   markdown: {
     async config(md) {
-      md.use(footnote).use(mermaid).use(katex)
+      md.use(footnote)
+        .use(mermaid)
+        // Note: Since vitepress@1.0.0-rc.14, it supports MathJax natively with `markdown.math = true`:
+        //   https://github.com/vuejs/vitepress/pull/2977
+        // Although KaTeX is more efficient, we might consider removing it in the future.
+        .use(katex)
     },
-    theme: 'github-dark-dimmed',
   },
 
   themeConfig: {
-    logo: '/icon.svg',
+    // logo: '/icon.svg',
     siteTitle: 'Iroha 2',
 
     socialLinks: [
@@ -405,7 +386,9 @@ export default defineConfig({
       text: 'Edit this page on GitHub',
     },
 
-    lastUpdatedText: 'Last Updated',
+    lastUpdated: {
+      text: 'Last Updated',
+    },
 
     sidebar: {
       '/guide/': getGuideSidebar(),

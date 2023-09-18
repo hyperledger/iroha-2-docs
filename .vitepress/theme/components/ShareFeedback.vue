@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { SButton, SModal } from '@soramitsu-ui/ui'
+import { Dialog, DialogPanel, DialogTitle, DialogDescription } from '@headlessui/vue'
 import { computed, ref } from 'vue'
 import { usePromise, wheneverFulfilled, wheneverRejected } from '@vue-kakuyaku/core'
 import { mande } from 'mande'
 import IconClose from './icons/IconClose.vue'
 import IconFeedback from './icons/IconFeedback.vue'
 import IconCheck from './icons/IconCheck.vue'
+import VBtnPrimary from './VBtnPrimary.vue'
+import VBtnSecondary from './VBtnSecondary.vue'
+import { whenever } from '@vueuse/core'
+import { logicNot } from '@vueuse/math'
 
 const props = defineProps<{
   feedbackUrl: string
@@ -47,9 +51,9 @@ wheneverRejected(action.state, (reason) => {
   console.error('Feedback rejection reason:', reason)
 })
 
-function onAfterClose() {
+whenever(logicNot(openModal), () => {
   success.value = false
-}
+})
 
 function doSubmit() {
   const data = {
@@ -64,147 +68,138 @@ function doSubmit() {
 </script>
 
 <template>
-  <SButton
-    type="primary"
-    size="sm"
+  <VBtnPrimary
+    class="inline-flex items-center space-x-2"
     @click="openModal = true"
   >
-    <template #icon>
-      <IconFeedback class="-mb-2px" />
-    </template>
-    Share feedback
-  </SButton>
+    <IconFeedback />
+    <span>Share feedback</span>
+  </VBtnPrimary>
 
-  <SModal
-    v-slot="api"
-    v-model:show="openModal"
-    described-by="share-feedback-description"
-    @after-close="onAfterClose"
+  <Dialog
+    :open="openModal"
+    @close="openModal = false"
   >
-    <div class="feedback-card shadow-lg flex flex-col">
-      <div class="feedback-card_header flex items-center">
-        <div
-          :id="api.labelledBy"
-          class="feedback-card_title flex-1"
-        >
-          Share feedback
-        </div>
+    <div
+      class="fixed inset-0 bg-black/30 z-90"
+      aria-hidden="true"
+    />
 
-        <SButton
-          size="sm"
-          type="action"
-          @click="api.close()"
-        >
-          <template #icon>
+    <div class="fixed inset-0 flex items-center justify-center p-4 z-90">
+      <DialogPanel class="feedback-card shadow-lg flex flex-col">
+        <div class="feedback-card_header flex items-center">
+          <DialogTitle class="feedback-card_title flex-1">
+            Share feedback
+          </DialogTitle>
+
+          <VBtnSecondary
+            class="text-base p-2 -m-2"
+            @click="openModal = false"
+          >
             <IconClose />
-          </template>
-        </SButton>
-      </div>
-
-      <template v-if="success">
-        <div class="p-4 flex items-center space-x-4">
-          <IconCheck class="text-3xl feedback-card_check" />
-          <div>Thank you for sharing your feedback!</div>
+          </VBtnSecondary>
         </div>
 
-        <div class="flex flex-row-reverse p-4">
-          <SButton @click="api.close()">
-            Close
-          </SButton>
-        </div>
-      </template>
-
-      <div
-        v-else
-        class="flex-1 overflow-y-scroll"
-      >
-        <div class="p-4 space-y-4">
-          <p
-            id="share-feedback-description"
-            class="text-sm"
-          >
-            Please take a moment to help us improve the Iroha 2 Documentation. We take your input very seriously.
-          </p>
-
-          <div>
-            <fieldset class="space-y-1">
-              <legend class="field-label">
-                Feedback type*
-              </legend>
-
-              <div
-                v-for="value of KINDS"
-                :key="value"
-                class="flex space-x-2 items-center"
-              >
-                <input
-                  :id="`feedback-kind-${value}`"
-                  v-model="feedbackKind"
-                  class="max-w-min"
-                  :value="value"
-                  type="radio"
-                  name="feedback-kind"
-                >
-                <label
-                  :for="`feedback-kind-${value}`"
-                  class="flex-1 text-sm"
-                >{{ KINDS_LABELS[value] }}</label>
-              </div>
-            </fieldset>
+        <template v-if="success">
+          <div class="p-4 flex items-center space-x-4">
+            <IconCheck class="text-3xl feedback-card_check" />
+            <div>Thank you for sharing your feedback!</div>
           </div>
 
-          <div>
-            <label
-              for="feedback-input-text"
-              class="field-label"
-            >Feedback*</label>
-
-            <textarea
-              id="feedback-input-text"
-              v-model="feedbackText"
-              :placeholder="feedbackTextPlaceholder"
-              rows="5"
-            />
+          <div class="flex flex-row-reverse p-4">
+            <VBtnSecondary @click="openModal = false">
+              Close
+            </VBtnSecondary>
           </div>
-
-          <div>
-            <label
-              for="feedback-input-contact"
-              class="field-label"
-            > <i>(optional)</i> Contact information </label>
-
-            <input
-              id="feedback-input-contact"
-              v-model="contact"
-              placeholder="Email address, Discord, or Telegram"
-            >
-          </div>
-        </div>
+        </template>
 
         <div
-          v-if="action.state.rejected"
-          class="px-4 text-xs"
+          v-else
+          class="flex-1 overflow-y-scroll"
         >
-          Unable to send feedback
-        </div>
+          <div class="p-4 space-y-4">
+            <DialogDescription class="text-sm">
+              Please take a moment to help us improve the Iroha 2 Documentation. We take your input very seriously.
+            </DialogDescription>
 
-        <div class="flex p-4 items-center space-x-2">
-          <div class="flex-1" />
-          <SButton @click="api.close()">
-            Cancel
-          </SButton>
-          <SButton
-            type="primary"
-            :disabled="!feedbackText || !feedbackKind"
-            :loading="action.state.pending"
-            @click="doSubmit"
+            <div>
+              <fieldset class="space-y-1">
+                <legend class="field-label">
+                  Feedback type*
+                </legend>
+
+                <div
+                  v-for="value of KINDS"
+                  :key="value"
+                  class="flex space-x-2 items-center"
+                >
+                  <input
+                    :id="`feedback-kind-${value}`"
+                    v-model="feedbackKind"
+                    class="max-w-min"
+                    :value="value"
+                    type="radio"
+                    name="feedback-kind"
+                  >
+                  <label
+                    :for="`feedback-kind-${value}`"
+                    class="flex-1 text-sm"
+                  >{{ KINDS_LABELS[value] }}</label>
+                </div>
+              </fieldset>
+            </div>
+
+            <div>
+              <label
+                for="feedback-input-text"
+                class="field-label"
+              >Feedback*</label>
+
+              <textarea
+                id="feedback-input-text"
+                v-model="feedbackText"
+                :placeholder="feedbackTextPlaceholder"
+                rows="5"
+              />
+            </div>
+
+            <div>
+              <label
+                for="feedback-input-contact"
+                class="field-label"
+              > <i>(optional)</i> Contact information </label>
+
+              <input
+                id="feedback-input-contact"
+                v-model="contact"
+                placeholder="Email address, Discord, or Telegram"
+              >
+            </div>
+          </div>
+
+          <div
+            v-if="action.state.rejected"
+            class="px-4 text-xs"
           >
-            Submit
-          </SButton>
+            Unable to send feedback
+          </div>
+
+          <div class="flex p-4 items-center space-x-2">
+            <div class="flex-1" />
+            <VBtnSecondary @click="openModal = false">
+              Cancel
+            </VBtnSecondary>
+            <VBtnPrimary
+              :disabled="!feedbackText || !feedbackKind || action.state.pending"
+              @click="doSubmit"
+            >
+              Submit
+            </VBtnPrimary>
+          </div>
         </div>
-      </div>
+      </DialogPanel>
     </div>
-  </SModal>
+  </Dialog>
 </template>
 
 <style lang="scss" scoped>

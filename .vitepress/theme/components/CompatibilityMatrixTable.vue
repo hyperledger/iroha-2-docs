@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useTask } from '@vue-kakuyaku/core'
-import { SSpinner } from '@soramitsu-ui/ui'
 import { computed } from 'vue'
 import CompatibilityMatrixTableIcon, { type Status } from './CompatibilityMatrixTableIcon.vue'
 
@@ -80,7 +79,7 @@ const table = computed(() => {
       v-if="task.state.pending"
       class="flex space-x-2 items-center"
     >
-      <SSpinner /> <span>Loading data...</span>
+      <span>Loading data...</span>
     </div>
     <div v-else-if="task.state.rejected">
       Failed to load compatibility matrix data: {{ task.state.rejected.reason }}

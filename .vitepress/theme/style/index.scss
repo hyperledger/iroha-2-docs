@@ -1,41 +1,5 @@
-//@use '@soramitsu-ui/theme/fonts/Sora';
-@use '@soramitsu-ui/theme/sass' as theme;
-@import '@soramitsu-ui/ui/styles';
-
-$iroha-brand: rgba(208, 2, 27, 1);
-$iroha-brand-light: lighten($iroha-brand, 10%);
-$iroha-brand-dark: rgba(187, 2, 24, 1);
-
 :root {
-  --vp-c-brand: #{$iroha-brand};
-  --vp-c-brand-light: #{$iroha-brand-light};
-  --vp-c-brand-dark: #{$iroha-brand-dark};
   --vp-font-family-mono: 'JetBrains Mono', 'Fira Code', Menlo, Monaco, Consolas, 'Courier New', monospace;
-
-  @include theme.tokens-preset-light;
-}
-
-html.dark {
-  @include theme.eval-tokens-partial(
-    (
-      sys: (
-        color: (
-          primary: var(--vp-c-brand-dark),
-          primary-hover-background: var(--vp-c-bg-soft),
-          border-primary: var(--vp-c-border),
-          content-primary: var(--vp-c-text-1),
-          background: var(--vp-c-bg-soft),
-          background-hover: var(--vp-c-bg-elv),
-        ),
-      ),
-    )
-  );
-}
-
-@include theme.typography-preset-default;
-
-[class*='sora-tpg-'] {
-  font-family: var(--vp-font-family-base);
 }
 
 .vp-doc {

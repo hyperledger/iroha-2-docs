@@ -11,7 +11,6 @@ import fetch from 'node-fetch'
 import path from 'path'
 import makeDir from 'make-dir'
 import { deleteAsync } from 'del'
-import logUpdate from 'log-update'
 import { scanAndReport } from './validate-links'
 
 async function prepareOutputDir(options?: { clean?: boolean }) {
@@ -111,29 +110,27 @@ yargs(hideBin(process.argv))
       await prepareOutputDir({ clean: opts.force })
 
       {
-        let progress = 0
-        const total = parsed.length
+        let done = 0
+        const total = String(parsed.length)
+        const progressLabel = () => `[${String(done).padStart(total.length, ' ')}/${total}]`
 
-        const printProgress = () => logUpdate(`Progress: ${progress} / ${total}`)
-        printProgress()
+        console.log('Fetching snippets...')
 
         await concurrentTasks(parsed, async (src) => {
           try {
             const result = await processSnippet(src, { force: opts.force })
+            done++
             match(result)
-              .with('written', () => logUpdate(chalk.green`Written {bold ${src.saveFilename}}`))
-              .with('skipped', () => logUpdate(chalk.gray`Skipped {bold ${src.saveFilename}}`))
+              .with('written', () => console.log(chalk.green`${progressLabel()} Written {bold ${src.saveFilename}}`))
+              .with('skipped', () => console.log(chalk.gray`${progressLabel()} Skipped {bold ${src.saveFilename}}`))
               .exhaustive()
-            logUpdate.done()
-            progress++
-            printProgress()
           } catch (err) {
-            logUpdate(chalk.red`Failed to process {bold ${src.saveFilename}}`)
+            console.log(chalk.red`Failed to process {bold ${src.saveFilename}}`)
             throw err
           }
         })
 
-        logUpdate('Done')
+        console.log('Done')
       }
     },
   )
