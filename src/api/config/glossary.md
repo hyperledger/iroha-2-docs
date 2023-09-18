@@ -52,9 +52,47 @@ Describe what the hell is this
 
 ## Type - Byte Size
 
-Might be a number of bytes, or a readable string
+Byte size values might be set in two ways:
 
-[`humansize` - Rust](https://docs.rs/humansize/latest/humansize/)
+- As a Number, which will be considered an amount in bytes
+- As a String, which will be parsed as a human-readable byte size string
+
+Number:
+
+```toml
+value = 512 # 512 bytes
+```
+
+String:
+
+```toml
+# 42 bytes
+value1 = "42"
+value2 = "42b"
+value3 = "42bytes"
+
+# 1 kilobyte = 1000 bytes
+value4 = "1KB"
+
+# 1 kilobyte (binary format) = 1024 bytes
+value5 = "1KiB"
+
+# Combination of multiple
+value412 = "1GB 5MB"
+```
+
+Iroha can parse sizes in bytes, kilobytes, megabytes, gigabytes, terabytes, and petabytes.
+
+The format of suffixes:
+
+- **`{size}iB`:** Binary size
+- **`{size}B`:** Decimal size
+
+
+TODO: haven't found a rust lib for that. There is a Python one ([`humanfriendly`](https://humanfriendly.readthedocs.io/en/latest/api.html?highlight=parse_size#humanfriendly.parse_size)) I used for reference.
+
+TODO: [article explains kb, kB, KiB difference](https://web.archive.org/web/20150324153922/https://pacoup.com/2009/05/26/kb-kb-kib-whats-up-with-that/). Consider it for the format. 
+
 
 ## Type - Private Key
 
