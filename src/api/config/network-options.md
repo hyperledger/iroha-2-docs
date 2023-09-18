@@ -13,6 +13,6 @@ purposes.
 ::: tip
 
 This address is what other peers should specify in their
-[`sumeragi.trusted-peers`](#sumeragi-trusted-peers)
+[`sumeragi.trusted-peers`](sumeragi-options#sumeragi-trusted-peers)
 
 :::
