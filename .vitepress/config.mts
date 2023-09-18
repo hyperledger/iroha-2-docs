@@ -16,9 +16,9 @@ function getNav(): DefaultTheme.NavItem[] {
       activeMatch: '^/$|^/guide/',
     },
     {
-      text: 'Reference',
-      link: '/reference/',
-      activeMatch: '^/reference/',
+      text: 'API',
+      link: '/api/',
+      activeMatch: '^/api/',
     },
   ]
 }
@@ -397,29 +397,93 @@ export default defineConfig({
 
     sidebar: {
       '/guide/': getGuideSidebar(),
-      '/reference/': [
+      '/api/': [
         {
           text: 'Overview',
-          link: '/reference/',
+          link: '/api/',
         },
         {
           text: 'Configuration',
-          link: '/reference/configuration',
+          link: '/api/configuration',
         },
         {
           text: 'Command Line Interface (CLI)',
-          link: '/reference/cli'
+          link: '/api/cli',
         },
         {
           text: 'API Specification',
-          link: '/reference/api',
+          link: '/api/api',
         },
-        { text: 'Foreign Function Interfaces (FFI)', link: '/reference/ffi' },
+        {
+          text: 'Foreign Function Interfaces (FFI)',
+          link: '/api/ffi',
+        },
+        {
+          text: 'Configuration',
+          items: [
+            {
+              text: 'Overview',
+              link: '/api/config/',
+            },
+            {
+              text: 'Base Options',
+              link: '/api/config/base-options',
+            },
+            {
+              text: 'Genesis Options',
+              link: '/api/config/genesis-options',
+            },
+            {
+              text: 'Network Options',
+              link: '/api/config/network-options',
+            },
+            {
+              text: 'Sumeragi Options',
+              link: '/api/config/sumeragi-options',
+            },
+            {
+              text: 'Torii Options',
+              link: '/api/config/torii-options',
+            },
+            {
+              text: 'Queue Options',
+              link: '/api/config/queue-options',
+            },
+            {
+              text: 'Kura Options',
+              link: '/api/config/kura-options',
+            },
+            {
+              text: 'Logger Options',
+              link: '/api/config/logger-options',
+            },
+            {
+              text: 'Block Sync Options',
+              link: '/api/config/block-sync-options',
+            },
+            {
+              text: 'WSV Options',
+              link: '/api/config/wsv-options',
+            },
+            {
+              text: 'Telemetry Options',
+              link: '/api/config/telemetry-options',
+            },
+            {
+              text: 'Glossary',
+              link: '/api/config/glossary',
+            },
+            {
+              text: 'Deprecation and Migration Policy',
+              link: '/api/config/deprecation-and-migration',
+            },
+          ],
+        },
         {
           text: 'Data Model Schema',
-          link: '/reference/data-model-schema/',
+          link: '/api/data-model-schema/',
           items: ['stable', 'lts', 'dev'].map((channel) => ({
-            link: `/reference/data-model-schema/${channel}`,
+            link: `/api/data-model-schema/${channel}`,
             text: `iroha2-${channel}`,
           })),
         },
