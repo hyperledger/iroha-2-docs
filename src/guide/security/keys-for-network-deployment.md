@@ -1,12 +1,12 @@
 # Keys for Deploying a Network
 
-Keeping in mind what we said [about public key cryptography earlier](/public-key-cryptography.md), note that if you're deploying your own network, you should change the keys in all three of the configuration files:
+Keeping in mind what we said [about public key cryptography earlier](./public-key-cryptography), note that if you're deploying your own network, you should change the keys in all three of the configuration files:
 
-1. Peer configuration file: [`configs/peer/config.json`](./peer-configuration.md)
+1. Peer configuration file: [`configs/peer/config.json`](../configure/peer-configuration)
 
-2. Client configuration file: [`configs/client_cli/config.json `](./client-configuration.md)
+2. Client configuration file: [`configs/client_cli/config.json `](../configure/client-configuration)
 
-3. Genesis block file: [`configs/peer/genesis.json`](./genesis.md)
+3. Genesis block file: [`configs/peer/genesis.json`](../configure/genesis)
 
 ## Setting Keys For a New Network
 
@@ -37,11 +37,11 @@ If you plan to use the generated `private_key` with one of our SDKs, note that e
 
 If you want to set up your own network, you should change the keys for all your peers: in `peer/config.json` change `PUBLIC_KEY` and `PRIVATE_KEY` to the fresh pair. When you've done that, you should add the keys to the `TRUSTED_PEERS` array in the same configuration file. Every peer that wants to connect to the given peer from the outside must know its `PRIVATE_KEY` specified in the `TRUSTED_PEERS` section.
 
-To create a minimum [BFT](guide/glossary.md#byzantine-fault-tolerance-bft) network one needs four peers, which means four different private keys split across four different configuration files (or environment variables). 
+To create a minimum [BFT](guide/glossary.md#byzantine-fault-tolerance-bft) network one needs four peers, which means four different private keys split across four different configuration files (or environment variables).
 
-Each peer must have their own `PUBLIC_KEY` and `PRIVATE_KEY` variables specified. All four of the public keys—including the peer that is being configured—must be added to the `TRUSTED_PEERS` array. The same `TRUSTED_PEERS` array must be copied across all four of the configuration files. If either one of the peers is missing, or there's an extraneous peer or one of the peers has the incorrect key, the network will fail to start. 
+Each peer must have their own `PUBLIC_KEY` and `PRIVATE_KEY` variables specified. All four of the public keys—including the peer that is being configured—must be added to the `TRUSTED_PEERS` array. The same `TRUSTED_PEERS` array must be copied across all four of the configuration files. If either one of the peers is missing, or there's an extraneous peer or one of the peers has the incorrect key, the network will fail to start.
 
-After that, make sure that the peers agree on the `GENESIS_ACCOUNT` key pairs. Failure to do so will result in a network which cannot accept any transactions. 
+After that, make sure that the peers agree on the `GENESIS_ACCOUNT` key pairs. Failure to do so will result in a network which cannot accept any transactions.
 
 ::: tip Note
 
@@ -55,20 +55,26 @@ Finally, while the first client _could_ use the genesis account to register new 
 
 ::: warning NB
 
-`iroha_client_cli` currently doesn't support unregister instructions. If you plan on creating a private blockchain, you should consider writing your own client based on the `client` Rust crate, or any of the provided client libraries:
-[iroha-python](https://github.com/hyperledger/iroha-python),
-[iroha-iOS](https://github.com/hyperledger/iroha-ios),
-[iroha-java](https://github.com/hyperledger/iroha-java), or
-[iroha-javascript](https://github.com/hyperledger/iroha-javascript/tree/iroha2).
+`iroha_client_cli` currently processes all of its instructions in the JSON format, it also provides a dedicated instruction to unregister accounts.
+
+If you plan on creating a private blockchain, you should consider writing your own client based on the `client` Rust crate, or any of the provided client libraries:
+
+- [iroha-python](https://github.com/hyperledger/iroha-python),
+
+- [iroha-iOS](https://github.com/hyperledger/iroha-ios),
+
+- [iroha-java](https://github.com/hyperledger/iroha-java), or
+
+- [iroha-javascript](https://github.com/hyperledger/iroha-javascript/tree/iroha2).
 
 :::
 
-# Keys on the Client Side
+## Keys on the Client Side
 
 Let's talk about how keys are used in the client.
 
-Every transaction is signed on behalf of some user, thus every operation requires a private key. The private key is to be kept secret (hence the name). As such the client program must handle the storage and secure signing of transactions. All clients are different, but `iroha_client_cli` is the least secure in this regard, as it stores the private key in multihash format in a plain text file and can optionally be overridden with an environment variable. This is only a reference implementation and _is not meant for production use_. 
+Every transaction is signed on behalf of some user, thus every operation requires a private key. The private key is to be kept secret (hence the name). As such the client program must handle the storage and secure signing of transactions. All clients are different, but `iroha_client_cli` is the least secure in this regard, as it stores the private key in multihash format in a plain text file and can optionally be overridden with an environment variable. This is only a reference implementation and _is not meant for production use_.
 
 For example, you need to have a user register a user (just like you need scissors to cut off the tag from a pair of new scissors). But in order to register a user, you must also provide a new public key so that the network can verify that it's the trustworthy mad_hatter@wonderland, and not some impostor (possibly sent by the mad_hatter@wunderland), so there are cases where you need to provide a key explicitly.
 
-For public key cryptography to work effectively, avoid re-using keys when you need to specify a new key. While in principle, there's nothing stopping you from doing that, an attacker will know that the private keys are identical, because they can usually see the public key. Private keys operate on slightly different principles than passwords, although most of the advice (to make them as random as possible, to never store them unencrypted, and to never send them to anyone under any circumstances), applies. 
+For public key cryptography to work effectively, avoid re-using keys when you need to specify a new key. While in principle, there's nothing stopping you from doing that, an attacker will know that the private keys are identical, because they can usually see the public key. Private keys operate on slightly different principles than passwords, although most of the advice (to make them as random as possible, to never store them unencrypted, and to never send them to anyone under any circumstances), applies.

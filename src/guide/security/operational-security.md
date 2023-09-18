@@ -1,30 +1,28 @@
 # Operational Security
 
-Operational Security (OpSEC) is a collection of strategies and advice tailored to specific use-cases to protect one's data from leaking. 
+Operational Security (OpSEC) is a collection of strategies and advice tailored to specific use-cases to protect one's data from leaking.
 
-OpSec is what most companies operate in order to ensure the availability and stability of their assets. This includes physical security (making sure that someone's post-it notes don't contain sensitive data), secure communication protocols (so that sensitive data isn't sent over unencrypted SMS), threat analysis (exploits which involve physical access, are prevented by physical counter-measures, not software). 
+OpSec is what most companies operate in order to ensure the availability and stability of their assets. This includes physical security (making sure that someone's post-it notes don't contain sensitive data), secure communication protocols (so that sensitive data isn't sent over unencrypted SMS), threat analysis (exploits which involve physical access, are prevented by physical counter-measures, not software).
 
-Iroha v2 is likely to be deployed as a financial ledger, meaning that operation security is paramount. As such, this document provides some general advice on operational security measures that we believe to be the bare minimum. Following these guidelines, is a necessary but insufficient condition for total security. 
+Iroha v2 is likely to be deployed as a financial ledger, meaning that operation security is paramount. As such, this document provides some general advice on operational security measures that we believe to be the bare minimum. Following these guidelines, is a necessary but insufficient condition for total security.
 
 ## Recommended OpSEC Measures
 
-- Stay vigilant. The [most likely](https://arxiv.org/pdf/2209.08356.pdf) way in which one can lose their assets in a blockchain is by giving away their sensitive details. 
+- Stay vigilant. The [most likely](https://arxiv.org/pdf/2209.08356.pdf) way in which one can lose their assets in a blockchain is by giving away their sensitive details.
 
 - Encrypt your disks. The boot device encryption allows data protection if an attacker gains access to your physical hardware. The same advice doubly applies to portable devices.
 
-- Use trusted software. Software that ships via reproducible binary builds, and that you build from source, is the most trustworthy. Proprietary software or open source software that wasn't audited is a potential risk that must be taken seriously. 
+- Use trusted software. Software that ships via reproducible binary builds, and that you build from source, is the most trustworthy. Proprietary software or open source software that wasn't audited is a potential risk that must be taken seriously.
 
-- Verify the signatures on binary packages. This is not too different from the public key cryptography used inside Iroha v2. 
+- Verify the signatures on binary packages. This is not too different from the public key cryptography used inside Iroha v2.
 
 - To prevent unauthorized access, always secure your laptop or personal computer when leaving it unattended. Use strong passwords, lock the screen, and follow best practices for securing your devices.
 
-- Don't leave portable devices unattended. A split second is enough to steal your device. 
+- Don't leave portable devices unattended. A split second is enough to steal your device.
 
-- Enhance the security of your smartphone device by utilizing biometric access methods like fingerprints or facial recognition. Additionally, make sure to update your device's software whenever possible and regularly review and manage permissions granted to the installed applications.
+- Air-gap your keys. Encrypt them, store them in an offline-only device, ideally with good electromagnetic shielding. Hardware keys are tailored to this purpose.
 
-- Air-gap your keys. Encrypt them, store them in an offline-only device, ideally with good electromagnetic shielding. Hardware keys are tailored to this purpose. 
-
-- Always keep your software updated to their latest version across all devices, including computers and phones. Regular updates help patch vulnerabilities and minimize potential risks associated with outdated software.
+- Always keep your software updated to their latest version across all devices, including computers and phones. Regular updates help patch vulnerabilities and minimise potential risks associated with outdated software, even before such vulnerabilities are disclosed.
 
 - Routinely refresh keys and passwords. It is much harder to hit a moving target.
 
@@ -43,24 +41,24 @@ Consider the following measures to enhance your browser's security:
   * `surf` (extremely outdated)
 - Prefer browsers with known good track records, and supporting user privacy and security first:
   * Librewolf, Icecat, Firedragon, _etc._.  -- Firefox forks with enhanced security features
-  * Ungoogled chromium -- highly audited open source version of Chrome, 
+  * Ungoogled chromium -- highly audited open source version of Chrome,
   * Brave -- highly audited, adblock browser with privacy enhancing features
   * Falkon -- known good track record of security. All plugins come from the KDE store
-  * Qutebrowser -- known good track record of security. The preferred browser of many security specialists. 
-  
-- Avoid enabling Java Script unless necessary. 
+  * Qutebrowser -- known good track record of security. The preferred browser of many security specialists.
 
-- Use the browser's built-in confinement mechanism for plugins. 
+- Avoid enabling Java Script unless necessary.
 
-- Clear cookies before and after important operations. Avoid the "keep me signed in" style of buttons. 
+- Use the browser's built-in confinement mechanism for plugins.
 
-- Enable ad-block features. These protect against more than just advertisements, and disable site tracking features. 
+- Clear cookies before and after important operations. Avoid the "keep me signed in" style of buttons.
 
-- Be mindful of lookalike characters (`0` and `O` and `О` are three different characters), make sure that you're able to spot them in a URL. 
+- Enable ad-block features. These protect against more than just advertisements, and disable site tracking features.
 
-- Avoid webmail in favour of clients. Set up your email client to sign and verify GPG key signatures. 
+- Be mindful of lookalike characters (`0` and `O` and `О` are three different characters), make sure that you're able to spot them in a URL.
 
-- Avoid using web-based messaging services. Be mindful that `electron` is itself a web browser meaning that e.g. Discord is susceptible to many of the same attacks as would a chromium window with the web version of Discord open. 
+- Avoid webmail in favour of clients. Set up your email client to sign and verify GPG key signatures.
+
+- Avoid using web-based messaging services. Be mindful that `electron` is itself a web browser meaning that e.g. Discord is susceptible to many of the same attacks as would a chromium window with the web version of Discord open.
   - Update your browser to the latest version whenever possible. Updates often include critical security patches that address vulnerabilities.
 
   - Be cautious of what browser extenstions you install. Only use well-known and trusted extensions from reputable sources. Rogue extensions can compromise your data and privacy.

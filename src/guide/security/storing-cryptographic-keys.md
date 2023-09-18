@@ -2,7 +2,7 @@
 
 Your sensitive data only remains private if you adopt Operational Security (OpSEC) practices to protect the cryptographic keys. Social engineering threats, where someone posing as a figure with authority tries to manipulate you into giving them your private cryptographic key, are real. Always be cautious and avoid sharing your private key, treating it as you would your apartment keys—reserved for trusted individuals only.
 
-For more information on OpSEC and its best practices, see [Operational Security](/operational-security.md).
+For more information on OpSEC and its best practices, see [Operational Security](./operational-security).
 
 ## Storing Cryptographic Keys Digitally
 
@@ -24,7 +24,7 @@ The beauty of the `ssh-agent` is that it holds onto your private key during your
 
 For more information on `ssh-agent`, see [the related SSH Academy topic](https://www.ssh.com/academy/ssh/agent).
 
-::: details Note
+::: info Note
 
 For a detailed overview of the `SSH` protocol and the `ssh-agent` tool, see the following [SSH Academy](https://www.ssh.com/academy) topics:
 
@@ -42,7 +42,7 @@ A variety of password managers can be used for the temporary storage of the user
 
 For instructions on how to set up KeePassXC see the [Configuring KeePassXC](#configuring-keepassxc) section below.
 
-![](../../img/KeePassXC.png)
+![KeePassXC: `Main` screen UI](../../img/KeePassXC.png)
 
 KeePassXC offers enhanced security, flexibility, and control. It not only stores passwords but also the `SSH` keys. When used for key storage, this password manager provides the `ssh-agent` with the stored keys, which are then promptly removed from its memory once the KeePassXC window is closed.
 
@@ -63,7 +63,7 @@ To configure KeePassXC, perform the following steps:
 
     ::: details Show reference screenshot
 
-    ![](../../img/keepassxc_ssh_agent.png)
+    ![KeePassXC `SSH Agent` tab: Enabling SSH Agent](../../img/keepassxc_ssh_agent.png)
 
     :::
 
@@ -89,9 +89,9 @@ To configure KeePassXC, perform the following steps:
 
     ::: details Show reference screenshots
 
-    ![](../../img/keepassxc_private_key.png)
+    ![KeePassXC `Advanced` tab: Adding a private key attachment](../../img/keepassxc_private_key.png)
 
-    ![](../../img/keepassxc_pk_agent.png)
+    ![KeePassXC `SSH Agent` tab: Adding a private key attachment](../../img/keepassxc_pk_agent.png)
 
     :::
 

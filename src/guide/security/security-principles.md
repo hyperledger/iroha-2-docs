@@ -30,11 +30,15 @@ To ensure secure interactions with Iroha installations, organizations and indivi
 
     - Set up <abbr title="Two-Factor Authentication">2FA</abbr> whenever possible. <abbr title="Two-Factor Authentication">2FA</abbr> improves the overall security by necessitating not only a password but an additional factor such as an <abbr title="One-Time Password">OTP</abbr>, fingerprint, or a third-party app-based authentication (e.g., Google Authenticator).
 
+    - Avoid using SMS authentication as the second factor. There is no guarantee that malicious software is not monitoring all of your SMS messages. For example, Android applications cannot be limited to only accessing the messages intended specifically for them.
+
 2. Exercise caution in digital communication:
-    - Set up an email client to sign and verify signatures of all the received emails.  While it is possible to impersonate the sender's address and even pose as a bank, it is not possible to fake a signature. 
-    - Disable both HTML messages and loading of external resources from unknown or unverified addresses. 
+    - Set up an email client to sign and verify signatures of all the received emails.  While it is possible to impersonate the sender's address and even pose as a bank, it is not possible to fake a signature.
+    - Disable both HTML messages and loading of external resources from unknown or unverified addresses.
 
     - Learn about common phishing techniques to recognise and avoid suspicious emails, links, and requests for personal information.
+
+    - Set up an email client to sign and verify signatures of all the received emails.  While it is possible to impersonate the sender's address and even pose as a bank, it is not possible to fake a signature.
 
 3. Safeguard personal information:
 
@@ -57,7 +61,6 @@ To ensure secure interactions with Iroha installations, organizations and indivi
 2. Cultivate employee awareness:
 
     - Educate employees about data and operational security measures. Heightened awareness and comprehensive training are pivotal in fortifying organizational security.
- 
 
     - Encourage employees to report any suspicious activities or security concerns promptly.
 
@@ -76,6 +79,8 @@ To ensure secure interactions with Iroha installations, organizations and indivi
     - Implement automated alerts to promptly notify security personnel of any unusual or unauthorized activities.
 
     - Consider using machine learning algorithms to enhance the system's ability to detect anomalies and potential threats.
+
+    - Employ staff or designate personnel to oversee database security, identify, track and address software vulnerabilities, and conduct regular checks on critical machines for the presence of unauthorized software not included in the approved list.
 
 5. Conduct recurring security audits:
 
