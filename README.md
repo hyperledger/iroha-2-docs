@@ -117,6 +117,18 @@ When a user submits the form, a simple POST request with a JSON body is sent to 
 
 This variable will be picked up by the application during dev/build mode. Read more about it in the [Vite documentation](https://vitejs.dev/guide/env-and-mode.html).
 
+### Compatibility matrix
+
+**Note:** configuring this is **required**.
+
+The SDK Compatibility Matrix provides an insightful look into the interoperability of various stories across multiple SDKs within Hyperledger Iroha 2. 
+
+The underlying data for the matrix is sourced from a [backend service](https://github.com/soramitsu/iroha2-docs-compat-matrix-service), ensuring low-latency response with preprocessed data. To configure access to the service (e.g. deployed at `https://docs-compat.iroha2.tachi.soramitsu.co.jp`), set the following environment variable:
+
+```
+VITE_COMPAT_MATRIX_URL=https://docs-compat.iroha2.tachi.soramitsu.co.jp/compat-matrix
+```
+
 ## License
 
 Iroha documentation files are made available under the Creative Commons

@@ -6,6 +6,7 @@ import { resolve } from 'path'
 import ViteSvgLoader from 'vite-svg-loader'
 import ViteUnoCSS from 'unocss/vite'
 import { mermaid } from './md-mermaid'
+import { katex } from '@mdit/plugin-katex'
 
 function getNav(): DefaultTheme.NavItem[] {
   return [
@@ -92,6 +93,10 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
             {
               text: 'JavaScript',
               link: '/guide/javascript',
+            },
+            {
+              text: 'Compatibility Matrix',
+              link: '/guide/compatibility-matrix',
             },
           ],
         },
@@ -348,11 +353,18 @@ export default defineConfig({
         gtag('config', 'G-D6ETK9TN47');
     `,
     ],
+    // KaTeX stylesheet
+    ['link', { rel: 'stylesheet', href: 'https://esm.sh/katex@0.16.8/dist/katex.min.css' }],
   ],
 
   markdown: {
     async config(md) {
-      md.use(footnote).use(mermaid)
+      md.use(footnote)
+        .use(mermaid)
+        // Note: Since vitepress@1.0.0-rc.14, it supports MathJax natively with `markdown.math = true`:
+        //   https://github.com/vuejs/vitepress/pull/2977
+        // Although KaTeX is more efficient, we might consider removing it in the future.
+        .use(katex)
     },
   },
 
@@ -379,7 +391,9 @@ export default defineConfig({
       text: 'Edit this page on GitHub',
     },
 
-    // lastUpdatedText: 'Last Updated',
+    lastUpdated: {
+      text: 'Last Updated',
+    },
 
     sidebar: {
       '/guide/': getGuideSidebar(),

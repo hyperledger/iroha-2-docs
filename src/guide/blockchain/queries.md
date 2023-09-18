@@ -141,7 +141,7 @@ Here is an example of a query that finds Alice's assets:
 
 ```rust
 let alice_id =
-    <Account as Identifiable>::Id::from_str("alice@wonderland")?;
+    AccountId::from_str("alice@wonderland")?;
 let query = QueryBox::FindAssetsByAccountId(
     FindAssetsByAccountId::new(alice_id)
   );
@@ -445,7 +445,7 @@ that is used as a secure data storage for privileged information.
 
 ### FindAllBlocks
 
-- **Returns**: `Vec<Block>`
+- **Returns**: `Vec<VersionedCommittedBlock>`
 - **Details**: Returns all blocks in the blockchain.
 
 ### FindAllBlockHeaders
