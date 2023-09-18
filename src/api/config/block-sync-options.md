@@ -2,20 +2,6 @@
 
 Explain module
 
-### `block-sync.actor-channel-capacity`
-
-- **Type:** Number
-- **Default:** $100$
-
-See: [Actor Channel Capacity](glossary#actor-channel-capacity)
-
-Buffer capacity of actor's MPSC channel
-
-```toml
-[block-sync]
-actor-channel-capacity = 100
-```
-
 ### `block-sync.block-batch-size`
 
 - **Type:** Number

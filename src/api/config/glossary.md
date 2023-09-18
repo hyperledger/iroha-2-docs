@@ -2,10 +2,6 @@
 
 This page contains explanations of some types and topics shared across multiple configuration parameters.
 
-## Actor Channel Capacity
-
-TODO Explain what does it mean
-
 ## Numeric Types
 
 Explain the limitations of different numeric types, like `u8` and `u64`.

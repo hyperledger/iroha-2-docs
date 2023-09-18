@@ -32,10 +32,3 @@ with a snippet pointing to the configuration
 - **Default:** $1\ 000$
 
 Maximum number of blocks to write into a single storage file.
-
-## `kura.actor-channel-capacity`
-
-- **Type:** Number
-- **Default:** $100$
-
-See: [Actor Channel Capacity](glossary#actor-channel-capacity)
