@@ -12,10 +12,39 @@ Explain the limitations of different numeric types, like `u8` and `u64`.
 
 ## Type - Duration
 
-Might be specified as `"2m"`, `1000` (means ms), `"3h"` etc. TODO.
+Duration might be specified in two ways: 
 
-See
-[`humantime` crate](https://docs.rs/humantime/latest/humantime/fn.parse-duration.html)
+- As a Number, which will be considered an amount in milliseconds
+- As a String, which will be parsed as a human-readable duration string
+
+Numeric setting is straightforward:
+
+```toml
+value = 1000 # 1000 milliseconds
+```
+
+String setting might be more readable:
+
+```toml
+value1 = "1sec"
+value2 = "1hour 12min 5s"
+value3 = "2years 2min 12us"
+```
+
+The duration string is a concatenation of time spans. Each time span is an integer number and a suffix. Supported suffixes:
+
+- `nsec`, `ns` &mdash; nanoseconds
+- `usec`, `us` &mdash; microseconds
+- `msec`, `ms` &mdash; milliseconds
+- `seconds`, `second`, `sec`, `s`
+- `minutes`, `minute`, `min`, `m`
+- `hours`, `hour`, `hr`, `h`
+- `days`, `day`, `d`
+- `weeks`, `week`, `w`
+- `months`, `month`, `M` &mdash; defined as $30.44$ days
+- `years`, `year`, `y` &mdash; defined as $365.25$ days
+
+TODO: put link to [`humantime` crate](https://docs.rs/humantime/latest/humantime/fn.parse_duration.html)? It is an implementation detail.
 
 ## Type - Multi-hash
 
