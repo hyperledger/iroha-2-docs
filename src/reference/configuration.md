@@ -12,10 +12,9 @@ It is not implemented yet. Early draft document according to the RFC.
 
 ## TODO
 
-- [ ] [Transpose tables](https://github.com/rollup/rollup/blob/master/docs/.vitepress/transpose-tables.ts)
+- [ ] [Transpose tables](https://github.com/rollup/rollup/blob/master/docs/.vitepress/transpose-tables.ts) ?
 - [ ] Consider refining `Number` types to exact `Integer`, `Float`,
       `Unsigned 64-bits integer`?
-- [ ] Consider adding mathjax to render default values like `2 ** 16` nicer
 - [ ] Explain "actor channel capacity" for users. What are actors, how to
       configure them. Maybe give some insight about each actor in
       particular.
@@ -191,7 +190,7 @@ This address is what other peers should specify in their
 ### `network.actor-channel-capacity`
 
 - **Type:** Number
-- **Default:** 100
+- **Default:** $100$
 
 See: [Actor Channel Capacity](#actor-channel-capacity)
 
@@ -278,7 +277,7 @@ this, pay attention to `p2p` max message size.
 ### `sumeragi.max-transactions-in-block`
 
 - **Type:** u32
-- **Default:** 2_u32.pow(9)
+- **Default:** $2^9 = 512$
 
 The upper limit of the number of transactions per block.
 
@@ -317,7 +316,7 @@ about "active" outbound telemetry, actively produced by Iroha.
 ### `torii.max-transaction-size`
 
 - **Type:** String or Number, [Byte Size](#type-byte-size)
-- **Default:** 2 pow 15 (todo mathjax?) `32_768` (2 \*\* 15)
+- **Default:** $2^{15} = 32\ 768$
 
 Maximum number of bytes in raw transaction. Used to prevent from DOS
 attacks.
@@ -325,7 +324,7 @@ attacks.
 ### `torii.max-content-len`
 
 - **Type:** String or Number, [Byte Size](#type-byte-size)
-- **Default:** `2 ** 12 * 4000`
+- **Default:** $2^{12} \cdot 4\ 000 = 16\ 384\ 000$
 
 Maximum number of bytes in raw message. Used to prevent from DOS attacks.
 
@@ -335,14 +334,14 @@ TODO: use "amount" instead of size. Usually "size" means bytes in this
 document
 
 - **Type:** Number
-- **Default:** `10`
+- **Default:** $10$
 
 How many query results are returned in one batch
 
 ### `torii.query-idle-time`
 
 - **Type:** String or Number, [Duration](#type-duration)
-- **Default:** `30_000`
+- **Default:** 30 seconds
 
 Time query can remain in the store if unaccessed
 
@@ -353,14 +352,14 @@ Explain Queue module
 ### `queue.max-transactions-in-queue`
 
 - **Type:** u32
-- **Default:** `2 ** 16`
+- **Default:** $2^{16} = 65\ 536$
 
 The upper limit of the number of transactions waiting in the queue.
 
 ### `queue.max-transactions-in-queue-per-user`
 
 - **Type:** u32
-- **Default:** 2 \*\* 16
+- **Default:** $2^{16} = 65\ 536$
 
 The upper limit of the number of transactions waiting in the queue for
 single user. Use this option to apply throttling.
@@ -412,14 +411,14 @@ with a snippet pointing to the configuration
 ### `kura.blocks-per-storage-file`
 
 - **Type:** non zero u64
-- **Default:** 1000
+- **Default:** $1\ 000$
 
 Maximum number of blocks to write into a single storage file.
 
 ### `kura.actor-channel-capacity`
 
 - **Type:** Number
-- **Default:** 100
+- **Default:** $100$
 
 See: [Actor Channel Capacity](#actor-channel-capacity)
 
@@ -481,7 +480,7 @@ Explain module
 ### `block-sync.actor-channel-capacity`
 
 - **Type:** Number
-- **Default:** 100
+- **Default:** $100$
 
 See: [Actor Channel Capacity](#actor-channel-capacity)
 
@@ -495,7 +494,7 @@ actor-channel-capacity = 100
 ### `block-sync.block-batch-size`
 
 - **Type:** Number
-- **Default:** 4
+- **Default:** $4$
 
 The number of blocks that can be sent in one message.
 
@@ -564,10 +563,10 @@ executed within a smart contract. Every WASM instruction costs
 approximately 1 unit of fuel. See
 [`wasmtime` reference](https://docs.rs/wasmtime/0.29.0/wasmtime/struct.Store.html#method.add-fuel)
 
-|          |              |
-| -------: | :----------- |
-|    Type: | Number       |
-| Default: | `23_000_000` |
+|          |                             |
+| -------: |:----------------------------|
+|    Type: | Number                      |
+| Default: | $23\ 000\ 000$ |
 
 Example:
 
