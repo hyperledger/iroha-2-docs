@@ -355,7 +355,12 @@ export default defineConfig({
 
   markdown: {
     async config(md) {
-      md.use(footnote).use(mermaid).use(katex)
+      md.use(footnote)
+        .use(mermaid)
+        // Note: Since vitepress@1.0.0-rc.14, it supports MathJax natively with `markdown.math = true`:
+        //   https://github.com/vuejs/vitepress/pull/2977
+        // Although KaTeX is more efficient, we might consider removing it in the future.
+        .use(katex)
     },
   },
 
@@ -381,7 +386,9 @@ export default defineConfig({
       text: 'Edit this page on GitHub',
     },
 
-    lastUpdatedText: 'Last Updated',
+    lastUpdated: {
+      text: 'Last Updated',
+    },
 
     sidebar: {
       '/guide/': getGuideSidebar(),
