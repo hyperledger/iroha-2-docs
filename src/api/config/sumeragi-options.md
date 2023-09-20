@@ -2,7 +2,7 @@
 
 Explain sumeragi module
 
-## `sumeragi.trusted-peers`
+## `sumeragi.trusted_peers`
 
 - **Type:** Array of Peer Ids
 
@@ -14,42 +14,42 @@ Peer Id:
   [`network.address`](network-options#network-address).
   - **Type:** String, [Socket-Address](glossary#type-socket-address)
   - **Required**
-- **`public-key`:** Public key of the peer.
+- **`public_key`:** Public key of the peer.
   - **Type:** String, [Multi-hash](glossary#type-multi-hash)
   - **Required**
 
 ```toml
-peer-id = { address = "", public-key = "" }
+peer_id = { address = "", public_key = "" }
 ```
 
 Define an array in two ways
 
 ```toml
-[[sumeragi.trusted-peers]]
+[[sumeragi.trusted_peers]]
 address = "1"
-public-key = "1"
+public_key = "1"
 
-[[sumeragi.trusted-peers]]
+[[sumeragi.trusted_peers]]
 address = "2"
-public-key = "2"
+public_key = "2"
 
-[[sumeragi.trusted-peers]]
+[[sumeragi.trusted_peers]]
 address = "3"
-public-key = "3"
+public_key = "3"
 ```
 
 Or
 
 ```toml
 [sumeragi]
-trusted-peers = [
-  { address = "1", public-key = "1" },
-  { address = "2", public-key = "2" },
-  { address = "3", public-key = "3" },
+trusted_peers = [
+  { address = "1", public_key = "1" },
+  { address = "2", public_key = "2" },
+  { address = "3", public_key = "3" },
 ]
 ```
 
-## `sumeragi.block-time`
+## `sumeragi.block_time`
 
 - **Type:** String or Number, [Duration](glossary#type-duration)
 - **Default:** 2 seconds
@@ -57,21 +57,21 @@ trusted-peers = [
 The period of time a peer waits for the `CreatedBlock` message after
 getting a `TransactionReceipt`
 
-## `sumeragi.commit-time-limit`
+## `sumeragi.commit_time_limit`
 
 - **Type:** String or Number, [Duration](glossary#type-duration)
 - **Default:** 4 seconds
 
 The period of time a peer waits for `CommitMessage` from the proxy tail.
 
-## `sumeragi.gossip-period`
+## `sumeragi.gossip_period`
 
 - **Type:** String or Number, [Duration](glossary#type-duration)
 - **Default:** 1 second
 
 Period in milliseconds for pending transaction gossiping between peers.
 
-## `sumeragi.gossip-batch-size`
+## `sumeragi.gossip_batch_size`
 
 - **Type:** Number
 - **Default:** 500
@@ -79,7 +79,7 @@ Period in milliseconds for pending transaction gossiping between peers.
 max number of transactions in tx gossip batch message. While configuring
 this, pay attention to `p2p` max message size.
 
-## `sumeragi.max-transactions-in-block`
+## `sumeragi.max_transactions_in_block`
 
 - **Type:** u32
 - **Default:** $2^9 = 512$

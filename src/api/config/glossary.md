@@ -11,7 +11,7 @@ Explain the limitations of different numeric types, like `u8` and `u64`.
 Duration might be specified in two ways: 
 
 - As a Number, which will be considered an amount in milliseconds
-- As a String, which will be parsed as a human-readable duration string
+- As a String, which will be parsed as a human_readable duration string
 
 Numeric setting is straightforward:
 
@@ -51,7 +51,7 @@ Describe what the hell is this
 Byte size values might be set in two ways:
 
 - As a Number, which will be considered an amount in bytes
-- As a String, which will be parsed as a human-readable byte size string
+- As a String, which will be parsed as a human_readable byte size string
 
 Number:
 
@@ -93,7 +93,7 @@ TODO: [article explains kb, kB, KiB difference](https://web.archive.org/web/2015
 ## Type - Private Key
 
 ```toml
-private-key = { digest = "ed25519", payload = "" }
+private_key = { digest = "ed25519", payload = "" }
 ```
 
 ## Type - Socket Address

@@ -2,7 +2,7 @@
 
 Explain module
 
-## `wsv.asset-metadata-limits`
+## `wsv.asset_metadata_limits`
 
 - **Type:** Table, [Metadata Limits](glossary#type-metadata-limits)
 - **Default:** [Default Metadata Limits](glossary#default-metadata-limits)
@@ -10,36 +10,36 @@ Explain module
 **Example:**
 
 ```toml
-[wsv.asset-metadata-limits]
-max-len = 30
-max-entry-byte-size = "2mb"
+[wsv.asset_metadata_limits]
+max_len = 30
+max_entry_byte_size = "2mb"
 ```
 
-## `wsv.asset-definition-metadata-limits`
+## `wsv.asset_definition_metadata_limits`
 
 TODO
 
-## `wsv.account-metadata-limits`
+## `wsv.account_metadata_limits`
 
 TODO
 
-## `wsv.domain-metadata-limits`
+## `wsv.domain_metadata_limits`
 
 TODO
 
-## `wsv.ident-length-limits`
+## `wsv.ident_length_limits`
 
 Limits for the number of characters in identifiers that can be stored in
 the WSV.
 
 FIXME: rename `ident` to something more readable?
 
-## `wsv.transaction-limits`
+## `wsv.transaction_limits`
 
 Limits that all transactions need to obey, in terms of size of WASM blob
 and number of instructions.
 
-## `wsv.wasm-runtime.fuel-limit`
+## `wsv.wasm_runtime.fuel_limit`
 
 The fuel limit determines the maximum number of instructions that can be
 executed within a smart contract. Every WASM instruction costs
@@ -54,11 +54,11 @@ approximately 1 unit of fuel. See
 Example:
 
 ```toml
-[wsv.wasm-runtime]
-fuel-limit = 40_000_000
+[wsv.wasm_runtime]
+fuel_limit = 40_000_000
 ```
 
-## `wsv.wasm-runtime.max-memory`
+## `wsv.wasm_runtime.max_memory`
 
 Maximum amount of linear memory a given smart contract can allocate.
 
@@ -70,6 +70,6 @@ Maximum amount of linear memory a given smart contract can allocate.
 Example:
 
 ```toml
-[wsv.wasm-runtime]
-max-memory = "1gb"
+[wsv.wasm_runtime]
+max_memory = "1gb"
 ```

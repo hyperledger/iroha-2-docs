@@ -2,14 +2,14 @@
 
 Explain Queue module
 
-## `queue.max-transactions-in-queue`
+## `queue.max_transactions_in_queue`
 
 - **Type:** u32
 - **Default:** $2^{16} = 65\ 536$
 
 The upper limit of the number of transactions waiting in the queue.
 
-## `queue.max-transactions-in-queue-per-user`
+## `queue.max_transactions_in_queue_per_user`
 
 - **Type:** u32
 - **Default:** $2^{16} = 65\ 536$
@@ -17,7 +17,7 @@ The upper limit of the number of transactions waiting in the queue.
 The upper limit of the number of transactions waiting in the queue for
 single user. Use this option to apply throttling.
 
-## `queue.transaction-time-to-live`
+## `queue.transaction_time_to_live`
 
 - **Type:** String or Number, [Duration](glossary#type-duration)
 - **Default:** 24 hours
@@ -25,7 +25,7 @@ single user. Use this option to apply throttling.
 The transaction will be dropped after this time if it is still in the
 queue.
 
-## `queue.future-threshold`
+## `queue.future_threshold`
 
 - **Type:** String or Number, [Duration](glossary#type-duration)
 - **Default:** 1 second

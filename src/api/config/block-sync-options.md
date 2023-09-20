@@ -2,7 +2,7 @@
 
 Explain module
 
-### `block-sync.block-batch-size`
+### `block_sync.block_batch_size`
 
 - **Type:** Number
 - **Default:** $4$
@@ -10,11 +10,11 @@ Explain module
 The number of blocks that can be sent in one message.
 
 ```toml
-[block-sync]
-block-batch-size = 4
+[block_sync]
+block_batch_size = 4
 ```
 
-### `block-sync.gossip-period`
+### `block_sync.gossip_period`
 
 - **Type:** String or Number, [Duration](glossary#type-duration)
 - **Default:** 10 seconds
@@ -22,6 +22,6 @@ block-batch-size = 4
 The period of time to wait between sending requests for the latest block.
 
 ```toml
-[block-sync]
-gossip-period = "5 secs"
+[block_sync]
+gossip_period = "5 secs"
 ```

@@ -3,14 +3,14 @@
 Explain the purpose of this block. Maybe explain both keys in a single
 section?
 
-## `genesis.public-key`
+## `genesis.public_key`
 
-- **Type:** [Multi-hash](glossary#type-multi-hash)
+- **Type:** [Multi_hash](glossary#type-multi-hash)
 - **Required**
 
 The public key of the genesis account, should be supplied to all peers.
 
-## `genesis.private-key`
+## `genesis.private_key`
 
 - **Type:** Table, [Private Key](glossary#type-private-key)
 - **Required** if the configured peer submits the genesis block, and
@@ -30,7 +30,7 @@ genesis, i.e. if it is run with [`--submit-genesis`](../cli#submit-genesis)
 ::: warning
 
 The warning will be printed if
-[`genesis.private-key`](#genesis-private-key) and
+[`genesis.private_key`](#genesis-private-key) and
 [`--submit-genesis`](../cli#submit-genesis) are used without each other.
 
 :::

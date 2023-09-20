@@ -31,7 +31,7 @@ name = "iroha"
 url = "ws://127.0.0.1:8001/submit"
 ```
 
-## `telemetry.file-output`
+## `telemetry.file_output`
 
 Enable file-based active outbound telemetry.
 
@@ -42,6 +42,6 @@ Enable file-based active outbound telemetry.
   - **Required**
 
 ```toml
-[telemetry.file-output]
+[telemetry.file_output]
 file = "./././"
 ```

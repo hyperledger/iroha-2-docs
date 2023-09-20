@@ -2,7 +2,7 @@
 
 Explain Torii module
 
-## `torii.api-address`
+## `torii.api_address`
 
 - **ENV:** `API_ENDPOINT`
 - **Type:** String, [Socket-Address](glossary#type-socket-address)
@@ -12,10 +12,10 @@ Address for client API.
 
 ```toml
 [torii]
-api-address = "localhost:8080"
+api_address = "localhost:8080"
 ```
 
-## `torii.telemetry-address`
+## `torii.telemetry_address`
 
 - **Type:** String, [Socket-Address](glossary#type-socket-address)
 - **Optional**
@@ -30,7 +30,7 @@ about "active" outbound telemetry, actively produced by Iroha.
 
 :::
 
-## `torii.max-transaction-size`
+## `torii.max_transaction_size`
 
 - **Type:** String or Number, [Byte Size](glossary#type-byte-size)
 - **Default:** $2^{15} = 32\ 768$
@@ -38,14 +38,14 @@ about "active" outbound telemetry, actively produced by Iroha.
 Maximum number of bytes in raw transaction. Used to prevent from DOS
 attacks.
 
-## `torii.max-content-len`
+## `torii.max_content_len`
 
 - **Type:** String or Number, [Byte Size](glossary#type-byte-size)
 - **Default:** $2^{12} \cdot 4\ 000 = 16\ 384\ 000$
 
 Maximum number of bytes in raw message. Used to prevent from DOS attacks.
 
-## `torii.fetch-size`
+## `torii.fetch_size`
 
 TODO: use "amount" instead of size. Usually "size" means bytes in this
 document
@@ -55,7 +55,7 @@ document
 
 How many query results are returned in one batch
 
-## `torii.query-idle-time`
+## `torii.query_idle_time`
 
 - **Type:** String or Number, [Duration](glossary#type-duration)
 - **Default:** 30 seconds

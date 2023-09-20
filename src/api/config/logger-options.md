@@ -12,7 +12,7 @@ Explain module
 
 Maximum log level
 
-## `logger.compact-mode`
+## `logger.compact_mode`
 
 - **Type:** Boolean
 - **Default:** `false`
@@ -21,11 +21,11 @@ Compact mode (no spans from telemetry)
 
 ::: warning
 
-Conflicts with [`logger.terminal-colors`](#logger-terminal-colors)
+Conflicts with [`logger.terminal_colors`](#logger-terminal-colors)
 
 :::
 
-## `logger.log-file-path`
+## `logger.log_file_path`
 
 - **Type:** String
 - **Optional**
@@ -35,10 +35,10 @@ TODO: Find a standard name for log file path? (i.e. posix)
 If provided, logs will be copied to said file in the format readable by
 [bunyan](https://lib.rs/crates/bunyan)
 
-## `logger.terminal-colors`
+## `logger.terminal_colors`
 
 - **Type:** Boolean
-- **Default:** depends on `logger.compact-mode`. If compact mode is
+- **Default:** depends on `logger.compact_mode`. If compact mode is
   disabled (which is by default), then `true`. If enabled, then `false`.
 
 Enable ANSI terminal colors for formatted output.
@@ -49,8 +49,8 @@ This will produce a warning:
 
 ```toml
 [logger]
-compact-mode = true
-colorize-output = true # INVALID: should be `false` or omitted
+compact_mode = true
+colorize_output = true # INVALID: should be `false` or omitted
 ```
 
 :::

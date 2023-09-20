@@ -14,10 +14,10 @@ TODO:
 - Explain "actor channel capacity" for users. What are actors, how to
       configure them. Maybe give some insight about each actor in
       particular.
-- Is `sumeragi.trusted-peers` optional or required?
-- Use `torii.fetch-amount` instead of `torii.fetch-size`. IMO size is
+- Is `sumeragi.trusted_peers` optional or required?
+- Use `torii.fetch_amount` instead of `torii.fetch_size`. IMO size is
       better to preserve for "byte size". Same for
-      `sumeragi.gossip-batch-size`, `block-sync.block-batch-size`.
+      `sumeragi.gossip_batch_size`, `block_sync.block_batch_size`.
 - Define more ENVs
 
 ## How it works
@@ -66,21 +66,21 @@ TODO: brief explanation of the format, links to guides/specs
 
 Required fields are:
 
-- [`public-key`](base-options#public-key)
-- [`private-key`](base-options#private-key)
-- [`genesis.public-key`](genesis-options#genesis-public-key)
-- [`genesis.private-key`](genesis-options#genesis-private-key) if the peer is the one who
+- [`public_key`](base-options#public-key)
+- [`private_key`](base-options#private-key)
+- [`genesis.public_key`](genesis-options#genesis-public-key)
+- [`genesis.private_key`](genesis-options#genesis-private-key) if the peer is the one who
   submits the genesis
 - [`network.address`](network-options#network-address)
-- [`sumeragi.trusted-peers`](sumeragi-options#sumeragi-trusted-peers) (?)
-- [`torii.api-address`](torii-options#torii-api-address)
+- [`sumeragi.trusted_peers`](sumeragi-options#sumeragi-trusted-peers) (?)
+- [`torii.api_address`](torii-options#torii-api-address)
 
 Minimal configuration looks like:
 
 ```toml
 # key pair of the peer itself
-public-key = ""
-private-key = {}
+public_key = ""
+private_key = {}
 
 [network]
 # address for peer-to-peer communication
@@ -88,17 +88,17 @@ address = "localhost:1337"
 
 # list of the trusted peers
 
-[[sumeragi.trusted-peers]]
+[[sumeragi.trusted_peers]]
 address = ""
-public-key = ""
+public_key = ""
 
-[[sumeragi.trusted-peers]]
+[[sumeragi.trusted_peers]]
 address = ""
-public-key = ""
+public_key = ""
 
 [torii]
 # address for the API endpoint
-api-address = "localhost:8080"
+api_address = "localhost:8080"
 ```
 
 ::: tip
