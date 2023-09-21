@@ -1,4 +1,4 @@
-# Network Options
+# Network Parameters
 
 Explain network module
 
@@ -13,6 +13,6 @@ purposes.
 ::: tip
 
 This address is what other peers should specify in their
-[`sumeragi.trusted_peers`](sumeragi-options#sumeragi-trusted-peers)
+[`sumeragi.trusted_peers`](sumeragi-params#sumeragi-trusted-peers)
 
 :::

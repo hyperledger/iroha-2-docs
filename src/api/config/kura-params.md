@@ -1,4 +1,4 @@
-# Kura Options
+# Kura Parameters
 
 Explain Kura module
 

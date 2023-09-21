@@ -1,4 +1,4 @@
-# Queue Options
+# Queue Parameters
 
 Explain Queue module
 

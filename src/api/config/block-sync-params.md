@@ -1,8 +1,8 @@
-## Block Sync Options
+# Block Sync Parameters
 
 Explain module
 
-### `block_sync.block_batch_size`
+## `block_sync.block_batch_amount`
 
 - **Type:** Number
 - **Default:** $4$
@@ -11,10 +11,10 @@ The number of blocks that can be sent in one message.
 
 ```toml
 [block_sync]
-block_batch_size = 4
+block_batch_amount = 4
 ```
 
-### `block_sync.gossip_period`
+## `block_sync.gossip_period`
 
 - **Type:** String or Number, [Duration](glossary#type-duration)
 - **Default:** 10 seconds

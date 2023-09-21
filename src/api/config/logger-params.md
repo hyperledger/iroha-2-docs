@@ -1,4 +1,4 @@
-# Logger Options
+# Logger Parameters
 
 Explain module
 

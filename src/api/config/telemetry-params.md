@@ -1,4 +1,4 @@
-# Telemetry Options
+# Telemetry Parameters
 
 Two Telemetries are supported: Substrate-based and File-based.
 
@@ -43,5 +43,5 @@ Enable file-based active outbound telemetry.
 
 ```toml
 [telemetry.file_output]
-file = "./././"
+file = "/path/to/file"
 ```

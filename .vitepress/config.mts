@@ -426,55 +426,62 @@ export default defineConfig({
               link: '/api/config/',
             },
             {
-              text: 'Base Options',
-              link: '/api/config/base-options',
+              text: 'Parameters',
+              items: [
+                {
+                  text: 'Base',
+                  link: '/api/config/base-params',
+                },
+                {
+                  text: 'Genesis',
+                  link: '/api/config/genesis-params',
+                },
+                {
+                  text: 'Network',
+                  link: '/api/config/network-params',
+                },
+                {
+                  text: 'Sumeragi',
+                  link: '/api/config/sumeragi-params',
+                },
+                {
+                  text: 'Torii',
+                  link: '/api/config/torii-params',
+                },
+                {
+                  text: 'Queue',
+                  link: '/api/config/queue-params',
+                },
+                {
+                  text: 'Kura',
+                  link: '/api/config/kura-params',
+                },
+                {
+                  text: 'Logger',
+                  link: '/api/config/logger-params',
+                },
+                {
+                  text: 'Block Sync',
+                  link: '/api/config/block-sync-params',
+                },
+                {
+                  text: 'WSV',
+                  link: '/api/config/wsv-params',
+                },
+                {
+                  text: 'Telemetry',
+                  link: '/api/config/telemetry-params',
+                },
+
+              ],
             },
-            {
-              text: 'Genesis Options',
-              link: '/api/config/genesis-options',
-            },
-            {
-              text: 'Network Options',
-              link: '/api/config/network-options',
-            },
-            {
-              text: 'Sumeragi Options',
-              link: '/api/config/sumeragi-options',
-            },
-            {
-              text: 'Torii Options',
-              link: '/api/config/torii-options',
-            },
-            {
-              text: 'Queue Options',
-              link: '/api/config/queue-options',
-            },
-            {
-              text: 'Kura Options',
-              link: '/api/config/kura-options',
-            },
-            {
-              text: 'Logger Options',
-              link: '/api/config/logger-options',
-            },
-            {
-              text: 'Block Sync Options',
-              link: '/api/config/block-sync-options',
-            },
-            {
-              text: 'WSV Options',
-              link: '/api/config/wsv-options',
-            },
-            {
-              text: 'Telemetry Options',
-              link: '/api/config/telemetry-options',
-            },
+
             {
               text: 'Glossary',
               link: '/api/config/glossary',
             },
             {
-              text: 'Deprecation and Migration Policy',
+              text: 'Deprecation and Migration',
               link: '/api/config/deprecation-and-migration',
             },
           ],

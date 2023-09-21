@@ -1,4 +1,4 @@
-# World State View Options
+# World State View Parameters
 
 Explain module
 

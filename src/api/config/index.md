@@ -1,49 +1,73 @@
-# Configuration Reference
+# Configuring Iroha
 
-::: warning WORK IN PROGRESS
+::: danger WORK IN PROGRESS
 
 It is not implemented yet. Early draft document according to the RFC.
 
 :::
 
-TODO:
+When running `iroha` from the command line, Iroha will try to resolve a config file named `iroha.toml` inside `cwd`. Then it tries to read a set of Environment Variables, associated with configuration parameters.
+The most basic `iroha.toml` config file looks like this:
 
--  [Transpose tables](https://github.com/rollup/rollup/blob/master/docs/.vitepress/transpose-tables.ts) ?
-- Consider refining `Number` types to exact `Integer`, `Float`,
-      `Unsigned 64-bits integer`?
-- Explain "actor channel capacity" for users. What are actors, how to
-      configure them. Maybe give some insight about each actor in
-      particular.
-- Is `sumeragi.trusted_peers` optional or required?
-- Use `torii.fetch_amount` instead of `torii.fetch_size`. IMO size is
-      better to preserve for "byte size". Same for
-      `sumeragi.gossip_batch_size`, `block_sync.block_batch_size`.
-- Define more ENVs
+```toml
+public_key = "ed0120FAFCB2B27444221717F6FCBF900D5BE95273B1B0904B08C736B32A19F16AC1F9"
+private_key = { digest = "ed25519", payload = "82886B5A2BB3785F3CA8F8A78F60EA9DB62F939937B1CFA8407316EF07909A8D236808A6D4C12C91CA19E54686C2B8F5F3A786278E3824B4571EF234DEC8683B" }
 
-## How it works
+[network]
+# peer-to-peer communication address
+address = "localhost:1337"
 
-How resolved: file, then ENV, then default values.
-
-File might be set either with `IROHA_CONFIG` env var:
-
-```bash
-$ export IROHA_CONFIG=~/iroha.toml
-$ iroha
+[torii]
+api_address = "localhost:8080"
 ```
 
-Or with [`--config`](../cli#config) CLI argument:
+The path to the configuration file might be overwritten either with `--config` CLI argument, or with `IROHA_CONFIG` environment variable: 
 
-```bash
-$ iroha --config ./config.toml
+::: code-group
+
+```bash [With --config]
+$ iroha --config ./cfg.toml
 ```
 
-::: tip
+```bash [With IROHA_CONFIG]
+$ IROHA_CONFIG=/path/to/config/iroha.toml iroha
+```
 
-To trace how configuration is resolved, run Iroha with
+:::
+
+Additionally, Iroha reads a set of Environment Variables, associated with configuration parameters. Values from ENV override values from the config file. For example:
+
+::: code-group
+
+```shell [ENV variables]
+PUBLIC_KEY=ed0120FAFCB2B27444221717F6FCBF900D5BE95273B1B0904B08C736B32A19F16AC1F9
+PRIVATE_KEY="{\"digest\":\"ed25519\",\"payload\":\"82886B5A2BB3785F3CA8F8A78F60EA9DB62F939937B1CFA8407316EF07909A8D236808A6D4C12C91CA19E54686C2B8F5F3A786278E3824B4571EF234DEC8683B\"}"
+NETWORK_ADDRESS=localhost:1337
+TORII_API_ADDRESS=localhost:8080
+```
+
+```toml [Equivalent in TOML]
+public_key = "ed0120FAFCB2B27444221717F6FCBF900D5BE95273B1B0904B08C736B32A19F16AC1F9"
+private_key = { digest = "ed25519", payload = "82886B5A2BB3785F3CA8F8A78F60EA9DB62F939937B1CFA8407316EF07909A8D236808A6D4C12C91CA19E54686C2B8F5F3A786278E3824B4571EF234DEC8683B" }
+
+[network]
+address = "localhost:1337"
+
+[torii]
+api_address = "localhost:8080"
+```
+
+:::
+
+Please refer to each field's documentation for specific ENV names.
+
+::: tip Debugging
+
+To trace how configuration is resolved, run `iroha` with
 [`--trace-config`](../cli#trace-config) flag:
 
 ```bash
-$ iroha -c ./config.toml --trace-config
+$ iroha --trace-config
 ```
 
 The output will be something like:
@@ -52,61 +76,49 @@ The output will be something like:
 TODO: sample output
 ```
 
-TODO: probably put extended information under the
-[`--trace-config`](../cli#trace-config) CLI flag documentation in CLI
-section
+TODO: maybe also enable with `IROHA_CONFIG_TRACE=1` env var?
 
 :::
 
-### TOML Format
+## TOML Format
 
-TODO: brief explanation of the format, links to guides/specs
+Iroha uses [TOML (Tom's Obvious Minimal Language)](https://toml.io/) format for its configuration. Please refer to its documentation if you need assistance about how it works.
 
-## Minimal Configuration
 
-Required fields are:
+## Required Parameters
 
-- [`public_key`](base-options#public-key)
-- [`private_key`](base-options#private-key)
-- [`genesis.public_key`](genesis-options#genesis-public-key)
-- [`genesis.private_key`](genesis-options#genesis-private-key) if the peer is the one who
-  submits the genesis
-- [`network.address`](network-options#network-address)
-- [`sumeragi.trusted_peers`](sumeragi-options#sumeragi-trusted-peers) (?)
-- [`torii.api_address`](torii-options#torii-api-address)
+- [`public_key`](base-params#public-key): _explain the option_
+- [`private_key`](base-params#private-key): _explain the option_
+- [`genesis.public_key`](genesis-params#genesis-public-key): _explain the option_
+- [`genesis.private_key`](genesis-params#genesis-private-key) if the peer is the one who
+  submits the genesis. _explain the option_
+- [`network.address`](network-params#network-address): _explain the option_
+- [`sumeragi.trusted_peers`](sumeragi-params#sumeragi-trusted-peers): _explain the option_. It is not _strictly_ required, but you might need to set it in most cases.
+- [`torii.api_address`](torii-params#torii-api-address): _explain the option_
 
-Minimal configuration looks like:
-
-```toml
-# key pair of the peer itself
-public_key = ""
-private_key = {}
-
-[network]
-# address for peer-to-peer communication
-address = "localhost:1337"
-
-# list of the trusted peers
-
-[[sumeragi.trusted_peers]]
-address = ""
-public_key = ""
-
-[[sumeragi.trusted_peers]]
-address = ""
-public_key = ""
-
-[torii]
-# address for the API endpoint
-api_address = "localhost:8080"
-```
-
-::: tip
-
-Note that all the required fields has their equivalent in ENV. 
-
-:::
-
-## Options Overview
+## Modules Overview
 
 TODO: list each section (sumeragi, torii, kura etc) with links and short explanations of their responsibility.
+
+- **[Base Options](base-params):** _explain_ 
+- **[Genesis](genesis-params):** _explain_ 
+- **[Network](network-params):** _explain_ 
+- **[Sumeragi](sumeragi-params):** _explain_ 
+- **[Torii](torii-params):** _explain_ 
+- **[Queue](queue-params):** _explain_ 
+- **[Kura](kura-params):** _explain_ 
+- **[Logger](logger-params):** _explain_ 
+- **[Block Sync](block-sync-params):** _explain_ 
+- **[WSV](wsv-params):** _explain_ 
+- **[Telemetry](telemetry-params):** _explain_ 
+
+
+---
+
+TODO:
+
+- Consider refining `Number` types to exact `Integer`, `Float`,
+  `Unsigned 64-bits integer`?
+- Is `sumeragi.trusted_peers` optional or required?
+- Define more ENVs, and provide samples of how it should be parsed
+
