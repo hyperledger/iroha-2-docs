@@ -1,40 +1,5 @@
-//$iroha: #d0021b;
-//
-//$iroha-light-1: #d0021b;
-//$iroha-light-2: #FD2A43;
-//$iroha-light-3: #FEAAB4;
-//$iroha-light-soft: rgba(208, 2, 27, 0.14);
-//
-//$iroha-dark-1: #fd5568;
-//$iroha-dark-2: #fd2a43;
-//$iroha-dark-3: #d0021b;
-//$iroha-dark-soft: rgba(208, 2, 27, 0.16);
-
-//$iroha-light-1: #d0021b;
-//$iroha-light-2: #fd2a43;
-//$iroha-light-3: #fd5568;
-//$iroha-light-soft: rgba(234, 6, 35, 0.14);
-//
-//$iroha-dark-1: #fd5568;
-//$iroha-dark-2: #fd2a43;
-//$iroha-dark-3: #d0021b;
-//$iroha-dark-soft: rgba(208, 2, 27, 0.16);
-
 :root {
   --vp-font-family-mono: 'JetBrains Mono', 'Fira Code', Menlo, Monaco, Consolas, 'Courier New', monospace;
-
-  //--vp-c-brand-1: #{$iroha-light-1};
-  //--vp-c-brand-2: #{$iroha-light-2};
-  //--vp-c-brand-3: #{$iroha-light-3};
-  //--vp-c-brand-soft: #{$iroha-light-soft};
-}
-
-//.dark {
-//  --vp-c-brand-1: #{$iroha-dark-1};
-//  --vp-c-brand-2: #{$iroha-dark-2};
-//  --vp-c-brand-3: #{$iroha-dark-3};
-//  --vp-c-brand-soft: #{$iroha-dark-soft};
-//}
 }
 
 .vp-doc {
