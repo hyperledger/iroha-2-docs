@@ -34,7 +34,7 @@ private_key = { digest = "ed25519", payload = "82886B5A2BB3785F3CA8F8A78F60EA9DB
 ::: info
 
 This parameter is required if the peer being configured submits the
-genesis, i.e. if it is run with [`--submit-genesis`](../cli#submit-genesis)
+genesis, i.e. if it is run with the [`--submit-genesis`](../cli#submit-genesis)
  CLI argument.
 
 :::
@@ -43,7 +43,7 @@ genesis, i.e. if it is run with [`--submit-genesis`](../cli#submit-genesis)
 
 
 
-The warning will be printed if
+The warning will be printed if the
 [`genesis.private_key`](#genesis-private-key) and
 [`--submit-genesis`](../cli#submit-genesis) are used without each other.
 
