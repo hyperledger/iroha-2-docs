@@ -1,8 +1,8 @@
 # Storing Cryptographic Keys
 
-Your sensitive data only remains private if you adopt Operational Security (OpSEC) practices to protect the cryptographic keys. Social engineering threats, where someone posing as a figure with authority tries to manipulate you into giving them your private cryptographic key, are real. Always be cautious and avoid sharing your private key, treating it as you would your apartment keys—reserved for trusted individuals only.
+Your sensitive data only remains private if you adopt <abbr title="Operational Security">OPSEC</abbr> practices to protect the cryptographic keys. Social engineering threats, where someone posing as a figure with authority tries to manipulate you into giving them your private cryptographic key, are real. Always be cautious and avoid sharing your private key, treating it as you would your apartment keys—reserved for trusted individuals only.
 
-For more information on OpSEC and its best practices, see [Operational Security](./operational-security).
+For more information on <abbr title="Operational Security">OPSEC</abbr> and its best practices, see [Operational Security](./operational-security).
 
 ## Storing Cryptographic Keys Digitally
 
@@ -61,7 +61,7 @@ To configure KeePassXC, perform the following steps:
 
 2. In the **Application Settings** tab that appears, select **SSH Agent** from the left menu, and then select the **Enable SSH Agent integration** checkbox.
 
-    ::: details Show reference screenshot
+    ::: info Show reference screenshot
 
     ![KeePassXC `SSH Agent` tab: Enabling SSH Agent](../../img/keepassxc_ssh_agent.png)
 

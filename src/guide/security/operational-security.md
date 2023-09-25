@@ -1,12 +1,12 @@
 # Operational Security
 
-Operational Security (OpSEC) is a collection of strategies and advice tailored to specific use-cases to protect one's data from leaking.
+Operational Security (OPSEC) is a collection of strategies and advice tailored to specific use-cases to protect one's data from leaking.
 
-OpSec is what most companies operate in order to ensure the availability and stability of their assets. This includes physical security (making sure that someone's post-it notes don't contain sensitive data), secure communication protocols (so that sensitive data isn't sent over unencrypted SMS), threat analysis (exploits which involve physical access, are prevented by physical counter-measures, not software).
+OPSEC is what most companies operate in order to ensure the availability and stability of their assets. This includes physical security (making sure that someone's post-it notes don't contain sensitive data), secure communication protocols (so that sensitive data isn't sent over unencrypted SMS), threat analysis (exploits which involve physical access, are prevented by physical counter-measures, not software).
 
 Iroha v2 is likely to be deployed as a financial ledger, meaning that operation security is paramount. As such, this document provides some general advice on operational security measures that we believe to be the bare minimum. Following these guidelines, is a necessary but insufficient condition for total security.
 
-## Recommended OpSEC Measures
+## Recommended OPSEC Measures
 
 - Stay vigilant. The [most likely](https://arxiv.org/pdf/2209.08356.pdf) way in which one can lose their assets in a blockchain is by giving away their sensitive details.
 
