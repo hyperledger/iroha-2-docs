@@ -555,13 +555,13 @@ All Iroha Special Instructions work with triggers, specifically:
 - `Burn<Trigger, u32>`: For triggers that repeat a certain number of times,
   decrease the number of times that the trigger gets executed.
 
-::: tip
+  ::: warning
 
-If the number provided is greater than the remaining number of repetitions,
-the instruction fails to execute, and the transaction that it is part of is
-rejected.
+  If the number provided is greater than the remaining number of repetitions,
+  the instruction will fail to execute, and the transaction that it is part of will be
+  rejected.
 
-:::
+  :::
 
 You can learn more about Iroha Special Instructions in the
 [dedicated section](instructions.md).
