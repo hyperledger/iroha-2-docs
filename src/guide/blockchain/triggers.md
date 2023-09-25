@@ -558,7 +558,7 @@ All Iroha Special Instructions work with triggers, specifically:
   ::: warning
 
   If the number provided is greater than the remaining number of repetitions,
-  the instruction fails to execute, and the transaction that it is part of is
+  the instruction will fail to execute, and the transaction that it is part of will be
   rejected.
 
   :::
