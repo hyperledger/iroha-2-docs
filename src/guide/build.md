@@ -55,7 +55,7 @@ the setup process. Just go with the defaults.
 2. Build the Iroha 2 client using:
 
    ```bash
-   $ cargo build -p iroha_client_cli
+   $ cargo build -p iroha_client_cli --release
    ```
 
    Build artifacts are created in the `./target/debug/` directory.
