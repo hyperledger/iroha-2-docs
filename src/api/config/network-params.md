@@ -1,6 +1,6 @@
 # Network Parameters
 
-[//]: # 'TODO Explain network module'
+TODO Explain network module
 
 ## `network.address`
 

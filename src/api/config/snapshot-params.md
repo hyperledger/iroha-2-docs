@@ -19,7 +19,6 @@ enabled = true
 
 Frequency of making snapshot
 
-
 ```toml
 [snapshot]
 create_every = "1 minute"
@@ -28,9 +27,11 @@ create_every = "1 minute"
 ## `snapshot.dir_path`
 
 - **Type:** String
-- **Default:** `"./storage"` (note: same as [`kura.block_store_path`](kura-params#kura-block-store-path))
+- **Default:** `"./storage"` (note: same as
+  [`kura.block_store_path`](kura-params#kura-block-store-path))
 
-[//]: # (TODO: fix inconsistency: kura.block_store_path and snapshot.dir_path. Maybe, kura.block_store_directory and snapshot.directory?)
+TODO: fix inconsistency: `kura.block_store_path` and `snapshot.dir_path`.
+Maybe, `kura.block_store_directory` and `snapshot.directory`?
 
 Directory where to store snapshots
 

@@ -1,6 +1,6 @@
 # Sumeragi Parameters
 
-[//]: # 'TODO Explain sumeragi module'
+TODO Explain sumeragi module
 
 ## `sumeragi.trusted_peers`
 

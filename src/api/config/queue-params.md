@@ -1,6 +1,6 @@
 # Queue Parameters
 
-[//]: # 'TODO Explain Queue module'
+TODO Explain Queue module
 
 ## `queue.max_transactions_in_queue`
 

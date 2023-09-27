@@ -1,6 +1,6 @@
 # Kura Parameters
 
-[//]: # 'TODO: Explain Kura module'
+TODO: Explain Kura module
 
 ## `kura.init_mode`
 
@@ -18,12 +18,9 @@ with basic checks.
 
 Path to the existing block store folder or path to create new folder.
 
-[//]:
-  #
-  'TODO: will the path be resolved relative to the config file location, or to CWD? the former is more intuitive'
-[//]:
-  #
-  'TODO: Validation of this parameter is kind of delayed. What if error appears very  late after configuration is resolved? It would be useful to throw an error with a snippet pointing to the configuration'
+TODO: will the path be resolved relative to the config file location, or to CWD? the former is more intuitive
+
+TODO: Validation of this parameter is kind of delayed. What if error appears very  late after configuration is resolved? It would be useful to throw an error with a snippet pointing to the configuration
 
 ## `kura.blocks_per_storage_file`
 

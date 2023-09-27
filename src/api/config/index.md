@@ -81,7 +81,7 @@ The output will be something like:
 TODO: sample output
 ```
 
-[//]: # 'TODO: maybe also enable with `IROHA_CONFIG_TRACE=1` env var?'
+TODO: maybe also enable with `IROHA_CONFIG_TRACE=1` env var?
 
 :::
 
@@ -108,9 +108,7 @@ assistance with how it works.
 
 ## Modules Overview
 
-[//]:
-  #
-  'TODO: list each section (sumeragi, torii, kura etc) with links and short explanations of their responsibility.'
+TODO: list each section (sumeragi, torii, kura etc) with links and short explanations of their responsibility.
 
 - **[Base Options](base-params):** _explain_
 - **[Genesis](genesis-params):** _explain_

@@ -1,6 +1,6 @@
 # Torii Parameters
 
-[//]: # 'TODO: Explain Torii module'
+TODO: Explain Torii module
 
 ## `torii.api_address`
 

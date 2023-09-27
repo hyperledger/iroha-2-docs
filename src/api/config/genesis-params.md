@@ -1,8 +1,6 @@
 # Genesis Parameters
 
-[//]:
-  #
-  'TODO Explain the purpose of this block. Maybe explain both keys in a single section?'
+TODO Explain the purpose of this block. Maybe explain both keys in a single section?
 
 ## `genesis.public_key`
 

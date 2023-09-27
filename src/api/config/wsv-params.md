@@ -1,6 +1,6 @@
 # World State View Parameters
 
-[//]: # 'TODO Explain module'
+TODO Explain module
 
 ## `wsv.asset_metadata_limits`
 
@@ -17,22 +17,22 @@ max_entry_byte_size = "2mb"
 
 ## `wsv.asset_definition_metadata_limits`
 
-[//]: # 'TODO'
+TODO
 
 ## `wsv.account_metadata_limits`
 
-[//]: # 'TODO'
+TODO
 
 ## `wsv.domain_metadata_limits`
 
-[//]: # 'TODO'
+TODO
 
 ## `wsv.ident_length_limits`
 
 Limits for the number of characters in identifiers that can be stored in
 the WSV.
 
-[//]: # 'TODO: rename `ident` to something more readable? identifier?'
+TODO: rename `ident` to something more readable? identifier?
 
 ## `wsv.transaction_limits`
 
@@ -62,7 +62,7 @@ fuel_limit = 40_000_000
 
 Maximum amount of linear memory a given smart contract can allocate.
 
-[//]: # 'TODO: transform table to list'
+TODO: transform table to list
 
 |          |                                                        |
 | -------: | :----------------------------------------------------- |

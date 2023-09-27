@@ -5,9 +5,7 @@ multiple configuration parameters.
 
 ## Numeric Types
 
-[//]:
-  #
-  'TODO Explain the limitations of different numeric types, like `u8` and `u64`.'
+TODO Explain the limitations of different numeric types, like `u8` and `u64`.
 
 ## Type - Duration
 
@@ -95,8 +93,7 @@ TODO: haven't found a rust lib for that. There is a Python one
 ([`humanfriendly`](https://humanfriendly.readthedocs.io/en/latest/api.html?highlight=parse_size#humanfriendly.parse_size))
 I used for reference.
 
-TODO:
-[article explains kb, kB, KiB difference](https://web.archive.org/web/20150324153922/https://pacoup.com/2009/05/26/kb-kb-kib-whats-up-with-that/).
+TODO: [article explains kb, kB, KiB difference](https://web.archive.org/web/20150324153922/https://pacoup.com/2009/05/26/kb-kb-kib-whats-up-with-that/).
 Consider it for the format.
 
 ## Type - Private Key
@@ -107,7 +104,7 @@ private_key = { digest = "ed25519", payload = "" }
 
 ## Type - Socket Address
 
-[//]: # 'TODO explain socket addresses'
+TODO explain socket addresses
 
 ```
 <host>:<port>
@@ -127,8 +124,8 @@ address = "localhost:8000"
 
 ## Type - Metadata Limits
 
-[//]: # 'TODO'
+TODO
 
 ### Default Metadata Limits
 
-[//]: # 'TODO Display the value here'
+TODO Display the value here
