@@ -1,6 +1,6 @@
 # Logger Parameters
 
-Explain module
+[//]: # 'TODO Explain module'
 
 ## `logger.level`
 

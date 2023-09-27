@@ -1,6 +1,6 @@
 # Network Parameters
 
-Explain network module
+[//]: # 'TODO Explain network module'
 
 ## `network.address`
 
@@ -9,10 +9,3 @@ Explain network module
 
 address for p2p communication for consensus and block synchronization
 purposes.
-
-::: tip
-
-This address is what other peers should specify in their
-[`sumeragi.trusted_peers`](sumeragi-params#sumeragi-trusted-peers)
-
-:::

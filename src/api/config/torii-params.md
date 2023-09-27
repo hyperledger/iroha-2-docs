@@ -1,6 +1,6 @@
 # Torii Parameters
 
-Explain Torii module
+[//]: # 'TODO: Explain Torii module'
 
 ## `torii.api_address`
 
@@ -24,9 +24,9 @@ address for reporting internal status and metrics for administration.
 
 ::: info
 
-This is different from [Telemetry](telemetry-params) section. This parameter is
-about "passive" telemetry, requested by external actors. That section is
-about "active" outbound telemetry, actively produced by Iroha.
+This is different from [Telemetry](telemetry-params) section. This
+parameter is about "passive" telemetry, requested by external actors. That
+section is about "active" outbound telemetry, actively produced by Iroha.
 
 :::
 
@@ -46,7 +46,6 @@ attacks.
 Maximum number of bytes in raw message. Used to prevent from DOS attacks.
 
 ## `torii.fetch_amount`
-
 
 - **Type:** Number
 - **Default:** $10$

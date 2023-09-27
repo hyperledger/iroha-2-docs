@@ -6,8 +6,10 @@ It is not implemented yet. Early draft document according to the RFC.
 
 :::
 
-When running `iroha` from the command line, Iroha will try to resolve a config file named `iroha.toml` inside `cwd`. Then it tries to read a set of Environment Variables, associated with configuration parameters.
-The most basic `iroha.toml` config file looks like this:
+When running `iroha` from the command line, Iroha will try to resolve a
+config file named `iroha.toml` inside `cwd`. Then it tries to read a set of
+Environment Variables, associated with configuration parameters. The most
+basic `iroha.toml` config file looks like this:
 
 ```toml
 public_key = "ed0120FAFCB2B27444221717F6FCBF900D5BE95273B1B0904B08C736B32A19F16AC1F9"
@@ -21,7 +23,8 @@ address = "localhost:1337"
 api_address = "localhost:8080"
 ```
 
-The path to the configuration file might be overwritten either with `--config` CLI argument, or with `IROHA_CONFIG` environment variable: 
+The path to the configuration file might be overwritten either with
+`--config` CLI argument, or with `IROHA_CONFIG` environment variable:
 
 ::: code-group
 
@@ -35,7 +38,9 @@ $ IROHA_CONFIG=/path/to/config/iroha.toml iroha
 
 :::
 
-Additionally, Iroha reads a set of Environment Variables, associated with configuration parameters. Values from ENV override values from the config file. For example:
+Additionally, Iroha reads a set of Environment Variables, associated with
+configuration parameters. Values from ENV override values from the config
+file. For example:
 
 ::: code-group
 
@@ -76,42 +81,48 @@ The output will be something like:
 TODO: sample output
 ```
 
-TODO: maybe also enable with `IROHA_CONFIG_TRACE=1` env var?
+[//]: # 'TODO: maybe also enable with `IROHA_CONFIG_TRACE=1` env var?'
 
 :::
 
 ## TOML Format
 
-Iroha uses [TOML (Tom's Obvious Minimal Language)](https://toml.io/) format for its configuration. Please refer to its documentation if you need assistance about how it works.
-
+Iroha uses [TOML (Tom's Obvious Minimal Language)](https://toml.io/) format
+for its configuration. Please refer to its documentation if you need
+assistance about how it works.
 
 ## Required Parameters
 
 - [`public_key`](base-params#public-key): _explain the option_
 - [`private_key`](base-params#private-key): _explain the option_
-- [`genesis.public_key`](genesis-params#genesis-public-key): _explain the option_
-- [`genesis.private_key`](genesis-params#genesis-private-key) if the peer is the one who
-  submits the genesis. _explain the option_
+- [`genesis.public_key`](genesis-params#genesis-public-key): _explain the
+  option_
+- [`genesis.private_key`](genesis-params#genesis-private-key) if the peer
+  is the one who submits the genesis. _explain the option_
 - [`network.address`](network-params#network-address): _explain the option_
-- [`sumeragi.trusted_peers`](sumeragi-params#sumeragi-trusted-peers): _explain the option_. It is not _strictly_ required, but you might need to set it in most cases.
-- [`torii.api_address`](torii-params#torii-api-address): _explain the option_
+- [`sumeragi.trusted_peers`](sumeragi-params#sumeragi-trusted-peers):
+  _explain the option_. It is not _strictly_ required, but you might need
+  to set it in most cases.
+- [`torii.api_address`](torii-params#torii-api-address): _explain the
+  option_
 
 ## Modules Overview
 
-TODO: list each section (sumeragi, torii, kura etc) with links and short explanations of their responsibility.
+[//]:
+  #
+  'TODO: list each section (sumeragi, torii, kura etc) with links and short explanations of their responsibility.'
 
-- **[Base Options](base-params):** _explain_ 
-- **[Genesis](genesis-params):** _explain_ 
-- **[Network](network-params):** _explain_ 
-- **[Sumeragi](sumeragi-params):** _explain_ 
-- **[Torii](torii-params):** _explain_ 
-- **[Queue](queue-params):** _explain_ 
-- **[Kura](kura-params):** _explain_ 
-- **[Logger](logger-params):** _explain_ 
-- **[Block Sync](block-sync-params):** _explain_ 
-- **[WSV](wsv-params):** _explain_ 
-- **[Telemetry](telemetry-params):** _explain_ 
-
+- **[Base Options](base-params):** _explain_
+- **[Genesis](genesis-params):** _explain_
+- **[Network](network-params):** _explain_
+- **[Sumeragi](sumeragi-params):** _explain_
+- **[Torii](torii-params):** _explain_
+- **[Queue](queue-params):** _explain_
+- **[Kura](kura-params):** _explain_
+- **[Logger](logger-params):** _explain_
+- **[Block Sync](block-sync-params):** _explain_
+- **[WSV](wsv-params):** _explain_
+- **[Telemetry](telemetry-params):** _explain_
 
 ---
 
@@ -121,4 +132,3 @@ TODO:
   `Unsigned 64-bits integer`?
 - Is `sumeragi.trusted_peers` optional or required?
 - Define more ENVs, and provide samples of how it should be parsed
-

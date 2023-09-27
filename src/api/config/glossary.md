@@ -1,14 +1,17 @@
 # Glossary
 
-This page contains explanations of some types and topics shared across multiple configuration parameters.
+This page contains explanations of some types and topics shared across
+multiple configuration parameters.
 
 ## Numeric Types
 
-Explain the limitations of different numeric types, like `u8` and `u64`.
+[//]:
+  #
+  'TODO Explain the limitations of different numeric types, like `u8` and `u64`.'
 
 ## Type - Duration
 
-Duration might be specified in two ways: 
+Duration might be specified in two ways:
 
 - As a Number, which will be considered an amount in milliseconds
 - As a String, which will be parsed as a human_readable duration string
@@ -27,7 +30,8 @@ value2 = "1hour 12min 5s"
 value3 = "2years 2min 12us"
 ```
 
-The duration string is a concatenation of time spans. Each time span is an integer number and a suffix. Supported suffixes:
+The duration string is a concatenation of time spans. Each time span is an
+integer number and a suffix. Supported suffixes:
 
 - `nsec`, `ns` &mdash; nanoseconds
 - `usec`, `us` &mdash; microseconds
@@ -40,7 +44,9 @@ The duration string is a concatenation of time spans. Each time span is an integ
 - `months`, `month`, `M` &mdash; defined as $30.44$ days
 - `years`, `year`, `y` &mdash; defined as $365.25$ days
 
-TODO: put link to [`humantime` crate](https://docs.rs/humantime/latest/humantime/fn.parse_duration.html)? It is an implementation detail.
+TODO: put link to
+[`humantime` crate](https://docs.rs/humantime/latest/humantime/fn.parse_duration.html)?
+It is an implementation detail.
 
 ## Type - Multi-hash
 
@@ -77,18 +83,21 @@ value5 = "1KiB"
 value412 = "1GB 5MB"
 ```
 
-Iroha can parse sizes in bytes, kilobytes, megabytes, gigabytes, terabytes, and petabytes.
+Iroha can parse sizes in bytes, kilobytes, megabytes, gigabytes, terabytes,
+and petabytes.
 
 The format of suffixes:
 
 - **`{size}iB`:** Binary size
 - **`{size}B`:** Decimal size
 
+TODO: haven't found a rust lib for that. There is a Python one
+([`humanfriendly`](https://humanfriendly.readthedocs.io/en/latest/api.html?highlight=parse_size#humanfriendly.parse_size))
+I used for reference.
 
-TODO: haven't found a rust lib for that. There is a Python one ([`humanfriendly`](https://humanfriendly.readthedocs.io/en/latest/api.html?highlight=parse_size#humanfriendly.parse_size)) I used for reference.
-
-TODO: [article explains kb, kB, KiB difference](https://web.archive.org/web/20150324153922/https://pacoup.com/2009/05/26/kb-kb-kib-whats-up-with-that/). Consider it for the format. 
-
+TODO:
+[article explains kb, kB, KiB difference](https://web.archive.org/web/20150324153922/https://pacoup.com/2009/05/26/kb-kb-kib-whats-up-with-that/).
+Consider it for the format.
 
 ## Type - Private Key
 
@@ -97,6 +106,8 @@ private_key = { digest = "ed25519", payload = "" }
 ```
 
 ## Type - Socket Address
+
+[//]: # 'TODO explain socket addresses'
 
 ```
 <host>:<port>
@@ -116,8 +127,8 @@ address = "localhost:8000"
 
 ## Type - Metadata Limits
 
-Bla bla
+[//]: # 'TODO'
 
 ### Default Metadata Limits
 
-Display the value here
+[//]: # 'TODO Display the value here'

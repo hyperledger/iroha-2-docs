@@ -1,6 +1,6 @@
 # Block Sync Parameters
 
-Explain module
+TODO Explain module
 
 ## `block_sync.block_batch_amount`
 

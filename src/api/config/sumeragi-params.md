@@ -1,10 +1,10 @@
 # Sumeragi Parameters
 
-Explain sumeragi module
+[//]: # 'TODO Explain sumeragi module'
 
 ## `sumeragi.trusted_peers`
 
-::: warning Discussion
+<!--
 
 Hey, is sumeragi.trusted_peers actually required to be set in the config?
 
@@ -20,13 +20,11 @@ right.. actually Iroha v1 relies on that more, such a transaction was defined in
 
 I guess it is, at least for a private chain, excluding a scenario of the only node in a network. Otherwise how would a node understand whom to trust (where to get the public key from)
 
-
-:::
-
+-->
 
 - **Type:** Array of Peer Ids
 
-Optional  list of predefined trusted peers.
+Optional list of predefined trusted peers.
 
 Peer Id:
 
