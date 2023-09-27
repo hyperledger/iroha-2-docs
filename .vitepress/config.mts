@@ -477,7 +477,6 @@ export default defineConfig({
                   text: 'Snapshot',
                   link: '/api/config/snapshot-params',
                 },
-
               ],
             },
 
