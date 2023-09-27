@@ -428,6 +428,7 @@ export default defineConfig({
             {
               text: 'Parameters',
               items: [
+                // TODO: consider re-ordering sections to a more intuitive format?
                 {
                   text: 'Base',
                   link: '/api/config/base-params',
@@ -471,6 +472,10 @@ export default defineConfig({
                 {
                   text: 'Telemetry',
                   link: '/api/config/telemetry-params',
+                },
+                {
+                  text: 'Snapshot',
+                  link: '/api/config/snapshot-params',
                 },
 
               ],

@@ -123,6 +123,7 @@ assistance about how it works.
 - **[Block Sync](block-sync-params):** _explain_
 - **[WSV](wsv-params):** _explain_
 - **[Telemetry](telemetry-params):** _explain_
+- **[Snapshot](./snapshot-params)**
 
 ---
 
