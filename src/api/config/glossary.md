@@ -1,6 +1,6 @@
 # Glossary
 
-This page contains explanations of some types and topics shared across
+This page contains the definitions and brief explanations of some types and topics shared across
 multiple configuration parameters.
 
 ## Numeric Types
@@ -50,7 +50,7 @@ It is an implementation detail.
 
 ## Type - Multi-hash
 
-Describe what the hell is this
+Describe what the hell this is
 
 ## Type - Byte Size
 

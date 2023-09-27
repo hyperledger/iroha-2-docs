@@ -24,8 +24,8 @@ address for reporting internal status and metrics for administration.
 
 ::: info
 
-This is different from [Telemetry](telemetry-params) section. This
-parameter is about "passive" telemetry, requested by external actors. That
+This section differs from the[Telemetry](telemetry-params) section. This
+parameter is regarding "passive" telemetry requested by external actors, while that
 section is about "active" outbound telemetry, actively produced by Iroha.
 
 :::
@@ -35,7 +35,7 @@ section is about "active" outbound telemetry, actively produced by Iroha.
 - **Type:** String or Number, [Byte Size](glossary#type-byte-size)
 - **Default:** $2^{15} = 32\ 768$
 
-Maximum number of bytes in raw transaction. Used to prevent from DOS
+The maximum number of bytes in a raw transaction. Used to prevent DOS
 attacks.
 
 ## `torii.max_content_len`
@@ -43,7 +43,7 @@ attacks.
 - **Type:** String or Number, [Byte Size](glossary#type-byte-size)
 - **Default:** $2^{12} \cdot 4\ 000 = 16\ 384\ 000$
 
-Maximum number of bytes in raw message. Used to prevent from DOS attacks.
+The maximum number of bytes in a raw message. Used to prevent DOS attacks.
 
 ## `torii.fetch_amount`
 
@@ -57,4 +57,4 @@ How many query results are returned in one batch
 - **Type:** String or Number, [Duration](glossary#type-duration)
 - **Default:** 30 seconds
 
-Time query can remain in the store if unaccessed
+The time a query can remain in the store if unaccessed

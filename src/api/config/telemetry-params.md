@@ -4,7 +4,7 @@ Two Telemetries are supported: Substrate-based and File-based.
 
 ## `telemetry.substrate`
 
-Enable Substrate active outbound telemetry.
+Enables Substrate active outbound telemetry.
 
 **Fields:**
 
@@ -33,7 +33,7 @@ url = "ws://127.0.0.1:8001/submit"
 
 ## `telemetry.file_output`
 
-Enable file-based active outbound telemetry.
+Enables file-based active outbound telemetry.
 
 **Fields:**
 

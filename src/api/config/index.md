@@ -23,7 +23,7 @@ address = "localhost:1337"
 api_address = "localhost:8080"
 ```
 
-The path to the configuration file might be overwritten either with
+The path to the configuration file can be overwritten either with
 `--config` CLI argument, or with `IROHA_CONFIG` environment variable:
 
 ::: code-group
@@ -87,9 +87,9 @@ TODO: sample output
 
 ## TOML Format
 
-Iroha uses [TOML (Tom's Obvious Minimal Language)](https://toml.io/) format
+Iroha uses the [TOML (Tom's Obvious Minimal Language)](https://toml.io/) format
 for its configuration. Please refer to its documentation if you need
-assistance about how it works.
+assistance with how it works.
 
 ## Required Parameters
 
