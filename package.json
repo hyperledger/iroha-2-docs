@@ -16,7 +16,6 @@
     "cli": "tsx etc/cli"
   },
   "devDependencies": {
-    "@iroha2/data-model-schema": "^5.0.0",
     "@mdit-vue/shared": "^0.12.1",
     "@mdit/plugin-katex": "^0.4.8",
     "@scale-codec/definition-compiler": "^4.0.1",
