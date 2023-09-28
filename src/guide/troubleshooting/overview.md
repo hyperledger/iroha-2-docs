@@ -17,7 +17,7 @@ If the issue you are experiencing is not described here, contact us via
 
 Most issues arise as a result of unmatched keys. This is why we recommend
 to follow this rule: **If something goes wrong, please check the keys
-first.**
+first**.
 
 Here's a quick explanation: It is not possible to differentiate the error
 messages that arise when peers' keys do not match the keys in the array of
@@ -26,5 +26,4 @@ because it would expose the peers' public key. As such, if you have Helm
 charts or K8s deployed with keys defined via the environment variables, you
 should check for Key definitions.
 
-If in doubt,
-[generate a fresh pair](/guide/configure/keys.md#_1-generate-new-key-pairs).
+If in doubt, [generate a new pair of keys](../security/generating-cryptographic-keys.md).

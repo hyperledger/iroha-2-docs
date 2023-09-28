@@ -18,13 +18,9 @@ $ kagami config client > client-config.json
 
 ## Public and Private Keys
 
-Client configuration files should contain the pair of public (`PUBLIC_KEY`)
-and private (`PRIVATE_KEY`) keys for the user account (`ACCOUNT_ID`).
+The `configs/client_cli/config.json` client configuration file should contain a pair of the user's public `PUBLIC_KEY` and private `PRIVATE_KEY` cryptographic keys for their account's `ACCOUNT_ID`.
 
-Refer to the chapter on public key cryptography for more details:
-
-- [Keys for Deploying a Network](./keys.md#keys-for-deploying-a-network)
-- [Keys on the Client side](./keys.md#keys-on-the-client-side)
+For details on cryptographic keys, see [Public Key Cryptography](../security/public-key-cryptography.md).
 
 ## User account
 

@@ -45,9 +45,9 @@ $ kagami config peer > peer-config.json
 
 ## Public and private keys
 
-When you are configuring a new peer, you have to provide its public and
-private keys: `PUBLIC_KEY` and `PRIVATE_KEY` configuration options. Refer
-to [public key cryptography](keys.md) to learn the details.
+The `configs/peer/config.json` peer configuration file should contain a pair of the user's public `PUBLIC_KEY` and private `PRIVATE_KEY` cryptographic keys for their account's `ACCOUNT_ID`.
+
+For details on cryptographic keys, see [Public Key Cryptography](../security/public-key-cryptography.md).
 
 ## Trusted Peers
 
@@ -131,8 +131,10 @@ You can do this via the configuration file (`ACCOUNT_PUBLIC_KEY`,
 `ACCOUNT_PRIVATE_KEY`) or environment variables
 (`IROHA_GENESIS_ACCOUNT_PUBLIC_KEY`, `IROHA_GENESIS_ACCOUNT_PRIVATE_KEY`).
 
-Read more about [genesis blocks](./genesis.md) and
-[public key cryptography](./keys.md).
+To learn more about genesis blocks and accounts, and cryptographic keys, see the following:
+
+- [Genesis Block](./genesis.md)
+- [Public Key Cryptography](../security/public-key-cryptography.md)
 
 Aside from the public and private keys for the genesis account, which are
 required configuration options, you can also fine-tune other genesis block
