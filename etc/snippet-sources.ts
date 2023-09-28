@@ -120,7 +120,7 @@ export default [
     filename: `data-model-schema.md`,
     transform: (source) => {
       return renderDataModelSchema(JSON.parse(source))
-    }
+    },
   },
   {
     src: './src/example_code/lorem.rs',

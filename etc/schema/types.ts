@@ -2,76 +2,76 @@
 //        https://github.com/hyperledger/iroha-javascript/pull/170
 
 export interface Schema {
-    [type: string]: SchemaTypeDefinition
+  [type: string]: SchemaTypeDefinition
 }
 
 export type SchemaTypeDefinition =
-    | UnitType
-    | DirectAlias
-    | MapDefinition
-    | VecDefinition
-    | OptionDefinition
-    | NamedStructDefinition
-    | EnumDefinition
-    | ArrayDefinition
-    | IntDefinition
-    | FixedPointDefinition
-    | TupleDef
+  | UnitType
+  | DirectAlias
+  | MapDefinition
+  | VecDefinition
+  | OptionDefinition
+  | NamedStructDefinition
+  | EnumDefinition
+  | ArrayDefinition
+  | IntDefinition
+  | FixedPointDefinition
+  | TupleDef
 
 export interface MapDefinition {
-    Map: {
-        key: TypePath
-        value: TypePath
-    }
+  Map: {
+    key: TypePath
+    value: TypePath
+  }
 }
 
 export interface TupleDef {
-    Tuple: TypePath[]
+  Tuple: TypePath[]
 }
 
 export type DirectAlias = TypePath
 
 export interface VecDefinition {
-    Vec: TypePath
+  Vec: TypePath
 }
 
 export interface ArrayDefinition {
-    Array: {
-        len: number
-        type: TypePath
-    }
+  Array: {
+    len: number
+    type: TypePath
+  }
 }
 
 export interface OptionDefinition {
-    Option: TypePath
+  Option: TypePath
 }
 
 export interface NamedStructDefinition {
-    Struct: Array<{
-        name: string
-        type: TypePath
-    }>
+  Struct: Array<{
+    name: string
+    type: TypePath
+  }>
 }
 
 export interface EnumDefinition {
-    Enum: Array<EnumVariantDefinition>
+  Enum: Array<EnumVariantDefinition>
 }
 
 export interface EnumVariantDefinition {
-    tag: string
-    discriminant: number
-    type?: TypePath
+  tag: string
+  discriminant: number
+  type?: TypePath
 }
 
 export interface IntDefinition {
-    Int: string
+  Int: string
 }
 
 export interface FixedPointDefinition {
-    FixedPoint: {
-        base: string
-        decimal_places: number
-    }
+  FixedPoint: {
+    base: string
+    decimal_places: number
+  }
 }
 
 export type TypePath = string
