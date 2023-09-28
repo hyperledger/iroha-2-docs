@@ -243,7 +243,7 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
         },
         {
           text: 'Keys for Network Deployment',
-          link: '/guide/security/keys-for-network-deployment.md',
+          link: '/guide/configure/keys-for-network-deployment.md',
         },
         {
           text: 'Peer Management',
