@@ -42,7 +42,7 @@ As can be seen, even by only expanding the character set from 26 to 96 symbols, 
 
 Additionally increasing the length of the password, will grow the number of possible combinations even further, therefore enhancing the entropy—strength—of the password.
 
-However, instead of wrestling with complexities, we advise using a password manager program—like [KeePassXC](https://keepassxc.org/) (for more details, see _[Adding a Password Manager Program](./storing-cryptographic-keys.md#adding-a-password-manager-program)_ and _[Configuring KeePassXC](./storing-cryptographic-keys.md#configuring-keepasxc)_)—to generate and securely store your passwords.
+However, instead of wrestling with complexities, we advise using a password manager program—like [KeePassXC](https://keepassxc.org/) (for more details, see _[Adding a Password Manager Program](./storing-cryptographic-keys.md#adding-a-password-manager-program)_ and _[Configuring KeePassXC](./storing-cryptographic-keys.md#configuring-keepassxc)_)—to generate and securely store your passwords.
 
 ::: tip Note
 
