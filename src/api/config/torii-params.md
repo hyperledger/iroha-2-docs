@@ -8,7 +8,7 @@ TODO: Explain Torii module
 - **Type:** String, [Socket-Address](glossary#type-socket-address)
 - **Required**
 
-Address for client API.
+Address of the client API.
 
 ```toml
 [torii]
@@ -20,11 +20,11 @@ api_address = "localhost:8080"
 - **Type:** String, [Socket-Address](glossary#type-socket-address)
 - **Optional**
 
-address for reporting internal status and metrics for administration.
+Address for reporting internal status and metrics for administration.
 
 ::: info
 
-This section differs from the[Telemetry](telemetry-params) section. This
+This section differs from the [Telemetry](telemetry-params) section. This
 parameter is regarding "passive" telemetry requested by external actors, while that
 section is about "active" outbound telemetry, actively produced by Iroha.
 
@@ -50,7 +50,7 @@ The maximum number of bytes in a raw message. Used to prevent DOS attacks.
 - **Type:** Number
 - **Default:** $10$
 
-How many query results are returned in one batch
+The number of query results returned in one batch
 
 ## `torii.query_idle_time`
 

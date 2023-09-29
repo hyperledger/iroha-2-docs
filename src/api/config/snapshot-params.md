@@ -17,7 +17,7 @@ enabled = true
 - **Type:** String or Number, [Duration](glossary#type-duration)
 - **Default:** 1 minute
 
-Frequency of making snapshot
+Frequency of making snapshots
 
 ```toml
 [snapshot]
