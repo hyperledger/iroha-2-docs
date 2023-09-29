@@ -1,27 +1,12 @@
 /// <reference types="vite/client" />
 
-import { defineConfig, DefaultTheme } from 'vitepress'
+import { DefaultTheme, defineConfig } from 'vitepress'
 import footnote from 'markdown-it-footnote'
 import { resolve } from 'path'
 import ViteSvgLoader from 'vite-svg-loader'
 import ViteUnoCSS from 'unocss/vite'
 import { mermaid } from './md-mermaid'
 import { katex } from '@mdit/plugin-katex'
-
-function getNav(): DefaultTheme.NavItem[] {
-  return [
-    {
-      text: 'Guide',
-      link: '/',
-      activeMatch: '^/$|^/guide/',
-    },
-    {
-      text: 'API',
-      link: '/api/',
-      activeMatch: '^/api/',
-    },
-  ]
-}
 
 function getGuideSidebar(): DefaultTheme.SidebarItem[] {
   return [
@@ -284,19 +269,6 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
         },
       ],
     },
-    // {
-    //   text: 'API',
-    //   items: [
-    //     {
-    //       text: 'Specification',
-    //       link: '/api/index.md',
-    //     },
-    //     {
-    //       text: 'Foreign Function Interfaces',
-    //       link: '/api/ffi',
-    //     },
-    //   ],
-    // },
     {
       text: 'Documenting Iroha',
       items: [
@@ -492,16 +464,24 @@ export default defineConfig({
         },
         {
           text: 'Data Model Schema',
-          link: '/api/data-model-schema/',
-          items: ['stable', 'lts', 'dev'].map((channel) => ({
-            link: `/api/data-model-schema/${channel}`,
-            text: `iroha2-${channel}`,
-          })),
+          link: '/api/data-model-schema',
         },
       ],
       '/': getGuideSidebar(),
     },
-    nav: getNav(),
+
+    nav: [
+      {
+        text: 'Guide',
+        link: '/',
+        activeMatch: '^/$|^/guide/',
+      },
+      {
+        text: 'API',
+        link: '/api/',
+        activeMatch: '^/api/',
+      },
+    ],
 
     search: {
       provider: 'local',

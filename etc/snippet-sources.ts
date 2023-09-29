@@ -1,6 +1,7 @@
 import type { SnippetSourceDefinition } from './types'
 import { rewriteMdLinks } from './util'
-import { IROHA_JAVA_REV_DEV, IROHA_REV_STABLE, IROHA_JS_REV, IROHA_REV_DEV, IROHA_REV_LTS } from './meta'
+import { IROHA_JAVA_REV_DEV, IROHA_JS_REV, IROHA_REV_DEV } from './meta'
+import { render as renderDataModelSchema } from './schema'
 
 // *****
 
@@ -102,8 +103,8 @@ const javascriptSnippets = [
 
 export default [
   {
-    src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_STABLE}/MAINTAINERS.md`,
-    filename: 'iroha-maintainers-at-stable.md',
+    src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/MAINTAINERS.md`,
+    filename: 'iroha-maintainers.md',
   },
   {
     src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/docs/source/references/api_spec.md`,
@@ -114,20 +115,18 @@ export default [
         // remove the title header (`# ...`)
         .then((x) => x.replace(/# .+\n/m, '')),
   },
-  ...(['dev', 'lts', 'stable'] as const).map<SnippetSourceDefinition>((channel) => {
-    const revision = ({ dev: IROHA_REV_DEV, lts: IROHA_REV_LTS, stable: IROHA_REV_STABLE } as const)[channel]
-
-    return {
-      src: `https://raw.githubusercontent.com/hyperledger/iroha/${revision}/docs/source/references/schema.json`,
-      filename: `data-model-schema.${channel}.json`,
-    }
-  }),
+  {
+    src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/docs/source/references/schema.json`,
+    filename: `data-model-schema.md`,
+    transform: (source) => {
+      return renderDataModelSchema(JSON.parse(source))
+    },
+  },
   {
     src: './src/example_code/lorem.rs',
   },
-
   {
-    src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/configs/client_cli/config.json`,
+    src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/configs/client/config.json`,
     filename: 'client-cli-config.json',
   },
   {

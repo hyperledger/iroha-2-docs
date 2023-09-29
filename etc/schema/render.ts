@@ -1,13 +1,7 @@
-// FIXME fix the package, then update imports and dependencies
-//       https://github.com/hyperledger/iroha-javascript/issues/155
-import type { RustTypeDefinitionVariant } from '@iroha2/data-model-schema/src/transform/types'
+import { Schema, SchemaTypeDefinition as Segment } from './types'
 import { match, P } from 'ts-pattern'
 // https://github.com/vuejs/vitepress/blob/b16340acbd3c60fee023daadb0ec5a0292060a1e/src/node/markdown/markdown.ts#L13
 import { slugify } from '@mdit-vue/shared'
-
-export type Segment = Exclude<RustTypeDefinitionVariant, { TupleStruct: unknown }>
-
-export type Schema = Record<string, Segment>
 
 function segmentHeading(content: string) {
   return `## ${code(content)}`
@@ -84,7 +78,7 @@ function renderSegment(segment: Segment, segmentName: string): string {
   const heading = segmentHeading(segmentName)
 
   const body = match<Segment, string>(segment)
-    .with({ Struct: P.select() }, ({ declarations }) =>
+    .with({ Struct: P.select() }, (declarations) =>
       joinDouble(
         segmentType('Struct'),
         segmentPropNameOnly('Declarations'),
@@ -93,42 +87,46 @@ function renderSegment(segment: Segment, segmentName: string): string {
             { title: 'Field name', align: 'right' },
             { title: 'Field value', align: 'left' },
           ],
-          declarations.map((x) => [code(x.name), tyMdLink(x.ty)]),
+          declarations.map((x) => [code(x.name), tyMdLink(x.type)]),
           { indent: '  ' },
         ),
       ),
     )
-    .with({ Enum: P.select() }, ({ variants }) =>
+    .with({ Enum: P.select() }, (variants) =>
       joinDouble(
         segmentType('Enum'),
         segmentPropNameOnly('Variants'),
         table(
           [{ title: 'Variant name', align: 'right' }, { title: 'Variant value', align: 'left' }, 'Discriminant'],
-          variants.map((x) => [code(x.name), x.ty ? tyMdLink(x.ty) : `&mdash;`, String(x.discriminant)]),
+          variants.map((x) => [code(x.tag), x.type ? tyMdLink(x.type) : `&mdash;`, String(x.discriminant)]),
           { indent: '  ' },
         ),
       ),
     )
-    .with({ Tuple: P.select() }, ({ types }) =>
-      joinDouble(segmentType('Tuple'), segmentProp('Values', `(` + types.map((ty) => tyMdLink(ty)).join(', ') + `)`)),
+    .with({ Tuple: P.select() }, (types) =>
+      joinDouble(
+        // .
+        segmentType('Tuple'),
+        segmentProp('Values', `(` + types.map((ty) => tyMdLink(ty)).join(', ') + `)`),
+      ),
     )
-    .with({ Map: P.select() }, ({ key, value, sorted_by_key }) =>
+    .with({ Map: P.select() }, ({ key, value }) =>
       joinDouble(
         ...[
           segmentType('Map'),
           segmentProp('Key', tyMdLink(key)),
           segmentProp('Value', tyMdLink(value)),
-          sorted_by_key && segmentProp('Sorted by key', 'Yes'),
+          // sorted_by_key && segmentProp('Sorted by key', 'Yes'),
         ].filter(predicateNotFalse),
       ),
     )
-    .with({ Vec: P.select() }, ({ ty, sorted }) =>
+    .with({ Vec: P.select() }, (ty) =>
       joinDouble(
         ...[
           //
           segmentType('Vec'),
           segmentProp('Value', tyMdLink(ty)),
-          sorted && segmentProp('Sorted', 'Yes'),
+          // sorted && segmentProp('Sorted', 'Yes'),
         ].filter(predicateNotFalse),
       ),
     )
@@ -140,11 +138,29 @@ function renderSegment(segment: Segment, segmentName: string): string {
         segmentProp('Decimal places', String(decimal_places)),
       ),
     )
-    .with({ Array: P.select() }, ({ ty, len }) =>
-      joinDouble(segmentType('Array'), segmentProp('Length', String(len)), segmentProp('Value', tyMdLink(ty))),
+    .with({ Array: P.select() }, ({ type, len }) =>
+      joinDouble(
+        // .
+        segmentType('Array'),
+        segmentProp('Length', String(len)),
+        segmentProp('Value', tyMdLink(type)),
+      ),
     )
-    .with({ Option: P.select() }, (ty) => joinDouble(segmentType('Option'), segmentProp('Some', tyMdLink(ty))))
-    .with(P.string, (alias) => joinDouble(segmentType('Alias'), segmentProp('To', tyMdLink(alias))))
+    .with({ Option: P.select() }, (ty) =>
+      joinDouble(
+        // .
+        segmentType('Option'),
+        segmentProp('Some', tyMdLink(ty)),
+      ),
+    )
+    .with(P.string, (alias) =>
+      joinDouble(
+        // .
+        segmentType('Alias'),
+        segmentProp('To', tyMdLink(alias)),
+      ),
+    )
+    .with(null, () => segmentType('Zero-Size Type (unit type, null type)'))
     .exhaustive()
 
   return joinDouble(heading, body)
@@ -153,7 +169,7 @@ function renderSegment(segment: Segment, segmentName: string): string {
 /**
  * Returns Markdown
  */
-export function renderSchema(schema: Schema): string {
+export function render(schema: Schema): string {
   const entries = Object.entries(schema)
   return joinDouble(...entries.map(([name, segment]) => renderSegment(segment, name)))
 }

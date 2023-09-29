@@ -1,7 +1,7 @@
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import { SNIPPET_SRC_DIR } from './const'
-import SOURCES from './snippet_sources'
+import SOURCES from './snippet-sources'
 import { SnippetSourceDefinition } from './types'
 import { concurrentTasks, detectSaveCollisions, isAccessible, parseDefinition, ParsedSnippetDefinition } from './util'
 import { match, P } from 'ts-pattern'
