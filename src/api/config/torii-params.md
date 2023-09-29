@@ -45,12 +45,14 @@ attacks.
 
 The maximum number of bytes in a raw message. Used to prevent DOS attacks.
 
-## `torii.fetch_amount`
+## `torii.results_per_fetch`
 
 - **Type:** Number
 - **Default:** $10$
 
 The number of query results returned in one batch
+
+TODO: I don't really get what it is related to. Server-side cursor?
 
 ## `torii.query_idle_time`
 

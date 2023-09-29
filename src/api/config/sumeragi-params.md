@@ -23,18 +23,20 @@ I guess it is, at least for a private chain, excluding a scenario of the only no
 -->
 
 - **Type:** Array of Peer Ids
+- **Optional**
 
 Optional list of predefined trusted peers.
 
-Peer Id:
+Each Peer Id consists of:
 
-- **`address`:** Address of the peer. See:
-  [`network.address`](network-params#network-address).
+- **`address`:** Address of the peer.
   - **Type:** String, [Socket-Address](glossary#type-socket-address)
   - **Required**
 - **`public_key`:** Public key of the peer.
   - **Type:** String, [Multi-hash](glossary#type-multi-hash)
   - **Required**
+
+
 
 ```toml
 peer_id = { address = "localhost:1338", public_key = "ed0120FAFCB2B27444221717F6FCBF900D5BE95273B1B0904B08C736B32A19F16AC1F9" }
@@ -89,7 +91,7 @@ The period of time a peer waits for `CommitMessage` from the proxy tail.
 
 Period in milliseconds for pending transaction gossiping between peers.
 
-## `sumeragi.gossip_batch_amount`
+## `sumeragi.transactions_per_gossip`
 
 - **Type:** Number
 - **Default:** 500

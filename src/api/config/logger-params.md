@@ -10,13 +10,13 @@ Sets the logging sensitivity.
 - **ENV:** `LOG`, `LOG_LEVEL`, `IROHA_LOG_LEVEL`
 - **Type:** String
 - **Possible Values:**
-  - `TRACE`: All events, including low-level operations.
-  - `DEBUG`: Debug-level messages, useful for diagnostics.
-  - `INFO`: General informational messages.
-  - `WARN`: Warnings that indicate potential issues.
-  - `ERROR`: Errors that disrupt normal function but allow continued
+  - **`TRACE`:** All events, including low-level operations.
+  - **`DEBUG`:** Debug-level messages, useful for diagnostics.
+  - **`INFO`:** General informational messages.
+  - **`WARN`:** Warnings that indicate potential issues.
+  - **`ERROR`:** Errors that disrupt normal function but allow continued
     operation.
-  - `FATAL`: Critical errors that lead to immediate termination.
+  - **`FATAL`:** Critical errors that lead to immediate termination.
 - **Default:** `INFO`
 
 Choose the level that best suits your use case. Refer to
@@ -106,7 +106,7 @@ TODO: give an example of compact and full logs. More clue in [tracing Compact do
 ## `logger.terminal_colors`
 
 - **Type:** Boolean
-- **Default:** `true`.
+- **Default:** `true`
 
 Enable ANSI terminal colors for formatted output.
 

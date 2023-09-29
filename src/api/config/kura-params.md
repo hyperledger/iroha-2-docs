@@ -6,9 +6,18 @@ TODO: Explain Kura module
 
 - **Type:** String
 - **Possible Values:**
-  - `strict`: strict validation of all blocks
-  - `fast`: fast initialization with basic checks
+  - **`strict`:** strict validation of all blocks
+  - **`fast`:** fast initialization with basic checks
 - **Default:** `strict`
+
+**Example:**
+
+```toml
+[kura]
+init_mode = "strict"
+```
+
+TODO: can we change this parameter and restart peer? 
 
 ## `kura.block_store_path`
 
@@ -17,13 +26,25 @@ TODO: Explain Kura module
 
 Path to the existing block store folder or path to create new folder.
 
+**Example:**
+
+```toml
+[kura]
+block_store_path = "./storage"
+```
+
 TODO: will the path be resolved relative to the config file location, or to CWD? the former is more intuitive
 
-TODO: Validation of this parameter is kind of delayed. What if error appears very  late after configuration is resolved? It would be useful to throw an error with a snippet pointing to the configuration
-
-## `kura.blocks_per_storage_file`
+## `kura.blocks_per_store_file`
 
 - **Type:** non-zero u64
 - **Default:** $1\ 000$
 
 Maximum number of blocks to write into a single storage file.
+
+**Example:**
+
+```toml
+[kura]
+blocks_per_store_file = 1_000
+```

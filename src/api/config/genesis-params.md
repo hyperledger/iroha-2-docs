@@ -4,7 +4,7 @@ TODO Explain the purpose of this block. Maybe explain both keys in a single sect
 
 ## `genesis.public_key`
 
-- **Type:** [Multi_hash](glossary#type-multi-hash)
+- **Type:** [Multi-hash](glossary#type-multi-hash)
 - **Required**
 
 The public key of the genesis account, should be supplied to all peers.
