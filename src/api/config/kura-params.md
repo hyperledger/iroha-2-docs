@@ -5,11 +5,10 @@ TODO: Explain Kura module
 ## `kura.init_mode`
 
 - **Type:** String
-- **Possible Values:** `strict` or `fast`
+- **Possible Values:**
+  - `strict`: strict validation of all blocks
+  - `fast`: fast initialization with basic checks
 - **Default:** `strict`
-
-`strict` - Strict validation of all blocks. `fast` - Fast initialization
-with basic checks.
 
 ## `kura.block_store_path`
 
@@ -24,7 +23,7 @@ TODO: Validation of this parameter is kind of delayed. What if error appears ver
 
 ## `kura.blocks_per_storage_file`
 
-- **Type:** non zero u64
+- **Type:** non-zero u64
 - **Default:** $1\ 000$
 
 Maximum number of blocks to write into a single storage file.

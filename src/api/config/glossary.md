@@ -1,18 +1,18 @@
 # Glossary
 
-This page contains the definitions and brief explanations of some types and topics shared across
+This page contains the definitions and brief explanations of data types and topics shared across
 multiple configuration parameters.
 
 ## Numeric Types
 
 TODO Explain the limitations of different numeric types, like `u8` and `u64`.
 
-## Type - Duration
+## Type: Duration
 
 Duration might be specified in two ways:
 
 - As a Number, which will be considered an amount in milliseconds
-- As a String, which will be parsed as a human_readable duration string
+- As a String, which will be parsed as a human-readable string
 
 Numeric setting is straightforward:
 
@@ -46,24 +46,24 @@ TODO: put link to
 [`humantime` crate](https://docs.rs/humantime/latest/humantime/fn.parse_duration.html)?
 It is an implementation detail.
 
-## Type - Multi-hash
+## Type: Multi-hash
 
-Describe what the hell this is
+TODO Describe what the hell this is
 
-## Type - Byte Size
+## Type: Byte Size
 
 Byte size values might be set in two ways:
 
 - As a Number, which will be considered an amount in bytes
-- As a String, which will be parsed as a human_readable byte size string
+- As a String, which will be parsed as a human-readable string
 
-Number:
+Byte size as a number:
 
 ```toml
 value = 512 # 512 bytes
 ```
 
-String:
+Byte size as a string:
 
 ```toml
 # 42 bytes
@@ -96,7 +96,7 @@ I used for reference.
 TODO: [article explains kb, kB, KiB difference](https://web.archive.org/web/20150324153922/https://pacoup.com/2009/05/26/kb-kb-kib-whats-up-with-that/).
 Consider it for the format.
 
-## Type - Private Key
+## Type: Private Key
 
 TODO explain private key
 
@@ -104,7 +104,7 @@ TODO explain private key
 private_key = { digest = "ed25519", payload = "" }
 ```
 
-## Type - Socket Address
+## Type: Socket Address
 
 TODO explain socket addresses
 
@@ -124,7 +124,7 @@ In TOML it should be specified as a string:
 address = "localhost:8000"
 ```
 
-## Type - Metadata Limits
+## Type: Metadata Limits
 
 TODO
 

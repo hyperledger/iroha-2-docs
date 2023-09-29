@@ -37,7 +37,7 @@ Enables file-based active outbound telemetry.
 
 **Fields:**
 
-- **`file`:** The filepath that to write dev-telemetry to
+- **`file`:** The filepath to write dev-telemetry to
   - **Type:** String, file path
   - **Required**
 

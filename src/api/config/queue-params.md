@@ -15,7 +15,7 @@ The upper limit of the number of transactions waiting in the queue.
 - **Default:** $2^{16} = 65\ 536$
 
 The upper limit of the number of transactions waiting in the queue for
-single user. Use this option to apply throttling.
+a single user. Use this option to apply throttling.
 
 ## `queue.transaction_time_to_live`
 

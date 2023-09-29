@@ -47,7 +47,7 @@ Enable ANSI terminal colors for formatted output.
 
 ::: warning
 
-This will produce a warning:
+Setting `colorize_output` to `true` will produce a warning:
 
 ```toml
 [logger]
