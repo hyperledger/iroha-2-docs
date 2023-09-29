@@ -10,6 +10,8 @@ TODO Explain module
   or `"FATAL"`
 - **Default:** `"INFO"`
 
+TODO: explain difference in log levels
+
 Maximum log level
 
 ## `logger.compact_mode`

@@ -98,6 +98,8 @@ Consider it for the format.
 
 ## Type - Private Key
 
+TODO explain private key
+
 ```toml
 private_key = { digest = "ed25519", payload = "" }
 ```
