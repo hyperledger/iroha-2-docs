@@ -8,21 +8,6 @@ import ViteUnoCSS from 'unocss/vite'
 import { mermaid } from './md-mermaid'
 import { katex } from '@mdit/plugin-katex'
 
-function getNav(): DefaultTheme.NavItem[] {
-  return [
-    {
-      text: 'Guide',
-      link: '/',
-      activeMatch: '^/$|^/guide/',
-    },
-    {
-      text: 'Schema',
-      link: '/data-model-schema/',
-      activeMatch: '^/data-model-schema/',
-    },
-  ]
-}
-
 function getGuideSidebar(): DefaultTheme.SidebarItem[] {
   return [
     {
@@ -291,6 +276,10 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
           text: 'Foreign Function Interfaces',
           link: '/api/ffi',
         },
+        {
+          text: 'Data Model Schema',
+          link: '/api/data-model-schema',
+        },
       ],
     },
     {
@@ -392,18 +381,8 @@ export default defineConfig({
 
     sidebar: {
       '/guide/': getGuideSidebar(),
-      '/data-model-schema': [
-        {
-          text: 'Channel',
-          items: ['stable', 'lts', 'dev'].map((channel) => ({
-            link: `/data-model-schema/${channel}`,
-            text: `iroha2-${channel}`,
-          })),
-        },
-      ],
       '/': getGuideSidebar(),
     },
-    nav: getNav(),
 
     search: {
       provider: 'local',
