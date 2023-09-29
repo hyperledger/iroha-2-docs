@@ -207,10 +207,6 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
               text: 'Metadata and Store assets',
               link: '/guide/configure/metadata-and-store-assets',
             },
-            {
-              text: '[wip] Reference',
-              link: '/configuration-reference',
-            },
           ],
         },
         {
