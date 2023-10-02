@@ -12,14 +12,14 @@ TODO: link to config reference, "will use torii.api_address as a base address fo
 
 ### Transaction
 
-- **Protocol**: HTTP
-- **Method**: `POST`
-- **Endpoint**: `/transaction`
-- **Expects**:
+- **Protocol:** HTTP
+- **Method:** `POST`
+- **Endpoint:** `/transaction`
+- **Expects:**
   - **Body:** [`VersionedSignedTransaction`](/api/data-model-schema#versionedsignedtransaction) encoded with
     [Parity Scale Codec](#parity-scale-codec)
 
-**Responses**:
+**Responses:**
 
 | Status | Description                                                            |
 | ------ | ---------------------------------------------------------------------- |
@@ -29,10 +29,10 @@ TODO: link to config reference, "will use torii.api_address as a base address fo
 
 ### Query
 
-- **Protocol**: HTTP
-- **Method**: `POST`
-- **Endpoint**: `/query`
-- **Expects**:
+- **Protocol:** HTTP
+- **Method:** `POST`
+- **Endpoint:** `/query`
+- **Expects:**
   - **Body:** [`VersionedSignedQuery`](/api/data-model-schema#versionedsignedquery) encoded with
     [Parity Scale Codec](#parity-scale-codec)
   - **Query parameters:**
@@ -44,7 +44,7 @@ TODO: link to config reference, "will use torii.api_address as a base address fo
     - **`sort_by_metadata_key`:** Optional parameter in queries. Use to sort results containing metadata with a given
       key.
 
-**Responses**:
+**Responses:**
 
 | Response         | Status | Body                                                                                    |
 | ---------------- | ------ |-----------------------------------------------------------------------------------------|
@@ -77,9 +77,9 @@ Whether each prerequisite object was found and [`FindError`](/api/data-model-sch
 
 ### Events
 
-- **Protocol**: HTTP
-- **Protocol Upgrade**: WebSocket
-- **Endpoint**: `/events`
+- **Protocol:** HTTP
+- **Protocol Upgrade:** WebSocket
+- **Endpoint:** `/events`
 
 #### Pipeline
 
@@ -106,9 +106,9 @@ depending on the information found in the block.
 
 ### Blocks Stream
 
-- **Protocol**: HTTP
-- **Protocol Upgrade**:`WebSocket
-- **Endpoint**: `/block/stream`
+- **Protocol:** HTTP
+- **Protocol Upgrade:**`WebSocket
+- **Endpoint:** `/block/stream`
 
 #### Pipeline
 
@@ -130,9 +130,9 @@ TODO: Will change as part of the config RFC
 
 :::
 
-- **Protocol**: HTTP
-- **Method**: `GET`
-- **Endpoint**: `/configuration`
+- **Protocol:** HTTP
+- **Method:** `GET`
+- **Endpoint:** `/configuration`
 
 There are 2 possible request bodies and according responses.
 
@@ -154,7 +154,7 @@ There are 2 possible request bodies and according responses.
   }
   ```
   where "a.b.c" is a path of the field (e.g. `sumeragi.block_time_ms`).
-- **Responses**:
+- **Responses:**
   - `200 OK`: Field was found and either doc or value is returned in json body.
   - `404 Not Found`: Field wasn't found
 
@@ -180,10 +180,10 @@ TODO: Will change as part of the config RFC
 
 :::
 
-- **Protocol**: HTTP
-- **Method**: `POST`
-- **Endpoint**: `/configuration`
-- **Expects**:
+- **Protocol:** HTTP
+- **Method:** `POST`
+- **Endpoint:** `/configuration`
+- **Expects:**
   - **Body:** One configuration option is currently supported: `LogLevel`. It is set to the log-level in uppercase.
     ```json
     {
@@ -191,16 +191,16 @@ TODO: Will change as part of the config RFC
     }
     ```
     Acceptable values are `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`.
-- **Responses**:
+- **Responses:**
   - `200 OK`: Log level has changed successfully. The confirmed new log level is returned in the body.
   - `400 Bad Request`: request body malformed.
   - `500 Internal Server Error`: Request body valid, but changing the log level failed (lock contention).
 
 ### Health
 
-- **Protocol**: HTTP
-- **Method**: `GET`
-- **Endpoint**: `/health`
+- **Protocol:** HTTP
+- **Method:** `GET`
+- **Endpoint:** `/health`
 
 Responses with `200 OK` and a current status of peer as a JSON string:
 
@@ -212,10 +212,10 @@ Responses with `200 OK` and a current status of peer as a JSON string:
 
 TODO: if it is for _internal use only_, remove this endpoint from the docs?
 
-- **Protocol**: HTTP
-- **Encoding**: [Parity Scale Codec](#parity-scale-codec)
-- **Method**: `GET`
-- **Endpoint**: `/pending_transactions`
+- **Protocol:** HTTP
+- **Encoding:** [Parity Scale Codec](#parity-scale-codec)
+- **Method:** `GET`
+- **Endpoint:** `/pending_transactions`
 
 _Internal use only._ Returns the transactions pending at the moment.
 
@@ -225,11 +225,11 @@ TODO: link to config reference, "will be enabled with torii.telemetry_address" p
 
 ### Status
 
-- **Protocol**: HTTP
-- **Method**: `GET`
-- **Endpoint**: `/status`
+- **Protocol:** HTTP
+- **Method:** `GET`
+- **Endpoint:** `/status`
 
-**Responses**:
+**Responses:**
 
 `200 OK` reports status as JSON:
 
@@ -286,11 +286,11 @@ returns the corresponding JSON value, inline, so strings are quoted, numbers are
 
 ### Metrics
 
-- **Protocol**: HTTP
-- **Method**: `GET`
-- **Endpoint**: `/metrics`
+- **Protocol:** HTTP
+- **Method:** `GET`
+- **Endpoint:** `/metrics`
 
-**Responses**:
+**Responses:**
 
 `200 OK` reports 8 of 10 metrics:
 
@@ -345,11 +345,11 @@ Learn [how to use metrics](/guide/advanced/metrics).
 
 ### API Version
 
-- **Protocol**: HTTP
-- **Method**: `GET`
-- **Endpoint**: `/api_version`
+- **Protocol:** HTTP
+- **Method:** `GET`
+- **Endpoint:** `/api_version`
 
-**Responses**:
+**Responses:**
 
 `200 OK`: The current version of API used by Iroha returned as a JSON string. Grabbed from the genesis block's version,
 so at least a minimal subnet of 4 peers should be running and the genesis be submitted at the time of request.
