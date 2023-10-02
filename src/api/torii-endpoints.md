@@ -47,8 +47,8 @@ TODO: link to config reference, "will use torii.api_address as a base address fo
 **Responses**:
 
 | Response         | Status | Body                                                                                    |
-| ---------------- | ------ | --------------------------------------------------------------------------------------- |
-| Success          | 200    | [`VersionedBatchedResponse<Value>`](/api/data-model-schema#versionedbatchedresponse)    |
+| ---------------- | ------ |-----------------------------------------------------------------------------------------|
+| Success          | 200    | [`VersionedBatchedResponse<Value>`](/api/data-model-schema#versionedbatchedresponse-value)   |
 | Conversion Error | 400    | [`QueryExecutionFail::Conversion(String)`](/api/data-model-schema#queryexecutionfail)   |
 | Evaluate Error   | 400    | [`QueryExecutionFail::Evaluate(String)`](/api/data-model-schema#queryexecutionfail)     |
 | Signature Error  | 401    | [`QueryExecutionFail::Signature(String)`](/api/data-model-schema#queryexecutionfail)    |
