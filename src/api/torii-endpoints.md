@@ -36,12 +36,12 @@ TODO: link to config reference, "will use torii.api_address as a base address fo
   - **Body:** [`VersionedSignedQuery`](/api/data-model-schema#versionedsignedquery) encoded with
     [Parity Scale Codec](#parity-scale-codec)
   - **Query parameters:**
-    - **`start`:** Optional parameter in queries where results can be indexed. Use to return results from specified
-      point. Results are ordered where can be by id which uses rust's
+    - **`start`:** An optional parameter in queries where results can be indexed. Use to return results from a specified
+      point. Results are ordered by id, which uses Rust's
       [PartialOrd](https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html#derivable) and
       [Ord](https://doc.rust-lang.org/std/cmp/trait.Ord.html) traits.
-    - **`limit`:** Optional parameter in queries where results can be indexed. Use to return specific number of results.
-    - **`sort_by_metadata_key`:** Optional parameter in queries. Use to sort results containing metadata with a given
+    - **`limit`:** An optional parameter in queries where results can be indexed. Use to return a specific number of results.
+    - **`sort_by_metadata_key`:** An optional parameter in queries. Use to sort results containing metadata with a given
       key.
 
 **Responses:**
@@ -83,8 +83,8 @@ Whether each prerequisite object was found and [`FindError`](/api/data-model-sch
 
 #### Pipeline
 
-After handshake, client should send [`EventSubscriptionRequest`](/api/data-model-schema#eventsubscriptionrequest). Then
-server sends [`EventMessage`](/api/data-model-schema#eventmessage). Messages are encoded with
+After a handshake, the client should send an [`EventSubscriptionRequest`](/api/data-model-schema#eventsubscriptionrequest). Then
+the server sends an [`EventMessage`](/api/data-model-schema#eventmessage). Messages are encoded with
 [Parity Scale Codec](#parity-scale-codec).
 
 #### Notes
@@ -99,7 +99,7 @@ Transaction event statuses can be either `Validating`, `Committed` or `Rejected`
 Transaction statuses proceed from `Validating` to either `Committed` or `Rejected`. However, due to the distributed
 nature of the network, some peers might receive events out of order (e.g. `Committed` before `Validating`).
 
-It's possible that some peers in the network are offline for the validation round. If the client connects to them while
+Some peers in the network may be offline for the validation round. If the client connects to them while
 they are offline, the peers might not respond with the `Validating` status. But when the offline peers come back online
 they will synchronize the blocks. They are then guaranteed to respond with the `Committed` (or `Rejected`) status
 depending on the information found in the block.
@@ -112,14 +112,14 @@ depending on the information found in the block.
 
 #### Pipeline
 
-Client should send [`BlockSubscriptionRequest`](/api/data-model-schema#blocksubscriptionrequest) to initiate
-communication after WebSocket handshake. Then server sends [`BlockMessage`](/api/data-model-schema#blockmessage).
-Messages are encoded with [Parity Scale Codec](#parity-scale-codec).
+The client should send a [`BlockSubscriptionRequest`](/api/data-model-schema#blocksubscriptionrequest) to initiate
+communication after the WebSocket handshake. Then the server sends a [`BlockMessage`](/api/data-model-schema#blockmessage).
+Messages are encoded with the [Parity Scale Codec](#parity-scale-codec).
 
 #### Notes
 
-Via this endpoint client first provides the starting block number (i.e. height) in the subscription request. After
-sending the confirmation message, server starts streaming all the blocks from the given block number up to the current
+Via this endpoint, the client first provides the starting block number (i.e. height) in the subscription request. After
+sending the confirmation message, the server starts streaming all the blocks from the given block number up to the current
 block and continues to stream blocks as they are added to the blockchain.
 
 ### Get Configuration
