@@ -19,7 +19,7 @@ Specifies the mode the Snapshot system functions in.
 - **Type:** String
 - **Possible Values:**
   - **`normal`:** Iroha creates snapshots with a period specified by `snapshot.create_every`. On startup, Iroha reads an existing snapshot (if any) and verifies that it is up-to-date with the blocks storage.
-  - **`read-only`:** Like `normal`, but Iroha doesn't create any snapshots.
+  - **`read-only`:** Similar to `normal` but Iroha doesn't create any snapshots.
   - **`disabled`:** Iroha neither creates new snapshots nor reads an existing one on startup.
 - **Default:** `normal`
 

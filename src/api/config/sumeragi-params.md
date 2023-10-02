@@ -42,7 +42,7 @@ Each Peer Id consists of:
 peer_id = { address = "localhost:1338", public_key = "ed0120FAFCB2B27444221717F6FCBF900D5BE95273B1B0904B08C736B32A19F16AC1F9" }
 ```
 
-Define an array in two ways
+An array can be defined in two ways. Like this:
 
 ```toml
 [[sumeragi.trusted_peers]]
@@ -58,7 +58,7 @@ address = "localhost:1340"
 public_key = "ed0120FAFCB2B27444221717F6FCBF900D5BE95273B1B0904B08C736B32A19F16AC1F9"
 ```
 
-Or
+Or like this:
 
 ```toml
 [sumeragi]
@@ -75,7 +75,7 @@ trusted_peers = [
 - **Default:** 2 seconds
 
 The period of time a peer waits for the `CreatedBlock` message after
-getting a `TransactionReceipt`
+getting a `TransactionReceipt`.
 
 ## `sumeragi.commit_time_limit`
 
@@ -96,7 +96,7 @@ Period in milliseconds for pending transaction gossiping between peers.
 - **Type:** Number
 - **Default:** 500
 
-max number of transactions in tx gossip batch message. While configuring
+Max number of transactions in a gossip batch message. While configuring
 this, pay attention to `p2p` max message size.
 
 ## `sumeragi.max_transactions_in_block`

@@ -35,7 +35,7 @@ section is about "active" outbound telemetry, actively produced by Iroha.
 - **Type:** String or Number, [Byte Size](glossary#type-byte-size)
 - **Default:** $2^{15} = 32\ 768$
 
-The maximum number of bytes in a raw transaction. Used to prevent DOS
+The maximum number of bytes in a raw transaction. This limit is used to prevent DOS
 attacks.
 
 ## `torii.max_content_len`
@@ -43,7 +43,7 @@ attacks.
 - **Type:** String or Number, [Byte Size](glossary#type-byte-size)
 - **Default:** $2^{12} \cdot 4\ 000 = 16\ 384\ 000$
 
-The maximum number of bytes in a raw message. Used to prevent DOS attacks.
+The maximum number of bytes in a raw message. This limit is used to prevent DOS attacks.
 
 ## `torii.results_per_fetch`
 

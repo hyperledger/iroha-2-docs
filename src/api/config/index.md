@@ -7,8 +7,8 @@ It is not implemented yet. Early draft document according to the RFC.
 :::
 
 When running `iroha` from the command line, Iroha will try to resolve a
-config file named `iroha.toml` inside `cwd`. Then it tries to read a set of
-Environment Variables, associated with configuration parameters. The most
+config file named `iroha.toml` inside the current working directory. Then it tries to read a set of
+Environment Variables associated with configuration parameters. The most
 basic `iroha.toml` config file looks like this:
 
 ```toml

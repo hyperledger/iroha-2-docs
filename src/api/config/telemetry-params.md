@@ -8,7 +8,7 @@ Enables Substrate active outbound telemetry.
 
 **Fields:**
 
-- **`name`:** The node's name to be seen on the telemetry
+- **`name`:** The node's name to be displayed on the telemetry
   - **Type:** String
   - **Required**
 - **`url`:** The url of the telemetry

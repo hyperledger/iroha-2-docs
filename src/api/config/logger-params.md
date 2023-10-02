@@ -21,7 +21,7 @@ Sets the logging sensitivity.
 
 Choose the level that best suits your use case. Refer to
 [Stack Overflow](https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels)
-for additional details.
+for additional details on how to use different log levels.
 
 **Example:**
 
@@ -58,7 +58,7 @@ file = "/usr/logs/iroha.jsonlogs"
 
 ::: tip Relative Paths
 
-Relative path will be resolved relative to the configuration file location:
+You can use relative paths. They will be resolved relative to the configuration file location:
 
 ```toml
 # /home/iroha.toml
