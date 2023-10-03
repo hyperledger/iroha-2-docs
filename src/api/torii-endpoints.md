@@ -81,18 +81,12 @@ Whether each prerequisite object was found and [`FindError`](/api/data-model-sch
 - **Protocol Upgrade:** WebSocket
 - **Endpoint:** `/events`
 
-#### Pipeline
 
 After a handshake, the client should send an [`EventSubscriptionRequest`](/api/data-model-schema#eventsubscriptionrequest). Then
 the server sends an [`EventMessage`](/api/data-model-schema#eventmessage). Messages are encoded with
 [Parity Scale Codec](#parity-scale-codec).
 
-#### Notes
-
-Usually, the client waits for Transaction events.
-
-> TODO: "usually" is cool, but there are other `Event` types. Consider change section name to "Notes about transaction
-> events"? NEED HELP
+#### Transaction Events
 
 Transaction event statuses can be either `Validating`, `Committed` or `Rejected`.
 
@@ -110,13 +104,11 @@ depending on the information found in the block.
 - **Protocol Upgrade:**`WebSocket
 - **Endpoint:** `/block/stream`
 
-#### Pipeline
 
 The client should send a [`BlockSubscriptionRequest`](/api/data-model-schema#blocksubscriptionrequest) to initiate
 communication after the WebSocket handshake. Then the server sends a [`BlockMessage`](/api/data-model-schema#blockmessage).
 Messages are encoded with the [Parity Scale Codec](#parity-scale-codec).
 
-#### Notes
 
 Via this endpoint, the client first provides the starting block number (i.e. height) in the subscription request. After
 sending the confirmation message, the server starts streaming all the blocks from the given block number up to the current
@@ -282,7 +274,7 @@ link this struct to anywhere?).
 #### Sub-routing
 
 To obtain the value of a specific field, one can append the name of the field to the path, e.g. `status/peers`. This
-returns the corresponding JSON value, inline, so strings are quoted, numbers are not and maps are presented as above.
+returns the corresponding JSON value, inline, so strings are quoted, numbers are not quoted, and maps are presented as in example above.
 
 ### Metrics
 
