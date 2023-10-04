@@ -1,7 +1,3 @@
----
-outline: [2, 3]
----
-
 # Torii Endpoints
 
 TODO: write some intro, maybe outline the contents.
