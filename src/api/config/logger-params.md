@@ -1,7 +1,6 @@
 # Logger Parameters
 
-This page explains the parameters related to logging operations of Iroha 2,
-as managed by the Logger module.
+This page explains the parameters related to logging operations of Iroha 2, as managed by the Logger module.
 
 ## `logger.level`
 
@@ -14,14 +13,13 @@ Sets the logging sensitivity.
   - **`DEBUG`:** Debug-level messages, useful for diagnostics.
   - **`INFO`:** General informational messages.
   - **`WARN`:** Warnings that indicate potential issues.
-  - **`ERROR`:** Errors that disrupt normal function but allow continued
-    operation.
+  - **`ERROR`:** Errors that disrupt normal function but allow continued operation.
   - **`FATAL`:** Critical errors that lead to immediate termination.
 - **Default:** `INFO`
 
 Choose the level that best suits your use case. Refer to
-[Stack Overflow](https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels)
-for additional details on how to use different log levels.
+[Stack Overflow](https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels) for additional
+details on how to use different log levels.
 
 **Example:**
 
@@ -31,7 +29,6 @@ for additional details on how to use different log levels.
 [logger]
 level = "INFO"
 ```
-
 
 ```shell [ENV]
 LOG_LEVEL=INFO
@@ -44,17 +41,14 @@ LOG_LEVEL=INFO
 - **Type:** String
 - **Optional**
 
-If provided, logs will be copied to said file in the format readable by
-[bunyan](https://lib.rs/crates/bunyan).
+If provided, logs will be copied to said file in the format readable by [bunyan](https://lib.rs/crates/bunyan).
 
 **Example:**
-
 
 ```toml
 [logger]
 file = "/usr/logs/iroha.jsonlogs"
 ```
-
 
 ::: tip Relative Paths
 
@@ -70,8 +64,7 @@ file = "logs.jsonlogs" # will be `/home/logs.jsonlogs`
 
 ::: tip Standard Streams
 
-[Standard streams](https://en.wikipedia.org/wiki/Standard_streams) might be
-used as a descrination as well:
+[Standard streams](https://en.wikipedia.org/wiki/Standard_streams) might be used as a destination as well:
 
 ```toml
 [logger]
@@ -91,7 +84,6 @@ TODO: which file extension should we use in examples? `.jsonlogs`?
 
 Uses compact logging format.
 
-
 **Example:**
 
 ```toml
@@ -99,9 +91,8 @@ Uses compact logging format.
 compact = true
 ```
 
-TODO: give an example of compact and full logs. More clue in [tracing Compact docs](https://docs.rs/tracing-subscriber/latest/tracing_subscriber/fmt/format/struct.Compact.html#example-output)
-
-
+TODO: give an example of compact and full logs. More clue in
+[tracing Compact docs](https://docs.rs/tracing-subscriber/latest/tracing_subscriber/fmt/format/struct.Compact.html#example-output)
 
 ## `logger.terminal_colors`
 
