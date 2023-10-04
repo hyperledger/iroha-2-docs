@@ -2,61 +2,64 @@
 
 TODO: Explain Torii module
 
-## `torii.api_address`
+## `torii.address`
 
 - **ENV:** `API_ENDPOINT`
 - **Type:** String, [Socket-Address](glossary#type-socket-address)
 - **Required**
 
-Address of the client API.
+Address on which Torii Endpoints will be accessible.
 
 ```toml
 [torii]
 api_address = "localhost:8080"
 ```
 
-## `torii.telemetry_address`
-
-- **Type:** String, [Socket-Address](glossary#type-socket-address)
-- **Optional**
-
-Address for reporting internal status and metrics for administration.
-
-::: info
-
-This section differs from the [Telemetry](telemetry-params) section. This
-parameter is regarding "passive" telemetry requested by external actors, while that
-section is about "active" outbound telemetry, actively produced by Iroha.
-
-:::
-
-## `torii.max_transaction_size`
+## `torii.max_content_length`
 
 - **Type:** String or Number, [Byte Size](glossary#type-byte-size)
-- **Default:** $2^{15} = 32\ 768$
+- **Default:** $16\ 000\text{ KiB}$ ($2^{10} \cdot 16\ 000 = 16\ 384\ 000\text{ bytes}$)
 
-The maximum number of bytes in a raw transaction. This limit is used to prevent DOS
-attacks.
+TODO: consider changing the default value to 16 MiB precisely (which is $2^{20} * 16 = 16\ 777\ 216$)
 
-## `torii.max_content_len`
+The maximum number of bytes in a raw request body accepted by the Transaction Endpoint. This limit is used to prevent
+DOS attacks.
 
-- **Type:** String or Number, [Byte Size](glossary#type-byte-size)
-- **Default:** $2^{12} \cdot 4\ 000 = 16\ 384\ 000$
+**Example:**
 
-The maximum number of bytes in a raw message. This limit is used to prevent DOS attacks.
+```toml
+[torii]
+max_content_length = "16MiB"
+```
 
-## `torii.results_per_fetch`
+## `torii.query_results_per_fetch`
 
 - **Type:** Number
 - **Default:** $10$
 
-The number of query results returned in one batch
+The number of query results returned in one batch.
 
-TODO: I don't really get what it is related to. Server-side cursor?
+TODO: describe its relation to Server-Side Cursor.
+
+**Example:**
+
+```toml
+[torii]
+query_results_per_fetch = 10
+```
 
 ## `torii.query_idle_time`
 
 - **Type:** String or Number, [Duration](glossary#type-duration)
 - **Default:** 30 seconds
 
-The time a query can remain in the store if unaccessed
+The time a query can remain in the store if unaccessed.
+
+TODO: describe its relation to Server-Side Cursor.
+
+**Example:**
+
+```toml
+[torii]
+query_idle_time = "30s"
+```

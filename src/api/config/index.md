@@ -54,8 +54,6 @@ TORII_API_ADDRESS=localhost:8080
 ```toml [Equivalent in TOML]
 public_key = "ed0120FAFCB2B27444221717F6FCBF900D5BE95273B1B0904B08C736B32A19F16AC1F9"
 private_key = { digest = "ed25519", payload = "82886B5A2BB3785F3CA8F8A78F60EA9DB62F939937B1CFA8407316EF07909A8D236808A6D4C12C91CA19E54686C2B8F5F3A786278E3824B4571EF234DEC8683B" }
-
-[network]
 address = "localhost:1337"
 
 [torii]
@@ -95,15 +93,15 @@ assistance with how it works.
 
 - [`public_key`](base-params#public-key): _explain the option_
 - [`private_key`](base-params#private-key): _explain the option_
+- [`address`](base-params#address): _explain the option_
 - [`genesis.public_key`](genesis-params#genesis-public-key): _explain the
   option_
 - [`genesis.private_key`](genesis-params#genesis-private-key) if the peer
   is the one who submits the genesis. _explain the option_
-- [`network.address`](network-params#network-address): _explain the option_
 - [`sumeragi.trusted_peers`](sumeragi-params#sumeragi-trusted-peers):
   _explain the option_. It is not _strictly_ required, but you might need
   to set it in most cases.
-- [`torii.api_address`](torii-params#torii-api-address): _explain the
+- [`torii.address`](torii-params#torii-address): _explain the
   option_
 
 ## Modules Overview
@@ -112,7 +110,6 @@ TODO: list each section (sumeragi, torii, kura etc) with links and short explana
 
 - **[Base Options](base-params):** _explain_
 - **[Genesis](genesis-params):** _explain_
-- **[Network](network-params):** _explain_
 - **[Sumeragi](sumeragi-params):** _explain_
 - **[Torii](torii-params):** _explain_
 - **[Queue](queue-params):** _explain_

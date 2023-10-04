@@ -13,7 +13,7 @@ The amount of blocks that can be sent in a single synchronization message.
 
 ```toml
 [block_sync]
-block_batch_amount = 4
+blocks_per_message = 4
 ```
 
 ## `block_sync.gossip_period`

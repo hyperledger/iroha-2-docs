@@ -406,10 +406,6 @@ export default defineConfig({
                   link: '/api/config/genesis-params',
                 },
                 {
-                  text: 'Network',
-                  link: '/api/config/network-params',
-                },
-                {
                   text: 'Sumeragi',
                   link: '/api/config/sumeragi-params',
                 },
