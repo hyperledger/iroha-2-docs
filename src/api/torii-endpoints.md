@@ -147,14 +147,17 @@ Learn [how to use metrics](/guide/advanced/metrics).
 
 **Responses:**
 
-| Response         | Status | Body                                                                                       |
-| ---------------- | ------ | ------------------------------------------------------------------------------------------ |
-| Success          | 200    | [`VersionedBatchedResponse<Value>`](/api/data-model-schema#versionedbatchedresponse-value) |
-| Conversion Error | 400    | [`QueryExecutionFail::Conversion(String)`](/api/data-model-schema#queryexecutionfail)      |
-| Evaluate Error   | 400    | [`QueryExecutionFail::Evaluate(String)`](/api/data-model-schema#queryexecutionfail)        |
-| Signature Error  | 401    | [`QueryExecutionFail::Signature(String)`](/api/data-model-schema#queryexecutionfail)       |
-| Permission Error | 403    | [`QueryExecutionFail::Permission(String)`](/api/data-model-schema#queryexecutionfail)      |
-| Find Error       | 404    | [`QueryExecutionFail::Find(Box<FindError>)`](/api/data-model-schema#queryexecutionfail)    |
+| Response           | Status | Body                                                                                       |
+| ------------------ | ------ | ------------------------------------------------------------------------------------------ |
+| Success            | 200    | [`VersionedBatchedResponse<Value>`](/api/data-model-schema#versionedbatchedresponse-value) |
+| Conversion Error   | 400    | [`QueryExecutionFail::Conversion(String)`](/api/data-model-schema#queryexecutionfail)      |
+| Evaluate Error     | 400    | [`QueryExecutionFail::Evaluate(String)`](/api/data-model-schema#queryexecutionfail)        |
+| Unauthorized Error | 401    | [`QueryExecutionFail::Unauthorized`](/api/data-model-schema#queryexecutionfail)            |
+| Signature Error    | 401    | [`QueryExecutionFail::Signature(String)`](/api/data-model-schema#queryexecutionfail)       |
+| Permission Error   | 403    | [`QueryExecutionFail::Permission(String)`](/api/data-model-schema#queryexecutionfail)      |
+| Find Error         | 404    | [`QueryExecutionFail::Find(FindError)`](/api/data-model-schema#queryexecutionfail)         |
+
+TODO: ask the team about unauth error vs account not found
 
 ### Account Not Found 404
 
@@ -255,9 +258,10 @@ in example above.
 | 401    | Transaction Rejected (Improperly signed)                               |
 
 [^1]:
-    For more information on Parity SCALE Codec check [Substrate Dev Hub](https://docs.substrate.io/reference/scale-codec/) and
-    codec's [GitHub repository](https://github.com/paritytech/parity-scale-codec). TODO: link to our own article about
-    SCALE (https://github.com/hyperledger/iroha-2-docs/issues/367)
+    For more information on Parity SCALE Codec check
+    [Substrate Dev Hub](https://docs.substrate.io/reference/scale-codec/) and codec's
+    [GitHub repository](https://github.com/paritytech/parity-scale-codec). TODO: link to our own article about SCALE
+    (https://github.com/hyperledger/iroha-2-docs/issues/367)
 
 <!-- TODO: edit these endpoints when the decision is made about them (according to the config rfc)
 
