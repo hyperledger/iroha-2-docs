@@ -426,10 +426,6 @@ export default defineConfig({
                   link: '/api/config/logger-params',
                 },
                 {
-                  text: 'Block Sync',
-                  link: '/api/config/block-sync-params',
-                },
-                {
                   text: 'WSV',
                   link: '/api/config/wsv-params',
                 },

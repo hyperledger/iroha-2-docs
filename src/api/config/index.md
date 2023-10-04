@@ -115,7 +115,6 @@ TODO: list each section (sumeragi, torii, kura etc) with links and short explana
 - **[Queue](queue-params):** _explain_
 - **[Kura](kura-params):** _explain_
 - **[Logger](logger-params):** _explain_
-- **[Block Sync](block-sync-params):** _explain_
 - **[WSV](wsv-params):** _explain_
 - **[Telemetry](telemetry-params):** _explain_
 - **[Snapshot](./snapshot-params)**

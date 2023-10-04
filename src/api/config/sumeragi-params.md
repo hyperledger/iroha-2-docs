@@ -2,6 +2,127 @@
 
 TODO Explain sumeragi module
 
+## `sumeragi.block_time`
+
+- **Type:** String or Number, [Duration](glossary#type-duration)
+- **Default:** 2 seconds
+
+Time since the round start[^1] by which a new block should be created regardless if there were enough transactions or
+not. Used to force block commits when there is a small influx of new transactions.
+
+A block might be created earlier if there is enough transactions in the [Queue](queue-params). The limit of transactions
+is configured by [`sumeragi.transactions_in_block`](#sumeragi-transactions-in-block).
+
+**Example:**
+
+```toml
+[sumeragi]
+block_time = "2s"
+```
+
+## `sumeragi.block_gossip_period`
+
+- **Type:** String or Number, [Duration](glossary#type-duration)
+- **Default:** 10 seconds
+
+The time interval between requests to peers for the most recent block.
+
+**Example:**
+
+```toml
+[sumeragi]
+block_gossip_period = "5s"
+```
+
+::: warning
+
+More frequent gossiping shortens the time to sync, but can overload the network.
+
+:::
+
+## `sumeragi.commit_time`
+
+- **Type:** String or Number, [Duration](glossary#type-duration)
+- **Default:** 4 seconds
+
+Time by which a newly created block should be committed. Prevents malicious nodes from stalling the network by not
+participating in consensus.
+
+The block creation is configured with [`sumeragi.block_time`](#sumeragi-block-time) and
+[`sumeragi.transactions_in_block`](#sumeragi-transactions-in-block).
+
+**Example:**
+
+```toml
+[sumeragi]
+commit_time = "4s"
+```
+
+## `sumeragi.max_blocks_per_gossip`
+
+- **Type:** Number
+- **Default:** $4$
+
+The amount of blocks that can be sent in a single synchronization message.
+
+**Example:**
+
+```toml
+[sumeragi]
+max_blocks_per_gossip = 4
+```
+
+## `sumeragi.max_transactions_per_gossip`
+
+- **Type:** Number
+- **Default:** $500$
+
+Max number of transactions in a gossip batch message. Smaller size leads to longer time to synchronise, but useful if
+you have high packet loss.
+
+**Example:**
+
+```toml
+[sumeragi]
+max_transactions_per_gossip = 500
+```
+
+## `sumeragi.transaction_gossip_period`
+
+- **Type:** String or Number, [Duration](glossary#type-duration)
+- **Default:** 1 second
+
+Period for pending transaction gossiping between peers.
+
+**Example:**
+
+```toml
+[sumeragi]
+transaction_gossip_period = "1s"
+```
+
+::: warning
+
+More frequent gossiping shortens the time to sync, but can overload the network.
+
+:::
+
+## `sumeragi.transactions_in_block`
+
+- **Type:** u32
+- **Default:** $2^9 = 512$
+
+The upper limit of the number of transactions per block. If there is enough transactions in the [Queue](queue-params),
+the block is created immediately. Otherwise, the block is created when [`sumeragi.block_time`](#sumeragi-block-time) is
+elapsed since the round start[^1].
+
+**Example:**
+
+```toml
+[sumeragi]
+transactions_in_block = 512
+```
+
 ## `sumeragi.trusted_peers`
 
 <!--
@@ -65,86 +186,6 @@ trusted_peers = [
   { address = "localhost:1339", public_key = "ed0120236808A6D4C12C91CA19E54686C2B8F5F3A786278E3824B4571EF234DEC8683B" },
   { address = "localhost:1340", public_key = "ed0120FAFCB2B27444221717F6FCBF900D5BE95273B1B0904B08C736B32A19F16AC1F9" },
 ]
-```
-
-## `sumeragi.block_time`
-
-- **Type:** String or Number, [Duration](glossary#type-duration)
-- **Default:** 2 seconds
-
-Time since the round start[^1] by which a new block should be created regardless if there were enough transactions or
-not. Used to force block commits when there is a small influx of new transactions.
-
-A block might be created earlier if there is enough transactions in the [Queue](queue-params). The limit of transactions
-is configured by [`sumeragi.max_transactions_in_block`](#sumeragi-max-transactions-in-block).
-
-**Example:**
-
-```toml
-[sumeragi]
-block_time = "2s"
-```
-
-## `sumeragi.commit_time`
-
-- **Type:** String or Number, [Duration](glossary#type-duration)
-- **Default:** 4 seconds
-
-Time by which a newly created block should be committed. Prevents malicious nodes from stalling the network by not
-participating in consensus.
-
-The block creation is configured with [`sumeragi.block_time`](#sumeragi-block-time) and
-[`sumeragi.max_transactions_in_block`](#sumeragi-max-transactions-in-block).
-
-**Example:**
-
-```toml
-[sumeragi]
-commit_time = "4s"
-```
-
-## `sumeragi.gossip_period`
-
-- **Type:** String or Number, [Duration](glossary#type-duration)
-- **Default:** 1 second
-
-Period in milliseconds for pending transaction gossiping between peers. More frequent gossiping shortens the time to
-sync, but can overload the network.
-
-```toml
-[sumeragi]
-gossip_period = "1s"
-```
-
-## `sumeragi.max_transactions_per_gossip`
-
-- **Type:** Number
-- **Default:** $500$
-
-Max number of transactions in a gossip batch message. Smaller size leads to longer time to synchronise, but useful if
-you have high packet loss.
-
-**Example:**
-
-```toml
-[sumeragi]
-max_transactions_per_gossip = 500
-```
-
-## `sumeragi.max_transactions_in_block`
-
-- **Type:** u32
-- **Default:** $2^9 = 512$
-
-The upper limit of the number of transactions per block. If there is enough transactions in the [Queue](queue-params),
-the block is created immediately. Otherwise, the block is created when [`sumeragi.block_time`](#sumeragi-block-time) is
-elapsed since the round start[^1].
-
-**Example:**
-
-```toml
-[sumeragi]
-max_transactions_in_block = 512
 ```
 
 [^1]:
