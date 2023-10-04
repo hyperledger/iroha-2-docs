@@ -143,17 +143,14 @@ Learn [how to use metrics](/guide/advanced/metrics).
 
 **Responses:**
 
-| Response           | Status | Body                                                                                       |
-| ------------------ | ------ | ------------------------------------------------------------------------------------------ |
-| Success            | 200    | [`VersionedBatchedResponse<Value>`](/api/data-model-schema#versionedbatchedresponse-value) |
-| Conversion Error   | 400    | [`QueryExecutionFail::Conversion(String)`](/api/data-model-schema#queryexecutionfail)      |
-| Evaluate Error     | 400    | [`QueryExecutionFail::Evaluate(String)`](/api/data-model-schema#queryexecutionfail)        |
-| Unauthorized Error | 401    | [`QueryExecutionFail::Unauthorized`](/api/data-model-schema#queryexecutionfail)            |
-| Signature Error    | 401    | [`QueryExecutionFail::Signature(String)`](/api/data-model-schema#queryexecutionfail)       |
-| Permission Error   | 403    | [`QueryExecutionFail::Permission(String)`](/api/data-model-schema#queryexecutionfail)      |
-| Find Error         | 404    | [`QueryExecutionFail::Find(FindError)`](/api/data-model-schema#queryexecutionfail)         |
-
-TODO: ask the team about unauth error vs account not found
+| Response         | Status | Body                                                                                       |
+| ---------------- | ------ | ------------------------------------------------------------------------------------------ |
+| Success          | 200    | [`VersionedBatchedResponse<Value>`](/api/data-model-schema#versionedbatchedresponse-value) |
+| Conversion Error | 400    | [`QueryExecutionFail::Conversion(String)`](/api/data-model-schema#queryexecutionfail)      |
+| Evaluate Error   | 400    | [`QueryExecutionFail::Evaluate(String)`](/api/data-model-schema#queryexecutionfail)        |
+| Signature Error  | 401    | [`QueryExecutionFail::Signature(String)`](/api/data-model-schema#queryexecutionfail)       |
+| Permission Error | 403    | [`QueryExecutionFail::Permission(String)`](/api/data-model-schema#queryexecutionfail)      |
+| Find Error       | 404    | [`QueryExecutionFail::Find(FindError)`](/api/data-model-schema#queryexecutionfail)         |
 
 ### Account Not Found 404
 
