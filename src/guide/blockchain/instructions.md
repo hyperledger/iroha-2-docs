@@ -1,6 +1,6 @@
 # Iroha Special Instructions
 
-When we spoke about [how Iroha operates](/index.md#how-iroha-works), we
+When we spoke about [how Iroha operates](/guide/introduction.md#how-iroha-works), we
 said that Iroha Special Instructions are the only way to modify the world
 state. So, what kind of special instructions do we have? If you've read the
 language-specific guides in this tutorial, you've already seen a couple of
@@ -242,11 +242,11 @@ process of registering objects in a blockchain:
 
 | Language              | Guide                                                                                                                                                                                                  |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Bash                  | Register a [domain](/guide/bash.md#_3-registering-a-domain), an [account](/guide/bash.md#_4-registering-an-account), an [asset](/guide/bash.md#_5-registering-and-minting-assets)                      |
-| Rust                  | Register a [domain](/guide/rust.md#_3-registering-a-domain), an [account](/guide/rust.md#_4-registering-an-account), an [asset](/guide/rust.md#_5-registering-and-minting-assets)                      |
-| Kotlin/Java           | Register a [domain](/guide/kotlin-java.md#_3-querying-and-registering-domains), an [account](/guide/kotlin-java.md#_4-registering-an-account), an [asset](/guide/kotlin-java.md#_5-registering-and-minting-assets) |
-| Python                | Register a [domain](/guide/python.md#_3-registering-a-domain), an [account](/guide/python.md#_4-registering-an-account), an [asset](/guide/python.md#_5-registering-and-minting-assets)                |
-| JavaScript/TypeScript | Register a [domain](/guide/javascript.md#_3-registering-a-domain), an [account](/guide/javascript.md#_4-registering-an-account), an [asset](/guide/javascript.md#_5-registering-and-minting-assets)    |
+| Bash                  | Register a [domain](/get-started/bash.md#_3-registering-a-domain), an [account](/get-started/bash.md#_4-registering-an-account), an [asset](/get-started/bash.md#_5-registering-and-minting-assets)                      |
+| Rust                  | Register a [domain](/get-started/rust.md#_3-registering-a-domain), an [account](/get-started/rust.md#_4-registering-an-account), an [asset](/get-started/rust.md#_5-registering-and-minting-assets)                      |
+| Kotlin/Java           | Register a [domain](/get-started/kotlin-java.md#_3-querying-and-registering-domains), an [account](/get-started/kotlin-java.md#_4-registering-an-account), an [asset](/get-started/kotlin-java.md#_5-registering-and-minting-assets) |
+| Python                | Register a [domain](/get-started/python.md#_3-registering-a-domain), an [account](/get-started/python.md#_4-registering-an-account), an [asset](/get-started/python.md#_5-registering-and-minting-assets)                |
+| JavaScript/TypeScript | Register a [domain](/get-started/javascript.md#_3-registering-a-domain), an [account](/get-started/javascript.md#_4-registering-an-account), an [asset](/get-started/javascript.md#_5-registering-and-minting-assets)    |
 
 ## Mint/Burn
 
@@ -263,16 +263,16 @@ are assumed to be non-negative as well, so you can never have $-1.0$ of
 Refer to one of the language-specific guides to walk you through the
 process of minting assets in a blockchain:
 
-- [Bash](/guide/bash.md#_5-registering-and-minting-assets)
-- [Rust](/guide/rust.md#_5-registering-and-minting-assets)
-- [Kotlin/Java](/guide/kotlin-java.md#_5-registering-and-minting-assets)
-- [Python](/guide/python.md#_5-registering-and-minting-assets)
-- [JavaScript/TypeScript ](/guide/javascript.md#_5-registering-and-minting-assets)
+- [Bash](/get-started/bash.md#_5-registering-and-minting-assets)
+- [Rust](/get-started/rust.md#_5-registering-and-minting-assets)
+- [Kotlin/Java](/get-started/kotlin-java.md#_5-registering-and-minting-assets)
+- [Python](/get-started/python.md#_5-registering-and-minting-assets)
+- [JavaScript/TypeScript ](/get-started/javascript.md#_5-registering-and-minting-assets)
 
 Here are examples of burning assets:
 
-- [Bash](/guide/bash.md#_7-burning-assets)
-- [Rust](/guide/rust.md#_6-burning-assets)
+- [Bash](/get-started/bash.md#_7-burning-assets)
+- [Rust](/get-started/rust.md#_6-burning-assets)
 
 ## Transfer
 
@@ -282,7 +282,7 @@ can transfer assets between different accounts.
 To do this, an account have to be granted the
 [permission to transfer assets](./permissions.md#cantransferuserassets).
 Refer to an example on how to
-[transfer assets in Bash](/guide/bash.md#_6-transferring-assets).
+[transfer assets in Bash](/get-started/bash.md#_6-transferring-assets).
 
 <!--TODO: add links to transferring assets example in which guide after https://github.com/hyperledger/iroha-2-docs/issues/81 is addressed -->
 
