@@ -15,11 +15,11 @@ You need
 [^1]:
     If you're having issues installing Rust compatible with our code
     (2021 edition), please consult the
-    [troubleshooting](./troubleshooting/installation-issues#troubleshooting-rust-toolchain) section.
+    [troubleshooting](/guide/troubleshooting/installation-issues#troubleshooting-rust-toolchain) section.
 
 Installing the Rust Toolchain is normally a straightforward process, but
 we've added
-[troubleshooting](./troubleshooting/installation-issues#troubleshooting-rust-toolchain)
+[troubleshooting](/guide/troubleshooting/installation-issues#troubleshooting-rust-toolchain)
 details for each stage, in case you experience issues with the installation
 process.
 

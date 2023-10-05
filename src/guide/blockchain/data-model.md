@@ -87,11 +87,11 @@ domain_looking_glass *-- account_rabbit : registered in
 
 | Language              | Guide                                                                                                                                                                                                              |
 | --------------------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Bash                  | Register a [domain](/guide/bash.md#_3-registering-a-domain), an [account](/guide/bash.md#_4-registering-an-account), an [asset](/guide/bash.md#_5-registering-and-minting-assets)                                  |
-| Rust                  | Register a [domain](/guide/rust.md#_3-registering-a-domain), an [account](/guide/rust.md#_4-registering-an-account), an [asset](/guide/rust.md#_5-registering-and-minting-assets)                                  |
-| Kotlin/Java           | Register a [domain](/guide/kotlin-java.md#_3-querying-and-registering-domains), an [account](/guide/kotlin-java.md#_4-registering-an-account), an [asset](/guide/kotlin-java.md#_5-registering-and-minting-assets) |
-| Python                | Register a [domain](/guide/python.md#_3-registering-a-domain), an [account](/guide/python.md#_4-registering-an-account), an [asset](/guide/python.md#_5-registering-and-minting-assets)                            |
-| JavaScript/TypeScript | Register a [domain](/guide/javascript.md#_3-registering-a-domain), an [account](/guide/javascript.md#_4-registering-an-account), an [asset](/guide/javascript.md#_5-registering-and-minting-assets)                |
+| Bash                  | Register a [domain](/get-started/bash.md#_3-registering-a-domain), an [account](/get-started/bash.md#_4-registering-an-account), an [asset](/get-started/bash.md#_5-registering-and-minting-assets)                                  |
+| Rust                  | Register a [domain](/get-started/rust.md#_3-registering-a-domain), an [account](/get-started/rust.md#_4-registering-an-account), an [asset](/get-started/rust.md#_5-registering-and-minting-assets)                                  |
+| Kotlin/Java           | Register a [domain](/get-started/kotlin-java.md#_3-querying-and-registering-domains), an [account](/get-started/kotlin-java.md#_4-registering-an-account), an [asset](/get-started/kotlin-java.md#_5-registering-and-minting-assets) |
+| Python                | Register a [domain](/get-started/python.md#_3-registering-a-domain), an [account](/get-started/python.md#_4-registering-an-account), an [asset](/get-started/python.md#_5-registering-and-minting-assets)                            |
+| JavaScript/TypeScript | Register a [domain](/get-started/javascript.md#_3-registering-a-domain), an [account](/get-started/javascript.md#_4-registering-an-account), an [asset](/get-started/javascript.md#_5-registering-and-minting-assets)                |
 
 :::
 
