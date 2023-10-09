@@ -1,5 +1,4 @@
 import type { SnippetSourceDefinition } from './types'
-import { rewriteMdLinks } from './util'
 import { IROHA_JAVA_REV_DEV, IROHA_JS_REV, IROHA_REV_DEV } from './meta'
 import { render as renderDataModelSchema } from './schema'
 
@@ -105,15 +104,6 @@ export default [
   {
     src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/MAINTAINERS.md`,
     filename: 'iroha-maintainers.md',
-  },
-  {
-    src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/docs/source/references/api_spec.md`,
-    filename: `iroha2_dev_api_spec.md`,
-    transform: (source) =>
-      Promise.resolve(source)
-        .then(rewriteMdLinks(`https://github.com/hyperledger/iroha/tree/${IROHA_REV_DEV}/docs/source/references/`))
-        // remove the title header (`# ...`)
-        .then((x) => x.replace(/# .+\n/m, '')),
   },
   {
     src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/docs/source/references/schema.json`,

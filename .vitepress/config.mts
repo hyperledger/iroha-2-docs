@@ -269,8 +269,8 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
       text: 'API',
       items: [
         {
-          text: 'Specification',
-          link: '/api/index.md',
+          text: 'Torii Endpoints',
+          link: '/api/torii-endpoints.md',
         },
         {
           text: 'Foreign Function Interfaces',
