@@ -1,6 +1,6 @@
 # Torii Endpoints
 
-TODO: write some intro, maybe outline the contents.
+<!-- TODO: write some intro, maybe outline the contents. -->
 
 ## API Version
 
@@ -222,8 +222,8 @@ Whether each prerequisite object was found and [`FindError`](/api/data-model-sch
 
 ::: warning
 
-Almost all fields are 64-bit integers and should be handled with care in JavaScript (todo: explain the issue with
-`serde`). Only the `uptime.nanos` field is a 32-bit integer. See
+Almost all fields are 64-bit integers and should be handled with care in JavaScript. <!--todo: explain the issue with
+`serde`--> Only the `uptime.nanos` field is a 32-bit integer. See
 [`iroha_telemetry::metrics::Status`](https://github.com/hyperledger/iroha/blob/iroha2-dev/telemetry/src/metrics.rs?rgh-link-date=2023-10-02T19%3A29%3A10Z#L27C1-L42C2)
 
 :::
@@ -253,7 +253,7 @@ in example above.
 [^1]:
     For more information on Parity SCALE Codec check
     [Substrate Dev Hub](https://docs.substrate.io/reference/scale-codec/) and codec's
-    [GitHub repository](https://github.com/paritytech/parity-scale-codec). TODO: link to our own article about SCALE
+    [GitHub repository](https://github.com/paritytech/parity-scale-codec). <!--TODO: link to our own article about SCALE-->
     (https://github.com/hyperledger/iroha-2-docs/issues/367)
 
 <!-- TODO: edit these endpoints when the decision is made about them (according to the config rfc)
