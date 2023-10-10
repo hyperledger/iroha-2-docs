@@ -379,7 +379,7 @@ export default defineConfig({
           link: '/api/cli',
         },
         {
-          text: 'API Specification',
+          text: 'Torii Endpoints',
           link: '/api/api',
         },
         {
