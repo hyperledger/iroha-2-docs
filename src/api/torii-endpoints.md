@@ -20,7 +20,7 @@ so at least a minimal subnet of 4 peers should be running and the genesis be sub
 ## Blocks Stream
 
 - **Protocol:** HTTP
-- **Protocol Upgrade:**`WebSocket
+- **Protocol Upgrade:** WebSocket
 - **Endpoint:** `/block/stream`
 
 The client should send a [`BlockSubscriptionRequest`](/api/data-model-schema#blocksubscriptionrequest) to initiate
@@ -152,6 +152,14 @@ Learn [how to use metrics](/guide/advanced/metrics).
 | Permission Error | 403    | [`QueryExecutionFail::Permission(String)`](/api/data-model-schema#queryexecutionfail)      |
 | Find Error       | 404    | [`QueryExecutionFail::Find(FindError)`](/api/data-model-schema#queryexecutionfail)         |
 
+
+::: tip Lazily Evaluated Pagination
+
+TODO: explain how it works. Explain that this behaviour is configured with [`torii.query_results_per_fetch`](/api/config/torii-params#torii-query-results-per-fetch) and [`torii.query_idle_time`](/api/config/torii-params#torii-query-idle-time).
+
+:::
+
+
 ### Account Not Found 404
 
 Whether each prerequisite object was found and [`FindError`](/api/data-model-schema#finderror):
@@ -249,6 +257,12 @@ in example above.
 | 200    | Transaction Accepted (But not guaranteed to have passed consensus yet) |
 | 400    | Transaction Rejected (Malformed)                                       |
 | 401    | Transaction Rejected (Improperly signed)                               |
+
+::: tip
+
+Maximum allowed `Content-Length` for this endpoint is configured with [`torii.max_content_length`](/api/config/torii-params#torii-max-content-length).
+
+:::
 
 [^1]:
     For more information on Parity SCALE Codec check

@@ -1,6 +1,8 @@
 # Sumeragi Parameters
 
-TODO Explain sumeragi module
+TODO Explain sumeragi module. Clarify that it consists of transactions and blocks gossiping, which are two separate
+processes. Explain how periods & gossip sizes might affect network load & speed of sync. Explain the pipeline of
+transactions and blocks, refer to consensus section and maybe some others.
 
 ## `sumeragi.block_time`
 

@@ -339,7 +339,6 @@ export default defineConfig({
   themeConfig: {
     // logo: '/icon.svg',
     siteTitle: 'Iroha 2',
-    outline: 'deep',
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/hyperledger/iroha-2-docs' },
@@ -380,7 +379,7 @@ export default defineConfig({
         },
         {
           text: 'Torii Endpoints',
-          link: '/api/api',
+          link: '/api/torii-endpoints',
         },
         {
           text: 'Foreign Function Interfaces (FFI)',
