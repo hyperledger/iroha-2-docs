@@ -2,7 +2,7 @@
 
 TODO: Explain Torii module
 
-This module contains configuration of [Torii](/guide/glossary#torii) - the API gateway of Iroha. Refer to the [Torii Endpoints reference](/api/torii-endpoints) for information about exact endpoints.  
+This module contains configuration of [Torii](/guide/glossary#torii), the API gateway of Iroha. Refer to the [Torii Endpoints reference](/api/torii-endpoints) for detailed information about endpoints.  
 
 ## `torii.address`
 
@@ -10,7 +10,7 @@ This module contains configuration of [Torii](/guide/glossary#torii) - the API g
 - **Type:** String, [Socket-Address](glossary#type-socket-address)
 - **Required**
 
-Address on which Torii Endpoints will be accessible.
+Address at which Torii Endpoints will be accessible.
 
 ```toml
 [torii]

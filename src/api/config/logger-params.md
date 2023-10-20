@@ -82,7 +82,7 @@ TODO: which file extension should we use in examples? `.jsonlogs`?
 - **Type:** Boolean
 - **Default:** `false`
 
-Uses compact logging format.
+Use compact logging format.
 
 **Example:**
 

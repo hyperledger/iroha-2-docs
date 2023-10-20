@@ -9,8 +9,8 @@ transactions and blocks, refer to consensus section and maybe some others.
 - **Type:** String or Number, [Duration](glossary#type-duration)
 - **Default:** 2 seconds
 
-Time since the round start[^1] by which a new block should be created regardless if there were enough transactions or
-not. Used to force block commits when there is a small influx of new transactions.
+Time since the start of the round[^1] by which a new block should be created regardless if there were enough transactions or
+not. This forces block commits when there is a small influx of new transactions.
 
 A block might be created earlier if there is enough transactions in the [Queue](queue-params). The limit of transactions
 is configured by [`sumeragi.transactions_in_block`](#sumeragi-transactions-in-block).
@@ -38,7 +38,7 @@ block_gossip_period = "5s"
 
 ::: warning
 
-More frequent gossiping shortens the time to sync, but can overload the network.
+More frequent gossiping shortens the time to sync but can overload the network.
 
 :::
 
@@ -65,7 +65,7 @@ commit_time = "4s"
 - **Type:** Number
 - **Default:** $4$
 
-The amount of blocks that can be sent in a single synchronization message.
+The number of blocks that can be sent in a single synchronization message.
 
 **Example:**
 
@@ -79,7 +79,7 @@ max_blocks_per_gossip = 4
 - **Type:** Number
 - **Default:** $500$
 
-Max number of transactions in a gossip batch message. Smaller size leads to longer time to synchronise, but useful if
+Max number of transactions in a gossip batch message. Smaller size leads to longer time to synchronise, but can be useful if
 you have high packet loss.
 
 **Example:**
@@ -105,7 +105,7 @@ transaction_gossip_period = "1s"
 
 ::: warning
 
-More frequent gossiping shortens the time to sync, but can overload the network.
+More frequent gossiping shortens the time to sync but can overload the network.
 
 :::
 
@@ -116,7 +116,7 @@ More frequent gossiping shortens the time to sync, but can overload the network.
 
 The upper limit of the number of transactions per block. If there is enough transactions in the [Queue](queue-params),
 the block is created immediately. Otherwise, the block is created when [`sumeragi.block_time`](#sumeragi-block-time) is
-elapsed since the round start[^1].
+elapsed since the start of the round[^1].
 
 **Example:**
 
@@ -191,5 +191,5 @@ trusted_peers = [
 ```
 
 [^1]:
-    The round start happens on peers rotation, when the leader is elected. Generally it happens after the previous block
+    The start of the round happens when the leader is elected during peer rotation. Generally it happens after the previous block
     is committed. See [Consensus](/guide/blockchain/consensus) (todo: that page doesn't mention "round start" term ).
