@@ -27,7 +27,7 @@ block_time = "2s"
 - **Type:** String or Number, [Duration](glossary#type-duration)
 - **Default:** 10 seconds
 
-The time interval between requests to peers for the most recent block.
+The time interval between sending requests to peers about the most recent block.
 
 **Example:**
 
