@@ -131,7 +131,7 @@ You can do this via the configuration file (`ACCOUNT_PUBLIC_KEY`,
 `ACCOUNT_PRIVATE_KEY`) or environment variables
 (`IROHA_GENESIS_ACCOUNT_PUBLIC_KEY`, `IROHA_GENESIS_ACCOUNT_PRIVATE_KEY`).
 
-To learn more about genesis blocks and accounts, and cryptographic keys, see the following:
+To learn more about genesis block, genesis account, and cryptographic keys, see the following:
 
 - [Genesis Block](./genesis.md)
 - [Public Key Cryptography](../security/public-key-cryptography.md)
