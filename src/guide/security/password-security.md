@@ -44,7 +44,7 @@ Additionally increasing the length of the password, will grow the number of poss
 
 However, instead of wrestling with complexities, we advise using a password manager program—like [KeePassXC](https://keepassxc.org/) (for more details, see _[Adding a Password Manager Program](./storing-cryptographic-keys.md#adding-a-password-manager-program)_ and _[Configuring KeePassXC](./storing-cryptographic-keys.md#configuring-keepassxc)_)—to generate and securely store your passwords.
 
-::: tip Note
+::: tip
 
 Certain websites limit the maximum possible entropy of passwords, i.e., either limit the maximum password length or the set of accepted characters, or both.
 
