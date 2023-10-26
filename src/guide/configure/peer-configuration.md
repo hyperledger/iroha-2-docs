@@ -133,8 +133,8 @@ You can do this via the configuration file (`ACCOUNT_PUBLIC_KEY`,
 
 To learn more about genesis block, genesis account, and cryptographic keys, see the following:
 
-- [Genesis Block](./genesis.md)
-- [Public Key Cryptography](../security/public-key-cryptography.md)
+- [Genesis Block](./genesis)
+- [Public Key Cryptography](../security/public-key-cryptography)
 
 Aside from the public and private keys for the genesis account, which are
 required configuration options, you can also fine-tune other genesis block
