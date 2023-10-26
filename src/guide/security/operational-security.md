@@ -55,7 +55,7 @@ Consider the following measures to enhance your browsing security:
 
 - Avoid enabling `JavaScript` unless necessary.
 
-- Use the browser's built-in confinement mechanism for plugins.
+- Use the browser's built-in confinement mechanism for plugins to restrict the access rights that the installed plugins have.
 
 - Clear cookies before and after important operations. Be mindful not to enable the **Keep Me Signed In** or **Remember me** feature. Keep in mind that some websites have this feature enabled by default.
 
