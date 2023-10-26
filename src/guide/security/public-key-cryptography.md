@@ -28,6 +28,6 @@ One needs to register a user on behalf of another already registered user (just 
 
 This entails generating a new private key, and sending its public key to the network so that said network can verify that it's indeed the trustworthy `mad_hatter@wonderland`, and not some impostor (e.g. `mad_hatter@wünderbar`). In this case, the client application must prompt you, the user, to provide a key pair and verify the authenticity of the transactions:  belonging to `mad_hatter@wonderland` and having a signature derived from the appropriate public key.
 
-For public key cryptography to work effectively, avoid re-using keys when you need to specify a new key. While in principle, there's nothing stopping you from doing that, an attacker will know that the private keys are identical, because they can usually see the public key.
+For public key cryptography to work effectively, avoid re-using keys when you need to specify a new key. While there's nothing stopping you from doing that, the public keys are _public_, which means that if an attacker sees the same public key being used, they will know that the private keys are also identical.
 
 Even though _private_ keys operate on slightly different principles than passwords, most of the advice—*to make them as random as possible, never store them unencrypted, and never share them with anyone under any circumstances*—applies.
