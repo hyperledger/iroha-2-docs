@@ -24,7 +24,7 @@ In this section you can learn about various aspects of securing your Iroha 2 net
 
   - [Generating Cryptographic Keys](./generating-cryptographic-keys.md):
 
-    Instructions on how to generate cryptographic keys, including with `kagami`, a supporting tool shipped alongside Iroha 2.
+    Instructions on how to generate cryptographic keys and use `kagami` (a supporting tool shipped alongside Iroha 2).
 
   - [Storing Cryptographic Keys](./storing-cryptographic-keys.md):
 
