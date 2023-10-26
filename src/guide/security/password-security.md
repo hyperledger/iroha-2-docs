@@ -32,7 +32,7 @@ Following the entropy formula, let us compare the following two examples:
 
   1. A 16-character password with the character set utilizing only lowercase letters of the modern English alphabet (26 characters) yields approximately 43 sextillion ($43*10^21$) possible combinations.
 
-    \[ Entropy=log_2(26^{16})=log_2(43,608,742,899,428,874,059,776)=75.20703... \]
+    $$Entropy=log_2(26^{16})=log_2(43,608,742,899,428,874,059,776)=75.20703...$$
 
   2. A 16-character password with the character set expanded to 96, including uppercase letters and special symbols, inflates the number of possible combinations to a staggering 52 nonillion ($52*10^30$), improving entropy significantly.
 
