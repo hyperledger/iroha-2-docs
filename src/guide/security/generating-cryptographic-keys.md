@@ -83,7 +83,7 @@ Private key (secp256k1): "7687B1433FB6731E6DC635A376B3EB3B5FCD1E02C9775C1642E7FD
 ```bash [--seed]
 
 # Input
-$ cargo run --bin kagami crypto -s 1729
+$ kagami crypto -s 1729
 
 # Exact output
 Public key (multihash): "ed0120B678073CFAE6E247A58B442661C7DA0E13BAC5031CBC6343EF566B8718D47D04"
