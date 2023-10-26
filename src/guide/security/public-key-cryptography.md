@@ -24,7 +24,7 @@ All clients are different, but `iroha_client_cli` is the least secure in this re
 
 :::
 
-One needs to register a user on behalf of another already-registered user (just like you need to already have a pair of scissors to cut off the tag from a new one). Suppose that we want to register a user on behalf of `mad_hatter@wonderland`.
+One needs to register a user on behalf of another already registered user (just like you need to already have a pair of scissors to cut off the tag from a new one). Suppose that we want to register a user on behalf of `mad_hatter@wonderland`.
 
 This entails generating a new private key, and sending its public key to the network so that said network can verify that it's indeed the trustworthy `mad_hatter@wonderland`, and not some impostor (e.g. `mad_hatter@wünderbar`). In this case, the client application must prompt you, the user, to provide a key pair and verify the authenticity of the transactions:  belonging to `mad_hatter@wonderland` and having a signature derived from the appropriate public key.
 
