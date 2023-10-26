@@ -6,7 +6,7 @@ When utilizing Iroha 2—or any other blockchain ledger, for that matter—secur
 
 In this section you can learn about various aspects of securing your Iroha 2 network. To learn more, choose one of the following topics:
 
-- [Security Principles](./security-principles.md):
+- [Security Principles](./security-principles):
 
   The core security principles that individuals and organizations can adopt to protect their data and decrease the chance of a breach and/or leak.
 
