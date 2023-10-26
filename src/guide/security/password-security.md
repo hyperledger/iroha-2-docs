@@ -36,7 +36,7 @@ Following the entropy formula, let us compare the following two examples:
 
   2. A 16-character password with the character set expanded to 96, including uppercase letters and special symbols, inflates the number of possible combinations to a staggering 52 nonillion ($52*10^30$), improving entropy significantly.
 
-    \[ Entropy=log_2(96^{16})=log_2(52,040,292,466,647,269,602,037,015,248,896)=105.35940... \]
+    $$Entropy=log_2(96^{16})=log_2(52,040,292,466,647,269,602,037,015,248,896)=105.35940... $$
 
 As can be seen, even by only expanding the character set from 26 to 96 symbols, the number of possible combinations that a malicious party would need to bruteforce has expanded by $1.1933*10^9$ times.
 
