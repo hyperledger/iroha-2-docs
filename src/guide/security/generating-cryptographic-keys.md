@@ -44,7 +44,7 @@ You can specify a number of different parameters to tailor the generated key pai
 
 - `--seed` (`-s`): Specifies a string that serves as a deterministic starting point for the key pair generation. If a seed string is specified, `kagami` will generate the same key for the same string. If no seed is specified, a random `seed` value is chosen, and each invocation of `kagami crypto` will result in a different key. This parameter accepts a valid string of [Unicode](https://home.unicode.org/) characters. For example, the seed string can contain not only numeric and latin, but also cyrillic, logographic (e.g., Japanese kanji characters) and ideographic (e.g., emojis) characters, as well as any font-related variations of those characters introduced to Unicode over the years.
 
-  ::: tip Note
+  ::: tip
 
   If one chooses to use a `seed` it must be treated as if it were a password: more randomness and longer seed strings make the cryptographic keys more resilient to [dictionary attacks](https://en.wikipedia.org/wiki/Dictionary_attack).
 
