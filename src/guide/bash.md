@@ -251,7 +251,8 @@ There is a number of different ways to generate a cryptographic key pair. For th
 To generate a new key pair with `kagami`, run the following command from your project's `root` directory:
 
 ```bash
-$ cargo run --bin kagami crypto
+$ cargo build --bin kagami --release
+$ ./target/release/kagami crypto
 ```
 
 ::: tip
