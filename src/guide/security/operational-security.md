@@ -15,7 +15,7 @@ Following and adopting the guidelines in this topic is a necessary step towards 
 
 - Stay vigilant. The [most likely](https://arxiv.org/pdf/2209.08356.pdf) way in which one can lose their assets in a blockchain is by giving away their sensitive details.
 
-- Encrypt your disks. Encrypting boot devices allows them to protect your data even if an attacker have gained access of the hardware. Doing it for your portable devices is twice as important.
+- Encrypt your disks. Encrypting boot devices allows them to protect your data even if an attacker have gained access to the hardware. Doing it for your portable devices is twice as important.
 
 - Use trusted software. Software that ships via reproducible binary builds, and that you build from source, is the most trustworthy. Proprietary or open-source software that hasn't been audited is a potential risk that must be taken seriously.
 
