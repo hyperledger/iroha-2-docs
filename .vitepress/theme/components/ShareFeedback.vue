@@ -17,7 +17,7 @@ const props = defineProps<{
 
 const openModal = ref(false)
 
-type FeedbackKind = (typeof KINDS)[number]
+type FeedbackKind = typeof KINDS[number]
 
 const KINDS = ['bug', 'suggestion', 'other'] as const
 const KINDS_LABELS: Record<FeedbackKind, string> = {

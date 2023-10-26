@@ -53,7 +53,7 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
       items: [
         {
           text: 'Overview',
-          link: '/guide/security/'          
+          link: '/guide/security/',
         },
         {
           text: 'Security Principles',
