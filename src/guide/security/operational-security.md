@@ -61,7 +61,7 @@ Consider the following measures to enhance your browsing security:
 
 - Use an ad blocker. These not only block ads but also disable site tracking features. Depending on the browser you use, an ad blocker may not be a built-in feature.
 
-- Be mindful of lookalike characters (e.g., `0`, `θ`, `O`, `О`, `ዐ` and `߀` are six different characters). Practicing to distinguish such characters from regular ones, may save yourself from a phishing attack.
+- Be mindful of lookalike characters (e.g., `0`, `θ`, `O`, `О`, `ዐ` and `߀` are six different characters). Paying attention to details like this may save you from a phishing attack.
 
 - Avoid web UI email clients in favour of desktop clients. Before using it, set up your desktop email client to sign and verify GPG key signatures.
 
