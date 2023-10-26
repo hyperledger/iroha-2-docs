@@ -124,7 +124,7 @@ However, there's a potential drawback to consider. Implementing the [HMAC challe
 
 Luckily, this vulnerability can be mitigated by adopting an alternative approach to utilizing the YubiKey 5C. The idea is to use YubiKey 5C to securely access a KeePassXC database storing your cryptographic and `SSH` keys. This method can even be considered beneficial, since it surpasses the security of most passwords and makes it necessary for the malicious party to be in possession of your hardware key in case the KeePassXC database is leaked.
 
-::: tip Note
+::: info
 
 To read more about _the method above_, see the answer by one of the KeePassXC developers—[Janek Bevendorff](https://github.com/phoerious)—to the following StackExchange question:
 
