@@ -17,7 +17,7 @@ To generate new key pairs for the peers, a wide variety of methods can be used. 
 To generate a new key pair run the following command from the project's `root` directory:
 
 ```bash
-$ cargo run --bin kagami -- crypto --json
+$ cargo run --bin kagami --release -- crypto --json
 ```
 
 ::: tip Note
