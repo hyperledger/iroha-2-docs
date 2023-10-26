@@ -14,7 +14,7 @@ Since `kagami` does not come with a manual page, you can use the `--help` (`-h`)
 
 :::
 
-To generate a new key pair having only just cloned the Iroha repo, run the following command from the project's `root` directory:
+After [installing Iroha](/guide/install.md), run the following command from the project's `root` directory to generate a new key pair:
 
 ```bash
 $ cargo run --bin kagami --release -- crypto
