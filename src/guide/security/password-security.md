@@ -22,7 +22,7 @@ The resulting number is the amount of entropy bits in a password. The higher the
 
 Knowing the entropy value, the amount of attempts required to brute-force a password with said entropy can be derived by using the following formula:
 
-\[ S^L=2^Entropy \]
+$$S^L=2^Entropy$$
 
 There is no universal answer as to how high the entropy of a password should be. For financial organizations, it is advised to keep the entropy of their passwords in the range from `64` to `127` bits (`128` bits or more is generally considered to be an overkill). However, keep in mind that <abbr title="Graphics Processing Unit">GPU</abbr>s keep constantly evolving, and the time required for password cracking keeps decreasing over time.
 
