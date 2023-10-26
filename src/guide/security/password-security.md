@@ -16,7 +16,7 @@ $L$ — Password length; number of symbols in the password.\
 $S$ — Character set; size of the pool of unique possible symbols.\
 $S^L$ — Number of possible combinations.
 
-\[ Entropy=log_2(S^L) \]
+$$Entropy=log_2(S^L)$$
 
 The resulting number is the amount of entropy bits in a password. The higher the number, the harder the password is to crack.
 
