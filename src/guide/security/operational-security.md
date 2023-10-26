@@ -37,14 +37,9 @@ If an application connected to Iroha 2 features a web UI, your browser can eithe
 
 Consider the following measures to enhance your browsing security:
 
-- Avoid using browsers with known bad security models. Specifically, the following:
-  - Chrome — proprietary.
-  - Safari — proprietary, build on the `WebKit` engine that is well known to have fundamental security problems.
-  - Opera — proprietary, has a history of leaking their users' data.
-  - Firefox — known to leak data and pre-install questionable extensions.
-  - Vivaldi — proprietary.
-  - Edge — all of the above.
-  - surf — limited in its features and is extremely outdated.
+- Avoid using browsers that are known for having bad security models and for leaking their users' data.
+  
+  You can look up privacy violations and security issues for any browser. For example, [this article on browser privacy](https://www.unixsheikh.com/articles/choose-your-browser-carefully.html) discusses a variety of browsers and how secure they are. Note that proprietary browsers (such as Chrome, Safari, Opera, Vivaldi, Edge, and others) are generally tremendously harder to audit due to their code being hidden from public, which means that you cannot be sure how secure they are.
 
 - Give preference to browsers with solid history of valuing and protecting their users' privacy and security:
   - [Librewolf](https://librewolf.net/), [Icecat](https://www.gnu.org/software/gnuzilla/), [Firedragon](https://github.com/dr460nf1r3/firedragon-browser), etc. — well established forks of Mozilla Firefox with added security features.
