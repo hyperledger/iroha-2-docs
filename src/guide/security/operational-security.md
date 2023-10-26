@@ -6,7 +6,7 @@ Operational Security (OPSEC) is a systematic approach to security and risk manag
 
 Since Iroha 2 is likely to be deployed as a financial ledger, <abbr title="Operational Security">OPSEC</abbr> measures and practices must be taken seriously. This topic describes strategies and approaches that individuals and organizations using Iroha 2 in their operations should consider as part of their extensive security protocol.
 
-Following and adopting the guidelines in this topic is a necessary step towards achieving total security, however, it is not sufficient on its own. To further improve your security, learn more throughout the rest of the [Security](./nav-security.md) section and specifically the following topics:
+Following and adopting the guidelines in this topic is a necessary step towards achieving total security, however, it is not sufficient on its own. To further improve your security, learn more throughout the rest of the [Security](./index.md) section and specifically the following topics:
 
 - [Security Principles](./security-principles.md)
 - [Password Security](./password-security.md)
