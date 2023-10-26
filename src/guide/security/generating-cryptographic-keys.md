@@ -8,7 +8,7 @@ In the future, alternative methods of generating public keys shall be added.
 
 ## Generating Cryptographic Keys with Kagami {#kagami}
 
-::: tip Note
+::: tip
 
 Since `kagami` does not come with a manual page, you can use the `--help` (`-h`) command to retrieve a brief summary of all the usable `kagami` parameters within the CLI you are using.
 
