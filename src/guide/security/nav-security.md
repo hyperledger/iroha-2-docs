@@ -1,6 +1,6 @@
 # Security
 
-When utilizing Iroha 2—or any other blockchain ledger, for that matter—security is paramount for financial organizations, as it forms the foundation of trust in an industry where sensitive financial data and transactions are routine. A successful security breach performed by a malicious party can lead to devastating consequences for you, therefore establishing preemptive security measures essential to protect the integrity and confidentiality of your sensitive data.
+When utilizing Iroha 2—or any other blockchain ledger, for that matter—security is paramount for financial organizations, as it forms the foundation of trust in an industry where sensitive financial data and transactions are routine. A successful security breach performed by a malicious party can lead to devastating consequences for you, therefore establishing preemptive security measures is essential to protect the integrity and confidentiality of your sensitive data.
 
 ### Navigation
 
