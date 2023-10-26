@@ -26,9 +26,9 @@ You can specify a number of different parameters to tailor the generated key pai
     Can be one of the following:
 
   - `ed25519` — <abbr title ="Elliptic Curve Cryptography">ECC</abbr> algorithm that utilizes the `Ed25519` curve, offering efficient and secure cryptographic operations for digital signatures and key exchange. If no algorithm is specified in a request, then `ed25519` is used by default.
-  > Learn more:\
-  [EdDSA > Ed25519 (Wikipedia)](https://en.wikipedia.org/wiki/EdDSA#Ed25519:~:text=.-,Ed25519,-%5Bedit%5D)\
-  [Ed25519: high-speed high-security signatures](https://ed25519.cr.yp.to/)
+    Learn more:
+    - [EdDSA > Ed25519 (Wikipedia)](https://en.wikipedia.org/wiki/EdDSA#Ed25519:~:text=.-,Ed25519,-%5Bedit%5D)
+    - [Ed25519: high-speed high-security signatures](https://ed25519.cr.yp.to/)
 
   - `secp256k1` — <abbr title ="Elliptic Curve Cryptography">ECC</abbr> algorithm known for its application in blockchain systems like Bitcoin. It provides a robust foundation for secure key generation, digital signatures, and encryption.
   > Learn more:\
