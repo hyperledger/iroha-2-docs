@@ -16,7 +16,7 @@ If the issue you are experiencing is not described here, contact us via
 ## Check the keys
 
 Most issues arise as a result of unmatched keys. This is why we recommend
-to follow this rule: **If something goes wrong, please check the keys
+to follow this rule: **If something goes wrong, check the keys
 first**.
 
 Here's a quick explanation: It is not possible to differentiate the error
