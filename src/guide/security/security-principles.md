@@ -1,6 +1,6 @@
 # Security Principles
 
-To ensure secure interactions with Iroha installations, organizations and individual users need to work together. This topic explains the basic principles behind this cooperation.
+Organisations and individual users need to work together to ensure secure interactions with Iroha installations. This topic explains the basic principles behind this cooperation.
 
 ## General Security Principles
 
