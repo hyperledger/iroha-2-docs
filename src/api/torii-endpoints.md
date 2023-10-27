@@ -208,17 +208,26 @@ struct Uptime {
 }
 ```
 
-::: warning
+
+::: warning JSON Precision Lost
 
 Almost all fields in the `Status` structure are 64-bit integers, and they are encoded in JSON as-is. Since native JSON's
 number type according to the specification effectively is `f64`, the precision might be lost on deserialization, for
 example, in
 [JavaScript's `JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse).
-See related [issue](https://github.com/hyperledger/iroha/issues/3964).
+For more details, see related [issue](https://github.com/hyperledger/iroha/issues/3964).
+
+:::
+
+::: tip Compact Form in SCALE
+
+Fields with type `u64` serialized in the [Compact form](https://docs.substrate.io/reference/scale-codec/#fn-1).
 
 :::
 
 ::: details Sample responses
+
+These samples represent the same data:
 
 ::: code-group
 
@@ -238,7 +247,7 @@ See related [issue](https://github.com/hyperledger/iroha/issues/3964).
 ```
 
 ```[SCALE]
-10 14 7C 0C 14 02 F1 65 DF 08 48
+10 14 7C 0C 14 40 7C D9 37 08 48
 ```
 
 :::
@@ -287,6 +296,7 @@ returns the corresponding JSON value.
     For more information on Parity SCALE Codec check
     [Substrate Dev Hub](https://docs.substrate.io/reference/scale-codec/) and codec's
     [GitHub repository](https://github.com/paritytech/parity-scale-codec).
+
     <!--TODO: link to our own article about SCALE https://github.com/hyperledger/iroha-2-docs/issues/367-->
 
 <!-- TODO: edit these endpoints when the decision is made about them (according to the config rfc)
