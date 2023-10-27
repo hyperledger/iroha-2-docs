@@ -25,7 +25,7 @@ You can specify a number of different parameters to tailor the generated key pai
 - `--algorithm` (`-a`): Specifies the algorithm used for the key pair generation and encryption. If no algorithm is specified, `ed25519` is used by default.
     Can be one of the following:
 
-  - `ed25519` — <abbr title ="Elliptic Curve Cryptography">ECC</abbr> algorithm that utilizes the `Ed25519` curve, offering efficient and secure cryptographic operations for digital signatures and key exchange. If no algorithm is specified in a request, then `ed25519` is used by default.
+  - `ed25519` — <abbr title ="Elliptic Curve Cryptography">ECC</abbr> an algorithm that utilises the `Ed25519` curve, offering efficient and secure cryptographic operations for digital signatures and key exchange. If no algorithm is specified in a request, then `ed25519` is used by default.
     Learn more:
     - [EdDSA > Ed25519 (Wikipedia)](https://en.wikipedia.org/wiki/EdDSA#Ed25519:~:text=.-,Ed25519,-%5Bedit%5D)
     - [Ed25519: high-speed high-security signatures](https://ed25519.cr.yp.to/)
