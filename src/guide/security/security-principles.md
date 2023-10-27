@@ -66,7 +66,7 @@ Organisations and individual users need to work together to ensure secure intera
 
 3. Protect physical infrastructure:
 
-    - Restrict physical entry to servers and infrastructure. Set up access controls that only let the authorized personnel to enter restricted areas.
+    - Restrict physical entry to servers and infrastructure. Set up access controls that only allow authorised personnel to enter restricted areas.
 
     - Ensure that access control measures are regularly reviewed and updated to align with evolving security needs.
 
