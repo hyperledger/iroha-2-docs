@@ -53,7 +53,7 @@ differences between the two versions and upgrade to the newer one.
 
 Before you dive into tutorials and deploy Iroha 2, we suggest you read through the [Security](guide/security/index.md) section to learn about [core security principles](guide/security/security-principles.md) and [operational security measures](guide/security/operational-security.md) that are necessary to ensure the safety and validity of data and assets. This section also covers [cryptographic keys](guide/security/public-key-cryptography.md), [how to generate them](guide/security/generating-cryptographic-keys.md), and [how to store them securely](guide/security/storing-cryptographic-keys.md).
 
-Check the [tutorial](guide/intro.md) part of this documentation where you
+Check the [tutorial](guide/intro.md) where you
 can follow one of the available language-specific guides in
 [Bash](guide/bash.md), [Rust](guide/rust.md),
 [Kotlin](guide/kotlin-java.md), [Javascript](guide/javascript.md), or
