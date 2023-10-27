@@ -28,7 +28,7 @@ Organisations and individual users need to work together to ensure secure intera
 
     - Never reuse passwords.
 
-    - Set up <abbr title="Two-Factor Authentication">2FA</abbr> whenever possible. <abbr title="Two-Factor Authentication">2FA</abbr> improves the overall security by necessitating not only a password but an additional factor such as an <abbr title="One-Time Password">OTP</abbr>, fingerprint, or a third-party app-based authentication (e.g., Google Authenticator).
+    - Set up <abbr title="Two-Factor Authentication">2FA</abbr> whenever possible. <abbr title="Two-Factor Authentication">2FA</abbr> improves the overall security by not only requiring a password, but also an additional factor such as an <abbr title="One-Time Password">OTP</abbr>, fingerprint, or a third-party app-based authentication (e.g., Google Authenticator).
 
     - Avoid using SMS authentication as the second factor. There is no guarantee that malicious software is not monitoring all of your SMS messages. For example, Android applications cannot be limited to only accessing the messages intended specifically for them.
 
