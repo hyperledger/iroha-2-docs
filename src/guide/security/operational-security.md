@@ -25,7 +25,7 @@ Following and adopting the guidelines in this topic is a necessary step towards 
 
 - To prevent unauthorized access, always secure your laptop or personal computer when leaving it unattended. Use strong passwords, lock the screen, and follow best practices for securing your devices.
 
-- Establish a secure [air-gapped](https://en.wikipedia.org/wiki/Air_gap_(networking)) location for your keys. Frist, encrypt they keys, then store them in an _offline-only_ device, ideally with electromagnetic shielding installed. [Hardware keys](./storing-cryptographic-keys.md#using-a-hardware-key) are specifically designed this purpose.
+- Establish a secure [air-gapped](https://en.wikipedia.org/wiki/Air_gap_(networking)) location for your keys. First, encrypt the keys, then store them in an _offline-only_ device, ideally with electromagnetic shielding installed. [Hardware keys](./storing-cryptographic-keys.md#using-a-hardware-key) are specifically designed this purpose.
 
 - Always keep your software updated to their latest version across all devices, including computers and phones. Regular updates help patch vulnerabilities and minimise potential risks associated with outdated software, even before such vulnerabilities are disclosed.
 

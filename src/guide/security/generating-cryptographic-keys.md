@@ -1,6 +1,6 @@
 # Generating Cryptographic Keys
 
-In the realm of blockchain technology, cryptographic keys play a crucial role in upholding the security and authenticity of data transactions. With Iroha 2, you can create these vital keys for safeguarding your digital assets and communications.
+In the realm of blockchain technology, cryptographic keys play a crucial role in upholding the security and authenticity of data transactions. With Iroha 2, you can create these vital keys to safeguard your digital assets and communications.
 
 This section describes how to generate keys using `kagami`, a supporting tool shipped alongside Iroha 2.
 
@@ -30,15 +30,15 @@ You can specify a number of different parameters to tailor the generated key pai
     - [EdDSA > Ed25519 (Wikipedia)](https://en.wikipedia.org/wiki/EdDSA#Ed25519:~:text=.-,Ed25519,-%5Bedit%5D)
     - [Ed25519: high-speed high-security signatures](https://ed25519.cr.yp.to/)
 
-  - `secp256k1` — <abbr title ="Elliptic Curve Cryptography">ECC</abbr> algorithm known for its application in blockchain systems like Bitcoin. It provides a robust foundation for secure key generation, digital signatures, and encryption.
+  - `secp256k1` — <abbr title ="Elliptic Curve Cryptography">ECC</abbr> an algorithm known for its application in blockchain systems like Bitcoin. It provides a robust foundation for secure key generation, digital signatures, and encryption.
   > Learn more:\
   [Secp256k1 (Bitcoin Wiki)](https://en.bitcoin.it/wiki/Secp256k1)
 
-  - `bls_small` — Boneh-Lynn-Shacham algorithm with a _small_ parameter configuration. This variant of the <abbr title ="Boneh-Lynn-Shacham">BLS</abbr> cryptographic scheme is optimized for efficiency in certain resource-constrained environments while maintaining fundamental security properties.
+  - `bls_small` — The Boneh-Lynn-Shacham algorithm with a _small_ parameter configuration. This variant of the <abbr title ="Boneh-Lynn-Shacham">BLS</abbr> cryptographic scheme is optimised for efficiency in certain resource-constrained environments while maintaining fundamental security properties.
   > Learn more:\
   [BLS digital signature (Wikipedia)](https://en.wikipedia.org/wiki/BLS_digital_signature)
 
-  - `bls_normal` — Boneh-Lynn-Shacham algorithm with a _standard_ parameter configuration. This configuration of the <abbr title ="Boneh-Lynn-Shacham">BLS</abbr> cryptographic scheme offers a balanced approach between efficiency and security, making it suitable for a wide range of applications in blockchain and cryptographic protocols.
+  - `bls_normal` — The Boneh-Lynn-Shacham algorithm with a _standard_ parameter configuration. This configuration of the <abbr title ="Boneh-Lynn-Shacham">BLS</abbr> cryptographic scheme offers a balanced approach between efficiency and security, making it suitable for a wide range of applications in blockchain and cryptographic protocols.
   > Learn more:\
   [BLS digital signature (Wikipedia)](https://en.wikipedia.org/wiki/BLS_digital_signature)
 
@@ -46,13 +46,13 @@ You can specify a number of different parameters to tailor the generated key pai
 
   ::: tip
 
-  If one chooses to use a `seed` it must be treated as if it were a password: more randomness and longer seed strings make the cryptographic keys more resilient to [dictionary attacks](https://en.wikipedia.org/wiki/Dictionary_attack).
+  If one chooses to use a `seed`, it must be treated as if it were a password: more randomness and longer seed strings make the cryptographic keys more resilient to [dictionary attacks](https://en.wikipedia.org/wiki/Dictionary_attack).
 
   :::
 
 - `--private-key` (`-p`): Specifies an existing private key as a string in the [`multihash`](https://github.com/multiformats/multihash) format that is used to generate a _public_ key.
 
-- `--json` (`-j`): Specifies that the output must be generated in the JSON format, which is mostly useful for copy-and-pasting into the `config.json`.
+- `--json` (`-j`): Specifies that the output must be generated in the JSON format, which is mostly helpful for copy-and-pasting into the `config.json` file.
 
 - `--compact` (`-c`): Specifies that the output private and public keys are displayed on separate lines and are not labeled.
 
@@ -139,7 +139,7 @@ Private key (bls_normal): "0000000000000000000000000000000035D9120A174E35E966DD9
 
 ### 1. Building `kagami`
 
-The Iroha 2 node binary as well as all supporting tools are supplied in the official docker image. However, such usage is cumbersome, as `kagami` is meant to be used as a standalone external tool, so building it from source may prove useful.
+The Iroha 2 node binary and all supporting tools are supplied in the official docker image. However, using it like this is cumbersome, as `kagami` is meant to be used as a standalone external tool, so building it from a source may be helpful.
 
 To build `kagami`, run the following:
 

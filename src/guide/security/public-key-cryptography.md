@@ -30,4 +30,4 @@ This entails generating a new private key, and sending its public key to the net
 
 For public key cryptography to work effectively, avoid re-using keys when you need to specify a new key. While there's nothing stopping you from doing that, the public keys are _public_, which means that if an attacker sees the same public key being used, they will know that the private keys are also identical.
 
-Even though _private_ keys operate on slightly different principles than passwords, most of the advice—*to make them as random as possible, never store them unencrypted, and never share them with anyone under any circumstances*—applies.
+Even though _private_ keys operate on slightly different principles than passwords, the advice—*to make them as random as possible, never store them unencrypted and never share them with anyone under any circumstances*—applies.

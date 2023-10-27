@@ -18,11 +18,11 @@ For more information on `SSH`, see [the related SSH Academy topic](https://www.s
 
 To streamline the login process and bypass the need for repetitive input, it is possible to pair the `SSH` keys with the **SSH Agent** (`ssh-agent`)—the assistant program that remembers your `SSH` keys and/or password for the duration of a session. This setup permits the `SSH` gateway to effortlessly access the keys whenever it connects to other machines.
 
-The workflow here is as follows: you have your public key stored on a remote system, and you keep your private key secure in your possession. Whenever you want to access a remote system, the `ssh-agent` steps in to communicate your _public_ key to the accessed system. The remote system then sends back a [challenge](https://en.wikipedia.org/wiki/Challenge%E2%80%93response_authentication) that only your _private_ key can properly respond to. Your `ssh-agent` handles this challenge by using your _private_ key and sends the correct response back to the remote system. If the response matches what the system expected, you're granted access.
+The workflow here is as follows: you have your public key stored on a remote system and keep your private key secure. Whenever you want to access a remote system, the `ssh-agent` steps in to communicate your _public_ key to the accessed system. The remote system then sends back a [challenge](https://en.wikipedia.org/wiki/Challenge%E2%80%93response_authentication) that only your _private_ key can properly respond to. Your `ssh-agent` handles this challenge by using your _private_ key and sends the correct response back to the remote system. If the response matches what the system expected, you're granted access.
 
 The beauty of the `ssh-agent` is that it holds onto your private key during your session, so there is no need to keep entering your password or private key passphrase every time you connect to a remote system.
 
-For more information on `ssh-agent`, see [the related SSH Academy topic](https://www.ssh.com/academy/ssh/agent).
+For more information on the `ssh-agent`, see [the related SSH Academy topic](https://www.ssh.com/academy/ssh/agent).
 
 ::: info Note
 
@@ -37,7 +37,7 @@ For a detailed overview of the `SSH` protocol and the `ssh-agent` tool, see the 
 
 It is recommended to enhance the security of your `SSH` keys by protecting them with a password, which acts as an additional obstacle in the way of malicious parties aiming to obtain your sensitive information.
 
-A variety of password managers can be used for the temporary storage of the user passwords and `SSH` keys. For the sake of clarity, [KeePass](https://keepass.info/) is used as an example password manager, specifically its [KeePassXC](https://keepassxc.org/) port running on Linux-based operating systems.
+A variety of password managers can be used to store user passwords and `SSH` keys temporarily. For the sake of clarity, [KeePass](https://keepass.info/) is used as an example password manager, specifically, the [KeePassXC](https://keepassxc.org/) port running on Linux-based operating systems.
 
 For instructions on how to set up KeePassXC see the [Configuring KeePassXC](#configuring-keepassxc) section below.
 
