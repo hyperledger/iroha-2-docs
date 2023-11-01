@@ -177,62 +177,104 @@ Whether each prerequisite object was found and [`FindError`](/api/data-model-sch
 - **Protocol:** HTTP
 - **Method:** `GET`
 - **Endpoint:** `/status`
+- **Expects:** an optional `Accept: application/x-parity-scale` request header to encode response with SCALE[^1].
+  Otherwise, will fall back to `application/json`.
+- **Responses**: with `Content-Type` set either to `application/json` or `application/x-parity-scale`, and an
+  accordingly encoded response body.
 
-**Responses:**
+Response body is of the following `Status` structure:
 
-`200 OK` reports status as JSON:
+```rust
+struct Status {
+    /// Number of connected peers, except for the reporting peer itself
+    peers: u64,
+    /// Number of committed blocks
+    blocks: u64,
+    /// Number of accepted transactions
+    txs_accepted: u64,
+    /// Number of rejected transactions
+    txs_rejected: u64,
+    /// Uptime since genesis block creation
+    uptime: Uptime,
+    /// Number of view changes in the current round
+    view_changes: u64,
+    /// Number of the transactions in the queue
+    queue_size: u64,
+}
 
-::: details Sample response
-
-```json5
-// Note: while this snippet is JSON5 (for better readability),
-//       the actual response is JSON
-{
-  /**
-   * Number of connected peers, except for the reporting peer itself
-   */
-  peers: 3,
-  /**
-   * Number of committed blocks (block height)
-   */
-  blocks: 1,
-  /**
-   * Total number of accepted transactions
-   */
-  txs_accepted: 3,
-  /**
-   * Total number of rejected transactions
-   */
-  txs_rejected: 0,
-  /**
-   * Uptime with nanosecond precision since creation of the genesis block
-   */
-  uptime: {
-    secs: 5,
-    nanos: 937000000,
-  },
-  /**
-   * Number of view changes in the current round
-   */
-  view_changes: 0,
+struct Uptime {
+    secs: u64,
+    nanos: u32
 }
 ```
 
+
+::: warning JSON Precision Lost
+
+Almost all fields in the `Status` structure are 64-bit integers, and they are encoded in JSON as-is. Since native JSON's
+number type according to the specification effectively is `f64`, the precision might be lost on deserialization, for
+example, in
+[JavaScript's `JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse).
+For more details, see related [issue](https://github.com/hyperledger/iroha/issues/3964).
+
 :::
 
-::: warning
+::: tip Compact Form in SCALE
 
-Almost all fields are 64-bit integers and should be handled with care in JavaScript. <!--todo: explain the issue with
-`serde`--> Only the `uptime.nanos` field is a 32-bit integer. See
-[`iroha_telemetry::metrics::Status`](https://github.com/hyperledger/iroha/blob/iroha2-dev/telemetry/src/metrics.rs?rgh-link-date=2023-10-02T19%3A29%3A10Z#L27C1-L42C2)
+Fields with type `u64` serialized in the [Compact form](https://docs.substrate.io/reference/scale-codec/#fn-1).
+
+:::
+
+::: details Sample responses
+
+These samples represent the same data:
+
+::: code-group
+
+```json [JSON]
+{
+  "peers": 4,
+  "blocks": 5,
+  "txs_accepted": 31,
+  "txs_rejected": 3,
+  "uptime": {
+    "secs": 5,
+    "nanos": 937000000
+  },
+  "view_changes": 2,
+  "queue_size": 18
+}
+```
+
+```[SCALE]
+10 14 7C 0C 14 40 7C D9 37 08 48
+```
 
 :::
 
 ### Sub-routing
 
 To obtain the value of a specific field, one can append the name of the field to the path, e.g. `/status/peers`. This
-returns the corresponding JSON value, inline, so strings are quoted, numbers are not quoted, and maps are presented as
-in example above.
+returns the corresponding JSON value.
+
+::: code-group
+
+```json [/status/peers]
+4
+```
+
+```json [/status/uptime]
+{
+  "secs": 5,
+  "nanos": 937000000
+}
+```
+
+```json [/status/uptime/secs]
+5
+```
+
+:::
 
 ## Transaction
 
@@ -253,8 +295,9 @@ in example above.
 [^1]:
     For more information on Parity SCALE Codec check
     [Substrate Dev Hub](https://docs.substrate.io/reference/scale-codec/) and codec's
-    [GitHub repository](https://github.com/paritytech/parity-scale-codec). <!--TODO: link to our own article about SCALE-->
-    (https://github.com/hyperledger/iroha-2-docs/issues/367)
+    [GitHub repository](https://github.com/paritytech/parity-scale-codec).
+
+    <!--TODO: link to our own article about SCALE https://github.com/hyperledger/iroha-2-docs/issues/367-->
 
 <!-- TODO: edit these endpoints when the decision is made about them (according to the config rfc)
 
