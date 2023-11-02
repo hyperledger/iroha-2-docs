@@ -23,9 +23,9 @@ so at least a minimal subnet of 4 peers should be running and the genesis be sub
 - **Protocol Upgrade:**`WebSocket
 - **Endpoint:** `/block/stream`
 
-The client should send a [`BlockSubscriptionRequest`](/api/data-model-schema#blocksubscriptionrequest) to initiate
+The client should send a [`BlockSubscriptionRequest`](/reference/data-model-schema#blocksubscriptionrequest) to initiate
 communication after the WebSocket handshake. Then the server sends a
-[`BlockMessage`](/api/data-model-schema#blockmessage). Messages are SCALE-encoded[^1].
+[`BlockMessage`](/reference/data-model-schema#blockmessage). Messages are SCALE-encoded[^1].
 
 Via this endpoint, the client first provides the starting block number (i.e. height) in the subscription request. After
 sending the confirmation message, the server starts streaming all the blocks from the given block number up to the
@@ -38,8 +38,8 @@ current block and continues to stream blocks as they are added to the blockchain
 - **Endpoint:** `/events`
 
 After a handshake, the client should send an
-[`EventSubscriptionRequest`](/api/data-model-schema#eventsubscriptionrequest). Then the server sends an
-[`EventMessage`](/api/data-model-schema#eventmessage). Messages are SCALE-encoded[^1].
+[`EventSubscriptionRequest`](/reference/data-model-schema#eventsubscriptionrequest). Then the server sends an
+[`EventMessage`](/reference/data-model-schema#eventmessage). Messages are SCALE-encoded[^1].
 
 ### Transaction Events
 
@@ -130,7 +130,7 @@ Learn [how to use metrics](/guide/advanced/metrics).
 - **Method:** `POST`
 - **Endpoint:** `/query`
 - **Expects:**
-  - **Body:** SCALE-encoded[^1] [`VersionedSignedQuery`](/api/data-model-schema#versionedsignedquery)
+  - **Body:** SCALE-encoded[^1] [`VersionedSignedQuery`](/reference/data-model-schema#versionedsignedquery)
   - **Query parameters:**
     - **`start`:** An optional parameter in queries where results can be indexed. Use to return results from a specified
       point. Results are ordered by id, which uses Rust's
@@ -145,32 +145,32 @@ Learn [how to use metrics](/guide/advanced/metrics).
 
 | Response         | Status | Body                                                                                       |
 | ---------------- | ------ | ------------------------------------------------------------------------------------------ |
-| Success          | 200    | [`VersionedBatchedResponse<Value>`](/api/data-model-schema#versionedbatchedresponse-value) |
-| Conversion Error | 400    | [`QueryExecutionFail::Conversion(String)`](/api/data-model-schema#queryexecutionfail)      |
-| Evaluate Error   | 400    | [`QueryExecutionFail::Evaluate(String)`](/api/data-model-schema#queryexecutionfail)        |
-| Signature Error  | 401    | [`QueryExecutionFail::Signature(String)`](/api/data-model-schema#queryexecutionfail)       |
-| Permission Error | 403    | [`QueryExecutionFail::Permission(String)`](/api/data-model-schema#queryexecutionfail)      |
-| Find Error       | 404    | [`QueryExecutionFail::Find(FindError)`](/api/data-model-schema#queryexecutionfail)         |
+| Success          | 200    | [`VersionedBatchedResponse<Value>`](/reference/data-model-schema#versionedbatchedresponse-value) |
+| Conversion Error | 400    | [`QueryExecutionFail::Conversion(String)`](/reference/data-model-schema#queryexecutionfail)      |
+| Evaluate Error   | 400    | [`QueryExecutionFail::Evaluate(String)`](/reference/data-model-schema#queryexecutionfail)        |
+| Signature Error  | 401    | [`QueryExecutionFail::Signature(String)`](/reference/data-model-schema#queryexecutionfail)       |
+| Permission Error | 403    | [`QueryExecutionFail::Permission(String)`](/reference/data-model-schema#queryexecutionfail)      |
+| Find Error       | 404    | [`QueryExecutionFail::Find(FindError)`](/reference/data-model-schema#queryexecutionfail)         |
 
 ### Account Not Found 404
 
-Whether each prerequisite object was found and [`FindError`](/api/data-model-schema#finderror):
+Whether each prerequisite object was found and [`FindError`](/reference/data-model-schema#finderror):
 
-| Domain | Account | [`FindError`](/api/data-model-schema#finderror)                     |
+| Domain | Account | [`FindError`](/reference/data-model-schema#finderror)                     |
 | :----: | :-----: | ------------------------------------------------------------------- |
-|   N    |    -    | [`FindError::Domain(DomainId)`](/api/data-model-schema#finderror)   |
-|   Y    |    N    | [`FindError::Account(AccountId)`](/api/data-model-schema#finderror) |
+|   N    |    -    | [`FindError::Domain(DomainId)`](/reference/data-model-schema#finderror)   |
+|   Y    |    N    | [`FindError::Account(AccountId)`](/reference/data-model-schema#finderror) |
 
 ### Asset Not Found 404
 
-Whether each prerequisite object was found and [`FindError`](/api/data-model-schema#finderror):
+Whether each prerequisite object was found and [`FindError`](/reference/data-model-schema#finderror):
 
-| Domain | Account | Asset Definition | Asset | [`FindError`](/api/data-model-schema#finderror)                                     |
+| Domain | Account | Asset Definition | Asset | [`FindError`](/reference/data-model-schema#finderror)                                     |
 | :----: | :-----: | :--------------: | :---: | ----------------------------------------------------------------------------------- |
-|   N    |    -    |        -         |   -   | [`FindError::Domain(DomainId)`](/api/data-model-schema#finderror)                   |
-|   Y    |    N    |        -         |   -   | [`FindError::Account(AccountId)`](/api/data-model-schema#finderror)                 |
-|   Y    |    -    |        N         |   -   | [`FindError::AssetDefinition(AssetDefinitionId)`](/api/data-model-schema#finderror) |
-|   Y    |    Y    |        Y         |   N   | [`FindError::Asset(AssetId)`](/api/data-model-schema#finderror)                     |
+|   N    |    -    |        -         |   -   | [`FindError::Domain(DomainId)`](/reference/data-model-schema#finderror)                   |
+|   Y    |    N    |        -         |   -   | [`FindError::Account(AccountId)`](/reference/data-model-schema#finderror)                 |
+|   Y    |    -    |        N         |   -   | [`FindError::AssetDefinition(AssetDefinitionId)`](/reference/data-model-schema#finderror) |
+|   Y    |    Y    |        Y         |   N   | [`FindError::Asset(AssetId)`](/reference/data-model-schema#finderror)                     |
 
 ## Status
 
@@ -282,7 +282,7 @@ returns the corresponding JSON value.
 - **Method:** `POST`
 - **Endpoint:** `/transaction`
 - **Expects:**
-  - **Body:** SCALE-encoded[^1] [`VersionedSignedTransaction`](/api/data-model-schema#versionedsignedtransaction)
+  - **Body:** SCALE-encoded[^1] [`VersionedSignedTransaction`](/reference/data-model-schema#versionedsignedtransaction)
 
 **Responses:**
 

@@ -259,7 +259,7 @@ $ ./target/release/kagami crypto
 
 To customize the generated keys, you can specify a number of parameters. For instance, `kagami` can use of one of four available algorithms to generate cryptographic keys.
 
-To learn more about generating cryptographic keys with `kagami`, available algorithms, and other parameters, see [Generating Cryptographic Keys with Kagami](./security/generating-cryptographic-keys.md#kagami)
+To learn more about generating cryptographic keys with `kagami`, available algorithms, and other parameters, see [Generating Cryptographic Keys with Kagami](/guide/security/generating-cryptographic-keys.md#kagami)
 
 :::
 
