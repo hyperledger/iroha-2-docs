@@ -150,20 +150,20 @@ fn register_and_grant_role_for_metadata_access() -> Result<()> {
 You can get the key value of an object metadata using
 [queries](/guide/blockchain/queries.md):
 
-- [`FindAccountKeyValueByIdAndKey`](/guide/blockchain/queries.md#findaccountkeyvaluebyidandkey)
-- [`FindAssetKeyValueByIdAndKey`](/guide/blockchain/queries.md#findassetkeyvaluebyidandkey)
-- [`FindAssetDefinitionKeyValueByIdAndKey`](/guide/blockchain/queries.md#findassetdefinitionkeyvaluebyidandkey)
-- [`FindDomainKeyValueByIdAndKey`](/guide/blockchain/queries.md#finddomainkeyvaluebyidandkey)
-- [`FindTriggerKeyValueByIdAndKey`](/guide/blockchain/queries.md#findtriggerkeyvaluebyidandkey)
+- [`FindAccountKeyValueByIdAndKey`](/reference/queries.md#findaccountkeyvaluebyidandkey)
+- [`FindAssetKeyValueByIdAndKey`](/reference/queries.md#findassetkeyvaluebyidandkey)
+- [`FindAssetDefinitionKeyValueByIdAndKey`](/reference/queries.md#findassetdefinitionkeyvaluebyidandkey)
+- [`FindDomainKeyValueByIdAndKey`](/reference/queries.md#finddomainkeyvaluebyidandkey)
+- [`FindTriggerKeyValueByIdAndKey`](/reference/queries.md#findtriggerkeyvaluebyidandkey)
 
 ## Permissions
 
 Pre-configured tokens in Iroha 2 LTS version that allow to set or remove
 key-values in accounts, assets, or asset definitions:
 
-- [`CanSetKeyValueInUserMetadata`](/guide/blockchain/permissions.md#cansetkeyvalueinusermetadata)
-- [`CanRemoveKeyValueInUserMetadata`](/guide/blockchain/permissions.md#canremovekeyvalueinusermetadata)
-- [`CanSetKeyValueInUserAssets`](/guide/blockchain/permissions.md#cansetkeyvalueinuserassets)
-- [`CanRemoveKeyValueInUserAssets`](/guide/blockchain/permissions.md#canremovekeyvalueinuserassets)
-- [`CanSetKeyValueInAssetDefinition`](/guide/blockchain/permissions.md#cansetkeyvalueinassetdefinition)
-- [`CanRemoveKeyValueInAssetDefinition`](/guide/blockchain/permissions.md#canremovekeyvalueinassetdefinition)
+- [`CanSetKeyValueInUserMetadata`](/reference/permissions.md#cansetkeyvalueinusermetadata)
+- [`CanRemoveKeyValueInUserMetadata`](/reference/permissions.md#canremovekeyvalueinusermetadata)
+- [`CanSetKeyValueInUserAssets`](/reference/permissions.md#cansetkeyvalueinuserassets)
+- [`CanRemoveKeyValueInUserAssets`](/reference/permissions.md#canremovekeyvalueinuserassets)
+- [`CanSetKeyValueInAssetDefinition`](/reference/permissions.md#cansetkeyvalueinassetdefinition)
+- [`CanRemoveKeyValueInAssetDefinition`](/reference/permissions.md#canremovekeyvalueinassetdefinition)
