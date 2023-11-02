@@ -11,24 +11,25 @@ import { katex } from '@mdit/plugin-katex'
 function nav(): DefaultTheme.NavItem[] {
   return [
     {
-      text: 'Get Started',
-      link: '/get-started/index',
-      activeMatch: '/get-started/',
+      text: 'Guide',
+      items: [
+        // { text: 'Get Started', link: '/guide/get-started/index' },
+        // { text: 'Build and Install', link: '/guide/get-started/install' },
+        // { text: 'Tutorials', link: '/guide/get-started/tutorials'},
+        { text: 'Get Started', items: [
+          { text: 'Build and Install', link: '/guide/get-started/install' },
+          { text: 'SDK Tutorials', link: '/guide/get-started/tutorials'},
+        ]},
+        // every part of guides needs an intro
+        { text: 'How Iroha Works', link: '/guide/blockchain/how-iroha-works'},
+        { text: 'Configuration and Management', link: '/guide/configure/overview'},
+        { text: 'Troubleshooting', link: '/guide/troubleshooting/overview' },
+      ]
     },
     {
-      text: 'Developer Guide',
-      link: '/guide/introduction',
-      activeMatch: '/guide/',
-    },
-    {
-      text: 'API Reference',
-      link: '/api/index',
-      activeMatch: '/api/',
-    },
-    {
-      text: 'Troubleshooting',
-      link: '/guide/troubleshooting/overview',
-      activeMatch: '/guide/troubleshooting/',
+      text: 'Reference',
+      link: '/reference/specification',
+      activeMatch: '/reference/',
     },
   ]
 }
@@ -36,116 +37,48 @@ function nav(): DefaultTheme.NavItem[] {
 function sidebarAPI(): DefaultTheme.SidebarItem[] {
   return [
     {
-      text: 'API',
+      text: 'About',
       items: [
         {
-          text: 'Torii Endpoints',
-          link: '/api/torii-endpoints.md',
+          text: 'Glossary',
+          link: '/reference/glossary.md',
         },
         {
-          text: 'Foreign Function Interfaces',
-          link: '/api/ffi',
-        },
-        {
-          text: 'Data Model Schema',
-          link: '/api/data-model-schema',
+          text: 'Naming Conventions',
+          link: '/reference/naming.md',
         },
         {
           text: 'Compatibility Matrix',
-          link: '/api/compatibility-matrix',
-        },
-      ],
-    },
-  ]
-}
-
-function sidebarGetStarted(): DefaultTheme.SidebarItem[] {
-  return [
-    {
-      text: 'Build and Install',
-      items: [
-        {
-          text: 'Install Iroha',
-          link: '/get-started/install',
+          link: '/reference/compatibility-matrix',
         },
         {
-          text: 'Build Iroha Client',
-          link: '/get-started/build',
-        },
-        {
-          text: 'Quick Start with Docker',
-          link: '/get-started/quick-start',
+          text: 'Foreign Function Interfaces',
+          link: '/reference/ffi',
         },
       ],
     },
     {
-      text: 'Security',
-      
+      text: 'Reference',
       items: [
         {
-          text: 'Overview',
-          link: '/guide/security/',
+          text: 'API Specification',
+          link: '/reference/specification.md',
         },
         {
-          text: 'Security Principles',
-          link: '/guide/security/security-principles.md',
+          text: 'Data Model Schema',
+          link: '/reference/data-model-schema',
         },
         {
-          text: 'Operational Security',
-          link: '/guide/security/operational-security.md',
+          text: 'Instructions',
+          link: '/reference/instructions',
         },
         {
-          text: 'Password Security',
-          link: '/guide/security/password-security.md',
+          text: 'Queries',
+          link: '/reference/queries.md',
         },
         {
-          text: 'Public Key Cryptography',
-          link: '/guide/security/public-key-cryptography.md',
-          items: [
-            {
-              text: 'Generating Cryptographic Keys',
-              link: '/guide/security/generating-cryptographic-keys.md',
-            },
-            {
-              text: 'Storing Cryptographic Keys',
-              link: '/guide/security/generating-cryptographic-keys.md',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      text: 'Tutorial',
-      items: [
-        {
-          text: 'Introduction',
-          link: '/get-started/intro',
-        },
-        /* a common lang-agnostic section will go here */
-        {
-          text: 'Language-specific Guides',
-          items: [
-            {
-              text: 'Bash',
-              link: '/get-started/bash',
-            },
-            {
-              text: 'Python 3',
-              link: '/get-started/python',
-            },
-            {
-              text: 'Rust',
-              link: '/get-started/rust',
-            },
-            {
-              text: 'Kotlin/Java',
-              link: '/get-started/kotlin-java',
-            },
-            {
-              text: 'JavaScript',
-              link: '/get-started/javascript',
-            },
-          ],
+          text: 'Permissions',
+          link: '/reference/permissions.md',
         },
       ],
     },
@@ -155,10 +88,10 @@ function sidebarGetStarted(): DefaultTheme.SidebarItem[] {
 function sidebarGuide(): DefaultTheme.SidebarItem[] {
   return [
     {
-      text: 'About',
+      text: 'Get Started',
       items: [
         {
-          text: 'How Iroha works',
+          text: 'About Iroha',
           link: '/guide/introduction',
         },
         {
@@ -166,12 +99,64 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
           link: '/guide/iroha-2',
         },
         {
+          text: 'Build and Install',
+          collapsed: true,
+          items: [
+            {
+              text: 'Install Iroha',
+              link: '/guide/get-started/install',
+            },
+            {
+              text: 'Build Iroha Client',
+              link: '/guide/get-started/build',
+            },
+            {
+              text: 'Quick Start with Docker',
+              link: '/guide/get-started/quick-start',
+            },
+          ],
+        },
+        {
           text: 'Receive support',
           link: '/guide/support.md',
         },
+
+      ],
+    },
+
+    {
+      text: 'SDK Tutorials',
+      collapsed: true,
+      items: [
         {
-          text: 'Glossary',
-          link: '/guide/glossary.md',
+          text: 'Introduction',
+          link: '/guide/get-started/tutorials',
+        },
+        /* a common lang-agnostic section will go here */
+        {
+          text: 'Language-specific Guides',
+          items: [
+            {
+              text: 'Bash',
+              link: '/guide/get-started/bash',
+            },
+            {
+              text: 'Python 3',
+              link: '/guide/get-started/python',
+            },
+            {
+              text: 'Rust',
+              link: '/guide/get-started/rust',
+            },
+            {
+              text: 'Kotlin/Java',
+              link: '/guide/get-started/kotlin-java',
+            },
+            {
+              text: 'JavaScript',
+              link: '/guide/get-started/javascript',
+            },
+          ],
         },
       ],
     },
@@ -179,7 +164,12 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       text: 'Blockchain',
       items: [
         {
+          text: 'How Iroha Works',
+          link: '/guide/blockchain/how-iroha-works'
+        },
+        {
           text: 'Overview',
+          collapsed: true,
           items: [
             {
               text: 'Transactions',
@@ -193,14 +183,11 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
               text: 'Data Model',
               link: '/guide/blockchain/data-model',
             },
-            {
-              text: 'Naming Conventions',
-              link: '/guide/blockchain/naming.md',
-            },
           ],
         },
         {
           text: 'Entities',
+          collapsed: true,
           items: [
             {
               text: 'Assets',
@@ -248,6 +235,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         },
         {
           text: 'Operations',
+          collapsed: true,
           items: [
             {
               text: 'Instructions',
@@ -269,7 +257,12 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       text: 'Configuration and Management',
       items: [
         {
+          text: 'Overview',
+          link: '/guide/configure/overview',
+        },
+        {
           text: 'Configure Iroha',
+          collapsed: true,
           items: [
             {
               text: 'Configuration Types',
@@ -312,7 +305,43 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       ],
     },
     {
+      text: 'Security',
+      items: [
+        {
+          text: 'Overview',
+          link: '/guide/security/',
+        },
+        {
+          text: 'Security Principles',
+          link: '/guide/security/security-principles.md',
+        },
+        {
+          text: 'Operational Security',
+          link: '/guide/security/operational-security.md',
+        },
+        {
+          text: 'Password Security',
+          link: '/guide/security/password-security.md',
+        },
+        {
+          text: 'Public Key Cryptography',
+          link: '/guide/security/public-key-cryptography.md',
+          items: [
+            {
+              text: 'Generating Cryptographic Keys',
+              link: '/guide/security/generating-cryptographic-keys.md',
+            },
+            {
+              text: 'Storing Cryptographic Keys',
+              link: '/guide/security/generating-cryptographic-keys.md',
+            },
+          ],
+        },
+      ],
+    },
+    {
       text: 'Troubleshooting',
+      collapsed: true,
       items: [
         {
           text: 'Overview',
@@ -338,6 +367,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
     },
     {
       text: 'Advanced Mode',
+      collapsed: true,
       items: [
         {
           text: 'Iroha On Bare Metal',
@@ -355,6 +385,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
     },
     {
       text: 'Reports',
+      collapsed: true,
       items: [
         {
           text: 'CSD/RTGS linkages via on-chain scripting',
@@ -442,11 +473,11 @@ export default defineConfig({
     },
 
     nav: nav(),
+    outline: [2, 3],
 
     sidebar: {
-      '/get-started/': sidebarGetStarted(),
       '/guide/': sidebarGuide(),
-      '/api/': sidebarAPI(),
+      '/reference/': sidebarAPI(),
     },
 
     search: {

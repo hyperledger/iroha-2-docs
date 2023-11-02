@@ -9,7 +9,7 @@ instructions to build the Iroha 2 client:
 ## Install the Rust Toolchain
 
 You need
-[a working Rust toolchain](https://www.rust-lang.org/learn/get-started):
+[a working Rust toolchain](https://www.rust-lang.org/learn/guide/get-started):
 `cargo`, `rustc` v1.60 and up. [^1]
 
 [^1]:

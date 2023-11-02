@@ -13,14 +13,14 @@ hero:
 features:
   - icon: 🚀
     title: Get Started
-    details: Install and build Iroha, follow step-by-step guides to start working with Iroha
-    link: /get-started/
+    details: Install and build Iroha, follow step-by-step SDK tutorials to start working with Iroha
+    link: /guide/get-started/
   - icon: 📖
-    title: Developer Guide
+    title: Guide
     details: Learn about Iroha functionality in great details and understand the underlying principles
     link: /guide/introduction
   - icon: 💻
-    title: API Reference
-    details: Consult API documentation for extensive information about available functionality
-    link: /api/
+    title: Reference
+    details: Consult reference documentation for extensive information about available functionality
+    link: /reference/
   # - title: Cookbook # (TBA)

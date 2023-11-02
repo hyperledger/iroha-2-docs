@@ -76,8 +76,8 @@ Assets can be [registered](./instructions.md#un-register),
 Refer to one of the language-specific guides to walk you through the
 process of registering and minting assets in a blockchain:
 
-- [Bash](/get-started/bash.md#_5-registering-and-minting-assets)
-- [Rust](/get-started/rust.md#_5-registering-and-minting-assets)
-- [Kotlin/Java](/get-started/kotlin-java.md#_5-registering-and-minting-assets)
-- [Python](/get-started/python.md#_5-registering-and-minting-assets)
-- [JavaScript/TypeScript](/get-started/javascript.md#_5-registering-and-minting-assets)
+- [Bash](/guide/get-started/bash.md#_5-registering-and-minting-assets)
+- [Rust](/guide/get-started/rust.md#_5-registering-and-minting-assets)
+- [Kotlin/Java](/guide/get-started/kotlin-java.md#_5-registering-and-minting-assets)
+- [Python](/guide/get-started/python.md#_5-registering-and-minting-assets)
+- [JavaScript/TypeScript](/guide/get-started/javascript.md#_5-registering-and-minting-assets)
