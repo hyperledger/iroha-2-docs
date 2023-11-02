@@ -35,6 +35,339 @@ function nav(): DefaultTheme.NavItem[] {
       link: '/reference/torii-endpoints',
       activeMatch: '/reference/',
     },
+    {
+      text: 'Cookbook',
+      link: '/cookbook/',
+      activeMatch: '/cookbook/',
+    },
+  ]
+}
+
+function sidebarCookbook(): DefaultTheme.SidebarItem[] {
+  return [
+    {
+      text: 'Access Control',
+      collapsed: true,
+      items: [
+        {
+          text: 'Permission Tokens',
+          collapsed: true,
+          items: [
+            {
+              text: 'Grant Permissions'
+            },
+            {
+              text: 'Revoke Permissions'
+            },
+            {
+              text: 'Mint Permission Tokens'
+            },
+            {
+              text: 'Burn Permission Tokens'
+            },
+          ],
+        },
+        {
+          text: 'Roles',
+          collapsed: true,
+          items: [
+            {
+              text: 'Register a Role',
+            },
+            {
+              text: 'Grant a Role',
+            },
+            {
+              text: 'Revoke a Role',
+            },
+          ],
+        },
+        {
+          text: 'Executors (Permission Validators)',
+          collapsed: true,
+          items: [
+            {
+              text: 'Write Executor',
+            },
+            {
+              text: 'Update Executor',
+            }
+          ],
+        }
+      ],
+    },
+    {
+      text: 'Accounts',
+      collapsed: true,
+      items: [
+        {
+          text: 'Register Accounts',
+        },
+        {
+          text: 'Unregister Accounts',
+        },
+        {
+          text: 'Update Account Metadata'
+        },
+        // ...?
+      ],
+    },
+    {
+      text: 'Assets',
+      collapsed: true,
+      items: [
+        {
+          text: 'Assets', // All Assets?
+          collapsed: true,
+          items: [
+            {
+              text: 'Register Assets',
+            },
+            {
+              text: 'Unregister Assets',
+            },
+            {
+              text: 'Transfer Assets Between Accounts',
+            },
+            // ...?
+          ],
+        },
+        {
+          text: 'Numeric Assets',
+          collapsed: true,
+          items: [
+            {
+              text: 'Work with Numeric Assets',
+            }
+          ],
+        },
+        {
+          text: 'Store Assets',
+          collapsed: true,
+          items: [
+            {
+              text: 'Work with Store Assets',
+            }
+          ],
+        },
+        {
+          text: 'Mintable Assets',
+          collapsed: true,
+          items: [
+            {
+              text: 'Mint Assets',
+            },
+            {
+              text: 'Mint More of a Mintable Asset',
+            },
+            {
+              text: 'Burn Assets',
+            },
+          ],
+        },
+        {
+          text: 'Non-Mintable Assets',
+          collapsed: true,
+          items: [
+            {
+              text: 'Work with Non-Mintable Assets',
+            },
+          ],
+        },
+        {
+          text: 'Tokens',
+          collapsed: true,
+          items: [
+            {
+              text: 'Create Asset-backed Tokens',
+            },
+            {
+              text: 'Create Non-Fungible Tokens (NFTs)',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      text: 'Domains',
+      collapsed: true,
+      items: [
+        {
+          text: 'Register Domains',
+        },
+        {
+          text: 'Unregister Domains'
+        },
+        {
+          text: 'Update Domain Metadata',
+        },
+        // ... 
+        // access management for domains?
+      ],
+    },
+    {
+      text: 'Events and Filters',
+      collapsed: true,
+      items: [
+        {
+          text: 'Pipeline Events',
+          collapsed: true,
+          items: [],
+        },
+        {
+          text: 'Data Events',
+          collapsed: true,
+          items: [],
+        },
+        {
+          text: 'Trigger Events',
+          collapsed: true,
+          items: [],
+        },
+        {
+          text: 'Advanced Filtering',
+          collapsed: true,
+          items: [],
+        },
+        {
+          text: 'Block Stream',
+          collapsed: true,
+          items: [
+            {
+              text: 'Subscribe to Block Stream',
+            },
+            {
+              text: 'View output',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      text: 'Instructions',
+      collapsed: true,
+      items: [
+        {
+          text: 'Use Instructions',
+        },
+        {
+          text: 'Combine Instructions via Expressions',
+        },
+      ],
+    },
+    {
+      text: 'Metadata',
+      collapsed: true,
+      items: [
+        {
+          text: 'Set Key Value',
+        },
+        {
+          text: 'Remove Key Value',
+        },
+        {
+          text: 'Access Metadata',
+        },
+      ],
+    },
+    {
+      text: 'Peers',
+      collapsed: true,
+      items: [
+        {
+          text: 'Register Peers',
+        },
+        {
+          text: "Check Current Peer's Load",
+        },
+        {
+          text: 'Find the Leader Among Running Peers',
+        },
+      ],
+    },
+    {
+      text: 'Queries',
+      collapsed: true,
+      items: [
+        {text: 'Use queries'},
+        {text: 'Filter query results'},
+        {text: 'Use Lazy Pagination'},
+        {text: 'Query Connected Peers'},
+      ],
+    },
+    {
+      text: 'Telemetry',
+      collapsed: true,
+      items: [
+        {
+          text: 'Check Status',
+        },
+        {
+          text: 'Get Metrics',
+        },
+        {
+          text: 'Monitor Iroha Performance',
+        },
+        {
+          text: 'Check Health',
+        },
+      ],
+    },
+    {
+      text: 'Transactions',
+      collapsed: true,
+      items: [
+        {
+          text: 'Create Transactions',
+        },
+        {
+          text: 'Submit Transactions',
+        },
+        {
+          text: 'Compile Transactions',
+        },
+        {
+          text: 'Use Multi-Signature Transactions',
+        },
+      ],
+    },
+    {
+      text: 'Triggers',
+      collapsed: true,
+      items: [
+        {
+          text: 'Data Triggers',
+          collapsed: true,
+          items: [
+            {
+              text: 'Register a Data Trigger',
+            },
+          ],
+        },
+        {
+          text: 'Time Triggers',
+          collapsed: true,
+          items: [
+            {
+              text: 'Register a Scheduled Trigger',
+            },
+            {
+              text: 'Register a Pre-commit Trigger',
+            },
+          ],
+        },
+        {
+          text: 'By-call Triggers',
+          collapsed: true,
+          items: [
+            {
+              text: 'Register a By-call Trigger',
+            },
+          ],
+        },
+      ],
+    },
+
   ]
 }
 
@@ -481,6 +814,7 @@ export default defineConfig({
     sidebar: {
       '/guide/': sidebarGuide(),
       '/reference/': sidebarAPI(),
+      '/cookbook/': sidebarCookbook(),
     },
 
     search: {
