@@ -22,5 +22,5 @@ features:
   - icon: 💻
     title: Reference
     details: Consult reference documentation for extensive information about available functionality
-    link: /reference/
+    link: /reference/torii-endpoints
   # - title: Cookbook # (TBA)
