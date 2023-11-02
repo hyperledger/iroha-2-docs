@@ -16,16 +16,19 @@ function nav(): DefaultTheme.NavItem[] {
         // { text: 'Get Started', link: '/guide/get-started/index' },
         // { text: 'Build and Install', link: '/guide/get-started/install' },
         // { text: 'Tutorials', link: '/guide/get-started/tutorials'},
-        { text: 'Get Started', items: [
-          { text: 'Build and Install', link: '/guide/get-started/install' },
-          { text: 'SDK Tutorials', link: '/guide/get-started/tutorials'},
-        ]},
+        {
+          text: 'Get Started',
+          items: [
+            { text: 'Build and Install', link: '/guide/get-started/install' },
+            { text: 'SDK Tutorials', link: '/guide/get-started/tutorials' },
+          ],
+        },
         // every part of guides needs an intro
-        { text: 'How Iroha Works', link: '/guide/blockchain/how-iroha-works'},
-        { text: 'Security', link: '/guide/security/index'},
-        { text: 'Configuration and Management', link: '/guide/configure/overview'},
+        { text: 'How Iroha Works', link: '/guide/blockchain/how-iroha-works' },
+        { text: 'Security', link: '/guide/security/index' },
+        { text: 'Configuration and Management', link: '/guide/configure/overview' },
         { text: 'Troubleshooting', link: '/guide/troubleshooting/overview' },
-      ]
+      ],
     },
     {
       text: 'Reference',
@@ -121,7 +124,6 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
           text: 'Receive support',
           link: '/guide/support.md',
         },
-
       ],
     },
     {
@@ -201,7 +203,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       items: [
         {
           text: 'How Iroha Works',
-          link: '/guide/blockchain/how-iroha-works'
+          link: '/guide/blockchain/how-iroha-works',
         },
         {
           text: 'Overview',
