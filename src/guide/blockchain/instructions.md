@@ -1,6 +1,6 @@
 # Iroha Special Instructions
 
-When we spoke about [how Iroha operates](/guide/introduction.md#how-iroha-works), we
+When we spoke about [how Iroha operates](/guide/blockchain/how-iroha-works), we
 said that Iroha Special Instructions are the only way to modify the world
 state. So, what kind of special instructions do we have? If you've read the
 language-specific guides in this tutorial, you've already seen a couple of
@@ -147,7 +147,7 @@ Similar to mint and burn instructions, transferring refers to assets. You
 can transfer assets between different accounts.
 
 To do this, an account have to be granted the
-[permission to transfer assets](./permissions.md#cantransferuserassets).
+[permission to transfer assets](/reference/permissions.md#cantransferuserassets).
 Refer to an example on how to
 [transfer assets in Bash](/guide/get-started/bash.md#_6-transferring-assets).
 

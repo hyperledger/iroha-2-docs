@@ -146,12 +146,12 @@ Permission tokens and roles can be queried.
 
 Queries for roles:
 
-- [`FindAllRoles`](./queries.md#findallroles)
-- [`FindAllRoleIds`](./queries.md#findallroleids)
-- [`FindRoleByRoleId`](./queries.md#findrolebyroleid)
-- [`FindRolesByAccountId`](./queries.md#findrolesbyaccountid)
+- [`FindAllRoles`](/reference/queries.md#findallroles)
+- [`FindAllRoleIds`](/reference/queries.md#findallroleids)
+- [`FindRoleByRoleId`](/reference/queries.md#findrolebyroleid)
+- [`FindRolesByAccountId`](/reference/queries.md#findrolesbyaccountid)
 
 Queries for permission tokens:
 
-- [`FindAllPermissionTokenDefinitions`](./queries.md#findallpermissiontokendefinitions)
-- [`FindPermissionTokensByAccountId`](./queries.md#findpermissiontokensbyaccountid)
+- [`FindAllPermissionTokenDefinitions`](/reference/queries.md#findallpermissiontokendefinitions)
+- [`FindPermissionTokensByAccountId`](/reference/queries.md#findpermissiontokensbyaccountid)
