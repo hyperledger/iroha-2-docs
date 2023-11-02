@@ -66,7 +66,7 @@ function sidebarAPI(): DefaultTheme.SidebarItem[] {
       items: [
         {
           text: 'Torii Endpoints',
-          link: '/api/torii-endpoints.md',
+          link: '/reference/torii-endpoints.md',
         },
         {
           text: 'Data Model Schema',
