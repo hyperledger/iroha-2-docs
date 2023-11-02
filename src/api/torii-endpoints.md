@@ -140,6 +140,7 @@ Learn [how to use metrics](/guide/advanced/metrics).
       results.
     - **`sort_by_metadata_key`:** An optional parameter in queries. Use to sort results containing metadata with a given
       key.
+    - **`fetch_size`:** An optional parameter in queries. Use to specify the exact number of results returned by a query.
 
 **Responses:**
 
