@@ -22,13 +22,14 @@ function nav(): DefaultTheme.NavItem[] {
         ]},
         // every part of guides needs an intro
         { text: 'How Iroha Works', link: '/guide/blockchain/how-iroha-works'},
+        { text: 'Security', link: '/guide/security/index'},
         { text: 'Configuration and Management', link: '/guide/configure/overview'},
         { text: 'Troubleshooting', link: '/guide/troubleshooting/overview' },
       ]
     },
     {
       text: 'Reference',
-      link: '/reference/specification',
+      link: '/reference/torii-endpoints',
       activeMatch: '/reference/',
     },
   ]
@@ -61,8 +62,8 @@ function sidebarAPI(): DefaultTheme.SidebarItem[] {
       text: 'Reference',
       items: [
         {
-          text: 'API Specification',
-          link: '/reference/specification.md',
+          text: 'Torii Endpoints',
+          link: '/api/torii-endpoints.md',
         },
         {
           text: 'Data Model Schema',
@@ -123,7 +124,42 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 
       ],
     },
-
+    {
+      text: 'Security',
+      collapsed: true,
+      items: [
+        {
+          text: 'Overview',
+          link: '/guide/security/',
+        },
+        {
+          text: 'Security Principles',
+          link: '/guide/security/security-principles.md',
+        },
+        {
+          text: 'Operational Security',
+          link: '/guide/security/operational-security.md',
+        },
+        {
+          text: 'Password Security',
+          link: '/guide/security/password-security.md',
+        },
+        {
+          text: 'Public Key Cryptography',
+          link: '/guide/security/public-key-cryptography.md',
+          items: [
+            {
+              text: 'Generating Cryptographic Keys',
+              link: '/guide/security/generating-cryptographic-keys.md',
+            },
+            {
+              text: 'Storing Cryptographic Keys',
+              link: '/guide/security/generating-cryptographic-keys.md',
+            },
+          ],
+        },
+      ],
+    },
     {
       text: 'SDK Tutorials',
       collapsed: true,
@@ -301,41 +337,6 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         {
           text: 'Public and Private Blockchains',
           link: '/guide/configure/modes',
-        },
-      ],
-    },
-    {
-      text: 'Security',
-      items: [
-        {
-          text: 'Overview',
-          link: '/guide/security/',
-        },
-        {
-          text: 'Security Principles',
-          link: '/guide/security/security-principles.md',
-        },
-        {
-          text: 'Operational Security',
-          link: '/guide/security/operational-security.md',
-        },
-        {
-          text: 'Password Security',
-          link: '/guide/security/password-security.md',
-        },
-        {
-          text: 'Public Key Cryptography',
-          link: '/guide/security/public-key-cryptography.md',
-          items: [
-            {
-              text: 'Generating Cryptographic Keys',
-              link: '/guide/security/generating-cryptographic-keys.md',
-            },
-            {
-              text: 'Storing Cryptographic Keys',
-              link: '/guide/security/generating-cryptographic-keys.md',
-            },
-          ],
         },
       ],
     },
