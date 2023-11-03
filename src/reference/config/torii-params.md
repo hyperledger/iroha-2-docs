@@ -2,7 +2,8 @@
 
 TODO: Explain Torii module
 
-This module contains configuration of [Torii](/guide/glossary#torii) - the API gateway of Iroha. Refer to the [Torii Endpoints reference](/api/torii-endpoints) for information about exact endpoints.  
+This module contains configuration of [Torii](/guide/glossary#torii-gate) - the API gateway of Iroha. Refer to the
+[Torii Endpoints reference](/reference/torii-endpoints) for information about exact endpoints.
 
 ## `torii.address`
 
@@ -24,8 +25,8 @@ api_address = "localhost:8080"
 
 TODO: consider changing the default value to 16 MiB precisely (which is $2^{20} * 16 = 16\ 777\ 216$)
 
-The maximum number of bytes in a raw request body accepted by the [Transaction Endpoint](/api/torii-endpoints#transaction). This limit is used to prevent
-DOS attacks.
+The maximum number of bytes in a raw request body accepted by the
+[Transaction Endpoint](/reference/torii-endpoints#transaction). This limit is used to prevent DOS attacks.
 
 **Example:**
 
@@ -41,7 +42,7 @@ max_content_length = "16MiB"
 
 The number of query results returned in one batch.
 
-TODO: Configures behaviour of lazily-evaluated pagination of the [Query Endpoint](/api/torii-endpoints#query).
+TODO: Configures behaviour of lazily-evaluated pagination of the [Query Endpoint](/reference/torii-endpoints#query).
 
 **Example:**
 
@@ -57,7 +58,7 @@ query_results_per_fetch = 10
 
 The time a query can remain in the store if unaccessed.
 
-TODO: Configures behaviour of lazily-evaluated pagination of the [Query Endpoint](/api/torii-endpoints#query).
+TODO: Configures behaviour of lazily-evaluated pagination of the [Query Endpoint](/reference/torii-endpoints#query).
 
 **Example:**
 

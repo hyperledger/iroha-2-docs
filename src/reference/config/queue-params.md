@@ -57,7 +57,7 @@ transaction_time_to_live = "24h"
 The threshold to determine if a transaction has been tampered to have a future timestamp.
 
 TODO: explain that _timestamp_ is the value specified in
-[`TransactionPayload`'s `creation_time_ms` field](/api/data-model-schema#transactionpayload).
+[`TransactionPayload`'s `creation_time_ms` field](/reference/data-model-schema#transactionpayload).
 
 **Example:**
 

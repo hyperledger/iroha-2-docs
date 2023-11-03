@@ -4,24 +4,6 @@ TODO Explain sumeragi module. Clarify that it consists of transactions and block
 processes. Explain how periods & gossip sizes might affect network load & speed of sync. Explain the pipeline of
 transactions and blocks, refer to consensus section and maybe some others.
 
-## `sumeragi.block_time`
-
-- **Type:** String or Number, [Duration](glossary#type-duration)
-- **Default:** 2 seconds
-
-Time since the round start[^1] by which a new block should be created regardless if there were enough transactions or
-not. Used to force block commits when there is a small influx of new transactions.
-
-A block might be created earlier if there is enough transactions in the [Queue](queue-params). The limit of transactions
-is configured by [`sumeragi.transactions_in_block`](#sumeragi-transactions-in-block).
-
-**Example:**
-
-```toml
-[sumeragi]
-block_time = "2s"
-```
-
 ## `sumeragi.block_gossip_period`
 
 - **Type:** String or Number, [Duration](glossary#type-duration)
@@ -41,24 +23,6 @@ block_gossip_period = "5s"
 More frequent gossiping shortens the time to sync, but can overload the network.
 
 :::
-
-## `sumeragi.commit_time`
-
-- **Type:** String or Number, [Duration](glossary#type-duration)
-- **Default:** 4 seconds
-
-Time by which a newly created block should be committed. Prevents malicious nodes from stalling the network by not
-participating in consensus.
-
-The block creation is configured with [`sumeragi.block_time`](#sumeragi-block-time) and
-[`sumeragi.transactions_in_block`](#sumeragi-transactions-in-block).
-
-**Example:**
-
-```toml
-[sumeragi]
-commit_time = "4s"
-```
 
 ## `sumeragi.max_blocks_per_gossip`
 
@@ -108,22 +72,6 @@ transaction_gossip_period = "1s"
 More frequent gossiping shortens the time to sync, but can overload the network.
 
 :::
-
-## `sumeragi.transactions_in_block`
-
-- **Type:** u32
-- **Default:** $2^9 = 512$
-
-The upper limit of the number of transactions per block. If there is enough transactions in the [Queue](queue-params),
-the block is created immediately. Otherwise, the block is created when [`sumeragi.block_time`](#sumeragi-block-time) is
-elapsed since the round start[^1].
-
-**Example:**
-
-```toml
-[sumeragi]
-transactions_in_block = 512
-```
 
 ## `sumeragi.trusted_peers`
 

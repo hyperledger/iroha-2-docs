@@ -364,33 +364,33 @@ export default defineConfig({
 
     sidebar: {
       '/guide/': getGuideSidebar(),
-      '/api/': [
+      '/reference/': [
         {
           text: 'Overview',
-          link: '/api/',
+          link: '/reference/',
         },
         {
           text: 'Configuration',
-          link: '/api/configuration',
+          link: '/reference/configuration',
         },
         {
           text: 'Command Line Interface (CLI)',
-          link: '/api/cli',
+          link: '/reference/cli',
         },
         {
           text: 'Torii Endpoints',
-          link: '/api/torii-endpoints',
+          link: '/reference/torii-endpoints',
         },
         {
           text: 'Foreign Function Interfaces (FFI)',
-          link: '/api/ffi',
+          link: '/reference/ffi',
         },
         {
           text: 'Configuration',
           items: [
             {
               text: 'Overview',
-              link: '/api/config/',
+              link: '/reference/config/',
             },
             {
               text: 'Parameters',
@@ -398,60 +398,58 @@ export default defineConfig({
                 // TODO: consider re-ordering sections to a more intuitive format?
                 {
                   text: 'Base',
-                  link: '/api/config/base-params',
+                  link: '/reference/config/base-params',
                 },
                 {
                   text: 'Genesis',
-                  link: '/api/config/genesis-params',
-                },
-                {
-                  text: 'Sumeragi',
-                  link: '/api/config/sumeragi-params',
-                },
-                {
-                  text: 'Torii',
-                  link: '/api/config/torii-params',
-                },
-                {
-                  text: 'Queue',
-                  link: '/api/config/queue-params',
+                  link: '/reference/config/genesis-params',
                 },
                 {
                   text: 'Kura',
-                  link: '/api/config/kura-params',
+                  link: '/reference/config/kura-params',
                 },
                 {
                   text: 'Logger',
-                  link: '/api/config/logger-params',
+                  link: '/reference/config/logger-params',
                 },
                 {
-                  text: 'WSV',
-                  link: '/api/config/wsv-params',
-                },
-                {
-                  text: 'Telemetry',
-                  link: '/api/config/telemetry-params',
+                  text: 'Queue',
+                  link: '/reference/config/queue-params',
                 },
                 {
                   text: 'Snapshot',
-                  link: '/api/config/snapshot-params',
+                  link: '/reference/config/snapshot-params',
+                },
+
+                {
+                  text: 'Sumeragi',
+                  link: '/reference/config/sumeragi-params',
+                },
+                {
+                  text: 'Telemetry',
+                  link: '/reference/config/telemetry-params',
+                },
+
+                {
+                  text: 'Torii',
+                  link: '/reference/config/torii-params',
                 },
               ],
             },
 
             {
               text: 'Glossary',
-              link: '/api/config/glossary',
+              link: '/reference/config/glossary',
             },
             {
               text: 'Deprecation and Migration',
-              link: '/api/config/deprecation-and-migration',
+              link: '/reference/config/deprecation-and-migration',
             },
           ],
         },
         {
           text: 'Data Model Schema',
-          link: '/api/data-model-schema',
+          link: '/reference/data-model-schema',
         },
       ],
       '/': getGuideSidebar(),
@@ -464,9 +462,9 @@ export default defineConfig({
         activeMatch: '^/$|^/guide/',
       },
       {
-        text: 'API',
-        link: '/api/',
-        activeMatch: '^/api/',
+        text: 'Reference',
+        link: '/reference/',
+        activeMatch: '^/reference/',
       },
     ],
 

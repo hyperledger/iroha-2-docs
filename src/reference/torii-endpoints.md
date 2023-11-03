@@ -23,13 +23,52 @@ so at least a minimal subnet of 4 peers should be running and the genesis be sub
 - **Protocol Upgrade:** WebSocket
 - **Endpoint:** `/block/stream`
 
-The client should send a [`BlockSubscriptionRequest`](/api/data-model-schema#blocksubscriptionrequest) to initiate
+The client should send a [`BlockSubscriptionRequest`](/reference/data-model-schema#blocksubscriptionrequest) to initiate
 communication after the WebSocket handshake. Then the server sends a
-[`BlockMessage`](/api/data-model-schema#blockmessage). Messages are SCALE-encoded[^1].
+[`BlockMessage`](/reference/data-model-schema#blockmessage). Messages are SCALE-encoded[^1].
 
 Via this endpoint, the client first provides the starting block number (i.e. height) in the subscription request. After
 sending the confirmation message, the server starts streaming all the blocks from the given block number up to the
 current block and continues to stream blocks as they are added to the blockchain.
+
+## Configuration > Retrieve
+
+- **Protocol:** HTTP
+- Method: `GET`
+- Endpoint: `/configuration`
+- Responses: with JSON-serialized subset of configuration parameters. The subset of returned parameters is equal to the
+  one accepted by [Configuration > Update endpoint](#configuration-update), i.e. it contains only
+  [`logger.level`](/reference/config/logger-params#logger-level) parameter as of now.
+
+Example response:
+
+```json
+{
+  "logger": {
+    "level": "TRACE"
+  }
+}
+```
+
+## Configuration > Update
+
+- Protocol: HTTP
+- Method: `POST`
+- Endpoint: `/configuration`
+- Expects: a JSON-serialized subset of configuration parameters.
+
+This endpoint currently supports only dynamic updating of the
+[`logger.level`](/reference/config/logger-params#logger-level) parameter.
+
+Example request:
+
+```json
+{
+  "logger": {
+    "level": "DEBUG"
+  }
+}
+```
 
 ## Events
 
@@ -38,8 +77,8 @@ current block and continues to stream blocks as they are added to the blockchain
 - **Endpoint:** `/events`
 
 After a handshake, the client should send an
-[`EventSubscriptionRequest`](/api/data-model-schema#eventsubscriptionrequest). Then the server sends an
-[`EventMessage`](/api/data-model-schema#eventmessage). Messages are SCALE-encoded[^1].
+[`EventSubscriptionRequest`](/reference/data-model-schema#eventsubscriptionrequest). Then the server sends an
+[`EventMessage`](/reference/data-model-schema#eventmessage). Messages are SCALE-encoded[^1].
 
 ### Transaction Events
 
@@ -130,7 +169,7 @@ Learn [how to use metrics](/guide/advanced/metrics).
 - **Method:** `POST`
 - **Endpoint:** `/query`
 - **Expects:**
-  - **Body:** SCALE-encoded[^1] [`VersionedSignedQuery`](/api/data-model-schema#versionedsignedquery)
+  - **Body:** SCALE-encoded[^1] [`VersionedSignedQuery`](/reference/data-model-schema#versionedsignedquery)
   - **Query parameters:**
     - **`start`:** An optional parameter in queries where results can be indexed. Use to return results from a specified
       point. Results are ordered by id, which uses Rust's
@@ -143,42 +182,42 @@ Learn [how to use metrics](/guide/advanced/metrics).
 
 **Responses:**
 
-| Response         | Status | Body                                                                                       |
-| ---------------- | ------ | ------------------------------------------------------------------------------------------ |
-| Success          | 200    | [`VersionedBatchedResponse<Value>`](/api/data-model-schema#versionedbatchedresponse-value) |
-| Conversion Error | 400    | [`QueryExecutionFail::Conversion(String)`](/api/data-model-schema#queryexecutionfail)      |
-| Evaluate Error   | 400    | [`QueryExecutionFail::Evaluate(String)`](/api/data-model-schema#queryexecutionfail)        |
-| Signature Error  | 401    | [`QueryExecutionFail::Signature(String)`](/api/data-model-schema#queryexecutionfail)       |
-| Permission Error | 403    | [`QueryExecutionFail::Permission(String)`](/api/data-model-schema#queryexecutionfail)      |
-| Find Error       | 404    | [`QueryExecutionFail::Find(FindError)`](/api/data-model-schema#queryexecutionfail)         |
-
+| Response         | Status | Body                                                                                             |
+| ---------------- | ------ | ------------------------------------------------------------------------------------------------ |
+| Success          | 200    | [`VersionedBatchedResponse<Value>`](/reference/data-model-schema#versionedbatchedresponse-value) |
+| Conversion Error | 400    | [`QueryExecutionFail::Conversion(String)`](/reference/data-model-schema#queryexecutionfail)      |
+| Evaluate Error   | 400    | [`QueryExecutionFail::Evaluate(String)`](/reference/data-model-schema#queryexecutionfail)        |
+| Signature Error  | 401    | [`QueryExecutionFail::Signature(String)`](/reference/data-model-schema#queryexecutionfail)       |
+| Permission Error | 403    | [`QueryExecutionFail::Permission(String)`](/reference/data-model-schema#queryexecutionfail)      |
+| Find Error       | 404    | [`QueryExecutionFail::Find(FindError)`](/reference/data-model-schema#queryexecutionfail)         |
 
 ::: tip Lazily Evaluated Pagination
 
-TODO: explain how it works. Explain that this behaviour is configured with [`torii.query_results_per_fetch`](/api/config/torii-params#torii-query-results-per-fetch) and [`torii.query_idle_time`](/api/config/torii-params#torii-query-idle-time).
+TODO: explain how it works. Explain that this behaviour is configured with
+[`torii.query_results_per_fetch`](/reference/config/torii-params#torii-query-results-per-fetch) and
+[`torii.query_idle_time`](/reference/config/torii-params#torii-query-idle-time).
 
 :::
 
-
 ### Account Not Found 404
 
-Whether each prerequisite object was found and [`FindError`](/api/data-model-schema#finderror):
+Whether each prerequisite object was found and [`FindError`](/reference/data-model-schema#finderror):
 
-| Domain | Account | [`FindError`](/api/data-model-schema#finderror)                     |
-| :----: | :-----: | ------------------------------------------------------------------- |
-|   N    |    -    | [`FindError::Domain(DomainId)`](/api/data-model-schema#finderror)   |
-|   Y    |    N    | [`FindError::Account(AccountId)`](/api/data-model-schema#finderror) |
+| Domain | Account | [`FindError`](/reference/data-model-schema#finderror)                     |
+| :----: | :-----: | ------------------------------------------------------------------------- |
+|   N    |    -    | [`FindError::Domain(DomainId)`](/reference/data-model-schema#finderror)   |
+|   Y    |    N    | [`FindError::Account(AccountId)`](/reference/data-model-schema#finderror) |
 
 ### Asset Not Found 404
 
-Whether each prerequisite object was found and [`FindError`](/api/data-model-schema#finderror):
+Whether each prerequisite object was found and [`FindError`](/reference/data-model-schema#finderror):
 
-| Domain | Account | Asset Definition | Asset | [`FindError`](/api/data-model-schema#finderror)                                     |
-| :----: | :-----: | :--------------: | :---: | ----------------------------------------------------------------------------------- |
-|   N    |    -    |        -         |   -   | [`FindError::Domain(DomainId)`](/api/data-model-schema#finderror)                   |
-|   Y    |    N    |        -         |   -   | [`FindError::Account(AccountId)`](/api/data-model-schema#finderror)                 |
-|   Y    |    -    |        N         |   -   | [`FindError::AssetDefinition(AssetDefinitionId)`](/api/data-model-schema#finderror) |
-|   Y    |    Y    |        Y         |   N   | [`FindError::Asset(AssetId)`](/api/data-model-schema#finderror)                     |
+| Domain | Account | Asset Definition | Asset | [`FindError`](/reference/data-model-schema#finderror)                                     |
+| :----: | :-----: | :--------------: | :---: | ----------------------------------------------------------------------------------------- |
+|   N    |    -    |        -         |   -   | [`FindError::Domain(DomainId)`](/reference/data-model-schema#finderror)                   |
+|   Y    |    N    |        -         |   -   | [`FindError::Account(AccountId)`](/reference/data-model-schema#finderror)                 |
+|   Y    |    -    |        N         |   -   | [`FindError::AssetDefinition(AssetDefinitionId)`](/reference/data-model-schema#finderror) |
+|   Y    |    Y    |        Y         |   N   | [`FindError::Asset(AssetId)`](/reference/data-model-schema#finderror)                     |
 
 ## Status
 
@@ -231,8 +270,7 @@ Whether each prerequisite object was found and [`FindError`](/api/data-model-sch
 ::: warning
 
 Almost all fields are 64-bit integers and should be handled with care in JavaScript. <!--todo: explain the issue with
-`serde`--> Only the `uptime.nanos` field is a 32-bit integer. See
-[`iroha_telemetry::metrics::Status`](https://github.com/hyperledger/iroha/blob/iroha2-dev/telemetry/src/metrics.rs?rgh-link-date=2023-10-02T19%3A29%3A10Z#L27C1-L42C2)
+`serde`--> Only the `uptime.nanos` field is a 32-bit integer. See [`iroha_telemetry::metrics::Status`](https://github.com/hyperledger/iroha/blob/iroha2-dev/telemetry/src/metrics.rs?rgh-link-date=2023-10-02T19%3A29%3A10Z#L27C1-L42C2)
 
 :::
 
@@ -248,7 +286,7 @@ in example above.
 - **Method:** `POST`
 - **Endpoint:** `/transaction`
 - **Expects:**
-  - **Body:** SCALE-encoded[^1] [`VersionedSignedTransaction`](/api/data-model-schema#versionedsignedtransaction)
+  - **Body:** SCALE-encoded[^1] [`VersionedSignedTransaction`](/reference/data-model-schema#versionedsignedtransaction)
 
 **Responses:**
 
@@ -260,15 +298,17 @@ in example above.
 
 ::: tip
 
-Maximum allowed `Content-Length` for this endpoint is configured with [`torii.max_content_length`](/api/config/torii-params#torii-max-content-length).
+Maximum allowed `Content-Length` for this endpoint is configured with
+[`torii.max_content_length`](/reference/config/torii-params#torii-max-content-length).
 
 :::
 
 [^1]:
     For more information on Parity SCALE Codec check
     [Substrate Dev Hub](https://docs.substrate.io/reference/scale-codec/) and codec's
-    [GitHub repository](https://github.com/paritytech/parity-scale-codec). <!--TODO: link to our own article about SCALE-->
-    (https://github.com/hyperledger/iroha-2-docs/issues/367)
+    [GitHub repository](https://github.com/paritytech/parity-scale-codec).
+
+    <!--TODO: link to our own article about SCALE--> (https://github.com/hyperledger/iroha-2-docs/issues/367)
 
 <!-- TODO: edit these endpoints when the decision is made about them (according to the config rfc)
 
