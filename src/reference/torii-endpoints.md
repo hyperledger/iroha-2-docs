@@ -10,8 +10,10 @@
 
 **Responses:**
 
-`200 OK`: The current version of API used by Iroha returned as a JSON string. Grabbed from the genesis block's version,
-so at least a minimal subnet of 4 peers should be running and the genesis be submitted at the time of request.
+`200 OK`: The current version of API used by Iroha returned as a JSON
+string. Grabbed from the genesis block's version, so at least a minimal
+subnet of 4 peers should be running and the genesis be submitted at the
+time of request.
 
 ```json
 "1"
@@ -23,22 +25,29 @@ so at least a minimal subnet of 4 peers should be running and the genesis be sub
 - **Protocol Upgrade:** WebSocket
 - **Endpoint:** `/block/stream`
 
-The client should send a [`BlockSubscriptionRequest`](/reference/data-model-schema#blocksubscriptionrequest) to initiate
-communication after the WebSocket handshake. Then the server sends a
-[`BlockMessage`](/reference/data-model-schema#blockmessage). Messages are SCALE-encoded[^1].
+The client should send a
+[`BlockSubscriptionRequest`](/reference/data-model-schema#blocksubscriptionrequest)
+to initiate communication after the WebSocket handshake. Then the server
+sends a [`BlockMessage`](/reference/data-model-schema#blockmessage).
+Messages are SCALE-encoded[^1].
 
-Via this endpoint, the client first provides the starting block number (i.e. height) in the subscription request. After
-sending the confirmation message, the server starts streaming all the blocks from the given block number up to the
-current block and continues to stream blocks as they are added to the blockchain.
+Via this endpoint, the client first provides the starting block number
+(i.e. height) in the subscription request. After sending the confirmation
+message, the server starts streaming all the blocks from the given block
+number up to the current block and continues to stream blocks as they are
+added to the blockchain.
 
 ## Configuration > Retrieve
 
 - **Protocol:** HTTP
 - Method: `GET`
 - Endpoint: `/configuration`
-- Responses: with JSON-serialized subset of configuration parameters. The subset of returned parameters is equal to the
-  one accepted by [Configuration > Update endpoint](#configuration-update), i.e. it contains only
-  [`logger.level`](/reference/config/logger-params#logger-level) parameter as of now.
+- Responses: with JSON-serialized subset of configuration parameters. The
+  subset of returned parameters is equal to the one accepted by
+  [Configuration > Update endpoint](#configuration-update), i.e. it
+  contains only
+  [`logger.level`](/reference/config/logger-params#logger-level) parameter
+  as of now.
 
 Example response:
 
@@ -77,20 +86,27 @@ Example request:
 - **Endpoint:** `/events`
 
 After a handshake, the client should send an
-[`EventSubscriptionRequest`](/reference/data-model-schema#eventsubscriptionrequest). Then the server sends an
-[`EventMessage`](/reference/data-model-schema#eventmessage). Messages are SCALE-encoded[^1].
+[`EventSubscriptionRequest`](/reference/data-model-schema#eventsubscriptionrequest).
+Then the server sends an
+[`EventMessage`](/reference/data-model-schema#eventmessage). Messages are
+SCALE-encoded[^1].
 
 ### Transaction Events
 
-Transaction event statuses can be either `Validating`, `Committed` or `Rejected`.
+Transaction event statuses can be either `Validating`, `Committed` or
+`Rejected`.
 
-Transaction statuses proceed from `Validating` to either `Committed` or `Rejected`. However, due to the distributed
-nature of the network, some peers might receive events out of order (e.g. `Committed` before `Validating`).
+Transaction statuses proceed from `Validating` to either `Committed` or
+`Rejected`. However, due to the distributed nature of the network, some
+peers might receive events out of order (e.g. `Committed` before
+`Validating`).
 
-Some peers in the network may be offline for the validation round. If the client connects to them while they are
-offline, the peers might not respond with the `Validating` status. But when the offline peers come back online they will
-synchronize the blocks. They are then guaranteed to respond with the `Committed` (or `Rejected`) status depending on the
-information found in the block.
+Some peers in the network may be offline for the validation round. If the
+client connects to them while they are offline, the peers might not respond
+with the `Validating` status. But when the offline peers come back online
+they will synchronize the blocks. They are then guaranteed to respond with
+the `Committed` (or `Rejected`) status depending on the information found
+in the block.
 
 ## Health
 
@@ -169,16 +185,18 @@ Learn [how to use metrics](/guide/advanced/metrics).
 - **Method:** `POST`
 - **Endpoint:** `/query`
 - **Expects:**
-  - **Body:** SCALE-encoded[^1] [`VersionedSignedQuery`](/reference/data-model-schema#versionedsignedquery)
+  - **Body:** SCALE-encoded[^1]
+    [`VersionedSignedQuery`](/reference/data-model-schema#versionedsignedquery)
   - **Query parameters:**
-    - **`start`:** An optional parameter in queries where results can be indexed. Use to return results from a specified
-      point. Results are ordered by id, which uses Rust's
-      [PartialOrd](https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html#derivable) and
-      [Ord](https://doc.rust-lang.org/std/cmp/trait.Ord.html) traits.
-    - **`limit`:** An optional parameter in queries where results can be indexed. Use to return a specific number of
-      results.
-    - **`sort_by_metadata_key`:** An optional parameter in queries. Use to sort results containing metadata with a given
-      key.
+    - **`start`:** An optional parameter in queries where results can be
+      indexed. Use to return results from a specified point. Results are
+      ordered by id, which uses Rust's
+      [PartialOrd](https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html#derivable)
+      and [Ord](https://doc.rust-lang.org/std/cmp/trait.Ord.html) traits.
+    - **`limit`:** An optional parameter in queries where results can be
+      indexed. Use to return a specific number of results.
+    - **`sort_by_metadata_key`:** An optional parameter in queries. Use to
+      sort results containing metadata with a given key.
 
 **Responses:**
 
@@ -194,14 +212,16 @@ Learn [how to use metrics](/guide/advanced/metrics).
 ::: tip Lazily Evaluated Pagination
 
 TODO: explain how it works. Explain that this behaviour is configured with
-[`torii.query_results_per_fetch`](/reference/config/torii-params#torii-query-results-per-fetch) and
+[`torii.query_results_per_fetch`](/reference/config/torii-params#torii-query-results-per-fetch)
+and
 [`torii.query_idle_time`](/reference/config/torii-params#torii-query-idle-time).
 
 :::
 
 ### Account Not Found 404
 
-Whether each prerequisite object was found and [`FindError`](/reference/data-model-schema#finderror):
+Whether each prerequisite object was found and
+[`FindError`](/reference/data-model-schema#finderror):
 
 | Domain | Account | [`FindError`](/reference/data-model-schema#finderror)                     |
 | :----: | :-----: | ------------------------------------------------------------------------- |
@@ -210,7 +230,8 @@ Whether each prerequisite object was found and [`FindError`](/reference/data-mod
 
 ### Asset Not Found 404
 
-Whether each prerequisite object was found and [`FindError`](/reference/data-model-schema#finderror):
+Whether each prerequisite object was found and
+[`FindError`](/reference/data-model-schema#finderror):
 
 | Domain | Account | Asset Definition | Asset | [`FindError`](/reference/data-model-schema#finderror)                                     |
 | :----: | :-----: | :--------------: | :---: | ----------------------------------------------------------------------------------------- |
@@ -269,16 +290,18 @@ Whether each prerequisite object was found and [`FindError`](/reference/data-mod
 
 ::: warning
 
-Almost all fields are 64-bit integers and should be handled with care in JavaScript. <!--todo: explain the issue with
+Almost all fields are 64-bit integers and should be handled with care in
+JavaScript. <!--todo: explain the issue with
 `serde`--> Only the `uptime.nanos` field is a 32-bit integer. See [`iroha_telemetry::metrics::Status`](https://github.com/hyperledger/iroha/blob/iroha2-dev/telemetry/src/metrics.rs?rgh-link-date=2023-10-02T19%3A29%3A10Z#L27C1-L42C2)
 
 :::
 
 ### Sub-routing
 
-To obtain the value of a specific field, one can append the name of the field to the path, e.g. `/status/peers`. This
-returns the corresponding JSON value, inline, so strings are quoted, numbers are not quoted, and maps are presented as
-in example above.
+To obtain the value of a specific field, one can append the name of the
+field to the path, e.g. `/status/peers`. This returns the corresponding
+JSON value, inline, so strings are quoted, numbers are not quoted, and maps
+are presented as in example above.
 
 ## Transaction
 
@@ -286,7 +309,8 @@ in example above.
 - **Method:** `POST`
 - **Endpoint:** `/transaction`
 - **Expects:**
-  - **Body:** SCALE-encoded[^1] [`VersionedSignedTransaction`](/reference/data-model-schema#versionedsignedtransaction)
+  - **Body:** SCALE-encoded[^1]
+    [`VersionedSignedTransaction`](/reference/data-model-schema#versionedsignedtransaction)
 
 **Responses:**
 
@@ -305,7 +329,8 @@ Maximum allowed `Content-Length` for this endpoint is configured with
 
 [^1]:
     For more information on Parity SCALE Codec check
-    [Substrate Dev Hub](https://docs.substrate.io/reference/scale-codec/) and codec's
+    [Substrate Dev Hub](https://docs.substrate.io/reference/scale-codec/)
+    and codec's
     [GitHub repository](https://github.com/paritytech/parity-scale-codec).
 
     <!--TODO: link to our own article about SCALE--> (https://github.com/hyperledger/iroha-2-docs/issues/367)

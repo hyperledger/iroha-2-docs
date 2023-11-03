@@ -49,6 +49,41 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
       ],
     },
     {
+      text: 'Security',
+      items: [
+        {
+          text: 'Overview',
+          link: '/guide/security/',
+        },
+        {
+          text: 'Security Principles',
+          link: '/guide/security/security-principles.md',
+        },
+        {
+          text: 'Operational Security',
+          link: '/guide/security/operational-security.md',
+        },
+        {
+          text: 'Password Security',
+          link: '/guide/security/password-security.md',
+        },
+        {
+          text: 'Public Key Cryptography',
+          link: '/guide/security/public-key-cryptography.md',
+          items: [
+            {
+              text: 'Generating Cryptographic Keys',
+              link: '/guide/security/generating-cryptographic-keys.md',
+            },
+            {
+              text: 'Storing Cryptographic Keys',
+              link: '/guide/security/generating-cryptographic-keys.md',
+            },
+          ],
+        },
+      ],
+    },
+    {
       text: 'Tutorial',
       items: [
         {
@@ -210,8 +245,8 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
           ],
         },
         {
-          text: 'Public Key Cryptography',
-          link: '/guide/configure/keys',
+          text: 'Keys for Network Deployment',
+          link: '/guide/configure/keys-for-network-deployment.md',
         },
         {
           text: 'Peer Management',
@@ -317,7 +352,7 @@ export default defineConfig({
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        
+
         gtag('config', 'G-D6ETK9TN47');
     `,
     ],

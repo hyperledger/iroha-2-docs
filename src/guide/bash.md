@@ -244,24 +244,26 @@ With a domain available, it is time to register an account.
 
 ## 4. Registering an Account
 
-To register an account, you need a [public key](./configure/keys.md), think
-of it as the "password" used by `mad_hatter@looking_glass`.
+To register a new account, you need a cryptographic key pair, a set of a _public_ and _private_ keys that establish a secure communication channel between a peer and the network (to learn more about cryptographic keys, see [Public Key Cryptography](./security/public-key-cryptography.md)).
 
-Keys always come in pairs. It is possible to generate a pair of `public`
-and `private` keys using one of our tools, `kagami`. Once Iroha is
-released, you will be able to install it separately and call it like any
-other program on your system. For now you can either ask `cargo` to `run`
-it for you, or build the program and find it in one of the target
-directories (either `target/debug` or `target/release`)
+There is a number of different ways to generate a cryptographic key pair. For the convenience of our users, Iroha 2 is delivered with `kagami`, an in-built tool for generating keys. However, any user is free to generate their keys any way they like.
 
-Create a new key pair:
+To generate a new key pair with `kagami`, run the following command from your project's `root` directory:
 
 ```bash
-$ cargo run --bin kagami  -- crypto
+$ cargo build --bin kagami --release
+$ ./target/release/kagami crypto
 ```
 
-For the purpose of this tutorial, we are going to use the following keys
-for `mad_hatter@looking_glass`:
+::: tip
+
+To customize the generated keys, you can specify a number of parameters. For instance, `kagami` can use of one of four available algorithms to generate cryptographic keys.
+
+To learn more about generating cryptographic keys with `kagami`, available algorithms, and other parameters, see [Generating Cryptographic Keys with Kagami](./security/generating-cryptographic-keys.md#kagami)
+
+:::
+
+For the purposes of this tutorial, we will use the following key pair for `mad_hatter@looking_glass`:
 
 ```bash
 Public key (multihash): ed01204595da8957c5598d4de20fe5f3eb4c14820678e1a1957a535db1fd4b3d1607c5
@@ -291,9 +293,9 @@ _mad_hatter_ has been registered.
 
 
 Now, let's switch to the newly created account, _mad_hatter_, and continue
-experimenting with it. For this, we need to modify the `PUBLIC_KEY`, 
-`PRIVATE_KEY`, and `ACCOUNT_ID` in the `config.json` file with the ones 
-we registered earlier, which is located in the same directory as 
+experimenting with it. For this, we need to modify the `PUBLIC_KEY`,
+`PRIVATE_KEY`, and `ACCOUNT_ID` in the `config.json` file with the ones
+we registered earlier, which is located in the same directory as
 `iroha_client_cli`.
 
 ::: tip
