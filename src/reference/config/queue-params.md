@@ -1,6 +1,6 @@
 # Queue Parameters
 
-TODO Explain Queue module. That is holds or incoming transactions. From time to time, Sumeragi fetches them in order to
+TODO Explain Queue module. The queue holds incoming transactions. From time to time, Sumeragi fetches them in order to
 create a block.
 
 ## `queue.max_transactions_in_queue`
@@ -54,7 +54,7 @@ transaction_time_to_live = "24h"
 - **Type:** String or Number, [Duration](glossary#type-duration)
 - **Default:** 1 second
 
-The threshold to determine if a transaction has been tampered to have a future timestamp.
+The threshold to determine if a transaction has been tampered with to have a future timestamp.
 
 TODO: explain that _timestamp_ is the value specified in
 [`TransactionPayload`'s `creation_time_ms` field](/reference/data-model-schema#transactionpayload).

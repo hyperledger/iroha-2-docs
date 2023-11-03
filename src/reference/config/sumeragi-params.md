@@ -1,8 +1,10 @@
 # Sumeragi Parameters
 
-TODO Explain sumeragi module. Clarify that it consists of transactions and blocks gossiping, which are two separate
-processes. Explain how periods & gossip sizes might affect network load & speed of sync. Explain the pipeline of
-transactions and blocks, refer to consensus section and maybe some others.
+TODO Explain sumeragi module. Clarify that it consists of transactions and
+blocks gossiping, which are two separate processes. Explain how periods &
+gossip sizes might affect network load & speed of sync. Explain the
+pipeline of transactions and blocks, refer to consensus section and maybe
+some others.
 
 ## `sumeragi.block_gossip_period`
 
@@ -20,7 +22,8 @@ block_gossip_period = "5s"
 
 ::: warning
 
-More frequent gossiping shortens the time to sync, but can overload the network.
+More frequent gossiping shortens the time to sync, but can overload the
+network.
 
 :::
 
@@ -43,8 +46,8 @@ max_blocks_per_gossip = 4
 - **Type:** Number
 - **Default:** $500$
 
-Max number of transactions in a gossip batch message. Smaller size leads to longer time to synchronise, but useful if
-you have high packet loss.
+Max number of transactions in a gossip batch message. Smaller size leads to
+longer time to synchronise, but useful if you have high packet loss.
 
 **Example:**
 
@@ -69,7 +72,8 @@ transaction_gossip_period = "1s"
 
 ::: warning
 
-More frequent gossiping shortens the time to sync, but can overload the network.
+More frequent gossiping shortens the time to sync, but can overload the
+network.
 
 :::
 
@@ -139,5 +143,7 @@ trusted_peers = [
 ```
 
 [^1]:
-    The round start happens on peers rotation, when the leader is elected. Generally it happens after the previous block
-    is committed. See [Consensus](/guide/blockchain/consensus) (todo: that page doesn't mention "round start" term ).
+    The round start happens on peers rotation, when the leader is elected.
+    Generally it happens after the previous block is committed. See
+    [Consensus](/guide/blockchain/consensus) (todo: that page doesn't
+    mention "round start" term ).
