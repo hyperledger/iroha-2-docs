@@ -96,3 +96,23 @@ account_ either, unless you submit an instruction.
 These sorts of subtle mistakes can be avoided, for example, by
 deserialising directly from string literals, or by generating a fresh
 key-pair in places where it makes sense.
+
+## SCALE codec errors
+
+You may encounter SCALE codec errors when there's a discrepancy
+between how the data is structured on the client and the peer sides.
+
+It's easy to confuse the builds in the `debug` and `release` directories,
+and keep using an old build due to this.
+In case you're using `iroha_client_cli` and rebuild it inside the Iroha
+project directory root:
+
+* `rm ./target/debug/iroha_client_cli ./target/release/iroha_client_cli`
+* `cargo build -p iroha_client_cli`
+
+Alternatively, please compare the output of
+`/target/debug/iroha_client_cli --version` with a version in the Iroha log.
+You need to view the part at which the Iroha peer starts.
+This will allow you to see whether the versions match.
+
+If you are using one of our SDKs, please make sure to update it.
