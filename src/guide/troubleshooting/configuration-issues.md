@@ -112,7 +112,7 @@ project directory root, use these commands:
 
 Alternatively, please compare the output of
 `/target/debug/iroha_client_cli --version` with a version in the Iroha log.
-You need to view the part at which the Iroha peer starts.
+You need to view the part where the Iroha peer starts.
 This will allow you to see whether the versions match.
 
 If you are using one of our SDKs, please make sure to update it.
