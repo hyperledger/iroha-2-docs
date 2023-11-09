@@ -105,7 +105,7 @@ between the data structure on the client and the peer sides.
 It's easy to confuse the builds in the `debug` and `release` directories,
 and keep using an old build due to this.
 In case you're using the `iroha_client_cli` and rebuild it inside the Iroha
-project directory root:
+project directory root, use these commands:
 
 * `rm ./target/debug/iroha_client_cli ./target/release/iroha_client_cli`
 * `cargo build -p iroha_client_cli`
