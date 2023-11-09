@@ -100,7 +100,7 @@ key-pair in places where it makes sense.
 ## SCALE codec errors
 
 You may encounter SCALE codec errors when there's a discrepancy
-between how the data is structured on the client and the peer sides.
+between the data structure on the client and the peer sides.
 
 It's easy to confuse the builds in the `debug` and `release` directories,
 and keep using an old build due to this.
