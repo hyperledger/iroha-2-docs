@@ -115,4 +115,4 @@ Alternatively, please compare the output of
 You need to view the part where the Iroha peer starts.
 This will allow you to see whether the versions match.
 
-If you are using one of our SDKs, please make sure to update it.
+If you are using one of our SDKs, please make sure it is up to date.
