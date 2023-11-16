@@ -195,6 +195,9 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
         {
           text: 'Update Domain Metadata',
         },
+        {
+            text: 'Transfer Domain Owner'
+        },
         // ... 
         // access management for domains?
       ],
