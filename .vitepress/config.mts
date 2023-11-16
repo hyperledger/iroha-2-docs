@@ -275,7 +275,7 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
       collapsed: true,
       items: [
         {
-          text: 'Register Peers',
+          text: 'Register and Unregister Peers',
         },
         {
           text: "Check Current Peer's Load",
