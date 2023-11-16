@@ -59,12 +59,6 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
             {
               text: 'Revoke Permissions'
             },
-            {
-              text: 'Mint Permission Tokens'
-            },
-            {
-              text: 'Burn Permission Tokens'
-            },
           ],
         },
         {
