@@ -278,7 +278,7 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
           text: 'Register and Unregister Peers',
         },
         {
-          text: "Check Current Peer's Load",
+          text: "Check Peer's Load",
         },
         {
           text: 'Find the Leader Among Running Peers',
