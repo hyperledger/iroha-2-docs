@@ -193,9 +193,6 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
           text: 'Unregister Domains'
         },
         {
-          text: 'Update Domain Metadata',
-        },
-        {
             text: 'Transfer Domain Owner'
         },
         // ... 
