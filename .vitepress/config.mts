@@ -291,7 +291,7 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
       items: [
         {text: 'Use queries'},
         {text: 'Filter query results'},
-        {text: 'Use Lazy Pagination'},
+        {text: 'Use Sorting and Pagination'},
         {text: 'Query Connected Peers'},
       ],
     },
