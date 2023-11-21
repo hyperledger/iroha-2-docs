@@ -76,18 +76,6 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
             },
           ],
         },
-        {
-          text: 'Executors (Permission Validators)',
-          collapsed: true,
-          items: [
-            {
-              text: 'Write Executor',
-            },
-            {
-              text: 'Update Executor',
-            }
-          ],
-        }
       ],
     },
     {
@@ -100,10 +88,22 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
         {
           text: 'Unregister Accounts',
         },
-        {
-          text: 'Update Account Metadata'
-        },
         // ...?
+      ],
+    },
+    {
+      text: 'Asset Definitions',
+      collapsed: true,
+      items: [
+        {
+          text: 'Register Asset Definitions',
+        },
+        {
+          text: 'Unregister Asset Definitions',
+        },
+        {
+          text: 'Transfer Asset Definitions',
+        },
       ],
     },
     {
@@ -238,6 +238,21 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
       ],
     },
     {
+      text: 'Executors',
+      collapsed: true,
+      items: [
+        {
+          text: 'Write Executor',
+        },
+        {
+          text: 'Update Executor',
+        },
+        {
+          text: 'Define Custom Permission Tokens',
+        },
+      ],
+    },
+    {
       text: 'Instructions',
       collapsed: true,
       items: [
@@ -277,6 +292,9 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
         {
           text: 'Find the Leader Among Running Peers',
         },
+        {
+          text: 'Query Connected Peers',
+        },
       ],
     },
     {
@@ -286,7 +304,6 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
         {text: 'Use queries'},
         {text: 'Filter query results'},
         {text: 'Use Sorting and Pagination'},
-        {text: 'Query Connected Peers'},
       ],
     },
     {
@@ -316,9 +333,6 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
         },
         {
           text: 'Submit Transactions',
-        },
-        {
-          text: 'Compile Transactions',
         },
         {
           text: 'Use Multi-Signature Transactions',
