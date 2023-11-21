@@ -78,7 +78,7 @@ non-portable architecture and OS-specific static manner, but WASM is a
 portable format. Since C ABI is the _lingua franca_ of the programming
 world and there is no other stable Rust ABI (yet), Iroha relies on the
 C-linkage to generate WASM bindings. Thankfully, `iroha_wasm` takes care of
-everything related to [foreign function interfaces](/api/ffi.md) (FFI), so
+everything related to [foreign function interfaces](/reference/ffi.md) (FFI), so
 you don't have to worry about things like `unsafe`, `repr(C)`, padding,
 alignment, and others.
 

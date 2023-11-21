@@ -1,6 +1,6 @@
 # Iroha Special Instructions
 
-When we spoke about [how Iroha operates](/index.md#how-iroha-works), we
+When we spoke about [how Iroha operates](/guide/blockchain/how-iroha-works), we
 said that Iroha Special Instructions are the only way to modify the world
 state. So, what kind of special instructions do we have? If you've read the
 language-specific guides in this tutorial, you've already seen a couple of
@@ -24,139 +24,6 @@ instruction can be called for and what instructions are available for each
 object.
 
 ## Summary
-
-::: details Diagram: Iroha Special Instructions
-
-```mermaid
-classDiagram
-
-direction LR
-
-class Instruction {
-    <<enumeration>>
-    Register(RegisterBox)
-    Unregister(UnregisterBox)
-    Mint(MintBox)
-    Burn(BurnBox)
-    Transfer(TransferBox)
-    If(Box~If~)
-    Pair(Box~Pair~)
-    Sequence(SequenceBox)
-    Fail(FailBox)
-    SetKeyValue(SetKeyValueBox)
-    RemoveKeyValue(RemoveKeyValueBox)
-    Grant(GrantBox)
-    Revoke(RevokeBox)
-    ExecuteTrigger(ExecuteTriggerBox)
-}
-
-class SetKeyValueBox {
-    object_id: EvaluatesTo~IdBox~    
-    key: EvaluatesTo~Name~    
-    value: EvaluatesTo~Value~    
-}
-
-class RemoveKeyValueBox {
-    object_id: EvaluatesTo~IdBox~    
-    key: EvaluatesTo~Name~    
-}
-
-
-class RegisterBox {
-    object: EvaluatesTo~RegistrableBox~    
-}
-
-class UnregisterBox {
-    object_id: EvaluatesTo~IdBox~    
-}
-
-
-class MintBox {
-    object: EvaluatesTo~Value~    
-    destination_id: EvaluatesTo~IdBox~    
-}
-
-class BurnBox {
-    object: EvaluatesTo~Value~    
-    destination_id: EvaluatesTo~IdBox~    
-}
-
-class TransferBox {
-    source_id: EvaluatesTo~IdBox~    
-    object: EvaluatesTo~Value~    
-    destination_id: EvaluatesTo~IdBox~    
-}
-
-
-class SequenceBox {
-    instructions: Vec~Instruction~    
-}
-
-class GrantBox {
-    object: EvaluatesTo~Value~    
-    destination_id: EvaluatesTo~IdBox~    
-}
-
-class RevokeBox {
-    object: EvaluatesTo~Value~    
-    destination_id: EvaluatesTo~IdBox~    
-}
-
-class ExecuteTriggerBox {
-    trigger_id: TriggerId
-}
-
-class SetKeyValue~SetKeyValueBox~
-class RemoveKeyValue~RemoveKeyValueBox~
-class Register~RegisterBox~
-class Unregister~UnregisterBox~
-class Mint~MintBox~
-class Burn~BurnBox~
-class Transfer~TransferBox~
-class Grant~GrantBox~
-class Revoke~RevokeBox~
-
-
-Instruction --> SetKeyValue
-Instruction --> RemoveKeyValue
-Instruction --> Register
-Instruction --> Unregister
-Instruction --> Mint
-Instruction --> Burn
-Instruction --> Transfer
-Instruction --> Grant
-Instruction --> Revoke
-Instruction --> ExecuteTrigger
-Instruction --> Sequence
-
-SetKeyValue .. SetKeyValueBox
-RemoveKeyValue .. RemoveKeyValueBox
-Register .. RegisterBox
-Unregister .. UnregisterBox
-Mint .. MintBox
-Burn .. BurnBox
-Transfer .. TransferBox
-Grant .. GrantBox
-Revoke .. RevokeBox
-ExecuteTrigger .. ExecuteTriggerBox
-Sequence .. SequenceBox
-
-class If {
-    condition: EvaluatesTo~bool~    
-    then: Instruction    
-    otherwise: Option~Instruction~    
-}
-
-class Pair {
-    left_instruction: Instruction    
-    right_instruction: Instruction    
-}
-
-Instruction --> If
-Instruction --> Pair
-```
-
-:::
 
 For each instruction, there is a list of objects on which this instruction
 can be run on. For example, only assets can be transferred, while minting
@@ -206,7 +73,7 @@ rule, everything that can be registered, can also be un-registered, but
 that is not a hard and fast rule.
 
 You can register domains, accounts, asset definitions, peers, roles, and
-triggers. Check our [naming conventions](./naming.md) to learn about the
+triggers. Check our [naming conventions](/reference/naming.md) to learn about the
 restrictions put on entity names.
 
 ::: info
@@ -242,11 +109,11 @@ process of registering objects in a blockchain:
 
 | Language              | Guide                                                                                                                                                                                                  |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Bash                  | Register a [domain](/guide/bash.md#_3-registering-a-domain), an [account](/guide/bash.md#_4-registering-an-account), an [asset](/guide/bash.md#_5-registering-and-minting-assets)                      |
-| Rust                  | Register a [domain](/guide/rust.md#_3-registering-a-domain), an [account](/guide/rust.md#_4-registering-an-account), an [asset](/guide/rust.md#_5-registering-and-minting-assets)                      |
-| Kotlin/Java           | Register a [domain](/guide/kotlin-java.md#_3-querying-and-registering-domains), an [account](/guide/kotlin-java.md#_4-registering-an-account), an [asset](/guide/kotlin-java.md#_5-registering-and-minting-assets) |
-| Python                | Register a [domain](/guide/python.md#_3-registering-a-domain), an [account](/guide/python.md#_4-registering-an-account), an [asset](/guide/python.md#_5-registering-and-minting-assets)                |
-| JavaScript/TypeScript | Register a [domain](/guide/javascript.md#_3-registering-a-domain), an [account](/guide/javascript.md#_4-registering-an-account), an [asset](/guide/javascript.md#_5-registering-and-minting-assets)    |
+| Bash                  | Register a [domain](/guide/get-started/bash.md#_3-registering-a-domain), an [account](/guide/get-started/bash.md#_4-registering-an-account), an [asset](/guide/get-started/bash.md#_5-registering-and-minting-assets)                      |
+| Rust                  | Register a [domain](/guide/get-started/rust.md#_3-registering-a-domain), an [account](/guide/get-started/rust.md#_4-registering-an-account), an [asset](/guide/get-started/rust.md#_5-registering-and-minting-assets)                      |
+| Kotlin/Java           | Register a [domain](/guide/get-started/kotlin-java.md#_3-querying-and-registering-domains), an [account](/guide/get-started/kotlin-java.md#_4-registering-an-account), an [asset](/guide/get-started/kotlin-java.md#_5-registering-and-minting-assets) |
+| Python                | Register a [domain](/guide/get-started/python.md#_3-registering-a-domain), an [account](/guide/get-started/python.md#_4-registering-an-account), an [asset](/guide/get-started/python.md#_5-registering-and-minting-assets)                |
+| JavaScript/TypeScript | Register a [domain](/guide/get-started/javascript.md#_3-registering-a-domain), an [account](/guide/get-started/javascript.md#_4-registering-an-account), an [asset](/guide/get-started/javascript.md#_5-registering-and-minting-assets)    |
 
 ## Mint/Burn
 
@@ -263,16 +130,16 @@ are assumed to be non-negative as well, so you can never have $-1.0$ of
 Refer to one of the language-specific guides to walk you through the
 process of minting assets in a blockchain:
 
-- [Bash](/guide/bash.md#_5-registering-and-minting-assets)
-- [Rust](/guide/rust.md#_5-registering-and-minting-assets)
-- [Kotlin/Java](/guide/kotlin-java.md#_5-registering-and-minting-assets)
-- [Python](/guide/python.md#_5-registering-and-minting-assets)
-- [JavaScript/TypeScript ](/guide/javascript.md#_5-registering-and-minting-assets)
+- [Bash](/guide/get-started/bash.md#_5-registering-and-minting-assets)
+- [Rust](/guide/get-started/rust.md#_5-registering-and-minting-assets)
+- [Kotlin/Java](/guide/get-started/kotlin-java.md#_5-registering-and-minting-assets)
+- [Python](/guide/get-started/python.md#_5-registering-and-minting-assets)
+- [JavaScript/TypeScript ](/guide/get-started/javascript.md#_5-registering-and-minting-assets)
 
 Here are examples of burning assets:
 
-- [Bash](/guide/bash.md#_7-burning-assets)
-- [Rust](/guide/rust.md#_6-burning-assets)
+- [Bash](/guide/get-started/bash.md#_7-burning-assets)
+- [Rust](/guide/get-started/rust.md#_6-burning-assets)
 
 ## Transfer
 
@@ -280,9 +147,9 @@ Similar to mint and burn instructions, transferring refers to assets. You
 can transfer assets between different accounts.
 
 To do this, an account have to be granted the
-[permission to transfer assets](./permissions.md#cantransferuserassets).
+[permission to transfer assets](/reference/permissions.md#cantransferuserassets).
 Refer to an example on how to
-[transfer assets in Bash](/guide/bash.md#_6-transferring-assets).
+[transfer assets in Bash](/guide/get-started/bash.md#_6-transferring-assets).
 
 <!--TODO: add links to transferring assets example in which guide after https://github.com/hyperledger/iroha-2-docs/issues/81 is addressed -->
 

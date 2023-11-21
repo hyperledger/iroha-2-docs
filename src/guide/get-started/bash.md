@@ -244,7 +244,7 @@ With a domain available, it is time to register an account.
 
 ## 4. Registering an Account
 
-To register a new account, you need a cryptographic key pair, a set of a _public_ and _private_ keys that establish a secure communication channel between a peer and the network (to learn more about cryptographic keys, see [Public Key Cryptography](./security/public-key-cryptography.md)).
+To register a new account, you need a cryptographic key pair, a set of a _public_ and _private_ keys that establish a secure communication channel between a peer and the network (to learn more about cryptographic keys, see [Public Key Cryptography](/guide/security/public-key-cryptography.md)).
 
 There is a number of different ways to generate a cryptographic key pair. For the convenience of our users, Iroha 2 is delivered with `kagami`, an in-built tool for generating keys. However, any user is free to generate their keys any way they like.
 
@@ -259,7 +259,7 @@ $ ./target/release/kagami crypto
 
 To customize the generated keys, you can specify a number of parameters. For instance, `kagami` can use of one of four available algorithms to generate cryptographic keys.
 
-To learn more about generating cryptographic keys with `kagami`, available algorithms, and other parameters, see [Generating Cryptographic Keys with Kagami](./security/generating-cryptographic-keys.md#kagami)
+To learn more about generating cryptographic keys with `kagami`, available algorithms, and other parameters, see [Generating Cryptographic Keys with Kagami](/guide/security/generating-cryptographic-keys.md#kagami)
 
 :::
 
@@ -467,7 +467,7 @@ assets.
 ## 5. Registering and minting assets
 
 In order to mint assets, you need to register the
-[asset](./blockchain/assets.md) first. We are going to register the _tea_
+[asset](/guide/blockchain/assets.md) first. We are going to register the _tea_
 token within the _looking_glass_ network. To do that, run:
 
 ```bash

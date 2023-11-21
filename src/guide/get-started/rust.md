@@ -38,7 +38,7 @@ number of dependencies to start your own client, similar to
 Once the initial `v2.0.0` release is complete, we plan to create a package
 on [crates.io](https://crates.io/) with all the documentation. In the
 meantime, you could use the local copy that you've just created in the
-[previous step](/guide/build) as a local installation in your client's
+[previous step](/guide/get-started/build) as a local installation in your client's
 `Cargo.toml`:
 
 ```toml
@@ -251,7 +251,7 @@ Which is then **wrapped in a transaction** and **submitted to the peer** as
 ## 5. Registering and minting assets
 
 Iroha has been built with few
-[underlying assumptions](./blockchain/assets.md) about what the assets need
+[underlying assumptions](/guide/blockchain/assets.md) about what the assets need
 to be in terms of their value type and characteristics (fungible or
 non-fungible, mintable or non-mintable).
 

@@ -155,7 +155,7 @@ While un-scoped triggers check all events of a specified type,
 domain-scoped triggers only look for events in a given domain. These
 triggers are more optimised compared to un-scoped triggers.
 
-You can use [`FindTriggersByDomainId`](./queries.md#findtriggersbydomainid)
+You can use [`FindTriggersByDomainId`](/reference/queries.md#findtriggersbydomainid)
 query to find triggers for the given domain.
 
 When you register a domain-scoped trigger, you need to add the domain id to
@@ -568,5 +568,5 @@ You can learn more about Iroha Special Instructions in the
 
 ## Supported Queries
 
-We [list supported queries](./queries.md#trigger) for triggers when we talk
+We [list supported queries](/reference/queries.md#trigger) for triggers when we talk
 in more detail about queries in the next chapter.

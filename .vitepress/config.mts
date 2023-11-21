@@ -8,14 +8,95 @@ import ViteUnoCSS from 'unocss/vite'
 import { mermaid } from './md-mermaid'
 import { katex } from '@mdit/plugin-katex'
 
-function getGuideSidebar(): DefaultTheme.SidebarItem[] {
+function nav(): DefaultTheme.NavItem[] {
   return [
     {
-      text: 'Getting started',
+      text: 'Guide',
+      items: [
+        // { text: 'Get Started', link: '/guide/get-started/index' },
+        // { text: 'Build and Install', link: '/guide/get-started/install' },
+        // { text: 'Tutorials', link: '/guide/get-started/tutorials'},
+        {
+          text: 'Get Started',
+          items: [
+            { text: 'Build and Install', link: '/guide/get-started/install' },
+            { text: 'SDK Tutorials', link: '/guide/get-started/tutorials' },
+          ],
+        },
+        // every part of guides needs an intro
+        { text: 'How Iroha Works', link: '/guide/blockchain/how-iroha-works' },
+        { text: 'Security', link: '/guide/security/index' },
+        { text: 'Configuration and Management', link: '/guide/configure/overview' },
+        { text: 'Troubleshooting', link: '/guide/troubleshooting/overview' },
+      ],
+    },
+    {
+      text: 'Reference',
+      link: '/reference/torii-endpoints',
+      activeMatch: '/reference/',
+    },
+  ]
+}
+
+function sidebarAPI(): DefaultTheme.SidebarItem[] {
+  return [
+    {
+      text: 'About',
       items: [
         {
-          text: 'How Iroha works',
-          link: '/',
+          text: 'Glossary',
+          link: '/reference/glossary.md',
+        },
+        {
+          text: 'Naming Conventions',
+          link: '/reference/naming.md',
+        },
+        {
+          text: 'Compatibility Matrix',
+          link: '/reference/compatibility-matrix',
+        },
+        {
+          text: 'Foreign Function Interfaces',
+          link: '/reference/ffi',
+        },
+      ],
+    },
+    {
+      text: 'Reference',
+      items: [
+        {
+          text: 'Torii Endpoints',
+          link: '/reference/torii-endpoints.md',
+        },
+        {
+          text: 'Data Model Schema',
+          link: '/reference/data-model-schema',
+        },
+        {
+          text: 'Instructions',
+          link: '/reference/instructions',
+        },
+        {
+          text: 'Queries',
+          link: '/reference/queries.md',
+        },
+        {
+          text: 'Permissions',
+          link: '/reference/permissions.md',
+        },
+      ],
+    },
+  ]
+}
+
+function sidebarGuide(): DefaultTheme.SidebarItem[] {
+  return [
+    {
+      text: 'Get Started',
+      items: [
+        {
+          text: 'About Iroha',
+          link: '/guide/introduction',
         },
         {
           text: 'Iroha 2 vs. Iroha 1',
@@ -23,18 +104,19 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
         },
         {
           text: 'Build and Install',
+          collapsed: true,
           items: [
             {
-              text: 'Quick Start with Docker',
-              link: '/guide/quick-start',
-            },
-            {
               text: 'Install Iroha',
-              link: '/guide/install',
+              link: '/guide/get-started/install',
             },
             {
               text: 'Build Iroha Client',
-              link: '/guide/build',
+              link: '/guide/get-started/build',
+            },
+            {
+              text: 'Quick Start with Docker',
+              link: '/guide/get-started/quick-start',
             },
           ],
         },
@@ -42,14 +124,11 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
           text: 'Receive support',
           link: '/guide/support.md',
         },
-        {
-          text: 'Glossary',
-          link: '/guide/glossary.md',
-        },
       ],
     },
     {
       text: 'Security',
+      collapsed: true,
       items: [
         {
           text: 'Overview',
@@ -84,11 +163,12 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
       ],
     },
     {
-      text: 'Tutorial',
+      text: 'SDK Tutorials',
+      collapsed: true,
       items: [
         {
           text: 'Introduction',
-          link: '/guide/intro',
+          link: '/guide/get-started/tutorials',
         },
         /* a common lang-agnostic section will go here */
         {
@@ -96,27 +176,23 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
           items: [
             {
               text: 'Bash',
-              link: '/guide/bash',
+              link: '/guide/get-started/bash',
             },
             {
               text: 'Python 3',
-              link: '/guide/python',
+              link: '/guide/get-started/python',
             },
             {
               text: 'Rust',
-              link: '/guide/rust',
+              link: '/guide/get-started/rust',
             },
             {
               text: 'Kotlin/Java',
-              link: '/guide/kotlin-java',
+              link: '/guide/get-started/kotlin-java',
             },
             {
               text: 'JavaScript',
-              link: '/guide/javascript',
-            },
-            {
-              text: 'Compatibility Matrix',
-              link: '/guide/compatibility-matrix',
+              link: '/guide/get-started/javascript',
             },
           ],
         },
@@ -126,7 +202,12 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
       text: 'Blockchain',
       items: [
         {
+          text: 'How Iroha Works',
+          link: '/guide/blockchain/how-iroha-works',
+        },
+        {
           text: 'Overview',
+          collapsed: true,
           items: [
             {
               text: 'Transactions',
@@ -140,14 +221,11 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
               text: 'Data Model',
               link: '/guide/blockchain/data-model',
             },
-            {
-              text: 'Naming Conventions',
-              link: '/guide/blockchain/naming.md',
-            },
           ],
         },
         {
           text: 'Entities',
+          collapsed: true,
           items: [
             {
               text: 'Assets',
@@ -195,6 +273,7 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
         },
         {
           text: 'Operations',
+          collapsed: true,
           items: [
             {
               text: 'Instructions',
@@ -216,7 +295,12 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
       text: 'Configuration and Management',
       items: [
         {
+          text: 'Overview',
+          link: '/guide/configure/overview',
+        },
+        {
           text: 'Configure Iroha',
+          collapsed: true,
           items: [
             {
               text: 'Configuration Types',
@@ -260,6 +344,7 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
     },
     {
       text: 'Troubleshooting',
+      collapsed: true,
       items: [
         {
           text: 'Overview',
@@ -285,6 +370,7 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
     },
     {
       text: 'Advanced Mode',
+      collapsed: true,
       items: [
         {
           text: 'Iroha On Bare Metal',
@@ -301,33 +387,8 @@ function getGuideSidebar(): DefaultTheme.SidebarItem[] {
       ],
     },
     {
-      text: 'API',
-      items: [
-        {
-          text: 'Torii Endpoints',
-          link: '/api/torii-endpoints.md',
-        },
-        {
-          text: 'Foreign Function Interfaces',
-          link: '/api/ffi',
-        },
-        {
-          text: 'Data Model Schema',
-          link: '/api/data-model-schema',
-        },
-      ],
-    },
-    {
-      text: 'Documenting Iroha',
-      items: [
-        {
-          text: 'Code Snippets',
-          link: '/documenting/snippets',
-        },
-      ],
-    },
-    {
       text: 'Reports',
+      collapsed: true,
       items: [
         {
           text: 'CSD/RTGS linkages via on-chain scripting',
@@ -414,9 +475,12 @@ export default defineConfig({
       text: 'Last Updated',
     },
 
+    nav: nav(),
+    outline: [2, 3],
+
     sidebar: {
-      '/guide/': getGuideSidebar(),
-      '/': getGuideSidebar(),
+      '/guide/': sidebarGuide(),
+      '/reference/': sidebarAPI(),
     },
 
     search: {
