@@ -54,10 +54,10 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
           collapsed: true,
           items: [
             {
-              text: 'Grant Permissions'
+              text: 'Grant Permissions',
             },
             {
-              text: 'Revoke Permissions'
+              text: 'Revoke Permissions',
             },
           ],
         },
@@ -130,7 +130,7 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
           items: [
             {
               text: 'Work with Numeric Assets',
-            }
+            },
           ],
         },
         {
@@ -139,7 +139,7 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
           items: [
             {
               text: 'Work with Store Assets',
-            }
+            },
           ],
         },
         {
@@ -188,10 +188,10 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
           text: 'Register Domains',
         },
         {
-          text: 'Unregister Domains'
+          text: 'Unregister Domains',
         },
         {
-            text: 'Transfer Domain Owner'
+          text: 'Transfer Domain Owner',
         },
       ],
     },
@@ -296,11 +296,7 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
     {
       text: 'Queries',
       collapsed: true,
-      items: [
-        {text: 'Use queries'},
-        {text: 'Filter query results'},
-        {text: 'Use Sorting and Pagination'},
-      ],
+      items: [{ text: 'Use queries' }, { text: 'Filter query results' }, { text: 'Use Sorting and Pagination' }],
     },
     {
       text: 'Telemetry',
@@ -340,23 +336,22 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
       collapsed: true,
       items: [
         {
-            text: 'Register a Data Trigger',
+          text: 'Register a Data Trigger',
         },
         {
-            text: 'Register a Scheduled Trigger',
+          text: 'Register a Scheduled Trigger',
         },
         {
-            text: 'Register a Pre-commit Trigger',
+          text: 'Register a Pre-commit Trigger',
         },
         {
-            text: 'Register a By-call Trigger',
+          text: 'Register a By-call Trigger',
         },
         {
-            text: 'Unregister a Trigger',
+          text: 'Unregister a Trigger',
         },
       ],
     },
-
   ]
 }
 
