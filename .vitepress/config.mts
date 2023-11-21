@@ -330,34 +330,19 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
       collapsed: true,
       items: [
         {
-          text: 'Data Triggers',
-          collapsed: true,
-          items: [
-            {
-              text: 'Register a Data Trigger',
-            },
-          ],
+            text: 'Register a Data Trigger',
         },
         {
-          text: 'Time Triggers',
-          collapsed: true,
-          items: [
-            {
-              text: 'Register a Scheduled Trigger',
-            },
-            {
-              text: 'Register a Pre-commit Trigger',
-            },
-          ],
+            text: 'Register a Scheduled Trigger',
         },
         {
-          text: 'By-call Triggers',
-          collapsed: true,
-          items: [
-            {
-              text: 'Register a By-call Trigger',
-            },
-          ],
+            text: 'Register a Pre-commit Trigger',
+        },
+        {
+            text: 'Register a By-call Trigger',
+        },
+        {
+            text: 'Unregister a Trigger',
         },
       ],
     },
