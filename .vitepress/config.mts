@@ -88,7 +88,6 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
         {
           text: 'Unregister Accounts',
         },
-        // ...?
       ],
     },
     {
@@ -111,7 +110,7 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
       collapsed: true,
       items: [
         {
-          text: 'Assets', // All Assets?
+          text: 'Assets',
           collapsed: true,
           items: [
             {
@@ -123,7 +122,6 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
             {
               text: 'Transfer Assets Between Accounts',
             },
-            // ...?
           ],
         },
         {
@@ -195,8 +193,6 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
         {
             text: 'Transfer Domain Owner'
         },
-        // ... 
-        // access management for domains?
       ],
     },
     {
