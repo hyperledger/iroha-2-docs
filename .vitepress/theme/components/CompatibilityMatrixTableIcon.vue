@@ -28,7 +28,11 @@ const chosenComponent = computed(() => {
 </script>
 
 <template>
-  <component :is="chosenComponent" :data-status="status" :class="{ 'inline-icon': inline }" />
+  <component
+    :is="chosenComponent"
+    :data-status="status"
+    :class="{ 'inline-icon': inline }"
+  />
 </template>
 
 <style lang="scss" scoped>
@@ -44,7 +48,6 @@ svg {
   &[data-status='no-data'] {
     color: var(--vp-c-yellow-1);
   }
-
 }
 
 .inline-icon {
