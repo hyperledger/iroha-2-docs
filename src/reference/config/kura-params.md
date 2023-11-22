@@ -2,23 +2,6 @@
 
 TODO: Explain Kura module
 
-## `kura.init_mode`
-
-- **Type:** String
-- **Possible Values:**
-  - **`strict`:** strict validation of all blocks
-  - **`fast`:** fast initialization with basic checks
-- **Default:** `strict`
-
-**Example:**
-
-```toml
-[kura]
-init_mode = "strict"
-```
-
-TODO: can we change this parameter and restart peer? 
-
 ## `kura.block_store_path`
 
 - **Type:** String
@@ -48,3 +31,20 @@ Maximum number of blocks to write into a single storage file.
 [kura]
 blocks_per_store_file = 1_000
 ```
+
+## `kura.init_mode`
+
+- **Type:** String
+- **Possible Values:**
+  - **`strict`:** strict validation of all blocks
+  - **`fast`:** fast initialization with basic checks
+- **Default:** `strict`
+
+**Example:**
+
+```toml
+[kura]
+init_mode = "strict"
+```
+
+TODO: can we change this parameter and restart peer?

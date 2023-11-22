@@ -3,6 +3,24 @@
 TODO Explain Queue module. The queue holds incoming transactions. From time to time, Sumeragi fetches them in order to
 create a block.
 
+## `queue.future_threshold`
+
+- **Type:** String or Number, [Duration](glossary#type-duration)
+- **Default:** 1 second
+
+The threshold to determine if a transaction has been tampered with to have a future timestamp.
+
+TODO: explain that _timestamp_ is the value specified in
+[`TransactionPayload`'s `creation_time_ms` field](/reference/data-model-schema#transactionpayload).
+
+**Example:**
+
+```toml
+[queue]
+future_threshold = "1s"
+```
+
+
 ## `queue.max_transactions_in_queue`
 
 - **Type:** u32
@@ -49,19 +67,3 @@ parameter has higher priority. Name it `queue.max_transaction_time_to_live`?
 transaction_time_to_live = "24h"
 ```
 
-## `queue.future_threshold`
-
-- **Type:** String or Number, [Duration](glossary#type-duration)
-- **Default:** 1 second
-
-The threshold to determine if a transaction has been tampered with to have a future timestamp.
-
-TODO: explain that _timestamp_ is the value specified in
-[`TransactionPayload`'s `creation_time_ms` field](/reference/data-model-schema#transactionpayload).
-
-**Example:**
-
-```toml
-[queue]
-future_threshold = "1s"
-```

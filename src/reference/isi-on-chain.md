@@ -1,5 +1,10 @@
 # On-Chain Configuration
 
+Supplied using `Configure` ISI with all optional fields, known beforehand. All parameters have default values. Defaults
+are explicitly submitted in the genesis block if not set by a user.
+
+This page contains description of each field configurable.
+
 ## `block_time`
 
 - **Type:** String or Number, [Duration](glossary#type-duration)
@@ -13,8 +18,10 @@ is configured by [`transactions_in_block`](#transactions-in-block).
 
 **Example:**
 
-```toml
-block_time = "2s"
+```json
+{
+  "block_time": 2000
+}
 ```
 
 ## `commit_time`
@@ -48,18 +55,22 @@ round start[^1].
 transactions_in_block = 512
 ```
 
-## `wsv.transaction_limits`
+## `wsv_transaction_limits`
 
-## `wsv.identifier_length_limits`
+## `wsv_identifier_length_limits`
 
-## `wsv.domain_metadata_limits`
+## `wsv_domain_metadata_limits`
 
-## `wsv.account_metadata_limits`
+## `wsv_account_metadata_limits`
 
-## `wsv.asset_definition_metadata_limits`
+## `wsv_asset_definition_metadata_limits`
 
-## `wsv.asset_metadata_limits`
+## `wsv_asset_metadata_limits`
 
-## `wsv.wasm_fuel_limit`
+## `wasm_fuel_limit`
 
-## `wsv.wasm_memory_limit`
+## `wasm_memory_limit`
+
+[^1]:
+    The round start happens on peers rotation, when the leader is elected. Generally it happens after the previous block
+    is committed. See [Consensus](/guide/blockchain/consensus) (todo: that page doesn't mention "round start" term ).

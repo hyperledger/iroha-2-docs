@@ -2,39 +2,22 @@
 
 This page explains the parameters related to logging operations of Iroha 2, as managed by the Logger module.
 
-## `logger.level`
+## `logger.compact`
 
-Sets the logging sensitivity.
+- **Type:** Boolean
+- **Default:** `false`
 
-- **ENV:** `LOG`, `LOG_LEVEL`, `IROHA_LOG_LEVEL`
-- **Type:** String
-- **Possible Values:**
-  - **`TRACE`:** All events, including low-level operations.
-  - **`DEBUG`:** Debug-level messages, useful for diagnostics.
-  - **`INFO`:** General informational messages.
-  - **`WARN`:** Warnings that indicate potential issues.
-  - **`ERROR`:** Errors that disrupt normal function but allow continued operation.
-  - **`FATAL`:** Critical errors that lead to immediate termination.
-- **Default:** `INFO`
-
-Choose the level that best suits your use case. Refer to
-[Stack Overflow](https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels) for additional
-details on how to use different log levels.
+Use compact logging format.
 
 **Example:**
 
-::: code-group
-
-```toml [Configuration file]
+```toml
 [logger]
-level = "INFO"
+compact = true
 ```
 
-```shell [ENV]
-LOG_LEVEL=INFO
-```
-
-:::
+TODO: give an example of compact and full logs. More clue in
+[tracing Compact docs](https://docs.rs/tracing-subscriber/latest/tracing_subscriber/fmt/format/struct.Compact.html#example-output)
 
 ## `logger.file`
 
@@ -77,22 +60,39 @@ TODO: relative to CWD or to the config file?
 
 TODO: which file extension should we use in examples? `.jsonlogs`?
 
-## `logger.compact`
+## `logger.level`
 
-- **Type:** Boolean
-- **Default:** `false`
+Sets the logging sensitivity.
 
-Use compact logging format.
+- **ENV:** `LOG`, `LOG_LEVEL`, `IROHA_LOG_LEVEL`
+- **Type:** String
+- **Possible Values:**
+  - **`TRACE`:** All events, including low-level operations.
+  - **`DEBUG`:** Debug-level messages, useful for diagnostics.
+  - **`INFO`:** General informational messages.
+  - **`WARN`:** Warnings that indicate potential issues.
+  - **`ERROR`:** Errors that disrupt normal function but allow continued operation.
+  - **`FATAL`:** Critical errors that lead to immediate termination.
+- **Default:** `INFO`
+
+Choose the level that best suits your use case. Refer to
+[Stack Overflow](https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels) for additional
+details on how to use different log levels.
 
 **Example:**
 
-```toml
+::: code-group
+
+```toml [Configuration file]
 [logger]
-compact = true
+level = "INFO"
 ```
 
-TODO: give an example of compact and full logs. More clue in
-[tracing Compact docs](https://docs.rs/tracing-subscriber/latest/tracing_subscriber/fmt/format/struct.Compact.html#example-output)
+```shell [ENV]
+LOG_LEVEL=INFO
+```
+
+:::
 
 ## `logger.terminal_colors`
 

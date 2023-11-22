@@ -14,12 +14,15 @@ parameters. The most basic `iroha.toml` config file looks like this:
 public_key = "ed0120FAFCB2B27444221717F6FCBF900D5BE95273B1B0904B08C736B32A19F16AC1F9"
 private_key = { digest = "ed25519", payload = "82886B5A2BB3785F3CA8F8A78F60EA9DB62F939937B1CFA8407316EF07909A8D236808A6D4C12C91CA19E54686C2B8F5F3A786278E3824B4571EF234DEC8683B" }
 
-[network]
-# peer-to-peer communication address
+# Peer-to-Peer communication address
 address = "localhost:1337"
 
+[genesis]
+public_key = "..."
+
 [torii]
-api_address = "localhost:8080"
+# API address
+address = "localhost:8080"
 ```
 
 The path to the configuration file can be overwritten either with `--config` CLI argument, or with `IROHA_CONFIG`
@@ -27,12 +30,12 @@ environment variable:
 
 ::: code-group
 
-```bash [With --config]
-$ iroha --config ./cfg.toml
+```bash [Using CLI]
+$ iroha --config ./config.toml
 ```
 
-```bash [With IROHA_CONFIG]
-$ IROHA_CONFIG=/path/to/config/iroha.toml iroha
+```bash [Using ENV]
+$ IROHA_CONFIG=/path/to/config.toml iroha
 ```
 
 :::

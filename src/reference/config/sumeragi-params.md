@@ -142,8 +142,3 @@ trusted_peers = [
 ]
 ```
 
-[^1]:
-    The round start happens on peers rotation, when the leader is elected.
-    Generally it happens after the previous block is committed. See
-    [Consensus](/guide/blockchain/consensus) (todo: that page doesn't
-    mention "round start" term ).
