@@ -156,13 +156,22 @@ async function findFiles(root: string): Promise<string[]> {
   return globby(path.join(root, '**/*.html'))
 }
 
+const ANCHORS_QUERY = cssSelect.compile('main [id]')
+
+const LINKS_QUERY = cssSelect.compile('main a[href]')
+
+/**
+ * TODO: Here we only look into `<main>`. There are also links in `<aside>` and `<header>`, but unlike `<main>`, they
+ *       repeat from page to page. Current scan-validate logic doesn't handle such repetition and the report will
+ *       look cumbersome.
+ */
 function scanLinksAndAnchorsInHTML(html: string): {
   links: string[]
   anchors: Set<string>
 } {
   const doc = htmlparser.parseDocument(html)
 
-  const links = cssSelect.selectAll('main a[href]', doc.children).map((elem) => {
+  const links = cssSelect.selectAll(LINKS_QUERY, doc.children).map((elem) => {
     return match(elem)
       .with({ name: 'a', attribs: { href: P.select(P.string) } }, (href) => href)
       .otherwise(() => {
@@ -171,7 +180,7 @@ function scanLinksAndAnchorsInHTML(html: string): {
   })
 
   const anchors = new Set(
-    cssSelect.selectAll('main [id]', doc.children).map((elem) => {
+    cssSelect.selectAll(ANCHORS_QUERY, doc.children).map((elem) => {
       return match(elem)
         .with({ attribs: { id: P.select(P.string) } }, (id) => id)
         .otherwise(() => {
