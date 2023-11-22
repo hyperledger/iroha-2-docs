@@ -20,7 +20,7 @@
    of DockerHub, or build the container locally. After this process is
    complete, you'll be greeted with,
 
-   <<< @/guide/quick-start.docker-compose-output.ansi
+   <<< @/guide/get-started/quick-start.docker-compose-output.ansi
 
 4. Follow the [Bash tutorial](./bash.md) to check out Iroha's capabilities.
 

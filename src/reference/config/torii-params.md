@@ -2,7 +2,7 @@
 
 TODO: Explain Torii module
 
-This module contains configuration of [Torii](/guide/glossary#torii-gate) - the API gateway of Iroha. Refer to the
+This module contains configuration of [Torii](/reference/glossary#torii-gate) - the API gateway of Iroha. Refer to the
 [Torii Endpoints reference](/reference/torii-endpoints) for information about exact endpoints.
 
 ## `torii.address`

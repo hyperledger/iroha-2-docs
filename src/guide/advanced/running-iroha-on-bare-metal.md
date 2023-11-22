@@ -380,7 +380,7 @@ that `Control + Shift + V` is the appropriate `paste` shortcut.
 
 Also note that we asked this peer to `--submit` or `--submit-genesis`. This
 means that in the initial network topology, this peer is the
-[leader](/guide/glossary.md#leader). At least one peer (usually the first)
+[leader](/reference/glossary.md#leader). At least one peer (usually the first)
 needs to be the leader in the initial topology.
 
 Now you should do the same for the other four peers. Be mindful not to mix
@@ -415,7 +415,7 @@ $ iroha --submit-genesis
 
 We effectively asked this peer to `--submit` or `--submit-genesis` in the
 initial, or _bootstrap_, network. This means that in the initial network
-topology, this peer is the [leader](/guide/glossary.md#leader).
+topology, this peer is the [leader](/reference/glossary.md#leader).
 
 ::: info Note
 

@@ -7,13 +7,13 @@ This page contains description of each field configurable.
 
 ## `block_time`
 
-- **Type:** String or Number, [Duration](glossary#type-duration)
+- **Type:** Number, milliseconds
 - **Default:** 2 seconds
 
 Time since the round start[^1] by which a new block should be created regardless if there were enough transactions or
 not. Used to force block commits when there is a small influx of new transactions.
 
-A block might be created earlier if there is enough transactions in the [Queue](queue-params). The limit of transactions
+A block might be created earlier if there is enough transactions in the [Queue](config/queue-params). The limit of transactions
 is configured by [`transactions_in_block`](#transactions-in-block).
 
 **Example:**
@@ -26,7 +26,7 @@ is configured by [`transactions_in_block`](#transactions-in-block).
 
 ## `commit_time`
 
-- **Type:** String or Number, [Duration](glossary#type-duration)
+- **Type:** Number, milliseconds
 - **Default:** 4 seconds
 
 Time by which a newly created block should be committed. Prevents malicious nodes from stalling the network by not
@@ -45,7 +45,7 @@ commit_time = "4s"
 - **Type:** u32
 - **Default:** $2^9 = 512$
 
-The upper limit of the number of transactions per block. If there is enough transactions in the [Queue](queue-params),
+The upper limit of the number of transactions per block. If there is enough transactions in the [Queue](config/queue-params),
 the block is created immediately. Otherwise, the block is created when [`block_time`](#block-time) is elapsed since the
 round start[^1].
 
