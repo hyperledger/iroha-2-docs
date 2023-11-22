@@ -6,9 +6,13 @@ import { computed } from 'vue'
 
 export type Status = 'ok' | 'failed' | 'no-data'
 
-const props = defineProps<{
-  status: Status
-}>()
+const props = withDefaults(
+  defineProps<{
+    status: Status
+    inline: boolean
+  }>(),
+  { inline: false },
+)
 
 // eslint-disable-next-line vue/return-in-computed-property
 const chosenComponent = computed(() => {
@@ -24,25 +28,27 @@ const chosenComponent = computed(() => {
 </script>
 
 <template>
-  <component
-    :is="chosenComponent"
-    :data-status="status"
-    class="compat-matrix-table-icon"
-  />
+  <component :is="chosenComponent" :data-status="status" :class="{ 'inline-icon': inline }" />
 </template>
 
-<style lang="scss">
-svg.compat-matrix-table-icon {
+<style lang="scss" scoped>
+svg {
   &[data-status='ok'] {
-    color: var(--vp-c-green);
+    color: var(--vp-c-green-1);
   }
 
   &[data-status='failed'] {
-    color: var(--vp-c-red);
+    color: var(--vp-c-red-1);
   }
 
   &[data-status='no-data'] {
-    color: var(--vp-c-yellow);
+    color: var(--vp-c-yellow-1);
   }
+
+}
+
+.inline-icon {
+  display: inline;
+  vertical-align: middle;
 }
 </style>
