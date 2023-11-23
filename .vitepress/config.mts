@@ -55,9 +55,11 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
           items: [
             {
               text: 'Grant Permissions',
+              link: '/cookbook/grant-permissions',
             },
             {
               text: 'Revoke Permissions',
+              link: '/cookbook/revoke-permissions',
             },
           ],
         },
@@ -67,12 +69,15 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
           items: [
             {
               text: 'Register a Role',
+              link: '/cookbook/register-roles',
             },
             {
               text: 'Grant a Role',
+              link: '/cookbook/grant-roles',
             },
             {
               text: 'Revoke a Role',
+              link: '/cookbook/revoke-roles',
             },
           ],
         },
@@ -84,9 +89,11 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
       items: [
         {
           text: 'Register Accounts',
+          link: '/cookbook/register-accounts',
         },
         {
           text: 'Unregister Accounts',
+          link: '/cookbook/unregister-accounts',
         },
       ],
     },
@@ -96,12 +103,15 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
       items: [
         {
           text: 'Register Asset Definitions',
+          link: '/cookbook/register-asset-definitions',
         },
         {
           text: 'Unregister Asset Definitions',
+          link: '/cookbook/unregister-asset-definitions',
         },
         {
           text: 'Transfer Asset Definitions',
+          link: '/cookbook/transfer-asset-definitions',
         },
       ],
     },
@@ -115,12 +125,15 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
           items: [
             {
               text: 'Register Assets',
+              link: '/cookbook/register-assets',
             },
             {
               text: 'Unregister Assets',
+              link: '/cookbook/unregister-assets',
             },
             {
               text: 'Transfer Assets Between Accounts',
+              link: '/cookbook/transfer-assets',
             },
           ],
         },
@@ -130,6 +143,7 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
           items: [
             {
               text: 'Work with Numeric Assets',
+              link: '/cookbook/work-with-numeric-assets',
             },
           ],
         },
@@ -139,6 +153,7 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
           items: [
             {
               text: 'Work with Store Assets',
+              link: '/cookbook/work-with-store-assets',
             },
           ],
         },
@@ -148,12 +163,15 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
           items: [
             {
               text: 'Mint Assets',
+              link: '/cookbook/mint-assets',
             },
             {
               text: 'Mint More of a Mintable Asset',
+              link: '/cookbook/mint-more-assets',
             },
             {
               text: 'Burn Assets',
+              link: '/cookbook/burn-assets',
             },
           ],
         },
@@ -163,6 +181,7 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
           items: [
             {
               text: 'Work with Non-Mintable Assets',
+              link: '/cookbook/work-with-non-mintable-assets',
             },
           ],
         },
@@ -172,9 +191,11 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
           items: [
             {
               text: 'Create Asset-backed Tokens',
+              link: '/cookbook/create-asset-backed-tokens',
             },
             {
               text: 'Create Non-Fungible Tokens (NFTs)',
+              link: '/cookbook/create-nfts',
             },
           ],
         },
@@ -186,17 +207,20 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
       items: [
         {
           text: 'Register Domains',
+          link: '/cookbook/register-domains',
         },
         {
           text: 'Unregister Domains',
+          link: '/cookbook/unregister-domains',
         },
         {
           text: 'Transfer Domain Owner',
+          link: '/cookbook/transfer-domain-owner',
         },
       ],
     },
     {
-      text: 'Events and Filters',
+      text: 'Events and Filters', // for this sections no files were created
       collapsed: true,
       items: [
         {
@@ -239,12 +263,15 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
       items: [
         {
           text: 'Write Executor',
+          link: '/cookbook/write-executor',
         },
         {
           text: 'Update Executor',
+          link: '/cookbook/update-executor',
         },
         {
           text: 'Define Custom Permission Tokens',
+          link: '/cookbook/define-custom-permission-tokens',
         },
       ],
     },
@@ -254,9 +281,11 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
       items: [
         {
           text: 'Use Instructions',
+          link: '/cookbook/use-instructions',
         },
         {
           text: 'Combine Instructions via Expressions',
+          link: '/cookbook/combine-instructions',
         },
       ],
     },
@@ -266,12 +295,15 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
       items: [
         {
           text: 'Set Key Value',
+          link: '/cookbook/set-key-value',
         },
         {
           text: 'Remove Key Value',
+          link: '/cookbook/remove-key-value',
         },
         {
           text: 'Access Metadata',
+          link: '/cookbook/access-metadata',
         },
       ],
     },
@@ -280,16 +312,24 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
       collapsed: true,
       items: [
         {
-          text: 'Register and Unregister Peers',
+          text: 'Register Peers',
+          link: '/cookbook/register-peers',
+        },
+        {
+          text: 'Unregister Peers',
+          link: '/cookbook/unregister-peers',
         },
         {
           text: "Check Peer's Load",
+          link: '/cookbook/check-peer-load',
         },
         {
           text: 'Find the Leader Among Running Peers',
+          link: '/cookbook/find-leader-among-running-peers',
         },
         {
           text: 'Query Connected Peers',
+          link: '/cookbook/query-connected-peers',
         },
       ],
     },
@@ -304,15 +344,19 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
       items: [
         {
           text: 'Check Status',
+          link: '/cookbook/check-status',
         },
         {
           text: 'Get Metrics',
+          link: '/cookbook/get-metrics',
         },
         {
           text: 'Monitor Iroha Performance',
+          link: '/cookbook/monitor-iroha-performance',
         },
         {
           text: 'Check Health',
+          link: '/cookbook/check-health',
         },
       ],
     },
@@ -322,12 +366,15 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
       items: [
         {
           text: 'Create Transactions',
+          link: '/cookbook/create-transactions',
         },
         {
           text: 'Submit Transactions',
+          link: '/cookbook/submit-transactions',
         },
         {
           text: 'Use Multi-Signature Transactions',
+          link: '/cookbook/use-multi-signature-transactions',
         },
       ],
     },
@@ -337,18 +384,23 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
       items: [
         {
           text: 'Register a Data Trigger',
+          link: '/cookbook/register-data-triggers',
         },
         {
           text: 'Register a Scheduled Trigger',
+          link: '/cookbook/register-scheduled-triggers',
         },
         {
           text: 'Register a Pre-commit Trigger',
+          link: '/cookbook/register-pre-commit-triggers',
         },
         {
           text: 'Register a By-call Trigger',
+          link: '/cookbook/register-by-call-triggers',
         },
         {
           text: 'Unregister a Trigger',
+          link: '/cookbook/unregister-triggers',
         },
       ],
     },
@@ -722,7 +774,7 @@ export default defineConfig({
   base: BASE,
   srcDir: 'src',
   srcExclude: ['snippets/*.md'],
-  title: 'Hyperledger Iroha 2 Tutorial',
+  title: 'Hyperledger Iroha 2 Documentation',
   description:
     'Documentation for Hyperledger Iroha 2 offering step-by-step guides for SDKs and outlining the main differences between Iroha versions.',
   lang: 'en-US',
