@@ -3,7 +3,7 @@ title: "Register Domains | Cookbook"
 head:
   - - meta
     - name: description
-      content: "Learn how to register a domain in Iroha."
+      content: "Learn how to register domains in Iroha."
   - - meta
     - name: keywords
       content: "Iroha domains, registering domains"

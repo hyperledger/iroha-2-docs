@@ -3,7 +3,7 @@ title: "Register Roles | Cookbook"
 head:
   - - meta
     - name: description
-      content: "Learn how to register a role in Iroha."
+      content: "Learn how to register roles in Iroha."
   - - meta
     - name: keywords
       content: "registering roles, permissions"

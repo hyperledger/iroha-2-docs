@@ -3,7 +3,7 @@ title: "Unregister Domains | Cookbook"
 head:
   - - meta
     - name: description
-      content: "Learn how to unregister a domain in Iroha."
+      content: "Learn how to unregister domains in Iroha."
   - - meta
     - name: keywords
       content: "Iroha domains, unregister instruction"

@@ -3,7 +3,7 @@ title: "Check Health | Cookbook"
 head:
   - - meta
     - name: description
-      content: "Learn how to check health to monitor Iroha performance."
+      content: "Learn how to monitor Iroha performance by checking health."
   - - meta
     - name: keywords
       content: "telemetry, health, Iroha performance"

@@ -3,7 +3,7 @@ title: "Register Peers | Cookbook"
 head:
   - - meta
     - name: description
-      content: "Learn how to register an Iroha peer."
+      content: "Learn how to register peers in Iroha."
   - - meta
     - name: keywords
       content: "registering peers, Iroha peers"
