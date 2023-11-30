@@ -11,6 +11,12 @@ Here's an example of how peer configuration file looks like:
 
 :::
 
+::: warning
+
+Note that the values specified in the configuration file can be overridden with the environment variables.
+
+:::
+
 Some of the configuration options are required, while others are used for
 fine-tuning. When you create a new peer, you are required to provide the
 following:
