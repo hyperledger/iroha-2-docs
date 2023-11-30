@@ -135,6 +135,10 @@ function sidebarCookbook(): DefaultTheme.SidebarItem[] {
               text: 'Transfer Assets Between Accounts',
               link: '/cookbook/transfer-assets',
             },
+            {
+              text: 'Transfer Groups of Assets',
+              link: '/cookbook/transfer-group-assets',
+            },
           ],
         },
         {
