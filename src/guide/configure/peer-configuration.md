@@ -11,7 +11,7 @@ Here's an example of how peer configuration file looks like:
 
 :::
 
-::: warning
+::: info
 
 Note that the values specified in the configuration file can be overridden with the environment variables.
 
