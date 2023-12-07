@@ -11,21 +11,26 @@ head:
 
 # How to Use Multi-Signature Transactions
 
-We will create an account with a key and set a rule that all transactions
-made by this account should be also signed by an additional key. Then we
-will perform a transaction itself, in two stages: first will be signed and
-submitted with the main account key, and then the same transaction will be
-submitted with an additional signature by the second key. To check if
-everything works, we will also create and asset and the multi-signature
-transaction will mint that asset.
+The following example shows how to set up a rule that all transactions made by a specific account should also be signed by an additional key.
 
-So, our first transaction will:
+## Overview
 
-- Create account `mad_hatter` in `wonderland` domain with `key1`
-- Assign `SignatureCheckCondition` to it, which will enforce transactions
-  from `mad_hatter@wonderland` to have an additional `key2`
-- Register a numeric asset `casomile#wonderland` of type `Quantity` and
-  infinite mintability.
+<!-- maybe some extra introduction info here as well? -->
+
+1. Create an account and set up a second signature rule for it.
+2. Submit the transaction signed by the main account key.
+3. Submit the same transaction signed by the second additional key.
+4. Check if everything works correctly. <!-- rephrase this? what it means that everything is working? -->
+
+## Example
+
+1. Let's create an account that would need to have an additional signature for its transactions. Let's also create an asset that this account will later mint in order to check that the rule about second signature works as expected.
+
+   The code below covers the following steps:
+
+   - Create account `mad_hatter` in `wonderland` domain with `key1`.
+   - Assign `SignatureCheckCondition` to the created account. This will enforce transactions from `mad_hatter@wonderland` to have an additional `key2`.
+   - Register a numeric asset `casomile#wonderland` of type `Quantity` and infinite mintability.
 
 ::: code-group
 
@@ -112,7 +117,7 @@ await blocks.wait(async () => {
 
 :::
 
-Then we build the transaction with the account's primary key:
+2. Let's build the transaction with the account's primary key:
 
 ::: code-group
 
@@ -156,7 +161,7 @@ await Torii.submit(pre, tx1)
 
 :::
 
-After that, we sign the same transaction with the second key and submit it:
+3. Let's sign the same transaction with the second key and submit it:
 
 ::: code-group
 
@@ -183,6 +188,8 @@ await Torii.submit(pre, tx2)
 ```
 
 :::
+
+## Find More
 
 You could find full code here: [Rust](https://www.example.com/),
 [TypeScript](https://www.example.com/).
