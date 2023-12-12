@@ -6,6 +6,8 @@ into a [WASM blob](./wasm.md).
 
 All interactions in the blockchain are done via transactions.
 
+All transactions, including rejected transactions, are stored in blocks.
+
 Here is an example of creating a new transaction with the `Grant`
 instruction. In this transaction, Mouse is granting Alice the specified
 role (`role_id`). Check

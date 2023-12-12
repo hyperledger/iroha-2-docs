@@ -11,6 +11,12 @@ Here's an example of how peer configuration file looks like:
 
 :::
 
+::: info
+
+Note that for convenient container deployment, configuration options specified via environment variables always override the corresponding values in the configuration file. This way, you can have a basic configuration file and also configure some options in a `docker-compose.yml` or in your shell's environment file (`.bashrc`, `.zshrc`, etc.).
+
+:::
+
 Some of the configuration options are required, while others are used for
 fine-tuning. When you create a new peer, you are required to provide the
 following:

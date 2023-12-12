@@ -208,7 +208,7 @@ To make the `<username>/.local/bin` directory explicitly available to your shell
     $ fish_add_path ~/.local/bin
     ```
 
-::: note
+::: info
 
 In addition to the methods listed above, consult documentation for the shell you're using or consider adding the `PATH` variant to your terminal's session configuration.
 
