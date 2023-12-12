@@ -36,8 +36,8 @@ current block and continues to stream blocks as they are added to the blockchain
 - **Protocol:** HTTP
 - **Method:** `GET`
 - **Endpoint:** `/configuration`
-- **Responses:** with JSON-serialized subset of configuration parameters. The subset of returned parameters is equal to
-  the one accepted by [Configuration > Update endpoint](#configuration-update), i.e. it contains only
+- **Responses:** with a JSON-serialized subset of configuration parameters. The subset of returned parameters is equal to
+  the one accepted by the [Configuration > Update endpoint](#configuration-update), i.e. it only contains the
   `logger.level` parameter as of now.
 
 **Example response:**
@@ -58,7 +58,7 @@ current block and continues to stream blocks as they are added to the blockchain
 - **Expects:** a JSON-serialized subset of configuration parameters.
 - **Response:** `202 ACCEPTED`
 
-This endpoint currently supports only dynamic updating of the `logger.level` parameter.
+This endpoint only supports dynamic updating of the `logger.level` parameter for now.
 
 For possible values please refer to the configuration reference (TODO:
 [Tracking issue for configuration reference](https://github.com/hyperledger/iroha-2-docs/issues/392)).
@@ -75,7 +75,7 @@ For possible values please refer to the configuration reference (TODO:
 
 ::: tip Guarantees
 
-It is not guaranteed that successful update of configuration means that the configuration is indeed updated. While
+A successful configuration update does not guarantee that the configuration is indeed updated. While
 consecutive [configuration retrievals](#configuration-retrieve) will return updated values, the actual update is
 performed asynchronously. 
 
@@ -190,7 +190,7 @@ Learn [how to use metrics](/guide/advanced/metrics).
       results.
     - **`sort_by_metadata_key`:** An optional parameter in queries. Use to sort results containing metadata with a given
       key.
-    - **`fetch_size`:** An optional parameter in queries. Use to specify the exact number of results returned by a
+    - **`fetch_size`:** An optional parameter in queries. Use it to specify the exact number of results returned by a
       query.
 
 **Responses:**
