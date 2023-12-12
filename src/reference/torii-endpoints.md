@@ -31,46 +31,55 @@ Via this endpoint, the client first provides the starting block number (i.e. hei
 sending the confirmation message, the server starts streaming all the blocks from the given block number up to the
 current block and continues to stream blocks as they are added to the blockchain.
 
-## Configuration > Retrieve
+## Configuration / Retrieve
 
 - **Protocol:** HTTP
 - **Method:** `GET`
 - **Endpoint:** `/configuration`
 - **Responses:** with JSON-serialized subset of configuration parameters. The subset of returned parameters is equal to
   the one accepted by [Configuration > Update endpoint](#configuration-update), i.e. it contains only
-  `logger.max_log_level` parameter as of now.
+  `logger.level` parameter as of now.
 
-Example response:
+**Example response:**
 
 ```json
 {
   "logger": {
-    "max_log_level": "TRACE"
+    "level": "TRACE"
   }
 }
 ```
 
-## Configuration > Update
+## Configuration / Update
 
 - **Protocol:** HTTP
 - **Method:** `POST`
 - **Endpoint:** `/configuration`
 - **Expects:** a JSON-serialized subset of configuration parameters.
+- **Response:** `202 ACCEPTED`
 
-This endpoint currently supports only dynamic updating of the `logger.max_log_level` parameter.
+This endpoint currently supports only dynamic updating of the `logger.level` parameter.
 
 For possible values please refer to the configuration reference (TODO:
 [Tracking issue for configuration reference](https://github.com/hyperledger/iroha-2-docs/issues/392)).
 
-Example request:
+**Example request:**
 
 ```json
 {
   "logger": {
-    "max_log_level": "DEBUG"
+    "level": "DEBUG"
   }
 }
 ```
+
+::: tip Guarantees
+
+It is not guaranteed that successful update of configuration means that the configuration is indeed updated. While
+consecutive [configuration retrievals](#configuration-retrieve) will return updated values, the actual update is
+performed asynchronously. 
+
+:::
 
 ## Events
 
