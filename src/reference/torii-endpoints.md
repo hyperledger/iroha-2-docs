@@ -31,6 +31,56 @@ Via this endpoint, the client first provides the starting block number (i.e. hei
 sending the confirmation message, the server starts streaming all the blocks from the given block number up to the
 current block and continues to stream blocks as they are added to the blockchain.
 
+## Configuration / Retrieve
+
+- **Protocol:** HTTP
+- **Method:** `GET`
+- **Endpoint:** `/configuration`
+- **Responses:** with a JSON-serialized subset of configuration parameters. The subset of returned parameters is equal to
+  the one accepted by the [Configuration > Update endpoint](#configuration-update), i.e. it only contains the
+  `logger.level` parameter as of now.
+
+**Example response:**
+
+```json
+{
+  "logger": {
+    "level": "TRACE"
+  }
+}
+```
+
+## Configuration / Update
+
+- **Protocol:** HTTP
+- **Method:** `POST`
+- **Endpoint:** `/configuration`
+- **Expects:** a JSON-serialized subset of configuration parameters.
+- **Response:** `202 ACCEPTED`
+
+This endpoint only supports dynamic updating of the `logger.level` parameter for now.
+
+For possible values please refer to the configuration reference (TODO:
+[Tracking issue for configuration reference](https://github.com/hyperledger/iroha-2-docs/issues/392)).
+
+**Example request:**
+
+```json
+{
+  "logger": {
+    "level": "DEBUG"
+  }
+}
+```
+
+::: tip Guarantees
+
+A successful configuration update does not guarantee that the configuration is indeed updated. While
+consecutive [configuration retrievals](#configuration-retrieve) will return updated values, the actual update is
+performed asynchronously. 
+
+:::
+
 ## Events
 
 - **Protocol:** HTTP
@@ -140,12 +190,13 @@ Learn [how to use metrics](/guide/advanced/metrics).
       results.
     - **`sort_by_metadata_key`:** An optional parameter in queries. Use to sort results containing metadata with a given
       key.
-    - **`fetch_size`:** An optional parameter in queries. Use to specify the exact number of results returned by a query.
+    - **`fetch_size`:** An optional parameter in queries. Use it to specify the exact number of results returned by a
+      query.
 
 **Responses:**
 
-| Response         | Status | Body                                                                                       |
-| ---------------- | ------ | ------------------------------------------------------------------------------------------ |
+| Response         | Status | Body                                                                                             |
+| ---------------- | ------ | ------------------------------------------------------------------------------------------------ |
 | Success          | 200    | [`VersionedBatchedResponse<Value>`](/reference/data-model-schema#versionedbatchedresponse-value) |
 | Conversion Error | 400    | [`QueryExecutionFail::Conversion(String)`](/reference/data-model-schema#queryexecutionfail)      |
 | Evaluate Error   | 400    | [`QueryExecutionFail::Evaluate(String)`](/reference/data-model-schema#queryexecutionfail)        |
@@ -158,7 +209,7 @@ Learn [how to use metrics](/guide/advanced/metrics).
 Whether each prerequisite object was found and [`FindError`](/reference/data-model-schema#finderror):
 
 | Domain | Account | [`FindError`](/reference/data-model-schema#finderror)                     |
-| :----: | :-----: | ------------------------------------------------------------------- |
+| :----: | :-----: | ------------------------------------------------------------------------- |
 |   N    |    -    | [`FindError::Domain(DomainId)`](/reference/data-model-schema#finderror)   |
 |   Y    |    N    | [`FindError::Account(AccountId)`](/reference/data-model-schema#finderror) |
 
@@ -167,7 +218,7 @@ Whether each prerequisite object was found and [`FindError`](/reference/data-mod
 Whether each prerequisite object was found and [`FindError`](/reference/data-model-schema#finderror):
 
 | Domain | Account | Asset Definition | Asset | [`FindError`](/reference/data-model-schema#finderror)                                     |
-| :----: | :-----: | :--------------: | :---: | ----------------------------------------------------------------------------------- |
+| :----: | :-----: | :--------------: | :---: | ----------------------------------------------------------------------------------------- |
 |   N    |    -    |        -         |   -   | [`FindError::Domain(DomainId)`](/reference/data-model-schema#finderror)                   |
 |   Y    |    N    |        -         |   -   | [`FindError::Account(AccountId)`](/reference/data-model-schema#finderror)                 |
 |   Y    |    -    |        N         |   -   | [`FindError::AssetDefinition(AssetDefinitionId)`](/reference/data-model-schema#finderror) |
@@ -208,7 +259,6 @@ struct Uptime {
     nanos: u32
 }
 ```
-
 
 ::: warning JSON Precision Lost
 
@@ -299,75 +349,3 @@ returns the corresponding JSON value.
     [GitHub repository](https://github.com/paritytech/parity-scale-codec).
 
     <!--TODO: link to our own article about SCALE https://github.com/hyperledger/iroha-2-docs/issues/367-->
-
-<!-- TODO: edit these endpoints when the decision is made about them (according to the config rfc)
-
-## Get Configuration
-
-- **Protocol:** HTTP
-- **Method:** `GET`
-- **Endpoint:** `/configuration`
-
-There are 2 possible request bodies and according responses.
-
-### Get Configuration Value as JSON
-
-- **Request Body:**
-  ```json
-  "Value"
-  ```
-- **Responses:**
-  - `200 OK`: Configuration value as JSON
-
-### Get Documentation of a Field
-
-- **Request Body:**
-  ```json
-  {
-    "Docs": ["a", "b", "c"]
-  }
-  ```
-  where "a.b.c" is a path of the field (e.g. `sumeragi.block_time_ms`).
-- **Responses:**
-  - `200 OK`: Field was found and either doc or value is returned in json body.
-  - `404 Not Found`: Field wasn't found
-
-::: tip
-
-If the requested field has more fields inside of it, then all the documentation for its inner members is returned as
-well. Here is an example for getting a field `a.b.c`:
-
-**Example:** getting top-level documentation for `Torii` and all the fields within:
-
-```bash
-curl -X GET -H 'content-type: application/json' http://127.0.0.1:8080/configuration \
-    -d '{"Docs" : ["torii"]} ' -i
-```
-
-:::
-
-## Configuration
-
-::: warning
-
-TODO: Will change as part of the config RFC
-
-:::
-
-- **Protocol:** HTTP
-- **Method:** `POST`
-- **Endpoint:** `/configuration`
-- **Expects:**
-  - **Body:** One configuration option is currently supported: `LogLevel`. It is set to the log-level in uppercase.
-    ```json
-    {
-      "LogLevel": "WARN"
-    }
-    ```
-    Acceptable values are `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`.
-- **Responses:**
-  - `200 OK`: Log level has changed successfully. The confirmed new log level is returned in the body.
-  - `400 Bad Request`: request body malformed.
-  - `500 Internal Server Error`: Request body valid, but changing the log level failed (lock contention).
-
--->
