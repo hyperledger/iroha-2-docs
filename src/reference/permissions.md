@@ -15,7 +15,6 @@ The following permission tokens are pre-configured in Iroha 2:
 | [`CanRemoveKeyValueInUserAssets`](#canremovekeyvalueinuserassets)                           | Asset            | Remove key value |
 | [`CanTransferUserAssets`](#cantransferuserassets)                                           | Asset            | Transfer         |
 | [`CanTransferOnlyFixedNumberOfTimesPerPeriod`](#cantransferonlyfixednumberoftimesperperiod) | Asset            | Transfer         |
-| [`CanMintUserAssetDefinitions`](#canmintuserassetdefinitions)                               | Asset Definition | Mint             |
 | [`CanBurnAssetWithDefinition`](#canburnassetwithdefinition)                                 | Asset Definition | Burn             |
 | [`CanUnregisterAssetWithDefinition`](#canunregisterassetwithdefinition)                     | Asset Definition | Unregister       |
 | [`CanSetKeyValueInAssetDefinition`](#cansetkeyvalueinassetdefinition)                       | Asset Definition | Set key value    |
@@ -28,33 +27,6 @@ The way permission work in Iroha 2 is subject to change. Note that there
 won't be pre-configured permissions in the future.
 
 :::
-
-### `CanMintUserAssetDefinitions`
-
-With `CanMintUserAssetDefinitions`, a user can register and mint assets
-with the corresponding asset definition.
-
-```rust
-let mut genesis = RawGenesisBlock::new(
-    "alice".parse(),
-    "wonderland".parse(),
-    get_key_pair().public_key().clone(),
-);
-let rose_definition_id =
-    AssetDefinitionId::from_str("rose#wonderland")?;
-let alice_id =
-    AccountId::from_str("alice@wonderland")?;
-
-// Create a new `CanMintUserAssetDefinitions` permission token
-// to mint rose assets (`rose_definition_id`)
-let mint_rose_permission: PermissionToken =
-    CanMintUserAssetDefinitions::new(rose_definition_id).into();
-
-// Grant Alice permission to mint rose assets
-genesis.transactions[0]
-    .isi
-    .push(GrantBox::new(mint_rose_permission, alice_id).into());
-```
 
 ### `CanBurnAssetWithDefinition`
 
