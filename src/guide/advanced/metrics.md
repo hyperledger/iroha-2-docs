@@ -10,6 +10,8 @@ See [Reference > Torii Endpoints: Metrics](../../reference/torii-endpoints.md#me
 
 ## How to use metrics
 
+<!-- TODO: Update this subtopic as part of PR #397: https://github.com/hyperledger/iroha-2-docs/pull/397 -->
+
 To collect metrics via the `/metrics` endpoint, the following must first be configured:
 
 - In the [`configs/peer/config.json`](https://github.com/hyperledger/iroha/blob/iroha2-dev/configs/peer/config.json) configuration file:

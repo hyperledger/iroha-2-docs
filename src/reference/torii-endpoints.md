@@ -1,16 +1,18 @@
 # Torii Endpoints
 
-::: tip Note
+::: tip About Parity SCALE Codec
 
-Messages for certain `TORII` operations are encoded with Parity <abbr title="Simple Concatenated Aggregate Little-Endian">SCALE</abbr> Codec commonly used with the [Parity Substrate](https://www.parity.io/technologies/substrate/) blockchain framework, and other blockchains utilizing it.
+Messages for certain `TORII` operations are encoded with the Parity <abbr title="Simple Concatenated Aggregate Little-Endian">SCALE</abbr> Codec (`SCALE`) commonly used with the [Parity Substrate](https://www.parity.io/technologies/substrate/) blockchain framework, and other blockchains utilizing it.
 
-For more information on Parity SCALE Codec, see the [Substrate Documentation: Type encoding (SCALE)](https://docs.substrate.io/reference/scale-codec/) article and its [official GitHub repository](https://github.com/paritytech/parity-scale-codec).
+For more information on `SCALE`, see the [Substrate Documentation: Type encoding (SCALE)](https://docs.substrate.io/reference/scale-codec/) article and its [official GitHub repository](https://github.com/paritytech/parity-scale-codec).
 
 <!-- TODO: link to our own article about SCALE, once it is written; Issue: https://github.com/hyperledger/iroha-2-docs/issues/367 -->
 
 :::
 
-Torii (jap. 鳥居 - gates; Shinto shrine archway) is the Iroha module in charge of handling HTTP and WebSocket requests. It is the main application programmable interface to interact with Iroha. Such interactions include sending transactions, making queries, listening for blocks stream, and so on.
+Torii (Japanese: 鳥居 — Shinto shrine gateway) is the Iroha 2 module in charge of handling `HTTP` and `WebSocket` requests. It is the main <abbr title="Application Programming Interface">API</abbr> for interacting with Iroha 2. Such interactions include sending transactions, making queries, listening for blocks stream, etc.
+
+<!-- TODO: Update the following as part of PR #397: https://github.com/hyperledger/iroha-2-docs/pull/397
 
 To establish two-way communication with the `TORII` endpoints, the following addresses must be specified in the Iroha 2 configuration files:
 
@@ -36,7 +38,17 @@ To establish two-way communication with the `TORII` endpoints, the following add
 
    :::
 
+-->
+
 ## API Version
+
+::: info
+
+This operation requires the Iroha 2 network to be established with the `telemetry` feature enabled.
+
+<!-- TODO: Link to a topic about Iroha features/flags; Issue: https://github.com/hyperledger/iroha-2-docs/issues/465 -->
+
+:::
 
 - **Protocol**: `HTTP`
 - **Method**: `GET`
@@ -49,16 +61,14 @@ A `GET` request to the endpoint.
 
 #### Responses
 
-| Code | Response              | Description                                                                   |
-| :--: | --------------------- | ----------------------------------------------------------------------------- |
-| 200  | OK                    | Returns the current version of the API used by Iroha 2.                       |
-| 401  | Unauthorized          | The client lacks valid credentials for the request.                           |
-| 500  | Internal Server Error | The server encountered an unexpected issue and could not fulfill the request. |
+| Code | Response | Description                                                              |
+| :--: | -------- | ------------------------------------------------------------------------ |
+| 200  | OK       | Returns the current version of the API used by Iroha 2 as a JSON string. |
 
 **Example**:
 
 ```json
-200 OK: "1"
+"1"
 ```
 
 ::: info
@@ -94,15 +104,6 @@ Sec-WebSocket-Extensions: permessage-deflate, client_max_window_bits
 
 After a successful handshake, the client must send a [`BlockSubscriptionRequest`](/reference/data-model-schema#blocksubscriptionrequest) request with the starting block number provided (i.e., the `height` value). Then, upon sending the confirmation and [`BlockMessage`](/reference/data-model-schema#blockmessage) messages, the server starts streaming all of the blocks, beginning with the block specified with `height` up to the most recent one, and then continues to stream new blocks as they are added to the blockchain.
 
-#### Responses
-
-| Code | Response              | Description                                                                   |
-| :--: | --------------------- | ----------------------------------------------------------------------------- |
-| 101  | Switching Protocols   | The protocol is successfully switched from `HTTP` to `WebSocket`.             |
-| 400  | Bad Request           | The server will not process the request due to an issue on the client side.   |
-| 401  | Unauthorized          | The client lacks valid credentials for the request.                           |
-| 500  | Internal Server Error | The server encountered an unexpected issue and could not fulfill the request. |
-
 ## Configuration / Retrieve
 
 - **Protocol**: `HTTP`
@@ -116,11 +117,9 @@ A `GET` request to the endpoint.
 
 #### Responses
 
-| Code | Response              | Description                                                                   |
-| :--: | --------------------- | ----------------------------------------------------------------------------- |
-| 200  | OK                    | Returns a subset of configuration parameters serialized into JSON format.     |
-| 401  | Unauthorized          | The client lacks valid credentials for the request.                           |
-| 500  | Internal Server Error | The server encountered an unexpected issue and could not fulfill the request. |
+| Code | Response | Description                                                               |
+| :--: | -------- | ------------------------------------------------------------------------- |
+| 200  | OK       | Returns a subset of configuration parameters serialized into JSON format. |
 
 **Example**:
 
@@ -172,11 +171,9 @@ The progress on the configuration reference can be tracked in the following GitH
 
 #### Responses
 
-| Code | Response              | Description                                                                     |
-| :--: | --------------------- | ------------------------------------------------------------------------------- |
-| 202  | Accepted              | The request to update the configuration is accepted and is due to be processed. |
-| 401  | Unauthorized          | The client lacks valid credentials for the request.                             |
-| 500  | Internal Server Error | The server encountered an unexpected issue and could not fulfill the request.   |
+| Code | Response | Description                                                                     |
+| :--: | -------- | ------------------------------------------------------------------------------- |
+| 202  | Accepted | The request to update the configuration is accepted and is due to be processed. |
 
 ::: tip Guarantees
 
@@ -186,7 +183,7 @@ A successful configuration update does not guarantee that the configuration is i
 
 ## Events
 
-- **Protocol**: `HTTP` upgraded to `WebSocket`
+- **Protocols**: `HTTP` upgraded to `WebSocket`
 - **Encoding**: `SCALE`
 - **Endpoint**: `/events`
 
@@ -223,15 +220,6 @@ Sec-WebSocket-Extensions: permessage-deflate, client_max_window_bits
 
 After a successful handshake, the client must send an [`EventSubscriptionRequest`](/reference/data-model-schema#eventsubscriptionrequest) request, after which the server sends an [`EventMessage`](/reference/data-model-schema#eventmessage) response.
 
-#### Responses
-
-| Code | Response              | Description                                                                   |
-| :--: | --------------------- | ----------------------------------------------------------------------------- |
-| 101  | Switching Protocols   | The protocol is successfully switched from `HTTP` to `WebSocket`.             |
-| 400  | Bad Request           | The server will not process the request due to an issue on the client side.   |
-| 401  | Unauthorized          | The client lacks valid credentials for the request.                           |
-| 500  | Internal Server Error | The server encountered an unexpected issue and could not fulfill the request. |
-
 ## Health
 
 - **Protocol**: `HTTP`
@@ -245,19 +233,25 @@ A `GET` request to the endpoint.
 
 #### Responses
 
-| Code | Response              | Description                                                                   |
-| :--: | --------------------- | ----------------------------------------------------------------------------- |
-| 200  | Health Status         | Returns the current status of the peer submitting the request.                |
-| 401  | Unauthorized          | The client lacks valid credentials for the request.                           |
-| 500  | Internal Server Error | The server encountered an unexpected issue and could not fulfill the request. |
+| Code | Response      | Description                                                    |
+| :--: | ------------- | -------------------------------------------------------------- |
+| 200  | Health Status | Returns the current status of the peer submitting the request. |
 
 **Example**:
 
 ```json
-200 Health Status: "Healthy"
+"Healthy"
 ```
 
 ## Metrics
+
+::: info
+
+This operation requires the Iroha 2 network to be established with the `telemetry` feature enabled.
+
+<!-- TODO: Link to a topic about Iroha features/flags; Issue: https://github.com/hyperledger/iroha-2-docs/issues/465 -->
+
+:::
 
 - **Protocol**: `HTTP`
 - **Method**: `GET`
@@ -266,11 +260,9 @@ A `GET` request to the endpoint.
 
 #### Responses
 
-| Code | Response              | Description                                                                   |
-| :--: | --------------------- | ----------------------------------------------------------------------------- |
-| 200  | Metrics               | Returns a report on 8 out of 10 Prometheus metrics.                           |
-| 401  | Unauthorized          | The client lacks valid credentials for the request.                           |
-| 500  | Internal Server Error | The server encountered an unexpected issue and could not fulfill the request. |
+| Code | Response | Description                                         |
+| :--: | -------- | --------------------------------------------------- |
+| 200  | Metrics  | Returns a report on 8 out of 10 Prometheus metrics. |
 
 **Example**:
 
@@ -327,6 +319,37 @@ To learn more about metrics, see [Metrics](../guide/advanced/metrics.md).
 
 :::
 
+## Pending Transactions
+
+- **Protocol**: `HTTP`
+- **Method**: `GET`
+- **Encoding**: `SCALE`
+- **Endpoint**: `/pending_transactions`
+
+#### Requests
+
+A `GET` request to the endpoint.
+
+#### Responses
+
+| Code | Response | Description                                                                                                                                                          |
+| :--: | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 200  | OK       | Returns a list of pending transactions as [`SignedTransaction`](data-model-schema.md#signedtransaction) objects encoded with `SCALE`; must be decoded by the client. |
+
+**Example**:
+
+```[SCALE]
+[
+  34,
+  86,
+  97,
+  108,
+  117,
+  101,
+  34
+]
+```
+
 ## Query
 
 - **Protocol**: `HTTP`
@@ -382,7 +405,40 @@ Whether each prerequisite object was found and [`FindError`](/reference/data-mod
 |   Y    |    -    |        N         |   -   | [`FindError::AssetDefinition(AssetDefinitionId)`](/reference/data-model-schema#finderror) |
 |   Y    |    Y    |        Y         |   N   | [`FindError::Asset(AssetId)`](/reference/data-model-schema#finderror)                     |
 
+## Schema
+
+::: info
+
+This operation requires the Iroha 2 network to be established with the `schema` feature enabled.
+
+<!-- TODO: Link to a topic about Iroha features/flags; Issue: https://github.com/hyperledger/iroha-2-docs/issues/465 -->
+
+:::
+
+- **Protocol**: `HTTP`
+- **Method**: `GET`
+- **Encoding**: `JSON`
+- **Endpoint**: `/schema`
+
+#### Requests
+
+A `GET` request to the endpoint.
+
+#### Responses
+
+| Code | Response | Description                                                                                                         |
+| :--: | -------- | ------------------------------------------------------------------------------------------------------------------- |
+| 200  | OK       | Returns the Rust data structures and types of the entire [Data Model Schema](data-model-schema.md) as JSON objects. |
+
 ## Status
+
+::: info
+
+This operation requires the Iroha 2 network to be established with the `telemetry` feature enabled.
+
+<!-- TODO: Link to a topic about Iroha features/flags; Issue: https://github.com/hyperledger/iroha-2-docs/issues/465 -->
+
+:::
 
 - **Protocol**: `HTTP`
 - **Method**: `GET`
@@ -397,16 +453,16 @@ This endpoint also accepts the following:
 
   - **Header**: Specifies the encoding of the retrieved data.\
   Can be set to one of the following:
-    - `Accept: application/x-parity-scale` — the retrieved data is encoded with SCALE.
-    - `Accept: application/json` — the retrieved data is encoded with JSON.
+    - `Accept: application/x-parity-scale` — the retrieved data is encoded with `SCALE`.
+    - `Accept: application/json` — the retrieved data is encoded with `JSON`.
 
 If no header is specified in the request, the `Accept: application/json` header is used by default.
 
 #### Responses
 
-| Code | Response              | Description                                                                   |
-| :--: | --------------------- | ----------------------------------------------------------------------------- |
-| 200  | Iroha Status          | Returns the Iroha network status report. The response is generated in accordance with the encoding specified in the header of the request and is specified in `Content-Type` response header.  |
+| Code | Response              | Description                                                                                |
+| :--: | --------------------- | ------------------------------------------------------------------------------------------ |
+| 200  | Iroha Status          | Returns the Iroha network status report encoded as specified in the header of the request. |
 
 The response body has the following structure:
 
@@ -484,7 +540,7 @@ It is also possible to retrieve the data of a specific `struct` group or variabl
 ::: code-group
 
 ```json [/status]
-struct Status {
+{
   "peers": 4,
   "blocks": 5,
   "txs_accepted": 31,
@@ -540,4 +596,3 @@ This endpoint expects the following data:
 | 200  | Transaction Accepted                     | Transaction has been accepted, but is not yet guaranteed to have passed consensus. |
 | 400  | Transaction Rejected (Malformed)         | Transaction is rejected due to being malformed.                                    |
 | 401  | Transaction Rejected (Improperly signed) | Transaction is rejected due to being improperly signed.                            |
-| 500  | Internal Server Error                    | The server encountered an unexpected issue and could not fulfill the request.      |
