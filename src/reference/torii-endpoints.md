@@ -10,7 +10,7 @@ For more information on Parity SCALE Codec, see the [Substrate Documentation: Ty
 
 :::
 
-`TORII` is the Iroha 2 module in charge of handling incoming and outgoing connections. It is used to receive, accept and route incoming instructions, and HTTP queries, as well as run-time configuration updates.
+Torii (jap. 鳥居 - gates; Shinto shrine archway) is the Iroha module in charge of handling HTTP and WebSocket requests. It is the main application programmable interface to interact with Iroha. Such interactions include sending transactions, making queries, listening for blocks stream, and so on.
 
 To establish two-way communication with the `TORII` endpoints, the following addresses must be specified in the Iroha 2 configuration files:
 
@@ -125,7 +125,6 @@ A `GET` request to the endpoint.
 **Example**:
 
 ```json
-200 OK:
 {
   "logger": {
     "level": "TRACE"
@@ -407,11 +406,7 @@ If no header is specified in the request, the `Accept: application/json` header 
 
 | Code | Response              | Description                                                                   |
 | :--: | --------------------- | ----------------------------------------------------------------------------- |
-| 200  | Iroha Status          | Returns the Iroha network status report.                                      |
-| 401  | Unauthorized          | The client lacks valid credentials for the request.                           |
-| 500  | Internal Server Error | The server encountered an unexpected issue and could not fulfill the request. |
-
-The `200 Iroha Status` response is generated in accordance with the encoding specified in the header of the request.
+| 200  | Iroha Status          | Returns the Iroha network status report. The response is generated in accordance with the encoding specified in the header of the request and is specified in `Content-Type` response header.  |
 
 The response body has the following structure:
 
