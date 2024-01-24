@@ -54,19 +54,19 @@ Pre-conditions:
 2. The recipient account is created
 
 ```rust
-//First we define the asset definition owner
+// Define the asset definition owner
 let asset_definition_owner = AccountId::from_str("alice@wonderland").unwrap();
-//Then we define the asset definition id which was created by the owner
+// Define the asset definition id which was created by the owner
 let asset_definition_id = AssetDefinitionId::from_str("coolAsset#wonderland").unwrap();
-//Define the account which we want to give the permission
+// Define the account which we want to give the permission
 let recipient_account = AccountId::from_str("actor@wonderland").unwrap();
-//Create a token that we chose. And define its structure according to iroha_executor\smart_contract\executor\src\default.rs
+// Create a token that we chose. And define its structure according to `iroha_executor\smart_contract\executor\src\default.rs`
 let can_mint_asset_with_definition_token = PermissionToken::new(
 "CanMintAssetsWithDefinition".parse().unwrap(),
 &json!({ "asset_definition_id": asset_definition_id }),
 );
-//Create a permission expression (Grant\Revoke)
+// Create a permission expression (Grant\Revoke)
 let permission_expression = GrantExpr::new(can_mint_asset_with_definition_token, recipients_account);
-//Submit the transaction with the permission expression
+// Submit the transaction with the permission expression
 iroha_client.submit_blocking(permission_expression).unwrap();
 ```
