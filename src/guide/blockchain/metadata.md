@@ -158,12 +158,7 @@ You can get the key value of an object metadata using
 
 ## Permissions
 
-Pre-configured tokens in Iroha 2 LTS version that allow to set or remove
-key-values in accounts, assets, or asset definitions:
+Pre-configured tokens in Iroha 2 that allow to set or remove
+key-values in accounts, assets, asset definitions etc. are described here:
 
-- [`CanSetKeyValueInUserMetadata`](/reference/permissions.md#cansetkeyvalueinusermetadata)
-- [`CanRemoveKeyValueInUserMetadata`](/reference/permissions.md#canremovekeyvalueinusermetadata)
-- [`CanSetKeyValueInUserAssets`](/reference/permissions.md#cansetkeyvalueinuserassets)
-- [`CanRemoveKeyValueInUserAssets`](/reference/permissions.md#canremovekeyvalueinuserassets)
-- [`CanSetKeyValueInAssetDefinition`](/reference/permissions.md#cansetkeyvalueinassetdefinition)
-- [`CanRemoveKeyValueInAssetDefinition`](/reference/permissions.md#canremovekeyvalueinassetdefinition)
+- [`Permissions`](/reference/permissions.md)
