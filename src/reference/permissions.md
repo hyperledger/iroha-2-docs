@@ -31,27 +31,26 @@ The following permission tokens are pre-configured in Iroha 2:
 | [`CanRemoveKeyValueInAssetDefinition`]  | Asset Definition | Allows to remove key value from metadata for this asset definition |
 | [`CanUnregisterAssetDefinition`]        | Asset Definition | Allows to unregister this asset definition                         |
 
-::: info
+::: note
 
 The way permission work in Iroha 2 is subject to change.
 Only an owner of the subject can grant permissions for the subject.
 
-Important!!!
-By default, all assets and accounts defined in the genesis block configuration file, are created by genesis@genesis account.
-That means "alice@wonderland" is not the owner of "rose#wonderland" and cannot grant permission for "rose#wonderland".
+By default, all assets and accounts defined in the genesis block configuration file are created by `genesis@genesis` account. 
+This means that `alice@wonderland` is not the owner of `rose#wonderland` and cannot grant permission for `rose#wonderland`.
+
 To avoid this you can:
-1. Edit the genesis.json, add there a creation of "alice@wonderland" only and redeploy the Iroha 2.
-2. In the name of "alice@wonderland" create a subject (asset, definition, account etc.) and then give a permission for this.
+1. Edit the `genesis.json` file to only include the creation of  `alice@wonderland`, and then redeploy Iroha 2.
+2. In the name of `alice@wonderland` create a subject (asset, definition, account etc.) and then give a permission for this.
 
 :::
 
 ### `General example`
 
-With this example, the owner-account can give permission for his subject to another account.
-The example is based on 
-Pre-conditions:
-1. The subject is created by the owner-account
-2. The recipient account is created
+With this example, the owner-account can give permission for its subject to another account.
+The example is based on the following pre-conditions:
+    The subject is created by the owner-account
+    The recipient account is created
 
 ```rust
 // Define the asset definition owner
