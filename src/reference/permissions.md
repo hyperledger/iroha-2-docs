@@ -41,7 +41,7 @@ This means that `alice@wonderland` is not the owner of `rose#wonderland` and can
 
 To avoid this you can:
 1. Edit the `genesis.json` file to only include the creation of  `alice@wonderland`, and then redeploy Iroha 2.
-2. In the name of `alice@wonderland` create a subject (asset, definition, account etc.) and then give a permission for this.
+2. Create a subject (e.g., an asset definition) on behalf of `alice@wonderland`, and then give another account the permission to manage this subject.
 
 :::
 
