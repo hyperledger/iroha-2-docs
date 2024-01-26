@@ -33,7 +33,7 @@ The following permission tokens are pre-configured in Iroha 2:
 
 ::: note
 
-The way permission work in Iroha 2 is subject to change.
+The way permissions work in Iroha 2 is subject to change.
 Only an owner of the subject can grant permissions for the subject.
 
 By default, all assets and accounts defined in the genesis block configuration file are created by `genesis@genesis` account. 
