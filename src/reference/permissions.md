@@ -31,7 +31,7 @@ The following permission tokens are pre-configured in Iroha 2:
 | [`CanRemoveKeyValueInAssetDefinition`]  | Asset Definition | Allows to remove key value from metadata for this asset definition |
 | [`CanUnregisterAssetDefinition`]        | Asset Definition | Allows to unregister this asset definition                         |
 
-::: note
+::: info
 
 The way permissions work in Iroha 2 is subject to change.
 Only an owner of the subject can grant permissions for the subject.
