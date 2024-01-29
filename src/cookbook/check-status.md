@@ -11,4 +11,9 @@ head:
 
 # How to Check Iroha Status
 
-TODO
+```rust
+    // To get the status, the Client struct already has a function get_status(),
+    // so you may just execute it.
+    let status = iroha_client.get_status().unwrap();
+    println!("{:?}", status);
+```
