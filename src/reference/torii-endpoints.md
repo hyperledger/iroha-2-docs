@@ -44,7 +44,7 @@ To establish two-way communication with the `TORII` endpoints, the following add
 
 ::: info
 
-This operation requires the particular Iroha node you are making request to to be compiled with the `telemetry` feature enabled.
+This operation requires the specific Iroha node being requested to be compiled with the `telemetry` feature enabled.
 
 <!-- TODO: Link to a topic about Iroha features/flags; Issue: https://github.com/hyperledger/iroha-2-docs/issues/465 -->
 
@@ -61,9 +61,9 @@ A `GET` request to the endpoint.
 
 #### Responses
 
-| Code | Response | Description                                                              |
-| :--: | -------- | ------------------------------------------------------------------------ |
-| 200  | OK       | Returns the current version of the API used by Iroha 2 as a JSON string. |
+| Code | Response | Description                                                                                 |
+| :--: | -------- | ------------------------------------------------------------------------------------------- |
+| 200  | OK       | Returns the current version of the API used by the requested Iroha 2 node as a JSON string. |
 
 **Example**:
 
@@ -87,22 +87,9 @@ The API version is retrieved from and is the same as the version of the [genesis
 
 Since the `/block/stream` endpoint handles continuous two-way data exchange, a `WebSocket` handshake between the client and server must first be performed to initiate communication with this endpoint.
 
-The first HTTP request to this endpoint requires a standard set of `WebSocket` headers.
-
-**Example**:
-
-```http
-Host: example.com:8000
-Upgrade: websocket
-Connection: Upgrade
-Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==
-Sec-WebSocket-Version: 13
-Sec-WebSocket-Extensions: permessage-deflate, client_max_window_bits
-```
-
 #### Data Exchange
 
-After establishing a WebSocket connection, the client must send a [`BlockSubscriptionRequest`](/reference/data-model-schema#blocksubscriptionrequest) request with the starting block number provided (i.e., the `height` value). Then, upon sending the confirmation and [`BlockMessage`](/reference/data-model-schema#blockmessage) messages, the server starts streaming all of the blocks, beginning with the block specified with `height` up to the most recent one, and then continues to stream new blocks as they are added to the blockchain.
+After establishing a `WebSocket` connection, the client must send a [`BlockSubscriptionRequest`](/reference/data-model-schema#blocksubscriptionrequest) request with the starting block number provided (i.e., the `height` value). Then, upon sending the confirmation and [`BlockMessage`](/reference/data-model-schema#blockmessage) messages, the server starts streaming all of the blocks, beginning with the block specified with `height` up to the most recent one, and then continues to stream new blocks as they are added to the blockchain.
 
 ## Configuration / Retrieve
 
@@ -203,22 +190,9 @@ Some peers in the network may be offline for the validation round. If a client c
 
 Since the `/events` endpoint handles continuous two-way data exchange, a `WebSocket` handshake between the client and server must first be performed to initiate communication with this endpoint.
 
-The first HTTP request to this endpoint requires a standard set of `WebSocket` headers.
-
-**Example**:
-
-```http
-Host: example.com:8000
-Upgrade: websocket
-Connection: Upgrade
-Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==
-Sec-WebSocket-Version: 13
-Sec-WebSocket-Extensions: permessage-deflate, client_max_window_bits
-```
-
 #### Data Exchange
 
-After a successful handshake, the client must send an [`EventSubscriptionRequest`](/reference/data-model-schema#eventsubscriptionrequest) request, after which the server sends an [`EventMessage`](/reference/data-model-schema#eventmessage) response.
+After establishing a `WebSocket` connection, the client must send an [`EventSubscriptionRequest`](/reference/data-model-schema#eventsubscriptionrequest) request, after which the server sends an [`EventMessage`](/reference/data-model-schema#eventmessage) response.
 
 ## Health
 
@@ -335,20 +309,6 @@ A `GET` request to the endpoint.
 | Code | Response | Description                                                                                                                                                          |
 | :--: | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 200  | OK       | Returns a list of pending transactions as [`SignedTransaction`](data-model-schema.md#signedtransaction) objects encoded with `SCALE`; must be decoded by the client. |
-
-**Example**:
-
-```[SCALE]
-[
-  34,
-  86,
-  97,
-  108,
-  117,
-  101,
-  34
-]
-```
 
 ## Query
 

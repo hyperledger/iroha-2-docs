@@ -12,17 +12,12 @@ See [Reference > Torii Endpoints: Metrics](../../reference/torii-endpoints.md#me
 
 <!-- TODO: Update this subtopic as part of PR #397: https://github.com/hyperledger/iroha-2-docs/pull/397 -->
 
-To collect metrics via the `/metrics` endpoint, the following must first be configured:
+Work in Progress.
 
-- In the [`configs/peer/config.json`](https://github.com/hyperledger/iroha/blob/iroha2-dev/configs/peer/config.json) configuration file:
-  - `"TORII"`: `"TELEMETRY_URL"` variable;
-  - `"TELEMETRY"` object <!-- Q: class? --> in its entirety.\
-  > For details, see [Peer Configuration](../configure/peer-configuration.md).
+This topic will be updated as part of the new configuration reference.
 
-- In the [`configs/client/config.json`](https://github.com/hyperledger/iroha/blob/iroha2-dev/configs/client/config.json) configuration file:
-  - `"TORII_TELEMETRY_URL"` variable.\
-  Set to `http://127.0.0.1:8180/`, by default. If the port is not available, Iroha will still function properly, but the metrics won't be provided.
-  > For details, see [Client Configuration](../configure/client-configuration.md)
+The progress on the configuration reference can be tracked in the following GitHub issue:\
+[iroha-2-docs > Issue #392: Tracking issue for Configuration Reference as per RFC](https://github.com/hyperledger/iroha-2-docs/issues/392).
 
 ::: note
 
