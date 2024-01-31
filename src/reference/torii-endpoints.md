@@ -44,7 +44,7 @@ To establish two-way communication with the `TORII` endpoints, the following add
 
 ::: info
 
-This operation requires the Iroha 2 network to be established with the `telemetry` feature enabled.
+This operation requires the particular Iroha node you are making request to to be compiled with the `telemetry` feature enabled.
 
 <!-- TODO: Link to a topic about Iroha features/flags; Issue: https://github.com/hyperledger/iroha-2-docs/issues/465 -->
 
@@ -102,7 +102,7 @@ Sec-WebSocket-Extensions: permessage-deflate, client_max_window_bits
 
 #### Data Exchange
 
-After a successful handshake, the client must send a [`BlockSubscriptionRequest`](/reference/data-model-schema#blocksubscriptionrequest) request with the starting block number provided (i.e., the `height` value). Then, upon sending the confirmation and [`BlockMessage`](/reference/data-model-schema#blockmessage) messages, the server starts streaming all of the blocks, beginning with the block specified with `height` up to the most recent one, and then continues to stream new blocks as they are added to the blockchain.
+After establishing a WebSocket connection, the client must send a [`BlockSubscriptionRequest`](/reference/data-model-schema#blocksubscriptionrequest) request with the starting block number provided (i.e., the `height` value). Then, upon sending the confirmation and [`BlockMessage`](/reference/data-model-schema#blockmessage) messages, the server starts streaming all of the blocks, beginning with the block specified with `height` up to the most recent one, and then continues to stream new blocks as they are added to the blockchain.
 
 ## Configuration / Retrieve
 
@@ -381,7 +381,7 @@ This endpoint expects the following data:
 
 ::: info
 
-The `200 Success` response returns results that are ordered by `id`, which use Rust's [PartialOrd](https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html#derivable) and [Ord](https://doc.rust-lang.org/std/cmp/trait.Ord.html) traits.
+The `200 Success` response returns results that are ordered by `id`, which use Rust's [PartialOrd](https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html) and [Ord](https://doc.rust-lang.org/std/cmp/trait.Ord.html) traits.
 
 :::
 
@@ -551,11 +551,6 @@ It is also possible to retrieve the data of a specific `struct` group or variabl
   },
   "view_changes": 2,
   "queue_size": 18
-}
-
-struct Uptime {
-    secs: 5,
-    nanos: 937000000
 }
 ```
 
