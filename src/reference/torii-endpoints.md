@@ -1,46 +1,114 @@
 # Torii Endpoints
 
-<!-- TODO: write some intro, maybe outline the contents. -->
+::: tip About Parity SCALE Codec
+
+Messages for certain `TORII` operations are encoded with the Parity <abbr title="Simple Concatenated Aggregate Little-Endian">SCALE</abbr> Codec (`SCALE`) commonly used with the [Parity Substrate](https://www.parity.io/technologies/substrate/) blockchain framework, and other blockchains utilizing it.
+
+For more information on `SCALE`, see the [Substrate Documentation: Type encoding (SCALE)](https://docs.substrate.io/reference/scale-codec/) article and its [official GitHub repository](https://github.com/paritytech/parity-scale-codec).
+
+<!-- TODO: link to our own article about SCALE, once it is written; Issue: https://github.com/hyperledger/iroha-2-docs/issues/367 -->
+
+:::
+
+Torii (Japanese: 鳥居 — Shinto shrine gateway) is the Iroha 2 module in charge of handling `HTTP` and `WebSocket` requests. It is the main <abbr title="Application Programming Interface">API</abbr> for interacting with Iroha 2. Such interactions include sending transactions, making queries, listening for blocks stream, etc.
+
+<!-- TODO: Update the following as part of PR #397: https://github.com/hyperledger/iroha-2-docs/pull/397
+
+To establish two-way communication with the `TORII` endpoints, the following addresses must be specified in the Iroha 2 configuration files:
+
+1. In the `configs/client_cli/config.json` client configuration file:
+   - `TORII_API_URL` — connects to the `TORII` module responsible for handling incoming and outgoing connections.\
+   This address is the same as the `API_URL` address in the `configs/peer/config.json` peer configuration file.
+   - `TORII_TELEMETRY_URL` — connects to the [Prometheus](https://prometheus.io/) endpoint address that is used as a [metrics](../guide/advanced/metrics.md) tool to monitor the network performance.
+
+   ::: info
+
+   To learn more, see [Client Configuration > Iroha Public Addresses](../guide/configure/client-configuration.md#iroha-public-addresses).
+
+   :::
+
+2. In the `configs/peer/config.json` peer configuration file:
+   - `API_URL` — connects to the `TORII` module responsible for handling incoming and outgoing connections.\
+   This address is the same as the `TORII_API_URL` address in the `configs/client_cli/config.json` client configuration file.
+   - `TELEMETRY_URL` — connects to the [Prometheus](https://prometheus.io/) endpoint address that is used as a [metrics](../guide/advanced/metrics.md) tool to monitor the network performance.
+
+   ::: info
+
+   To learn more, see [Peer Configuration > Iroha Public Addresses](../guide/configure/peer-configuration.html#iroha-public-addresses).
+
+   :::
+
+-->
 
 ## API Version
 
-- **Protocol:** HTTP
-- **Method:** `GET`
-- **Endpoint:** `/api_version`
+::: info
 
-**Responses:**
+This operation requires the specific Iroha node being requested to be compiled with the `telemetry` feature enabled.
 
-`200 OK`: The current version of API used by Iroha returned as a JSON string. Grabbed from the genesis block's version,
-so at least a minimal subnet of 4 peers should be running and the genesis be submitted at the time of request.
+<!-- TODO: Link to a topic about Iroha features/flags; Issue: https://github.com/hyperledger/iroha-2-docs/issues/465 -->
+
+:::
+
+- **Protocol**: `HTTP`
+- **Method**: `GET`
+- **Encoding**: `JSON`
+- **Endpoint**: `/api_version`
+
+#### Requests
+
+A `GET` request to the endpoint.
+
+#### Responses
+
+| Code | Response | Description                                                                                 |
+| :--: | -------- | ------------------------------------------------------------------------------------------- |
+| 200  | OK       | Returns the current version of the API used by the requested Iroha 2 node as a JSON string. |
+
+**Example**:
 
 ```json
 "1"
 ```
 
+::: info
+
+The API version is retrieved from and is the same as the version of the [genesis block](../guide/configure/genesis.md), which means that at least a minimal subnet of four peers must be running, and the genesis block must already be submitted at the time of the request.
+
+:::
+
 ## Blocks Stream
 
-- **Protocol:** HTTP
-- **Protocol Upgrade:**`WebSocket
-- **Endpoint:** `/block/stream`
+- **Protocols**: `HTTP` upgraded to `WebSocket`
+- **Encoding**: `SCALE`
+- **Endpoint**: `/block/stream`
 
-The client should send a [`BlockSubscriptionRequest`](/reference/data-model-schema#blocksubscriptionrequest) to initiate
-communication after the WebSocket handshake. Then the server sends a
-[`BlockMessage`](/reference/data-model-schema#blockmessage). Messages are SCALE-encoded[^1].
+#### Handshake
 
-Via this endpoint, the client first provides the starting block number (i.e. height) in the subscription request. After
-sending the confirmation message, the server starts streaming all the blocks from the given block number up to the
-current block and continues to stream blocks as they are added to the blockchain.
+Since the `/block/stream` endpoint handles continuous two-way data exchange, a `WebSocket` handshake between the client and server must first be performed to initiate communication with this endpoint.
+
+#### Data Exchange
+
+After establishing a `WebSocket` connection, the client must send a [`BlockSubscriptionRequest`](/reference/data-model-schema#blocksubscriptionrequest) request with the starting block number provided (i.e., the `height` value). Then, upon sending the confirmation and [`BlockMessage`](/reference/data-model-schema#blockmessage) messages, the server starts streaming all of the blocks, beginning with the block specified with `height` up to the most recent one, and then continues to stream new blocks as they are added to the blockchain.
 
 ## Configuration / Retrieve
 
-- **Protocol:** HTTP
-- **Method:** `GET`
-- **Endpoint:** `/configuration`
-- **Responses:** with a JSON-serialized subset of configuration parameters. The subset of returned parameters is equal to
-  the one accepted by the [Configuration > Update endpoint](#configuration-update), i.e. it only contains the
-  `logger.level` parameter as of now.
+- **Protocol**: `HTTP`
+- **Method**: `GET`
+- **Encoding**: `JSON`
+- **Endpoint**: `/configuration`
 
-**Example response:**
+#### Requests
+
+A `GET` request to the endpoint.
+
+#### Responses
+
+| Code | Response | Description                                                               |
+| :--: | -------- | ------------------------------------------------------------------------- |
+| 200  | OK       | Returns a subset of configuration parameters serialized into JSON format. |
+
+**Example**:
 
 ```json
 {
@@ -50,20 +118,35 @@ current block and continues to stream blocks as they are added to the blockchain
 }
 ```
 
+::: info
+
+The subset of configuration parameters returned by this operation is equal to the one accepted by the [Configuration / Update](#configuration-update) operation, i.e., it only contains the `logger.level` parameter as of now.
+
+:::
+
 ## Configuration / Update
 
-- **Protocol:** HTTP
-- **Method:** `POST`
-- **Endpoint:** `/configuration`
-- **Expects:** a JSON-serialized subset of configuration parameters.
-- **Response:** `202 ACCEPTED`
+- **Protocol**: `HTTP`
+- **Method**: `POST`
+- **Encoding**: `JSON`
+- **Endpoint**: `/configuration`
 
-This endpoint only supports dynamic updating of the `logger.level` parameter for now.
+#### Requests
 
-For possible values please refer to the configuration reference (TODO:
-[Tracking issue for configuration reference](https://github.com/hyperledger/iroha-2-docs/issues/392)).
+This endpoint expects a subset of configuration parameters serialized into JSON format. Currently, it only supports dynamic updating of the `logger.level` parameter.
 
-**Example request:**
+::: info
+
+The list of all accepted values is currently unavailable and will be a part of the configuration reference that is still <abbr title="Work in Progress">WIP</abbr>.
+
+Until then, to get assistance with the acceptable values and their definitions, consult [Receive Support](../guide/support.md) for ways to contact us.
+
+The progress on the configuration reference can be tracked in the following GitHub issue:\
+[iroha-2-docs > Issue #392: Tracking issue for Configuration Reference as per RFC](https://github.com/hyperledger/iroha-2-docs/issues/392).
+
+:::
+
+**Example**:
 
 ```json
 {
@@ -73,43 +156,62 @@ For possible values please refer to the configuration reference (TODO:
 }
 ```
 
+#### Responses
+
+| Code | Response | Description                                                                     |
+| :--: | -------- | ------------------------------------------------------------------------------- |
+| 202  | Accepted | The request to update the configuration is accepted and is due to be processed. |
+
 ::: tip Guarantees
 
-A successful configuration update does not guarantee that the configuration is indeed updated. While
-consecutive [configuration retrievals](#configuration-retrieve) will return updated values, the actual update is
-performed asynchronously. 
+A successful configuration update does not guarantee that the configuration is indeed updated. While a follow-up [Configuration / Retrieve](#configuration-retrieve) request will return updated values, the actual update is performed asynchronously.
 
 :::
 
 ## Events
 
-- **Protocol:** HTTP
-- **Protocol Upgrade:** WebSocket
-- **Endpoint:** `/events`
-
-After a handshake, the client should send an
-[`EventSubscriptionRequest`](/reference/data-model-schema#eventsubscriptionrequest). Then the server sends an
-[`EventMessage`](/reference/data-model-schema#eventmessage). Messages are SCALE-encoded[^1].
+- **Protocols**: `HTTP` upgraded to `WebSocket`
+- **Encoding**: `SCALE`
+- **Endpoint**: `/events`
 
 ### Transaction Events
 
-Transaction event statuses can be either `Validating`, `Committed` or `Rejected`.
+The status of a transaction event can be one of the following:
 
-Transaction statuses proceed from `Validating` to either `Committed` or `Rejected`. However, due to the distributed
-nature of the network, some peers might receive events out of order (e.g. `Committed` before `Validating`).
+- `Validating` — The transaction has been successfully submitted and is currently being validated by peers.
+- `Committed` — The transaction has been successfully validated and is committed to the blockchain.
+- `Rejected` — The transaction has been rejected by at least one peer and is __not__ committed to the blockchain.
 
-Some peers in the network may be offline for the validation round. If the client connects to them while they are
-offline, the peers might not respond with the `Validating` status. But when the offline peers come back online they will
-synchronize the blocks. They are then guaranteed to respond with the `Committed` (or `Rejected`) status depending on the
-information found in the block.
+All transactions are designated with the `Validating` status upon creation, which later proceeds to either `Committed` or `Rejected`. However, due to the distributed nature of the network, some peers might receive events out of order (e.g., `Committed` before `Validating`).
+
+Some peers in the network may be offline for the validation round. If a client connects to them while they are offline, the peers might not respond with the `Validating` status. But when the offline peers come back online they will automatically synchronize the blocks. These peers are then guaranteed to respond with either `Committed` or `Rejected` status, depending on the information found in the block.
+
+#### Handshake
+
+Since the `/events` endpoint handles continuous two-way data exchange, a `WebSocket` handshake between the client and server must first be performed to initiate communication with this endpoint.
+
+#### Data Exchange
+
+After establishing a `WebSocket` connection, the client must send an [`EventSubscriptionRequest`](/reference/data-model-schema#eventsubscriptionrequest) request, after which the server sends an [`EventMessage`](/reference/data-model-schema#eventmessage) response.
 
 ## Health
 
-- **Protocol:** HTTP
-- **Method:** `GET`
-- **Endpoint:** `/health`
+- **Protocol**: `HTTP`
+- **Method**: `GET`
+- **Encoding**: `JSON`
+- **Endpoint**: `/health`
 
-Responses with `200 OK` and a current status of peer as a JSON string:
+#### Requests
+
+A `GET` request to the endpoint.
+
+#### Responses
+
+| Code | Response      | Description                                                    |
+| :--: | ------------- | -------------------------------------------------------------- |
+| 200  | Health Status | Returns the current status of the peer submitting the request. |
+
+**Example**:
 
 ```json
 "Healthy"
@@ -117,15 +219,28 @@ Responses with `200 OK` and a current status of peer as a JSON string:
 
 ## Metrics
 
-- **Protocol:** HTTP
-- **Method:** `GET`
-- **Endpoint:** `/metrics`
+::: info
 
-**Responses:**
+This operation requires the Iroha 2 network to be established with the `telemetry` feature enabled.
 
-`200 OK` reports 8 of 10 metrics:
+<!-- TODO: Link to a topic about Iroha features/flags; Issue: https://github.com/hyperledger/iroha-2-docs/issues/465 -->
 
-::: details Sample Prometheus metrics
+:::
+
+- **Protocol**: `HTTP`
+- **Method**: `GET`
+- **Encoding**: `JSON`
+- **Endpoint**: `/metrics`
+
+#### Responses
+
+| Code | Response | Description                                         |
+| :--: | -------- | --------------------------------------------------- |
+| 200  | Metrics  | Returns a report on 8 out of 10 Prometheus metrics. |
+
+**Example**:
+
+::: details Example `200 Metrics` response
 
 ```bash
 # HELP accounts User accounts registered at this time
@@ -172,37 +287,63 @@ view_changes 0
 
 :::
 
-Learn [how to use metrics](/guide/advanced/metrics).
+::: info
+
+To learn more about metrics, see [Metrics](../guide/advanced/metrics.md).
+
+:::
+
+## Pending Transactions
+
+- **Protocol**: `HTTP`
+- **Method**: `GET`
+- **Encoding**: `SCALE`
+- **Endpoint**: `/pending_transactions`
+
+#### Requests
+
+A `GET` request to the endpoint.
+
+#### Responses
+
+| Code | Response | Description                                                                                                                                                          |
+| :--: | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 200  | OK       | Returns a list of pending transactions as [`SignedTransaction`](data-model-schema.md#signedtransaction) objects encoded with `SCALE`; must be decoded by the client. |
 
 ## Query
 
-- **Protocol:** HTTP
-- **Method:** `POST`
-- **Endpoint:** `/query`
-- **Expects:**
-  - **Body:** SCALE-encoded[^1] [`VersionedSignedQuery`](/reference/data-model-schema#versionedsignedquery)
-  - **Query parameters:**
-    - **`start`:** An optional parameter in queries where results can be indexed. Use to return results from a specified
-      point. Results are ordered by id, which uses Rust's
-      [PartialOrd](https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html#derivable) and
-      [Ord](https://doc.rust-lang.org/std/cmp/trait.Ord.html) traits.
-    - **`limit`:** An optional parameter in queries where results can be indexed. Use to return a specific number of
-      results.
-    - **`sort_by_metadata_key`:** An optional parameter in queries. Use to sort results containing metadata with a given
-      key.
-    - **`fetch_size`:** An optional parameter in queries. Use it to specify the exact number of results returned by a
-      query.
+- **Protocol**: `HTTP`
+- **Method**: `POST`
+- **Encoding**: `SCALE`
+- **Endpoint**: `/query`
 
-**Responses:**
+#### Requests
 
-| Response         | Status | Body                                                                                             |
-| ---------------- | ------ | ------------------------------------------------------------------------------------------------ |
-| Success          | 200    | [`VersionedBatchedResponse<Value>`](/reference/data-model-schema#versionedbatchedresponse-value) |
-| Conversion Error | 400    | [`QueryExecutionFail::Conversion(String)`](/reference/data-model-schema#queryexecutionfail)      |
-| Evaluate Error   | 400    | [`QueryExecutionFail::Evaluate(String)`](/reference/data-model-schema#queryexecutionfail)        |
-| Signature Error  | 401    | [`QueryExecutionFail::Signature(String)`](/reference/data-model-schema#queryexecutionfail)       |
-| Permission Error | 403    | [`QueryExecutionFail::Permission(String)`](/reference/data-model-schema#queryexecutionfail)      |
-| Find Error       | 404    | [`QueryExecutionFail::Find(FindError)`](/reference/data-model-schema#queryexecutionfail)         |
+This endpoint expects the following data:
+
+  - **Body**: [`VersionedSignedQuery`](/reference/data-model-schema#versionedsignedquery)
+  - **Parameters** (optional):
+    - `start` — Specifies the `id` of a starting entry. A successful response will contain all entries newer than and including the `id` specified.\
+    - `limit` — Specifies the exact number of retrieved `id` entries.\
+    - `sort_by_metadata_key` — Specifies the metadata key of the `id` entries that will be returned.\
+    - `fetch_size` — Specifies the maximum number of results that a response can contain.
+
+#### Responses
+
+| Code | Response         | Body                                                                                             |
+| :--: | ---------------- | ------------------------------------------------------------------------------------------------ |
+| 200  | Success          | [`VersionedBatchedResponse<Value>`](/reference/data-model-schema#versionedbatchedresponse-value) |
+| 400  | Conversion Error | [`QueryExecutionFail::Conversion(String)`](/reference/data-model-schema#queryexecutionfail)      |
+| 400  | Evaluate Error   | [`QueryExecutionFail::Evaluate(String)`](/reference/data-model-schema#queryexecutionfail)        |
+| 401  | Signature Error  | [`QueryExecutionFail::Signature(String)`](/reference/data-model-schema#queryexecutionfail)       |
+| 403  | Permission Error | [`QueryExecutionFail::Permission(String)`](/reference/data-model-schema#queryexecutionfail)      |
+| 404  | Find Error       | [`QueryExecutionFail::Find(FindError)`](/reference/data-model-schema#queryexecutionfail)         |
+
+::: info
+
+The `200 Success` response returns results that are ordered by `id`, which use Rust's [PartialOrd](https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html) and [Ord](https://doc.rust-lang.org/std/cmp/trait.Ord.html) traits.
+
+:::
 
 ### Account Not Found 404
 
@@ -224,17 +365,66 @@ Whether each prerequisite object was found and [`FindError`](/reference/data-mod
 |   Y    |    -    |        N         |   -   | [`FindError::AssetDefinition(AssetDefinitionId)`](/reference/data-model-schema#finderror) |
 |   Y    |    Y    |        Y         |   N   | [`FindError::Asset(AssetId)`](/reference/data-model-schema#finderror)                     |
 
+## Schema
+
+::: info
+
+This operation requires the Iroha 2 network to be established with the `schema` feature enabled.
+
+<!-- TODO: Link to a topic about Iroha features/flags; Issue: https://github.com/hyperledger/iroha-2-docs/issues/465 -->
+
+:::
+
+- **Protocol**: `HTTP`
+- **Method**: `GET`
+- **Encoding**: `JSON`
+- **Endpoint**: `/schema`
+
+#### Requests
+
+A `GET` request to the endpoint.
+
+#### Responses
+
+| Code | Response | Description                                                                                                         |
+| :--: | -------- | ------------------------------------------------------------------------------------------------------------------- |
+| 200  | OK       | Returns the Rust data structures and types of the entire [Data Model Schema](data-model-schema.md) as JSON objects. |
+
 ## Status
 
-- **Protocol:** HTTP
-- **Method:** `GET`
-- **Endpoint:** `/status`
-- **Expects:** an optional `Accept: application/x-parity-scale` request header to encode response with SCALE[^1].
-  Otherwise, will fall back to `application/json`.
-- **Responses**: with `Content-Type` set either to `application/json` or `application/x-parity-scale`, and an
-  accordingly encoded response body.
+::: info
 
-Response body is of the following `Status` structure:
+This operation requires the Iroha 2 network to be established with the `telemetry` feature enabled.
+
+<!-- TODO: Link to a topic about Iroha features/flags; Issue: https://github.com/hyperledger/iroha-2-docs/issues/465 -->
+
+:::
+
+- **Protocol**: `HTTP`
+- **Method**: `GET`
+- **Encoding**: `JSON` or `SCALE`
+- **Endpoint**: `/status`
+
+#### Requests
+
+A `GET` request to the endpoint.
+
+This endpoint also accepts the following:
+
+  - **Header**: Specifies the encoding of the retrieved data.\
+  Can be set to one of the following:
+    - `Accept: application/x-parity-scale` — the retrieved data is encoded with `SCALE`.
+    - `Accept: application/json` — the retrieved data is encoded with `JSON`.
+
+If no header is specified in the request, the `Accept: application/json` header is used by default.
+
+#### Responses
+
+| Code | Response              | Description                                                                                |
+| :--: | --------------------- | ------------------------------------------------------------------------------------------ |
+| 200  | Iroha Status          | Returns the Iroha network status report encoded as specified in the header of the request. |
+
+The response body has the following structure:
 
 ```rust
 struct Status {
@@ -260,25 +450,9 @@ struct Uptime {
 }
 ```
 
-::: warning JSON Precision Lost
+::: details Examples
 
-Almost all fields in the `Status` structure are 64-bit integers, and they are encoded in JSON as-is. Since native JSON's
-number type according to the specification effectively is `f64`, the precision might be lost on deserialization, for
-example, in
-[JavaScript's `JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse).
-For more details, see related [issue](https://github.com/hyperledger/iroha/issues/3964).
-
-:::
-
-::: tip Compact Form in SCALE
-
-Fields with type `u64` serialized in the [Compact form](https://docs.substrate.io/reference/scale-codec/#fn-1).
-
-:::
-
-::: details Sample responses
-
-These samples represent the same data:
+The following examples represent the same data:
 
 ::: code-group
 
@@ -303,12 +477,42 @@ These samples represent the same data:
 
 :::
 
+::: warning JSON Precision Lost
+
+Almost all fields in the `Status` structure are 64-bit integers, and they are encoded in JSON as-is. Since native JSON's number type according to the specification effectively is `f64`, the precision might be lost on deserialization, for example, in [JavaScript's `JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse).
+
+For more details, see the related [GitHub issue](https://github.com/hyperledger/iroha/issues/3964).
+
+:::
+
+::: tip Compact Form in SCALE
+
+Fields with `u64` type are serialized in the [Compact form](https://docs.substrate.io/reference/scale-codec/#fn-1).
+
+:::
+
 ### Sub-routing
 
-To obtain the value of a specific field, one can append the name of the field to the path, e.g. `/status/peers`. This
-returns the corresponding JSON value.
+It is also possible to retrieve the data of a specific `struct` group or variable within it by adding their path to the endpoint address. The sub-routed values are only returned in the JSON format.
+
+**Examples**:
 
 ::: code-group
+
+```json [/status]
+{
+  "peers": 4,
+  "blocks": 5,
+  "txs_accepted": 31,
+  "txs_rejected": 3,
+  "uptime": {
+    "secs": 5,
+    "nanos": 937000000
+  },
+  "view_changes": 2,
+  "queue_size": 18
+}
+```
 
 ```json [/status/peers]
 4
@@ -329,23 +533,21 @@ returns the corresponding JSON value.
 
 ## Transaction
 
-- **Protocol:** HTTP
-- **Method:** `POST`
-- **Endpoint:** `/transaction`
-- **Expects:**
-  - **Body:** SCALE-encoded[^1] [`VersionedSignedTransaction`](/reference/data-model-schema#versionedsignedtransaction)
+- **Protocol**: `HTTP`
+- **Method**: `POST`
+- **Encoding**: `SCALE`
+- **Endpoint**: `/transaction`
 
-**Responses:**
+#### Requests
 
-| Status | Description                                                            |
-| ------ | ---------------------------------------------------------------------- |
-| 200    | Transaction Accepted (But not guaranteed to have passed consensus yet) |
-| 400    | Transaction Rejected (Malformed)                                       |
-| 401    | Transaction Rejected (Improperly signed)                               |
+This endpoint expects the following data:
 
-[^1]:
-    For more information on Parity SCALE Codec check
-    [Substrate Dev Hub](https://docs.substrate.io/reference/scale-codec/) and codec's
-    [GitHub repository](https://github.com/paritytech/parity-scale-codec).
+  - **Body**: [`VersionedSignedTransaction`](/reference/data-model-schema#versionedsignedtransaction)
 
-    <!--TODO: link to our own article about SCALE https://github.com/hyperledger/iroha-2-docs/issues/367-->
+#### Responses
+
+| Code | Response                                 | Description                                                                        |
+| :--: | ---------------------------------------- | ---------------------------------------------------------------------------------- |
+| 200  | Transaction Accepted                     | Transaction has been accepted, but is not yet guaranteed to have passed consensus. |
+| 400  | Transaction Rejected (Malformed)         | Transaction is rejected due to being malformed.                                    |
+| 401  | Transaction Rejected (Improperly signed) | Transaction is rejected due to being improperly signed.                            |
