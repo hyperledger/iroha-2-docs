@@ -14,6 +14,10 @@ head:
 ```rust
     // To get the status, the Client struct already has a function get_status(),
     // so you may just execute it.
+    // The result message will include a deserialized json object with parameters like:
+    //  Quantity of peers
+    //  Quantity of blocks
+    //  Quantity of accepted and rejected transactions and some more
     let status = iroha_client.get_status().unwrap();
     println!("{:?}", status);
 ```

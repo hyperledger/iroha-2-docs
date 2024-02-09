@@ -27,7 +27,7 @@ head:
      */
 
     //Define the target account and make a request to get this account's object
-    let account_id: AccountId = "artem@wonderland".parse().unwrap();
+    let account_id: AccountId = "alice@wonderland".parse().unwrap();
     let account: Account = iroha_client.request(FindAccountById::new(account_id)).unwrap();
 
     //Bind metadata struct to a variable
