@@ -1,29 +1,39 @@
 # Metrics
 
-To conveniently and thoroughly monitor the performance of the network, we
-recommend using [`prometheus`](https://prometheus.io/). Prometheus is a
-program that can monitor your Iroha peer over a separate socket and provide
-different kinds of performance metrics.
+To conveniently and thoroughly monitor the performance of your instance of the Iroha network, we recommend using [`Prometheus`](https://prometheus.io/). Prometheus is a program that can monitor your Iroha peer over a separate socket and provide different kinds of performance metrics.
 
-This data can help you find performance bottlenecks and optimise your Iroha
-configuration.
+This data can help you find performance bottlenecks and optimise your Iroha configuration.
+
+#### `/metrics` Endpoint
+
+See [Reference > Torii Endpoints: Metrics](../../reference/torii-endpoints.md#metrics).
 
 ## How to use metrics
 
-To use metrics, you need to configure the `/metrics` endpoint in the
-[Iroha configuration](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md).
-By default, the endpoint is exposed at `127.0.0.1:8180/metrics`. If the
-port is not available, Iroha will still start and work normally, but
-metrics won't be accessible.
+<!-- TODO: Update this subtopic as part of PR #397: https://github.com/hyperledger/iroha-2-docs/pull/397 -->
 
-After that, use the IP address to access the data from the running Iroha
-instance. For example:
+Work in Progress.
+
+This topic will be updated as part of the new configuration reference.
+
+The progress on the configuration reference can be tracked in the following GitHub issue:\
+[iroha-2-docs > Issue #392: Tracking issue for Configuration Reference as per RFC](https://github.com/hyperledger/iroha-2-docs/issues/392).
+
+::: note
+
+For examples, see [Sample Configuration Files](../configure/sample-configuration.md).
+
+:::
+
+After the above is configured, you can use the IP address set in the `"TORII_TELEMETRY_URL"` variable to access the metrics data from within a running Iroha instance.
+
+**Example**:
 
 ```bash
-$ curl http://127.0.0.1:8080/metrics
+$ curl http://127.0.0.1:8180/metrics
 ```
 
-This will give you a result like this:
+This returns a result similar to the following:
 
 ```bash
 # HELP blocks_height Total number of blocks in chain
@@ -42,8 +52,3 @@ total_number_of_transactions 216499
 # TYPE number_of_signatures_in_last_block gauge
 number_of_signatures_in_last_block 5
 ```
-
-## `/metrics` endpoint
-
-Refer to the
-[API specification](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/api_spec.md#metrics).

@@ -219,7 +219,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
             },
             {
               text: 'Storing Cryptographic Keys',
-              link: '/guide/security/generating-cryptographic-keys.md',
+              link: '/guide/security/storing-cryptographic-keys.md',
             },
           ],
         },

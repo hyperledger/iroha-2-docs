@@ -11,6 +11,12 @@ Here's an example of how peer configuration file looks like:
 
 :::
 
+::: info
+
+Note that for convenient container deployment, configuration options specified via environment variables always override the corresponding values in the configuration file. This way, you can have a basic configuration file and also configure some options in a `docker-compose.yml` or in your shell's environment file (`.bashrc`, `.zshrc`, etc.).
+
+:::
+
 Some of the configuration options are required, while others are used for
 fine-tuning. When you create a new peer, you are required to provide the
 following:
@@ -23,8 +29,8 @@ following:
 - [Public and private keys for the genesis account](#genesis)
   (`ACCOUNT_PUBLIC_KEY` and `ACCOUNT_PRIVATE_KEY`)
 
-For the full list of configuration options, refer to
-[Iroha Configuration Reference](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md).
+  <!-- TODO: Add the new configuration reference, once its ready. Issue: https://github.com/hyperledger/iroha-2-docs/issues/392
+  The full list of available options is in the [Iroha Configuration Reference](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md). -->
 
 ## Generation
 
@@ -73,10 +79,8 @@ trusted peers:
 `TORII` is the module in charge of handling incoming and outgoing
 connections.
 
-Here we only cover the required configurations: `API_URL`, `P2P_ADDR`, and
-`TELEMETRY_URL`. Check
-[`TORII` configuration reference](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md#torii)
-for all available options.
+<!-- TODO: Add the new configuration reference, once its ready. Issue: https://github.com/hyperledger/iroha-2-docs/issues/392
+The full list of available options is in the [Iroha Configuration Reference](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md). -->
 
 ### `API_URL`
 
@@ -138,8 +142,8 @@ configurations, such as:
 - `GENESIS_SUBMISSION_DELAY_MS`: the delay before the genesis block
   submission after the minimum number of peers were discovered.
 
-You can find more details in
-[`GENESIS` Iroha Configuration Reference](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md#genesis).
+<!-- TODO: Add the new configuration reference, once its ready. Issue: https://github.com/hyperledger/iroha-2-docs/issues/392
+The full list of available options is in the [Iroha Configuration Reference](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md). -->
 
 ## Logger
 
@@ -187,5 +191,5 @@ _warehouse_). The `BLOCK_STORE_PATH` specifies where the blocks are stored.
 You can change it to a custom location if for some reason the default
 location (`./storage`) is not available or desirable.
 
-For more details, check
-[`KURA` configuration reference](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md#kura).
+<!-- TODO: Add the new configuration reference, once its ready. Issue: https://github.com/hyperledger/iroha-2-docs/issues/392
+The full list of available options is in the [Iroha Configuration Reference](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/references/config.md). -->

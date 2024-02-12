@@ -9,9 +9,9 @@ The matrix consists of:
 - **Stories**: Represented in the first column of the matrix, these are directly fetched from the TestOps API.
 - **SDKs**: Each subsequent column represents an SDK, such as "Java/Kotlin", "JavaScript", "Swift", etc.
 - **Status Symbols**: The status of each story for an SDK is denoted with:
-    - <CompatibilityMatrixTableIcon status="ok" class="inline-block relative -top-0.5" /> indicating the story passed.
-    - <CompatibilityMatrixTableIcon status="failed" class="inline-block relative -top-0.5" /> indicating the story failed to pass.
-    - <CompatibilityMatrixTableIcon status="no-data" class="inline-block relative -top-0.5" /> indicating the data is missing.
+    - <CompatibilityMatrixTableIcon status="ok" inline /> indicating the story passed.
+    - <CompatibilityMatrixTableIcon status="failed" inline /> indicating the story failed to pass.
+    - <CompatibilityMatrixTableIcon status="no-data" inline /> indicating the data is missing.
 
 <CompatibilityMatrixTable />
 
