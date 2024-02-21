@@ -74,7 +74,7 @@ string. |
 
 ::: info
 
-The API version is retrieved from and is the same as the version of the [genesis block](../guide/configure/genesis.md), which means that at least a minimal subnet of four peers must be running, and the genesis block must already be submitted at the time of the request.
+The API version is retrieved from and is the same as the version of the [genesis block](genesis.md), which means that at least a minimal subnet of four peers must be running, and the genesis block must already be submitted at the time of the request.
 
 :::
 

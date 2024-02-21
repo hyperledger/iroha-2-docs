@@ -2,7 +2,39 @@
 
 Two Telemetries are supported: Substrate-based and File-based.
 
-## `telemetry.file_output`
+**Example:**
+
+```toml
+[telemetry.substrate]
+name = "iroha"
+url = "ws://127.0.0.1:8001/submit"
+```
+
+
+## `telemetry.name`
+
+- **Type:** String
+- Must be paired with `telemetry.url`
+
+The node's name to be displayed on the telemetry
+
+## `telemetry.min_retry_period`
+
+- **Type:** String or Number, [Duration](glossary#type-duration)
+- **Default:** 1 second
+
+
+The minimum period of time in seconds to wait before reconnecting
+
+## `telemetry.max_retry_delay_exponent`
+
+- **Type:** Number, u8
+- **Default:** 4
+
+
+The maximum exponent of 2 that is used for increasing delay between reconnections
+
+## `telemetry.dev.out_file`
 
 Enables file-based active outbound telemetry.
 
@@ -17,29 +49,9 @@ Enables file-based active outbound telemetry.
 file = "/path/to/file"
 ```
 
-## `telemetry.substrate`
+## `telemetry.url`
 
-Enables Substrate active outbound telemetry.
+- **Type:** String, URL
+- Must be paired with `telemetry.name`
 
-**Fields:**
-
-- **`name`:** The node's name to be displayed on the telemetry
-  - **Type:** String
-  - **Required**
-- **`url`:** The url of the telemetry
-  - **Type:** String, URL
-  - **Required**
-- **`min_retry_period`:** The minimum period of time in seconds to wait before reconnecting
-  - **Type:** String or Number, [Duration](glossary#type-duration)
-  - **Default:** 1 second
-- **`max_retry_delay_exponent`:** The maximum exponent of 2 that is used for increasing delay between reconnections
-  - **Type:** Number, u8
-  - **Default:** 4
-
-**Example:**
-
-```toml
-[telemetry.substrate]
-name = "iroha"
-url = "ws://127.0.0.1:8001/submit"
-```
+The url of the telemetry

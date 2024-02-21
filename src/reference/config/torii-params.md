@@ -20,7 +20,7 @@ api_address = "localhost:8080"
 
 ## `torii.max_content_length`
 
-- **Type:** String or Number, [Byte Size](glossary#type-byte-size)
+- **Type:** String or Number, [Byte Size](glossary#type-bytes-amount)
 - **Default:** $16\ 000\text{ KiB}$ ($2^{10} \cdot 16\ 000 = 16\ 384\ 000\text{ bytes}$)
 
 TODO: consider changing the default value to 16 MiB precisely (which is $2^{20} * 16 = 16\ 777\ 216$)
@@ -49,20 +49,4 @@ TODO: Configures behaviour of lazily-evaluated pagination of the [Query Endpoint
 ```toml
 [torii]
 query_idle_time = "30s"
-```
-
-## `torii.query_results_per_fetch`
-
-- **Type:** Number
-- **Default:** $10$
-
-The number of query results returned in one batch.
-
-TODO: Configures behaviour of lazily-evaluated pagination of the [Query Endpoint](/reference/torii-endpoints#query).
-
-**Example:**
-
-```toml
-[torii]
-query_results_per_fetch = 10
 ```

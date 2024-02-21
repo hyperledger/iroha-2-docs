@@ -66,8 +66,12 @@ function sidebarReference(): DefaultTheme.SidebarItem[] {
       text: 'Reference',
       items: [
         {
+          text: 'CLI',
+          link: '/reference/cli',
+        },
+        {
           text: 'Torii Endpoints',
-          link: '/reference/torii-endpoints.md',
+          link: '/reference/torii-endpoints',
         },
         {
           text: 'Data Model Schema',
@@ -79,12 +83,16 @@ function sidebarReference(): DefaultTheme.SidebarItem[] {
         },
         {
           text: 'Queries',
-          link: '/reference/queries.md',
+          link: '/reference/queries',
         },
         {
           text: 'Permissions',
-          link: '/reference/permissions.md',
+          link: '/reference/permissions',
         },
+        {
+          text: 'Genesis Block',
+          link: '/reference/genesis'
+        }
       ],
     },
     {
@@ -107,6 +115,18 @@ function sidebarReference(): DefaultTheme.SidebarItem[] {
               link: '/reference/config/genesis-params',
             },
             {
+              text: 'Network',
+              link: '/reference/config/network-params',
+            },
+            {
+              text: 'Torii',
+              link: '/reference/config/torii-params',
+            },
+            {
+              text: 'Sumeragi',
+              link: '/reference/config/sumeragi-params',
+            },
+            {
               text: 'Kura',
               link: '/reference/config/kura-params',
             },
@@ -122,30 +142,30 @@ function sidebarReference(): DefaultTheme.SidebarItem[] {
               text: 'Snapshot',
               link: '/reference/config/snapshot-params',
             },
-
-            {
-              text: 'Sumeragi',
-              link: '/reference/config/sumeragi-params',
-            },
             {
               text: 'Telemetry',
               link: '/reference/config/telemetry-params',
             },
-
             {
-              text: 'Torii',
-              link: '/reference/config/torii-params',
+              text: 'Chain Wide',
+              link: '/reference/config/chain-wide-params',
             },
           ],
         },
-
         {
           text: 'Glossary',
           link: '/reference/config/glossary',
         },
+      ],
+    },
+    {
+      text: 'Client CLI',
+      items: [
         {
-          text: 'Deprecation and Migration',
-          link: '/reference/config/deprecation-and-migration',
+          text: 'CLI',
+        },
+        {
+          text: 'Configuration',
         },
       ],
     },

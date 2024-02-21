@@ -1,35 +1,58 @@
 # Base Parameters
 
-## `address`
+## `chain_id`
 
-- **Type:** String, [Socket-Address](glossary#type-socket-address)
-- **Required**
+<ConfigParameterSpecs type="string" env="CHAIN_ID" />
 
-Address for p2p communication for consensus (sumeragi) and block synchronization (block_sync) purposes.
+::: code-group
 
-```toml
-address = "localhost:1337"
+```toml [Config File]
+chain_id = "00000000-0000-0000-0000-000000000000"
 ```
+
+```shell [ENV]
+CHAIN_ID=00000000-0000-0000-0000-000000000000
+```
+
+:::
 
 ## `private_key`
 
-- **Type:** Table, [Private Key](glossary#type-private-key)
-- **Required**
+<ConfigParameterSpecs type="private-key" env>
+    <template #env>
+        <code>PRIVATE_KEY_ALGORITHM</code> + <code>PRIVATE_KEY_PAYLOAD</code>
+    </template>
+</ConfigParameterSpecs>
 
-Private key of this peer
+Private key of the peer
 
-```toml
-private_key.digest = "ed25519"
-private_key.payload = "82886B5A2BB3785F3CA8F8A78F60EA9DB62F939937B1CFA8407316EF07909A8D236808A6D4C12C91CA19E54686C2B8F5F3A786278E3824B4571EF234DEC8683B"
+::: code-group
+
+```toml [Config File]
+private_key = { algorithm = "ed25519", payload = "8f4c15e5d664da3f13778801d23d4e89b76e94c1b94b389544168b6cb894f84f8ba62848cf767d72e7f7f4b9d2d7ba07fee33760f79abe5597a51520e292a0cb" }
 ```
+
+```shell [ENV]
+PRIVATE_KEY_ALGORITHM=ed25519
+PRIVATE_KEY_PAYLOAD=8f4c15e5d664da3f13778801d23d4e89b76e94c1b94b389544168b6cb894f84f8ba62848cf767d72e7f7f4b9d2d7ba07fee33760f79abe5597a51520e292a0cb
+```
+
+:::
 
 ## `public_key`
 
-- **Type:** String, [Multi-hash](glossary#type-multi-hash)
-- **Required**
+<ConfigParameterSpecs type="multihash" env="PUBLIC_KEY" />
 
-Public key of this peer
+Public key of the peer
 
-```toml
+::: code-group
+
+```toml [Config File]
 public_key = "ed0120FAFCB2B27444221717F6FCBF900D5BE95273B1B0904B08C736B32A19F16AC1F9"
 ```
+
+```shell [ENV]
+PUBLIC_KEY=ed0120FAFCB2B27444221717F6FCBF900D5BE95273B1B0904B08C736B32A19F16AC1F9
+```
+
+:::

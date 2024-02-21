@@ -9,23 +9,13 @@ TODO Explain the limitations of different numeric types, like `u8` and `u64`.
 
 ## Type: Duration
 
-Duration might be specified in two ways:
-
-- As a Number, which will be considered an amount in milliseconds
-- As a String, which will be parsed as a human-readable string
-
-Numeric setting is straightforward:
-
-```toml
-value = 1000 # 1000 milliseconds
-```
-
-String setting might be more readable:
+Duration is specified as a human-readable string:
 
 ```toml
 value1 = "1sec"
 value2 = "1hour 12min 5s"
 value3 = "2years 2min 12us"
+value4 = "550ms"
 ```
 
 The duration string is a concatenation of time spans. Each time span is an
@@ -48,41 +38,57 @@ It is an implementation detail.
 
 ## Type: Multi-hash
 
-TODO Describe what the hell this is
 
-## Type: Byte Size
+To configure Multihash types in Iroha 2, you specify the cryptographic hash function used for digital signatures or data integrity verification. Iroha 2 supports a limited set of hash functions, identified by unique byte codes as defined in the [official multicodec table](https://github.com/multiformats/multicodec/blob/master/table.csv).
 
-Byte size values might be set in two ways:
+Supported Digest Functions:
 
-- As a Number, which will be considered an amount in bytes
-- As a String, which will be parsed as a human-readable string
+- `Ed25519Pub` (code: `0xed`) - Ed25519 public key
+- `Secp256k1Pub` (code: `0xe7`) - Secp256k1 public key
+- `Bls12381G1Pub` (code: `0xea`) - BLS12-381 G1 public key
+- `Bls12381G2Pub` (code: `0xeb`) - BLS12-381 G2 public key
 
-Byte size as a number:
+Below is an example of how to specify these multihashes in your TOML configuration:
 
 ```toml
-value = 512 # 512 bytes
+# Ed25519 public key hash
+ed25519_pub = "0xed...<hash value>"
+
+# Secp256k1 public key hash
+secp256k1_pub = "0xe7...<hash value>"
+
+# BLS12-381 G1 public key hash
+bls12381_g1_pub = "0xea...<hash value>"
+
+# BLS12-381 G2 public key hash
+bls12381_g2_pub = "0xeb...<hash value>"
 ```
 
-Byte size as a string:
+In these examples, replace `<hash value>` with the actual hash output encoded in hexadecimal. The code before the hash value corresponds to the hash function used, as per the Iroha 2 supported options.
+
+For further details on Multihash and its implementation, please refer to the [Multihash specification](https://multiformats.io/multihash/) and the [Multicodec Table](https://github.com/multiformats/multicodec/blob/master/table.csv) for a comprehensive list of hash function codes.
+
+
+## Type: Bytes Amount
+
+Bytes amount is specified as a human-readable string:
 
 ```toml
 # 42 bytes
-value1 = "42"
-value2 = "42b"
-value3 = "42bytes"
+value1 = "42B"
 
 # 1 kilobyte = 1000 bytes
-value4 = "1KB"
+value2 = "1KB"
 
 # 1 kilobyte (binary format) = 1024 bytes
-value5 = "1KiB"
+value3 = "1KiB"
 
-# Combination of multiple
-value412 = "1GB 5MB"
+# Sum of multiple
+value4 = "1GB 5MB"
 ```
 
-Iroha can parse sizes in bytes, kilobytes, megabytes, gigabytes, terabytes,
-and petabytes.
+Iroha can parse sizes in bytes, kilobytes (`K`), megabytes (`M`), gigabytes (`G`), terabytes (`T`),
+and petabytes (`P`).
 
 The format of suffixes:
 
@@ -101,33 +107,53 @@ Consider it for the format.
 TODO explain private key
 
 ```toml
-private_key = { digest = "ed25519", payload = "" }
+private_key = { algorithm = "ed25519", payload = "" }
 ```
 
 ## Type: Socket Address
 
-TODO explain socket addresses
+To specify a socket address in the configuration, use the format `host:port`, where `host` is either a hostname or an IP address, and `port` is the numeric port number the application should connect to or listen on.
 
-```
-<host>:<port>
-```
+- **Hostname example**: `localhost:8080`
+- **IP address example**: `192.168.1.100:8080`
 
-```
-localhost:8080
-127.0.0.1:1337
-sample.com:9090
-```
+**Hostname**: Can be a local hostname (`localhost` for the local machine) or a remote server's domain name (e.g., `example.com`).
 
-In TOML it should be specified as a string:
+**IP address**: Use IPv4 (e.g., `192.168.1.100`) or IPv6 (enclosed in square brackets, e.g., `[2001:db8::1]`) formats.
+
+**Port**: A numeric value typically ranging from `1` to `65535`, where ports below `1024` are reserved for well-known services and require root privileges on Unix-like systems.
+
+**Example in TOML:**
 
 ```toml
-address = "localhost:8000"
+address = "localhost:8080"
 ```
 
-## Type: Metadata Limits
+For more information on socket addresses and networking, refer to the [IANA Service Name and Transport Protocol Port Number Registry](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml) or the [RFC 3986](https://tools.ietf.org/html/rfc3986) specification.
 
-TODO
+## Paths Resolution
 
-### Default Metadata Limits
+There are numerous parameters in the configuration that specify file paths. These paths might be relative. If they are specified in the config file, they are resolved relative to the config file location. If a path is specified via a Environment Variable, it is resolved relative to the <abbr title="Current Working Directory">CWD</abbr>.
 
-TODO Display the value here
+For example, we run Iroha from `/home/alice` directory, using a config file at `/home/alice/projects/iroha.toml`:
+
+```shell
+iroha --config ./projects/iroha.toml
+```
+
+In `iroha.toml`, we specify [`kura.block_store_path`](kura-params#kura-block-store-path):
+
+```toml
+[kura]
+block_store_path = "./storage"
+```
+
+This path will be resolved as `/home/alice/projects/storage`.
+
+On the other hand, if we pass it via env:
+
+```shell
+KURA_BLOCK_STORE=./env-storage iroha --config ./projects/iroha.toml
+```
+
+Then it will be set to `/home/alice/env-storage`.

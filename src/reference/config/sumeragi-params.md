@@ -6,77 +6,6 @@ gossip sizes might affect network load & speed of sync. Explain the
 pipeline of transactions and blocks, refer to consensus section and maybe
 some others.
 
-## `sumeragi.block_gossip_period`
-
-- **Type:** String or Number, [Duration](glossary#type-duration)
-- **Default:** 10 seconds
-
-The time interval between requests to peers for the most recent block.
-
-**Example:**
-
-```toml
-[sumeragi]
-block_gossip_period = "5s"
-```
-
-::: warning
-
-More frequent gossiping shortens the time to sync, but can overload the
-network.
-
-:::
-
-## `sumeragi.max_blocks_per_gossip`
-
-- **Type:** Number
-- **Default:** $4$
-
-The amount of blocks that can be sent in a single synchronization message.
-
-**Example:**
-
-```toml
-[sumeragi]
-max_blocks_per_gossip = 4
-```
-
-## `sumeragi.max_transactions_per_gossip`
-
-- **Type:** Number
-- **Default:** $500$
-
-Max number of transactions in a gossip batch message. Smaller size leads to
-longer time to synchronise, but useful if you have high packet loss.
-
-**Example:**
-
-```toml
-[sumeragi]
-max_transactions_per_gossip = 500
-```
-
-## `sumeragi.transaction_gossip_period`
-
-- **Type:** String or Number, [Duration](glossary#type-duration)
-- **Default:** 1 second
-
-Period for pending transaction gossiping between peers.
-
-**Example:**
-
-```toml
-[sumeragi]
-transaction_gossip_period = "1s"
-```
-
-::: warning
-
-More frequent gossiping shortens the time to sync, but can overload the
-network.
-
-:::
-
 ## `sumeragi.trusted_peers`
 
 <!--
@@ -141,4 +70,6 @@ trusted_peers = [
   { address = "localhost:1340", public_key = "ed0120FAFCB2B27444221717F6FCBF900D5BE95273B1B0904B08C736B32A19F16AC1F9" },
 ]
 ```
+
+## `sumeragi.debug.force_soft_fork`
 

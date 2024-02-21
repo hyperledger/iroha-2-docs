@@ -26,6 +26,11 @@ Frequency of making snapshots
 create_every = "1 minute"
 ```
 
+## `snapshot.creation_enabled`
+
+
+<!--
+
 ## `snapshot.mode`
 
 Specifies the mode the Snapshot system functions in.
@@ -44,6 +49,8 @@ Specifies the mode the Snapshot system functions in.
 [snapshot]
 mode = "normal"
 ```
+
+-->
 
 ## `snapshot.store_path`
 
