@@ -35,7 +35,7 @@ It only looks for a configuration file in one of two places:
 1. If the `-c` or `--config` command line flag is specified, the next
    argument interpreted as a path.
 
-   For example: `-c ~/Git/iroha/configs/peer/config.json`. If that file
+   For example: `-c ~/hyperledger/iroha/configs/peer/config.json`. If that file
    doesn't exist, you will see an error, and `iroha_client_cli` won't look
    for a configuration file anywhere else.
 
@@ -127,7 +127,7 @@ the pipeline events as they are output.
 On a new terminal tab run:
 
 ```bash
-$ cd ~/Git/iroha/test_docker
+$ cd ~/hyperledger/iroha/test_docker
 ```
 
 If you followed the steps correctly, this should contain the

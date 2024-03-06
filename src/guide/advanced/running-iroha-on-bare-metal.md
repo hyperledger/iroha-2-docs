@@ -67,11 +67,11 @@ you should build it in `--release` mode.
 We want to make sure that we have the right configuration.
 
 There are different ways to do this. You can copy the contents of the
-`~/Git/iroha/configs/peer/` into a new directory, or, alternatively, just
+`~/hyperledger/iroha/configs/peer/` into a new directory, or, alternatively, just
 run all commands from that directory:
 
 ```bash
-$ cd ~/Git/iroha/configs/peer
+$ cd ~/hyperledger/iroha/configs/peer
 ```
 
 The third option is to specify the full path to the configuration file in
@@ -129,8 +129,8 @@ This process is almost universally unreliable and messy, and it is likely
 that your system is special in that it breaks some of our assumptions.
 
 If the above optional steps didn’t work for you, you can keep working in
-the `~/Git/iroha/configs/peer/` folder, and run Iroha via
-`~/Git/iroha/target/debug/iroha`.
+the `~/hyperledger/iroha/configs/peer/` folder, and run Iroha via
+`~/hyperledger/iroha/target/debug/iroha`.
 
 This makes the command-line a little harder to read, which is why we
 recommend setting up your environment first.
@@ -154,19 +154,19 @@ This is the recommended method of bringing up an Iroha peer. What we do is:
 1. Create a new directory for the configuration files:
 
    ```bash
-   $ mkdir -p ~/Git/iroha/deploy
+   $ mkdir -p ~/hyperledger/iroha/deploy
    ```
 
 2. Copy the `peer` configuration into it:
 
    ```bash
-   $ cp -vfr ~/Git/iroha/configs/peer/*.json ~/Git/iroha/deploy
+   $ cp -vfr ~/hyperledger/iroha/configs/peer/*.json ~/hyperledger/iroha/deploy
    ```
 
 3. Copy the respective Iroha binary into your binary folder:
 
    ```bash
-   $ sudo cp -vfr ~/Git/iroha/target/debug/iroha /usr/bin/
+   $ sudo cp -vfr ~/hyperledger/iroha/target/debug/iroha /usr/bin/
    ```
 
    which will install Iroha 2 system wide.
@@ -462,7 +462,7 @@ Iroha in the real world.
     running
 
     ```bash
-    $ ~/Git/iroha/target/release/iroha
+    $ ~/hyperledger/iroha/target/release/iroha
     ```
 
 ::: info Note

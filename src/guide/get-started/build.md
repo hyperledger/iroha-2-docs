@@ -49,7 +49,7 @@ the setup process. Just go with the defaults.
    [here](./install.md#install-iroha-from-github), run:
 
    ```bash
-   $ cd ~/Git/iroha
+   $ cd ~/hyperledger/iroha
    ```
 
 2. Build the Iroha 2 client using:

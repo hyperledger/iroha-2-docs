@@ -25,7 +25,7 @@ Let's create a separate folder for Iroha Python and clone its GitHub
 repository into it:
 
 ```bash
-$ cd ~/Git/
+$ cd ~/hyperledger/
 $ git clone https://github.com/hyperledger/iroha-python/ --branch iroha2
 $ cd iroha-python
 ```
@@ -47,7 +47,7 @@ $ pip install ./target/wheels/iroha_python-*.whl
 Finally, you will need a working client configuration:
 
 ```bash
-$ cp -vfr ~/Git/iroha/configs/client/config.json example/config.json
+$ cp -vfr ~/hyperledger/iroha/configs/client/config.json example/config.json
 ```
 
 ::: tip
