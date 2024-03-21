@@ -85,23 +85,23 @@ To perform a system-wide installation of an Iroha 2 binary with `cargo install`,
 
 ::: code-group
 
-```shell [Command structure]
+```shell [Command template]
 cargo install [options] --git [repo url] --branch [branch name] [binary name]
 ```
 
-```shell [`iroha`]
+```shell [iroha]
 cargo install --git https://github.com/hyperledger/iroha.git --branch iroha2-dev iroha
 
 iroha --help
 ```
 
-```shell [`iroha_client_cli`]
+```shell [iroha_client_cli]
 cargo install --git https://github.com/hyperledger/iroha.git --branch iroha2-dev iroha_client_cli
 
 iroha_client_cli --help
 ```
 
-```shell [`kagami`]
+```shell [kagami]
 cargo install --git https://github.com/hyperledger/iroha.git --branch iroha2-dev kagami
 
 kagami --help
@@ -152,6 +152,8 @@ cargo run -p iroha_client_cli --release -- --help
 ```shell [Kagami]
 cargo run -p kagami --release -- --help
 ```
+
+:::
 
 ::: tip
 
