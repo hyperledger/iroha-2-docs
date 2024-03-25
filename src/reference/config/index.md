@@ -4,7 +4,7 @@ Iroha is configured via a [TOML](https://toml.io/) file and/or Environment
 Variables.
 
 The path to the configuration file should be passed through the
-[`--config` CLI argument](/reference/cli#config):
+[`--config` CLI argument](/reference/cli#arg-config):
 
 ```shell
 iroha --config iroha_config.toml
@@ -52,17 +52,17 @@ iroha --config iroha_config.toml --submit-genesis
 
 ## Required Parameters
 
-- [`public_key`](base-params#public-key): _explain the option_
-- [`private_key`](base-params#private-key): _explain the option_
-- [`address`](base-params#address): _explain the option_
-- [`genesis.public_key`](genesis-params#genesis-public-key): _explain the
+- [`public_key`](base-params#param-public-key): _explain the option_
+- [`private_key`](base-params#param-private-key): _explain the option_
+- [`network.address`](network-params#param-address): _explain the option_
+- [`genesis.public_key`](genesis-params#param-public-key): _explain the
   option_
-- [`genesis.private_key`](genesis-params#genesis-private-key) if the peer
+- [`genesis.private_key`](genesis-params#param-private-key) if the peer
   is the one who submits the genesis. _explain the option_
-- [`sumeragi.trusted_peers`](sumeragi-params#sumeragi-trusted-peers):
+- [`sumeragi.trusted_peers`](sumeragi-params#param-trusted-peers):
   _explain the option_. It is not _strictly_ required, but you might need
   to set it in most cases.
-- [`torii.address`](torii-params#torii-address): _explain the option_
+- [`torii.address`](torii-params#param-address): _explain the option_
 
 ## Modules Overview
 
@@ -78,12 +78,3 @@ explanations of their responsibility.
 - **[Logger](logger-params):** _explain_
 - **[Telemetry](telemetry-params):** _explain_
 - **[Snapshot](./snapshot-params)**
-
----
-
-TODO:
-
-- Consider refining `Number` types to exact `Integer`, `Float`,
-  `Unsigned 64-bits integer`?
-- Is `sumeragi.trusted_peers` optional or required?
-- Define more ENVs, and provide samples of how it should be parsed

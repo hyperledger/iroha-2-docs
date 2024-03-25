@@ -1,8 +1,6 @@
 # Base Parameters
 
-## `chain_id`
-
-<ConfigParameterSpecs type="string" env="CHAIN_ID" />
+## `chain_id` {#param-chain-id}
 
 ::: code-group
 
@@ -16,13 +14,11 @@ CHAIN_ID=00000000-0000-0000-0000-000000000000
 
 :::
 
-## `private_key`
+## `private_key` {#param-private-key}
 
-<ConfigParameterSpecs type="private-key" env>
-    <template #env>
-        <code>PRIVATE_KEY_ALGORITHM</code> + <code>PRIVATE_KEY_PAYLOAD</code>
-    </template>
-</ConfigParameterSpecs>
+- **Type:** Private Key
+- **ENV:** `PRIVATE_KEY_ALGORITHM` + `PRIVATE_KEY_PAYLOAD`
+- **Required**
 
 Private key of the peer
 
@@ -39,9 +35,7 @@ PRIVATE_KEY_PAYLOAD=8f4c15e5d664da3f13778801d23d4e89b76e94c1b94b389544168b6cb894
 
 :::
 
-## `public_key`
-
-<ConfigParameterSpecs type="multihash" env="PUBLIC_KEY" />
+## `public_key` {#param-public-key}
 
 Public key of the peer
 

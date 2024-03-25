@@ -6,7 +6,7 @@ gossip sizes might affect network load & speed of sync. Explain the
 pipeline of transactions and blocks, refer to consensus section and maybe
 some others.
 
-## `sumeragi.trusted_peers`
+## `sumeragi.trusted_peers` {#param-trusted-peers}
 
 <!--
 
@@ -71,5 +71,4 @@ trusted_peers = [
 ]
 ```
 
-## `sumeragi.debug.force_soft_fork`
-
+## `sumeragi.debug.force_soft_fork` {#param-debug-force-soft-fork}

@@ -2,7 +2,7 @@
 
 This module configures the [genesis](/reference/genesis) block.
 
-## `genesis.file`
+## `genesis.file` {#param-file}
 
 <ConfigParameterSpecs type="file-path" env="GENESIS_FILE" />
 
@@ -23,14 +23,14 @@ GENESIS_FILE="genesis.json"
 
 ::: tip Path Resolution
 
-[Paths resolution rules](glossary#paths-resolution) apply to this parameter.
+[Paths resolution rules](glossary#paths-resolution) apply to this
+parameter.
 
 :::
 
+## `genesis.private_key` {#param-private-key}
 
-## `genesis.public_key`
-
-<ConfigParameterSpecs type="multihash" env="GENESIS_PUBLIC_KEY" />
+## `genesis.public_key` {#param-public-key}
 
 The public key of the genesis account.
 

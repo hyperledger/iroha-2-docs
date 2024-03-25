@@ -2,9 +2,9 @@
 
 This page explains the parameters related to logging operations of Iroha 2, as managed by the Logger module.
 
-## `logger.format`
+## `logger.format` {#param-format}
 
-## `logger.level`
+## `logger.level` {#param-level}
 
 Sets the logging sensitivity.
 
@@ -16,7 +16,7 @@ Sets the logging sensitivity.
   - **`INFO`:** General informational messages.
   - **`WARN`:** Warnings that indicate potential issues.
   - **`ERROR`:** Errors that disrupt normal function but allow continued operation.
-  - **`FATAL`:** Critical errors that lead to immediate termination.
+  - **`FATAL`:** Critical errors that lead to immediate termination. (todo: maybe unsupported)
 - **Default:** `INFO`
 
 Choose the level that best suits your use case. Refer to
@@ -37,5 +37,3 @@ LOG_LEVEL=INFO
 ```
 
 :::
-
-## `logger.tokio_console_address`

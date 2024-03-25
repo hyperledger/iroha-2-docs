@@ -3,7 +3,7 @@
 TODO Explain Queue module. The queue holds incoming transactions. From time
 to time, Sumeragi fetches them in order to create a block.
 
-## `queue.capacity`
+## `queue.capacity` {#param-capacity}
 
 - **Type:** u32
 - **Default:** $2^{16} = 65\ 536$
@@ -17,7 +17,7 @@ The upper limit of the number of transactions waiting in the queue.
 max_transactions_in_queue = 65_536
 ```
 
-## `queue.capacity_per_user`
+## `queue.capacity_per_user` {#param-capacity-per-user}
 
 - **Type:** u32
 - **Default:** $2^{16} = 65\ 536$
@@ -32,7 +32,7 @@ single user. Use this option to apply throttling.
 max_transactions_in_queue_per_user = 65_536
 ```
 
-## `queue.future_threshold`
+## `queue.future_threshold` {#param-future-threshold}
 
 - **Type:** String or Number, [Duration](glossary#type-duration)
 - **Default:** 1 second
@@ -50,7 +50,7 @@ TODO: explain that _timestamp_ is the value specified in
 future_threshold = "1s"
 ```
 
-## `queue.transaction_time_to_live`
+## `queue.transaction_time_to_live` {#param-transaction-time-to-live}
 
 - **Type:** String or Number, [Duration](glossary#type-duration)
 - **Default:** 24 hours

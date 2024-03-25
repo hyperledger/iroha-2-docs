@@ -5,7 +5,7 @@ TODO: Explain Torii module
 This module contains configuration of [Torii](/reference/glossary#torii-gate) - the API gateway of Iroha. Refer to the
 [Torii Endpoints reference](/reference/torii-endpoints) for information about exact endpoints.
 
-## `torii.address`
+## `torii.address` {#param-address}
 
 - **ENV:** `API_ENDPOINT`
 - **Type:** String, [Socket-Address](glossary#type-socket-address)
@@ -18,7 +18,7 @@ Address on which Torii Endpoints will be accessible.
 api_address = "localhost:8080"
 ```
 
-## `torii.max_content_length`
+## `torii.max_content_length` {#param-max-content-length}
 
 - **Type:** String or Number, [Byte Size](glossary#type-bytes-amount)
 - **Default:** $16\ 000\text{ KiB}$ ($2^{10} \cdot 16\ 000 = 16\ 384\ 000\text{ bytes}$)
@@ -35,7 +35,7 @@ The maximum number of bytes in a raw request body accepted by the
 max_content_length = "16MiB"
 ```
 
-## `torii.query_idle_time`
+## `torii.query_idle_time` {#param-query-idle-time}
 
 - **Type:** String or Number, [Duration](glossary#type-duration)
 - **Default:** 30 seconds

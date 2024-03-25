@@ -141,11 +141,11 @@ For example, we run Iroha from `/home/alice` directory, using a config file at `
 iroha --config ./projects/iroha.toml
 ```
 
-In `iroha.toml`, we specify [`kura.block_store_path`](kura-params#kura-block-store-path):
+In `iroha.toml`, we specify [`kura.store_dir`](kura-params#param-store-dir):
 
 ```toml
 [kura]
-block_store_path = "./storage"
+store_dir = "./storage"
 ```
 
 This path will be resolved as `/home/alice/projects/storage`.
@@ -153,7 +153,7 @@ This path will be resolved as `/home/alice/projects/storage`.
 On the other hand, if we pass it via env:
 
 ```shell
-KURA_BLOCK_STORE=./env-storage iroha --config ./projects/iroha.toml
+KURA_STORE_DIR=./env-storage iroha --config ./projects/iroha.toml
 ```
 
 Then it will be set to `/home/alice/env-storage`.

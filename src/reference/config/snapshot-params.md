@@ -8,11 +8,11 @@ TODO: explain the purpose of snapshots, file formats, etc
 ::: tip Wipe Snapshots
 
 In case if something is wrong with the snapshots system, and you want to start from a blank page (in terms of
-snapshots), you could remove the directory specified by `snapshot.store_path`.
+snapshots), you could remove the directory specified by [`snapshot.store_dir`](#param-store-dir).
 
 :::
 
-## `snapshot.create_every`
+## `snapshot.create_every` {#param-create-every}
 
 - **Type:** String or Number, [Duration](glossary#type-duration)
 - **Default:** 1 minute
@@ -26,20 +26,15 @@ Frequency of making snapshots
 create_every = "1 minute"
 ```
 
-## `snapshot.creation_enabled`
-
-
-<!--
-
-## `snapshot.mode`
+## `snapshot.mode` {#param-mode}
 
 Specifies the mode the Snapshot system functions in.
 
 - **Type:** String
 - **Possible Values:**
-  - **`normal`:** Iroha creates snapshots with a period specified by `snapshot.create_every`. On startup, Iroha reads an
+  - **`read_write`:** Iroha creates snapshots with a period specified by `snapshot.create_every`. On startup, Iroha reads an
     existing snapshot (if any) and verifies that it is up-to-date with the blocks storage.
-  - **`read-only`:** Similar to `normal` but Iroha doesn't create any snapshots.
+  - **`readonly`:** Similar to `normal` but Iroha doesn't create any snapshots.
   - **`disabled`:** Iroha neither creates new snapshots nor reads an existing one on startup.
 - **Default:** `normal`
 
@@ -47,12 +42,10 @@ Specifies the mode the Snapshot system functions in.
 
 ```toml
 [snapshot]
-mode = "normal"
+mode = "read_write"
 ```
 
--->
-
-## `snapshot.store_path`
+## `snapshot.store_dir` {#param-store-dir}
 
 - **Type:** String
 - **Default:** `./storage/snapshot`
@@ -63,5 +56,5 @@ Directory where to store snapshots
 
 ```toml
 [snapshot]
-dir_path = "./storage/snapshot"
+store_dir = "./storage/snapshot"
 ```

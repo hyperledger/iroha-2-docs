@@ -2,10 +2,11 @@
 
 TODO: Explain Kura module
 
-## `kura.block_store_path`
+## `kura.store_dir` {#param-store-dir}
 
 - **Type:** String
 - **Default:** `./storage`
+- **ENV:** `KURA_STORE_DIR`
 
 Path to the existing block store folder or path to create new folder.
 
@@ -13,14 +14,15 @@ Path to the existing block store folder or path to create new folder.
 
 ```toml
 [kura]
-block_store_path = "./storage"
+store_dir = "./storage"
 ```
 
-TODO: will the path be resolved relative to the config file location, or to CWD? the former is more intuitive
+TODO: will the path be resolved relative to the config file location, or to
+CWD? the former is more intuitive
 
-## `kura.debug.output_new_blocks`
+## `kura.debug.output_new_blocks` {#param-debug-output-new-blocks}
 
-## `kura.init_mode`
+## `kura.init_mode` {#param-init-mode}
 
 - **Type:** String
 - **Possible Values:**

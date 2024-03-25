@@ -1,6 +1,6 @@
 # Network Parameters
 
-## `network.address`
+## `network.address` {#param-address}
 
 - **Type:** String, [Socket-Address](glossary#type-socket-address)
 - **Required**
@@ -14,7 +14,7 @@ address = "localhost:1337"
 
 TODO: wait for renamings
 
-## `network.block_gossip_period`
+## `network.block_gossip_period` {#param-block-gossip-period}
 
 - **Type:** String or Number, [Duration](glossary#type-duration)
 - **Default:** 10 seconds
@@ -35,7 +35,7 @@ network.
 
 :::
 
-## `network.max_blocks_per_gossip`
+## `network.max_blocks_per_gossip` {#param-max-blocks-per-gossip}
 
 - **Type:** Number
 - **Default:** $4$
@@ -49,7 +49,7 @@ The amount of blocks that can be sent in a single synchronization message.
 max_blocks_per_gossip = 4
 ```
 
-## `network.max_transactions_per_gossip`
+## `network.max_transactions_per_gossip` {#param-max-transactions-per-gossip}
 
 - **Type:** Number
 - **Default:** $500$
@@ -64,7 +64,7 @@ longer time to synchronise, but useful if you have high packet loss.
 max_transactions_per_gossip = 500
 ```
 
-## `network.transaction_gossip_period`
+## `network.transaction_gossip_period` {#param-transaction-gossip-period}
 
 - **Type:** String or Number, [Duration](glossary#type-duration)
 - **Default:** 1 second

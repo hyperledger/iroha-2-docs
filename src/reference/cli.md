@@ -2,7 +2,7 @@
 
 TODO
 
-## `--config`
+## `--config` {#arg-config}
 
 - **Type:** File Path
 - **Required**
@@ -22,7 +22,7 @@ location. See how
 
 :::
 
-## `--terminal-colors`
+## `--terminal-colors` {#arg-terminal-colors}
 
 - **Type:** Boolean, either `--terminal-colors=false` or
   `--terminal-colors=true`
@@ -47,6 +47,8 @@ iroha
 
 ## `--submit-genesis`
 
+**TO BE REMOVED**
+
 - **Type:** Flag, either set or omitted
 
 Whether the current peer should submit the genesis block or not.
@@ -54,13 +56,13 @@ Whether the current peer should submit the genesis block or not.
 Only one peer in the network should submit the genesis block.
 
 This argument must be set alongside with
-[`genesis.file`](/reference/config/genesis-params#genesis-file) and
-[`genesis.private_key`](/reference/config/genesis-params#genesis-private-key)
+[`genesis.file`](/reference/config/genesis-params#param-file) and
+[`genesis.private_key`](/reference/config/genesis-params#param-private-key)
 configuration parameters. If not, Iroha will exit with an error.
 
 In case when the network consists only of this one peer, i.e. the amount of
 trusted peers in the configuration
-([`sumeragi.trusted_peers`](/reference/config/sumeragi-params#sumeragi-trusted-peers))
+([`sumeragi.trusted_peers`](/reference/config/sumeragi-params#param-trusted-peers))
 is less than 2, this peer must submit the genesis, since there are no other
 peers who can provide it. In this case, Iroha will exit with an error if
 `--submit-genesis` is not set.
