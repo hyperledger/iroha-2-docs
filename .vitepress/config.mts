@@ -91,8 +91,8 @@ function sidebarReference(): DefaultTheme.SidebarItem[] {
         },
         {
           text: 'Genesis Block',
-          link: '/reference/genesis'
-        }
+          link: '/reference/genesis',
+        },
       ],
     },
     {
@@ -158,8 +158,8 @@ function sidebarReference(): DefaultTheme.SidebarItem[] {
         },
         {
           text: 'Migration',
-          link: '/reference/config/migration'
-        }
+          link: '/reference/config/migration',
+        },
       ],
     },
     {
