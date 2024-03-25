@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 
-import { defineConfig, DefaultTheme } from 'vitepress'
+import { DefaultTheme, defineConfig } from 'vitepress'
 import footnote from 'markdown-it-footnote'
 import { resolve } from 'path'
 import ViteSvgLoader from 'vite-svg-loader'
@@ -12,6 +12,7 @@ function nav(): DefaultTheme.NavItem[] {
   return [
     {
       text: 'Guide',
+      activeMatch: '^/$|^/guide/',
       items: [
         // { text: 'Get Started', link: '/guide/get-started/index' },
         // { text: 'Build and Install', link: '/guide/get-started/install' },
@@ -33,12 +34,12 @@ function nav(): DefaultTheme.NavItem[] {
     {
       text: 'Reference',
       link: '/reference/torii-endpoints',
-      activeMatch: '/reference/',
+      activeMatch: '^/reference/',
     },
   ]
 }
 
-function sidebarAPI(): DefaultTheme.SidebarItem[] {
+function sidebarReference(): DefaultTheme.SidebarItem[] {
   return [
     {
       text: 'About',
@@ -65,8 +66,12 @@ function sidebarAPI(): DefaultTheme.SidebarItem[] {
       text: 'Reference',
       items: [
         {
+          text: 'CLI',
+          link: '/reference/cli',
+        },
+        {
           text: 'Torii Endpoints',
-          link: '/reference/torii-endpoints.md',
+          link: '/reference/torii-endpoints',
         },
         {
           text: 'Data Model Schema',
@@ -78,11 +83,93 @@ function sidebarAPI(): DefaultTheme.SidebarItem[] {
         },
         {
           text: 'Queries',
-          link: '/reference/queries.md',
+          link: '/reference/queries',
         },
         {
           text: 'Permissions',
-          link: '/reference/permissions.md',
+          link: '/reference/permissions',
+        },
+        {
+          text: 'Genesis Block',
+          link: '/reference/genesis',
+        },
+      ],
+    },
+    {
+      text: 'Configuration',
+      items: [
+        {
+          text: 'Overview',
+          link: '/reference/config/',
+        },
+        {
+          text: 'Parameters',
+          items: [
+            // TODO: consider re-ordering sections to a more intuitive format?
+            {
+              text: 'Base',
+              link: '/reference/config/base-params',
+            },
+            {
+              text: 'Genesis',
+              link: '/reference/config/genesis-params',
+            },
+            {
+              text: 'Network',
+              link: '/reference/config/network-params',
+            },
+            {
+              text: 'Torii',
+              link: '/reference/config/torii-params',
+            },
+            {
+              text: 'Sumeragi',
+              link: '/reference/config/sumeragi-params',
+            },
+            {
+              text: 'Kura',
+              link: '/reference/config/kura-params',
+            },
+            {
+              text: 'Logger',
+              link: '/reference/config/logger-params',
+            },
+            {
+              text: 'Queue',
+              link: '/reference/config/queue-params',
+            },
+            {
+              text: 'Snapshot',
+              link: '/reference/config/snapshot-params',
+            },
+            {
+              text: 'Telemetry',
+              link: '/reference/config/telemetry-params',
+            },
+            {
+              text: 'Chain Wide',
+              link: '/reference/config/chain-wide-params',
+            },
+          ],
+        },
+        {
+          text: 'Glossary',
+          link: '/reference/config/glossary',
+        },
+        {
+          text: 'Migration',
+          link: '/reference/config/migration',
+        },
+      ],
+    },
+    {
+      text: 'Client CLI',
+      items: [
+        {
+          text: 'CLI',
+        },
+        {
+          text: 'Configuration',
         },
       ],
     },
@@ -476,11 +563,10 @@ export default defineConfig({
     },
 
     nav: nav(),
-    outline: [2, 3],
 
     sidebar: {
       '/guide/': sidebarGuide(),
-      '/reference/': sidebarAPI(),
+      '/reference/': sidebarReference(),
     },
 
     search: {
