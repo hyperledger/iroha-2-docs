@@ -156,6 +156,10 @@ function sidebarReference(): DefaultTheme.SidebarItem[] {
           text: 'Glossary',
           link: '/reference/config/glossary',
         },
+        {
+          text: 'Migration',
+          link: '/reference/config/migration'
+        }
       ],
     },
     {
