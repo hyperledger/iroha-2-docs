@@ -22,9 +22,5 @@ export default {
       'CompatibilityMatrixTableIcon',
       defineAsyncComponent(async () => import('./components/CompatibilityMatrixTableIcon.vue')),
     )
-    app.component(
-      'ConfigParameterSpecs',
-      defineAsyncComponent(() => import('./components/ConfigParameterSpecs.vue')),
-    )
   },
 }
