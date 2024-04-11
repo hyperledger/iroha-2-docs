@@ -15,15 +15,13 @@ Minting roses for Alice:
 
 ```rust
 fn mint_numeric_asset(
-    client: &Client,
-    roses: AssetDefinitionId,
-    alice: AccountId,
+    iroha: &Client,
 ) {
     let mint_roses_for_alice = Mint::asset_numeric(
         42_u32, 
-        AssetId::new(roses, alice)
+        "rose##alice@wonderland".parse().unwrap()
     );
-    client.submit(mint_roses_for_alice).unwrap();
+    iroha.submit(mint_roses_for_alice).unwrap();
 }
 ```
 
@@ -31,15 +29,13 @@ Burning Alice's roses:
 
 ```rust
 fn burn_numeric_asset(
-    client: &Client,
-    roses: AssetDefinitionId,
-    alice: AccountId,
+    iroha: &Client,
 ) {
     let burn_roses_of_alice = Burn::asset_numeric(
-        8_u32, 
-        AssetId::new(roses, alice)
+        8_u32,
+        AssetId::from_str("rose##alice@wonderland").unwrap()
     );
-    client.submit(burn_roses_of_alice).unwrap();
+    iroha.submit(burn_roses_of_alice).unwrap();
 }
 ```
 
@@ -47,16 +43,16 @@ Transferring Alice's roses to Mouse:
 
 ```rust
 fn transfer_numeric_asset(
-    client: &Client,
-    roses: AssetDefinitionId,
-    alice: AccountId,
-    mouse: AccountId,
+    iroha: &Client,
 ) {
+    let roses = AssetDefinitionId::from_str("rose#wonderland").unwrap();
+    let alice = AccountId::from_str("alice@wonderland").unwrap();
+    let mouse = AccountId::from_str("mouse@wonderland").unwrap();
     let transfer_roses_from_alice_to_mouse = Transfer::asset_numeric(
         AssetId::new(roses, alice),
         13_u32,
-        mouse
+        mouse,
     );
-    client.submit(transfer_roses_from_alice_to_mouse).unwrap();
+    iroha.submit(transfer_roses_from_alice_to_mouse).unwrap();
 }
 ```

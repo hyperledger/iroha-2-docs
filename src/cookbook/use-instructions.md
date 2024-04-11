@@ -15,16 +15,16 @@ Building and submitting an instruction:
 
 ```rust
 fn use_instruction(
-    client: &Client,
-    roses: AssetDefinitionId,
-    alice: AccountId,
+    iroha: &Client,
 ) {
+    let roses = AssetDefinitionId::from_str("rose#wonderland").unwrap();
+    let alice = AccountId::from_str("alice@wonderland").unwrap();
     // build an instruction
     let mint_roses_for_alice = Mint::asset_numeric(
         42_u32, 
         AssetId::new(roses, alice)
     );
     // submit the instruction
-    client.submit(mint_roses_for_alice).unwrap();
+    iroha.submit(mint_roses_for_alice).unwrap();
 }
 ```
