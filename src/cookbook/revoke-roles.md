@@ -11,4 +11,15 @@ head:
 
 # How to Revoke Roles
 
-TODO
+```rust
+fn revoke_role(
+    iroha: &Client,
+) {
+    // given that Alice has the role, revoke it
+    let revoke_role = Revoke::role(
+        RoleId::from_str("DOMAIN_DESTROYER"),
+        AccountId::from_str("alice@wonderland").unwrap()
+    );
+    iroha.submit(revoke_role).unwrap();
+}
+```
