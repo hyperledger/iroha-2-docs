@@ -11,6 +11,33 @@ head:
 
 # How to Work with Numeric Assets
 
+Registering Alice's roses:
+
+```rust
+fn register_numeric_asset(
+    iroha: &Client,
+) {
+    let roses = AssetDefinitionId::from_str("rose#wonderland").unwrap();
+    // register roses as an asset definition
+    let register_roses_as_a_concept = Register::asset_definition(
+        AssetDefinition::new(
+            roses.clone(),
+            // for the sake of the example, allow whole roses only
+            AssetValueType::Numeric(NumericSpec::integer()),
+        )
+    );
+    let alice = "alice@wonderland".parse().unwrap();
+    let roses_of_alice = AssetId::new(roses, alice);
+    let initial_roses_of_alice = Asset::new(roses_of_alice, 0_u32);
+    // register zero roses as Alice's asset
+    let register_roses_of_alice = Register::asset(initial_roses_of_alice);
+    iroha.submit_all([
+        InstructionBox::from(register_roses_as_a_concept), 
+        InstructionBox::from(register_roses_of_alice)
+    ]).unwrap();
+}
+```
+
 Minting roses for Alice:
 
 ```rust
