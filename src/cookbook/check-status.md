@@ -12,12 +12,22 @@ head:
 # How to Check Iroha Status
 
 ```rust
-    // To get the status, the Client struct already has a function get_status(),
-    // so you may just execute it.
-    // The result message will include a deserialized json object with parameters like:
-    //  Quantity of peers
-    //  Quantity of blocks
-    //  Quantity of accepted and rejected transactions and some more
-    let status = iroha_client.get_status().unwrap();
-    println!("{:?}", status);
+fn check_status(iroha: &Client) {
+    let status = iroha.get_status().unwrap();
+    println!("{:#?}", status);
+}
+```
+
+Sample output:
+
+```
+Status {
+    peers: 4,
+    blocks: 5,
+    txs_accepted: 31,
+    txs_rejected: 3,
+    uptime: Uptime(5.937s),
+    view_changes: 2,
+    queue_size: 18,
+}
 ```

@@ -12,16 +12,38 @@ head:
 # How to Register an Asset
 
 ```rust
-//Precondition: The asset definition was registered
-// First we need to define the asset definition id
-let asset_definition_id = AssetDefinitionId::from_str("coolAsset#wonderland").unwrap();
+fn register_store_asset(
+    iroha: &Client,
+) {
+    let hat_of_alice = AssetId::from_str("hat##alice@wonderland").unwrap();
+    let hat_data = {
+        // hat has at most 3 keys, each value must fit into 100 bytes
+        let (data, limits) = (Metadata::new(), MetadataLimits::new(3, 100));
+        data.insert_with_limits(
+            Name::from_str("color").unwrap(),
+            "yellow".to_owned(),
+            limits,
+        )
+        .unwrap();
+        data
+    };
+    // register a hat as Alice's asset
+    let register_hat_of_alice = Register::asset(
+        Asset::new(hat_of_alice, AssetValue::Store(hat_data))
+    );
+    iroha.submit(register_hat_of_alice).unwrap();
+}
+```
 
-//Then we need to create an assetId object
-//The AssetId is a complex object which consists of asset definition id and account id
-//And the Asset also is a complex object which consists of asset id and its quantity
-let asset_id: AssetId = AssetId::new(asset_definition_id, AccountId::from_str("alice@wonderland").unwrap());
-let asset: Asset = Asset::new(asset_id, Fixed::from_str("33").unwrap());
-
-//And finally we need to send the transaction
-iroha_client.submit_blocking(RegisterExpr::new(asset)).unwrap();
+```rust
+fn register_numeric_asset(
+    iroha: &Client,
+) {
+    let roses_of_alice = AssetId::from_str("rose##alice@wonderland").unwrap();
+    // register 123 roses as Alice's asset
+    let register_roses_of_alice = Register::asset(
+        Asset::new(roses_of_alice, numeric!(123))
+    );
+    iroha.submit(register_roses_of_alice).unwrap();
+}
 ```

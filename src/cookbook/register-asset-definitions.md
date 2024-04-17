@@ -12,16 +12,43 @@ head:
 # How to Register an Asset Definition
 
 ```rust
-//First we need to create the asset id
-let asset_definition_id = AssetDefinitionId::from_str("coolAsset#wonderland").unwrap();
+fn define_store_asset(
+    iroha: &Client,
+) {
+    let hats = AssetDefinitionId::from_str("hat#outfit").unwrap();
+    let hats_as_a_concept = AssetDefinition::store(hats);
+    iroha.submit(Register::asset_definition(hats_as_a_concept)).unwrap();
+}
+```
 
-//Then we need to define the asset value type
-//There are only 4 asset value types and they are defined in the AssetValueType struct
-let asset_value_type: AssetValueType = AssetValueType::Fixed;
-
-//Then we need to create an asset definition object
-let asset_definition = AssetDefinition::new(asset_definition_id, asset_value_type);
-
-//And finally we need to send the transaction
-iroha_client.submit(RegisterExpr::new(asset_definition)).unwrap();
+```rust
+fn define_numeric_asset(iroha: &Client) {
+    let define_roses = Register::asset_definition(
+        AssetDefinition::new(
+            "rose#wonderland".parse().unwrap(),
+            // allow only whole values
+            AssetValueType::Numeric(NumericSpec::integer()),
+        )
+    );
+    let define_coins = Register::asset_definition(
+        AssetDefinition::new(
+            "coin#wonderland".parse().unwrap(),
+            // allow fractional values with two decimal places
+            AssetValueType::Numeric(NumericSpec::fractional(2)),
+        )
+    );    
+    let define_gold = Register::asset_definition(
+        // equivalent to `AssetDefinition::numeric(gold)`
+        AssetDefinition::new(
+            "gold#wonderland".parse().unwrap(),
+            // allow arbitrary numeric values
+            AssetValueType::Numeric(NumericSpec::unconstrained()),
+        )
+    );
+    iroha.submit_all([
+        define_roses.into(), 
+        define_coins.into(), 
+        define_gold.into(),
+    ]).unwrap();
+}
 ```

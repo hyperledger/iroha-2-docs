@@ -12,13 +12,14 @@ head:
 # How to Register an Account
 
 ```rust
-//Creating a key pair for a new account
-//The key pair must be given to the new account owner
-let key_pair = KeyPair::generate().unwrap();
-//Now you can execute public|private keys by using functions of key_pair variable
-let public_key = vec![key_pair.public_key().clone()];
-//Creating a NewAccount type
-let new_account = Account::new("alex@wonderland".parse()?, public_key);
-//And finally submit the transaction
-let tx = iroha_client.submit(RegisterExpr::new(new_account))?;
+fn register_account(iroha: &Client) {
+    let alice = AccountId::from_str("alice@wonderland").unwrap();
+    let (public_key, _private_key) = KeyPair::random().into_parts();
+    // Keep your private key secret, 
+    // and use the public key to create an account
+    let register_alice = Register::account(
+        Account::new(alice, public_key)
+    );
+    iroha.submit(register_alice).unwrap();
+}
 ```

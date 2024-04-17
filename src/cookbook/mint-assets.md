@@ -11,18 +11,24 @@ head:
 
 # How to Mint an Asset
 
+Only numeric assets can be minted – infinitely, or only once.
+
 ```rust
-//Precondition: The asset definition was registered
-// First we need to define the asset definition id
-let asset_definition_id = AssetDefinitionId::from_str("coolAsset#wonderland").unwrap();
-
-//Then we need to create an assetId object
-//The AssetId is a complex object which consists of asset definition id and account id
-let asset_id: AssetId = AssetId::new(asset_definition_id, AccountId::from_str("alice@wonderland").unwrap());
-
-//Now we need to define the asset quantity regarding to the asset's value type
-let asset_quantity: Fixed = Fixed::from_str("11").unwrap();
-
-//And finally we need to send the transaction
-iroha_client.submit_blocking(MintExpr::new(asset_quantity, asset_id)).unwrap();
+fn mint_numeric_asset(iroha: &Client) {
+    let roses = AssetDefinitionId::from_str("rose#wonderland").unwrap();
+    let roses_definition = iroha
+        .request(FindAssetDefinitionById::new(roses.clone()))
+        .unwrap()
+        .mintable;
+    match roses_definition.mintable {
+        Mintable::Infinitely => println!("This code will succeed indefinitely"),
+        Mintable::Once => println!("This code will succeed only once"),
+        Mintable::Not => println!("This code will fail"),
+    }
+    let alice = AccountId::from_str("alice@wonderland").unwrap();
+    let roses_of_alice: AssetId = AssetId::new(roses, alice);
+    let quantity: Numeric = numeric!(42);
+    let mint_roses_of_alice = Mint::asset_numeric(quantity, roses_of_alice);
+    iroha.submit(mint_roses_of_alice).unwrap();
+}
 ```

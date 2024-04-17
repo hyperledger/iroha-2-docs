@@ -11,42 +11,45 @@ head:
 
 # How to Combine Iroha Special Instructions
 
+In order to combine instructions of different types in one collection,
+you need some sort of polymorphism. We provide this via enum wrappers
+for each instruction type (e.g. RegisterBox, MintBox, and others), 
+as well as the most general `InstructionBox` type. 
+
+Any instruction can be converted to the needed wrapper if compatible, 
+no allocations involved (despite what the `*Box` suffix might suggest).
+
 ```rust
-// Instructions should be unified to a single type 'InstructionExpr'
-
-    // Register account
-    let register_account_instruction: InstructionExpr = {
-        let key_pair = KeyPair::generate().unwrap();
-        RegisterExpr::new(Account::new(
-            AccountId::from_str("roman@wonderland").unwrap(),
-            vec![key_pair.public_key().clone()],
+fn combine_isi(iroha: &Client) {
+    let alice = AccountId::from_str("alice@wonderland").unwrap();
+    let register_alice = {
+        let (public_key, _) = KeyPair::random().into_parts();
+        Register::account(Account::new(
+            alice.clone(),
+            public_key,
         ))
-        .into()
     };
-    // Register asset definition
-    let register_asset_definition_instruction: InstructionExpr = RegisterExpr::new(
-        AssetDefinition::quantity(AssetDefinitionId::from_str("romancoin#wonderland").unwrap()),
-    )
-    .into();
-    // Mint asset
-    let mint_asset_to_roman: InstructionExpr = MintExpr::new(
-        51_u32,
-        AssetId::from_str("romancoin#wonderland#roman@wonderland").unwrap(),
-    )
-    .into();
-    // Transfer asset
-    let transfer_asset_to_alina: InstructionExpr = TransferExpr::new(
-        AssetId::from_str("romancoin#wonderland#roman@wonderland").unwrap(),
-        21_u32,
-        AccountId::from_str("alina@wonderland").unwrap(),
-    )
-    .into();
-
-    // Bind instructions into collection
-    let instructions = vec![
-        register_account_instruction,
-        register_asset_definition_instruction,
-        mint_asset_to_roman,
-        transfer_asset_to_alina,
+    let roses = AssetDefinitionId::from_str("rose#wonderland").unwrap();
+    let define_roses = Register::asset_definition(
+        AssetDefinition::numeric(roses.clone())
+    );
+    let roses_of_alice = AssetId::new(roses.clone(), alice.clone());
+    let mint_roses_for_alice = Mint::asset_numeric(
+        numeric!(20),
+        roses_of_alice.clone()
+    );
+    let mouse = AccountId::from_str("mouse@wonderland").unwrap();
+    let transfer_roses_from_alice_to_mouse = Transfer::asset_numeric(
+        roses_of_alice,
+        numeric!(10),
+        mouse,
+    );
+    let instructions: [InstructionBox; 4] = [
+        register_alice.into(),
+        define_roses.into(),
+        mint_roses_for_alice.into(),
+        transfer_roses_from_alice_to_mouse.into(),
     ];
+    iroha.submit_all(instructions).unwrap();
+}
 ```
