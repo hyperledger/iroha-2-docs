@@ -11,13 +11,13 @@ head:
 
 # How to Unregister Accounts
 
+Only domain owners and accounts with an appropriate permission token 
+can unregister another account.
+
 ```rust
-    //Note:
-    // Only domain owner or account with appropriate permission token can unregister another account
-    //First we need to define an account id that we want to unregister
-    let account_id = AccountId::from_str("artem@disneyland").unwrap();
-    //Then we need to define an Unregister expression
-    let expression = UnregisterExpr::new(account_id);
-    //And finally we need to send the transaction
-    iroha_client.submit_blocking(expression).unwrap();
+fn unregister_account(iroha: &Client) {
+    let alice = AccountId::from_str("alice@wonderland").unwrap();
+    let unregister_alice = Unregister::account(alice);
+    iroha.submit(unregister_alice).unwrap();
+}
 ```

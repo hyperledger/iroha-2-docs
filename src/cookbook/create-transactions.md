@@ -1,5 +1,5 @@
 ---
-title: "Create transactions | Cookbook"
+title: "Create Transactions | Cookbook"
 head:
   - - meta
     - name: description
@@ -12,7 +12,7 @@ head:
 # How to Create a Transaction
 
 ```rust
-fn create_transactions(iroha: &Client) {
+fn create_transaction(iroha: &Client) -> SignedTransaction {
     // Prepare the instructions you want to execute
     let alice = AccountId::from_str("alice@wonderland").unwrap();
     let register_alice = {
@@ -40,12 +40,12 @@ fn create_transactions(iroha: &Client) {
 
     // Build a transaction with the prepared instructions and empty metadata
     // on behalf of the current account configured with the client
-    let signed_tx = iroha.build_transaction(
+    iroha.build_transaction(
         instructions, 
         UnlimitedMetadata::default()
-    );
-
-    // Submit the transaction
-    iroha.submit_transaction(&signed_tx).unwrap();
+    )
 }
 ```
+
+See [Submit Transactions](submit-transactions.md) to learn how to submit 
+the resulting `SignedTransaction`.

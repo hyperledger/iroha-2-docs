@@ -38,12 +38,8 @@ fn define_numeric_asset(iroha: &Client) {
         )
     );    
     let define_gold = Register::asset_definition(
-        // equivalent to `AssetDefinition::numeric(gold)`
-        AssetDefinition::new(
-            "gold#wonderland".parse().unwrap(),
-            // allow arbitrary numeric values
-            AssetValueType::Numeric(NumericSpec::unconstrained()),
-        )
+        // allow arbitrary numeric values
+        AssetDefinition::numeric("gold#wonderland".parse().unwrap())
     );
     iroha.submit_all([
         define_roses.into(), 
