@@ -317,7 +317,41 @@ in that transaction?_
 
 :::
 
-## 6. Burning assets
+## 6. Transferring assets
+
+Transferring assets is a bit more involved than minting them. First, you
+need to know the account ID of the account that you're transferring from
+and the account ID of the account that you're transferring to.
+
+```rust
+let from_account_id: AccountId = "alice@wonderland".parse().unwrap();
+let to_id: AccountId = "bob@wonderland".parse().unwrap();
+```
+
+You also need to know the asset ID of the asset that you're transferring.
+
+```rust
+let asset_definition_id: AssetDefinitionId = "time#looking_glass".parse().unwrap();
+let from_asset_id = AssetId::new(asset_definition_id, from_account_id);
+```
+
+Then you need to know the amount that you're transferring. 
+
+```rust
+let amount = 1 as u32;
+let value: Value = amount.into();
+```
+
+Then you can create a transfer instruction and submit it.
+
+```rust
+let from_id_box = IdBox::AssetId(from_asset_id);
+let to_id_box = IdBox::AccountId(to_id);
+let transfer_expr = TransferExpr::new(from_id_box, value, to_id_box);
+client.submit(transfer_expr);
+```
+
+## 7. Burning assets
 
 Burning assets is quite similar to minting. First, you create the burn
 instruction indicating which asset to burn and its quantity.
@@ -330,7 +364,7 @@ Then submit this instruction:
 iroha_client.submit(burn_roses)?;
 ```
 
-## 7. Visualising outputs
+## 8. Visualising outputs
 
 Finally, we should talk about visualising data. The Rust API is currently
 the most complete in terms of available queries and instructions. After
