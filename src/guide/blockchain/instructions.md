@@ -149,7 +149,7 @@ can transfer assets between different accounts.
 To do this, an account have to be granted the
 [permission to transfer assets](/reference/permissions.md).
 Refer to an example on how to
-[transfer assets in Bash](/guide/get-started/bash.md#_6-transferring-assets).
+[transfer assets in Bash](/guide/get-started/bash.md#_7-transferring-assets).
 
 <!--TODO: add links to transferring assets example in which guide after https://github.com/hyperledger/iroha-2-docs/issues/81 is addressed -->
 
