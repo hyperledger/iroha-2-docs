@@ -552,7 +552,7 @@ It is also possible to retrieve the data of a specific `struct` group or variabl
 
 This endpoint expects the following data:
 
-  - **Body**: [`VersionedSignedTransaction`](/reference/data-model-schema#versionedsignedtransaction)
+  - **Body**: [`SignedTransaction`](/reference/data-model-schema#signedtransaction)
 
 #### Responses
 
