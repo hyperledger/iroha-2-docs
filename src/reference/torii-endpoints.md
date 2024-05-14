@@ -319,29 +319,39 @@ A `GET` request to the endpoint.
 
 #### Requests
 
-This endpoint expects the following data:
+This endpoint expects requests with two shapes:
 
-  - **Body**: [`VersionedSignedQuery`](/reference/data-model-schema#versionedsignedquery)
-  - **Parameters** (optional):
-    - `start` — Specifies the `id` of a starting entry. A successful response will contain all entries newer than and including the `id` specified.\
-    - `limit` — Specifies the exact number of retrieved `id` entries.\
-    - `sort_by_metadata_key` — Specifies the metadata key of the `id` entries that will be returned.\
-    - `fetch_size` — Specifies the maximum number of results that a response can contain.
+Start a query:
+
+- **Body**: [`SignedQuery`](/reference/data-model-schema#signedquery)
+
+OR
+
+Get the next batch of a previously started query:
+
+- **Parameters**:
+    - `cursor` - specifies a cursor previously returned as part of query response
+
+Request
 
 #### Responses
 
-| Code | Response         | Body                                                                                             |
-| :--: | ---------------- | ------------------------------------------------------------------------------------------------ |
-| 200  | Success          | [`VersionedBatchedResponse<Value>`](/reference/data-model-schema#versionedbatchedresponse-value) |
-| 400  | Conversion Error | [`QueryExecutionFail::Conversion(String)`](/reference/data-model-schema#queryexecutionfail)      |
-| 400  | Evaluate Error   | [`QueryExecutionFail::Evaluate(String)`](/reference/data-model-schema#queryexecutionfail)        |
-| 401  | Signature Error  | [`QueryExecutionFail::Signature(String)`](/reference/data-model-schema#queryexecutionfail)       |
-| 403  | Permission Error | [`QueryExecutionFail::Permission(String)`](/reference/data-model-schema#queryexecutionfail)      |
-| 404  | Find Error       | [`QueryExecutionFail::Find(FindError)`](/reference/data-model-schema#queryexecutionfail)         |
+| Code | Response                        | Body                                                                                               | Description                                                                |
+|:----:|---------------------------------|----------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| 200  | Success                         | [`BatchedResponse<QueryOutputBox>`](/reference/data-model-schema#batchedresponse-queryoutputbox)   | Successful query request                                                   |
+| 400  | Conversion Error                | [`QueryExecutionFail::Conversion(String)`](/reference/data-model-schema#queryexecutionfail)        | Invalid asset query for the actual asset type                              |
+| 400  | Cursor Error                    | [`QueryExecutionFail::UnknownCursor`](/reference/data-model-schema#queryexecutionfail)             | An invalid cursor was provided in the batch request                        |
+| 400  | FetchSizeTooBig Error           | [`QueryExecutionFail::FetchSizeTooBig`](/reference/data-model-schema#queryexecutionfail)           | Fetch size specified in the query request is too large                     |
+| 400  | InvalidSingularParameters Error | [`QueryExecutionFail::InvalidSingularParameters`](/reference/data-model-schema#queryexecutionfail) | Specified query parameters are not applicable to the (singular) query type |
+| 401  | Signature Error                 | [`QueryExecutionFail::Signature(String)`](/reference/data-model-schema#queryexecutionfail)         | The signature on the query is incorrect                                    |
+| 403  | Permission Error                | [`QueryExecutionFail::Permission(String)`](/reference/data-model-schema#queryexecutionfail)        | The user does not have permission to execute this query                    |
+| 404  | Find Error                      | [`QueryExecutionFail::Find(FindError)`](/reference/data-model-schema#queryexecutionfail)           | The queried object was not found                                           |
 
 ::: info
 
-The `200 Success` response returns results that are ordered by `id`, which use Rust's [PartialOrd](https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html) and [Ord](https://doc.rust-lang.org/std/cmp/trait.Ord.html) traits.
+The `200 Success` response returns results that are ordered by `id`, which use
+Rust's [PartialOrd](https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html)
+and [Ord](https://doc.rust-lang.org/std/cmp/trait.Ord.html) traits.
 
 :::
 
