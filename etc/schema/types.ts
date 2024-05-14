@@ -17,6 +17,7 @@ export type SchemaTypeDefinition =
   | IntDefinition
   | FixedPointDefinition
   | TupleDef
+  | BitmapDef
 
 export interface MapDefinition {
   Map: {
@@ -77,3 +78,15 @@ export interface FixedPointDefinition {
 export type TypePath = string
 
 export type UnitType = null
+
+export interface BitmapMask {
+  name: string
+  mask: number
+}
+
+export interface BitmapDef {
+  Bitmap: {
+    repr: string
+    masks: Array<BitmapMask>
+  }
+}
