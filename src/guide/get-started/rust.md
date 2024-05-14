@@ -328,21 +328,21 @@ let from_account_id: AccountId = "alice@wonderland".parse().unwrap();
 let to_id: AccountId = "bob@wonderland".parse().unwrap();
 ```
 
-You also need to know the asset ID of the asset that you're transferring.
+You also need to know the asset ID of the asset that you're transferring:
 
 ```rust
 let asset_definition_id: AssetDefinitionId = "time#looking_glass".parse().unwrap();
 let from_asset_id = AssetId::new(asset_definition_id, from_account_id);
 ```
 
-Then you need to know the amount that you're transferring. 
+Then you need to specify the amount that you're transferring:
 
 ```rust
 let amount = 1 as u32;
 let value: Value = amount.into();
 ```
 
-Then you can create a transfer instruction and submit it.
+Then you can create a transfer instruction and submit it:
 
 ```rust
 let from_id_box = IdBox::AssetId(from_asset_id);
