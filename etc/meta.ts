@@ -1,7 +1,7 @@
 /**
  * hyperledger/iroha#iroha2-dev
  */
-export const IROHA_REV_DEV = '50fc8baccc3c657b3cc3c926772d71b61040e2a8'
+export const IROHA_REV_DEV = 'e7a605c1a926c319d214ef3825524ee6c2e9f076'
 
 /**
  * hyperledger/iroha-javascript#iroha2 (rc13)

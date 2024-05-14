@@ -116,15 +116,15 @@ export default [
     src: './src/example_code/lorem.rs',
   },
   {
-    src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/configs/client/config.json`,
-    filename: 'client-cli-config.json',
+    src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/configs/client.template.toml`,
+    filename: 'client-cli-config-template.toml',
   },
   {
-    src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/configs/peer/config.json`,
-    filename: 'peer-config.json',
+    src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/configs/peer.template.toml`,
+    filename: 'peer-config-template.toml',
   },
   {
-    src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/configs/peer/genesis.json`,
+    src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/configs/swarm/genesis.json`,
   },
   {
     src: `https://raw.githubusercontent.com/hyperledger/iroha/${IROHA_REV_DEV}/client/examples/tutorial.rs`,

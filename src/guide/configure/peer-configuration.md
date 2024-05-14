@@ -5,9 +5,9 @@ your blockchain operates.
 
 Here's an example of how peer configuration file looks like:
 
-::: details Peer configuration example
+::: details Peer configuration template
 
-<<< @/snippets/peer-config.json
+<<< @/snippets/peer-config-template.toml
 
 :::
 
