@@ -2,9 +2,9 @@
 
 Let's look at the client configuration options.
 
-::: details Client configuration example
+::: details Client configuration template
 
-<<< @/snippets/client-cli-config.json
+<<< @/snippets/client-cli-config-template.toml
 
 :::
 

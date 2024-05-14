@@ -11,10 +11,10 @@ Here you can find sample configuration files for Iroha 2:
 
 ::: code-group
 
-<<< @/snippets/peer-config.json
+<<< @/snippets/peer-config-template.toml
 
 <<< @/snippets/genesis.json
 
-<<< @/snippets/client-cli-config.json
+<<< @/snippets/client-cli-config-template.toml
 
 :::
