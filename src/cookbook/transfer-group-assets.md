@@ -32,10 +32,10 @@ fn transfer_group_of_assets(iroha: &Client) {
         AssetId::new("hat#wonderland".parse().unwrap(), alice),
         mouse,
     );
-    let transfers: [TransferBox; 3] = [
-        transfer_roses_from_alice_to_mouse,
-        transfer_coins_from_alice_to_mouse,
-        transfer_hat_from_alice_to_mouse,
+    let transfers: [TransferBox; _] = [
+        transfer_roses_from_alice_to_mouse.into(),
+        transfer_coins_from_alice_to_mouse.into(),
+        transfer_hat_from_alice_to_mouse.into(),
     ];
     iroha.submit_all(transfers).unwrap();
 }

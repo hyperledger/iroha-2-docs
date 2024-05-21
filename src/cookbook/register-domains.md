@@ -13,7 +13,7 @@ head:
 
 ```rust
 fn register_domain(iroha: &Client) {
-    let wonderland = DomainId::from_str("wonderland").unwrap();
+    let wonderland = "wonderland".parse::<DomainId>().unwrap();
     let register_wonderland = Register::domain(
         Domain::new(wonderland)
     );

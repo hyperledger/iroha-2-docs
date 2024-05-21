@@ -13,7 +13,7 @@ head:
 
 In order to combine instructions of different types in one collection,
 you need some sort of polymorphism. We provide this via enum wrappers
-for each instruction type (e.g. RegisterBox, MintBox, and others), 
+for each instruction type (e.g. `RegisterBox`, `MintBox`, and others), 
 as well as the most general `InstructionBox` type. 
 
 Any instruction can be converted to the needed wrapper if compatible, 
@@ -21,15 +21,12 @@ no allocations involved (despite what the `*Box` suffix might suggest).
 
 ```rust
 fn combine_isi(iroha: &Client) {
-    let alice = AccountId::from_str("alice@wonderland").unwrap();
+    let alice = "alice@wonderland".parse::<AccountId>().unwrap();
     let register_alice = {
-        let (public_key, _) = KeyPair::random().into_parts();
-        Register::account(Account::new(
-            alice.clone(),
-            public_key,
-        ))
+        let (public_key, _private_key) = KeyPair::random().into_parts();
+        Register::account(Account::new(alice.clone(), public_key))
     };
-    let roses = AssetDefinitionId::from_str("rose#wonderland").unwrap();
+    let roses = "rose#wonderland".parse::<AssetDefinitionId>().unwrap();
     let define_roses = Register::asset_definition(
         AssetDefinition::numeric(roses.clone())
     );
@@ -38,13 +35,13 @@ fn combine_isi(iroha: &Client) {
         numeric!(20),
         roses_of_alice.clone()
     );
-    let mouse = AccountId::from_str("mouse@wonderland").unwrap();
+    let mouse = "mouse@wonderland".parse::<AccountId>().unwrap();
     let transfer_roses_from_alice_to_mouse = Transfer::asset_numeric(
         roses_of_alice,
         numeric!(10),
         mouse,
     );
-    let instructions: [InstructionBox; 4] = [
+    let instructions: [InstructionBox; _] = [
         register_alice.into(),
         define_roses.into(),
         mint_roses_for_alice.into(),

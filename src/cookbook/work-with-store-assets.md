@@ -18,7 +18,7 @@ arbitrary key-value tables.
 fn define_store_asset(
     iroha: &Client,
 ) {
-    let hats = AssetDefinitionId::from_str("hat#outfit").unwrap();
+    let hats = "hat#outfit".parse::<AssetDefinitionId>().unwrap();
     let hats_as_a_concept = AssetDefinition::store(hats);
     iroha.submit(Register::asset_definition(hats_as_a_concept)).unwrap();
 }
@@ -28,8 +28,8 @@ fn define_store_asset(
 fn set_key_value_pair(
     iroha: &Client,
 ) {
-    let hat_of_alice = AssetId::from_str("hat##alice@outfit").unwrap();
-    let color = Name::from_str("color").unwrap();
+    let hat_of_alice = "hat##alice@outfit".parse::<AssetId>().unwrap();
+    let color = "color".parse::<Name>().unwrap();
     iroha.submit(SetKeyValue::asset(
         hat_of_alice,
         color,
@@ -39,11 +39,26 @@ fn set_key_value_pair(
 ```
 
 ```rust
+fn read_key_value_pair(
+    iroha: &Client,
+) {
+    let hat_of_alice = "hat##alice@outfit".parse::<AssetId>().unwrap();
+    let color = "color".parse::<Name>().unwrap();
+    // assume the color has been set to "red"
+    let red = iroha.request(FindAssetKeyValueByIdAndKey::new(
+        hat_of_alice, 
+        color
+    )).unwrap();
+    assert_eq!(red, MetadataValueBox::String("red".to_owned()));
+}
+```
+
+```rust
 fn unset_key_value_pair(
     iroha: &Client,
 ) {
-    let hat_of_alice = AssetId::from_str("hat##alice@outfit").unwrap();
-    let color = Name::from_str("color").unwrap();
+    let hat_of_alice = "hat##alice@outfit".parse::<AssetId>().unwrap();
+    let color = "color".parse::<Name>().unwrap();
     iroha.submit(RemoveKeyValue::asset(hats, color)).unwrap();
 }
 ```

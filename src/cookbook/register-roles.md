@@ -17,8 +17,8 @@ The minimal case is an empty role (without any permission tokens):
 fn register_new_role(
     iroha: &Client
 ) {
-    let role_id = RoleId::from_str("MY_EMPTY_ROLE").unwrap();
-    let role = iroha_data_model::role::Role::new(role_id);
+    let role_id = "MY_EMPTY_ROLE".parse::<RoleId>().unwrap();
+    let role = Role::new(role_id);
     let register_role = Register::role(role);
     iroha.submit(register_role).unwrap();
 }
@@ -34,15 +34,15 @@ see [Define Custom Permission Tokens](define-custom-permission-tokens.md).
 fn register_new_role_with_permission(
     iroha: &Client,
 ) {
-    let roses_of_alice = AssetId::from_str("rose##alice@wonderland").unwrap();
-    let roses_of_mouse = AssetId::from_str("rose##mouse@wonderland").unwrap();
+    let roses_of_alice = "rose##alice@wonderland".parse::<AssetId>().unwrap();
+    let roses_of_mouse = "rose##mouse@wonderland".parse::<AssetId>().unwrap();
     let can_burn_roses_of_alice = PermissionToken::new(
-        "CanBurnUserAsset".parse().unwrap(),
-        &json!({ "asset_id": roses_of_alice }),
+        "CanBurnUserAsset".parse::<PermissionTokenId>().unwrap(),
+        &serde_json::json!({ "asset_id": roses_of_alice }),
     );
     let can_burn_roses_of_mouse = PermissionToken::new(
         "CanBurnUserAsset".parse().unwrap(),
-        &json!({ "asset_id": roses_of_mouse }),
+        &serde_json::json!({ "asset_id": roses_of_mouse }),
     );
     let rose_burner = Role::new("ROSE_BURNER".parse().unwrap())
         .add_permission(can_burn_roses_of_alice)

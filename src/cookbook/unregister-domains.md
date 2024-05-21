@@ -13,7 +13,7 @@ head:
 
 ```rust
 fn unregister_domain(iroha: &Client) {
-    let wonderland = DomainId::from_str("wonderland").unwrap();
+    let wonderland = "wonderland".parse::<DomainId>().unwrap();
     let unregister_wonderland = Unregister::domain(wonderland);
     iroha.submit(unregister_wonderland).unwrap();
 }

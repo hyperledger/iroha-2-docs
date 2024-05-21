@@ -15,7 +15,7 @@ head:
 fn unregister_asset(
     iroha: &Client,
 ) {
-    let roses_of_alice = AssetId::from_str("rose##alice@wonderland").unwrap();
+    let roses_of_alice = "rose##alice@wonderland".parse::<AssetId>().unwrap();
     let unregister_roses_of_alice = Unregister::asset(roses_of_alice);
     iroha.submit(unregister_roses_of_alice).unwrap();
 }

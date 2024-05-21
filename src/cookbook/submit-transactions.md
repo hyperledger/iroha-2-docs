@@ -19,15 +19,17 @@ fn submit_transaction_do_not_wait_for_approval(
     iroha: &Client,
     transaction: &SignedTransaction
 ) {
-    // If the transaction is rejected, the method panics
-    iroha.submit_transaction(transaction).unwrap()
+    // panics if the transaction is invalid (cannot be submitted)
+    let _hash = iroha.submit_transaction(transaction).unwrap();
+    // transaction may or may not have been committed or rejected
 }
 
 fn submit_transaction_and_wait_for_approval(
     iroha: &Client,
     transaction: &SignedTransaction
 ) {
-    // If the transaction is rejected, the method panics
-    iroha.submit_transaction_blocking(transaction).unwrap()
+    // panics if the transaction is invalid or rejected
+    let _hash = iroha.submit_transaction_blocking(transaction).unwrap();
+    // transaction has been committed
 }
 ```

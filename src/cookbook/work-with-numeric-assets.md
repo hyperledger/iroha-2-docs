@@ -17,7 +17,7 @@ Registering Alice's roses:
 fn register_numeric_asset(
     iroha: &Client,
 ) {
-    let roses = AssetDefinitionId::from_str("rose#wonderland").unwrap();
+    let roses = "rose#wonderland".parse::<AssetDefinitionId>().unwrap();
     // register roses as an asset definition
     let register_roses_as_a_concept = Register::asset_definition(
         AssetDefinition::new(
@@ -32,10 +32,11 @@ fn register_numeric_asset(
     let initial_roses_of_alice = Asset::new(roses_of_alice, Numeric::ZERO);
     // register zero roses as Alice's asset
     let register_roses_of_alice = Register::asset(initial_roses_of_alice);
-    iroha.submit_all([
-        InstructionBox::from(register_roses_as_a_concept), 
-        InstructionBox::from(register_roses_of_alice)
-    ]).unwrap();
+    let instructions: [RegisterBox; _] = [
+        register_roses_as_a_concept.into(),
+        register_roses_of_alice.into(),
+    ];
+    iroha.submit_all(instructions).unwrap();
 }
 ```
 
@@ -63,7 +64,7 @@ fn burn_numeric_asset(
     // burn three roses
     let burn_roses_of_alice = Burn::asset_numeric(
         numeric!(3),
-        AssetId::from_str("rose##alice@wonderland").unwrap()
+        "rose##alice@wonderland".parse::<AssetId>().unwrap()
     );
     iroha.submit(burn_roses_of_alice).unwrap();
 }
@@ -75,9 +76,9 @@ Transferring Alice's roses to Mouse:
 fn transfer_numeric_asset(
     iroha: &Client,
 ) {
-    let roses = AssetDefinitionId::from_str("rose#wonderland").unwrap();
-    let alice = AccountId::from_str("alice@wonderland").unwrap();
-    let mouse = AccountId::from_str("mouse@wonderland").unwrap();
+    let roses = "rose#wonderland".parse::<AssetDefinitionId>().unwrap();
+    let alice = "alice@wonderland".parse::<AccountId>().unwrap();
+    let mouse = "mouse@wonderland".parse::<AccountId>().unwrap();
     // transfer ten roses and a tenth of a rose
     let transfer_roses_from_alice_to_mouse = Transfer::asset_numeric(
         AssetId::new(roses, alice),
@@ -94,8 +95,8 @@ Check that Alice has a whole number of roses:
 fn query_numeric_asset(
     iroha: &Client,
 ) {
-    let roses = AssetDefinitionId::from_str("rose#wonderland").unwrap();
-    let alice = AccountId::from_str("alice@wonderland").unwrap();
+    let roses = "rose#wonderland".parse::<AssetDefinitionId>().unwrap();
+    let alice = "alice@wonderland".parse::<AccountId>().unwrap();
     let roses_of_alice = AssetId::new(roses, alice);
     let total_roses_of_alice = iroha
         .request(FindAssetQuantityById::new(roses_of_alice))

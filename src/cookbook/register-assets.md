@@ -15,12 +15,12 @@ head:
 fn register_store_asset(
     iroha: &Client,
 ) {
-    let hat_of_alice = AssetId::from_str("hat##alice@wonderland").unwrap();
+    let hat_of_alice = "hat##alice@wonderland".parse::<AssetId>().unwrap();
     let hat_data = {
         // hat has at most 3 keys, each value must fit into 100 bytes
         let (data, limits) = (Metadata::new(), MetadataLimits::new(3, 100));
         data.insert_with_limits(
-            Name::from_str("color").unwrap(),
+            "color".parse::<Name>().unwrap(),
             "yellow".to_owned(),
             limits,
         )
@@ -39,7 +39,7 @@ fn register_store_asset(
 fn register_numeric_asset(
     iroha: &Client,
 ) {
-    let roses_of_alice = AssetId::from_str("rose##alice@wonderland").unwrap();
+    let roses_of_alice = "rose##alice@wonderland".parse::<AssetId>().unwrap();
     // register 123 roses as Alice's asset
     let register_roses_of_alice = Register::asset(
         Asset::new(roses_of_alice, numeric!(123))

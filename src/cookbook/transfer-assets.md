@@ -15,9 +15,9 @@ head:
 fn transfer_numeric_asset(
     iroha: &Client,
 ) {
-    let roses = AssetDefinitionId::from_str("rose#wonderland").unwrap();
-    let alice = AccountId::from_str("alice@wonderland").unwrap();
-    let mouse = AccountId::from_str("mouse@wonderland").unwrap();
+    let roses = "rose#wonderland".parse::<AssetDefinitionId>().unwrap();
+    let alice = "alice@wonderland".parse::<AccountId>().unwrap();
+    let mouse = "mouse@wonderland".parse::<AccountId>().unwrap();
     let transfer_roses_from_alice_to_mouse = Transfer::asset_numeric(
         AssetId::new(roses, alice),
         13_u32,
@@ -31,9 +31,9 @@ fn transfer_numeric_asset(
 fn transfer_store_asset(
     iroha: &Client,
 ) {
-    let hats = AssetDefinitionId::from_str("hat#outfit").unwrap();
-    let alice = AccountId::from_str("alice@outfit").unwrap();
-    let mouse = AccountId::from_str("mouse@outfit").unwrap();
+    let hats = "hat#outfit".parse::<AssetDefinitionId>().unwrap();
+    let alice = "alice@outfit".parse::<AccountId>().unwrap();
+    let mouse = "mouse@outfit".parse::<AccountId>().unwrap();
     let transfer_hat_from_alice_to_mouse = Transfer::asset_store(
         AssetId::new(hats, alice),
         mouse,

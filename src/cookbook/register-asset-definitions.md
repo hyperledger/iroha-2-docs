@@ -15,7 +15,7 @@ head:
 fn define_store_asset(
     iroha: &Client,
 ) {
-    let hats = AssetDefinitionId::from_str("hat#outfit").unwrap();
+    let hats = "hat#outfit".parse::<AssetDefinitionId>().unwrap();
     let hats_as_a_concept = AssetDefinition::store(hats);
     iroha.submit(Register::asset_definition(hats_as_a_concept)).unwrap();
 }
@@ -41,10 +41,11 @@ fn define_numeric_asset(iroha: &Client) {
         // allow arbitrary numeric values
         AssetDefinition::numeric("gold#wonderland".parse().unwrap())
     );
-    iroha.submit_all([
-        define_roses.into(), 
-        define_coins.into(), 
+    let instructions: [RegisterBox; _] = [
+        define_roses.into(),
+        define_coins.into(),
         define_gold.into(),
-    ]).unwrap();
+    ];
+    iroha.submit_all(instructions).unwrap();
 }
 ```

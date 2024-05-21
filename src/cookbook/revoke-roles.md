@@ -17,8 +17,8 @@ fn revoke_role(
 ) {
     // given that Alice has the role, revoke it
     let revoke_role = Revoke::role(
-        RoleId::from_str("DOMAIN_DESTROYER"),
-        AccountId::from_str("alice@wonderland").unwrap()
+        "DOMAIN_DESTROYER".parse::<RoleId>().unwrap(),
+        "alice@wonderland".parse::<AccountId>().unwrap()
     );
     iroha.submit(revoke_role).unwrap();
 }

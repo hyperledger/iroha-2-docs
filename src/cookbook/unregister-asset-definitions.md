@@ -15,7 +15,7 @@ head:
 fn undefine_asset(
     iroha: &Client,
 ) {
-    let hats = AssetDefinitionId::from_str("hat#outfit").unwrap();
+    let hats = "hat#outfit".parse::<AssetDefinitionId>().unwrap();
     iroha.submit(Unregister::asset_definition(hats)).unwrap();
 }
 ```

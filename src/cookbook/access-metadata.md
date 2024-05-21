@@ -29,7 +29,7 @@ fn access_metadata(
     let account: Account = iroha.request(FindAccountById::new(account_id)).unwrap();
 
     //Bind metadata struct to a variable
-    let account_metadata: &Metadata = account.metadata();
+    let account_metadata = account.metadata();
 
     //Iterate for the metadata in the account's object
     for metadata in account_metadata.iter() {

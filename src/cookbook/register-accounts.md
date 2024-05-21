@@ -13,7 +13,7 @@ head:
 
 ```rust
 fn register_account(iroha: &Client) {
-    let alice = AccountId::from_str("alice@wonderland").unwrap();
+    let alice = "alice@wonderland".parse::<AccountId>().unwrap();
     let (public_key, _private_key) = KeyPair::random().into_parts();
     // Keep your private key secret, 
     // and use the public key to create an account

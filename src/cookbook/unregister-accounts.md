@@ -16,7 +16,7 @@ can unregister another account.
 
 ```rust
 fn unregister_account(iroha: &Client) {
-    let alice = AccountId::from_str("alice@wonderland").unwrap();
+    let alice = "alice@wonderland".parse::<AccountId>().unwrap();
     let unregister_alice = Unregister::account(alice);
     iroha.submit(unregister_alice).unwrap();
 }

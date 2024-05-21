@@ -14,15 +14,12 @@ head:
 ```rust
 fn create_transaction(iroha: &Client) -> SignedTransaction {
     // Prepare the instructions you want to execute
-    let alice = AccountId::from_str("alice@wonderland").unwrap();
+    let alice = "alice@wonderland".parse::<AccountId>().unwrap();
     let register_alice = {
-        let (public_key, _) = KeyPair::random().into_parts();
-        Register::account(Account::new(
-            alice.clone(),
-            public_key,
-        ))
+        let (public_key, _private_key) = KeyPair::random().into_parts();
+        Register::account(Account::new(alice.clone(), public_key))
     };
-    let roses = AssetDefinitionId::from_str("rose#wonderland").unwrap();
+    let roses = "rose#wonderland".parse::<AssetDefinitionId>().unwrap();
     let define_roses = Register::asset_definition(
         AssetDefinition::numeric(roses.clone())
     );
@@ -32,7 +29,7 @@ fn create_transaction(iroha: &Client) -> SignedTransaction {
     );
     
     // Combine the instructions 
-    let instructions: [InstructionBox; 3] = [
+    let instructions: [InstructionBox; _] = [
         register_alice.into(),
         define_roses.into(),
         register_roses_of_alice.into(),

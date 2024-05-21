@@ -18,9 +18,9 @@ fn revoke_permission_from_account(
     let revoke_permission_to_unregister_kingdom = Revoke::permission(
         PermissionToken::new(
             "CanUnregisterDomain".parse().unwrap(),
-            &json!({ "domain_id": "kingdom" }),
+            &serde_json::json!({ "domain_id": "kingdom" }),
         ),
-        AccountId::from_str("alice@wonderland").unwrap()
+        "alice@wonderland".parse::<AccountId>().unwrap()
     );
     iroha.submit(revoke_permission_to_unregister_kingdom).unwrap();
 }
@@ -33,9 +33,9 @@ fn revoke_permission_from_role(
     let revoke_permission_to_unregister_kingdom = Revoke::role_permission(
         PermissionToken::new(
             "CanUnregisterDomain".parse().unwrap(),
-            &json!({ "domain_id": "kingdom" }),
+            &serde_json::json!({ "domain_id": "kingdom" }),
         ),
-        RoleId::from_str("DOMAIN_DESTROYER").unwrap(),
+        "DOMAIN_DESTROYER".parse::<RoleId>().unwrap(),
     );
     iroha.submit(revoke_permission_to_unregister_kingdom).unwrap();
 }
