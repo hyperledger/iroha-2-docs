@@ -7,12 +7,10 @@
 
 2. [Install Iroha from GitHub](./install.md).
 
-3. Run `docker-compose` to bring up a network of 4 containerised peers:
-
-   <!-- Check Docker releases: `docker compose` is going to replace `docker-compose` -->
+3. Run `docker compose` to bring up a network of 4 containerised peers:
 
    ```bash
-   $ docker-compose up
+   $ docker compose up
    ```
 
    Depending on your set-up, this might either
