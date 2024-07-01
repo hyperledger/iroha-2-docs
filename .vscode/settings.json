@@ -1,3 +1,4 @@
 {
-  "eslint.workingDirectories": [".vitepress", "."]
+  "eslint.workingDirectories": [".vitepress", "."],
+  "cSpell.words": ["Iroha"]
 }
