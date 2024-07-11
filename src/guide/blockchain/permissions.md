@@ -1,13 +1,20 @@
 # Permissions
 
-Accounts need permission tokens for various actions on a blockchain, e.g.
-to mint or burn assets.
+For a user to be able to perform an action on the blockchain (e.g., minting and burning assets, registering domains, etc.), their account needs a permission—`PermissionToken`—to do that action.
 
-There is a difference between a public and a private blockchain in terms of
-permissions granted to users. In a public blockchain, most accounts have
-the same set of permissions. In a private blockchain, most accounts are
-assumed not to be able to do anything outside of their own account or
-domain unless explicitly granted said permission.
+::: info
+
+There is a difference between public and private blockchains in terms of permissions granted to users. In a public blockchain, most accounts have the same set of permissions. Whereas, in a private blockchain, most accounts are assumed to not be able to do anything outside of their own account or domain unless they are explicitly granted a specific permission.
+
+For more details, see [Public and Private Blockchains](../configure/modes.md).
+
+:::
+
+## Permission Tokens
+
+Technically, every `PermissionToken`
+
+## Permission Tokens
 
 Having a permission to do something means having a `PermissionToken` to do
 so. There are two ways for users to receive permission tokens: they can be
@@ -15,8 +22,6 @@ granted directly or as a part of a [`Role`](#permission-groups-roles) (a
 set of permission tokens). Permissions are granted via `Grant` special
 instruction. Permission tokens and roles do not expire, they can only be
 removed using `Revoke` instruction.
-
-## Permission Tokens
 
 Permission token definitions have parameters. When a new permission token
 is registered, the names of the parameters and their types are checked
@@ -59,9 +64,11 @@ Here are some examples of parameters used for various permission tokens:
   epoch in milliseconds (more details about
   [time in Rust](https://doc.rust-lang.org/std/time/struct.SystemTime.html)).
 
-### Pre-configured Permission Tokens
+### Preconfigured Permission Tokens
 
-You can find the list of pre-configured permission tokens in the [Reference](/reference/permissions) chapter.
+Iroha 2 also provides a number of _preconfigured_ permission tokens that can be granted
+
+For the list of all preconfigured permission tokens, see [Reference > Permissions](/reference/permissions.md).
 
 ## Permission Groups (Roles)
 
@@ -71,9 +78,9 @@ roles can be granted using the `Grant` instruction and revoked using the
 
 Before granting a role to an account, the role should be registered first.
 
-<!-- TODO: add more info about roles -->
+<!-- TODO: add more info about roles; default roles? -->
 
-### Register a new role
+### Register a New Role
 
 Let's register a new role that, when granted, will allow another account
 access to the [metadata](/guide/blockchain/metadata.md) in Mouse's account:
@@ -86,7 +93,7 @@ let role = iroha_data_model::role::Role::new(role_id)
 let register_role = RegisterBox::new(role);
 ```
 
-### Grant a role
+### Grant a Role
 
 After the role is registered, Mouse can grant it to Alice:
 

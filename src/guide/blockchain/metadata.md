@@ -158,5 +158,9 @@ You can get the key value of an object metadata using
 
 ## Permissions
 
-Pre-configured tokens in Iroha 2 that allow to set or remove
-key-values in accounts, assets, asset definitions, and so on are described in [`Permissions`](/reference/permissions.md).
+Permissions are tokens that allow accounts to set or remove key-values in Accounts, Assets, Asset Definitions, etc.
+
+For more information on permissions, see the following topics:
+
+- [Blockchain > Permissions](permissions.md): Detailed overview of what permissions are and how they operate.
+- [Reference > Permissions](/reference/permissions.md): List of all preconfigured permission tokens and an example of granting a permission.
