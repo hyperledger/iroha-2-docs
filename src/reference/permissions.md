@@ -4,17 +4,23 @@ This section provides details about pre-configured permission tokens in Iroha 2.
 
 ## Permission Tokens
 
-The following permission tokens are pre-configured in Iroha 2:
+::: tip Note
 
-| Permission Token                        | Category         | Operation                                                          |
+A permission token can only grant a user's account the ability to perform an operation in relation to the Subject that the token is registered with.
+
+e.g., ???
+
+:::
+
+| Permission Token                        | Subject          | Operation                                                          |
 |-----------------------------------------|------------------|--------------------------------------------------------------------|
-| [`CanUnregisterDomain`]                 | Domain           | Allows to unregister a domain                                      |
-| [`CanSetKeyValueInDomain`]              | Domain           | Allows to add domain's metadata key value                          |
-| [`CanRemoveKeyValueInDomain`]           | Domain           | Allows to remove domain's metadata key value                       |
-| [`CanUnregisterAccount`]                | Account          | Allows to unregister an account                                    |
-| [`CanMintUserPublicKeys`]               | Account          | Allows to add a public key to an account                           |
-| [`CanBurnUserPublicKeys`]               | Account          | Allows to remove a public key from an account                      |
-| [`CanMintUserSignatureCheckConditions`] | Account          | Allows to set check conditions for a signature                     |
+| [`CanUnregisterDomain`]                 | Domain           | Allows the user to unregister the Domain.                  |
+| [`CanSetKeyValueInDomain`]              | Domain           | Allows the user to add metadata key-values to the Domain.  |
+| [`CanRemoveKeyValueInDomain`]           | Domain           | Allows the user to remove metadata key-values from the Domain.                      |
+| [`CanUnregisterAccount`]                | Account          | Allows the user to unregister the Account.                                   |
+| [`CanMintUserPublicKeys`]               | Account          | Allows the user to add a public key to the Account.                           |
+| [`CanBurnUserPublicKeys`]               | Account          | Allows the user to remove a public key from the Account.                     |
+| [`CanMintUserSignatureCheckConditions`] | Account          | Allows the user to set check conditions for a signature                     |
 | [`CanSetKeyValueInUserAccount`]         | Account          | Allows to add user's metadata key value                            |
 | [`CanRemoveKeyValueInUserAccount`]      | Account          | Allows to remove user's metadata key value                         |
 | [`CanRegisterAssetsWithDefinition`]     | Asset            | Allows to register a new asset with this definition                |
@@ -34,23 +40,24 @@ The following permission tokens are pre-configured in Iroha 2:
 ::: info
 
 The way permissions work in Iroha 2 is subject to change.
-Only an owner of the subject can grant permissions for the subject.
+Only the owner of a subject can grant users permissions to perform operations with that subject.
 
-By default, all assets and accounts defined in the genesis block configuration file are created by `genesis@genesis` account. 
+By default, all assets and accounts defined in the genesis block configuration file are created by `genesis@genesis` account.
 This means that `alice@wonderland` is not the owner of `rose#wonderland` and cannot grant permission for `rose#wonderland`.
 
-To avoid this you can:
-1. Edit the `genesis.json` file to only include the creation of  `alice@wonderland`, and then redeploy Iroha 2.
-2. Create a subject (e.g., an asset definition) on behalf of `alice@wonderland`, and then give another account the permission to manage this subject.
+To avoid this, you can do one of the following:
+- Edit the `genesis.json` file so that it only includes the creation of `alice@wonderland`, then redeploy Iroha 2.
+- Create a subject (e.g., an asset definition) on behalf of `alice@wonderland`, and then give another account the permission to manage this subject.
 
 :::
 
-### `General example`
+## Granting Permission Tokens
 
 With this example, the owner-account can give permission for its subject to another account.
-The example is based on the following pre-conditions:
-    The subject is created by the owner-account
-    The recipient account is created
+
+The example is based on the following preconditions:
+- The subject is created by the owner-account.
+- The recipient account is created.
 
 ```rust
 // Define the asset definition owner
