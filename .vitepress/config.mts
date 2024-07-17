@@ -14,12 +14,12 @@ function nav(): DefaultTheme.NavItem[] {
       text: 'Guide',
       items: [
         // { text: 'Get Started', link: '/guide/get-started/index' },
-        // { text: 'Build and Install', link: '/guide/get-started/install' },
+        // { text: 'Build and Install', link: '/guide/get-started/install-iroha' },
         // { text: 'Tutorials', link: '/guide/get-started/tutorials'},
         {
           text: 'Get Started',
           items: [
-            { text: 'Build and Install', link: '/guide/get-started/install' },
+            { text: 'Install and Build', link: '/guide/get-started/install-iroha' },
             { text: 'SDK Tutorials', link: '/guide/get-started/tutorials' },
           ],
         },
@@ -93,32 +93,23 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
   return [
     {
       text: 'Get Started',
+      link: '/guide/get-started/',
       items: [
         {
-          text: 'About Iroha',
-          link: '/guide/introduction',
+          text: 'Install Iroha',
+          link: '/guide/get-started/install-iroha',
+        },
+        {
+          text: 'Launch Iroha',
+          link: '/guide/get-started/launch-iroha',
+        },
+        {
+          text: 'Operate Iroha via CLI',
+          link: '/guide/get-started/operate-iroha-via-cli',
         },
         {
           text: 'Iroha 2 vs. Iroha 1',
           link: '/guide/iroha-2',
-        },
-        {
-          text: 'Build and Install',
-          collapsed: true,
-          items: [
-            {
-              text: 'Install Iroha',
-              link: '/guide/get-started/install',
-            },
-            {
-              text: 'Build Iroha Client',
-              link: '/guide/get-started/build',
-            },
-            {
-              text: 'Quick Start with Docker',
-              link: '/guide/get-started/quick-start',
-            },
-          ],
         },
         {
           text: 'Receive support',
@@ -174,10 +165,6 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
         {
           text: 'Language-specific Guides',
           items: [
-            {
-              text: 'Bash',
-              link: '/guide/get-started/bash',
-            },
             {
               text: 'Python 3',
               link: '/guide/get-started/python',

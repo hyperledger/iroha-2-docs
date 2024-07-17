@@ -38,7 +38,7 @@ number of dependencies to start your own client, similar to
 Once the initial `v2.0.0` release is complete, we plan to create a package
 on [crates.io](https://crates.io/) with all the documentation. In the
 meantime, you could use the local copy that you've just created in the
-[previous step](/guide/get-started/build) as a local installation in your client's
+[previous step](/guide/get-started/install-iroha) as a local installation in your client's
 `Cargo.toml`:
 
 ```toml
