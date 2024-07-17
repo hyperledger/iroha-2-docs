@@ -9,7 +9,7 @@ You can learn how to:
 
 ## 1. Iroha 2 Client Setup
 
-Note, first, that we have already created the necessary binary executables when we [ran the `build` command](./build.md#build-iroha-client).
+Note, first, that we have already created the necessary binary executables when we [ran the `build` command](./install-iroha.md#build-iroha-2-client).
 
 Create a fresh folder for the client and copy the configuration file there:
 

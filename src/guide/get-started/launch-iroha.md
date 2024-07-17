@@ -5,7 +5,7 @@
    - [Docker](https://docs.docker.com/get-docker/)
    - [Docker compose](https://docs.docker.com/compose/)
 
-2. [Install Iroha](./install.md).
+2. [Install Iroha](./install-iroha.md).
 
 3. Run `docker compose` and specify the network configuration file to bring up a network of 4 containerized peers:
 
