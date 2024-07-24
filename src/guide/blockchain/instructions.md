@@ -109,7 +109,7 @@ process of registering objects in a blockchain:
 
 | Language              | Guide                                                                                                                                                                                                  |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| CLI                   | Register a [domain](/guide/get-started/operate-iroha-via-cli.md#_3-registering-a-domain), an [account](/guide/get-started/operate-iroha-via-cli.md#_4-registering-an-account), an [asset](/guide/get-started/operate-iroha-via-cli.md#_6-registering-and-minting-assets)                      |
+| CLI                   | Register a [domain](/guide/get-started/operate-iroha-via-cli.md#_3-register-a-domain), an [account](/guide/get-started/operate-iroha-via-cli.md#_4-register-an-account), an [asset](/guide/get-started/operate-iroha-via-cli.md#_6-register-and-mint-assets)                      |
 | Rust                  | Register a [domain](/guide/get-started/rust.md#_3-registering-a-domain), an [account](/guide/get-started/rust.md#_4-registering-an-account), an [asset](/guide/get-started/rust.md#_5-registering-and-minting-assets)                      |
 | Kotlin/Java           | Register a [domain](/guide/get-started/kotlin-java.md#_3-querying-and-registering-domains), an [account](/guide/get-started/kotlin-java.md#_4-registering-an-account), an [asset](/guide/get-started/kotlin-java.md#_5-registering-and-minting-assets) |
 | Python                | Register a [domain](/guide/get-started/python.md#_3-registering-a-domain), an [account](/guide/get-started/python.md#_4-registering-an-account), an [asset](/guide/get-started/python.md#_5-registering-and-minting-assets)                |
@@ -130,7 +130,7 @@ are assumed to be non-negative as well, so you can never have $-1.0$ of
 Refer to one of the language-specific guides to walk you through the
 process of minting assets in a blockchain:
 
-- [CLI](/guide/get-started/operate-iroha-via-cli.md#_6-registering-and-minting-assets)
+- [CLI](/guide/get-started/operate-iroha-via-cli.md#_6-register-and-mint-assets)
 - [Rust](/guide/get-started/rust.md#_5-registering-and-minting-assets)
 - [Kotlin/Java](/guide/get-started/kotlin-java.md#_5-registering-and-minting-assets)
 - [Python](/guide/get-started/python.md#_5-registering-and-minting-assets)
@@ -138,7 +138,7 @@ process of minting assets in a blockchain:
 
 Here are examples of burning assets:
 
-- [CLI](/guide/get-started/operate-iroha-via-cli.md#_8-burning-assets)
+- [CLI](/guide/get-started/operate-iroha-via-cli.md#_8-burn-assets)
 - [Rust](/guide/get-started/rust.md#_7-burning-assets)
 
 ## Transfer
@@ -149,7 +149,7 @@ can transfer assets between different accounts.
 To do this, an account have to be granted the
 [permission to transfer assets](/reference/permissions.md).
 Refer to an example on how to
-transfer assets with [CLI](/guide/get-started/operate-iroha-via-cli.md#_7-transferring-assets) or [Rust](/guide/get-started/rust.md#_6-transferring-assets).
+transfer assets with [CLI](/guide/get-started/operate-iroha-via-cli.md#_7-transfer-assets) or [Rust](/guide/get-started/rust.md#_6-transferring-assets).
 
 <!--TODO: add links to transferring assets example in which guide after https://github.com/hyperledger/iroha-2-docs/issues/81 is addressed -->
 

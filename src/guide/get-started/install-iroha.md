@@ -50,7 +50,7 @@ You will be guided through the setup process. Just go with the defaults.
 <!-- TODO: change recommended installation method to docker binaries/cargo install -->
 
 
-1.  If you haven’t already, you might want to create a clean folder for
+1.  If you haven’t already, you might want to create a clean directory for
     Iroha 2, to keep things tidy.
 
     ```bash
@@ -61,8 +61,8 @@ You will be guided through the setup process. Just go with the defaults.
 
     On macOS, if you get
     `fatal: could not create work tree dir 'iroha': Read-only file system`,
-    that’s because the home folder is not a real file system. The fix is to
-    create the `Git` folder.
+    that’s because the home directory is not a real file system. The fix is to
+    create the `Git` directory.
 
     :::
 
@@ -72,7 +72,7 @@ You will be guided through the setup process. Just go with the defaults.
     $ cd ~/Git
     ```
 
-3.  Then `clone` the Iroha git repository into the folder `~/Git/iroha`
+3.  Then `clone` the Iroha git repository into the directory `~/Git/iroha`
 
     ```bash
     $ git clone https://github.com/hyperledger/iroha.git 
