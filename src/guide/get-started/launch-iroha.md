@@ -10,7 +10,7 @@
 3. Run `docker compose` and specify the network configuration file to bring up a network of 4 containerized peers:
 
    ```bash
-   $ docker compose -f configs/swarm/docker-compose.yml up
+   $ docker compose -f defaults/docker-compose.yml up
    ```
 
    Depending on your set-up, this might either

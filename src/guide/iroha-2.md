@@ -27,7 +27,7 @@ would be accessible from Iroha 2.
 Iroha 2 learned a great deal from the development of the original Iroha. Of
 particular importance is the new and improved Byzantine-fault-tolerant
 consensus algorithm:
-[_Sumeragi_](https://github.com/hyperledger/iroha/blob/iroha2-dev/docs/source/iroha_2_whitepaper.md#28-consensus).
+[_Sumeragi_](https://github.com/hyperledger/iroha/tree/main/docs/source/iroha_2_whitepaper.md#28-consensus).
 This new consensus allowed us to expand what could be done on a blockchain
 without any security risks.
 

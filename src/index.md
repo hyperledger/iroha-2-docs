@@ -8,7 +8,7 @@ hero:
   #actions:
   #- theme: alt
   #  text: View on GitHub
-  #  link: https://github.com/hyperledger/iroha/tree/iroha2-dev
+  #  link: https://github.com/hyperledger/iroha/
 
 features:
   - icon: 🚀

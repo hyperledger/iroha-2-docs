@@ -14,7 +14,7 @@ Note, first, that we have already created the necessary binary executables when 
 Create a fresh directory for the client and copy the configuration file there:
 
 ```bash
-$ cp path_to_repo/configs/swarm/client.toml path_to_created_directory/
+$ cp path_to_repo/defaults/client.toml path_to_created_directory/
 ```
 
 Then copy the necessary binaries into the client directory:

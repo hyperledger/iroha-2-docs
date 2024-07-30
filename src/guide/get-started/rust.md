@@ -33,7 +33,7 @@ constants.
 
 If you add `iroha_client` to the other two crates, you get the minimum
 number of dependencies to start your own client, similar to
-`iroha_client_cli`.
+`iroha` binary.
 
 Once the initial `v2.0.0` release is complete, we plan to create a package
 on [crates.io](https://crates.io/) with all the documentation. In the
@@ -58,7 +58,7 @@ first.
 ::: info
 
 You could also make use of our `test_network` crate, which is available via
-[GitHub](https://github.com/hyperledger/iroha/tree/iroha2/core/test_network)
+[GitHub](https://github.com/hyperledger/iroha/tree/main/core/test_network)
 but not via crates.io.
 
 :::
@@ -403,4 +403,4 @@ for event in iroha_client.listen_for_events(filter)? {
 
 Needless to say, an synchronous infinite blocking loop is bad UX for
 anything but a command-line program, but for illustration purposes, this
-would create a nice printout, just like in `iroha_client_cli`.
+would create a nice printout, just like in `iroha` binary.

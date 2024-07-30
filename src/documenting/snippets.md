@@ -9,14 +9,13 @@ located in other repositories, where they are built, run, and tested.
 ### Snippet Sources
 
 Snippet sources are defined in
-[`snippet_sources.ts`](https://github.com/hyperledger/iroha-2-docs/blob/main/etc/snippet_sources.ts).
-The `snippet_sources.ts` file is located at the documentation repository
-and has the following format:
+[`snippet_sources.ts`](https://github.com/hyperledger/iroha-2-docs/blob/main/etc/snippet-sources.ts).
+The `snippet_sources.ts` file is located in the documentation repository and has the following format:
 
 ```ts
 export default [
   {
-    src: 'https://raw.githubusercontent.com/hyperledger/iroha/iroha2-stable/MAINTAINERS.md',
+    src: 'https://raw.githubusercontent.com/hyperledger/iroha/main/MAINTAINERS.md',
     filename: 'iroha-maintainers-at-stable.md',
   },
   {
