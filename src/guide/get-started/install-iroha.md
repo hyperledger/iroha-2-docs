@@ -45,7 +45,7 @@ $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 You will be guided through the setup process. Just go with the defaults.
 
-## Install Iroha from GitHub
+## Clone Iroha from GitHub
 
 <!-- TODO: change recommended installation method to docker binaries/cargo install -->
 
@@ -78,21 +78,19 @@ You will be guided through the setup process. Just go with the defaults.
     $ git clone https://github.com/hyperledger/iroha.git 
     ```
 
-### Build Iroha 2 Client
+### Install Iroha 2 Binaries
 
-1. Navigate to the directory containing the Iroha repository:
 
-   ```bash
-   $ cd ~/Git/iroha
-   ```
+To install the necessary binaries system-wide, use the following commands:
 
-2. Build the Iroha 2 client using:
 
    ```bash
-   $ cargo build --release
+   $ cargo install --git https://github.com/hyperledger/iroha.git iroha
    ```
 
-   Build artifacts are created in the `./target/release/` directory.
+   ```bash
+   $ cargo install --git https://github.com/hyperledger/iroha.git kagami
+   ```
 
 
 ## What's Next

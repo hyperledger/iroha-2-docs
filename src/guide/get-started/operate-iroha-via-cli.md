@@ -9,30 +9,22 @@ You can learn how to:
 
 ## 1. Setup Iroha 2 Client
 
-Note, first, that we have already created the necessary binary executables when we [ran the `build` command](./install-iroha.md#build-iroha-2-client).
+Ensure you [installed Iroha](./install-iroha.md) and [brought up the test network](./launch-iroha.md). 
 
-Create a fresh directory for the client and copy the configuration file there:
-
-```bash
-$ cp path_to_repo/defaults/client.toml path_to_created_directory/
-```
-
-Then copy the necessary binaries into the client directory:
+Create a fresh directory and copy the `client.toml` configuration file there:
 
 ```bash
-$ cp path_to_repo/target/release/iroha path_to_repo/target/release/kagami path_to_created_directory/
+$ cp path_to_iroha_repo/defaults/client.toml path_to_created_directory/
 ```
-
-Ensure you [brought up the test network](./launch-iroha.md). You can monitor blockchain events in the terminal where it runs.
 
 ## 2. Configure Iroha 2 Client
 
-Navigate to the binaries directory in your terminal. Check that it contains `iroha`, `kagami` and `client.toml`.
+Navigate to the directory with the configuration file in your terminal.
 
 Run the client CLI:
 
 ```bash
-$ ./iroha
+$ iroha
 ```
 
 ::: details Expand to see the expected output
@@ -70,10 +62,10 @@ By default, the Iroha client searches for its configuration in the `client.toml`
 To run any of the Iroha client commands with some other configuration file, use the following syntax:
 
 ```bash
-$ ./iroha --config path/to/client.toml <COMMAND>
+$ iroha --config path/to/client.toml <COMMAND>
 ```
 
-This is not _persistent configuration_: each time you run `iroha`, you must add the `--config path/to/client.toml` command-line argument, unless you put the `client.toml` config file in the same directory as `iroha` binary.
+This is not _persistent configuration_: each time you run `iroha`, you must add the `--config path/to/client.toml` command-line argument, unless you put the `client.toml` config file in your working directory.
 
 :::
 
@@ -82,7 +74,7 @@ The account specified in the `[account]` section of `client.toml` is preregister
 To check that configuration works, try to run a query, e.g.:
 
 ```bash
-$ ./iroha domain list all
+$ iroha domain list all
 ```
 
 The output should contain several preregistered domains.
@@ -92,7 +84,7 @@ The output should contain several preregistered domains.
 To get started, you must first register a domain:
 
 ```bash
-$ ./iroha domain register --id="looking_glass"
+$ iroha domain register --id="looking_glass"
 ```
 
 A _domain_ is a group of entities like asset definitions, accounts, and other objects grouped logically. We'll talk about it in more detail in other documentation sections.
@@ -100,7 +92,7 @@ A _domain_ is a group of entities like asset definitions, accounts, and other ob
 You will receive a confirmation message. However, the new domain details will not be directly readable in that message. To confirm that you created the new _looking_glass_ domain successfully, run:
 
 ```bash
-$ ./iroha domain list all
+$ iroha domain list all
 ```
 
 The output should contain the _looking_glass_ domain:
@@ -125,7 +117,7 @@ To register a new account, you need a cryptographic key pair consisting of a _pu
 For users' convenience, Iroha 2 comes with `kagami`, an in-built key generator tool. To generate a new key pair with `kagami`, run the following command:
 
 ```bash
-$ ./kagami crypto
+$ kagami crypto
 ```
 
 ::: tip
@@ -146,7 +138,7 @@ Private key (multihash): "802620CBD3D701B561FE98463767729176404DC757D690F78980B8
 To register a new account within the _looking_glass_ domain, run:
 
 ```bash
-$ ./iroha account register --id="ed0120ABA0446CFBD4E12627FFA870FB37993ED83EB1AE0588184B90D832A64C24C379@looking_glass"
+$ iroha account register --id="ed0120ABA0446CFBD4E12627FFA870FB37993ED83EB1AE0588184B90D832A64C24C379@looking_glass"
 ```
 
 The `--id` argument in the above code snippet specifies the _account id_, the unique identifier of the account. It consists of the user public key (generated using `kagami`) and the domain it is associated with.
@@ -154,7 +146,7 @@ The `--id` argument in the above code snippet specifies the _account id_, the un
 If the account registration succeeds, you will receive a confirmation message. Like before, you should query the accounts to verify the details.
 
 ```bash
-$ ./iroha account list all
+$ iroha account list all
 ```
 
 ::: details Expand to see the expected output
@@ -198,12 +190,12 @@ Let's transfer the _looking_glass_ domain to the account we created:
 1. Run the transfer command:
 
   ```bash
-  $ ./iroha domain transfer --id="looking_glass" --from "ed0120CE7FA46C9DCE7EA4B125E2E36BDB63EA33073E7590AC92816AE1E861B7048B03@wonderland" --to "ed0120ABA0446CFBD4E12627FFA870FB37993ED83EB1AE0588184B90D832A64C24C379@looking_glass"
+  $ iroha domain transfer --id="looking_glass" --from "ed0120CE7FA46C9DCE7EA4B125E2E36BDB63EA33073E7590AC92816AE1E861B7048B03@wonderland" --to "ed0120ABA0446CFBD4E12627FFA870FB37993ED83EB1AE0588184B90D832A64C24C379@looking_glass"
   ```
 2. Check that the ownership changed:
 
   ```bash
-  $ ./iroha domain list all
+  $ iroha domain list all
   ```
 
 3. Switch to the newly created account. For this, we need to modify the `public_key`, `private_key`, and `domain` in the `client.toml` config file with the ones we registered earlier.
@@ -229,7 +221,7 @@ Now that we control the domain, we can mint assets in it.
 In order to mint assets, you need to register the [asset definition](/guide/blockchain/assets) first. We are going to register the _tea_ token within the _looking_glass_ network. To do that, run:
 
 ```bash
-$ ./iroha asset definition register --id="tea#looking_glass" --type="Numeric"
+$ iroha asset definition register --id="tea#looking_glass" --type="Numeric"
 ```
 
 The Numeric _tea_ asset is now registered within the _looking_glass_ domain.
@@ -239,13 +231,13 @@ If you open the terminal where the Iroha network runs, you will see that all our
 To mint _tea_ tokens run:
 
 ```bash
-$ ./iroha asset mint --id="tea##ed0120ABA0446CFBD4E12627FFA870FB37993ED83EB1AE0588184B90D832A64C24C379@looking_glass" --quantity="100"
+$ iroha asset mint --id="tea##ed0120ABA0446CFBD4E12627FFA870FB37993ED83EB1AE0588184B90D832A64C24C379@looking_glass" --quantity="100"
 ```
 
 After minting one hundred _tea_, you will see more pipeline events in the logger, and you can also query the assets that you have just minted:
 
 ```bash
-$ ./iroha asset list all
+$ iroha asset list all
 ```
 
 ::: details Expand to see the expected output
@@ -280,7 +272,7 @@ $ ./iroha asset list all
 After minting the assets, you can transfer some of your tea to another account:
 
 ```bash
-$ ./iroha asset transfer --to="ed0120CE7FA46C9DCE7EA4B125E2E36BDB63EA33073E7590AC92816AE1E861B7048B03@wonderland" --id="tea##ed0120ABA0446CFBD4E12627FFA870FB37993ED83EB1AE0588184B90D832A64C24C379@looking_glass"  --quantity=33
+$ iroha asset transfer --to="ed0120CE7FA46C9DCE7EA4B125E2E36BDB63EA33073E7590AC92816AE1E861B7048B03@wonderland" --id="tea##ed0120ABA0446CFBD4E12627FFA870FB37993ED83EB1AE0588184B90D832A64C24C379@looking_glass"  --quantity=33
 ```
 
 ## 8. Burn Assets
@@ -288,7 +280,7 @@ $ ./iroha asset transfer --to="ed0120CE7FA46C9DCE7EA4B125E2E36BDB63EA33073E7590A
 Burning assets is quite similar to minting them:
 
 ```bash
-$ ./iroha asset burn --id="tea##ed0120ABA0446CFBD4E12627FFA870FB37993ED83EB1AE0588184B90D832A64C24C379@looking_glass" --quantity="15"
+$ iroha asset burn --id="tea##ed0120ABA0446CFBD4E12627FFA870FB37993ED83EB1AE0588184B90D832A64C24C379@looking_glass" --quantity="15"
 
 ```
 
@@ -302,7 +294,7 @@ We will set up an event listener for the block pipeline.
 From a new terminal tab/window run:
 
 ```bash
-$ ./iroha events block-pipeline
+$ iroha events block-pipeline
 ```
 
 The output would look like this:
@@ -360,7 +352,7 @@ Listening to events with filter: Pipeline(Block(BlockEventFilter { height: None,
 
 ```
 
-Run the help command `./iroha events help` to find out how to listen to other types of events.
+Run the help command `iroha events help` to find out how to listen to other types of events.
 
 ## What's Next
 

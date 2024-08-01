@@ -7,7 +7,9 @@
 
 2. [Install Iroha](./install-iroha.md).
 
-3. Run `docker compose` and specify the network configuration file to bring up a network of 4 containerized peers:
+3. Navigate to the repository root directory.
+ 
+4. Run `docker compose` and specify the network configuration file to bring up a network of 4 containerized peers:
 
    ```bash
    $ docker compose -f defaults/docker-compose.yml up
@@ -19,11 +21,16 @@
 
    <<< @/guide/get-started/launch-iroha.docker-compose-output.ansi
 
-4. Proceed to the [CLI tutorial](./operate-iroha-via-cli.md) to check out Iroha's capabilities.
+5. Proceed to the [CLI tutorial](./operate-iroha-via-cli.md) to check out Iroha's capabilities.
 
-5. When you're done with the test network, just hit `Control + C` to stop the
+6. When you're done with the test network, just hit `Control + C` to stop the
    containers (`⌃ + C` on Mac).
 
+::: tip
+
+   You can monitor blockchain events in the terminal where the test network runs.
+   
+:::
 ## Docker Options
 
 You might also be interested in other options for local compilation:
