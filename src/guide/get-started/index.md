@@ -11,9 +11,8 @@ can:
   assets
 - Manage user accounts with a domain hierarchy and multi-signature
   transactions
-- Use efficient portable smart contracts implemented either via
-  [WebAssembly](/guide/blockchain/wasm.md) or
-  [Iroha Special Instructions](/guide/blockchain/instructions.md)
+- Use efficient portable smart contracts implemented with 
+  [WebAssembly](/guide/blockchain/wasm.md) and [Iroha Special Instructions](/guide/blockchain/instructions.md)
 - Use both permissioned and permission-less blockchain deployments
 
 

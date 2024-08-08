@@ -12,7 +12,7 @@ The tutorial is suitable for both experienced and novice users. It explains Iroh
 
 If you are already familiar with Hyperledger Iroha, we invite you to read about [how Iroha 2 is different](https://hyperledger.github.io/iroha-2-docs/guide/iroha-2.html) from its previous version.
 
-Check the [Hyperledger Iroha 2](https://github.com/hyperledger/iroha/) repository for more detailed information about API and available features.
+Check the [Hyperledger Iroha](https://github.com/hyperledger/iroha/) repository for more detailed information about API and available features.
 
 ## Contribution
 

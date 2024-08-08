@@ -4,7 +4,7 @@ In this tutorial, we will set up and configure the Iroha client CLI, and perform
 
 You can learn how to:
   - register [domains](#_3-register-a-domain) and [accounts](#_4-register-an-account)
-  - [mint](#_6-register-and-mint-assets), [transfer](#_7-transfer-assets) and [burn](#_8-burn-assets) assets
+  - [register and mint](#_6-register-and-mint-assets), [transfer](#_7-transfer-assets) and [burn](#_8-burn-assets) assets
   - [visualize outputs](#_9-visualize-outputs)
 
 ## 1. Setup Iroha 2 Client
@@ -69,7 +69,7 @@ This is not _persistent configuration_: each time you run `iroha`, you must add 
 
 :::
 
-The account specified in the `[account]` section of `client.toml` is preregistered in the blockchain. Only it can interact with the blockchain for now. If you change the keys or the domain of the account in the config file, you should ensure they are preregistered in the blockchain too.
+The account specified in the `[account]` section of `client.toml` is preregistered in the default [genesis block](/guide/configure/genesis) of the blockchain. Only it can interact with the blockchain for now. If you change the keys or the domain of the account in the config file, you should ensure they are preregistered in the blockchain too.
 
 To check that configuration works, try to run a query, e.g.:
 
@@ -198,9 +198,11 @@ Let's transfer the _looking_glass_ domain to the account we created:
   $ iroha domain list all
   ```
 
-3. Switch to the newly created account. For this, we need to modify the `public_key`, `private_key`, and `domain` in the `client.toml` config file with the ones we registered earlier.
+1. Switch to the newly created account. For this, we need to modify the `public_key`, `private_key`, and `domain` in the `client.toml` config file with the credentials of the user we want to act as.
+ 
+Note, here the domain of the user we're switching to matches the one we just transferred, but this is not a requirement. A user may be registered in one domain and own multiple others. When setting the domain in the config file, always use the one your user is registered in.
 
-  The `account` section of your updated `client.toml` should look like this:
+The `account` section of your updated `client.toml` should look like this:
 
   ```toml
   [account]
@@ -213,12 +215,12 @@ Let's transfer the _looking_glass_ domain to the account we created:
 [Permissions](/guide/blockchain/permissions) determine accounts rights within Iroha. Domain owners have the most rights in a domain by default, but permission configuration in Iroha is very flexible and can be customized to your needs.
 :::
 
-Now that we control the domain, we can mint assets in it.
+Now that we control the domain, we can define and manage assets in it.
 
 
 ## 6. Register and Mint Assets
 
-In order to mint assets, you need to register the [asset definition](/guide/blockchain/assets) first. We are going to register the _tea_ token within the _looking_glass_ network. To do that, run:
+To mint an asset, you need to register its [asset definition](/guide/blockchain/assets) first. We are going to register the _tea_ token within the _looking_glass_ network. To do that, run:
 
 ```bash
 $ iroha asset definition register --id="tea#looking_glass" --type="Numeric"
