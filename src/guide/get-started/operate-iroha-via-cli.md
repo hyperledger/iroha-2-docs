@@ -9,7 +9,7 @@ You can learn how to:
 
 ## 1. Setup Iroha 2 Client
 
-Ensure you [installed Iroha](./install-iroha.md) and [brought up the test network](./launch-iroha.md). 
+Ensure you [installed Iroha](./install-iroha.md) and [brought up the test network](./launch-iroha.md).
 
 Create a fresh directory and copy the `client.toml` configuration file there:
 
@@ -199,7 +199,7 @@ Let's transfer the _looking_glass_ domain to the account we created:
   ```
 
 1. Switch to the newly created account. For this, we need to modify the `public_key`, `private_key`, and `domain` in the `client.toml` config file with the credentials of the user we want to act as.
- 
+
 Note, here the domain of the user we're switching to matches the one we just transferred, but this is not a requirement. A user may be registered in one domain and own multiple others. When setting the domain in the config file, always use the one your user is registered in.
 
 The `account` section of your updated `client.toml` should look like this:
