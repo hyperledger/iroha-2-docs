@@ -1,61 +1,62 @@
 # Operate Iroha via CLI
 
-In this tutorial, we will set up and configure the Iroha client CLI, and perform some basic actions on the Iroha blockchain with it.
+Most of the operations with an Iroha network can be performed via the Iroha Client CLI. This tutorial aims to help you set it up and configure, and then perform some of the basic operations with the network.
 
-You can learn how to:
-  - register [domains](#_3-register-a-domain) and [accounts](#_4-register-an-account)
-  - [register and mint](#_6-register-and-mint-assets), [transfer](#_7-transfer-assets) and [burn](#_8-burn-assets) assets
-  - [visualize outputs](#_9-visualize-outputs)
+For quick access to an operation that interests you, use the **On this page** menu.
 
-## 1. Setup Iroha 2 Client
+## 1. Set Up Iroha Client CLI
 
-Ensure you [installed Iroha](./install-iroha.md) and [brought up the test network](./launch-iroha.md).
+::: info
 
-Create a fresh directory and copy the `client.toml` configuration file there:
-
-```bash
-$ cp path_to_iroha_repo/defaults/client.toml path_to_created_directory/
-```
-
-## 2. Configure Iroha 2 Client
-
-Navigate to the directory with the configuration file in your terminal.
-
-Run the client CLI:
-
-```bash
-$ iroha
-```
-
-::: details Expand to see the expected output
-
-```bash
-Iroha CLI Client lets you interact with Iroha Peers Web API without direct network usage
-
-Usage: iroha [OPTIONS] <COMMAND>
-
-Commands:
-  domain   The subcommand related to domains
-  account  The subcommand related to accounts
-  asset    The subcommand related to assets
-  peer     The subcommand related to p2p networking
-  events   The subcommand related to event streaming
-  wasm     The subcommand related to Wasm
-  blocks   The subcommand related to block streaming
-  json     The subcommand related to multi-instructions as Json or Json5
-  help     Print this message or the help of the given subcommand(s)
-
-Options:
-  -c, --config <PATH>  Path to the configuration file [default: client.toml]
-  -v, --verbose        More verbose output
-  -h, --help           Print help
-  -V, --version        Print version
-
-```
+To set up the Iroha Client CLI, an instance of the Iroha network must be [launched and operational](./launch-iroha.md).
 
 :::
 
-By default, the Iroha client searches for its configuration in the `client.toml` file located in the current working directory. We already copied it there, so we're all set.
+Create a new directory and copy the `client.toml` configuration file there:
+
+```bash
+$ cp path_to_iroha_repo/defaults/client.toml path_to_new_directory/
+```
+
+## 2. Configure Iroha Client CLI
+
+1. Navigate to the directory with the copied `client.toml` configuration file.
+
+2. Run the Iroha Client CLI:
+
+   ```bash
+   $ iroha
+   ```
+
+   ::: details Expected output
+
+   ```bash
+   Iroha CLI Client lets you interact with Iroha Peers Web API without direct network usage
+
+   Usage: iroha [OPTIONS] <COMMAND>
+
+   Commands:
+     domain   The subcommand related to domains
+     account  The subcommand related to accounts
+     asset    The subcommand related to assets
+     peer     The subcommand related to p2p networking
+     events   The subcommand related to event streaming
+     wasm     The subcommand related to Wasm
+     blocks   The subcommand related to block streaming
+     json     The subcommand related to multi-instructions as Json or Json5
+     help     Print this message or the help of the given subcommand(s)
+
+   Options:
+     -c, --config <PATH>  Path to the configuration file [default: client.toml]
+     -v, --verbose        More verbose output
+     -h, --help           Print help
+     -V, --version        Print version
+
+   ```
+
+   :::
+
+By default, the Iroha Client searches for a configuration in the `client.toml` file located in its current working directory. We already copied it there, so we're all set.
 
 ::: tip
 
@@ -114,7 +115,7 @@ With a domain available, it is time to register an account in it.
 
 To register a new account, you need a cryptographic key pair consisting of a _public_ and a _private_ key. You will use it to establish a secure communication channel between yourself and the network.
 
-For users' convenience, Iroha 2 comes with `kagami`, an in-built key generator tool. To generate a new key pair with `kagami`, run the following command:
+For users' convenience, Iroha comes with `kagami`, a built-in key generator tool. To generate a new key pair with `kagami`, run the following command:
 
 ```bash
 $ kagami crypto

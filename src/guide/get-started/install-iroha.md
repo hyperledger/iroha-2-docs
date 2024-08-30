@@ -1,57 +1,13 @@
-# Install Iroha 2
+# Install Iroha
 
 <!-- TODO: write a short intro, this shouldn't be empty (especially considering the formatting); e.g., describe that to "install" Iroha 2, the repo must be copied to the user's machine -->
 
-## Install Prerequisites
+## Prerequisites
 
-To install and build Iroha from GitHub, the following must be installed:
+To install and build Iroha from GitHub, the following must be installed first:
 - [git](https://githowto.com/)
 - [OpenSSL](https://www.openssl.org/)
 - [Rust Toolchain](https://www.rust-lang.org/tools/install) (v1.60.0 or newer)
-
-### Install OpenSSL
-
-Depending on your operating system, perform one of the following:
-
-- On Ubuntu, run:
-
-  ```bash
-  $ sudo apt-get install libssl-dev
-  ```
-
-- Using [brew](https://brew.sh/) on macOS, run:
-
-  ```bash
-  $ brew install openssl
-  ```
-
-::: tip Note
-
-In most UNIX-based distributions, the OpenSSL library comes preinstalled.
-
-:::
-
-::: info
-
-For details on all installation methods, troubleshooting and other related information, see [OpenSSL: Build and Install](https://github.com/openssl/openssl/blob/master/INSTALL.md).
-
-:::
-
-### Install the Rust Toolchain
-
-The recommended way to install the Rust toolchain is through the Rust installer and version management tool—[Rustup](https://rust-lang.github.io/rustup/) (See also: [Install Rust](https://www.rust-lang.org/tools/install))—by executing the following command in your terminal:
-
-```bash
-$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-```
-
-Once executed, follow the on-screen instructions to finish installation.
-
-::: tip Note
-
-If you are experiencing issues installing Rust compatible with our code (2021 edition), see [Troubleshooting Rust Toolchain](/guide/troubleshooting/installation-issues#troubleshooting-rust-toolchain).
-
-:::
 
 ## Clone Iroha from GitHub
 

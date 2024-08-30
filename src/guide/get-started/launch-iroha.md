@@ -1,25 +1,28 @@
 # Launch Iroha 2
 
-Once you have Iroha 2 installed on your machine, you are ready to set up an instance of the Iroha 2 network.
+Once you have Iroha 2 installed on your machine, you are ready to set up an instance of the Iroha network.
 
-To do so, perform the following steps:
+## Prerequisites
 
-1. Install the prerequisites:
+To launch an instance of the Iroha network, the following must be installed first:
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
-   - [Docker](https://docs.docker.com/get-docker/)
-   - [Docker Compose](https://docs.docker.com/compose/)
+## Launch Iroha Network
 
-2. [Install Iroha](./install-iroha.md).
+1. In your terminal, navigate to the root directory of your local [`iroha`](https://github.com/hyperledger/iroha) repository:
 
-3. Navigate to the local repository root directory.
+   ```bash
+   $ cd ~/Git/iroha
+   ```
 
-4. Run the `docker compose` command with the `docker-compose.yml` network configuration file specified to deploy a network of four containerized peers: <!-- TODO: consider explaining what a network configuration file is, where to find it and how to customize it -->
+2. Run the `docker compose` command with the `docker-compose.yml` network configuration file specified to deploy a network of four containerized peers: <!-- TODO: consider explaining what network configuration file are, where to find them and how to customize them -->
 
    ```bash
    $ docker compose -f defaults/docker-compose.yml up
    ```
 
-   Depending on your setup, this might either [pull the image](https://hub.docker.com/r/hyperledger/iroha2/tags) from Docker Hub or build the container locally.\
+   Depending on your setup, this might either pull an image from [Docker Hub]((https://hub.docker.com/r/hyperledger/iroha2/tags)) or build the container locally.\
    Once the process is complete, an output similar to the following is generated:
 
    <<< @/guide/get-started/launch-iroha.docker-compose-output.ansi
@@ -30,16 +33,16 @@ To discover its capabilities and learn to perform some of the basic operations, 
 
 ::: tip
 
-You can monitor blockchain events in the terminal where the test network runs.
+You can monitor blockchain events in the terminal where the network runs.
 
 :::
 
-## Docker Options
+### Docker Options
 
 The following options are also available for local compilation:
 
-- To test Iroha code quickly, use `docker-compose-single.yml`, which starts a container with a single peer.
-- To test Iroha code in normal conditions, you can use `docker-compose-local.yml`, which starts four connected containers with peers.
+- To test Iroha code quickly, use the `docker-compose-single.yml` network configuration file, which starts a container with a single peer.
+- To test Iroha code in normal conditions, use the `docker-compose-local.yml` network configuration file, which starts four connected containers with peers.
 
 ::: tip Note
 
