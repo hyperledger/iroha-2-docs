@@ -66,13 +66,13 @@ To run any of the Iroha client commands with some other configuration file, use 
 $ iroha --config path/to/client.toml <COMMAND>
 ```
 
-This is not _persistent configuration_: each time you run `iroha`, you must add the `--config path/to/client.toml` command-line argument, unless you put the `client.toml` config file in your working directory.
+This is a _non-persistent configuration_: each time you run `iroha`, you must add the `--config path/to/client.toml` command-line argument, unless the `client.toml` config file is in the working directory.
 
 :::
 
-The account specified in the `[account]` section of `client.toml` is preregistered in the default [genesis block](/guide/configure/genesis) of the blockchain. Only it can interact with the blockchain for now. If you change the keys or the domain of the account in the config file, you should ensure they are preregistered in the blockchain too.
+The account specified in the `[account]` section of `client.toml` is preregistered in the default [genesis block](/guide/configure/genesis) of the blockchain. Only it can interact with the blockchain for now. If you change the keys or the domain of the account in the configuration file, make sure that they are preregistered on the blockchain too.
 
-To check that configuration works, try to run a query, e.g.:
+To check that a configuration works, run the following query:
 
 ```bash
 $ iroha domain list all
@@ -80,23 +80,29 @@ $ iroha domain list all
 
 The output should contain several preregistered domains.
 
+<!-- TODO: if possible, consider adding the `expected result` similar to step 2 -->
+
 ## 3. Register a Domain
 
-To get started, you must first register a domain:
+::: info
+
+A _domain_ is a group of entities like asset definitions, accounts, and other objects grouped logically. These are described in greater detail in the [Blockchain](TODO) section of the documentation.
+
+:::
+
+To register a new domain, run:
 
 ```bash
 $ iroha domain register --id="looking_glass"
 ```
 
-A _domain_ is a group of entities like asset definitions, accounts, and other objects grouped logically. We'll talk about it in more detail in other documentation sections.
-
-You will receive a confirmation message. However, the new domain details will not be directly readable in that message. To confirm that you created the new _looking_glass_ domain successfully, run:
+Once executed, a confirmation message appears. However, since the details of the new domain are not directly readable in that message, to confirm that you have successfully created the new `looking_glass` domain, run:
 
 ```bash
 $ iroha domain list all
 ```
 
-The output should contain the _looking_glass_ domain:
+::: details Expected output
 
 ```json
   {
@@ -107,7 +113,9 @@ The output should contain the _looking_glass_ domain:
   },
 ```
 
-Note, the owner of the new domain is the account specified in our config file. They performed the registration.
+Note that the owner of the new domain is the account specified in our config file. They performed the registration.
+
+:::
 
 With a domain available, it is time to register an account in it.
 
@@ -129,14 +137,14 @@ To learn more about generating cryptographic keys with `kagami`, available algor
 
 :::
 
-For the purposes of this tutorial, we will use the following key pair:
+For the purposes of this tutorial, we iuse the following key pair:
 
 ```bash
 Public key (multihash): "ed0120ABA0446CFBD4E12627FFA870FB37993ED83EB1AE0588184B90D832A64C24C379"
 Private key (multihash): "802620CBD3D701B561FE98463767729176404DC757D690F78980B8FDD40C171CCB8EB5"
 ```
 
-To register a new account within the _looking_glass_ domain, run:
+To register a new account within the `looking_glass` domain, run:
 
 ```bash
 $ iroha account register --id="ed0120ABA0446CFBD4E12627FFA870FB37993ED83EB1AE0588184B90D832A64C24C379@looking_glass"
@@ -144,13 +152,13 @@ $ iroha account register --id="ed0120ABA0446CFBD4E12627FFA870FB37993ED83EB1AE058
 
 The `--id` argument in the above code snippet specifies the _account id_, the unique identifier of the account. It consists of the user public key (generated using `kagami`) and the domain it is associated with.
 
-If the account registration succeeds, you will receive a confirmation message. Like before, you should query the accounts to verify the details.
+If the account registration is successful, you receive a confirmation message. Similar to the domain registration, to confirm that you have successfully created a new account within the `looking_glass` domain, run:
 
 ```bash
 $ iroha account list all
 ```
 
-::: details Expand to see the expected output
+::: details Expected result
 
 ```json
 [
@@ -184,33 +192,40 @@ $ iroha account list all
 
 ## 5. Transfer a Domain
 
-We could change the keys and domain in `client.toml` at this point and continue working with the account we just created, but we wouldn't be able to do much in the _looking_glass_ domain, as our new account is not the owner of _looking_glass_, and cannot manage it.
+<!-- TODO: since in the last tutorial, we created an account withing the `looking_glass` domain, the intro sentence doesn't really make much sense, consider rewriting with a different motivation, e.g., provide context or possible reasons for domain transferring; alternatively, rewrite tutorial #4 with the `wonderland` domain in mind -->
 
-Let's transfer the _looking_glass_ domain to the account we created:
+We could change the keys and domain in `client.toml` at this point and continue working with the account we just created, but we wouldn't be able to do much in the `looking_glass` domain, as our new account is not the owner of thw `looking_glass` domain, and therefore cannot manage it.
+
+To transfer an account from under the `wonderland` domain to the `looking_glass` domain, perform the following:
 
 1. Run the transfer command:
 
-  ```bash
-  $ iroha domain transfer --id="looking_glass" --from "ed0120CE7FA46C9DCE7EA4B125E2E36BDB63EA33073E7590AC92816AE1E861B7048B03@wonderland" --to "ed0120ABA0446CFBD4E12627FFA870FB37993ED83EB1AE0588184B90D832A64C24C379@looking_glass"
-  ```
+   ```bash
+   $ iroha domain transfer --id="looking_glass" --from "ed0120CE7FA46C9DCE7EA4B125E2E36BDB63EA33073E7590AC92816AE1E861B7048B03@wonderland" --to "ed0120ABA0446CFBD4E12627FFA870FB37993ED83EB1AE0588184B90D832A64C24C379@looking_glass"
+   ```
+
 2. Check that the ownership changed:
 
-  ```bash
-  $ iroha domain list all
-  ```
+   ```bash
+   $ iroha domain list all
+   ```
 
 1. Switch to the newly created account. For this, we need to modify the `public_key`, `private_key`, and `domain` in the `client.toml` config file with the credentials of the user we want to act as.
 
-Note, here the domain of the user we're switching to matches the one we just transferred, but this is not a requirement. A user may be registered in one domain and own multiple others. When setting the domain in the config file, always use the one your user is registered in.
+Note that here the domain of the user that we are switching to matches the one we just transferred. However, this is not a requirement. A user may be registered in one domain and own multiple others. When setting the domain in the configuration file, always use the one that your user is registered with.
 
-The `account` section of your updated `client.toml` should look like this:
+::: details Expected result
 
-  ```toml
-  [account]
-  domain = "looking_glass"
-  public_key = "ed0120ABA0446CFBD4E12627FFA870FB37993ED83EB1AE0588184B90D832A64C24C379"
-  private_key = "802620CBD3D701B561FE98463767729176404DC757D690F78980B8FDD40C171CCB8EB5"
-  ```
+The `account` section of your updated `client.toml` file:
+
+```toml
+[account]
+domain = "looking_glass"
+public_key = "ed0120ABA0446CFBD4E12627FFA870FB37993ED83EB1AE0588184B90D832A64C24C379"
+private_key = "802620CBD3D701B561FE98463767729176404DC757D690F78980B8FDD40C171CCB8EB5"
+```
+
+:::
 
 ::: tip
 [Permissions](/guide/blockchain/permissions) determine accounts rights within Iroha. Domain owners have the most rights in a domain by default, but permission configuration in Iroha is very flexible and can be customized to your needs.
@@ -218,32 +233,33 @@ The `account` section of your updated `client.toml` should look like this:
 
 Now that we control the domain, we can define and manage assets in it.
 
-
 ## 6. Register and Mint Assets
 
-To mint an asset, you need to register its [asset definition](/guide/blockchain/assets) first. We are going to register the _tea_ token within the _looking_glass_ network. To do that, run:
+To mint an asset, its [asset definition](/guide/blockchain/assets) must be registered first.
+
+To register a `tea` token within the `looking_glass` domain, run:
 
 ```bash
 $ iroha asset definition register --id="tea#looking_glass" --type="Numeric"
 ```
 
-The Numeric _tea_ asset is now registered within the _looking_glass_ domain.
+The numeric `tea` asset is now registered within the `looking_glass` domain.
 
 If you open the terminal where the Iroha network runs, you will see that all our activity caused numerous pipeline events there.
 
-To mint _tea_ tokens run:
+To mint `tea` tokens run:
 
 ```bash
 $ iroha asset mint --id="tea##ed0120ABA0446CFBD4E12627FFA870FB37993ED83EB1AE0588184B90D832A64C24C379@looking_glass" --quantity="100"
 ```
 
-After minting one hundred _tea_, you will see more pipeline events in the logger, and you can also query the assets that you have just minted:
+After minting one hundred `tea`, more pipeline events are expected, and you can also query the assets that you have just minted:
 
 ```bash
 $ iroha asset list all
 ```
 
-::: details Expand to see the expected output
+::: details Expected result
 
 ```json
 [
@@ -272,7 +288,7 @@ $ iroha asset list all
 
 ## 7. Transfer Assets
 
-After minting the assets, you can transfer some of your tea to another account:
+After minting the assets, you can transfer some of your `tea` to another account:
 
 ```bash
 $ iroha asset transfer --to="ed0120CE7FA46C9DCE7EA4B125E2E36BDB63EA33073E7590AC92816AE1E861B7048B03@wonderland" --id="tea##ed0120ABA0446CFBD4E12627FFA870FB37993ED83EB1AE0588184B90D832A64C24C379@looking_glass"  --quantity=33
@@ -289,8 +305,7 @@ $ iroha asset burn --id="tea##ed0120ABA0446CFBD4E12627FFA870FB37993ED83EB1AE0588
 
 ## 9. Visualize Outputs
 
-Although you will get a constant data feed of the network within the terminal running `docker compose`, you can also configure an output to listen
-to events of several types on the network: blocks generation, transactions, data events and triggers.
+Although you will get a constant data feed of the network within the terminal running `docker compose`, you can also configure an output to listen to events of several types on the network: blocks generation, transactions, data events and triggers.
 
 We will set up an event listener for the block pipeline.
 
@@ -300,7 +315,7 @@ From a new terminal tab/window run:
 $ iroha events block-pipeline
 ```
 
-The output would look like this:
+::: details Expected result
 
 ```json
 Listening to events with filter: Pipeline(Block(BlockEventFilter { height: None, status: None }))
@@ -355,8 +370,14 @@ Listening to events with filter: Pipeline(Block(BlockEventFilter { height: None,
 
 ```
 
-Run the help command `iroha events help` to find out how to listen to other types of events.
+::: tip
+
+To find out how to listen to other types of events, run the `iroha events help` command.
+
+:::
 
 ## What's Next
+
+<!-- TODO: either remove this section entirely, or send the reader to other parts of the docs, e.g., **Blockchain**, **Reference**, also consider describing the motivation to explore other parts of the docs -->
 
 Now that you know the basics, you can proceed to one of our language-specific [turorials](/guide/get-started/tutorials) to learn how to build on Iroha.
