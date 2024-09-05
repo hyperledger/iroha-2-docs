@@ -19,7 +19,7 @@ function nav(): DefaultTheme.NavItem[] {
         {
           text: 'Get Started',
           items: [
-            { text: 'Install and Build', link: '/guide/get-started/install-iroha' },
+            { text: 'Install and Build', link: '/guide/get-started/install-iroha-2' },
             { text: 'SDK Tutorials', link: '/guide/get-started/tutorials' },
           ],
         },
@@ -96,16 +96,16 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       link: '/guide/get-started/',
       items: [
         {
-          text: 'Install Iroha',
-          link: '/guide/get-started/install-iroha',
+          text: 'Install Iroha 2',
+          link: '/guide/get-started/install-iroha-2',
         },
         {
-          text: 'Launch Iroha',
-          link: '/guide/get-started/launch-iroha',
+          text: 'Launch Iroha 2',
+          link: '/guide/get-started/launch-iroha-2',
         },
         {
-          text: 'Operate Iroha via CLI',
-          link: '/guide/get-started/operate-iroha-via-cli',
+          text: 'Operate Iroha 2 via CLI',
+          link: '/guide/get-started/operate-iroha-2-via-cli',
         },
         {
           text: 'Iroha 2 vs. Iroha 1',

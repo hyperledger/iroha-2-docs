@@ -4,7 +4,7 @@ This repository contains the source files for [Hyperledger Iroha 2 Documentation
 
 The tutorial is suitable for both experienced and novice users. It explains Iroha 2 concepts and features, and also offers language-specific step-by-step guides for these programming languages:
 
-- [CLI](https://hyperledger.github.io/iroha-2-docs/guide/operate-iroha-via-cli.html)
+- [CLI](https://hyperledger.github.io/iroha-2-docs/guide/operate-iroha-2-via-cli.html)
 - [Python](https://hyperledger.github.io/iroha-2-docs/guide/python.html)
 - [Rust](https://hyperledger.github.io/iroha-2-docs/guide/rust.html)
 - [Kotlin/Java](https://hyperledger.github.io/iroha-2-docs/guide/kotlin-java.html)

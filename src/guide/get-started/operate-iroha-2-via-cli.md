@@ -1,14 +1,12 @@
-# Operate Iroha via CLI
+# Operate Iroha 2 via CLI
 
-Most of the operations with an Iroha network can be performed via the Iroha Client CLI. This tutorial aims to help you set it up and configure, and then perform some of the basic operations with the network.
-
-For quick access to an operation that interests you, use the **On this page** menu.
+You can perform most operations in an Iroha 2 network using the Iroha Client CLI. This tutorial guides you through setting it up, configuring it, and executing basic operations on the network.
 
 ## 1. Set Up Iroha Client CLI
 
 ::: info
 
-To set up the Iroha Client CLI, an instance of the Iroha network must be [launched and operational](./launch-iroha.md).
+To set up the Iroha Client CLI, an instance of the Iroha network must be [launched and operational](./launch-iroha-2.md).
 
 :::
 
@@ -28,7 +26,7 @@ $ cp path_to_iroha_repo/defaults/client.toml path_to_new_directory/
    $ iroha
    ```
 
-   ::: details Expected output
+   ::: details Expected result
 
    ```bash
    Iroha CLI Client lets you interact with Iroha Peers Web API without direct network usage
@@ -80,13 +78,40 @@ $ iroha domain list all
 
 The output should contain several preregistered domains.
 
-<!-- TODO: if possible, consider adding the `expected result` similar to step 2 -->
+::: details Expected result
+
+```json
+  {
+    "id": "garden_of_live_flowers",
+    "logo": null,
+    "metadata": {},
+    "owned_by": "ed01204164BF554923ECE1FD412D241036D863A6AE430476C898248B8237D77534CFC4@genesis"
+  },
+  {
+    "id": "genesis",
+    "logo": null,
+    "metadata": {},
+    "owned_by": "ed01204164BF554923ECE1FD412D241036D863A6AE430476C898248B8237D77534CFC4@genesis"
+  },
+  {
+    "id": "wonderland",
+    "logo": null,
+    "metadata": {
+      "key": "value"
+    },
+    "owned_by": "ed0120CE7FA46C9DCE7EA4B125E2E36BDB63EA33073E7590AC92816AE1E861B7048B03@wonderland"
+  }
+
+```
+
+:::
+
 
 ## 3. Register a Domain
 
 ::: info
 
-A _domain_ is a group of entities like asset definitions, accounts, and other objects grouped logically. These are described in greater detail in the [Blockchain](TODO) section of the documentation.
+A _domain_ is a group of entities like asset definitions, accounts, and other objects grouped logically. These are described in greater detail in the [Blockchain](/guide/blockchain/how-iroha-works) section of the documentation.
 
 :::
 
@@ -102,7 +127,7 @@ Once executed, a confirmation message appears. However, since the details of the
 $ iroha domain list all
 ```
 
-::: details Expected output
+::: details Expected result
 
 ```json
   {
@@ -192,11 +217,11 @@ $ iroha account list all
 
 ## 5. Transfer a Domain
 
-<!-- TODO: since in the last tutorial, we created an account withing the `looking_glass` domain, the intro sentence doesn't really make much sense, consider rewriting with a different motivation, e.g., provide context or possible reasons for domain transferring; alternatively, rewrite tutorial #4 with the `wonderland` domain in mind -->
+The account we just created is part of the `looking_glass` domain but doesn't own it, so it can't manage the domain. To enable this, we'll transfer `looking_glass` ownership to our new account.
 
-We could change the keys and domain in `client.toml` at this point and continue working with the account we just created, but we wouldn't be able to do much in the `looking_glass` domain, as our new account is not the owner of thw `looking_glass` domain, and therefore cannot manage it.
+We could change the keys and domain in `client.toml` at this point and continue working with the account we just created, but we wouldn't be able to do much in the `looking_glass` domain, as our new account is not the owner of the `looking_glass` domain, and therefore cannot manage it.
 
-To transfer an account from under the `wonderland` domain to the `looking_glass` domain, perform the following:
+To transfer a domain, perform the following:
 
 1. Run the transfer command:
 
@@ -210,7 +235,7 @@ To transfer an account from under the `wonderland` domain to the `looking_glass`
    $ iroha domain list all
    ```
 
-1. Switch to the newly created account. For this, we need to modify the `public_key`, `private_key`, and `domain` in the `client.toml` config file with the credentials of the user we want to act as.
+3. Switch to the newly created account. For this, we need to modify the `public_key`, `private_key`, and `domain` in the `client.toml` config file with the credentials of the user we want to act as.
 
 Note that here the domain of the user that we are switching to matches the one we just transferred. However, this is not a requirement. A user may be registered in one domain and own multiple others. When setting the domain in the configuration file, always use the one that your user is registered with.
 
@@ -378,6 +403,7 @@ To find out how to listen to other types of events, run the `iroha events help` 
 
 ## What's Next
 
-<!-- TODO: either remove this section entirely, or send the reader to other parts of the docs, e.g., **Blockchain**, **Reference**, also consider describing the motivation to explore other parts of the docs -->
-
-Now that you know the basics, you can proceed to one of our language-specific [turorials](/guide/get-started/tutorials) to learn how to build on Iroha.
+Now that you understand the basics, you can explore these advanced documentation:
+- Learn how to build on Iroha 2 with our [SDK turorials](/guide/get-started/tutorials).
+- Understand the fundamental concepts behind Iroha 2 in the [Blockchain](/guide/blockchain/how-iroha-works) section.
+- Build more complex networks using the [Configuration and Management](/guide/configure/overview) section.

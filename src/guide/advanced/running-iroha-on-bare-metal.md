@@ -353,7 +353,7 @@ ports need to be adjusted so there are no collisions. See the
 
 ## Deploy a minimal BFT network
 
-Both of the following approaches could be messy and error-prone, which is why the [Launch Iroha](../get-started/launch-iroha.md) tutorial suggests using the `docker compose` command.
+Both of the following approaches could be messy and error-prone, which is why the [Launch Iroha 2](../get-started/launch-iroha-2.md) tutorial suggests using the `docker compose` command.
 However, this brings you closer to the experience of actually maintaining a functional Iroha peer.
 
 ### Using Environment Variables

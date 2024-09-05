@@ -1,14 +1,14 @@
 # Launch Iroha 2
 
-Once you have Iroha 2 installed on your machine, you are ready to set up an instance of the Iroha network.
+This tutorial explains how to launch an Iroha 2 network.
 
-## Prerequisites
+## 1. Prerequisites
 
-To launch an instance of the Iroha network, the following must be installed first:
+To launch an instance of the Iroha 2 network, install the following first:
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
-## Launch Iroha Network
+## 2. Launch Iroha Network
 
 1. In your terminal, navigate to the root directory of your local [`iroha`](https://github.com/hyperledger/iroha) repository:
 
@@ -22,14 +22,13 @@ To launch an instance of the Iroha network, the following must be installed firs
    $ docker compose -f defaults/docker-compose.yml up
    ```
 
-   Depending on your setup, this might either pull an image from [Docker Hub]((https://hub.docker.com/r/hyperledger/iroha2/tags)) or build the container locally.\
-   Once the process is complete, an output similar to the following is generated:
+   Depending on your setup, this command will either pull an image from [Docker Hub](https://hub.docker.com/r/hyperledger/iroha2/tags) or build the container locally.
+   
+   Once the process completes, you will see an output similar to the following:
 
    <<< @/guide/get-started/launch-iroha.docker-compose-output.ansi
 
-Once the network is deployed, it is possible to interact with it using Iroha Client CLI.
-
-To discover its capabilities and learn to perform some of the basic operations, see [Operate Iroha via CLI](./operate-iroha-via-cli.md).
+After deploying the network, you can interact with it using the [Iroha Client CLI](./operate-iroha-2-via-cli.md).
 
 ::: tip
 
