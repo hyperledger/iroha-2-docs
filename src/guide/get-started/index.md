@@ -12,7 +12,7 @@ Iroha 2 is a fully-featured [blockchain ledger](/reference/glossary.md#blockchai
 If you are just starting with Iroha 2, begin with the following step-by-step tutorials:
 1. [Install Iroha 2](/guide/get-started/install-iroha-2.md): install prerequisites and clone the GitHub repository.
 2. [Launch Iroha 2](/guide/get-started/launch-iroha-2.md): install prerequisites and establish an instance of Iroha network.
-3. [Operate Iroha 2 via CLI](/guide/get-started/operate-iroha-2-via-cli.md): learn how to [setup](operate-iroha-2-via-cli.md#_1-setup-iroha-2-client) and [configure](operate-iroha-2-via-cli.md#_2-configure-iroha-2-client) Iroha Client, and perform necessary basic operations on the network (e.g., [registering domains](operate-iroha-2-via-cli.md#_3-register-a-domain) and [accounts](operate-iroha-2-via-cli.md#_4-register-an-account), [registering and minting assets](operate-iroha-2-via-cli.md#_6-register-and-mint-assets), etc.).
+3. [Operate Iroha 2 via CLI](/guide/get-started/operate-iroha-2-via-cli.md): learn how to [setup](operate-iroha-2-via-cli.md#_1-set-up-iroha-client-cli) and [configure](operate-iroha-2-via-cli.md#_2-configure-iroha-client-cli) Iroha Client, and perform necessary basic operations on the network (e.g., [registering domains](operate-iroha-2-via-cli.md#_3-register-a-domain) and [accounts](operate-iroha-2-via-cli.md#_4-register-an-account), [registering and minting assets](operate-iroha-2-via-cli.md#_6-register-and-mint-assets), etc.).
 
 If you would like to operate Iroha 2 using a different programming language, Iroha provides SDKs and language-specific tutorials for the following languages:
 - [Python](/guide/get-started/python.md)
