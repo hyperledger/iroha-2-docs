@@ -32,7 +32,7 @@ Check the [OpenSSL installation guide](https://github.com/openssl/openssl/blob/m
 
 ## 2. Clone Iroha from GitHub
 
-1. Create a new directory for Iroha:
+1. Create a new directory for Iroha. In this tutorial we use `Git` as an example, but you can name it anything else:
 
    ```bash
    $ mkdir -p ~/Git

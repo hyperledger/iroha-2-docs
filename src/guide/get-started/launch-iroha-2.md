@@ -45,7 +45,7 @@ The following options are also available for local compilation:
 
 ::: tip Note
 
-There is ongoing work to make our configurations for Docker even more customizable with the help of Swarm.
+There is ongoing work to make our configurations for Docker even more customizable with the help of [Swarm](https://github.com/hyperledger/iroha/tree/main/tools/swarm).
 
 <!-- Check: a reference about future releases or work in progress -->
 
