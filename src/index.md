@@ -23,4 +23,7 @@ features:
     title: Reference
     details: Consult reference documentation for extensive information about available functionality
     link: /reference/torii-endpoints
-  # - title: Cookbook # (TBA)
+  - icon: 📓
+    title: Cookbook
+    details: Find code samples and example showcasing Iroha functionality
+    link: /cookbook/
