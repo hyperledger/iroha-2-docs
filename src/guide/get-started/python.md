@@ -1,17 +1,5 @@
 # Python 3 Guide
 
-::: warning
-
-WIP: The `iroha-python` SDK only works with the [`iroha2-lts`](https://github.com/hyperledger/iroha/tree/iroha2-lts) for now.
-It applies both to the
-[`iroha2-edge`](https://github.com/hyperledger/iroha-python/tree/iroha2-edge) and
-the [`iroha2`](https://github.com/hyperledger/iroha-python/tree/iroha2) branches.
-Our team recommends using the `iroha2-edge` branch while we update the `iroha2` one.
-
-<!-- Check: a reference about future releases or work in progress -->
-
-:::
-
 ## 1. Iroha 2 Client Setup
 
 There are two versions of Iroha Python to choose from. In theory, the Iroha
@@ -61,7 +49,7 @@ slightly different.
 
 ## 2. Configuring Iroha 2
 
-Unlike `iroha_client_cli`, finding the configuration file in a scripting
+Unlike `iroha` binary, finding the configuration file in a scripting
 language is the responsibility of the person writing the script. The
 easiest method is to de-serialise a dictionary type from the provided
 `config.json`.

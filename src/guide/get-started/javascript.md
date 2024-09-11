@@ -403,7 +403,7 @@ in this guide!
 In this guide, we are roughly recreating the project that is a part of
 `iroha-javascript` integration tests. If you want to see the full project,
 please refer to the
-[`@iroha2/client-test-web` sources](https://github.com/hyperledger/iroha-javascript/tree/iroha2/packages/client/test/integration/test-web).
+[`@iroha2/client-test-web` sources](https://github.com/hyperledger/iroha-javascript/tree/main/packages/client/test/integration/test-web).
 
 :::
 
@@ -479,7 +479,7 @@ Here is a small demo with the usage of this component:
 ## 9. Subscribing to Block Stream
 
 You can use
-[`/block/stream` endpoint](https://github.com/hyperledger/iroha/blob/iroha2-lts/docs/source/references/api_spec.md#blocks-stream)
+[`/block/stream` endpoint](/reference/torii-endpoints.md#blocks-stream)
 to send a subscription request for block streaming.
 
 Via this endpoint, the client first provides the starting block number

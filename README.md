@@ -1,10 +1,10 @@
 # Hyperledger Iroha 2 Tutorial
 
-This repository contains the source files for [Hyperledger Iroha 2 Tutorial](https://hyperledger.github.io/iroha-2-docs/).
+This repository contains the source files for [Hyperledger Iroha 2 Documentation](https://hyperledger.github.io/iroha-2-docs/).
 
 The tutorial is suitable for both experienced and novice users. It explains Iroha 2 concepts and features, and also offers language-specific step-by-step guides for these programming languages:
 
-- [Bash](https://hyperledger.github.io/iroha-2-docs/guide/bash.html)
+- [CLI](https://hyperledger.github.io/iroha-2-docs/guide/operate-iroha-2-via-cli.html)
 - [Python](https://hyperledger.github.io/iroha-2-docs/guide/python.html)
 - [Rust](https://hyperledger.github.io/iroha-2-docs/guide/rust.html)
 - [Kotlin/Java](https://hyperledger.github.io/iroha-2-docs/guide/kotlin-java.html)
@@ -12,7 +12,7 @@ The tutorial is suitable for both experienced and novice users. It explains Iroh
 
 If you are already familiar with Hyperledger Iroha, we invite you to read about [how Iroha 2 is different](https://hyperledger.github.io/iroha-2-docs/guide/iroha-2.html) from its previous version.
 
-Check the [Hyperledger Iroha 2](https://github.com/hyperledger/iroha/tree/iroha2-dev#hyperledger-iroha) repository for more detailed information about API and available features.
+Check the [Hyperledger Iroha](https://github.com/hyperledger/iroha/) repository for more detailed information about API and available features.
 
 ## Contribution
 
