@@ -11,29 +11,287 @@ import { katex } from '@mdit/plugin-katex'
 function nav(): DefaultTheme.NavItem[] {
   return [
     {
-      text: 'Guide',
-      items: [
-        // { text: 'Get Started', link: '/guide/get-started/index' },
-        // { text: 'Build and Install', link: '/guide/get-started/install-iroha' },
-        // { text: 'Tutorials', link: '/guide/get-started/tutorials'},
-        {
-          text: 'Get Started',
-          items: [
-            { text: 'Install and Build', link: '/guide/get-started/install-iroha-2' },
-            { text: 'SDK Tutorials', link: '/guide/get-started/tutorials' },
-          ],
-        },
-        // every part of guides needs an intro
-        { text: 'How Iroha Works', link: '/guide/blockchain/how-iroha-works' },
-        { text: 'Security', link: '/guide/security/index' },
-        { text: 'Configuration and Management', link: '/guide/configure/overview' },
-        { text: 'Troubleshooting', link: '/guide/troubleshooting/overview' },
-      ],
+      text: 'Get Started',
+      link: '/get-started/',
+      activeMatch: '/get-started/',
+    },
+    {
+      text: 'Build on Iroha',
+      link: '/guide/tutorials/',
+      activeMatch: '/guide/',
+    },
+    {
+      text: 'Iroha Explained',
+      link: '/blockchain/how-iroha-works',
+      activeMatch: '/blockchain/',
     },
     {
       text: 'Reference',
       link: '/reference/torii-endpoints',
       activeMatch: '/reference/',
+    },
+    {
+      text: 'Help',
+      link: '/help/',
+      activeMatch: '/help/',
+    },
+  ]
+}
+
+function sidebarStart(): DefaultTheme.SidebarItem[] {
+  return [
+    {
+      text: 'Get Started',
+      link: '/get-started/',
+      items: [
+        {
+          text: 'Install Iroha',
+          link: '/get-started/install-iroha',
+        },
+        {
+          text: 'Launch Iroha',
+          link: '/get-started/launch-iroha',
+        },
+        {
+          text: 'Operate Iroha via CLI',
+          link: '/get-started/operate-iroha-via-cli',
+        },
+        {
+          text: 'Iroha 2 vs. Iroha 1',
+          link: '/get-started/iroha-2',
+        },
+      ],
+    },
+  ]
+}
+
+function sidebarGuide(): DefaultTheme.SidebarItem[] {
+  return [
+    {
+      text: 'SDK Tutorials',
+      link: '/guide/tutorials/',
+      items: [
+        /* a common lang-agnostic section will go here */
+        {
+          text: 'Rust',
+          link: '/guide/tutorials/rust',
+        },
+        {
+          text: 'Python 3',
+          link: '/guide/tutorials/python',
+        },
+        {
+          text: 'Kotlin/Java',
+          link: '/guide/tutorials/kotlin-java',
+        },
+        {
+          text: 'JavaScript',
+          link: '/guide/tutorials/javascript',
+        },
+      ],
+    },
+    {
+      text: 'Security',
+      link: '/guide/security/',
+      items: [
+        {
+          text: 'Security Principles',
+          link: '/guide/security/security-principles.md',
+        },
+        {
+          text: 'Operational Security',
+          link: '/guide/security/operational-security.md',
+        },
+        {
+          text: 'Password Security',
+          link: '/guide/security/password-security.md',
+        },
+        {
+          text: 'Public Key Cryptography',
+          link: '/guide/security/public-key-cryptography.md',
+          items: [
+            {
+              text: 'Generating Cryptographic Keys',
+              link: '/guide/security/generating-cryptographic-keys.md',
+            },
+            {
+              text: 'Storing Cryptographic Keys',
+              link: '/guide/security/storing-cryptographic-keys.md',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      text: 'Configuration and Management',
+      items: [
+        {
+          text: 'Configure Iroha',
+          collapsed: true,
+          items: [
+            {
+              text: 'Configuration Types',
+              link: '/guide/configure/configuration-types',
+            },
+            {
+              text: 'Samples',
+              link: '/guide/configure/sample-configuration',
+            },
+            {
+              text: 'Peer Configuration',
+              link: '/guide/configure/peer-configuration',
+            },
+            {
+              text: 'Client Configuration',
+              link: '/guide/configure/client-configuration',
+            },
+            {
+              text: 'Genesis Block',
+              link: '/guide/configure/genesis',
+            },
+            {
+              text: 'Metadata and Store assets',
+              link: '/guide/configure/metadata-and-store-assets',
+            },
+          ],
+        },
+        {
+          text: 'Keys for Network Deployment',
+          link: '/guide/configure/keys-for-network-deployment.md',
+        },
+        {
+          text: 'Peer Management',
+          link: '/guide/configure/peer-management',
+        },
+        {
+          text: 'Public and Private Blockchains',
+          link: '/guide/configure/modes',
+        },
+      ],
+    },
+    {
+      text: 'Advanced Mode',
+      collapsed: true,
+      items: [
+        {
+          text: 'Iroha On Bare Metal',
+          link: '/guide/advanced/running-iroha-on-bare-metal',
+        },
+        {
+          text: 'Hot Reload Iroha',
+          link: '/guide/advanced/hot-reload',
+        },
+        {
+          text: 'Monitor Iroha Performance',
+          link: '/guide/advanced/metrics',
+        },
+      ],
+    },
+    /*    {
+      text: 'Reports',
+      collapsed: true,
+      items: [
+        {
+          text: 'CSD/RTGS linkages via on-chain scripting',
+          link: '/guide/reports/csd-rtgs',
+        },
+      ],
+    },
+*/
+  ]
+}
+
+function sidebarChain(): DefaultTheme.SidebarItem[] {
+  return [
+    {
+      text: 'Blockchain',
+      items: [
+        {
+          text: 'How Iroha Works',
+          link: '/blockchain/how-iroha-works',
+        },
+        {
+          text: 'Overview',
+          items: [
+            {
+              text: 'Transactions',
+              link: '/blockchain/transactions',
+            },
+            {
+              text: 'Consensus',
+              link: '/blockchain/consensus',
+            },
+            {
+              text: 'Data Model',
+              link: '/blockchain/data-model',
+            },
+          ],
+        },
+        {
+          text: 'Entities',
+          items: [
+            {
+              text: 'Assets',
+              link: '/blockchain/assets',
+            },
+            /*
+            {
+              text: 'Accounts',
+              link: '/blockchain/accounts',
+            },
+            {
+              text: 'Domains',
+              link: '/blockchain/domains',
+            },
+            */
+            {
+              text: 'Metadata',
+              link: '/blockchain/metadata',
+            },
+            {
+              text: 'Events',
+              link: '/blockchain/events',
+            },
+            {
+              text: 'Filters',
+              link: '/blockchain/filters',
+            },
+            {
+              text: 'Triggers',
+              link: '/blockchain/triggers',
+            },
+            {
+              text: 'Queries',
+              link: '/blockchain/queries',
+            },
+            {
+              text: 'Permissions',
+              link: '/blockchain/permissions',
+            },
+            {
+              text: 'World',
+              link: '/blockchain/world',
+            },
+          ],
+        },
+        {
+          text: 'Operations',
+          items: [
+            {
+              text: 'Instructions',
+              link: '/blockchain/instructions',
+            },
+            {
+              text: 'Expressions',
+              link: '/blockchain/expressions',
+            },
+            {
+              text: 'Web Assembly',
+              link: '/blockchain/wasm',
+            },
+          ],
+        },
+      ],
     },
   ]
 }
@@ -89,297 +347,34 @@ function sidebarAPI(): DefaultTheme.SidebarItem[] {
   ]
 }
 
-function sidebarGuide(): DefaultTheme.SidebarItem[] {
+function sidebarHelp(): DefaultTheme.SidebarItem[] {
   return [
     {
-      text: 'Get Started',
-      link: '/guide/get-started/',
-      items: [
-        {
-          text: 'Install Iroha 2',
-          link: '/guide/get-started/install-iroha-2',
-        },
-        {
-          text: 'Launch Iroha 2',
-          link: '/guide/get-started/launch-iroha-2',
-        },
-        {
-          text: 'Operate Iroha 2 via CLI',
-          link: '/guide/get-started/operate-iroha-2-via-cli',
-        },
-        {
-          text: 'Iroha 2 vs. Iroha 1',
-          link: '/guide/iroha-2',
-        },
-        {
-          text: 'Receive support',
-          link: '/guide/support.md',
-        },
-      ],
-    },
-    {
-      text: 'Security',
-      collapsed: true,
-      items: [
-        {
-          text: 'Overview',
-          link: '/guide/security/',
-        },
-        {
-          text: 'Security Principles',
-          link: '/guide/security/security-principles.md',
-        },
-        {
-          text: 'Operational Security',
-          link: '/guide/security/operational-security.md',
-        },
-        {
-          text: 'Password Security',
-          link: '/guide/security/password-security.md',
-        },
-        {
-          text: 'Public Key Cryptography',
-          link: '/guide/security/public-key-cryptography.md',
-          items: [
-            {
-              text: 'Generating Cryptographic Keys',
-              link: '/guide/security/generating-cryptographic-keys.md',
-            },
-            {
-              text: 'Storing Cryptographic Keys',
-              link: '/guide/security/storing-cryptographic-keys.md',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      text: 'SDK Tutorials',
-      collapsed: true,
-      items: [
-        {
-          text: 'Introduction',
-          link: '/guide/get-started/tutorials',
-        },
-        /* a common lang-agnostic section will go here */
-        {
-          text: 'Language-specific Guides',
-          items: [
-            {
-              text: 'Python 3',
-              link: '/guide/get-started/python',
-            },
-            {
-              text: 'Rust',
-              link: '/guide/get-started/rust',
-            },
-            {
-              text: 'Kotlin/Java',
-              link: '/guide/get-started/kotlin-java',
-            },
-            {
-              text: 'JavaScript',
-              link: '/guide/get-started/javascript',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      text: 'Blockchain',
-      items: [
-        {
-          text: 'How Iroha Works',
-          link: '/guide/blockchain/how-iroha-works',
-        },
-        {
-          text: 'Overview',
-          collapsed: true,
-          items: [
-            {
-              text: 'Transactions',
-              link: '/guide/blockchain/transactions',
-            },
-            {
-              text: 'Consensus',
-              link: '/guide/blockchain/consensus',
-            },
-            {
-              text: 'Data Model',
-              link: '/guide/blockchain/data-model',
-            },
-          ],
-        },
-        {
-          text: 'Entities',
-          collapsed: true,
-          items: [
-            {
-              text: 'Assets',
-              link: '/guide/blockchain/assets',
-            },
-            /*
-            {
-              text: 'Accounts',
-              link: '/guide/blockchain/accounts',
-            },
-            {
-              text: 'Domains',
-              link: '/guide/blockchain/domains',
-            },
-            */
-            {
-              text: 'Metadata',
-              link: '/guide/blockchain/metadata',
-            },
-            {
-              text: 'Events',
-              link: '/guide/blockchain/events',
-            },
-            {
-              text: 'Filters',
-              link: '/guide/blockchain/filters',
-            },
-            {
-              text: 'Triggers',
-              link: '/guide/blockchain/triggers',
-            },
-            {
-              text: 'Queries',
-              link: '/guide/blockchain/queries',
-            },
-            {
-              text: 'Permissions',
-              link: '/guide/blockchain/permissions',
-            },
-            {
-              text: 'World',
-              link: '/guide/blockchain/world',
-            },
-          ],
-        },
-        {
-          text: 'Operations',
-          collapsed: true,
-          items: [
-            {
-              text: 'Instructions',
-              link: '/guide/blockchain/instructions',
-            },
-            {
-              text: 'Expressions',
-              link: '/guide/blockchain/expressions',
-            },
-            {
-              text: 'Web Assembly',
-              link: '/guide/blockchain/wasm',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      text: 'Configuration and Management',
-      items: [
-        {
-          text: 'Overview',
-          link: '/guide/configure/overview',
-        },
-        {
-          text: 'Configure Iroha',
-          collapsed: true,
-          items: [
-            {
-              text: 'Configuration Types',
-              link: '/guide/configure/configuration-types',
-            },
-            {
-              text: 'Samples',
-              link: '/guide/configure/sample-configuration',
-            },
-            {
-              text: 'Peer Configuration',
-              link: '/guide/configure/peer-configuration',
-            },
-            {
-              text: 'Client Configuration',
-              link: '/guide/configure/client-configuration',
-            },
-            {
-              text: 'Genesis Block',
-              link: '/guide/configure/genesis',
-            },
-            {
-              text: 'Metadata and Store assets',
-              link: '/guide/configure/metadata-and-store-assets',
-            },
-          ],
-        },
-        {
-          text: 'Keys for Network Deployment',
-          link: '/guide/configure/keys-for-network-deployment.md',
-        },
-        {
-          text: 'Peer Management',
-          link: '/guide/configure/peer-management',
-        },
-        {
-          text: 'Public and Private Blockchains',
-          link: '/guide/configure/modes',
-        },
-      ],
+      text: 'Receive support',
+      link: '/help/',
     },
     {
       text: 'Troubleshooting',
-      collapsed: true,
       items: [
         {
           text: 'Overview',
-          link: '/guide/troubleshooting/overview',
+          link: '/help/overview',
         },
         {
           text: 'Installation',
-          link: '/guide/troubleshooting/installation-issues',
+          link: '/help/installation-issues',
         },
         {
           text: 'Configuration',
-          link: '/guide/troubleshooting/configuration-issues',
+          link: '/help/configuration-issues',
         },
         {
           text: 'Deployment',
-          link: '/guide/troubleshooting/deployment-issues',
+          link: '/help/deployment-issues',
         },
         {
           text: 'Integration',
-          link: '/guide/troubleshooting/integration-issues',
-        },
-      ],
-    },
-    {
-      text: 'Advanced Mode',
-      collapsed: true,
-      items: [
-        {
-          text: 'Iroha On Bare Metal',
-          link: '/guide/advanced/running-iroha-on-bare-metal',
-        },
-        {
-          text: 'Hot Reload Iroha',
-          link: '/guide/advanced/hot-reload',
-        },
-        {
-          text: 'Monitor Iroha Performance',
-          link: '/guide/advanced/metrics',
-        },
-      ],
-    },
-    {
-      text: 'Reports',
-      collapsed: true,
-      items: [
-        {
-          text: 'CSD/RTGS linkages via on-chain scripting',
-          link: '/guide/reports/csd-rtgs',
+          link: '/help/integration-issues',
         },
       ],
     },
@@ -466,8 +461,11 @@ export default defineConfig({
     outline: [2, 3],
 
     sidebar: {
+      '/get-started/': sidebarStart(),
       '/guide/': sidebarGuide(),
+      '/blockchain/': sidebarChain(),
       '/reference/': sidebarAPI(),
+      '/help/': sidebarHelp(),
     },
 
     search: {
