@@ -46,15 +46,15 @@ function sidebarStart(): DefaultTheme.SidebarItem[] {
       items: [
         {
           text: 'Install Iroha',
-          link: '/get-started/install-iroha',
+          link: '/get-started/install-iroha-2',
         },
         {
           text: 'Launch Iroha',
-          link: '/get-started/launch-iroha',
+          link: '/get-started/launch-iroha-2',
         },
         {
           text: 'Operate Iroha via CLI',
-          link: '/get-started/operate-iroha-via-cli',
+          link: '/get-started/operate-iroha-2-via-cli',
         },
         {
           text: 'Iroha 2 vs. Iroha 1',
@@ -70,6 +70,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
     {
       text: 'SDK Tutorials',
       link: '/guide/tutorials/',
+      collapsed: false,
       items: [
         /* a common lang-agnostic section will go here */
         {
@@ -91,39 +92,8 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       ],
     },
     {
-      text: 'Security',
-      link: '/guide/security/',
-      items: [
-        {
-          text: 'Security Principles',
-          link: '/guide/security/security-principles.md',
-        },
-        {
-          text: 'Operational Security',
-          link: '/guide/security/operational-security.md',
-        },
-        {
-          text: 'Password Security',
-          link: '/guide/security/password-security.md',
-        },
-        {
-          text: 'Public Key Cryptography',
-          link: '/guide/security/public-key-cryptography.md',
-          items: [
-            {
-              text: 'Generating Cryptographic Keys',
-              link: '/guide/security/generating-cryptographic-keys.md',
-            },
-            {
-              text: 'Storing Cryptographic Keys',
-              link: '/guide/security/storing-cryptographic-keys.md',
-            },
-          ],
-        },
-      ],
-    },
-    {
       text: 'Configuration and Management',
+      collapsed: false,
       items: [
         {
           text: 'Configure Iroha',
@@ -170,8 +140,42 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       ],
     },
     {
-      text: 'Advanced Mode',
-      collapsed: true,
+      text: 'Security',
+      link: '/guide/security/',
+      collapsed: false,
+      items: [
+        {
+          text: 'Security Principles',
+          link: '/guide/security/security-principles.md',
+        },
+        {
+          text: 'Operational Security',
+          link: '/guide/security/operational-security.md',
+        },
+        {
+          text: 'Password Security',
+          link: '/guide/security/password-security.md',
+        },
+        {
+          text: 'Public Key Cryptography',
+          collapsed: true,
+          link: '/guide/security/public-key-cryptography.md',
+          items: [
+            {
+              text: 'Generating Cryptographic Keys',
+              link: '/guide/security/generating-cryptographic-keys.md',
+            },
+            {
+              text: 'Storing Cryptographic Keys',
+              link: '/guide/security/storing-cryptographic-keys.md',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      text: 'Advanced Use Cases',
+      collapsed: false,
       items: [
         {
           text: 'Iroha On Bare Metal',
@@ -259,6 +263,12 @@ function sidebarChain(): DefaultTheme.SidebarItem[] {
             {
               text: 'Triggers',
               link: '/blockchain/triggers',
+              items: [
+                {
+                  text: 'Event Triggers by Example',
+                  link: '/blockchain/trigger-examples',
+                }
+              ]
             },
             {
               text: 'Queries',
