@@ -264,8 +264,8 @@ function sidebarChain(): DefaultTheme.SidebarItem[] {
                 {
                   text: 'Event Triggers by Example',
                   link: '/blockchain/trigger-examples',
-                }
-              ]
+                },
+              ],
             },
             {
               text: 'Queries',
