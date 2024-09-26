@@ -22,7 +22,7 @@ features:
   - icon: 📖
     title: Iroha Explained
     details: Learn about Iroha functionality in great detail and understand the underlying principles
-    link: /blockchain/how-iroha-works
+    link: /blockchain/iroha-explained
   - icon: 💻
     title: Reference
     details: Consult reference documentation for extensive information about available functionality

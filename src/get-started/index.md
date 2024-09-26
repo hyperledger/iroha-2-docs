@@ -30,7 +30,7 @@ The current version of Iroha covered in this documentation is Iroha 2. If you ha
 
 Once you have learned the basics, we suggest exploring the following sections:
 - [Security](/guide/security/index.md): find out about [core security principles](/guide/security/security-principles.md) and [operational security measures](/guide/security/operational-security.md) that are necessary to ensure the safety and validity of data and assets. This section also covers [cryptographic keys](/guide/security/public-key-cryptography.md), [how to generate them](/guide/security/generating-cryptographic-keys.md), and [how to store them securely](/guide/security/storing-cryptographic-keys.md).
-- Blockchain: learn [how Iroha works](../blockchain/how-iroha-works.md) and find information on key Iroha concepts, including entities, operations, and features, such as [Iroha Special Instructions](/blockchain/instructions.md), [triggers](/blockchain/triggers.md), [queries](/blockchain/queries.md).
+- Iroha Explained: learn [how Iroha works](../blockchain/iroha-explained.md) and find information on key Iroha concepts, including entities, operations, and features, such as [Iroha Special Instructions](/blockchain/instructions.md), [triggers](/blockchain/triggers.md), [queries](/blockchain/queries.md).
 - Configuration and Management: discover ways to configure the Iroha network , including [genesis blocks and accounts](/guide/configure/genesis.md), [client configuration](/guide/configure/client-configuration.md), and [public and private modes](/guide/configure/modes.md).
 
 <!-- TODO: add head topics for all sections, then add the links here; review the order (?) -->

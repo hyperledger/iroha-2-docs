@@ -22,7 +22,7 @@ function nav(): DefaultTheme.NavItem[] {
     },
     {
       text: 'Iroha Explained',
-      link: '/blockchain/how-iroha-works',
+      link: '/blockchain/iroha-explained',
       activeMatch: '/blockchain/',
     },
     {
@@ -208,12 +208,9 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 function sidebarChain(): DefaultTheme.SidebarItem[] {
   return [
     {
-      text: 'Blockchain',
+      text: 'Iroha Explained',
+      link: '/blockchain/iroha-explained',
       items: [
-        {
-          text: 'How Iroha Works',
-          link: '/blockchain/how-iroha-works',
-        },
         {
           text: 'Overview',
           items: [

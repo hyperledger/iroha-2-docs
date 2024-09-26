@@ -1,4 +1,4 @@
-# How Iroha works
+# Iroha Explained
 
 To understand how Iroha operates, let's draw parallels between a blockchain
 and a computer. If the blockchain is the computer, then in this metaphor of

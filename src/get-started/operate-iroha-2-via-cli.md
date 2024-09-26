@@ -111,7 +111,7 @@ The output should contain several preregistered domains.
 
 ::: info
 
-A _domain_ is a group of entities like asset definitions, accounts, and other objects grouped logically. These are described in greater detail in the [Blockchain](/blockchain/how-iroha-works) section of the documentation.
+A _domain_ is a group of entities like asset definitions, accounts, and other objects grouped logically. These are described in greater detail in the [Iroha Explained](/blockchain/iroha-explained) section of the documentation.
 
 :::
 
@@ -405,5 +405,5 @@ To find out how to listen to other types of events, run the `iroha events help` 
 
 Now that you understand the basics, you can explore these advanced documentation:
 - Learn how to build on Iroha 2 with our [SDK turorials](/guide/tutorials/).
-- Understand the fundamental concepts behind Iroha 2 in the [Blockchain](/blockchain/how-iroha-works) section.
+- Understand the fundamental concepts behind Iroha 2 in the [Iroha Explained](/blockchain/iroha-explained) section.
 - Build more complex networks using the [Configuration and Management](/guide/configure/overview) section.
