@@ -38,7 +38,7 @@ number of dependencies to start your own client, similar to
 Once the initial `v2.0.0` release is complete, we plan to create a package
 on [crates.io](https://crates.io/) with all the documentation. In the
 meantime, you could use the local copy that you've just created in the
-[previous step](/guide/get-started/install-iroha-2) as a local installation in your client's
+[previous step](/get-started/install-iroha-2) as a local installation in your client's
 `Cargo.toml`:
 
 ```toml
@@ -136,7 +136,7 @@ Note that the keys in
 [client configuration](/guide/configure/client-configuration.md) are given
 in [multi-hash format](https://github.com/multiformats/multihash). If you
 are experiencing issues parsing the keys in this format,
-[check the troubleshooting section](/guide/troubleshooting/configuration-issues#multihash-format-of-private-and-public-keys).
+[check the troubleshooting section](/help/configuration-issues#multihash-format-of-private-and-public-keys).
 
 :::
 
@@ -251,7 +251,7 @@ Which is then **wrapped in a transaction** and **submitted to the peer** as
 ## 5. Registering and minting assets
 
 Iroha has been built with few
-[underlying assumptions](/guide/blockchain/assets.md) about what the assets need
+[underlying assumptions](/blockchain/assets.md) about what the assets need
 to be in terms of their value type and characteristics (fungible or
 non-fungible, mintable or non-mintable).
 

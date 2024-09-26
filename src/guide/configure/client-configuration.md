@@ -27,7 +27,7 @@ For details on cryptographic keys, see [Public Key Cryptography](../security/pub
 The `ACCOUNT_ID` should be self-explanatory. The only thing you need to
 worry about is that the account must already exist in the blockchain. In
 other words, the account you provide here should already be
-[registered](/guide/blockchain/instructions.md#un-register).
+[registered](/blockchain/instructions.md#un-register).
 
 ::: info Note
 

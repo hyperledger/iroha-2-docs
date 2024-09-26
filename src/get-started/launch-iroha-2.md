@@ -26,7 +26,7 @@ To launch an instance of the Iroha 2 network, install the following first:
    
    Once the process completes, you will see an output similar to the following:
 
-   <<< @/guide/get-started/launch-iroha.docker-compose-output.ansi
+   <<< @/get-started/launch-iroha.docker-compose-output.ansi
 
 After deploying the network, you can interact with it using the [Iroha Client CLI](./operate-iroha-2-via-cli.md).
 

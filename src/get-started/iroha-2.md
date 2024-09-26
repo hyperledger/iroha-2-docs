@@ -52,8 +52,8 @@ Iroha 2 is an event-driven ledger. Each change in the state of the blockchain is
 
 For smart contracts, Iroha 2 supports two approaches:
 
-- [Iroha Special Instructions (ISI)](./blockchain/instructions.md)
-- [Web ASseMbly (WASM)](./blockchain/wasm.md)
+- [Iroha Special Instructions (ISI)](/blockchain/instructions)
+- [Web ASseMbly (WASM)](/blockchain/wasm)
 
 The first approach is useful when you want very simple transparent logic and also want to minimize the footprint in the blockchain. All interactions with the _World state_, that is, the state of the blockchain at any given point in time, has to be done using the aforementioned instructions. There is also rudimentary support for domain-specific conditional logic.
 

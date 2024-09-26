@@ -335,7 +335,7 @@ way as in the previous section when we registered a domain.
 ## 5. Registering and minting assets
 
 Iroha has been built with few
-[underlying assumptions](/guide/blockchain/assets.md) about what the assets need
+[underlying assumptions](/blockchain/assets.md) about what the assets need
 to be in terms of their value type and characteristics (fungible or
 non-fungible, mintable or non-mintable).
 

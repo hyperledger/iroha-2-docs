@@ -111,7 +111,7 @@ The output should contain several preregistered domains.
 
 ::: info
 
-A _domain_ is a group of entities like asset definitions, accounts, and other objects grouped logically. These are described in greater detail in the [Blockchain](/guide/blockchain/how-iroha-works) section of the documentation.
+A _domain_ is a group of entities like asset definitions, accounts, and other objects grouped logically. These are described in greater detail in the [Iroha Explained](/blockchain/iroha-explained) section of the documentation.
 
 :::
 
@@ -253,14 +253,14 @@ private_key = "802620CBD3D701B561FE98463767729176404DC757D690F78980B8FDD40C171CC
 :::
 
 ::: tip
-[Permissions](/guide/blockchain/permissions) determine accounts rights within Iroha. Domain owners have the most rights in a domain by default, but permission configuration in Iroha is very flexible and can be customized to your needs.
+[Permissions](/blockchain/permissions) determine accounts rights within Iroha. Domain owners have the most rights in a domain by default, but permission configuration in Iroha is very flexible and can be customized to your needs.
 :::
 
 Now that we control the domain, we can define and manage assets in it.
 
 ## 6. Register and Mint Assets
 
-To mint an asset, its [asset definition](/guide/blockchain/assets) must be registered first.
+To mint an asset, its [asset definition](/blockchain/assets) must be registered first.
 
 To register a `tea` token within the `looking_glass` domain, run:
 
@@ -404,6 +404,6 @@ To find out how to listen to other types of events, run the `iroha events help` 
 ## What's Next
 
 Now that you understand the basics, you can explore these advanced documentation:
-- Learn how to build on Iroha 2 with our [SDK turorials](/guide/get-started/tutorials).
-- Understand the fundamental concepts behind Iroha 2 in the [Blockchain](/guide/blockchain/how-iroha-works) section.
+- Learn how to build on Iroha 2 with our [SDK turorials](/guide/tutorials/).
+- Understand the fundamental concepts behind Iroha 2 in the [Iroha Explained](/blockchain/iroha-explained) section.
 - Build more complex networks using the [Configuration and Management](/guide/configure/overview) section.

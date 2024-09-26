@@ -139,7 +139,7 @@ This endpoint expects a subset of configuration parameters serialized into JSON 
 
 The list of all accepted values is currently unavailable and will be a part of the configuration reference that is still <abbr title="Work in Progress">WIP</abbr>.
 
-Until then, to get assistance with the acceptable values and their definitions, consult [Receive Support](../guide/support.md) for ways to contact us.
+Until then, to get assistance with the acceptable values and their definitions, consult [Receive Support](/help/) for ways to contact us.
 
 The progress on the configuration reference can be tracked in the following GitHub issue:\
 [iroha-2-docs > Issue #392: Tracking issue for Configuration Reference as per RFC](https://github.com/hyperledger/iroha-2-docs/issues/392).
